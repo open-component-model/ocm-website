@@ -1,6 +1,6 @@
 # OCM Website Documentation
 
-This project houses the OCI **website**.
+This project houses the OCM **website**.
 
 ## Adding Content
 
