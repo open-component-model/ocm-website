@@ -1,0 +1,42 @@
+name: Publish Site
+
+on:
+  workflow_dispatch:
+  push:
+    branch: main
+
+env:
+  OUTPUT_DIR: site-docs/
+
+jobs:
+  setup-clone:
+    name: Setup, Build, Publish, and Deploy
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: 'write'
+      id-token: 'write'
+      pull-requests: 'write'
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - uses: actions/setup-node@v3
+      with:
+        cache: 'npm'
+        node-version: 16
+
+    - name: Setup Hugo
+      uses: peaceiris/actions-hugo@v2
+      with:
+          hugo-version: 'latest'
+
+    - run: npm install
+
+    - run: npm run build
+
+    - name: Deploy
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
