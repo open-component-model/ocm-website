@@ -41,7 +41,7 @@ jobs:
           ${{ runner.os }}-go-
 
     - name: Build CLI docs
-      run: go run . ${{ env.OUTPUT_DIR }}
+      run: go run ./hack/generate-cli-docs ${{ env.OUTPUT_DIR }}
 
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v4
