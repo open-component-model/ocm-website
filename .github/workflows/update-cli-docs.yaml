@@ -27,6 +27,7 @@ jobs:
       with:
         ssh-key: ${{ secrets.OCM_SPEC_PUSH }}
         repository: gardener/ocm
+        ref: main
         path: ./ocm-cli
 
     - name: Setup Go
