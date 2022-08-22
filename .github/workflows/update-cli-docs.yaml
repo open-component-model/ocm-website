@@ -47,7 +47,7 @@ jobs:
       uses: peter-evans/create-pull-request@v4
       with:
         title: "Update CLI docs"
-        commit-message: [github-actions] automated change
+        commit-message: "[github-actions] automated change"
         add-paths: site-docs/
         branch: update-cli-docs/auto
         branch-suffix: timestamp
