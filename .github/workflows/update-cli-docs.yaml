@@ -28,7 +28,7 @@ jobs:
     - name: Checkout OCM cli
       uses: actions/checkout@v3
       with:
-        ssh-key: ${{ secrets.OCM_PUSH }}
+        ssh-key: ${{ secrets.OCM_READ }}
         repository: gardener/ocm
         ref: main
         path: ./ocm-cli
