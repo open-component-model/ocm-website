@@ -1,0 +1,36 @@
+---
+title: transfer
+name: transfer
+url: /docs/cli/transfer/
+date: 2022-08-24T18:41:47+01:00
+draft: false
+images: []
+menu:
+  docs:
+    parent: cli-reference
+toc: true
+isCommand: true
+---
+### Usage
+
+```
+ocm transfer [<options>] <sub command> ...
+```
+
+### Options
+
+```
+  -h, --help   help for transfer
+```
+
+### See Also
+
+
+
+##### Sub Commands
+
+* [ocm transfer <b>artefacts</b>](/docs/cli/transfer/artefacts)	 &mdash; transfer OCI artefacts
+* [ocm transfer <b>commontransportarchive</b>](/docs/cli/transfer/commontransportarchive)	 &mdash; transfer transport archive
+* [ocm transfer <b>componentarchive</b>](/docs/cli/transfer/componentarchive)	 &mdash; transfer component archive to some component repository
+* [ocm transfer <b>componentversions</b>](/docs/cli/transfer/componentversions)	 &mdash; transfer component version
+

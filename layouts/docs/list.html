@@ -24,7 +24,13 @@
 					</ol>
 				</nav>
 			{{ end }}
-			<h1>{{ .Title }}</h1>
+			{{ if .Params.isCommand }}
+				<h1 class="h2">Command: <span class="text-success">{{ .Title }}</span></h1>
+			{{ else if eq .Title "cli-reference" }}
+				<h1>Command Line Client</span></h1>
+			{{ else }}
+				<h1>{{ .Title }}</span></h1>
+			{{ end }}
 			<p class="lead">{{ .Params.lead | safeHTML }}</p>
 			{{ if ne .Params.toc false -}}
 			<nav class="d-xl-none" aria-label="Quaternary navigation">

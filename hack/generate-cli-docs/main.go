@@ -31,7 +31,7 @@ func main() {
 	var outputDir, urlPrefix string
 
 	flag.StringVar(&outputDir, "output-dir", "./content/en/docs/cli-reference", "output directory for generated docs")
-	flag.StringVar(&urlPrefix, "url-prefix", "/docs/cli-reference/", "prefix for cli docs urls")
+	flag.StringVar(&urlPrefix, "url-prefix", "/docs/cli/", "prefix for cli docs urls")
 
 	flag.Parse()
 

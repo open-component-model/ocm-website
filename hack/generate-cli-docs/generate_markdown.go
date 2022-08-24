@@ -15,9 +15,9 @@ import (
 	"github.com/spf13/cobra"
 )
 
-const fmTmpl = `
----
+const fmTmpl = `---
 title: %s
+name: %s
 url: %s
 date: %s
 draft: false
@@ -26,13 +26,10 @@ menu:
   docs:
     parent: %s
 toc: true
+isCommand: %v
 ---
 `
 
-// if root command then name is _index.md
-// create subdirectory for each new command
-// main command is written to _index.md
-// add subcommands as files within
 func genMarkdownTreeCustom(cmd *cobra.Command, dir, urlPrefix, parentCmd string) error {
 	for _, c := range cmd.Commands() {
 		if c.Name() == "configfile" {
@@ -74,22 +71,28 @@ func genMarkdownTreeCustom(cmd *cobra.Command, dir, urlPrefix, parentCmd string)
 
 	linkHandler := func(path string) string {
 		link := strings.Replace(path, " ", "/", -1)
-		link = strings.Replace(link, "ocm", "cli-reference", -1)
+		link = strings.Replace(link, "ocm", "cli", -1)
 		return "/docs/" + link
 	}
 
 	frontmatter := func(filename string) string {
 		now := time.Now().Format(time.RFC3339)
-		name := commandToID(cmd.Name())
-		base := strings.TrimSuffix(name, path.Ext(name))
-		fmt.Println(parentCmd)
-		var url string
-		if parentCmd == "cli-reference" {
-			url = urlPrefix + strings.ToLower(base) + "/"
+		cmdName := commandToID(cmd.Name())
+		title := strings.TrimSuffix(cmdName, path.Ext(cmdName))
+		var url, name string
+		isCmd := true
+		if cmdName == "cli-reference" {
+			url = urlPrefix
+			name = title
+			isCmd = false
+		} else if parentCmd == "cli-reference" {
+			url = urlPrefix + strings.ToLower(title) + "/"
+			name = title
 		} else {
-			url = urlPrefix + parentCmd + "/" + strings.ToLower(base) + "/"
+			url = urlPrefix + parentCmd + "/" + strings.ToLower(title) + "/"
+			name = fmt.Sprintf("%s %s", parentCmd, title)
 		}
-		return fmt.Sprintf(fmTmpl, base, url, now, parentCmd)
+		return fmt.Sprintf(fmTmpl, title, name, url, now, parentCmd, isCmd)
 	}
 
 	if _, err := io.WriteString(f, frontmatter(filename)); err != nil {
@@ -114,20 +117,24 @@ func genMarkdownCustom(cmd *cobra.Command, w io.Writer, linkHandler func(string)
 	buf := new(bytes.Buffer)
 	name := cmd.CommandPath()
 
-	if cmd.Runnable() || cmd.HasAvailableSubCommands() {
+	if cmd.Runnable() || cmd.HasAvailableSubCommands() && name != "ocm" {
 		buf.WriteString("### Usage\n\n")
 		buf.WriteString(fmt.Sprintf("```\n%s\n```\n\n", useLine(cmd)))
+	}
+
+	if len(cmd.Long) > 0 {
+		if name == "ocm" {
+			buf.WriteString("### Introduction\n\n")
+		} else {
+			buf.WriteString("### Description\n\n")
+		}
+		buf.WriteString(cobrautils.SubstituteCommandLinks(cmd.Long, cobrautils.FormatLinkWithHandler(linkHandler)) + "\n\n")
 	}
 
 	if cmd.IsAvailableCommand() {
 		if err := printOptions(buf, cmd, name); err != nil {
 			return err
 		}
-	}
-
-	if len(cmd.Long) > 0 {
-		buf.WriteString("### Description\n\n")
-		buf.WriteString(cobrautils.SubstituteCommandLinks(cmd.Long, cobrautils.FormatLinkWithHandler(linkHandler)) + "\n\n")
 	}
 
 	if len(cmd.Example) > 0 {
@@ -137,15 +144,16 @@ func genMarkdownCustom(cmd *cobra.Command, w io.Writer, linkHandler func(string)
 
 	if hasSeeAlso(cmd) {
 		header := cmd.HasHelpSubCommands() && cmd.HasAvailableSubCommands()
-		buf.WriteString("### SEE ALSO\n\n")
+		buf.WriteString("### See Also\n\n")
 		if cmd.HasParent() {
 			header = true
-			buf.WriteString("##### Parents\n\n")
 			parent := cmd
 			for parent.HasParent() {
 				parent = parent.Parent()
 				pname := parent.CommandPath()
-				buf.WriteString(fmt.Sprintf("* [%s](%s)\t &mdash; %s\n", pname, linkHandler(parent.CommandPath()), parent.Short))
+				if parent.HasParent() {
+					buf.WriteString(fmt.Sprintf("* [%s](%s)\t &mdash; %s\n", pname, linkHandler(parent.CommandPath()), parent.Short))
+				}
 			}
 			cmd.VisitParents(func(c *cobra.Command) {
 				if c.DisableAutoGenTag {
@@ -224,7 +232,6 @@ func printOptions(buf *bytes.Buffer, cmd *cobra.Command, name string) error {
 func useLine(c *cobra.Command) string {
 	useline := c.Use
 	if strings.Index(useline, " ") < 0 {
-		// no syntax given
 		if c.HasAvailableLocalFlags() {
 			useline += " [<options>]"
 		}
