@@ -1,46 +1,82 @@
 package main
 
 import (
+	"flag"
 	"fmt"
+	"log"
 	"os"
+
+	"golang.org/x/exp/slices"
 
 	"github.com/open-component-model/ocm/cmds/ocm/app"
 	"github.com/open-component-model/ocm/pkg/contexts/clictx"
+	"github.com/spf13/cobra"
 )
 
+var commandsToDocument = []string{
+	"add",
+	"bootstrap",
+	"clean",
+	"create",
+	"describe",
+	"download",
+	"get",
+	"show",
+	"sign",
+	"transfer",
+	"verify",
+}
+
 func main() {
-	fmt.Println("> Generate Docs for OCM CLI")
+	var outputDir, urlPrefix string
 
-	if len(os.Args) != 2 { // expect 2 as the first one is the programm name
-		fmt.Printf("Expected exactly one argument, but got %d", len(os.Args)-1)
-		os.Exit(1)
+	flag.StringVar(&outputDir, "output-dir", "./content/en/docs/cli-reference", "output directory for generated docs")
+	flag.StringVar(&urlPrefix, "url-prefix", "/docs/cli-reference/", "prefix for cli docs urls")
+
+	flag.Parse()
+
+	if outputDir == "" {
+		log.Fatal("Flag -output-dir is required")
 	}
-	outputDir := os.Args[1]
 
-	// clear generated
-	check(os.RemoveAll(outputDir))
-	check(os.MkdirAll(outputDir, os.ModePerm))
+	if err := run(outputDir, urlPrefix); err != nil {
+		log.Fatal(err)
+	}
+}
+
+func run(dir, urlPrefix string) error {
+	log.Println("Generating docs for OCM CLI")
+
+	if err := os.RemoveAll(dir); err != nil {
+		return fmt.Errorf("error clearing output directory: %w", err)
+	}
+
+	if err := os.MkdirAll(dir, os.ModePerm); err != nil {
+		return fmt.Errorf("error creating output directory: %w", err)
+	}
 
 	cmd := app.NewCliCommand(clictx.DefaultContext())
 	cmd.DisableAutoGenTag = true
 
-	err := GenMarkdownTree(cmd, outputDir)
-	if err != nil {
-		panic(err)
+	for _, subCmd := range cmd.Commands() {
+		if !shouldDocument(subCmd) {
+			cmd.RemoveCommand(subCmd)
+		}
 	}
 
-	fmt.Printf("Successfully written docs to %s\n", outputDir)
-}
-
-func printHelp() {
-	fmt.Print(`
-generate-docs [output-dir]
-`)
-}
-
-func check(err error) {
-	if err != nil {
-		fmt.Println(err.Error())
-		os.Exit(1)
+	if err := genMarkdownTreeCustom(cmd, dir, urlPrefix, "cli-reference"); err != nil {
+		return fmt.Errorf("error generating markdown: %w", err)
 	}
+
+	log.Printf("Docs successfully written to %s\n", dir)
+
+	return nil
+}
+
+func shouldDocument(cmd *cobra.Command) bool {
+	if slices.Contains(commandsToDocument, cmd.Name()) {
+		return true
+	}
+
+	return false
 }
