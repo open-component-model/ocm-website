@@ -1,0 +1,61 @@
+{{ $currentPage := . -}}
+{{ $section := $currentPage.Section -}}
+{{ range (where .Site.Sections "Section" "in" $section) }}
+    <h3 class="h6 text-capitalize mt-1 mb-1">Overview</h3>
+    <hr class="mt-1 mb-1">
+    <ul class="list-unstyled ms-2 mt-2 mb-0">
+    {{ range .Pages }}
+          {{ if not .IsNode }}
+            {{ $active := in $currentPage.RelPermalink .RelPermalink }}
+            <li>
+              <a class="docs-link{{ if $active }} active{{ end }}" href="{{ .Permalink }}">{{ .Name }}</a>
+            </li>
+          {{ end }}
+    {{ end }}
+    </ul>
+  {{ range .Sections }}
+    {{ $active := in $currentPage.RelPermalink .RelPermalink }}
+    <a class="docs-link{{ if $active }} active{{ end }}" href="{{ .Permalink }}">
+      {{ if eq .Title  "cli-reference" }}
+        <h3 class="h6 text-capitalize mt-1 mb-1">Command Line Client</h3>
+      {{ else }}
+        <h3 class="h6 text-capitalize mt-1 mb-1">{{ .Title }}</h3>
+      {{ end }}
+    </a>
+    <hr class="mt-1 mb-1">
+    <ul class="list-unstyled mb-0">
+      {{ range .Pages }}
+        {{ if .IsNode }}
+          {{ $active := in $currentPage.RelPermalink .RelPermalink }}
+          <li>
+            <a class="docs-link{{ if $active }} active{{ end }}" href="{{ .Permalink }}">
+              <h4 class="h6 text-muted ms-1 mt-2 mb-1">{{ .Title }}</h4>
+            </a>
+          </li>
+          <ul class="list-unstyled ms-3">
+            {{ range .Pages }}
+              {{ if .IsNode }}
+                {{ $active := in $currentPage.RelPermalink .RelPermalink }}
+                <h5 class="h6 text-muted mt-2 mb-2">{{ .Title }}</h5>
+                <ul class="list-unstyled ms-5">
+                  {{ range .Pages }}
+                    {{ $active := in $currentPage.RelPermalink .RelPermalink }}
+                    <li>
+                      <a class="docs-link{{ if $active }} active{{ end }}" href="{{ .Permalink }}">{{ .Name }}</a>
+                    </li>
+                  {{ end }}
+                </ul>
+              {{ else }}
+                {{ $active := in $currentPage.RelPermalink .RelPermalink }}
+                <li><a class="docs-link{{ if $active }} active{{ end }}" href="{{ .Permalink }}">{{ .Name }}</a></li>
+              {{ end }}
+            {{ end }}
+          </ul>
+        {{ else }}
+          {{ $active := in $currentPage.RelPermalink .RelPermalink }}
+          <li class="ms-2"><a class="docs-link{{ if $active }} active{{ end }}" href="{{ .Permalink }}">{{ .Name }}</a></li>
+        {{ end }}
+      {{ end }}
+    </ul>
+  {{ end }}
+{{ end }}

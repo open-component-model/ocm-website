@@ -1,0 +1,64 @@
+name: Update OCM CLI Docs
+
+on:
+  workflow_dispatch:
+  push:
+    branches-ignore:
+    - main
+
+env:
+  OUTPUT_DIR: ./content/en/docs/cli-reference
+
+jobs:
+  setup-build-pull:
+    name: Setup, Build and Create PR
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: 'write'
+      id-token: 'write'
+      pull-requests: 'write'
+
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        persist-credentials: false
+
+
+    - name: Checkout OCM cli
+      uses: actions/checkout@v3
+      with:
+        ssh-key: ${{ secrets.OCM_READ }}
+        repository: gardener/ocm
+        ref: main
+        path: ./ocm-cli
+        persist-credentials: false
+
+    - name: Setup Go
+      uses: actions/setup-go@v3
+      with:
+        go-version: 1.18
+
+    - uses: actions/cache@v3
+      with:
+        path: |
+          ~/.cache/go-build
+          ~/go/pkg/mod
+        key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+        restore-keys: |
+          ${{ runner.os }}-go-
+
+    - name: Build CLI docs
+      run: go run ./hack/generate-cli-docs ${{ env.OUTPUT_DIR }}
+
+    - name: Create Pull Request
+      uses: peter-evans/create-pull-request@v4
+      with:
+        title: "Update CLI docs"
+        commit-message: "[github-actions] automated change"
+        add-paths: site-docs/
+        branch: update-cli-docs/auto
+        branch-suffix: timestamp
+        delete-branch: true
+        body: |
+          Update OCM CLI documentation
