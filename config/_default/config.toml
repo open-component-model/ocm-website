@@ -1,4 +1,4 @@
-baseurl = "https://example.org/"
+baseurl = "https://symmetrical-broccoli-b4446266.pages.github.io/"
 canonifyURLs = false
 disableAliases = true
 disableHugoGeneratorInject = true
