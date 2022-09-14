@@ -4,10 +4,10 @@ This repository houses the assets used to build Open Component Model website [](
 
 The sources for some of the documentation are housed in other repositories with the Open Component Model GitHub Organisation. Documentation issues and pull requests should be made against those repositories.
 
-Project             | GitHub Source
----------------------------
-OCM CLI             | <https://github.com/open-component-model/ocm>
-OCM Specification   | <https://github.com/open-component-model/ocm-spec>
+| Project            | GitHub Source
+| ------------------ | -------------
+| OCM CLI            | <https://github.com/open-component-model/ocm>
+| OCM Specification  | <https://github.com/open-component-model/ocm-spec>
 
 ## How to modify this website
 
