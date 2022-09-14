@@ -1,23 +1,58 @@
-# OCM Website Documentation
+# ocm.software
 
-This project houses the OCM **website**.
+This repository houses the assets used to build Open Component Model website [](https://ocm.sofware).
 
-## Adding Content
+The sources for some of the documentation are housed in other repositories with the Open Component Model GitHub Organisation. Documentation issues and pull requests should be made against those repositories.
 
-Content lives under the `content/<lang>` directory.
+| Project            | GitHub Source
+| ------------------ | -------------
+| OCM CLI            | <https://github.com/open-component-model/ocm>
+| OCM Specification  | <https://github.com/open-component-model/ocm-spec>
 
-To add a new page use the following command:
+## How to modify this website
+
+Content lives under the `content/en` directory.
+
+- `./content/en/spec` contains the generated OCM Specification documentation
+- `./content/en/docs/cli-reference` contains the generated CLI documentation
+- `./content/en/docs/guides` contains articles describing OCM use-cases
+- `./content/en/docs/project` contains information about the OCM project & the parties responsible
+- `./content/en/blog` contains all blog posts
+
+New pages can be created using the following command:
 
 ```bash
 npm run create <location>
 ```
 
-## Updating the OCM CLI documentation
-
-A GitHub Actions workflow has been created to generate documentation for the OCM CLI. The workflow will checkout the latest version of the `gardener/ocm` repository, generate the documentation and create a PR against `main`.
-
-This can be be triggered as necessary using a manual dispatch. The most straightforward way is using the `gh` CLI:
+For content generated from external sources, such as the OCM CLI, a GitHub Action will checkout the latest version of the remote repository, generate the documentation and create a PR against `main`. This can be be triggered as necessary using a manual dispatch:
 
 `gh workflow run`
 
 Alternatively, you can trigger the workflow via the menu "Actions -> Update OCM CLI Docs".
+
+## Running the site locally
+
+The following tools should be installed prior to running the site locally:
+- [Node.js](https://docs.npmjs.com/getting-started)
+- [Hugo](https://gohugo.io/)
+
+With the tooling in place you can install the node dependencies:
+
+`npm install`
+
+Then run the site:
+
+`npm run start`
+
+Navigate to http://localhost:1313 to see the site running in your browser. Any updates you make to the site will be reflected in the browser immediately.
+
+## Publishing the site
+
+The Open Component Model website is published using GitHub Pages. A GitHub Actions workflow will run whenever there is a commit to the `main` branch. The workflow publishes the compiled assets to the `gh-pages` branch from which GitHub Pages will serve.
+
+## Contributing
+
+Code contributions, feature requests, bug reports, and help requests are very welcome.
+
+OCM follows the [CNCF Code of Conduct](https://github.com/cncf/foundation/blob/main/code-of-conduct.md).
