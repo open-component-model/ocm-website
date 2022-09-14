@@ -2,9 +2,6 @@ name: Update OCM CLI Docs
 
 on:
   workflow_dispatch:
-  push:
-    branches-ignore:
-    - main
 
 env:
   OUTPUT_DIR: ./content/en/docs/cli-reference
