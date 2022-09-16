@@ -1,7 +1,7 @@
 ---
-name: specification
-url: /spec
-date: 2022-09-15 20:55:05.533505515 +0100 IST m=+0.000179772
+title: /specification
+url: /spec/specification/specification
+date: 2022-09-15 21:06:26.575369973 +0100 IST m=+0.010895317
 draft: false
 images: []
 menu:
@@ -25,7 +25,7 @@ This specification is divided into three parts:
   how the model elements are mapped to elements of an underlying persistence layer
   (for example and OCI registry)
 
-<div align="center">
+<div align="center"> 
 <img src="ocmspecstruct.png" alt="Structure of OCM Specification" width="800"/>
 </div>
 
@@ -54,11 +54,11 @@ storage elements. This will then be encapsulated behind a common binding
 of an interpretation of the layer 1 and 2 specification for the dedicated client
 environment.
 
-An implementation of this layer for a dedicated storage technology MUST
+An implementation of this layer for a dedicated storage technology MUST 
 implement this mapping by supporting the mandatory abstract model operations
 defined in layer 2. It SHOULD implement the optional operations, also.
 
-<div align="center">
+<div align="center"> 
 <img src="ocmaltbind.png" alt="Alternatives for Language Bindings" width="800"/>
 </div>
 
