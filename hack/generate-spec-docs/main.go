@@ -12,8 +12,16 @@ import (
 	"time"
 )
 
+// TODO:
+// only print spec
+// fix links
+// fix numbers?
+// publish glossary separately (under docs?)
+// add ci workflow
+//
+
 const fmTmpl = `---
-name: %s
+title: %s
 url: %s
 date: %s
 draft: false
@@ -25,10 +33,6 @@ toc: true
 `
 
 func main() {
-	// walk the directory
-	// convert readme.md to index.md
-	// add frontmatter
-	// write to output directory
 	var srcDir, outputDir, urlPrefix string
 
 	flag.StringVar(&srcDir, "src-dir", "./ocm-spec/", "output directory for generated spec")
@@ -47,7 +51,7 @@ func main() {
 }
 
 func run(src, out, urlPrefix string) error {
-	specPath := filepath.Join(src, "doc/specification")
+	specPath := filepath.Join(src, "doc")
 	if err := filepath.WalkDir(specPath, func(path string, d fs.DirEntry, err error) error {
 		if d.IsDir() {
 			return nil
@@ -55,6 +59,10 @@ func run(src, out, urlPrefix string) error {
 
 		filename := strings.ReplaceAll(filepath.Base(path), "README", "_index")
 		dir := strings.ReplaceAll(filepath.Dir(path), specPath, "")
+		if strings.HasPrefix(dir, "/proposal") {
+			return nil
+		}
+
 		outPath := filepath.Join(out, dir, filename)
 
 		name := strings.TrimSuffix(filename, filepath.Ext(filename))
@@ -62,13 +70,9 @@ func run(src, out, urlPrefix string) error {
 			if dir != "" {
 				name = dir
 			} else {
-				name = "specification"
+				name = "index"
 			}
 		}
-
-		fmt.Println(outPath, name)
-
-		fm := fmt.Sprintf(fmTmpl, name, filepath.Join(urlPrefix, dir, name), time.Now())
 
 		if err := os.MkdirAll(filepath.Dir(outPath), os.ModePerm); err != nil {
 			return err
@@ -80,6 +84,7 @@ func run(src, out, urlPrefix string) error {
 		}
 		defer f.Close()
 
+		fm := fmt.Sprintf(fmTmpl, name, filepath.Join(urlPrefix, dir, name), time.Now())
 		f.WriteString(fm)
 
 		srcFile, err := os.Open(path)
