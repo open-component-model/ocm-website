@@ -4,15 +4,15 @@
   weight = 10
 
 [[main]]
-  name = "Project"
-  url = "/project/"
+  name = "Spec"
   weight = 20
-
-[[main]]
-  name = "Specification"
-  weight = 30
   identifier = "specification"
   url = "/spec/"
+
+[[main]]
+  name = "Project"
+  url = "/project/"
+  weight = 30
 
 [[main]]
   name = "Blog"
