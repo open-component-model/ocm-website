@@ -1,12 +1,45 @@
 {{ define "main" }}
-{{ $image := resources.Get "images/logo_transparent.png" }}
-<section class="section container-fluid mt-n4">
-  <div class="row justify-content-center"> </div>
+<section class="section container-xxl">
+  <div class="row">
+    <div class="container-fluid">
+      <div class="leader">
+        <h1>
+          <span class="text-green">O</span>pen
+          <span class="text-green">C</span>omponent
+          <span class="text-green">M</span>odel
+        </h1>
+        <p class="text-white sub-leader mt-5">{{ .Site.Params.leader }}</p>
+        <p class="text-white leader-open-source-text">{{.Site.Params.leader_open_source_text}} <a href="https://github.com/open-component-model/ocm/releases/tag/{{ .Site.Params.latest_version }}">GitHub {{ .Site.Params.latest_version }}</a></p>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-5">
+    <div class="container-fluid mt-5">
+      <div class="homepage-cta">
+        <span class="btn-bg"></span>
+        <a href="/docs/getting-started"><button class="btn-cta">Get Started</button></a>
+      </div>
+  </div>
+</section>
+<section class="section container-fluid px-5">
+  <div class="row justify-content-between text-center">
+      <div class="homepage-card">
+        <img src="/images/cube.png"/>
+        <h2>Describe</h2>
+      </div>
+      <div class="homepage-card">
+        <img src="/images/cube.png"/>
+        <h2>Transport</h2>
+      </div>
+      <div class="homepage-card">
+        <img src="/images/cube.png"/>
+        <h2>Deploy</h2>
+      </div>
+  </div>
 </section>
 {{ end }}
 
 {{ define "sidebar-prefooter" }}
-  {{ if eq $.Site.Language.LanguageName "English" }}
   <section class="section section-sm">
     <div class="container">
       <div class="row justify-content-center text-center">
@@ -19,7 +52,6 @@
       </div>
     </div>
   </section>
-  {{ end }}
 {{ end }}
 
 {{ define "sidebar-footer" }}

@@ -9,6 +9,19 @@
 .tags.list .content {
   padding-top: 1rem;
   padding-bottom: 3rem;
+  color: $white;
+}
+
+a,p {
+  color: $white;
+}
+
+.text-muted {
+  color: $gray-500!important;
+}
+
+hr {
+  color: $green;
 }
 
 .content img {
@@ -28,6 +41,7 @@ h6,
 .h5,
 .h6 {
   margin: 2rem 0 1rem;
+  color: $white;
 }
 
 .offcanvas-header {
@@ -199,6 +213,9 @@ body {
 
 .docs-navigation a {
   font-size: $font-size-base * 0.9;
+  .card {
+    background: $black;
+  }
 }
 
 @include media-breakpoint-up(lg) {
@@ -286,3 +303,88 @@ body {
     opacity: 0;
   }
 }
+
+.text-green {
+  color: $green;
+}
+
+.leader {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  text-align: right;
+  margin-right: 0rem;
+  color: $white;
+}
+
+.sub-leader {
+  font-size: 1.5rem;
+  max-width: 20rem;
+}
+
+.leader-open-source-text {
+  font-size: 1rem;
+  a {
+    color: $green;
+    text-decoration: underline;
+  }
+}
+
+.homepage-cta {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  align-items: end;
+  text-align: right;
+}
+
+.btn-bg {
+  position: absolute;
+  background: radial-gradient(50% 50% at 50% 50%, rgba(80, 129, 85, 0.34) 0%, rgba(18, 18, 18, 0) 85%);
+  width: 14rem;
+  height: 6.5rem;
+  top: -1.75rem;
+  right: -2.25rem;
+  opacity: 0.4;
+}
+
+.btn-cta {
+  background: linear-gradient(269.1deg, #00FF75 0%, rgba(0, 0, 0, 0.25) 0.01%, rgba(0, 0, 0, 0.25) 59.94%);
+  font-size: 1.25rem;
+  color: $white;
+  padding: 0.5rem 1.275rem;
+  border: 1px solid;
+  border-image: linear-gradient(90deg, #02D864 50%, rgba(2, 216, 100, 0.5) 109.66%) 5;
+  border-radius: 5px;
+  box-shadow: 0px 4px 4px 0px #00000033;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.2));
+}
+
+
+.homepage-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2.5rem 0;
+  width: 23rem;
+  height: 18rem;
+
+  background: rgba(39, 40, 40, 0.1);
+  border: 2px solid #202020;
+  backdrop-filter: blur(4px);
+
+  border-radius: 8px;
+
+  h2 {
+    font-weight: normal;
+    color: white;
+  }
+
+  img {
+    width: 100%;
+    height: auto;
+    max-width: 6rem;
+  }
+}
+

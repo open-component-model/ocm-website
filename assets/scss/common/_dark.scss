@@ -27,10 +27,6 @@ $navbar-dark-active-color:          $link-color-dark;
   color: $body-color-dark;
 }
 
-[data-dark-mode] body a {
-  color: $link-color-dark;
-}
-
 [data-dark-mode] body a.text-body {
   color: $body-color-dark !important;
 }
@@ -291,7 +287,7 @@ $navbar-dark-active-color:          $link-color-dark;
 }
 
 [data-dark-mode] body .border-top {
-  border-top: 1px solid $border-dark !important;
+  // border-top: 1px solid $border-dark !important;
 }
 
 @include media-breakpoint-up(lg) {
@@ -302,7 +298,7 @@ $navbar-dark-active-color:          $link-color-dark;
 }
 
 [data-dark-mode] body .docs-navigation {
-  border-top: 1px solid $border-dark;
+  // border-top: 1px solid $border-dark;
 }
 
 [data-dark-mode] body pre code::-webkit-scrollbar-thumb {
@@ -325,10 +321,6 @@ $navbar-dark-active-color:          $link-color-dark;
 
 [data-dark-mode] body blockquote {
   border-left: 3px solid $border-dark;
-}
-
-[data-dark-mode] body .footer {
-  border-top: 1px solid $border-dark;
 }
 
 [data-dark-mode] body .docs-links,
@@ -369,7 +361,7 @@ $navbar-dark-active-color:          $link-color-dark;
 }
 
 [data-dark-mode] body .docs-links h3:not(:first-child) {
-  border-top: 1px solid $border-dark;
+  // border-top: 1px solid $border-dark;
 }
 
 [data-dark-mode] body a.docs-link {
@@ -377,7 +369,7 @@ $navbar-dark-active-color:          $link-color-dark;
 }
 
 [data-dark-mode] body .page-links li:not(:first-child) {
-  border-top: 1px dashed $border-dark;
+  // border-top: 1px dashed $border-dark;
 }
 
 [data-dark-mode] body .card {

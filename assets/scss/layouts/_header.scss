@@ -11,7 +11,7 @@
 }
 
 .navbar-brand {
-  color: white;
+  color: white!important;
   font-weight: $headings-font-weight;
   text-transform: lowercase;
 }
@@ -443,7 +443,7 @@ button#doks-versions {
 }
 
 .dropdown-divider {
-  border-top: 1px dashed $gray-200;
+  // border-top: 1px dashed $gray-200;
 }
 
 .dropdown-item:hover {

@@ -1,28 +1,28 @@
 .docs-links,
 .docs-toc {
   scrollbar-width: thin;
-  scrollbar-color: $white $white;
+  scrollbar-color: $white $green;
 }
 
 .docs-links::-webkit-scrollbar,
 .docs-toc::-webkit-scrollbar {
-  width: 5px;
+  width: 1px;
 }
 
 .docs-links::-webkit-scrollbar-track,
 .docs-toc::-webkit-scrollbar-track {
-  background: $white;
+  background: $gray-600;
 }
 
 .docs-links::-webkit-scrollbar-thumb,
 .docs-toc::-webkit-scrollbar-thumb {
-  background: $white;
+  background: $gray-600;
 }
 
 .docs-links:hover,
 .docs-toc:hover {
   scrollbar-width: thin;
-  scrollbar-color: $gray-200 $white;
+  scrollbar-color: $gray-200 $green;
 }
 
 .docs-links:hover::-webkit-scrollbar-thumb,
@@ -56,7 +56,7 @@
 }
 
 a.docs-link {
-  color: $body-color;
+  color: $white;
   display: block;
   padding: 0.125rem 0;
   font-size: $font-size-base;
@@ -79,7 +79,7 @@ a.docs-link {
 }
 
 .page-links a {
-  color: $body-color;
+  color: $white;
   display: block;
   padding: 0.125rem 0;
   font-size: $font-size-base * 0.9375;

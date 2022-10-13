@@ -8,27 +8,31 @@ samp {
 }
 
 code {
-  background: $beige;
-  color: $black;
+  background: $gray-900;
+  color: $white;
   padding: 0.25rem 0.5rem;
 }
 
 pre {
+  background: $gray-900;
   margin: 2rem 0;
+  padding: 1rem 0;
 }
 
 pre code {
   display: block;
   overflow-x: auto;
   line-height: $line-height-base;
-  padding: 1.25rem 1.5rem;
+  padding: 1rem 0rem;
   tab-size: 4;
   scrollbar-width: thin;
   scrollbar-color: transparent transparent;
 }
 
 .hljs {
-  padding: 1.5rem !important;
+  padding: 0 1rem !important;
+  background: $gray-900!important;
+  color: $white!important;
 }
 
 @include media-breakpoint-down(sm) {
