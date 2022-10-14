@@ -11799,6 +11799,8 @@ figure.wide .figure-caption {
 
 table {
   margin: 3rem 0; }
+  table thead {
+    border-bottom-color: #00FF75; }
   table th, table tr {
     color: #fff; }
   table a {

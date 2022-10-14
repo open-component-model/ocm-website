@@ -10,4 +10,3 @@ menu:
     project:
         parent: ""
 ---
-Hello

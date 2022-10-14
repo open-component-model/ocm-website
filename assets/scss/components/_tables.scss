@@ -3,6 +3,10 @@ table {
 
   margin: 3rem 0;
 
+  thead {
+    border-bottom-color: $green;
+  }
+
   th,tr {
     color: $white;
   }
