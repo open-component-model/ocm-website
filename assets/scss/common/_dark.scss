@@ -2,21 +2,21 @@
 
 // Source: https://material.io/design/color/dark-theme.html
 
-$body-bg-dark: $gray-900;
-$body-overlay-dark: darken($body-bg-dark, 2.5%);
+$body-bg-dark: $black;
+$body-overlay-dark: $black;
 
 /*
 $border-dark: darken($body-bg-dark, 2.5%);
 */
-$border-dark: $gray-800;
-$body-color-dark: $gray-300;
+$border-dark: $black;
+$body-color-dark: $black;
 $dots-dark: darken($body-color-dark, 50%);
 
 $link-color-dark: $blue-300;
 $button-color-dark: $link-color-dark;
 $focus-color-dark: lighten($link-color-dark, 2.5%);
 
-$navbar-dark-color:                 $body-color-dark;
+$navbar-dark-color:                 $black;
 $navbar-dark-hover-color:           $link-color-dark;
 $navbar-dark-active-color:          $link-color-dark;
 
@@ -25,10 +25,6 @@ $navbar-dark-active-color:          $link-color-dark;
 [data-dark-mode] body {
   background: $body-bg-dark;
   color: $body-color-dark;
-}
-
-[data-dark-mode] body a {
-  color: $link-color-dark;
 }
 
 [data-dark-mode] body a.text-body {
@@ -83,7 +79,7 @@ $navbar-dark-active-color:          $link-color-dark;
 
 [data-dark-mode] body .navbar,
 [data-dark-mode] body .doks-subnavbar {
-  background-color: rgba(33, 37, 41, 0.95);
+  background-color: $black;
   border-bottom: 1px solid $border-dark;
 }
 
@@ -109,7 +105,7 @@ $navbar-dark-active-color:          $link-color-dark;
 }
 
 [data-dark-mode] body .navbar-light .navbar-brand {
-  color: $navbar-dark-color !important;
+  color: $white;
 }
 
 [data-dark-mode] body .navbar-light .navbar-nav .nav-link {
@@ -291,7 +287,7 @@ $navbar-dark-active-color:          $link-color-dark;
 }
 
 [data-dark-mode] body .border-top {
-  border-top: 1px solid $border-dark !important;
+  // border-top: 1px solid $border-dark !important;
 }
 
 @include media-breakpoint-up(lg) {
@@ -302,7 +298,7 @@ $navbar-dark-active-color:          $link-color-dark;
 }
 
 [data-dark-mode] body .docs-navigation {
-  border-top: 1px solid $border-dark;
+  // border-top: 1px solid $border-dark;
 }
 
 [data-dark-mode] body pre code::-webkit-scrollbar-thumb {
@@ -325,10 +321,6 @@ $navbar-dark-active-color:          $link-color-dark;
 
 [data-dark-mode] body blockquote {
   border-left: 3px solid $border-dark;
-}
-
-[data-dark-mode] body .footer {
-  border-top: 1px solid $border-dark;
 }
 
 [data-dark-mode] body .docs-links,
@@ -369,7 +361,7 @@ $navbar-dark-active-color:          $link-color-dark;
 }
 
 [data-dark-mode] body .docs-links h3:not(:first-child) {
-  border-top: 1px solid $border-dark;
+  // border-top: 1px solid $border-dark;
 }
 
 [data-dark-mode] body a.docs-link {
@@ -377,7 +369,7 @@ $navbar-dark-active-color:          $link-color-dark;
 }
 
 [data-dark-mode] body .page-links li:not(:first-child) {
-  border-top: 1px dashed $border-dark;
+  // border-top: 1px dashed $border-dark;
 }
 
 [data-dark-mode] body .card {
@@ -425,10 +417,6 @@ $navbar-dark-active-color:          $link-color-dark;
 
 [data-dark-mode] body .figure-caption {
   color: $body-color-dark;
-}
-
-[data-dark-mode] body table {
-  @extend .table-dark;
 }
 
 [data-dark-mode] body .copy-status::after {

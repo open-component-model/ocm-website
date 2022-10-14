@@ -5,6 +5,9 @@ title = "Open Component Model"
 titleSeparator = "|"
 titleAddition = "OCM"
 description = ""
+leader = "An open standard to describe software artifact delivery."
+leader_open_source_text = "Open-source Apache-2.0 Licensed."
+latest_version = "v0.0.0"
 
 ## Documentation
 # docsVersion = "0.3"
@@ -28,10 +31,10 @@ schemaAuthorTwitter = ""
 schemaAuthorLinkedIn = ""
 schemaAuthorGitHub = ""
 schemaLocale = "en-US"
-schemaLogo = "logo-doks.png"
+schemaLogo = ""
 schemaLogoWidth = 512
 schemaLogoHeight = 512
-schemaImage = "doks.png"
+schemaImage = ""
 schemaImageWidth = 1280
 schemaImageHeight = 640
 schemaTwitter = ""
@@ -76,7 +79,6 @@ alertDismissable = true
 alertText = ""
 
 # Edit Page
-# repoHost [Github | Gitea | GitLab | Bitbucket | BitbucketServer ] is used for building the edit link based on git hoster
 repoHost = "GitHub"
 docsRepo = ""
 docsRepoBranch = "main"
@@ -91,7 +93,7 @@ lastMod = false
   lazySizes = true
   clipBoard = true
   instantPage = true
-  flexSearch = true
+  flexSearch = false
   searchSectionsShow = []
   searchSectionsIndex = []
   darkMode = true
