@@ -30,7 +30,7 @@
 
 .navbar {
   z-index: 1000;
-  background: linear-gradient(270deg, $green, transparent 60%);
+  background: linear-gradient(270deg, $green, $black 60%);
 }
 
 @include media-breakpoint-up(lg) {

@@ -1623,7 +1623,7 @@ progress {
   color: var(--bs-table-color);
   border-color: var(--bs-table-border-color); }
 
-.table-dark, [data-dark-mode] body table {
+.table-dark {
   --bs-table-color: #fff;
   --bs-table-bg: #212529;
   --bs-table-border-color: #373b3e;
@@ -11799,6 +11799,10 @@ figure.wide .figure-caption {
 
 table {
   margin: 3rem 0; }
+  table th, table tr {
+    color: #fff; }
+  table a {
+    color: #00FF75; }
 
 .footer {
   padding-top: 1.125rem;
@@ -11836,7 +11840,7 @@ table {
 */
 .navbar {
   z-index: 1000;
-  background: linear-gradient(270deg, #00FF75, transparent 60%); }
+  background: linear-gradient(270deg, #00FF75, #0F0F0F 60%); }
 
 @media (min-width: 992px) {
   .navbar {

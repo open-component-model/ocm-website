@@ -2,4 +2,13 @@ table {
   @extend .table;
 
   margin: 3rem 0;
+
+  th,tr {
+    color: $white;
+  }
+
+  a {
+    color: $green;
+  }
 }
+
