@@ -16,6 +16,10 @@ a,p {
   color: $white;
 }
 
+a {
+  text-decoration: underline;
+}
+
 .text-muted {
   color: $gray-500!important;
 }
