@@ -10536,6 +10536,9 @@ body {
 #toc ul {
   padding-left: 0;
   list-style: none; }
+  #TableOfContents ul a,
+  #toc ul a {
+    text-decoration: none; }
 
 #toc a.active {
   color: #00FF75;
@@ -11503,7 +11506,7 @@ code {
 pre {
   background: #212529;
   margin: 2rem 0;
-  padding: 1rem 0; }
+  padding: 0.75rem 1rem; }
 
 pre code {
   display: block;

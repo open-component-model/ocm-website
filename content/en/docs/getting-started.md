@@ -4,7 +4,7 @@ description: ""
 lead: ""
 date: 2022-08-12T10:38:04+01:00
 lastmod: 2022-08-12T10:38:04+01:00
-draft: false
+draft: true
 images: []
 menu:
   docs:
@@ -13,3 +13,7 @@ menu:
 weight: 102
 toc: true
 ---
+
+This tutorial will show you how to get started with the Open Component Model.
+
+We will use the `podinfo` application and build a component with configuration for a backend and frontend service.

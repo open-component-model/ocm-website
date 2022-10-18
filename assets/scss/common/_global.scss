@@ -241,6 +241,9 @@ body {
 #toc ul {
   padding-left: 0;
   list-style: none;
+  a {
+    text-decoration: none;
+  }
 }
 
 #toc a.active {

@@ -13,3 +13,35 @@ menu:
 weight: 101
 toc: true
 ---
+
+#### Disclaimer
+> Currently it is only possible to install the `ocm` CLI manually, in the future we plan to support the standard distribution methods.
+
+
+### Prerequisites
+
+- git
+- make
+- golang
+
+### Installation Process
+
+Clone the `open-component-model/ocm` repo:
+
+```bash
+git clone https://github.com/open-component-model/ocm
+```
+
+Enter the repository directory (`cd ocm/`) and install the cli using make:
+
+```bash
+make install
+```
+
+Verify the installation:
+
+```bash
+ocm version
+```
+
+
