@@ -10,3 +10,5 @@ menu:
     project:
         parent: ""
 ---
+
+Please consult our [community repository](https://github.com/open-component-model-community) for details about the Open Component Model Community.
