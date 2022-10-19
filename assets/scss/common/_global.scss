@@ -394,3 +394,40 @@ body {
     max-width: 6rem;
   }
 }
+
+.card {
+  --bs-card-bg: #1B1B1B;
+  --bs-card-border-width: 0;
+
+  a {
+    text-decoration: none;
+  }
+
+  small {
+    color: $green;
+    text-decoration: underline;
+    font-size: 1rem;
+  }
+
+  .card-body {
+    width: 100%;
+
+    p {
+      font-size: 1rem;
+    }
+  }
+
+  .card-footer {
+    text-align: right;
+    margin-bottom: 1rem;
+    .tag {
+        color: $green;
+      font-size: 1rem;
+      background: $black;
+      padding: 0.25rem 1rem;
+      border-radius: 1rem;
+      border: solid 1px $green;
+      margin-right: 0.5rem;
+    }
+  }
+}

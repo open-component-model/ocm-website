@@ -10660,6 +10660,31 @@ body {
     height: auto;
     max-width: 6rem; }
 
+.card {
+  --bs-card-bg: #1B1B1B;
+  --bs-card-border-width: 0; }
+  .card a {
+    text-decoration: none; }
+  .card small, .card .small {
+    color: #00FF75;
+    text-decoration: underline;
+    font-size: 1rem; }
+  .card .card-body {
+    width: 100%; }
+    .card .card-body p {
+      font-size: 1rem; }
+  .card .card-footer {
+    text-align: right;
+    margin-bottom: 1rem; }
+    .card .card-footer .tag {
+      color: #00FF75;
+      font-size: 1rem;
+      background: #0F0F0F;
+      padding: 0.25rem 1rem;
+      border-radius: 1rem;
+      border: solid 1px #00FF75;
+      margin-right: 0.5rem; }
+
 /** Theme variables */
 /*
 $border-dark: darken($body-bg-dark, 2.5%);
