@@ -14,10 +14,10 @@
   url = "/project/about"
   weight = 30
 
-[[main]]
-  name = "Blog"
-  url = "/blog/"
-  weight = 40
+# [[main]]
+#   name = "Blog"
+#   url = "/blog/"
+#   weight = 40
 
 [[social]]
   name = "GitHub"
