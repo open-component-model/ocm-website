@@ -107,7 +107,8 @@ button#doks-versions {
 }
 
 .offcanvas .nav-link.active {
-  color: $link-color;
+  text-decoration: underline;
+  font-weight: bold;
 }
 
 .header-bar {
