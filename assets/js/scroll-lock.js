@@ -1,7 +1,6 @@
 // Adds scroll position lock for default docs sidebar
-
-if (document.querySelector('#sidebar-default') !== null) {
-  let sidebar = document.getElementById('sidebar-default');
+if (document.querySelector('#docs-sidebar') !== null) {
+  let sidebar = document.getElementById('docs-sidebar');
 
   let pos = sessionStorage.getItem('sidebar-scroll');
   if (pos !== null) {
