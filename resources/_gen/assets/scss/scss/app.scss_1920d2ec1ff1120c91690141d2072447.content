@@ -11928,7 +11928,8 @@ button#doks-versions {
   color: #00FF75; }
 
 .offcanvas .nav-link.active, .offcanvas .banner .nav a.active, .banner .nav .offcanvas a.active {
-  color: #00FF75; }
+  text-decoration: underline;
+  font-weight: bold; }
 
 .header-bar {
   border-top: 4px solid;

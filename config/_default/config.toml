@@ -1,4 +1,4 @@
-baseurl = "https://symmetrical-broccoli-b4446266.pages.github.io/"
+baseurl = "https://ocm.software"
 canonifyURLs = false
 disableAliases = true
 disableHugoGeneratorInject = true
