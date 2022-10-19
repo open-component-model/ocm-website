@@ -2,7 +2,7 @@
 title: componentversions
 name: bootstrap componentversions
 url: /docs/cli/bootstrap/componentversions/
-date: 2022-08-24T18:41:47+01:00
+date: 2022-10-19T11:39:28+01:00
 draft: false
 images: []
 menu:
@@ -15,6 +15,15 @@ isCommand: true
 
 ```
 ocm bootstrap componentversions [<options>] <action> {<component-reference>} {<resource id field>}
+```
+
+### Options
+
+```
+  -c, --credentials string   credentials file
+  -h, --help                 help for componentversions
+  -o, --outputs string       output file/directory
+  -p, --parameters string    parameter file
 ```
 
 ### Description
@@ -102,15 +111,6 @@ contains a single component version. Therefore, in this scenario
 this option must always be specified to be able to follow component
 references.
 
-
-### Options
-
-```
-  -c, --credentials string   credentials file
-  -h, --help                 help for componentversions
-  -o, --outputs string       output file/directory
-  -p, --parameters string    parameter file
-```
 
 ### Examples
 

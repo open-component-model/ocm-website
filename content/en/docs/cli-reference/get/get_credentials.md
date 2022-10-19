@@ -2,7 +2,7 @@
 title: credentials
 name: get credentials
 url: /docs/cli/get/credentials/
-date: 2022-08-24T18:41:47+01:00
+date: 2022-10-19T11:39:28+01:00
 draft: false
 images: []
 menu:
@@ -17,6 +17,13 @@ isCommand: true
 ocm get credentials {<consumer property>=<value>}
 ```
 
+### Options
+
+```
+  -h, --help             help for credentials
+  -m, --matcher string   matcher type override
+```
+
 ### Description
 
 
@@ -24,6 +31,11 @@ Try to resolve a given consumer specification against the configured credential
 settings and show the found credential attributes.
 
 For the following usage contexts with matchers and standard identity matchers exist:
+
+  - <code>Buildcredentials.ocm.software</code>: Gardener config credential matcher
+    
+    It matches the <code>Buildcredentials.ocm.software</code> consumer type and additionally acts like 
+    the <code>hostpath</code> type.
 
   - <code>OCIRegistry</code>: OCI registry credential matcher
     
@@ -49,13 +61,6 @@ The used matcher is derived from the consumer attribute <code>type</code>.
 For all other consumer types a matcher matching all attributes will be used.
 The usage of a dedicated matcher can be enforced by the option <code>--matcher</code>.
 
-
-### Options
-
-```
-  -h, --help             help for credentials
-  -m, --matcher string   matcher type override
-```
 
 ### See Also
 

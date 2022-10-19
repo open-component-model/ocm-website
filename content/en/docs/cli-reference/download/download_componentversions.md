@@ -2,7 +2,7 @@
 title: componentversions
 name: download componentversions
 url: /docs/cli/download/componentversions/
-date: 2022-08-24T18:41:47+01:00
+date: 2022-10-19T11:39:28+01:00
 draft: false
 images: []
 menu:
@@ -15,6 +15,15 @@ isCommand: true
 
 ```
 ocm download componentversions [<options>] {<components>} 
+```
+
+### Options
+
+```
+  -h, --help             help for componentversions
+  -O, --outfile string   output file or directory
+      --repo string      repository name or spec
+  -t, --type string      archive format (directory, tar, tgz) (default "directory")
 ```
 
 ### Description
@@ -77,15 +86,6 @@ target archive to use. The following formats are supported:
 - tgz
 The default format is <code>directory</code>.
 
-
-### Options
-
-```
-  -h, --help             help for componentversions
-  -O, --outfile string   output file or directory
-  -r, --repo string      repository name or spec
-  -t, --type string      archive format (default "directory")
-```
 
 ### See Also
 

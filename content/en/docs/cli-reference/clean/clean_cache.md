@@ -2,7 +2,7 @@
 title: cache
 name: clean cache
 url: /docs/cli/clean/cache/
-date: 2022-08-24T18:41:47+01:00
+date: 2022-10-19T11:39:28+01:00
 draft: false
 images: []
 menu:
@@ -17,17 +17,17 @@ isCommand: true
 ocm clean cache [<options>]
 ```
 
-### Description
-
-
-Cleanup all blobs stored in oci blob cache (if given).
-	
-
 ### Options
 
 ```
   -h, --help   help for cache
 ```
+
+### Description
+
+
+Cleanup all blobs stored in oci blob cache (if given).
+	
 
 ### Examples
 

@@ -2,7 +2,7 @@
 title: versions
 name: show versions
 url: /docs/cli/show/versions/
-date: 2022-08-24T18:41:47+01:00
+date: 2022-10-19T11:39:28+01:00
 draft: false
 images: []
 menu:
@@ -15,6 +15,15 @@ isCommand: true
 
 ```
 ocm show versions [<options>] <component> {<version pattern>}
+```
+
+### Options
+
+```
+  -h, --help          help for versions
+  -l, --latest        show only latest version
+      --repo string   repository name or spec
+  -s, --semantic      show semantic version
 ```
 
 ### Description
@@ -67,15 +76,6 @@ OCI Repository types (using standard component repository to OCI mapping):
 - `oci`
 - `ociRegistry`
 
-
-### Options
-
-```
-  -h, --help          help for versions
-  -l, --latest        show only latest version
-  -r, --repo string   repository name or spec
-  -s, --semantic      show semantic version
-```
 
 ### Examples
 

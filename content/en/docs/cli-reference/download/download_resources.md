@@ -2,7 +2,7 @@
 title: resources
 name: download resources
 url: /docs/cli/download/resources/
-date: 2022-08-24T18:41:47+01:00
+date: 2022-10-19T11:39:28+01:00
 draft: false
 images: []
 menu:
@@ -15,6 +15,17 @@ isCommand: true
 
 ```
 ocm download resources [<options>]  <component> {<name> { <key>=<value> }}
+```
+
+### Options
+
+```
+  -d, --download-handlers    use download handler if possible
+  -h, --help                 help for resources
+      --lookup stringArray   repository name or spec for closure lookup fallback
+  -O, --outfile string       output file or directory
+  -r, --recursive            follow component reference nesting
+      --repo string          repository name or spec
 ```
 
 ### Description
@@ -97,7 +108,7 @@ can be download directly as helm chart archive, even if stored as OCI artefact.
 This is handled by download handler. Their usage can be enabled with the <code>--download-handlers</code>
 option. Otherwise the resource as returned by the access method is stored.
 
-With the option <code>--closure</code> the complete reference tree of a component reference is traversed.
+With the option <code>--recursive</code> the complete reference tree of a component reference is traversed.
 
 If a component lookup for building a reference closure is required
 the <code>--lookup</code>  option can be used to specify a fallback
@@ -109,17 +120,6 @@ contains a single component version. Therefore, in this scenario
 this option must always be specified to be able to follow component
 references.
 
-
-### Options
-
-```
-  -c, --closure              follow component reference nesting
-  -d, --download-handlers    use download handler if possible
-  -h, --help                 help for resources
-      --lookup stringArray   repository name or spec for closure lookup fallback
-  -O, --outfile string       output file or directory
-  -r, --repo string          repository name or spec
-```
 
 ### See Also
 

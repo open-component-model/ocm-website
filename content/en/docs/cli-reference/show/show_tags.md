@@ -2,7 +2,7 @@
 title: tags
 name: show tags
 url: /docs/cli/show/tags/
-date: 2022-08-24T18:41:47+01:00
+date: 2022-10-19T11:39:28+01:00
 draft: false
 images: []
 menu:
@@ -15,6 +15,16 @@ isCommand: true
 
 ```
 ocm show tags [<options>] <component> {<version pattern>}
+```
+
+### Options
+
+```
+  -h, --help          help for tags
+  -l, --latest        show only latest tags
+      --repo string   repository name or spec
+  -o, --semantic      show semantic tags
+  -s, --semver        show only semver compliant tags
 ```
 
 ### Description
@@ -30,7 +40,7 @@ relative to the specified registry using the syntax
 </center>
 
 If no <code>--repo</code> option is specified the given names are interpreted 
-as extended CI artefact references.
+as extended OCI artefact references.
 
 <center>
     <pre>[&lt;repo type>::]&lt;host>[:&lt;port>]/&lt;OCI repository name>[:&lt;tag>][@&lt;digest>]</pre>
@@ -55,16 +65,6 @@ linked library can be used:
 - `oci`
 - `ociRegistry`
 
-
-### Options
-
-```
-  -h, --help          help for tags
-  -l, --latest        show only latest tags
-  -r, --repo string   repository name or spec
-  -o, --semantic      show semantic tags
-  -s, --semver        show only semver compliant tags
-```
 
 ### Examples
 

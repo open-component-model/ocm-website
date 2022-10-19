@@ -2,7 +2,7 @@
 title: cli-reference
 name: cli-reference
 url: /docs/cli/
-date: 2022-08-24T18:41:47+01:00
+date: 2022-10-19T11:39:28+01:00
 draft: false
 images: []
 menu:
@@ -11,6 +11,19 @@ menu:
 toc: true
 isCommand: false
 ---
+### Options
+
+```
+  -X, --attribute stringArray   attribute setting
+      --config string           configuration file
+  -C, --cred stringArray        credential setting
+  -h, --help                    help for ocm
+      --logconfig string        log config
+  -L, --logfile string          set log file
+  -l, --loglevel string         set log level
+  -v, --verbose                 enable verbose logging
+```
+
 ### Introduction
 
 
@@ -114,15 +127,6 @@ attributes are supported:
   The temporary blob cache is used to accessing large blobs from remote sytems.
   The are temporarily stored in the filesystem, instead of the memory, to avoid
   blowing up the memory consumption.
-
-### Options
-
-```
-  -X, --attribute stringArray   attribute setting
-      --config string           configuration file
-  -C, --cred stringArray        credential setting
-  -h, --help                    help for ocm
-```
 
 ### See Also
 
