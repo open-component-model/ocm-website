@@ -13,9 +13,9 @@ latest_version = "v0.0.0"
 # docsVersion = "0.3"
 
 ## Open Graph
-images = ["doks.png"]
+images = []
 ogLocale = "en_US"
-domainTLD = "example.org"
+domainTLD = "ocm.software.dev"
 titleHome = "Open Component Model"
 
 ## Twitter Cards
@@ -39,8 +39,8 @@ schemaImageWidth = 1280
 schemaImageHeight = 640
 schemaTwitter = ""
 schemaLinkedIn = ""
-schemaGitHub = ""
-schemaSection = "blog"
+schemaGitHub = "https://github.com/open-component-model"
+schemaSection = ""
 
 ## Sitelinks Search Box
 siteLinksSearchBox = false
@@ -80,7 +80,7 @@ alertText = ""
 
 # Edit Page
 repoHost = "GitHub"
-docsRepo = ""
+docsRepo = "https://github.com/open-component-model/ocm-website"
 docsRepoBranch = "main"
 docsRepoSubPath = ""
 editPage = false
