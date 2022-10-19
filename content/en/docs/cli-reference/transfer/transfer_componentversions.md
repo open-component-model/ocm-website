@@ -2,7 +2,7 @@
 title: componentversions
 name: transfer componentversions
 url: /docs/cli/transfer/componentversions/
-date: 2022-08-24T18:41:47+01:00
+date: 2022-10-19T11:39:28+01:00
 draft: false
 images: []
 menu:
@@ -15,6 +15,20 @@ isCommand: true
 
 ```
 ocm transfer componentversions [<options>] {<component-reference>} <target>
+```
+
+### Options
+
+```
+  -V, --copy-resources       transfer referenced resources by-value
+  -h, --help                 help for componentversions
+      --lookup stringArray   repository name or spec for closure lookup fallback
+  -f, --overwrite            overwrite existing component versions
+  -r, --recursive            follow component reference nesting
+      --repo string          repository name or spec
+      --script string        config name of transfer handler script
+  -s, --scriptFile string    filename of transfer handler script
+  -t, --type string          archive format (directory, tar, tgz) (default "directory")
 ```
 
 ### Description
@@ -76,12 +90,22 @@ target archive to use. The following formats are supported:
 - tgz
 The default format is <code>directory</code>.
 
-With the option <code>--closure</code> the complete reference tree of a component reference is traversed.
+With the option <code>--recursive</code> the complete reference tree of a component reference is traversed.
+
+If a component lookup for building a reference closure is required
+the <code>--lookup</code>  option can be used to specify a fallback
+lookup repository. 
+By default the component versions are searched in the repository
+holding the component version for which the closure is determined.
+For *Component Archives* this is never possible, because it only
+contains a single component version. Therefore, in this scenario
+this option must always be specified to be able to follow component
+references.
 
 It the option <code>--overwrite</code> is given, component version in the
 target repository will be overwritten, if they already exist.
 
-It the option <code>--resourcesByValue</code> is given, all referential 
+It the option <code>--copy-resources</code> is given, all referential 
 resources will potentially be localized, mapped to component version local
 resources in the target repository.
 This behaviour can be further influenced by specifying a transfer script
@@ -93,7 +117,7 @@ by a file name. With <code>--script</code> it can be taken from the
 CLI config using an entry of the following format:
 
 <pre>
-type: scripts.ocm.config.ocm.gardener.cloud
+type: scripts.ocm.config.ocm.software
 scripts:
   &lt;name>: 
     path: &lt;filepath> 
@@ -106,19 +130,6 @@ Only one of the fields <code>path</code> or <code>script</code> can be used.
 If no script option is given and the cli config defines a script <code>default</code>
 this one is used.
 
-
-### Options
-
-```
-  -c, --closure             follow component reference nesting
-  -h, --help                help for componentversions
-  -f, --overwrite           overwrite existing component versions
-  -r, --repo string         repository name or spec
-  -V, --resourcesByValue    transfer resources by-value
-      --script string       config name of transfer handler script
-  -s, --scriptFile string   filename of transfer handler script
-  -t, --type string         archive format (default "directory")
-```
 
 ### Examples
 

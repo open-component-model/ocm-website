@@ -2,7 +2,7 @@
 title: rsakeypair
 name: create rsakeypair
 url: /docs/cli/create/rsakeypair/
-date: 2022-08-24T18:41:47+01:00
+date: 2022-10-19T11:39:28+01:00
 draft: false
 images: []
 menu:
@@ -15,6 +15,15 @@ isCommand: true
 
 ```
 ocm create rsakeypair [<private key file> [<public key file>]] {<subject-attribute>=<value>}
+```
+
+### Options
+
+```
+      --cacert string       certificate authority to sign public key
+      --cakey string        private key for certificate authority
+  -h, --help                help for rsakeypair
+      --validity duration   certificate validity (default 87600h0m0s)
 ```
 
 ### Description
@@ -40,15 +49,6 @@ For signing the public key the following subject attributes are supported:
 - <code>C</code>, <code>country</code>, (multiple): Country
 
 	
-
-### Options
-
-```
-      --cacert string       certificate authority to sign public key
-      --cakey string        private key for certificate authority
-  -h, --help                help for rsakeypair
-      --validity duration   certificate validity (default 87600h0m0s)
-```
 
 ### Examples
 

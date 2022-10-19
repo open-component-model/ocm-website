@@ -2,7 +2,7 @@
 title: resources
 name: get resources
 url: /docs/cli/get/resources/
-date: 2022-08-24T18:41:47+01:00
+date: 2022-10-19T11:39:28+01:00
 draft: false
 images: []
 menu:
@@ -15,6 +15,17 @@ isCommand: true
 
 ```
 ocm get resources [<options>]  <component> {<name> { <key>=<value> }}
+```
+
+### Options
+
+```
+  -h, --help                 help for resources
+      --lookup stringArray   repository name or spec for closure lookup fallback
+  -o, --output string        output mode (JSON, json, tree, treewide, wide, yaml)
+  -r, --recursive            follow component reference nesting
+      --repo string          repository name or spec
+  -s, --sort stringArray     sort fields
 ```
 
 ### Description
@@ -70,7 +81,7 @@ OCI Repository types (using standard component repository to OCI mapping):
 - `oci`
 - `ociRegistry`
 
-With the option <code>--closure</code> the complete reference tree of a component reference is traversed.
+With the option <code>--recursive</code> the complete reference tree of a component reference is traversed.
 
 If a component lookup for building a reference closure is required
 the <code>--lookup</code>  option can be used to specify a fallback
@@ -91,17 +102,6 @@ The following modes are supported:
  - wide
  - yaml
 
-
-### Options
-
-```
-  -c, --closure              follow component reference nesting
-  -h, --help                 help for resources
-      --lookup stringArray   repository name or spec for closure lookup fallback
-  -o, --output string        output mode (JSON, json, tree, treewide, wide, yaml)
-  -r, --repo string          repository name or spec
-  -s, --sort stringArray     sort fields
-```
 
 ### See Also
 

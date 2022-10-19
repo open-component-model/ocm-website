@@ -2,7 +2,7 @@
 title: artefacts
 name: describe artefacts
 url: /docs/cli/describe/artefacts/
-date: 2022-08-24T18:41:47+01:00
+date: 2022-10-19T11:39:28+01:00
 draft: false
 images: []
 menu:
@@ -15,6 +15,15 @@ isCommand: true
 
 ```
 ocm describe artefacts [<options>] {<artefact-reference>}
+```
+
+### Options
+
+```
+  -h, --help            help for artefacts
+      --layerfiles      list layer files
+  -o, --output string   output mode (JSON, json, yaml)
+      --repo string     repository name or spec
 ```
 
 ### Description
@@ -33,7 +42,7 @@ relative to the specified registry using the syntax
 </center>
 
 If no <code>--repo</code> option is specified the given names are interpreted 
-as extended CI artefact references.
+as extended OCI artefact references.
 
 <center>
     <pre>[&lt;repo type>::]&lt;host>[:&lt;port>]/&lt;OCI repository name>[:&lt;tag>][@&lt;digest>]</pre>
@@ -64,15 +73,6 @@ The following modes are supported:
  - json
  - yaml
 
-
-### Options
-
-```
-  -h, --help            help for artefacts
-      --layerfiles      list layer files
-  -o, --output string   output mode (JSON, json, yaml)
-  -r, --repo string     repository name or spec
-```
 
 ### Examples
 

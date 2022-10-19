@@ -2,7 +2,7 @@
 title: sources
 name: add sources
 url: /docs/cli/add/sources/
-date: 2022-08-24T18:41:47+01:00
+date: 2022-10-19T11:39:28+01:00
 draft: false
 images: []
 menu:
@@ -17,6 +17,15 @@ isCommand: true
 ocm add sources [<options>] <target> {<resourcefile> | <var>=<value>}
 ```
 
+### Options
+
+```
+      --addenv                 access environment for templating
+  -h, --help                   help for sources
+  -s, --settings stringArray   settings file with variable settings (yaml)
+      --templater string       templater to use (subst, spiff, go) (default "subst")
+```
+
 ### Description
 
 
@@ -28,7 +37,7 @@ All yaml/json defined resources can be templated.
 Variables are specified as regular arguments following the syntax <code>&lt;name>=&lt;value></code>.
 Additionally settings can be specified by a yaml file using the <code>--settings <file></code>
 option. With the option <code>--addenv</code> environment variables are added to the binding.
-Values are overwritten in the order environment, settings file, commmand line settings. 
+Values are overwritten in the order environment, settings file, command line settings. 
 
 Note: Variable names are case-sensitive.
 
@@ -38,25 +47,30 @@ Example:
 </pre>
 
 There are several templaters that can be selected by the <code>--templater</code> option:
-- envsubst: simple value substitution with the <code>drone/envsubst</code> templater. It
-  supports string values, only. Complext settings will be json encoded.
-  <pre>
-  key:
-    subkey: "abc ${MY_VAL}"
-  </pre>
+- <code>go</code> go templating supports complex values.
 
-- go: go templating supports complex values.
   <pre>
-  key:
-    subkey: "abc {{.MY_VAL}}"
+    key:
+      subkey: "abc {{.MY_VAL}}"
   </pre>
+  
+- <code>spiff</code> [spiff templating](https://github.com/mandelsoft/spiff).
 
-- spiff: [spiff templating](https://github.com/mandelsoft/spiff) supports
-  complex values. the settings are accessible using the binding <tt>values</tt>.
+  It supports complex values. the settings are accessible using the binding <code>values</code>.
   <pre>
-  key:
-    subkey: "abc (( values.MY_VAL ))"
+    key:
+      subkey: "abc (( values.MY_VAL ))"
   </pre>
+  
+- <code>subst</code> simple value substitution with the <code>drone/envsubst</code> templater.
+
+  It supports string values, only. Complex settings will be json encoded.
+  <pre>
+    key:
+      subkey: "abc ${MY_VAL}"
+  </pre>
+  
+
 
 This command accepts (re)source specification files describing the sources
 to add to a component version.
@@ -74,7 +88,7 @@ with the field <code>type</code> in the <code>input</code> field:
   links are not packed but their targets files or folders.
   With the list fields <code>includeFiles</code> and <code>excludeFiles</code> it is 
   possible to specify which files should be included or excluded. The values are
-  regular expression used to match relative file paths. If no inlcudes are specified
+  regular expression used to match relative file paths. If no includes are specified
   all file not explicitly excluded are used.
   
   This blob type specification supports the following fields: 
@@ -120,17 +134,42 @@ with the field <code>type</code> in the <code>input</code> field:
 - Input type <code>docker</code>
 
   The path must denote an image tag that can be found in the local
-  docker daemon. The denoted image is packed an OCI artefact set.
+  docker daemon. The denoted image is packed as OCI artefact set.
   
   This blob type specification supports the following fields: 
   - **<code>path</code>** *string*
   
     This REQUIRED property describes the image name to import from the
     local docker daemon.
+  
+  - **<code>repository</code>** *string*
+  
+    This OPTIONAL property can be used to specify the repository hint for the
+    generated local artefact access. It is prefixed by the component name if
+    it does not start with slash "/".
+
+- Input type <code>dockermulti</code>
+
+  This input type describes the composition of a multi-platform OCI image.
+  The various variants are taken from the local docker daemon. They should be 
+  built with the buildx command for cross platform docker builds.
+  The denoted images, as well as the wrapping image index is packed as OCI artefact set.
+  
+  This blob type specification supports the following fields:
+  - **<code>variants</code>** *[]string*
+  
+    This REQUIRED property describes a set of  image names to import from the
+    local docker daemon used to compose a resulting image index.
+  
+  - **<code>repository</code>** *string*
+  
+    This OPTIONAL property can be used to specify the repository hint for the
+    generated local artefact access. It is prefixed by the component name if
+    it does not start with slash "/".
 
 - Input type <code>file</code>
 
-  The path must denote a file relative the the resources file.
+  The path must denote a file relative the resources file.
   The content is compressed if the <code>compress</code> field
   is set to <code>true</code>.
   
@@ -176,6 +215,22 @@ with the field <code>type</code> in the <code>input</code> field:
     Basically, it is a good practice to use the component version for local resources
     This can be achieved by using templating for this attribute in the resource file.
 
+- Input type <code>ociImage</code>
+
+  The path must denote an OCI image reference.
+  
+  This blob type specification supports the following fields: 
+  - **<code>path</code>** *string*
+  
+    This REQUIRED property describes the OVI image reference of the image to
+    import.
+  
+  - **<code>repository</code>** *string*
+  
+    This OPTIONAL property can be used to specify the repository hint for the
+    generated local artefact access. It is prefixed by the component name if
+    it does not start with slash "/".
+
 - Input type <code>spiff</code>
 
   The path must denote a [spiff](https://github.com/mandelsoft/spiff) template relative the the resources file.
@@ -211,15 +266,6 @@ with the field <code>type</code> in the <code>input</code> field:
   
 
 
-
-### Options
-
-```
-      --addenv                 access environment for templating
-  -h, --help                   help for sources
-  -s, --settings stringArray   settings file with variable settings (yaml)
-      --templater string       templater to use (subst, spiff, go) (default "subst")
-```
 
 ### See Also
 

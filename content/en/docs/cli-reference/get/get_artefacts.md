@@ -2,7 +2,7 @@
 title: artefacts
 name: get artefacts
 url: /docs/cli/get/artefacts/
-date: 2022-08-24T18:41:47+01:00
+date: 2022-10-19T11:39:28+01:00
 draft: false
 images: []
 menu:
@@ -15,6 +15,17 @@ isCommand: true
 
 ```
 ocm get artefacts [<options>] {<artefact-reference>}
+```
+
+### Options
+
+```
+  -a, --attached           show attached artefacts
+  -h, --help               help for artefacts
+  -o, --output string      output mode (JSON, json, tree, wide, yaml)
+  -r, --recursive          follow index nesting
+      --repo string        repository name or spec
+  -s, --sort stringArray   sort fields
 ```
 
 ### Description
@@ -31,7 +42,7 @@ relative to the specified registry using the syntax
 </center>
 
 If no <code>--repo</code> option is specified the given names are interpreted 
-as extended CI artefact references.
+as extended OCI artefact references.
 
 <center>
     <pre>[&lt;repo type>::]&lt;host>[:&lt;port>]/&lt;OCI repository name>[:&lt;tag>][@&lt;digest>]</pre>
@@ -56,7 +67,7 @@ linked library can be used:
 - `oci`
 - `ociRegistry`
 
-With the option <code>--closure</code> the complete reference tree of a index is traversed.
+With the option <code>--recursive</code> the complete reference tree of a index is traversed.
 
 With the option <code>--output</code> the output mode can be selected.
 The following modes are supported:
@@ -66,17 +77,6 @@ The following modes are supported:
  - wide
  - yaml
 
-
-### Options
-
-```
-  -a, --attached           show attached artefacts
-  -c, --closure            follow index nesting
-  -h, --help               help for artefacts
-  -o, --output string      output mode (JSON, json, tree, wide, yaml)
-  -r, --repo string        repository name or spec
-  -s, --sort stringArray   sort fields
-```
 
 ### Examples
 

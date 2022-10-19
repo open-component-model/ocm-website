@@ -122,6 +122,12 @@ func genMarkdownCustom(cmd *cobra.Command, w io.Writer, linkHandler func(string)
 		buf.WriteString(fmt.Sprintf("```\n%s\n```\n\n", useLine(cmd)))
 	}
 
+	if cmd.IsAvailableCommand() {
+		if err := printOptions(buf, cmd, name); err != nil {
+			return err
+		}
+	}
+
 	if len(cmd.Long) > 0 {
 		if name == "ocm" {
 			buf.WriteString("### Introduction\n\n")
@@ -129,12 +135,6 @@ func genMarkdownCustom(cmd *cobra.Command, w io.Writer, linkHandler func(string)
 			buf.WriteString("### Description\n\n")
 		}
 		buf.WriteString(cobrautils.SubstituteCommandLinks(cmd.Long, cobrautils.FormatLinkWithHandler(linkHandler)) + "\n\n")
-	}
-
-	if cmd.IsAvailableCommand() {
-		if err := printOptions(buf, cmd, name); err != nil {
-			return err
-		}
 	}
 
 	if len(cmd.Example) > 0 {
