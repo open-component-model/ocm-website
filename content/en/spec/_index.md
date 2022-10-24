@@ -8,4 +8,4 @@ draft: false
 
 | Version  | Description                              |
 | -------- | ---------------------------------------- |
-| [v1.0.0 (Latest)]( https://github.com/open-component-model/ocm-spec ) | The most up-to-date version of the OCM specification |
+| [v0.0.0 (Latest)]( https://github.com/open-component-model/ocm-spec ) | The most up-to-date version of the OCM specification |
