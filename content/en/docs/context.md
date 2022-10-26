@@ -67,7 +67,3 @@ Additionally, the model needs to be easily extensible. No one is able to
 predict the future, apart from the fact that things will always change, especially in the area of IT. Being able to
 adapt to future trends, without constantly affecting the processes and tools responsible for the core of the lifecycle
 management of software, is a must.
-
-**Todo: Describe why existing component models could not be used, why is our model better**
-**Todo: Add image**
-
