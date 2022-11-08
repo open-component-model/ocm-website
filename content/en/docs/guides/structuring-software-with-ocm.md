@@ -14,15 +14,15 @@ weight: 200
 toc: true
 ---
 Software products are divided into logical units, which are called
-[**components**](../../specification/elements/README.md#components) in this
+[**components**](https://github.com/open-component-model/ocm-spec/tree/main/doc/specification/elements#components) in this
 specification. For example, a frontend, a backend and some
 monitoring stack. The software product itself could be seen as a
 component comprising the other three components.
 
-As a result of the development phase, [**component versions**](../../specification/elements/README.md#component-versions)
+As a result of the development phase, [**component versions**](https://github.com/open-component-model/ocm-spec/blob/main/doc/specification/elements/README.md#component-versions)
 are created, e.g. when you make a new release of a component.
 
-A component version consists of a set of technical [artifacts](../../specification/elements/README.md#artifacts),
+A component version consists of a set of technical [artifacts](https://github.com/open-component-model/ocm-spec/blob/main/doc/specification/elements/README.md#artifacts),
 e.g. docker images, helm charts, binaries, configuration data etc.
 Such artifacts are called **resources** in this specification.
 
