@@ -25,7 +25,7 @@ Individual, overly complex and thus hard-to-operate CI/CD pipelines, and the ina
 ## How can this improve?
 The major problem here is the absence of **a standardized software component model used to describe all software components, including their technical artefacts**. 
 
-Such a model would not only help with to streamline **deployments to various environments** (public, private, hybrid), but also in **various other areas of lifecycle-management** like compliance and reporting.
+Such a model would not only help to streamline **deployments to various environments** (public, private, hybrid), but also in other areas of lifecycle-management like **compliance and reporting**.
 
 Let's have a look at the most crucial features a standardized software component model must support.
 
@@ -38,7 +38,7 @@ The model must support the description of all artefacts required for a specific 
 These descriptions must also include the concrete technical access locations, from where each artefact can be retrieved from. 
 
 ### Separation of Component-ID and Artefact Location
-Some of the aforementioned environments prescribe the use of artefacts stored in local registries, **requiring the process of copying technical artefacts into such target environments**. This is especially true for private or air-gapped use-cases, where it is usually not possible to pull artefacts from their original location (due to restricted/non-existing internet access or for compliance reasons). These scenarios require that **software components must separate their immutable ID from the current location of their technical artefacts**. The Component-ID needs to stay stable, across all environments and landscapes, whereas the artefact locations have to be changeable.
+Some of the aforementioned environments prescribe the use of artefacts stored in local registries, **requiring the process of copying technical artefacts into such target environments**. This is especially true for private or air-gapped use-cases, where it is usually not possible to pull artefacts from their original location (due to restricted/non-existing internet access or for compliance reasons). These scenarios require that **software components must separate their immutable ID from the current location of their technical artefacts**: The Component-ID needs to stay stable, across all environments and landscapes, whereas the artefact locations have to be changeable.
 
 ### Technology-Agnostic
 At its heart, the model needs to be **technology-agnostic**, so that not only modern containerized cloud, but also legacy software is supported. Larger companies usually operate some kind of hybrid landscapes these days, where parts are modern cloud native software applications running on cloud infrastructures, and other parts are legacy apps, which have not yet (or will never be) transitioned to the cloud or put into containers.<br>
