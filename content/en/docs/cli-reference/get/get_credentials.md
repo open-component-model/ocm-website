@@ -32,7 +32,7 @@ settings and show the found credential attributes.
 
 For the following usage contexts with matchers and standard identity matchers exist:
 
-  - <code>Buildcredentials.ocm.software</code>: Gardener config credential matcher
+  - <code>Buildcredentials.ocm.software</code>: Config credential matcher
     
     It matches the <code>Buildcredentials.ocm.software</code> consumer type and additionally acts like 
     the <code>hostpath</code> type.
