@@ -5,7 +5,7 @@ title = "Open Component Model"
 titleSeparator = "|"
 titleAddition = "OCM"
 description = ""
-leader = "An open standard to describe software artifact delivery."
+leader = "An open standard to describe software artefact delivery."
 leader_open_source_text = "Open-source Apache-2.0 Licensed."
 latest_version = "v0.0.0"
 
