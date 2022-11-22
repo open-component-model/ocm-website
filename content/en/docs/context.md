@@ -14,56 +14,51 @@ weight: 100
 toc: true
 ---
 
-The definition, structure and management of software in larger enterprises often builds upon tools and processes, which
-largely originate from former on-premise thinking and monolithic architectures. Development teams responsible for
-solutions or services have built specific, often point-2-point integrations with CI/CD systems, compliance tools,
-reporting dashboards or delivery processes in the past. Larger development teams might have even built their own
-toolsets specifically for their products, including those needed for compliance handling and delivery automation.
-These concepts, process integrations and resulting tools are often still in use today, even though everyone knows:
-They don't fit into today's cloud world.
+The definition, structure and lifecycle-management of software in larger enterprises often builds upon tools and processes, which originate from former on-premise thinking and monolithic architectures. In the past, development teams have built specific integrations with CI/CD systems, compliance tools, reporting dashboards or delivery processes. Some might have even built their own toolsets, specifically for their products, including those required for compliance handling and delivery automation.<br> 
+These concepts, processes and tools are often still in use today, even though everyone knows: They don't fit into today's cloud world.
 
-The result is a fragmented set of homegrown specific tools across products, solutions and services, affecting an
-enterprises' ability to deliver software consistently and compliant to its own or customer operated target environments.
-These specific, overly complex and thus hard to understand CI/CD pipelines, and the inability to instantly
-provide a holistic aggregated view of currently running technical artifacts for each and every production environment
-(including both cloud and on-premise), result in the overall management of software at scale becoming tedious, error-prone
-and ineffective.
+## Why is that a problem?
+A fragmented set of individual, sometimes homegrown, tools used across software components is constantly affecting the ability to deliver software securely, consistently and compliant to cloud, on-premise or hybrid environments.
 
-## Why is this a huge problem?
-
-Most prominently, with the general un-alignment of how software is defined and managed,
-it is not possible without additional overhead (like setting up even more processes and tools on top) to manage
-the complete lifecycle of all solutions, services or individual deployment artifacts running in any
-given landscape. Even worse, when trying to set up new landscapes, it becomes a nightmare to successfully orchestrate,
-deploy and configure the needed software components in the new environments.
-
-As long as individual development teams within a company continue to use their own tools and processes to manage the
-lifecycle of the software they are responsible for, this unsatisfying (and finally TCD and TCO affecting) situation can
-not improve and will only get worse over time.
+Individual, overly complex and thus hard-to-operate CI/CD pipelines, and the inability to provide one aggregated "compliance-dashboard" of all currently running artefacts across all environments, result in a tedious, error-prone and ineffective lifecycle-management of software at scale.
 
 ## How can this improve?
+The major problem here is the absence of **a standardized software component model used to describe all software components, including their technical artefacts**. 
 
-The major problem at hand here is the absence of one aligned software component model, consistently used across the
-enterprise, to manage compliant software components and their technical artifacts. Such
-a model would help not only with streamlined deployments to public and private cloud environments, but also in various
-other areas of lifecycle management like compliance processes and reporting. This software component model must describe
-all technical artifacts of a software product, and establish an ID for each component, which should then consistently be
-used across all lifecycle management tasks.
+Such a model would not only help with to streamline **deployments to various environments** (public, private, hybrid), but also in **various other areas of lifecycle-management** like compliance and reporting.
 
-Here, it is also crucial to understand that setting up local environments often requires the use of artifacts stored local to the environment.
-This is especially true for restricted or private clouds, in which it is usually not possible to access artifacts from
-their original source location (due to restricted internet access), leading to the fact that artifacts need to be
-transported into these environments. This local deployment scenario requires that software components must clearly
-separate their ID from the location of their technical artifacts, so that this technical location may change, without
-changing the ID. At the same time the environment-local location of the artifacts must be retrievable using this identity.
+Let's have a look at the most crucial features a standardized software component model must support.
 
-At its heart, the model has to be technology-agnostic, so that not only modern containerized cloud software,
-but also legacy software is supported, out-of-the-box. It simply has to be acknowledged that companies are not able to
-just drop everything that has been used in the past and solely use new cloud native workloads. This fact makes it
-crucial to establish a common component model, which is able to handle both cloud native and legacy software, for which
-it needs to be fully agnostic about the technology used.
+## Requirements towards a modern software component model
+### Immutable Component-ID
+An immutable Component-ID must be established by the model for each software component. This ID could be used by all subsequent lifecycle-management processes like compliance scanning. One might think of this as a "correlation ID", which makes it possible to correlate the various lifecycle-management tools and processes (including their results) to one single identifiable software component.
 
-Additionally, the model needs to be easily extensible. No one is able to
-predict the future, apart from the fact that things will always change, especially in the area of IT. Being able to
-adapt to future trends, without constantly affecting the processes and tools responsible for the core of the lifecycle
-management of software, is a must.
+### Artefact Descriptions with Location Information
+The model must support the description of all artefacts required for a specific software component to be deployed. This list of technical artefacts (or "resources") can be defined as **a "Software-Bill-of-Delivery" (SBoD)**, as it is only required to describe those artefacts, which have to be delivered for a successfull deployment.
+These descriptions must also include the concrete technical access locations, from where each artefact can be retrieved from. 
+
+### Separation of Component-ID and Artefact Location
+Some of the aforementioned environments prescribe the use of artefacts stored in local registries, **requiring the process of copying technical artefacts into such target environments**. This is especially true for private or air-gapped use-cases, where it is usually not possible to pull artefacts from their original location (due to restricted/non-existing internet access or for compliance reasons). These scenarios require that **software components must separate their immutable ID from the current location of their technical artefacts**. The Component-ID needs to stay stable, across all environments and landscapes, whereas the artefact locations have to be changeable.
+
+### Technology-Agnostic
+At its heart, the model needs to be **technology-agnostic**, so that not only modern containerized cloud, but also legacy software is supported. Larger companies usually operate some kind of hybrid landscapes these days, where parts are modern cloud native software applications running on cloud infrastructures, and other parts are legacy apps, which have not yet (or will never be) transitioned to the cloud or put into containers.<br>
+This fact makes it crucial to **establish a software component model, which is able to handle both cloud native and legacy software**, so it needs to be fully agnostic about the technologies used by the described software components and their artefacts.
+
+### Extensibility
+Additionally, the **model needs to be extensible**. Being able to easily adapt to future trends and technologies, without constantly affecting the tools and processes used for lifecycle-managing the software, is a must.
+
+### Signing 
+The model needs to support signing and verification processes out-of-the-box. This enables consumers of software components to verify that delivered components have not been tampered with. The signing and verification support has to acknowledge the fact that the technical artefact locations may change over time, which means that these concrete locations must not be part of the signing process.
+
+## TL;DR - Summary
+All of the above boils down to the following requirements.<br>
+A modern standardized software component model must:
+- describe all individual technical artefacts of a software component 
+- provide access information for these artefacts 
+- establish an immutable Component-ID, to be used across all lifecycle-management processes
+- establish a clear separation of the immutable ID from the technical artefact locations
+- handle technical artefacts in a technology-agnostic way
+- be extensible to support future use-cases
+- support standard signing and verification processes
+
+The Open Component Model aka "OCM" and its accompanying toolset addresses all of the above, and much more.
