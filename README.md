@@ -4,7 +4,7 @@
 
 This repository houses the assets used to build [Open Component Model website](https://ocm.sofware).
 
-The sources for some of the documentation are housed in other repositories with the Open Component Model GitHub Organisation. Documentation issues and pull requests should be made against those repositories.
+The sources for some of the documentation are housed in other repositories with the Open Component Model GitHub Organisation. Documentation issues and pull requests should be made against those repositories:
 
 | Project           | GitHub Source                                      |
 | ----------------- | -------------------------------------------------- |
@@ -27,7 +27,7 @@ New pages can be created using the following command:
 npm run create <location>
 ```
 
-For content generated from external sources, such as the OCM CLI, a GitHub Action will checkout the latest version of the remote repository, generate the documentation and create a PR against `main`. This can be be triggered as necessary using a manual dispatch:
+For content generated from external sources (currently only valid for the OCM CLI), a GitHub Action will checkout the latest version of the remote repository, generate the documentation and create a PR against `main`. This can be be triggered as necessary using a manual dispatch:
 
 ```bash
 gh workflow run
