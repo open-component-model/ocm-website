@@ -1,6 +1,6 @@
 ---
 title: "Getting Started with Flux & OCM"
-description: ""
+description: "Deploying OCM components using Flux"
 lead: ""
 date: 2022-11-23T10:00:00+00:00
 lastmod: 2022-11-23:00:00+00:00
