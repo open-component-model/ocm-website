@@ -95,7 +95,7 @@ Dedicated OCM repository types:
 - `ComponentArchive`
 
 OCI Repository types (using standard component repository to OCI mapping):
-- `ArtefactSet`
+- `ArtifactSet`
 - `CommonTransportFormat`
 - `DockerDaemon`
 - `Empty`
@@ -104,7 +104,7 @@ OCI Repository types (using standard component repository to OCI mapping):
 - `ociRegistry`
 
 The library supports some downloads with semantics based on resource types. For example a helm chart
-can be download directly as helm chart archive, even if stored as OCI artefact.
+can be download directly as helm chart archive, even if stored as OCI artifact.
 This is handled by download handler. Their usage can be enabled with the <code>--download-handlers</code>
 option. Otherwise the resource as returned by the access method is stored.
 
@@ -123,5 +123,5 @@ references.
 
 ### See Also
 
-* [ocm download](/docs/cli/download)	 &mdash; Download oci artefacts, resources or complete components
+* [ocm download](/docs/cli/download)	 &mdash; Download oci artifacts, resources or complete components
 

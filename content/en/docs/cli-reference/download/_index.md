@@ -29,7 +29,7 @@ ocm download [<options>] <sub command> ...
 
 ##### Sub Commands
 
-* [ocm download <b>artefacts</b>](/docs/cli/download/artefacts)	 &mdash; download oci artefacts
+* [ocm download <b>artifacts</b>](/docs/cli/download/artifacts)	 &mdash; download oci artifacts
 * [ocm download <b>componentversions</b>](/docs/cli/download/componentversions)	 &mdash; download ocm component versions
 * [ocm download <b>resources</b>](/docs/cli/download/resources)	 &mdash; download resources of a component version
 

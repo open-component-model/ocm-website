@@ -29,6 +29,6 @@ ocm show [<options>] <sub command> ...
 
 ##### Sub Commands
 
-* [ocm show <b>tags</b>](/docs/cli/show/tags)	 &mdash; show dedicated tags of OCI artefacts
+* [ocm show <b>tags</b>](/docs/cli/show/tags)	 &mdash; show dedicated tags of OCI artifacts
 * [ocm show <b>versions</b>](/docs/cli/show/versions)	 &mdash; show dedicated versions (semver compliant)
 

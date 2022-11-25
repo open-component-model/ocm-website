@@ -45,5 +45,5 @@ The default format is <code>directory</code>.
 
 ### See Also
 
-* [ocm transfer](/docs/cli/transfer)	 &mdash; Transfer artefacts or components
+* [ocm transfer](/docs/cli/transfer)	 &mdash; Transfer artifacts or components
 

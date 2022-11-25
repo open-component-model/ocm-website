@@ -29,5 +29,5 @@ ocm describe [<options>] <sub command> ...
 
 ##### Sub Commands
 
-* [ocm describe <b>artefacts</b>](/docs/cli/describe/artefacts)	 &mdash; describe artefact version
+* [ocm describe <b>artifacts</b>](/docs/cli/describe/artifacts)	 &mdash; describe artifact version
 

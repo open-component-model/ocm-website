@@ -64,5 +64,5 @@ The usage of a dedicated matcher can be enforced by the option <code>--matcher</
 
 ### See Also
 
-* [ocm get](/docs/cli/get)	 &mdash; Get information about artefacts and components
+* [ocm get](/docs/cli/get)	 &mdash; Get information about artifacts and components
 

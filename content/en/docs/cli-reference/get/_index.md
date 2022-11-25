@@ -29,7 +29,7 @@ ocm get [<options>] <sub command> ...
 
 ##### Sub Commands
 
-* [ocm get <b>artefacts</b>](/docs/cli/get/artefacts)	 &mdash; get artefact version
+* [ocm get <b>artifacts</b>](/docs/cli/get/artifacts)	 &mdash; get artifact version
 * [ocm get <b>componentversions</b>](/docs/cli/get/componentversions)	 &mdash; get component version
 * [ocm get <b>credentials</b>](/docs/cli/get/credentials)	 &mdash; Get credentials for a dedicated consumer spec
 * [ocm get <b>references</b>](/docs/cli/get/references)	 &mdash; get references of a component version
