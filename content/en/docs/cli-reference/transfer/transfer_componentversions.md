@@ -75,7 +75,7 @@ Dedicated OCM repository types:
 - `ComponentArchive`
 
 OCI Repository types (using standard component repository to OCI mapping):
-- `ArtefactSet`
+- `ArtifactSet`
 - `CommonTransportFormat`
 - `DockerDaemon`
 - `Empty`
@@ -142,5 +142,5 @@ $ ocm transfer components -t tgz --repo OCIRegistry:ghcr.io mandelsoft/kubelink 
 
 ### See Also
 
-* [ocm transfer](/docs/cli/transfer)	 &mdash; Transfer artefacts or components
+* [ocm transfer](/docs/cli/transfer)	 &mdash; Transfer artifacts or components
 

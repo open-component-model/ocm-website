@@ -79,5 +79,5 @@ $ ocm transfer ctf ctf.tgz ghcr.io/mandelsoft/components
 
 ### See Also
 
-* [ocm transfer](/docs/cli/transfer)	 &mdash; Transfer artefacts or components
+* [ocm transfer](/docs/cli/transfer)	 &mdash; Transfer artifacts or components
 

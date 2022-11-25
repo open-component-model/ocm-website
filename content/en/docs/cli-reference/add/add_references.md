@@ -134,7 +134,7 @@ with the field <code>type</code> in the <code>input</code> field:
 - Input type <code>docker</code>
 
   The path must denote an image tag that can be found in the local
-  docker daemon. The denoted image is packed as OCI artefact set.
+  docker daemon. The denoted image is packed as OCI artifact set.
 
   This blob type specification supports the following fields:
   - **<code>path</code>** *string*
@@ -145,7 +145,7 @@ with the field <code>type</code> in the <code>input</code> field:
   - **<code>repository</code>** *string*
 
     This OPTIONAL property can be used to specify the repository hint for the
-    generated local artefact access. It is prefixed by the component name if
+    generated local artifact access. It is prefixed by the component name if
     it does not start with slash "/".
 
 - Input type <code>dockermulti</code>
@@ -153,7 +153,7 @@ with the field <code>type</code> in the <code>input</code> field:
   This input type describes the composition of a multi-platform OCI image.
   The various variants are taken from the local docker daemon. They should be
   built with the buildx command for cross platform docker builds.
-  The denoted images, as well as the wrapping image index is packed as OCI artefact set.
+  The denoted images, as well as the wrapping image index is packed as OCI artifact set.
 
   This blob type specification supports the following fields:
   - **<code>variants</code>** *[]string*
@@ -164,7 +164,7 @@ with the field <code>type</code> in the <code>input</code> field:
   - **<code>repository</code>** *string*
 
     This OPTIONAL property can be used to specify the repository hint for the
-    generated local artefact access. It is prefixed by the component name if
+    generated local artifact access. It is prefixed by the component name if
     it does not start with slash "/".
 
 - Input type <code>file</code>
@@ -195,7 +195,7 @@ with the field <code>type</code> in the <code>input</code> field:
 
   The path must denote an helm chart archive or directory
   relative to the resources file.
-  The denoted chart is packed as an OCI artefact set.
+  The denoted chart is packed as an OCI artifact set.
   Additional provider info is taken from a file with the same name
   and the suffix <code>.prov</code>.
 
@@ -228,7 +228,7 @@ with the field <code>type</code> in the <code>input</code> field:
   - **<code>repository</code>** *string*
 
     This OPTIONAL property can be used to specify the repository hint for the
-    generated local artefact access. It is prefixed by the component name if
+    generated local artifact access. It is prefixed by the component name if
     it does not start with slash "/".
 
 - Input type <code>spiff</code>

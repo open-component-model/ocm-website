@@ -29,7 +29,7 @@ ocm create transportarchive [<options>] <path>
 
 
 Create a new empty OCM/OCI transport archive. This might be either a directory prepared
-to host artefact content or a tar/tgz file.
+to host artifact content or a tar/tgz file.
 
 
 ### See Also

@@ -1,7 +1,7 @@
 ---
-title: artefacts
-name: download artefacts
-url: /docs/cli/download/artefacts/
+title: artifacts
+name: download artifacts
+url: /docs/cli/download/artifacts/
 date: 2022-10-19T11:39:28+01:00
 draft: false
 images: []
@@ -14,13 +14,13 @@ isCommand: true
 ### Usage
 
 ```
-ocm download artefacts [<options>]  {<artefact>} 
+ocm download artifacts [<options>]  {<artifact>} 
 ```
 
 ### Options
 
 ```
-  -h, --help             help for artefacts
+  -h, --help             help for artifacts
   -O, --outfile string   output file or directory
       --repo string      repository name or spec
   -t, --type string      archive format (directory, tar, tgz) (default "directory")
@@ -29,10 +29,10 @@ ocm download artefacts [<options>]  {<artefact>}
 ### Description
 
 
-Download artefacts from an OCI registry. The result is stored in
-artefact set format, without the repository part
+Download artifacts from an OCI registry. The result is stored in
+artifact set format, without the repository part
 
-The files are named according to the artefact repository name.
+The files are named according to the artifact repository name.
 
 If the repository/registry option is specified, the given names are interpreted
 relative to the specified registry using the syntax
@@ -42,7 +42,7 @@ relative to the specified registry using the syntax
 </center>
 
 If no <code>--repo</code> option is specified the given names are interpreted 
-as extended OCI artefact references.
+as extended OCI artifact references.
 
 <center>
     <pre>[&lt;repo type>::]&lt;host>[:&lt;port>]/&lt;OCI repository name>[:&lt;tag>][@&lt;digest>]</pre>
@@ -59,7 +59,7 @@ For the *Common Transport Format* the types <code>directory</code>,
 
 Using the JSON variant any repository type supported by the 
 linked library can be used:
-- `ArtefactSet`
+- `ArtifactSet`
 - `CommonTransportFormat`
 - `DockerDaemon`
 - `Empty`
@@ -77,5 +77,5 @@ The default format is <code>directory</code>.
 
 ### See Also
 
-* [ocm download](/docs/cli/download)	 &mdash; Download oci artefacts, resources or complete components
+* [ocm download](/docs/cli/download)	 &mdash; Download oci artifacts, resources or complete components
 

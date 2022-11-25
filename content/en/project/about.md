@@ -11,7 +11,7 @@ menu:
         parent: ""
 ---
 
-The Open Component Model provides a standard for describing delivery artefacts that can be accessed from many types of component repositories.
+The Open Component Model provides a standard for describing delivery artifacts that can be accessed from many types of component repositories.
 
 The following projects form this set of solutions (and more are in the works):
 - [OCM Specifications](https://github.com/open-component-model/ocm-spec/tree/main/doc/specification) - The `ocm-spec` repository contains semantic, formatting, and other types of specifications for OCM.
