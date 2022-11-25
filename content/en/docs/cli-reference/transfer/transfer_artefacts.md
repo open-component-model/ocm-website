@@ -83,10 +83,10 @@ linked library can be used:
 
 ```
 
-$ ocm oci artefact transfer ghcr.io/mandelsoft/kubelink:v1.0.0 gcr.io
-$ ocm oci artefact transfer ghcr.io/mandelsoft/kubelink gcr.io
-$ ocm oci artefact transfer ghcr.io/mandelsoft/kubelink gcr.io/my-project
-$ ocm oci artefact transfer /tmp/ctf gcr.io/my-project
+$ ocm transfer artefact ghcr.io/mandelsoft/kubelink:v1.0.0 gcr.io
+$ ocm transfer artefact ghcr.io/mandelsoft/kubelink gcr.io
+$ ocm transfer artefact ghcr.io/mandelsoft/kubelink gcr.io/my-project
+$ ocm transfer artefact /tmp/ctf gcr.io/my-project
 
 ```
 
