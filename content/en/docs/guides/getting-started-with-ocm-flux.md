@@ -10,7 +10,7 @@ menu:
   docs:
     parent: ""
     identifier: "getting-started-with-flux-ocm"
-weight: 102
+weight: 101
 toc: true
 ---
 
@@ -25,6 +25,7 @@ We shall build a component to deliver the `podinfo` application which we will th
 - [OCM command line tool](https://github.com/open-component-model/ocm)
 - [kubectl](https://kubernetes.io/docs/reference/kubectl/)
 - [git](https://git-scm.com/downloads)
+- [gh](https://github.com/cli/cli)
 - [kind](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
 - [flux](https://fluxcd.io/flux/installation/#install-the-flux-cli)
 
