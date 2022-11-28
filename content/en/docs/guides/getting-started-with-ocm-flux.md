@@ -20,7 +20,25 @@ This tutorial will demonstrate how get started with the Open Component Model & F
 
 We shall build a component to deliver the [`podinfo`](https://github.com/stefanprodan/podinfo) application, which we will then deploy using OCM's Flux integration. Along the way, we'll demonstrate some of the useful features of OCM.
 
-### Requirements
+## Table of content
+- [Requirements](#requirements)
+- [Building the component](#building-the-component)
+  - [The shape of things to come](#the-shape-of-things-to-come)
+  - [Setting up our project](#setting-up-our-project)
+  - [Adding resources](#adding-resources)
+  - [Inspecting Components](#inspecting-components)
+- [Shipping the component](#shipping-the-component)
+  - [Signing](#signing)
+  - [Verification](#verification)
+  - [Transferring](#transferring)
+- [Deploying the component](#deploying-the-component)
+  - [Bootstrapping Flux](#bootstrapping-flux)
+  - [Deploying the OCM Controller](#deploying-the-ocm-controller)
+  - [Reconciling Components](#reconciling-components)
+  - [Consuming `Snapshots` via Flux](#consuming-snapshots-via-flux)
+- [Wrapping Up](#wrapping-up)
+
+## Requirements
 
 - [OCM command line tool](https://github.com/open-component-model/ocm)
 - [kubectl](https://kubernetes.io/docs/reference/kubectl/)
