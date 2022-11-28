@@ -18,7 +18,7 @@ toc: true
 
 This tutorial will demonstrate how get started with the Open Component Model & Flux.
 
-We shall build a component to deliver the `podinfo` application which we will then deploy using OCM's Flux integration. Along the way we'll demonstrate some of the useful features of OCM.
+We shall build a component to deliver the [`podinfo`](https://github.com/stefanprodan/podinfo) application, which we will then deploy using OCM's Flux integration. Along the way, we'll demonstrate some of the useful features of OCM.
 
 ### Requirements
 
@@ -50,9 +50,9 @@ Let's configure a workspace for developing our component:
 OCM will store local artifacts and metadata in a **component archive**. We can use the `ocm` CLI to create the component archive:
 `ocm create componentarchive github.com/acme/podinfo v1.0.0 --provider acme`
 
-As we can see above the command `ocm create componentarchive` takes three parameters: the name of our component, it's version and the name of the component provider.
+As we can see above, the command `ocm create componentarchive` takes three parameters: the name of our component, it's version and the name of the component provider.
 
-If we now examine the contents of our working directory we can see that a new sub-directory has been created for the component archive:
+If we now examine the contents of our working directory, we can see that a new sub-directory has been created for the component archive:
 
 ```shell
 $ tree .
@@ -70,9 +70,9 @@ If we examine the file now we will see that it is empty apart from the basic met
 
 ### Adding resources
 
-Resources are an OCM concept that define artifacts which are necessary to deploy our software. These artifacts can be things like OCI images, binaries, Helm charts local files or directries, and so on.
+`Resources` are an OCM concept that defines artifacts which are necessary to deploy our software. These artifacts can be things like OCI images, binaries, Helm charts, local files or directries, and so on.
 
-To add our podinfo OCI image which need to create a resource file describing the resource and how to access it:
+To add our podinfo OCI image, we need to create a resource file describing the resource and how to access it:
 
 ```shell
 cat > image_resource.yaml << EOF
@@ -86,7 +86,7 @@ access:
 EOF
 ```
 
-With this file to hand we can use the ocm CLI to write this store this resource information in our component archive:
+With this file, we can use the ocm CLI to store the resource information in our component archive:
 
 `ocm add resource ./component-archive image_resource.yaml`
 
@@ -99,9 +99,9 @@ NAME  VERSION IDENTITY TYPE     RELATION
 image v6.2.0           ociImage external
 ```
 
-Now that we've successfully added an external resource it's time to add something from the local filesystem.
+Now that we've successfully added an external resource, it's time to add something from the local filesystem.
 
-The following command will generate a simple deployment file that for podinfo:
+The following command will generate a simple deployment file for podinfo:
 ```shell
 cat > deployment.yaml << EOF
 apiVersion: apps/v1
@@ -122,7 +122,7 @@ spec:
         app: podinfo
     spec:
       containers:
-      - image: noimage:v0.0.0 # we'll use localization later to correctly the image
+      - image: noimage:v0.0.0 # we'll use localization later to correctly specify the image
         name: podinfo
         ports:
         - containerPort: 9898
@@ -141,9 +141,13 @@ input:
 EOF
 ```
 
+Again, we can use the ocm CLI to add the resource information in our component archive, just as we did above when we added the image:
+
+`ocm add resource ./component-archive deployment_resource.yaml`
+
 ### Inspecting Components
 
-Now if we inspect the resources associated with our component we can see the file resource is present:
+Now if we inspect the resources associated with our component we can see the file resource is present with its name `deployment`:
 
 ```shell
 $ ocm get resources ./component-archive
@@ -153,7 +157,7 @@ deployment v1.0.0           file     local
 image      v6.2.0           ociImage external
 ```
 
-However if we examine the blobs directory we can see that our local file is now present here also:
+Additionally, if we examine the blobs directory we can see that our local file is now present here also:
 
 ```shell
 tree .
@@ -169,7 +173,7 @@ tree .
 2 directories, 5 files
 ```
 
-And if we examine the blob itself further we can see that it in fact contains our content:
+And if we examine the blob itself further we can see that it in fact contains our content (the deployment.yaml):
 
 ```
 $ cat ./component-archive/blobs/sha256.9d0f28a66f76a31d5d21ac96eb8d0ce34544e8804eaf5288cd43624467a25fef | gzip -d
@@ -191,14 +195,14 @@ spec:
         app: podinfo
     spec:
       containers:
-      - image: ghcr.io/stefanprodan/podinfo:v6.2.0
+      - image: noimage:v0.0.0 # we'll use localization later to correctly specify the image
         name: podinfo
         ports:
         - containerPort: 9898
           name: http
 ```
 
-Finally we will add a configuration item that will be used when we deploy our application in Kubernetes:
+Finally, we will add a configuration file that will be used when we deploy our application in Kubernetes:
 
 Create the config file:
 ```
@@ -210,8 +214,8 @@ metadata:
 localization:
 - resource:
     name: image
-  file: deployment.yaml
-  image: spec.template.spec.containers[0].image
+    file: deployment.yaml
+    image: spec.template.spec.containers[0].image
 EOF
 ```
 
@@ -242,17 +246,17 @@ deployment v1.0.0           file     local
 image      v6.2.0           ociImage external
 ```
 
-Now our component is ready to ship. In the next section we shall examine how to securely transfer our component to a remote repository.
+Now our component is ready to be shipped. In the next section, we shall examine how to securely transfer our component to a remote repository.
 
 ## Shipping the component
 
-To deliver our component we have a number of options. In this introductory guide will we deliver a component to an OCI repository. The OCM cli will pickup credentials from the default docker credentials chain, so we can get started by logging into our registry of choice (in this case GitHub container registry, `ghcr.io`):
+To deliver our component, we have a number of options. In this introductory guide, will we deliver the component to an OCI repository. The OCM cli will pickup credentials from the default docker credentials chain, so we can get started by logging into our registry of choice (in this case GitHub container registry, `ghcr.io`):
 
 `echo $GITHUB_PAT_TOKEN | docker login ghcr.io -u $GITHUB_USER --password-from-stdin`
 
 ### Signing
 
-To ensure our component is securely delivered we can use OCM's signing features. To get started quickly, OCM cli can generate signing keys for us (wwe can also bring our own):
+To ensure our component is securely delivered, we can use OCM's signing features. To get started quickly, OCM cli can generate signing keys for us (but we could also bring our own):
 
 `ocm create rsakeypair`
 
@@ -262,6 +266,8 @@ We can sign our component using these keys. OCM allows for multiple signers so w
 
 `ocm sign component --signature alice --private-key rsa.priv --public-key rsa.pub ./component-archive`
 
+**ToDo:** Suggestion: Should we show the signed component descriptor yaml here ? So that the user understands what has happened ?
+
 ### Verification
 
 We can also verify the component using the ocm CLI:
@@ -270,11 +276,11 @@ We can also verify the component using the ocm CLI:
 
 ### Transferring
 
-We can now transfer our component to an OCI repository:
+Now  we can transfer our component to an OCI repository:
 
 `ocm transfer component ./component-archive ghcr.io/$GITHUB_USER`
 
-Now that our component has been transferred let's verify the signatures once again, this time using the remote OCM repository:
+Now that our component has been transferred, let's verify the signatures once again, this time using the remote OCM repository:
 
 `ocm verify component -s alice -k rsa.pub --repo ghcr.io/$GITHUB_USER github.com/acme/podinfo`
 
@@ -282,13 +288,13 @@ Now that our component has been transferred let's verify the signatures once aga
 
 We'll deploy our component on a Kind cluster using Flux.
 
-First of all let's create the cluster:
+First of all, let's create the cluster:
 
 `kind`
 
 ### Bootstrapping Flux
 
-Flux requires a git repository so let's configure our working directory as a git repository:
+Flux requires a git repository, so let's configure our working directory as a git repository:
 
 ```shell
 git init
@@ -303,7 +309,7 @@ We can use the `gh` cli to quickly initialise a GitHub repository:
 
 `gh repo create`
 
-With all this in place it's time to bootstrap flux:
+With all this in place, it's time to bootstrap flux:
 
 `flux bootstrap github --owner $GITHUB_USER --repository $GITHUB_REPOSITORY --path ./clusters/kind --personal`
 
@@ -364,7 +370,7 @@ kubectl create secret generic -n ocm-system creds --from-literal=username=$GITHU
 kubectl create secret generic -n ocm-system alice-publickey --from-file=alice=rsa.pub
 `
 
-> **note** Currently there we require OCI registry credentials to be configured twice, this is a known issue and will be resolved in a future update to the ocm-controller
+> **note** Currently we require OCI registry credentials to be configured twice, this is a known issue and will be resolved in a future update to the ocm-controller
 
 ```
 gh repo clone open-component-model/ocm-controller
@@ -374,7 +380,7 @@ make deploy
 
 ### Reconciling Components
 
-Next up we created a `ComponentVersion` custom resource in order to reconcile the component from the registry:
+Next up we create a `ComponentVersion` custom resource in order to reconcile the component from the registry:
 
 ```
 echo > ./components/componentversion.yaml <<EOF
@@ -437,15 +443,15 @@ EOF
 
 Commit this file to git and follow the push and reconcile pattern seen previously.
 
-When the resource has been created we'll find a new snapshot in the cluster:
+When the resource has been created, we'll find a new snapshot in the cluster:
 
 `kubectl get snapshot podinfo-deployment`
 
-A `Snapshot` is a Flux compatible OCI image that's stored in a OCI-registry managed by the ocm-controller. It allows us to transform resources from a component and to deploy them with flux.
+A `Snapshot` is a Flux compatible OCI image that's stored in a OCI-registry managed by the OCM controller. It allows us to transform resources from a component and to deploy them with flux.
 
 One type of transformation we might apply is to ensure our deployment manifests have the correct image url for the environment our component has been shipped to. This becomes particularly important if we are working in a heavily regulated or air-gapped environment. We call this process of configuring the component for a local environment **localization**.
 
-To perform this operation we will process the `Snapshot` that has been created by the `Resource` and merge it with configuration rules supplied via the `ConfigData` object we added to our component in an earlier step.
+To perform this operation, we will process the `Snapshot` that has been created by the `Resource` and merge it with configuration rules supplied via the `ConfigData` object we added to our component in an earlier step. All of this is done with a `localization`custom resource:
 
 ```
 echo > ./components/localization.yaml <<EOF
@@ -471,11 +477,13 @@ spec:
     tag: latest
 EOF
 ```
-Commit, push and reconcile the `Localization` and once it has done it's thing we should see two snapshots:
+Commit, push and reconcile the `Localization` custom resource. Once it has done it's thing, we should see two snapshots:
 
 `kubectl get snapshots`
 
-`Localization` is the only transformation step we will perform in this simple scenario. So now let's move on and create a couple of Flux manifests so that we can apply the contents of our `Snapshot` to the cluster
+**ToDo:** Suggestion: The result of this kubectl command should be displayed here.
+
+`Localization` is the only transformation step we will perform in this simple scenario. For now let's move on and create a couple of Flux manifests so that we can apply the contents of our `Snapshot` to the cluster:
 
 ### Consuming `Snapshots` via Flux
 
