@@ -10,7 +10,7 @@ menu:
   docs:
     parent: ""
     identifier: "structure-software-with-ocm"
-weight: 200
+weight: 100
 toc: true
 ---
 Software products are divided into logical units, which are called
