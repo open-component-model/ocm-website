@@ -377,7 +377,7 @@ The items outlined in purple and green are the resources we will create using Gi
 
 The controller requires a few secrets in order to retrieve components from our OCI registry and to verify component signatures, let's set those up first:
 
-`shell
+```shell
 kubectl create ns ocm-system
 
 kubectl create secret docker-registry -n ocm-system regcred \
@@ -389,7 +389,7 @@ kubectl create secret docker-registry -n ocm-system regcred \
 kubectl create secret generic -n ocm-system creds --from-literal=username=$GITHUB_USER --from-literal=password=$GITHUB_PAT
 
 kubectl create secret generic -n ocm-system alice-publickey --from-file=alice=rsa.pub
-`
+```
 
 > **note** Currently we require OCI registry credentials to be configured twice, this is a known issue and will be resolved in a future update to the ocm-controller
 
