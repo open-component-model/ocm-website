@@ -284,8 +284,6 @@ We can sign our component using these keys. OCM allows for multiple signers so w
 
 `ocm sign component --signature alice --private-key rsa.priv --public-key rsa.pub ./component-archive`
 
-**ToDo:** Suggestion: Should we show the signed component descriptor yaml here ? So that the user understands what has happened ?
-
 ### Verification
 
 We can also verify the component using the ocm CLI:
@@ -371,8 +369,13 @@ flux get kustomizations
 
 ### Deploying the OCM Controller
 
-We'll use the OCM controller to help manage the lifecycle with GitOps. The controller requires a few secrets in order to retrieve components from our OCI registry and to verify component signatures, let's set those up first:
+We'll use the OCM controller to help manage the lifecycle of an application with GitOps. Here is a diagram outlining what we will be building:
 
+![Architecture](/images/getting-started-flux-figure-1.png)
+
+The items outlined in purple and green are the resources we will create using GitOps; everything else shall be generated automatically for us.
+
+The controller requires a few secrets in order to retrieve components from our OCI registry and to verify component signatures, let's set those up first:
 
 `shell
 kubectl create ns ocm-system
@@ -467,11 +470,12 @@ When the resource has been created, we'll find a new snapshot in the cluster:
 
 A `Snapshot` is a Flux compatible OCI image that's stored in a OCI-registry managed by the OCM controller. It allows us to transform resources from a component and to deploy them with flux.
 
-One type of transformation we might apply is to ensure our deployment manifests have the correct image url for the environment our component has been shipped to. This becomes particularly important if we are working in a heavily regulated or air-gapped environment. We call this process of configuring the component for a local environment **localization**.
+One type of transformation we can apply is to set the correct image url in our deployment manifests based on the location of a component resource. This becomes particularly important if we are working in a heavily regulated or air-gapped environment. We call this process of configuring the component for a local environment **localization**.
 
 To perform this operation, we will process the `Snapshot` that has been created by the `Resource` and merge it with configuration rules supplied via the `ConfigData` object we added to our component in an earlier step. All of this is done with a `localization`custom resource:
 
 ```
+
 echo > ./components/localization.yaml <<EOF
 apiVersion: delivery.ocm.software/v1alpha1
 kind: Localization
@@ -495,11 +499,16 @@ spec:
     tag: latest
 EOF
 ```
+
 Commit, push and reconcile the `Localization` custom resource. Once it has done it's thing, we should see two snapshots:
 
-`kubectl get snapshots`
+```shell
+$ kubectl get snapshots
 
-**ToDo:** Suggestion: The result of this kubectl command should be displayed here.
+NAME                            AGE
+podinfo-deployment              5m20s
+podinfo-deployment-localized    1m2s
+```
 
 `Localization` is the only transformation step we will perform in this simple scenario. For now let's move on and create a couple of Flux manifests so that we can apply the contents of our `Snapshot` to the cluster:
 
@@ -551,9 +560,10 @@ git commit -m "add flux manifests to podinfo component"
 git push
 
 flux reconcile source git flux-system
+
 kubectl get deployment podinfo -n default
 ```
 
 ## Wrapping Up
 
-That's it for our introductory tutorial on OCM and Flux. We'll cover more advanced scenarios in future guides.
+That's it for our introductory tutorial on OCM and Flux. We shall cover more advanced scenarios in future guides.
