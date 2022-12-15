@@ -38,6 +38,8 @@ Enter the repository directory (`cd ocm/`) and install the cli using make:
 make install
 ```
 
+> Please note that the OCM CLI is installed in your `go/bin` directory, so you might need to add this directory to your `PATH`.
+
 Verify the installation:
 
 ```bash
