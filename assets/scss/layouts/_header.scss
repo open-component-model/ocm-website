@@ -1,3 +1,13 @@
+.header-logo {
+  max-width: 240px;
+  padding-top: 0.2rem;
+  padding-bottom: 0.2rem;
+
+  @media all and (max-width: 768px) {
+    max-width: 180px;
+  }
+}
+
 .banner .nav li {
   @extend .nav-item;
 }
@@ -19,7 +29,7 @@
 
 .navbar {
   z-index: 1000;
-  background: linear-gradient(270deg, $green, $black 60%);
+  background: #233545;
 }
 
 @include media-breakpoint-up(lg) {
@@ -84,7 +94,7 @@ button#doks-versions {
 
 .offcanvas .nav-link {
   font-weight: bold;
-  color: $body-color;
+  color: $secondary-blue;
   text-decoration: none;
 }
 
