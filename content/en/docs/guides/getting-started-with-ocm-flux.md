@@ -99,7 +99,7 @@ version: v6.2.0
 type: ociImage
 relation: external
 access:
-  type: ociArtefact
+  type: ociArtifact
   imageReference: ghcr.io/stefanprodan/podinfo:6.2.0
 EOF
 ```
@@ -145,6 +145,7 @@ spec:
         ports:
         - containerPort: 9898
           name: http
+EOF
 ```
 
 ```shell
