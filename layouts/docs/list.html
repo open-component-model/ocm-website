@@ -25,7 +25,7 @@
 				</nav>
 			{{ end }}
 			{{ if .Params.isCommand }}
-				<h1 class="h2">Command: <span class="text-success">{{ .Title }}</span></h1>
+				<h1 class="h2">Command: <span class="docs-command">{{ .Title }}</span></h1>
 			{{ else if eq .Title "cli-reference" }}
 				<h1>Command Line Client</span></h1>
 			{{ else }}
