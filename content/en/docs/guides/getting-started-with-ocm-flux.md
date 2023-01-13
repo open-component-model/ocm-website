@@ -270,7 +270,7 @@ Now our component is ready to be shipped. In the next section, we shall examine 
 
 To deliver our component, we have a number of options. In this introductory guide, will we deliver the component to an OCI repository. The OCM cli will pickup credentials from the default docker credentials chain, so we can get started by logging into our registry of choice (in this case GitHub container registry, `ghcr.io`):
 
-`echo $GITHUB_PAT_TOKEN | docker login ghcr.io -u $GITHUB_USER --password-from-stdin`
+`echo $GITHUB_PAT_TOKEN | docker login ghcr.io -u $GITHUB_USER --password-stdin`
 
 ### Signing
 
