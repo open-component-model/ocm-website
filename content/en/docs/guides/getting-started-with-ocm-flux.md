@@ -414,7 +414,8 @@ metadata:
 spec:
   interval: 10m0s
   name: github.com/acme/podinfo
-  version: v1.0.0
+  version:
+    semver: v1.0.0
   repository:
     url: ghcr.io/$GITHUB_USER
     secretRef:
@@ -485,14 +486,15 @@ metadata:
   namespace: ocm-system
 spec:
   interval: 1m0s
-  sourceRef:
-    kind: Snapshot
-    name: podinfo-deployment
+  componentVersionRef:
+    name: podinfo
     namespace: ocm-system
-  configRef:
-    componentVersionRef:
-      name: podinfo
+  source:
+    sourceRef:
+      kind: Snapshot
+      name: podinfo-deployment
       namespace: ocm-system
+  configRef:
     resource:
       name: config
   snapshotTemplate:
@@ -526,7 +528,7 @@ metadata:
   namespace: ocm-system
 spec:
   interval: 1m0s
-  url: oci://registry.ocm-system.svc.cluster.local/snapshots/podinfo-deployment-localized
+  url: oci://$SNAPSHOT
   insecure: true
   ref:
     tag: latest
