@@ -15,7 +15,6 @@ import (
 
 var commandsToDocument = []string{
 	"add",
-	"bootstrap",
 	"clean",
 	"create",
 	"describe",
