@@ -134,7 +134,8 @@ func genMarkdownCustom(cmd *cobra.Command, w io.Writer, linkHandler func(string)
 		} else {
 			buf.WriteString("### Description\n\n")
 		}
-		buf.WriteString(cobrautils.SubstituteCommandLinks(cmd.Long, cobrautils.FormatLinkWithHandler(linkHandler)) + "\n\n")
+		_, desc := cobrautils.SubstituteCommandLinks(cmd.Long, cobrautils.FormatLinkWithHandler(linkHandler))
+		buf.WriteString(desc + "\n\n")
 	}
 
 	if len(cmd.Example) > 0 {
