@@ -55,7 +55,7 @@ jobs:
       with:
         title: "Update CLI docs"
         commit-message: "[github-actions] automated change"
-        add-paths: site-docs/
+        add-paths: content/
         branch: update-cli-docs/auto
         branch-suffix: timestamp
         delete-branch: true
