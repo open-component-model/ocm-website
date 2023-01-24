@@ -2,7 +2,7 @@
 title: references
 name: get references
 url: /docs/cli/get/references/
-date: 2022-10-19T11:39:28+01:00
+date: 2023-01-24T10:45:19Z
 draft: false
 images: []
 menu:
@@ -20,12 +20,14 @@ ocm get references [<options>]  <component> {<name> { <key>=<value> }}
 ### Options
 
 ```
-  -h, --help                 help for references
-      --lookup stringArray   repository name or spec for closure lookup fallback
-  -o, --output string        output mode (JSON, json, tree, wide, yaml)
-  -r, --recursive            follow component reference nesting
-      --repo string          repository name or spec
-  -s, --sort stringArray     sort fields
+  -c, --constraints constraints   version constraint
+  -h, --help                      help for references
+      --latest                    restrict component versions to latest
+      --lookup stringArray        repository name or spec for closure lookup fallback
+  -o, --output string             output mode (JSON, json, tree, wide, yaml)
+  -r, --recursive                 follow component reference nesting
+      --repo string               repository name or spec
+  -s, --sort stringArray          sort fields
 ```
 
 ### Description
@@ -35,6 +37,10 @@ Get references of a component version. References are specified
 by identities. An identity consists of 
 a name argument followed by optional <code>&lt;key>=&lt;value></code>
 arguments.
+
+If the option <code>--constraints</code> is given, and no version is specified for a component, only versions matching
+the given version constraints (semver https://github.com/Masterminds/semver) are selected. With <code>--latest</code> only
+the latest matching versions will be selected.
 
 If the <code>--repo</code> option is specified, the given names are interpreted
 relative to the specified repository using the syntax

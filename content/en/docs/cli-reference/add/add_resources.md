@@ -2,7 +2,7 @@
 title: resources
 name: add resources
 url: /docs/cli/add/resources/
-date: 2022-10-19T11:39:28+01:00
+date: 2023-01-24T10:45:19Z
 draft: false
 images: []
 menu:
@@ -14,16 +14,54 @@ isCommand: true
 ### Usage
 
 ```
-ocm add resources [<options>] <target> {<resourcefile> | <var>=<value>}
+ocm add resources [<options>] [<target>] {<resourcefile> | <var>=<value>}
 ```
 
 ### Options
 
 ```
-      --addenv                 access environment for templating
-  -h, --help                   help for resources
-  -s, --settings stringArray   settings file with variable settings (yaml)
-      --templater string       templater to use (subst, spiff, go) (default "subst")
+      --access YAML                  blob access specification (YAML)
+      --accessHostname string        hostname used for access
+      --accessRepository string      repository URL
+      --accessType string            type of blob access specification
+      --accessVersion string         version for access specification
+      --addenv                       access environment for templating
+      --bucket string                bucket name
+      --commit string                git commit id
+      --digest string                blob digest
+      --dry-run                      evaluate and print resource specifications
+      --external                     flag non-local resource
+      --extra <name>=<value>         resource extra identity (default [])
+  -F, --file string                  target file/directory (default "component-archive")
+      --globalAccess YAML            access specification for global access
+  -h, --help                         help for resources
+      --hint string                  (repository) hint for local artifacts
+      --input YAML                   blob input specification (YAML)
+      --inputCompress                compress option for input
+      --inputData !bytesBase64       data (string, !!string or !<base64>
+      --inputExcludes stringArray    excludes (path) for inputs
+      --inputFollowSymlinks          follow symbolic links during archive creation for inputs
+      --inputIncludes stringArray    includes (path) for inputs
+      --inputLibraries stringArray   library path for inputs
+      --inputPath string             path field for input
+      --inputPreserveDir             preserve directory in archive for inputs
+      --inputText string             utf8 text
+      --inputType string             type of blob input specification
+      --inputValues YAML             YAML based generic values for inputs
+      --inputVariants stringArray    (platform) variants for inputs
+      --inputVersion stringArray     version info for inputs
+      --label <name>=<YAML>          resource label (leading * indicates signature relevant, optional version separated by @)
+      --mediaType string             media type for artifact blob representation
+      --name string                  resource name
+  -O, --output string                output file for dry-run
+      --reference string             reference name
+      --region string                region name
+      --resource YAML                resource meta data (yaml)
+  -s, --settings stringArray         settings file with variable settings (yaml)
+      --size int                     blob size
+      --templater string             templater to use (go, none, spiff, subst) (default "subst")
+      --type string                  resource type
+      --version string               resource version
 ```
 
 ### Description
@@ -32,7 +70,40 @@ ocm add resources [<options>] <target> {<resourcefile> | <var>=<value>}
 Add resources specified in a resource file to a component version.
 So far only component archives are supported as target.
 
-Templating:
+This command accepts resource specification files describing the resources
+to add to a component version. Elements must follow the resource meta data
+description scheme of the component descriptor. Besides referential resources
+using the <code>access</code> attribute to describe the access method, it
+is possible to describe local resources fed by local data using the <code>input</code>
+field (see below).
+
+The description file might contain:
+- a single resource
+- a list of resources under the key <code>resources</code>
+- a list of yaml documents with a single resource or resource list
+
+
+It is possible to describe a single resource via command line options.
+The meta data of this element is described by the argument of option <code>--resource</code>,
+which must be a YAML or JSON string.
+Alternatively, the <em>name</em> and <em>version</em> can be specified with the
+options <code>--name</code> and <code>--version</code>. With the option <code>--extra</code>
+it is possible to add extra identity attributes. Explicitly specified options
+override values specified by the <code>--resource</code> option.
+(Note: Go templates are not supported for YAML-based option values. Besides
+this restriction, the finally composed element description is still processd
+by the selected templater.) 
+
+The resource type can be specified with the option <code>--type</code>. Therefore, the
+minimal required meta data for elements can be completely specified by dedicated
+options and don't need the YAML option.
+
+To describe the content of this element one of the options <code>--access</code> or
+<code>--input</code> must be given. They take a YAML or JSON value describing an
+attribute set, also. The structure of those values is similar to the <code>access</code>
+or <code>input</code> fields of the description file format.
+Non-local resources can be indicated using the option <code>--external</code>.
+
 All yaml/json defined resources can be templated.
 Variables are specified as regular arguments following the syntax <code>&lt;name>=&lt;value></code>.
 Additionally settings can be specified by a yaml file using the <code>--settings <file></code>
@@ -43,7 +114,7 @@ Note: Variable names are case-sensitive.
 
 Example:
 <pre>
-<command> <options> -- MY_VAL=test <args>
+&lt;command> &lt;options> -- MY_VAL=test &lt;args>
 </pre>
 
 There are several templaters that can be selected by the <code>--templater</code> option:
@@ -54,6 +125,8 @@ There are several templaters that can be selected by the <code>--templater</code
       subkey: "abc {{.MY_VAL}}"
   </pre>
   
+- <code>none</code> do not do any substitution.
+
 - <code>spiff</code> [spiff templating](https://github.com/mandelsoft/spiff).
 
   It supports complex values. the settings are accessible using the binding <code>values</code>.
@@ -71,12 +144,29 @@ There are several templaters that can be selected by the <code>--templater</code
   </pre>
   
 
-
-This command accepts  resource specification files describing the resources
-to add to a component version.
-
 The resource specification supports the following blob input types, specified
 with the field <code>type</code> in the <code>input</code> field:
+
+- Input type <code>binary</code>
+
+  This blob type is used to provide base64 encoded binary content. The
+  specification supports the following fields:
+  - **<code>data</code>** *[]byte*
+  
+    The binary data to provide.
+  
+  - **<code>mediaType</code>** *string*
+  
+    This OPTIONAL property describes the media type to store with the local blob.
+    The default media type is application/octet-stream and
+    application/gzip if compression is enabled.
+  
+  - **<code>compress</code>** *bool*
+  
+    This OPTIONAL property describes whether the content should be stored
+    compressed or not.
+  
+  Options used to configure fields: <code>--inputCompress</code>, <code>--inputData</code>, <code>--mediaType</code>
 
 - Input type <code>dir</code>
 
@@ -130,6 +220,7 @@ with the field <code>type</code> in the <code>input</code> field:
     that should be included in the tar file. If this option is not given
     all files not explicitly excluded are used.
   
+  Options used to configure fields: <code>--inputCompress</code>, <code>--inputExcludes</code>, <code>--inputFollowSymlinks</code>, <code>--inputIncludes</code>, <code>--inputPath</code>, <code>--inputPreserveDir</code>, <code>--mediaType</code>
 
 - Input type <code>docker</code>
 
@@ -147,6 +238,8 @@ with the field <code>type</code> in the <code>input</code> field:
     This OPTIONAL property can be used to specify the repository hint for the
     generated local artifact access. It is prefixed by the component name if
     it does not start with slash "/".
+  
+  Options used to configure fields: <code>--hint</code>, <code>--inputPath</code>
 
 - Input type <code>dockermulti</code>
 
@@ -166,10 +259,12 @@ with the field <code>type</code> in the <code>input</code> field:
     This OPTIONAL property can be used to specify the repository hint for the
     generated local artifact access. It is prefixed by the component name if
     it does not start with slash "/".
+  
+  Options used to configure fields: <code>--hint</code>, <code>--inputVariants</code>
 
 - Input type <code>file</code>
 
-  The path must denote a file relative the resources file.
+  The path must denote a file relative the resources file. 
   The content is compressed if the <code>compress</code> field
   is set to <code>true</code>.
   
@@ -187,9 +282,10 @@ with the field <code>type</code> in the <code>input</code> field:
   
   - **<code>compress</code>** *bool*
   
-    This OPTIONAL property describes whether the file content should be stored
+    This OPTIONAL property describes whether the content should be stored
     compressed or not.
   
+  Options used to configure fields: <code>--inputCompress</code>, <code>--inputPath</code>, <code>--mediaType</code>
 
 - Input type <code>helm</code>
 
@@ -214,6 +310,8 @@ with the field <code>type</code> in the <code>input</code> field:
     If not specified the versio from the chart will be used.
     Basically, it is a good practice to use the component version for local resources
     This can be achieved by using templating for this attribute in the resource file.
+  
+  Options used to configure fields: <code>--inputCompress</code>, <code>--inputPath</code>, <code>--inputVersion</code>, <code>--mediaType</code>
 
 - Input type <code>ociImage</code>
 
@@ -230,10 +328,12 @@ with the field <code>type</code> in the <code>input</code> field:
     This OPTIONAL property can be used to specify the repository hint for the
     generated local artifact access. It is prefixed by the component name if
     it does not start with slash "/".
+  
+  Options used to configure fields: <code>--hint</code>, <code>--inputCompress</code>, <code>--inputPath</code>, <code>--mediaType</code>
 
 - Input type <code>spiff</code>
 
-  The path must denote a [spiff](https://github.com/mandelsoft/spiff) template relative the the resources file.
+  The path must denote a [spiff](https://github.com/mandelsoft/spiff) template relative the resources file.
   The content is compressed if the <code>compress</code> field
   is set to <code>true</code>.
   
@@ -251,21 +351,276 @@ with the field <code>type</code> in the <code>input</code> field:
   
   - **<code>compress</code>** *bool*
   
-    This OPTIONAL property describes whether the file content should be stored
+    This OPTIONAL property describes whether the content should be stored
     compressed or not.
   
   - **<code>values</code>** *map[string]any*
   
-    This OPTIONAL property describes an additioanl value binding for the template processing. It will be available
-    under the node <code>values</code>.
+    This OPTIONAL property describes an additional value binding for the template processing. It will be available
+    under the node <code>inputvalues</code>.
   
   - **<code>libraries</code>** *[]string*
   
     This OPTIONAL property describes a list of spiff libraries to include in template
     processing.
   
+  The variable settigs from the command line are available as binding, also. They are provided under the node
+  <code>values</code>.
+  
+  Options used to configure fields: <code>--inputCompress</code>, <code>--inputLibraries</code>, <code>--inputPath</code>, <code>--inputValues</code>, <code>--mediaType</code>
+
+- Input type <code>utf8</code>
+
+  This blob type is used to provide inline text based content (UTF8). The
+  specification supports the following fields:
+  - **<code>text</code>** *string*
+  
+    The utf8 string content to provide.
+  
+  - **<code>mediaType</code>** *string*
+  
+    This OPTIONAL property describes the media type to store with the local blob.
+    The default media type is application/octet-stream and
+    application/gzip if compression is enabled.
+  
+  - **<code>compress</code>** *bool*
+  
+    This OPTIONAL property describes whether the content should be stored
+    compressed or not.
+  
+  Options used to configure fields: <code>--inputCompress</code>, <code>--inputText</code>, <code>--mediaType</code>
+
+The following list describes the supported access methods, their versions
+and specification formats.
+Typically there is special support for the CLI artifact add commands.
+The access method specification can be put below the <code>access</code> field.
+If always requires the field <code>type</code> describing the kind and version
+shown below.
+
+- Access type <code>S3</code>
+
+  This method implements the access of a blob stored in an S3 bucket.
+
+  The following versions are supported:
+  - Version <code>v1</code>
+  
+    The type specific specification fields are:
+    
+    - **<code>region</code>** (optional) *string*
+    
+      OCI repository reference (this artifact name used to store the blob).
+    
+    - **<code>bucket</code>** *string*
+    
+      The name of the S3 bucket containing the blob
+    
+    - **<code>key</code>** *string*
+    
+      The key of the desired blob
+    
+    Options used to configure fields: <code>--accessVersion</code>, <code>--bucket</code>, <code>--mediaType</code>, <code>--reference</code>, <code>--region</code>
+  
+
+- Access type <code>gitHub</code>
+
+  This method implements the access of the content of a git commit stored in a
+  GitHub repository.
+
+  The following versions are supported:
+  - Version <code>v1</code>
+  
+    The type specific specification fields are:
+    
+    - **<code>repoUrl</code>**  *string*
+    
+      Repository URL with or without scheme.
+    
+    - **<code>ref</code>** (optional) *string*
+    
+      Original ref used to get the commit from
+    
+    - **<code>commit</code>** *string*
+    
+      The sha/id of the git commit
+    
+    Options used to configure fields: <code>--accessHostname</code>, <code>--accessRepository</code>, <code>--commit</code>
+  
+
+- Access type <code>localBlob</code>
+
+  This method is used to store a resource blob along with the component descriptor
+  on behalf of the hosting OCM repository.
+  
+  Its implementation is specific to the implementation of OCM
+  repository used to read the component descriptor. Every repository
+  implementation may decide how and where local blobs are stored,
+  but it MUST provide an implementation for this method.
+  
+  Regardless of the chosen implementation the attribute specification is
+  defined globally the same.
+
+  The following versions are supported:
+  - Version <code>v1</code>
+  
+    The type specific specification fields are:
+    
+    - **<code>localReference</code>** *string*
+    
+      Repository type specific location information as string. The value
+      may encode any deep structure, but typically just an access path is sufficient.
+    
+    - **<code>mediaType</code>** *string*
+    
+      The media type of the blob used to store the resource. It may add
+      format information like <code>+tar</code> or <code>+gzip</code>.
+    
+    - **<code>referenceName</code>** (optional) *string*
+    
+      This optional attribute may contain identity information used by
+      other repositories to restore some global access with an identity
+      related to the original source.
+    
+      For example, if an OCI artifact originally referenced using the
+      access method <code>ociArtifact</code> is stored during
+      some transport step as local artifact, the reference name can be set
+      to its original repository name. An import step into an OCI based OCM
+      repository may then decide to make this artifact available again as
+      regular OCI artifact.
+    
+    - **<code>globalAccess</code>** (optional) *access method specification*
+    
+      If a resource blob is stored locally, the repository implementation
+      may decide to provide an external access information (independent
+      of the OCM model).
+    
+      For example, an OCI artifact stored as local blob
+      can be additionally stored as regular OCI artifact in an OCI registry.
+    
+      This additional external access information can be added using
+      a second external access method specification.
+    
+    Options used to configure fields: <code>--globalAccess</code>, <code>--hint</code>, <code>--mediaType</code>, <code>--reference</code>
+  
+
+- Access type <code>none</code>
+
+  dummy resource with no access
 
 
+- Access type <code>ociArtifact</code>
+
+  This method implements the access of an OCI artifact stored in an OCI registry.
+
+  The following versions are supported:
+  - Version <code>v1</code>
+  
+    The type specific specification fields are:
+    
+    - **<code>imageReference</code>** *string*
+    
+      OCI image/artifact reference following the possible docker schemes:
+      - <code>&lt;repo>/&lt;artifact>:&lt;digest>@&lt;tag></code>
+      - <code><host>[&lt;port>]/&lt;repo path>/&lt;artifact>:&lt;version>@&lt;tag></code>
+    
+    Options used to configure fields: <code>--reference</code>
+  
+
+- Access type <code>ociBlob</code>
+
+  This method implements the access of an OCI blob stored in an OCI repository.
+
+  The following versions are supported:
+  - Version <code>v1</code>
+  
+    The type specific specification fields are:
+    
+    - **<code>imageReference</code>** *string*
+    
+      OCI repository reference (this artifact name used to store the blob).
+    
+    - **<code>mediaType</code>** *string*
+    
+      The media type of the blob
+    
+    - **<code>digest</code>** *string*
+    
+      The digest of the blob used to access the blob in the OCI repository.
+    
+    - **<code>size</code>** *integer*
+    
+      The size of the blob
+    
+    Options used to configure fields: <code>--digest</code>, <code>--mediaType</code>, <code>--reference</code>, <code>--size</code>
+  
+
+All yaml/json defined resources can be templated.
+Variables are specified as regular arguments following the syntax <code>&lt;name>=&lt;value></code>.
+Additionally settings can be specified by a yaml file using the <code>--settings <file></code>
+option. With the option <code>--addenv</code> environment variables are added to the binding.
+Values are overwritten in the order environment, settings file, command line settings. 
+
+Note: Variable names are case-sensitive.
+
+Example:
+<pre>
+&lt;command> &lt;options> -- MY_VAL=test &lt;args>
+</pre>
+
+There are several templaters that can be selected by the <code>--templater</code> option:
+- <code>go</code> go templating supports complex values.
+
+  <pre>
+    key:
+      subkey: "abc {{.MY_VAL}}"
+  </pre>
+  
+- <code>none</code> do not do any substitution.
+
+- <code>spiff</code> [spiff templating](https://github.com/mandelsoft/spiff).
+
+  It supports complex values. the settings are accessible using the binding <code>values</code>.
+  <pre>
+    key:
+      subkey: "abc (( values.MY_VAL ))"
+  </pre>
+  
+- <code>subst</code> simple value substitution with the <code>drone/envsubst</code> templater.
+
+  It supports string values, only. Complex settings will be json encoded.
+  <pre>
+    key:
+      subkey: "abc ${MY_VAL}"
+  </pre>
+  
+
+
+### Examples
+
+```
+
+Add a resource directly by options
+<pre>
+$ ocm add resources --file path/to/ca --name myresource --type PlainText --input '{ "type": "file", "path": "testdata/testcontent", "mediaType": "text/plain" }'
+</pre>
+
+Add a resource by a description file:
+
+*resources.yaml*:
+<pre>
+---
+name: myrresource
+type: PlainText
+version: ${version]
+input:
+  type: file
+  path: testdata/testcontent
+  mediaType: text/plain
+</pre>
+<pre>
+$ ocm add resources --file path/to/ca  resources.yaml VERSION=1.0.0
+</pre>
+
+```
 
 ### See Also
 
