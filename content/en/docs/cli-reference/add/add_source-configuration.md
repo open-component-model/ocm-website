@@ -1,7 +1,7 @@
 ---
-title: sources
-name: add sources
-url: /docs/cli/add/sources/
+title: source-configuration
+name: add source-configuration
+url: /docs/cli/add/source-configuration/
 date: 2023-01-24T10:45:19Z
 draft: false
 images: []
@@ -14,7 +14,7 @@ isCommand: true
 ### Usage
 
 ```
-ocm add sources [<options>] [<target>] {<resourcefile> | <var>=<value>}
+ocm add source-configuration [<options>] <target> {<configfile> | <var>=<value>}
 ```
 
 ### Options
@@ -25,15 +25,12 @@ ocm add sources [<options>] [<target>] {<resourcefile> | <var>=<value>}
       --accessRepository string      repository URL
       --accessType string            type of blob access specification
       --accessVersion string         version for access specification
-      --addenv                       access environment for templating
       --bucket string                bucket name
       --commit string                git commit id
       --digest string                blob digest
-      --dry-run                      evaluate and print source specifications
       --extra <name>=<value>         source extra identity (default [])
-  -F, --file string                  target file/directory (default "component-archive")
       --globalAccess YAML            access specification for global access
-  -h, --help                         help for sources
+  -h, --help                         help for source-configuration
       --hint string                  (repository) hint for local artifacts
       --input YAML                   blob input specification (YAML)
       --inputCompress                compress option for input
@@ -52,13 +49,11 @@ ocm add sources [<options>] [<target>] {<resourcefile> | <var>=<value>}
       --label <name>=<YAML>          source label (leading * indicates signature relevant, optional version separated by @)
       --mediaType string             media type for artifact blob representation
       --name string                  source name
-  -O, --output string                output file for dry-run
       --reference string             reference name
       --region string                region name
   -s, --settings stringArray         settings file with variable settings (yaml)
       --size int                     blob size
       --source YAML                  source meta data (yaml)
-      --templater string             templater to use (go, none, spiff, subst) (default "subst")
       --type string                  source type
       --version string               source version
 ```
@@ -66,21 +61,7 @@ ocm add sources [<options>] [<target>] {<resourcefile> | <var>=<value>}
 ### Description
 
 
-Add source information specified in a resource file to a component version.
-So far only component archives are supported as target.
-
-This command accepts source specification files describing the sources
-to add to a component version. Elements must follow the source meta data
-description scheme of the component descriptor. Besides referential sources
-using the <code>access</code> attribute to describe the access method, it
-is possible to describe local sources fed by local data using the <code>input</code>
-field (see below).
-
-The description file might contain:
-- a single source
-- a list of sources under the key <code>sources</code>
-- a list of yaml documents with a single source or source list
-
+Add a source specification to a source config file used by [ocm add sources](/docs/cli/add/sources).
 
 It is possible to describe a single source via command line options.
 The meta data of this element is described by the argument of option <code>--source</code>,
@@ -101,6 +82,18 @@ To describe the content of this element one of the options <code>--access</code>
 <code>--input</code> must be given. They take a YAML or JSON value describing an
 attribute set, also. The structure of those values is similar to the <code>access</code>
 or <code>input</code> fields of the description file format.
+ Elements must follow the resource meta data
+description scheme of the component descriptor.
+
+If not specified anywhere the artifact type will be defaulted to <code>filesystem</code>.
+
+If expressions/templates are used in the specification file an appropriate
+templater and the required settings might be required to provide
+a correct input validation.
+
+This command accepts additional source specification files describing the sources
+to add to a component version.
+
 
 All yaml/json defined resources can be templated.
 Variables are specified as regular arguments following the syntax <code>&lt;name>=&lt;value></code>.
@@ -596,7 +589,7 @@ There are several templaters that can be selected by the <code>--templater</code
 
 ```
 
-$ ocm add sources --file path/to/cafile sources.yaml
+$ ocm add source-config sources.yaml --name sources --type filesystem --access '{ "type": "gitHub", "repoUrl": "github.com/open-component-model/ocm", "commit": "xyz" }'
 
 ```
 

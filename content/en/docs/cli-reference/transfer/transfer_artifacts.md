@@ -2,7 +2,7 @@
 title: artifacts
 name: transfer artifacts
 url: /docs/cli/transfer/artifacts/
-date: 2022-10-19T11:39:28+01:00
+date: 2023-01-24T10:45:19Z
 draft: false
 images: []
 menu:
@@ -83,10 +83,10 @@ linked library can be used:
 
 ```
 
-$ ocm transfer artifact ghcr.io/mandelsoft/kubelink:v1.0.0 gcr.io
-$ ocm transfer artifact ghcr.io/mandelsoft/kubelink gcr.io
-$ ocm transfer artifact ghcr.io/mandelsoft/kubelink gcr.io/my-project
-$ ocm transfer artifact /tmp/ctf gcr.io/my-project
+$ ocm oci artifact transfer ghcr.io/mandelsoft/kubelink:v1.0.0 gcr.io
+$ ocm oci artifact transfer ghcr.io/mandelsoft/kubelink gcr.io
+$ ocm oci artifact transfer ghcr.io/mandelsoft/kubelink gcr.io/my-project
+$ ocm oci artifact transfer /tmp/ctf gcr.io/my-project
 
 ```
 

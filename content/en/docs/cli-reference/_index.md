@@ -2,7 +2,7 @@
 title: cli-reference
 name: cli-reference
 url: /docs/cli/
-date: 2022-10-19T11:39:28+01:00
+date: 2023-01-24T10:45:19Z
 draft: false
 images: []
 menu:
@@ -22,6 +22,7 @@ isCommand: false
   -L, --logfile string          set log file
   -l, --loglevel string         set log level
   -v, --verbose                 enable verbose logging
+      --version                 show version
 ```
 
 ### Introduction
@@ -97,6 +98,10 @@ attributes are supported:
 - <code>github.com/mandelsoft/ocm/ociuploadrepo</code> [<code>ociuploadrepo</code>]: *oci base repository ref*
 
   Upload local OCI artifact blobs to a dedicated repository.
+
+- <code>github.com/mandelsoft/ocm/plugindir</code> [<code>plugindir</code>]: *plugin directory*
+
+  Directory to look for OCM plugin executables.
 
 - <code>github.com/mandelsoft/ocm/signing</code>: *JSON*
 

@@ -1,7 +1,7 @@
 ---
-title: sources
-name: add sources
-url: /docs/cli/add/sources/
+title: resource-configuration
+name: add resource-configuration
+url: /docs/cli/add/resource-configuration/
 date: 2023-01-24T10:45:19Z
 draft: false
 images: []
@@ -14,7 +14,7 @@ isCommand: true
 ### Usage
 
 ```
-ocm add sources [<options>] [<target>] {<resourcefile> | <var>=<value>}
+ocm add resource-configuration [<options>] <target> {<configfile> | <var>=<value>}
 ```
 
 ### Options
@@ -25,15 +25,13 @@ ocm add sources [<options>] [<target>] {<resourcefile> | <var>=<value>}
       --accessRepository string      repository URL
       --accessType string            type of blob access specification
       --accessVersion string         version for access specification
-      --addenv                       access environment for templating
       --bucket string                bucket name
       --commit string                git commit id
       --digest string                blob digest
-      --dry-run                      evaluate and print source specifications
-      --extra <name>=<value>         source extra identity (default [])
-  -F, --file string                  target file/directory (default "component-archive")
+      --external                     flag non-local resource
+      --extra <name>=<value>         resource extra identity (default [])
       --globalAccess YAML            access specification for global access
-  -h, --help                         help for sources
+  -h, --help                         help for resource-configuration
       --hint string                  (repository) hint for local artifacts
       --input YAML                   blob input specification (YAML)
       --inputCompress                compress option for input
@@ -49,51 +47,35 @@ ocm add sources [<options>] [<target>] {<resourcefile> | <var>=<value>}
       --inputValues YAML             YAML based generic values for inputs
       --inputVariants stringArray    (platform) variants for inputs
       --inputVersion stringArray     version info for inputs
-      --label <name>=<YAML>          source label (leading * indicates signature relevant, optional version separated by @)
+      --label <name>=<YAML>          resource label (leading * indicates signature relevant, optional version separated by @)
       --mediaType string             media type for artifact blob representation
-      --name string                  source name
-  -O, --output string                output file for dry-run
+      --name string                  resource name
       --reference string             reference name
       --region string                region name
+      --resource YAML                resource meta data (yaml)
   -s, --settings stringArray         settings file with variable settings (yaml)
       --size int                     blob size
-      --source YAML                  source meta data (yaml)
-      --templater string             templater to use (go, none, spiff, subst) (default "subst")
-      --type string                  source type
-      --version string               source version
+      --type string                  resource type
+      --version string               resource version
 ```
 
 ### Description
 
 
-Add source information specified in a resource file to a component version.
-So far only component archives are supported as target.
+Add a resource specification to a resource config file used by [ocm add resources](/docs/cli/add/resources).
 
-This command accepts source specification files describing the sources
-to add to a component version. Elements must follow the source meta data
-description scheme of the component descriptor. Besides referential sources
-using the <code>access</code> attribute to describe the access method, it
-is possible to describe local sources fed by local data using the <code>input</code>
-field (see below).
-
-The description file might contain:
-- a single source
-- a list of sources under the key <code>sources</code>
-- a list of yaml documents with a single source or source list
-
-
-It is possible to describe a single source via command line options.
-The meta data of this element is described by the argument of option <code>--source</code>,
+It is possible to describe a single resource via command line options.
+The meta data of this element is described by the argument of option <code>--resource</code>,
 which must be a YAML or JSON string.
 Alternatively, the <em>name</em> and <em>version</em> can be specified with the
 options <code>--name</code> and <code>--version</code>. With the option <code>--extra</code>
 it is possible to add extra identity attributes. Explicitly specified options
-override values specified by the <code>--source</code> option.
+override values specified by the <code>--resource</code> option.
 (Note: Go templates are not supported for YAML-based option values. Besides
 this restriction, the finally composed element description is still processd
 by the selected templater.) 
 
-The source type can be specified with the option <code>--type</code>. Therefore, the
+The resource type can be specified with the option <code>--type</code>. Therefore, the
 minimal required meta data for elements can be completely specified by dedicated
 options and don't need the YAML option.
 
@@ -101,6 +83,17 @@ To describe the content of this element one of the options <code>--access</code>
 <code>--input</code> must be given. They take a YAML or JSON value describing an
 attribute set, also. The structure of those values is similar to the <code>access</code>
 or <code>input</code> fields of the description file format.
+Non-local resources can be indicated using the option <code>--external</code>.
+ Elements must follow the resource meta data
+description scheme of the component descriptor.
+
+If expressions/templates are used in the specification file an appropriate
+templater and the required settings might be required to provide
+a correct input validation.
+
+This command accepts additional resource specification files describing the sources
+to add to a component version.
+
 
 All yaml/json defined resources can be templated.
 Variables are specified as regular arguments following the syntax <code>&lt;name>=&lt;value></code>.
@@ -596,7 +589,7 @@ There are several templaters that can be selected by the <code>--templater</code
 
 ```
 
-$ ocm add sources --file path/to/cafile sources.yaml
+$ ocm add resource-config resources.yaml --name myresource --type PlainText --input '{ "type": "file", "path": "testdata/testcontent", "mediaType": "text/plain" }'
 
 ```
 

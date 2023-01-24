@@ -2,7 +2,7 @@
 title: resources
 name: download resources
 url: /docs/cli/download/resources/
-date: 2022-10-19T11:39:28+01:00
+date: 2023-01-24T10:45:19Z
 draft: false
 images: []
 menu:
@@ -20,12 +20,16 @@ ocm download resources [<options>]  <component> {<name> { <key>=<value> }}
 ### Options
 
 ```
-  -d, --download-handlers    use download handler if possible
-  -h, --help                 help for resources
-      --lookup stringArray   repository name or spec for closure lookup fallback
-  -O, --outfile string       output file or directory
-  -r, --recursive            follow component reference nesting
-      --repo string          repository name or spec
+  -c, --constraints constraints   version constraint
+  -d, --download-handlers         use download handler if possible
+  -x, --executable                download executable for local platform
+  -h, --help                      help for resources
+      --latest                    restrict component versions to latest
+      --lookup stringArray        repository name or spec for closure lookup fallback
+  -O, --outfile string            output file or directory
+  -r, --recursive                 follow component reference nesting
+      --repo string               repository name or spec
+  -t, --type stringArray          resource type filter
 ```
 
 ### Description
@@ -49,14 +53,18 @@ as follows:
 The resource files are named according to the resource identity in the
 component descriptor. If this identity is just the resource name, this name
 is ised. If additional identity attributes are required, this name is
-append by a comma separated list of <code>&lt;name>=&lt>value></code> pairs
+append by a comma separated list of <code>&lt;name>=&lt;>value></code> pairs
 separated by a "-" from the plain name. This attribute list is alphabetical
 order:
 
 <center>
-    <pre>&lt;resource name>[-[&lt;name>=&lt>value>]{,&lt;name>=&lt>value>}]</pre>
+    <pre>&lt;resource name>[-[&lt;name>=&lt;>value>]{,&lt;name>=&lt;>value>}]</pre>
 </center>
 
+
+If the option <code>--constraints</code> is given, and no version is specified for a component, only versions matching
+the given version constraints (semver https://github.com/Masterminds/semver) are selected. With <code>--latest</code> only
+the latest matching versions will be selected.
 
 If the <code>--repo</code> option is specified, the given names are interpreted
 relative to the specified repository using the syntax

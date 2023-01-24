@@ -2,7 +2,7 @@
 title: componentversions
 name: get componentversions
 url: /docs/cli/get/componentversions/
-date: 2022-10-19T11:39:28+01:00
+date: 2023-01-24T10:45:19Z
 draft: false
 images: []
 menu:
@@ -20,13 +20,15 @@ ocm get componentversions [<options>] {<component-reference>}
 ### Options
 
 ```
-  -h, --help                 help for componentversions
-      --lookup stringArray   repository name or spec for closure lookup fallback
-  -o, --output string        output mode (JSON, json, tree, wide, yaml)
-  -r, --recursive            follow component reference nesting
-      --repo string          repository name or spec
-  -S, --scheme string        schema version
-  -s, --sort stringArray     sort fields
+  -c, --constraints constraints   version constraint
+  -h, --help                      help for componentversions
+      --latest                    restrict component versions to latest
+      --lookup stringArray        repository name or spec for closure lookup fallback
+  -o, --output string             output mode (JSON, json, tree, wide, yaml)
+  -r, --recursive                 follow component reference nesting
+      --repo string               repository name or spec
+  -S, --scheme string             schema version
+  -s, --sort stringArray          sort fields
 ```
 
 ### Description
@@ -34,6 +36,10 @@ ocm get componentversions [<options>] {<component-reference>}
 
 Get lists all component versions specified, if only a component is specified
 all versions are listed.
+
+If the option <code>--constraints</code> is given, and no version is specified for a component, only versions matching
+the given version constraints (semver https://github.com/Masterminds/semver) are selected. With <code>--latest</code> only
+the latest matching versions will be selected.
 
 If the <code>--repo</code> option is specified, the given names are interpreted
 relative to the specified repository using the syntax
@@ -92,13 +98,11 @@ contains a single component version. Therefore, in this scenario
 this option must always be specified to be able to follow component
 references.
 
-It the option <code>--scheme</code> is given, the given component descriptor is converted to given format for output.
+If the option <code>--scheme</code> is given, the component descriptor is converted to specified format for output.
 The following schema versions are supported:
 
   - <code>ocm.software/v3alpha1</code>: 
-
   - <code>v2</code>: 
-
 
 With the option <code>--output</code> the output mode can be selected.
 The following modes are supported:

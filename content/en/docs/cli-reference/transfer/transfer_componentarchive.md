@@ -2,7 +2,7 @@
 title: componentarchive
 name: transfer componentarchive
 url: /docs/cli/transfer/componentarchive/
-date: 2022-10-19T11:39:28+01:00
+date: 2023-01-24T10:45:19Z
 draft: false
 images: []
 menu:
@@ -40,6 +40,7 @@ target archive to use. The following formats are supported:
 - directory
 - tar
 - tgz
+
 The default format is <code>directory</code>.
 
 

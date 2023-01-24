@@ -2,7 +2,7 @@
 title: commontransportarchive
 name: transfer commontransportarchive
 url: /docs/cli/transfer/commontransportarchive/
-date: 2022-10-19T11:39:28+01:00
+date: 2023-01-24T10:45:19Z
 draft: false
 images: []
 menu:
@@ -20,12 +20,13 @@ ocm transfer commontransportarchive [<options>] <ctf> <target>
 ### Options
 
 ```
-  -V, --copy-resources      transfer referenced resources by-value
-  -h, --help                help for commontransportarchive
-  -f, --overwrite           overwrite existing component versions
-      --script string       config name of transfer handler script
-  -s, --scriptFile string   filename of transfer handler script
-  -t, --type string         archive format (directory, tar, tgz) (default "directory")
+  -V, --copy-resources            transfer referenced resources by-value
+  -h, --help                      help for commontransportarchive
+  -f, --overwrite                 overwrite existing component versions
+      --script string             config name of transfer handler script
+  -s, --scriptFile string         filename of transfer handler script
+  -t, --type string               archive format (directory, tar, tgz) (default "directory")
+      --uploader <name>=<value>   repository uploader (<name>:<artifact type>:<media type>=<JSON target config) (default [])
 ```
 
 ### Description
@@ -38,6 +39,7 @@ target archive to use. The following formats are supported:
 - directory
 - tar
 - tgz
+
 The default format is <code>directory</code>.
 
 It the option <code>--overwrite</code> is given, component version in the
@@ -48,6 +50,18 @@ resources will potentially be localized, mapped to component version local
 resources in the target repository.
 This behaviour can be further influenced by specifying a transfer script
 with the <code>script</code> option family.
+
+If the <code>--uploader</code> option is specified, appropriate uploaders
+are configured for the transport target. It has the following format
+
+<center>
+    <pre>&lt;name>:&lt;artifact type>:&lt;media type>=&lt;yaml target config></pre>
+</center>
+
+The uploader name may be a path expression with the following possibilities:
+- <code>ocm/ociRegistry</code>: oci Registry upload for local OCI artifact blobs.
+  The media type is optional. If given ist must be an OCI artifact media type.
+- <code>plugin/<plugin name>[/<uploader name]</code>: uploader provided by plugin.
 
 It is possible to use a dedicated transfer script based on spiff.
 The option <code>--scriptFile</code> can be used to specify this script

@@ -2,7 +2,7 @@
 title: describe
 name: describe
 url: /docs/cli/describe/
-date: 2022-10-19T11:39:28+01:00
+date: 2023-01-24T10:45:19Z
 draft: false
 images: []
 menu:
@@ -30,4 +30,5 @@ ocm describe [<options>] <sub command> ...
 ##### Sub Commands
 
 * [ocm describe <b>artifacts</b>](/docs/cli/describe/artifacts)	 &mdash; describe artifact version
+* [ocm describe <b>plugins</b>](/docs/cli/describe/plugins)	 &mdash; get plugins
 

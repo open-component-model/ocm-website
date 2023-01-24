@@ -2,7 +2,7 @@
 title: componentversions
 name: sign componentversions
 url: /docs/cli/sign/componentversions/
-date: 2022-10-19T11:39:28+01:00
+date: 2023-01-24T10:45:19Z
 draft: false
 images: []
 menu:
@@ -22,9 +22,11 @@ ocm sign componentversions [<options>] {<component-reference>}
 ```
   -S, --algorithm string          signature handler (default "RSASSA-PKCS1-V1_5")
       --ca-cert stringArray       Additional root certificates
+  -c, --constraints constraints   version constraint
   -H, --hash string               hash algorithm (default "sha256")
   -h, --help                      help for componentversions
   -I, --issuer string             issuer name
+      --latest                    restrict component versions to latest
       --lookup stringArray        repository name or spec for closure lookup fallback
   -N, --normalization string      normalization algorithm (default "jsonNormalisation/v1")
   -K, --private-key stringArray   private key setting
@@ -40,6 +42,10 @@ ocm sign componentversions [<options>] {<component-reference>}
 
 
 Sign specified component versions. 
+
+If the option <code>--constraints</code> is given, and no version is specified for a component, only versions matching
+the given version constraints (semver https://github.com/Masterminds/semver) are selected. With <code>--latest</code> only
+the latest matching versions will be selected.
 
 If the <code>--repo</code> option is specified, the given names are interpreted
 relative to the specified repository using the syntax
@@ -103,27 +109,20 @@ given signature name will be verified, instead of recreated.
 The following signing types are supported with option <code>--algorithm</code>:
 
   - <code>RSASSA-PKCS1-V1_5</code> (default): 
-
   - <code>rsa-signingsservice</code>: 
-
 
 
 The following normalization modes are supported with option <code>--normalization</code>:
 
   - <code>jsonNormalisation/v1</code> (default): 
-
   - <code>jsonNormalisation/v2</code>: 
-
 
 
 The following hash modes are supported with option <code>--hash</code>:
 
   - <code>NO-DIGEST</code>: 
-
   - <code>sha256</code> (default): 
-
   - <code>sha512</code>: 
-
 
 If a component lookup for building a reference closure is required
 the <code>--lookup</code>  option can be used to specify a fallback
