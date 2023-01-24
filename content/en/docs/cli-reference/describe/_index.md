@@ -2,7 +2,7 @@
 title: describe
 name: describe
 url: /docs/cli/describe/
-date: 2023-01-24T10:45:19Z
+date: 2023-01-24T12:26:09Z
 draft: false
 images: []
 menu:

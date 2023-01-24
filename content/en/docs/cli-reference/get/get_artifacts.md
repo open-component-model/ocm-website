@@ -2,7 +2,7 @@
 title: artifacts
 name: get artifacts
 url: /docs/cli/get/artifacts/
-date: 2023-01-24T10:45:19Z
+date: 2023-01-24T12:26:09Z
 draft: false
 images: []
 menu:
