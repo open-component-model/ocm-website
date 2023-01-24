@@ -2,7 +2,7 @@
 title: cli-reference
 name: cli-reference
 url: /docs/cli/
-date: 2023-01-24T10:45:19Z
+date: 2023-01-24T12:26:09Z
 draft: false
 images: []
 menu:
@@ -136,7 +136,6 @@ attributes are supported:
 ### See Also
 
 * [ocm <b>add</b>](/docs/cli/add)	 &mdash; Add resources or sources to a component archive
-* [ocm <b>bootstrap</b>](/docs/cli/bootstrap)	 &mdash; bootstrap components
 * [ocm <b>clean</b>](/docs/cli/clean)	 &mdash; Cleanup/re-organize elements
 * [ocm <b>create</b>](/docs/cli/create)	 &mdash; Create transport or component archive
 * [ocm <b>describe</b>](/docs/cli/describe)	 &mdash; Describe artifacts
