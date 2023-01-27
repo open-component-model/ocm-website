@@ -70,7 +70,7 @@ Let's configure a workspace for developing our component:
 
 Create a folder for all manifest files that we are going to add later.
 
-`mdkir manifests`
+`mkdir manifests`
 
 The following command will generate a simple deployment file for podinfo:
 ```shell
