@@ -555,7 +555,6 @@ spec:
         name: config
   snapshotTemplate:
     name: podinfo-deployment-localized
-    tag: latest
 EOF
 ```
 
