@@ -2,6 +2,8 @@ name: Update OCM CLI Docs
 
 on:
   workflow_dispatch:
+  repository_dispatch:
+    types: [ocm-cli-release]
 
 env:
   OUTPUT_DIR: ./content/en/docs/cli-reference
@@ -21,15 +23,11 @@ jobs:
       with:
         persist-credentials: false
 
-
-    - name: Checkout OCM cli
-      uses: actions/checkout@v3
-      with:
-        ssh-key: ${{ secrets.OCM_READ }}
-        repository: open-component-model/ocm
-        ref: main
-        path: ./ocm-cli
-        persist-credentials: false
+    - name: Update Version Parameter
+      if: github.event.client_payload != ''
+      run: |
+        TAG=${{ github.event.client_payload.tag }}
+        sed -i "s/latest_version = .*/latest_version = \"$TAG\"/" ./config/_default/params.toml
 
     - name: Setup Go
       uses: actions/setup-go@v3
@@ -45,7 +43,7 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-go-
 
-    - name: Build CLI docs
+    - name: Regenerate CLI docs
       run: |
         go mod tidy
         go run ./hack/generate-cli-docs ${{ env.OUTPUT_DIR }}
@@ -60,4 +58,4 @@ jobs:
         branch-suffix: timestamp
         delete-branch: true
         body: |
-          Update OCM CLI documentation
+          Update OCM CLI documentation for new release
