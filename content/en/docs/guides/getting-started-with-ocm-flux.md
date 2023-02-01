@@ -408,7 +408,7 @@ metadata:
   namespace: ocm-system
 spec:
   interval: 10m0s
-  name: github.com/acme/podinfo
+  component: github.com/acme/podinfo
   version:
     semver: v1.0.0
   repository:
