@@ -463,7 +463,6 @@ spec:
     name: deployment
   snapshotTemplate:
     name: podinfo-deployment
-    tag: latest
 EOF
 ```
 
@@ -555,8 +554,11 @@ spec:
         name: config
   snapshotTemplate:
     name: podinfo-deployment-localized
+    createFluxSource: true
 EOF
 ```
+_Note_: `createFluxSource` will automatically create a matching `OCIRepository` which Flux can automatically consume.
+To check if the `OCIRepository` has been created run `kubectl get ocirepositories -n A`.
 
 Commit, push and reconcile the `Localization` custom resource. Once it has done its thing, we should see two snapshots:
 
@@ -600,41 +602,8 @@ spec:
 
 ### Consuming `Snapshots` via Flux
 
-We'll create a Flux `OCIRepository` in order to retrieve the snapshot from the in-cluster registry.
-
-To fetch the URL for the OCI repository that the snapshot created, use this handy command:
-
-```shell
-k get snapshot/podinfo-deployment-localized -n ocm-system -o jsonpath='{.status.repositoryURL}' | sed -E 's/http[s]?:\/\///' | sed 's/@.*//'
-registry.ocm-system.svc.cluster.local:5000/sha-15978287420042033189
-```
-
-What this does is, it fetches the localized snapshot and gets the repository URL out without the blob ( the part after @ ) and without the `http://` at the begin ( since the protocol is `oci://` ).
-
-We also need the tag that the localization snapshot reconciled its resource to:
-
-```shell
-k get snapshot/podinfo-deployment-localized -n ocm-system -o jsonpath='{.status.tag}'
-27472
-```
-
-```shell
-cat > ./components/ocirepo.yaml <<EOF
-apiVersion: source.toolkit.fluxcd.io/v1beta2
-kind: OCIRepository
-metadata:
-  name: podinfo
-  namespace: flux-system
-spec:
-  interval: 1m0s
-  url: oci://registry.ocm-system.svc.cluster.local:5000/sha-15978287420042033189
-  insecure: true
-  ref:
-    tag: 27472
-EOF
-```
-
-Then we will create a Flux `Kustomization` to apply the contents of the snapshot to the cluster:
+Since, on the previous step, we used `createFluxSource` the `OCIRepository` object already exists. Now, we just have to
+create a `Kustomization` object to consume that repository.
 
 ```shell
 cat > ./components/oci_kustomization.yaml <<EOF
@@ -649,15 +618,15 @@ spec:
   targetNamespace: default
   sourceRef:
     kind: OCIRepository
-    name: podinfo
+    name: podinfo-deployment-localized
   path: ./
 EOF
 ```
 
-Now we commit these two files, push and wait for Flux to reconcile the localized podinfo application.
+Now we commit this file, push and wait for Flux to reconcile the localized podinfo application.
 
 ```shell
-git add ./components/ocirepo.yaml ./components/oci_kustomization.yaml
+git add ./components/oci_kustomization.yaml
 git commit -m "add flux manifests to podinfo component"
 git push
 
