@@ -29,10 +29,18 @@
           {{ $active := in $currentPage.RelPermalink .RelPermalink }}
           <li>
             <a class="docs-link{{ if $active }} active{{ end }}" href="{{ .Permalink }}">
-              <h4 class="h6 text-muted ms-1 mt-2 mb-1">{{ .Title }}</h4>
+              <h4 class="h6 align-items text-muted ms-1 mt-2 mb-1">{{ .Title }}
+                <span class="docs-caret">
+                {{ if $active }}
+                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                {{ else }}
+                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                  {{ end }}
+                </span>
+              </h4>
             </a>
           </li>
-          <ul class="list-unstyled ms-3">
+          <ul class="list-unstyled ms-3 collapse {{if $active }}show{{ end }}">
             {{ range .Pages }}
               {{ if .IsNode }}
                 {{ $active := in $currentPage.RelPermalink .RelPermalink }}
