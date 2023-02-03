@@ -2,7 +2,7 @@
 title: plugins
 name: get plugins
 url: /docs/cli/get/plugins/
-date: 2023-01-24T12:26:09Z
+date: 2023-02-03T11:56:24Z
 draft: false
 images: []
 menu:
