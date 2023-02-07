@@ -120,7 +120,8 @@ EOF
 
 Now, let's create the component archive that we will sign and transfer:
 
-```yaml
+```shell
+cat > components.yaml << EOF
 components:
 - name: github.com/acme/podinfo
   version: "v1.0.0"
@@ -145,6 +146,7 @@ components:
       access:
         type: ociArtifact
         imageReference: ghcr.io/stefanprodan/podinfo:6.2.0
+EOF
 ```
 
 This component definition contains three resources. The manifests folder which contains our `deployment.yaml` file. The
@@ -184,7 +186,7 @@ image      v6.2.0           ociImage  external
 
 We can also inspect the generated `component-descriptor.yaml` file:
 
-```
+```shell
 cat component-archive/blobs/sha256.1f4e9d5fb65d6e56bfb445b24abe91bebd593c880b986bca6715d0b4120bad54
 component-descriptor.yaml0000000000000000000000000000151014163714600014267 0ustar0000000000000000component:
   componentReferences: []
@@ -289,7 +291,7 @@ kind
 
 ### Bootstrapping Flux
 
-Flux requires a git repository. Select a different folder and create an empty git repository with the following commands:
+Flux requires a git repository. _Select a different folder_ and create an empty git repository with the following commands:
 
 ```shell
 git init
@@ -390,7 +392,7 @@ kubectl create secret generic -n ocm-system alice-publickey --from-file=alice=rs
 Choose a different folder and clone ocm-controller.
 
 ```shell
-gh repo clone open-component-model/ocm-controller
+gh repo clone git@github.com:open-component-model/ocm-controller.git
 cd ocm-controller
 make deploy
 ```
