@@ -14,10 +14,15 @@ weight: 101
 toc: true
 ---
 
-#### Disclaimer
-> Currently it is only possible to install the `ocm` CLI manually, in the future we plan to support the standard distribution methods.
+## Homebrew
 
+To install the OCM CLI you can download binaries for major platforms from the GitHub [releases page](https://github.com/open-component-model/ocm/releases).
 
+You can also install via [homebrew](https://brew.sh/) for macOS and Linux:
+
+`brew install open-component-model/tap/ocm`
+
+## Building from source
 ### Prerequisites
 
 - git
