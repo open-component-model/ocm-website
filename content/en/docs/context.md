@@ -22,10 +22,16 @@ A fragmented set of individual, sometimes homegrown, tools used across software 
 
 Individual, overly complex and thus hard-to-operate CI/CD pipelines, and the inability to provide one aggregated "compliance-dashboard" of all currently running artifacts across all environments, result in a tedious, error-prone and ineffective lifecycle-management of software at scale.
 
+![Compliance without OCM](/images/ocm-benefits-compliance-without-ocm-bluebg.png)
+
 ## How can this improve?
 The major problem here is the absence of **a standardized software component model used to describe all software components, including their technical artifacts**. 
 
-Such a model would not only help to streamline **deployments to various environments** (public, private, hybrid), but also in other areas of lifecycle-management like **compliance and reporting**.
+![Compliance with OCM](/images/ocm-benefits-compliance-with-ocm-bluebg.png)
+
+Such a model would not only help to streamline **compliance processes**, but also in other areas of lifecycle-management like **deployments into various environments (public, private, hybrid) and reporting**.
+ 
+![OCM as Enabler for asynchronous Lifecycle Management Processes](/images/ocm-benefits-lm-processes-with-ocm-bluebg.png)
 
 Let's have a look at the most crucial features a standardized software component model must support.
 
