@@ -22,6 +22,12 @@ You can also install via [homebrew](https://brew.sh/) for macOS and Linux:
 
 `brew install open-component-model/tap/ocm`
 
+## Bash
+
+To install with `bash` for macOS or Linux execute the following command:
+
+`curl -s https://ocm.software/install.sh | sudo bash`
+
 ## Building from source
 ### Prerequisites
 
