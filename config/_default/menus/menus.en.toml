@@ -1,6 +1,6 @@
 [[main]]
   name = "Docs"
-  url = "/docs/context"
+  url = "/docs/overview/context"
   weight = 10
 
 [[main]]

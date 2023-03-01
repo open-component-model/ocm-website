@@ -1,69 +1,71 @@
 {{ define "main" }}
-<section class="section">
-  <div class="flex">
-    <div><img src="images/logo-image.png" alt="Open Component Model Logo" class="leader-img"></div>
-    <div class="leader">
-      <img src="images/ocm-text.png" alt="Open Component Model Text">
-      <p class="sub-leader mt-2">{{ .Site.Params.leader }}</p>
-      <p class="text-white leader-open-source-text">{{.Site.Params.leader_open_source_text}} <a href="https://github.com/open-component-model/ocm/releases/tag/{{ .Site.Params.latest_version }}">GitHub {{ .Site.Params.latest_version }}</a></p>
-      <div class="homepage-cta">
-        <span class="btn-bg"></span>
-        <a href="/docs/guides/getting-started-with-ocm-flux"><button class="btn-cta">Get Started</button></a>
-      </div>
-    </div>
-  </div>
-</section>
-<section class="section section-what-is">
-  <div class="what-is">
-    <h1>What is the Open Component Model?</h1>
-    <p>The Open Component Model (OCM) is an open standard to describe software-bill-of-deliveries (SBOD). OCM is a
-    technology-agnostic and machine-readable format focused on the software artifacts that must be delivered for software
-    products.</p>
-  </div>
-</section>
-<section class="section px-5">
-  <div class="row justify-content-between text-center flex-grow-1">
-      <div class="homepage-card">
-        <img src="/images/describe-test.png"/>
-        <h2>Describe</h2>
-        <p>Describe the resources and source repositories of a software product in code. Signing provides verifiable
-        digests of the content</p>
-      </div>
-      <div class="homepage-card">
-        <img src="/images/transport-test.png" class="bump-left"/>
-        <h2>Transport</h2>
-        <p>Transport resource contents to any environment, be it public cloud, on-prem, or air gapped</p>
-      </div>
-      <div class="homepage-card">
-        <img src="/images/deploy-test.png"/>
-        <h2>Deploy</h2>
-        <p>Leverage built-in Flux integration to seamlessly automate the deployment of components via GitOps</p>
-      </div>
-  </div>
-</section>
-{{ end }}
-
-{{ define "sidebar-prefooter" }}
-  <section class="section section-sm">
-    <div class="container">
-      <div class="row justify-content-center text-center">
-        <div class="col-lg-5">
-        </div>
-        <div class="col-lg-5">
-        </div>
-        <div class="col-lg-5">
+<div class="container-xxl">
+  <section class="section">
+    <div class="flex">
+      <div><img src="images/logo-image.png" alt="Open Component Model Logo" class="leader-img"></div>
+      <div class="leader">
+        <img src="images/ocm-text.png" alt="Open Component Model Text">
+        <p class="sub-leader mt-2">{{ .Site.Params.leader }}</p>
+        <p class="text-white leader-open-source-text">{{.Site.Params.leader_open_source_text}} <a href="https://github.com/open-component-model/ocm/releases/tag/{{ .Site.Params.latest_version }}">GitHub {{ .Site.Params.latest_version }}</a></p>
+        <div class="homepage-cta">
+          <span class="btn-bg"></span>
+          <a href="/docs/guides/getting-started-with-ocm-flux"><button class="btn-cta">Get Started</button></a>
         </div>
       </div>
     </div>
   </section>
-{{ end }}
-
-{{ define "sidebar-footer" }}
-<section class="section section-sm container-fluid">
-  <div class="row justify-content-center text-center">
-    <div class="col-lg-9">
-      {{- .Content -}}
+  <section class="section section-what-is">
+    <div class="what-is">
+      <h1>What is the Open Component Model?</h1>
+      <p>The Open Component Model (OCM) is an open standard to describe software-bill-of-deliveries (SBOD). OCM is a
+      technology-agnostic and machine-readable format focused on the software artifacts that must be delivered for software
+      products.</p>
     </div>
-  </div>
-</section>
+  </section>
+  <section class="section px-5">
+    <div class="row justify-content-between text-center flex-grow-1">
+        <div class="homepage-card">
+          <img src="/images/describe-test.png"/>
+          <h2>Describe</h2>
+          <p>Describe the resources and source repositories of a software product in code. Signing provides verifiable
+          digests of the content</p>
+        </div>
+        <div class="homepage-card">
+          <img src="/images/transport-test.png" class="bump-left"/>
+          <h2>Transport</h2>
+          <p>Transport resource contents to any environment, be it public cloud, on-prem, or air gapped</p>
+        </div>
+        <div class="homepage-card">
+          <img src="/images/deploy-test.png"/>
+          <h2>Deploy</h2>
+          <p>Leverage built-in Flux integration to seamlessly automate the deployment of components via GitOps</p>
+        </div>
+    </div>
+  </section>
+  {{ end }}
+
+  {{ define "sidebar-prefooter" }}
+    <section class="section section-sm">
+      <div class="container">
+        <div class="row justify-content-center text-center">
+          <div class="col-lg-5">
+          </div>
+          <div class="col-lg-5">
+          </div>
+          <div class="col-lg-5">
+          </div>
+        </div>
+      </div>
+    </section>
+  {{ end }}
+
+  {{ define "sidebar-footer" }}
+  <section class="section section-sm container-fluid">
+    <div class="row justify-content-center text-center">
+      <div class="col-lg-9">
+        {{- .Content -}}
+      </div>
+    </div>
+  </section>
+</div>
 {{ end }}
