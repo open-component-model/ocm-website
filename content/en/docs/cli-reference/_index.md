@@ -1,6 +1,6 @@
 ---
-title: cli-reference
-name: cli-reference
+title: Command Line Client
+name: Command Line Client
 url: /docs/cli/
 date: 2023-02-03T11:56:24Z
 draft: false
