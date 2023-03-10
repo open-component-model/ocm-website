@@ -2,7 +2,7 @@
 title: artifacts
 name: describe artifacts
 url: /docs/cli/describe/artifacts/
-date: 2023-02-03T11:56:24Z
+date: 2023-03-10T15:23:12Z
 draft: false
 images: []
 menu:

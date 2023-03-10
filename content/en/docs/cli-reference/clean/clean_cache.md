@@ -2,7 +2,7 @@
 title: cache
 name: clean cache
 url: /docs/cli/clean/cache/
-date: 2023-02-03T11:56:24Z
+date: 2023-03-10T15:23:12Z
 draft: false
 images: []
 menu:
