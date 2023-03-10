@@ -4,6 +4,7 @@ set -e
 DEFAULT_BIN_DIR="/usr/local/bin"
 BIN_DIR=${1:-"${DEFAULT_BIN_DIR}"}
 GITHUB_REPO="open-component-model/ocm"
+cm
 
 # Helper functions for logs
 info() {
@@ -162,17 +163,17 @@ vercomp () {
 
 # Download hash from Github URL
 download_hash() {
-    HASH_URL="https://github.com/${GITHUB_REPO}/releases/download/v${VERSION_OCM}/ocm_${VERSION_OCM}_checksums.txt"
+    HASH_URL="https://github.com/${GITHUB_REPO}/releases/download/v${VERSION_OCM}/ocm-${VERSION_OCM}-checksums.txt"
     info "Downloading hash ${HASH_URL}"
     download "${TMP_HASH}" "${HASH_URL}"
-    info "ocm_${OS}_${ARCH}.tar.gz"
-    HASH_EXPECTED=$(grep " ocm_${VERSION_OCM}_${OS}_${ARCH}.tar.gz$" "${TMP_HASH}")
+    info "ocm-${OS}-${ARCH}.tar.gz"
+    HASH_EXPECTED=$(grep " ocm-${VERSION_OCM}-${OS}-${ARCH}.tar.gz$" "${TMP_HASH}")
     HASH_EXPECTED=${HASH_EXPECTED%%[[:blank:]]*}
 }
 
 # Download binary from Github URL
 download_binary() {
-    BIN_URL="https://github.com/${GITHUB_REPO}/releases/download/v${VERSION_OCM}/ocm_${VERSION_OCM}_${OS}_${ARCH}.tar.gz"
+    BIN_URL="https://github.com/${GITHUB_REPO}/releases/download/v${VERSION_OCM}/ocm-${VERSION_OCM}-${OS}-${ARCH}.tar.gz"
     info "Downloading binary ${BIN_URL}"
     download "${TMP_BIN}" "${BIN_URL}"
 }
