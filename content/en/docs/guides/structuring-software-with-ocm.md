@@ -75,9 +75,7 @@ At the end of the tutorial this application consists of the following components
 * Redis to support task queues for background processing
 * For a Kubernetes deployment and nginx ingress controller is needed in addition.
 
-<div align="center">
-<img src="example-app.png" alt="Example Application Architecture" width="600"/>
-</div>
+![Example Application Architecture](/images/example-app.png)
 
 Following the guideline above we will end-up with six component versions: Five are created
 for the components in this list. And one component is created describing the application
