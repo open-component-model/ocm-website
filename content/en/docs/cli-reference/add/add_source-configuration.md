@@ -2,7 +2,7 @@
 title: source-configuration
 name: add source-configuration
 url: /docs/cli/add/source-configuration/
-date: 2023-02-03T11:56:24Z
+date: 2023-03-10T15:23:12Z
 draft: false
 images: []
 menu:
