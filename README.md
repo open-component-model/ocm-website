@@ -27,6 +27,15 @@ New pages can be created using the following command:
 npm run create <location>
 ```
 
+This will create a page in draft mode. To make the page visible (and let it appear in the side bar) change `draft` to `false` in the header section of the page:
+
+```
+---
+title: ...
+draft: false
+```
+
+
 For content generated from external sources (currently only valid for the OCM CLI), a GitHub Action will checkout the latest version of the remote repository, generate the documentation and create a PR against `main`. This can be be triggered as necessary using a manual dispatch:
 
 ```bash
