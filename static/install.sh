@@ -26,10 +26,10 @@ setup_verify_os() {
     fi
     case ${OS} in
         Darwin)
-            OS=Darwin
+            OS=darwin
             ;;
         Linux)
-            OS=Linux
+            OS=linux
             ;;
         *)
             fatal "Unsupported operating system ${OS}"
@@ -49,10 +49,10 @@ setup_verify_arch() {
             ARCH=arm64
             ;;
         amd64)
-            ARCH=x86_64
+            ARCH=amd64
             ;;
         x86_64)
-            ARCH=x86_64
+            ARCH=amd64
             ;;
         *)
             fatal "Unsupported architecture ${ARCH}"
@@ -162,17 +162,17 @@ vercomp () {
 
 # Download hash from Github URL
 download_hash() {
-    HASH_URL="https://github.com/${GITHUB_REPO}/releases/download/v${VERSION_OCM}/checksums.txt"
+    HASH_URL="https://github.com/${GITHUB_REPO}/releases/download/v${VERSION_OCM}/ocm-${VERSION_OCM}-checksums.txt"
     info "Downloading hash ${HASH_URL}"
     download "${TMP_HASH}" "${HASH_URL}"
-    info "ocm_${OS}_${ARCH}.tar.gz"
-    HASH_EXPECTED=$(grep " ocm_${OS}_${ARCH}.tar.gz$" "${TMP_HASH}")
+    info "ocm-${OS}-${ARCH}.tar.gz"
+    HASH_EXPECTED=$(grep " ocm-${VERSION_OCM}-${OS}-${ARCH}.tar.gz$" "${TMP_HASH}")
     HASH_EXPECTED=${HASH_EXPECTED%%[[:blank:]]*}
 }
 
 # Download binary from Github URL
 download_binary() {
-    BIN_URL="https://github.com/${GITHUB_REPO}/releases/download/v${VERSION_OCM}/ocm_${OS}_${ARCH}.tar.gz"
+    BIN_URL="https://github.com/${GITHUB_REPO}/releases/download/v${VERSION_OCM}/ocm-${VERSION_OCM}-${OS}-${ARCH}.tar.gz"
     info "Downloading binary ${BIN_URL}"
     download "${TMP_BIN}" "${BIN_URL}"
 }
