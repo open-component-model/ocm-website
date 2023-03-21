@@ -1,5 +1,5 @@
 ---
-title: "Getting Started With Ocm"
+title: "Getting Started with OCM"
 description: ""
 lead: ""
 date: 2023-03-13T09:38:41+01:00
