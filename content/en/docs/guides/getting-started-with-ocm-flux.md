@@ -10,7 +10,7 @@ menu:
   docs:
     parent: ""
     identifier: "getting-started-with-flux-ocm"
-weight: 101
+weight: 102
 toc: true
 ---
 
