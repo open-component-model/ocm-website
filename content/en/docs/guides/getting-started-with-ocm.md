@@ -48,7 +48,15 @@ To follow the steps described in this section, you will need:
 
 - The OCM Command Line Interface (CLI) to interact with component versions and registries. Download it from the [releases](https://github.com/open-component-model/ocm/releases) or with the following command:
   ```shell
-  curl -L https://github.com/open-component-model/ocm/releases/download/v0.1.0-alpha.1/ocm-linux-amd64.tgz -o - | tar -xz; mv ocm* ocm
+  #generic: choose os and acrhitecture
+  curl -s https://api.github.com/repos/open-component-model/ocm/releases/latest \
+  | os=linux arch=amd64 \
+    jq -r '.assets[] | select(.name | endswith($ENV.os + "-" + $ENV.arch + ".tar.gz")) | .browser_download_url' \
+  | xargs curl -LJo - \
+  | tar -xvzf - ; ./ocm --version
+
+  #macos
+  brew install open-component-model/tap/ocm
   ```
 - Access to an OCM repository. This can be any OCI registry for which you have write permission (e.g. GitHub Packages). An OCM repository based on an OCI registry is identified by a leading OCI repository prefix. For example: `ghcr.io/<YOUR-ORG>/ocm`.
 - Credentials for the CLI to access the OCM repository. The easiest way to do this is to reuse the Docker configuration.
