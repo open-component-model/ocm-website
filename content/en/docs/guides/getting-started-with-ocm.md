@@ -14,7 +14,6 @@ weight: 100
 toc: true
 ---
 <!-- omit in toc -->
-# Getting Started
 
 This chapter walks you through some basic steps to get started with OCM concepts and the OCM CLI.
 
