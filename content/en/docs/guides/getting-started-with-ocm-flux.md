@@ -466,7 +466,7 @@ EOF
 
 Commit this file to git and follow the push and reconcile pattern seen previously.
 
-If everything was write, the `ocm-controller`'s log should have something along these lines:
+The `ocm-controller`' log should now show something along these lines:
 
 ```log
 1.6747462557628431e+09  INFO    resource-controller     successfully reconciled resource        {"controller": "resource", "controllerGroup": "delivery.ocm.software", "controllerKind": "Resource", "Resource": {"name":"podinfo-deployment","namespace":"ocm-system"}, "namespace": "ocm-system", "name": "podinfo-deployment", "reconcileID": "930c97a5-7e8c-40f6-96ce-47dae431ed9f", "name": "podinfo-deployment"}
