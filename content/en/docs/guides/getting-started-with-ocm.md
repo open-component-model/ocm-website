@@ -48,10 +48,10 @@ To follow the steps described in this section, you will need:
 
 - The OCM Command Line Interface (CLI) to interact with component versions and registries. Download it from the [releases](https://github.com/open-component-model/ocm/releases) or with the following command:
   ```shell
-  #generic: choose os and acrhitecture
-   curl -s https://ocm.software/install.sh | sudo bash
+  #generic: use a bash installer
+  curl -s https://ocm.software/install.sh | sudo bash
 
-  #macos
+  #macos: use homebrew
   brew install open-component-model/tap/ocm
   ```
 - Access to an OCM repository. This can be any OCI registry for which you have write permission (e.g. GitHub Packages). An OCM repository based on an OCI registry is identified by a leading OCI repository prefix. For example: `ghcr.io/<YOUR-ORG>/ocm`.
