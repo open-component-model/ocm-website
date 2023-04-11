@@ -49,11 +49,7 @@ To follow the steps described in this section, you will need:
 - The OCM Command Line Interface (CLI) to interact with component versions and registries. Download it from the [releases](https://github.com/open-component-model/ocm/releases) or with the following command:
   ```shell
   #generic: choose os and acrhitecture
-  curl -s https://api.github.com/repos/open-component-model/ocm/releases/latest \
-  | os=linux arch=amd64 \
-    jq -r '.assets[] | select(.name | endswith($ENV.os + "-" + $ENV.arch + ".tar.gz")) | .browser_download_url' \
-  | xargs curl -LJo - \
-  | tar -xvzf - ; ./ocm --version
+   curl -s https://ocm.software/install.sh | sudo bash
 
   #macos
   brew install open-component-model/tap/ocm
