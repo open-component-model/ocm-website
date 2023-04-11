@@ -371,7 +371,16 @@ The items outlined in purple and green are the resources we will create using Gi
 
 We can use the OCM CLI to install the controller:
 
-```ocm controller install```
+```
+ocm controller install
+
+► installing ocm-controller with version latest
+► got latest version "v0.5.0"
+✔ successfully fetched install file
+► applying to cluster...
+► waiting for ocm deployment to be ready
+✔ ocm-controller successfully installed
+```
 
 The controller requires a few secrets in order to retrieve components from our OCI registry and to verify component signatures, let's set those up first:
 
