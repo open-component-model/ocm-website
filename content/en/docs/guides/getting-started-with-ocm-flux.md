@@ -61,7 +61,7 @@ Don't worry if some of the terminologies are unfamiliar at this point, we will i
 
 ### Setting up our project
 
-For setting up the component archive that we are going to use, we will follow the [All In One](https://github.com/open-component-model/ocm-spec/blob/main/doc/scenarios/getting-started/README.md#all-in-one) guide located in the ocm-spec
+For setting up the component archive that we are going to use, we will follow the [All In One](https://ocm.software/docs/guides/getting-started-with-ocm/#all-in-one) guide.
 repository.
 
 Let's configure a workspace for developing our component:
@@ -312,7 +312,7 @@ flux bootstrap github --owner $GITHUB_USER --repository $GITHUB_REPOSITORY --pat
 ```
 
 This command will generate a `GitRepository` object that has the content of the repository reconciled.
-The name of that object is `flux-system`, but to make sure, let's list it.
+The name of that object is `flux-system`, but to  sure, let's list it.
 
 ```shell
 k get gitrepository -n flux-system
@@ -369,32 +369,28 @@ We'll use the OCM controller to help manage the lifecycle of an application with
 
 The items outlined in purple and green are the resources we will create using GitOps; everything else shall be generated automatically for us.
 
+We can use the OCM CLI to install the controller:
+
+```
+ocm controller install
+
+► installing ocm-controller with version latest
+► got latest version "v0.5.0"
+✔ successfully fetched install file
+► applying to cluster...
+► waiting for ocm deployment to be ready
+✔ ocm-controller successfully installed
+```
+
 The controller requires a few secrets in order to retrieve components from our OCI registry and to verify component signatures, let's set those up first:
 
 ```shell
-kubectl create ns ocm-system
-
-kubectl create secret docker-registry -n ocm-system regcred \
-    --docker-server=ghcr.io \
-    --docker-username=$GITHUB_USER \
-    --docker-password=$GITHUB_TOKEN \
-    --docker-email=$GITHUB_EMAIL
-
+## This secret provides access to the GitHub Container Registry
 kubectl create secret generic -n ocm-system creds --from-literal=username=$GITHUB_USER --from-literal=password=$GITHUB_TOKEN
 
 # This must be executed in the folder in which this key is located in. Since this is the public key
 # it would also be safe to add it to the flux repository.
 kubectl create secret generic -n ocm-system alice-publickey --from-file=alice=rsa.pub
-```
-
-> **note** Currently we require OCI registry credentials to be configured twice, this is a known issue and will be resolved in a future update to the ocm-controller
-
-Choose a different folder and clone ocm-controller.
-
-```shell
-gh repo clone git@github.com:open-component-model/ocm-controller.git
-cd ocm-controller
-make deploy
 ```
 
 ### Reconciling Components
