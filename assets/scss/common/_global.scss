@@ -25,7 +25,8 @@ a {
 }
 
 hr {
-  color: $green;
+  color: $blue-300;
+  border-top: 0.1rem solid;
 }
 
 .content img {
@@ -191,8 +192,10 @@ body {
     display: block;
     width: auto;
     margin-right: -1.5rem;
+    padding-right: 1rem;
     padding-bottom: 4rem;
   }
+
 }
 
 .docs-toc {
@@ -226,15 +229,19 @@ body {
 }
 
 .docs-navigation a {
-  font-size: $font-size-base * 0.9;
+  font-size: $font-size-base * 0.5;
   .card {
-    background: $black;
+    // background: $black;
   }
 }
 
 @include media-breakpoint-up(lg) {
   .docs-navigation {
     margin-bottom: -1rem;
+  }
+
+  .docs-navigation a {
+    font-size: $font-size-base;
   }
 
   .docs-navigation a {
@@ -476,7 +483,7 @@ body {
 }
 
 .card {
-  --bs-card-bg: #1B1B1B;
+  --bs-card-bg: $bg-color;
   --bs-card-border-width: 0;
 
   a {
