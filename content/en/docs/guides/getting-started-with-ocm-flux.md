@@ -10,7 +10,7 @@ menu:
   docs:
     parent: ""
     identifier: "getting-started-with-flux-ocm"
-weight: 102
+weight: 101
 toc: true
 ---
 
@@ -21,11 +21,12 @@ This tutorial will demonstrate how to get started with the Open Component Model 
 We shall build a component to deliver the [`podinfo`](https://github.com/stefanprodan/podinfo) application, which we will then deploy using OCM's Flux integration. Along the way, we'll demonstrate some of the useful features of OCM.
 
 ## Table of content
+- [Introduction](#introduction)
+- [Table of content](#table-of-content)
 - [Requirements](#requirements)
 - [Building the component](#building-the-component)
   - [The shape of things to come](#the-shape-of-things-to-come)
   - [Setting up our project](#setting-up-our-project)
-  - [Adding resources](#adding-resources)
   - [Inspecting Components](#inspecting-components)
 - [Shipping the component](#shipping-the-component)
   - [Signing](#signing)
