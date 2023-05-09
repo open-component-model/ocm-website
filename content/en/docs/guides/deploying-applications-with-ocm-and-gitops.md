@@ -24,7 +24,7 @@ Here's a diagram showing what we'll be building:
 
 ![deploy-applications-with-gitops](/images/deploy-applications-diagram.png)
 
-As you can see we'll add some manifests to a git repository that will be deployed by Flux. These will in turn deploy a resource from an OCM repository, in this case a `Deployment` of the `podinfo` microservice.
+As you can see we'll add some manifests to a git repository that will be deployed by Flux. These will, in turn, deploy a resource from an OCM repository, in this case, a `Deployment` of the `podinfo` microservice.
 
 If you'd like to learn how to build a component then checkout our getting started guide [here](/docs/guides/getting-started-with-ocm)
 
