@@ -124,7 +124,7 @@ Now that our component has been successfully transferred lets deploy it using Gi
 
 We'll assume you have completed the [Deploy Applications with OCM & GitOps](/docs/guides/deploying-applications-with-gitops) guide and shall use that repository as the starting point for our air-gapped deployment.
 
-Because our air-gapped OCM repository is private we need to provide credentials. This will enable the `ocm-controller` to retrieve components from the repository.
+Because our air-gapped OCM repository is private, we need to provide credentials. This will enable the `ocm-controller` to retrieve components from the repository.
 
 We can do this using a `ServiceAccount`. First create an Kubernetes `Secret` to hold the credentials:
 
