@@ -12,7 +12,7 @@ menu:
 ---
 
 ## OCM Security
-This document defines security reporting, handling, disclosure, and audit information for the Open Component Model project.
+This document defines security reporting, handling and disclosure information for the Open Component Model project.
 
 ## Security Process
 
