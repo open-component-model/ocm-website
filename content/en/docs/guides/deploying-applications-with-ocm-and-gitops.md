@@ -20,7 +20,7 @@ This tutorial will demonstrate how to get started deploying applications using t
 
 In this guide we will leverage Flux and the `ocm-controller` to deploy an existing component to a Kubernetes cluster. Specifically, we will deploy the `phoban.io/podinfo` component that contains the resources needed to launch the [podinfo](https://github.com/stefanprodan/podinfo) application.
 
-Here's an diagram showing what we'll be building:
+Here's a diagram showing what we'll be building:
 
 ![deploy-applications-with-gitops](/images/deploy-applications-diagram.png)
 
