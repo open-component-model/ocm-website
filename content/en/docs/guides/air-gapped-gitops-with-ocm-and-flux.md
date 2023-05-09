@@ -149,7 +149,7 @@ imagePullSecrets:
 EOF
 ```
 
-Next let's modify the `ComponentVersion` manifest so that it points to our air-gapped OCM repository and references the `ServiceAccount`:
+Next, let's modify the `ComponentVersion` manifest so that it points to our air-gapped OCM repository and references the `ServiceAccount`:
 
 ```yaml
 apiVersion: delivery.ocm.software/v1alpha1
