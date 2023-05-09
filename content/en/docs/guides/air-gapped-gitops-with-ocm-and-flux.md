@@ -20,7 +20,7 @@ In this guide we will show how the tools provided by OCM that make it possible t
 
 Air-gapped can mean different things depending on the context. For this guide, we'll assume it means your deployment artifacts are stored in a private registry protected by the security controls at your organization. Your applications only have access to this private registry and little to no public internet access.
 
-We'll take the same `podinfo` component that we deployed in the [Deploy Applications with OCM & GitOps](/docs/guides/deploying-applications-with-gitops) guide but this time we shall use the OCM CLI to transfer the component to our own registry. The application will then be deployed from this "private" registry. This, of course, but mimics a real world air-gap scenario. In practice there could be many layers of security between the two registries; however the mechanics are ultimately the same.
+We'll take the same `podinfo` component that we deployed in the [Deploy Applications with OCM & GitOps](/docs/guides/deploying-applications-with-gitops) guide but this time we shall use the OCM CLI to transfer the component to our own registry. The application will then be deployed from this "private" registry. This, of course, mimics a real-world air-gap scenario. In practice there could be many layers of security between the two registries; however, the mechanics are ultimately the same.
 
 ## Table of contents
 - [Requirements](#requirements)
