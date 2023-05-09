@@ -120,7 +120,7 @@ We can see that the image reference now points to an image stored in our air-gap
 
 ### GitOps & Localization
 
-Now that our component has been successfully transferred lets deploy it using GitOps.
+Now that our component has been successfully transferred, let's deploy it using GitOps.
 
 We'll assume you have completed the [Deploy Applications with OCM & GitOps](/docs/guides/deploying-applications-with-gitops) guide and shall use that repository as the starting point for our air-gapped deployment.
 
