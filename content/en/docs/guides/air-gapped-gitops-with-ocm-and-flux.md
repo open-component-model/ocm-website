@@ -116,7 +116,7 @@ NAME  VERSION IDENTITY TYPE     RELATION ACCESSTYPE  ACCESSSPEC
 image 6.3.5            ociImage external ociArtifact {"imageReference":"ghcr.io/phoban01/air-gapped/stefanprodan/podinfo:6.3.5"}
 ```
 
-We can see that the image reference now points to an image that is stored in our air-gapped registry.
+We can see that the image reference now points to an image stored in our air-gapped registry.
 
 ### GitOps & Localization
 
