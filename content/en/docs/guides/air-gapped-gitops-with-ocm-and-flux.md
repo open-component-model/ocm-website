@@ -76,7 +76,7 @@ localization:
     name: image
 ```
 
-Localization contains a list of rules that describe the substitutions the `ocm-controller` needs to perform ensure that the **Local** copy of our image is deployed. OCM provides an identifier for each resource which can always be resolved to specific storage location at which the resource can be accessed. This is the secret sauce that makes it possible to automate air-gapped deployments using OCM.
+Localization contains a list of rules that describe the substitutions the `ocm-controller` needs to perform to ensure that the **Local** copy of our image is deployed. OCM provides an identifier for each resource which can always be resolved to a specific storage location at which the resource can be accessed. This secret sauce makes it possible to automate air-gapped deployments using OCM.
 
 We can examine the image resource to see precisely where the image can be accessed:
 
