@@ -16,7 +16,7 @@ toc: true
 
 ## Introduction
 
-In this guide we will show how the tools provided by OCM that make it possible to automate your air-gapped deployments.
+In this guide, we will show how the tools provided by OCM make it possible to automate your air-gapped deployments.
 
 Air-gapped can mean different things depending on the context. For this guide, we'll assume it means your deployment artifacts are stored in a private registry protected by the security controls at your organization. Your applications only have access to this private registry and little to no public internet access.
 
