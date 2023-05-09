@@ -24,6 +24,6 @@ Please follow the process outlined here to repository a vulnerability: https://g
 
 Advisories will be published directly on the affected repositories, e.g:
 
-- https://github.com/open-component-model/ocm/security/advisories
-- https://github.com/open-component-model/ocm-controller/security/advisories
-- https://github.com/open-component-model/vscode-ocm-tools/security/advisories
+- [https://github.com/open-component-model/ocm/security/advisories](https://github.com/open-component-model/ocm/security/advisories)
+- [https://github.com/open-component-model/ocm-controller/security/advisories](https://github.com/open-component-model/ocm-controller/security/advisories)
+- [https://github.com/open-component-model/vscode-ocm-tools/security/advisories](https://github.com/open-component-model/vscode-ocm-tools/security/advisories)
