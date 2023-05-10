@@ -60,7 +60,16 @@ a.docs-link {
   display: block;
   padding: 0.125rem 0;
   font-size: $font-size-base;
-  text-decoration: none;
+  margin-left: 0.75rem;
+}
+
+a.docs-link.active {
+  font-weight: bold;
+  color: $blue-300;
+}
+
+a.docs-link:hover {
+  text-decoration: underline;
 }
 
 .page-links li {

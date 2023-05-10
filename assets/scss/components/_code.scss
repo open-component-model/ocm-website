@@ -8,15 +8,14 @@ samp {
 }
 
 code {
-  background: $gray-900;
+  background: $gray-800;
   color: $white;
   padding: 0.25rem 0.5rem;
 }
 
 pre {
-  background: $gray-900;
+  background: $gray-800;
   margin: 2rem 0;
-  padding: 0.75rem 1rem;
 }
 
 pre code {
@@ -30,8 +29,8 @@ pre code {
 }
 
 .hljs {
-  padding: 0 1rem !important;
-  background: $gray-900!important;
+  padding: 0.1 1rem !important;
+  background: $gray-800!important;
   color: $white!important;
 }
 
