@@ -83,9 +83,14 @@ ORG="acme"
 COMPONENT="github.com/${ORG}/helloworld"
 VERSION="1.0.0"
 CA_ARCHIVE="ca-hello-world"
+OCM_REPO="ghcr.io/<github-org>/ocm"
 ```
 
 If you specify values for your setup, you can directly use the commands shown in the next steps.
+The variable `OCM_REPO` is set to a location of an OCI registry where artifacts and component
+descriptors are stored (omitting the `https://` prefix). For example
+[GitHub Packages](https://github.com/features/packages) can be used as an OCI registry. Many other
+options exist.
 
 Let's asssume that we create a component based on a GitHub source repository.
 
