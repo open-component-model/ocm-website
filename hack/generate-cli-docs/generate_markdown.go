@@ -139,8 +139,10 @@ func genMarkdownCustom(cmd *cobra.Command, w io.Writer, linkHandler func(string)
 	}
 
 	if len(cmd.Example) > 0 {
+		filtered := strings.ReplaceAll(cmd.Example, "<pre>\n", "")
+		filtered = strings.ReplaceAll(filtered, "</pre>\n", "")
 		buf.WriteString("### Examples\n\n")
-		buf.WriteString(fmt.Sprintf("```\n%s\n```\n\n", cmd.Example))
+		buf.WriteString(fmt.Sprintf("```\n%s\n```\n\n", filtered))
 	}
 
 	if hasSeeAlso(cmd) {
