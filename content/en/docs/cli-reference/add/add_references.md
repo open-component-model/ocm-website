@@ -2,7 +2,7 @@
 title: references
 name: add references
 url: /docs/cli/add/references/
-date: 2023-03-10T15:23:12Z
+date: 2023-06-07T09:43:27Z
 draft: false
 images: []
 menu:
@@ -153,22 +153,16 @@ There are several templaters that can be selected by the <code>--templater</code
 ```
 
 Add a reference directly by options
-<pre>
 $ ocm add references --file path/to/ca --name myref --component github.com/my/component --version ${VERSION}
-</pre>
 
 Add a reference by a description file:
 
 *references.yaml*:
-<pre>
 ---
 name: myref
 component: github.com/my/component
 version: ${VERSION]
-</pre>
-<pre>
 $ ocm add references  path/to/ca  references.yaml VERSION=1.0.0
-</pre>
 
 ```
 
