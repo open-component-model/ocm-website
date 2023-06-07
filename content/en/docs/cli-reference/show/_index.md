@@ -2,7 +2,7 @@
 title: show
 name: show
 url: /docs/cli/show/
-date: 2023-03-10T15:23:12Z
+date: 2023-06-07T09:43:27Z
 draft: false
 images: []
 menu:

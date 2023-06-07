@@ -2,7 +2,7 @@
 title: componentversions
 name: add componentversions
 url: /docs/cli/add/componentversions/
-date: 2023-03-10T15:23:12Z
+date: 2023-06-07T09:43:27Z
 draft: false
 images: []
 menu:
@@ -111,13 +111,10 @@ There are several templaters that can be selected by the <code>--templater</code
 
 ```
 
-<pre>
 $ ocm add componentversions --file ctf --version 1.0 components.yaml
-</pre>
 
 and a file <code>components.yaml</code>:
 
-<pre>
 name: ocm.software/demo/test
 version: 1.0.0
 provider:
@@ -141,7 +138,6 @@ resources:
       type: binary
       data: IXN0cmluZ2RhdGE=
 
-</pre>
 
 The resource <code>text</code> is taken from a file <code>testdata</code> located
 next to the description file.
