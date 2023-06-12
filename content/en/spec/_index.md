@@ -8,4 +8,4 @@ draft: false
 
 | Version  | Description                              | Schema |
 | -------- | ---------------------------------------- | -------|
-| [v0.0.0 (Latest)]( https://github.com/open-component-model/ocm-spec ) | The most up-to-date version of the OCM specification | [v2](/schemas/component-descriptor-v2) \| [v3alpha1](/schemas/component-descriptor-v3alpha1)
+| [v0.0.0 (Latest)]( https://github.com/open-component-model/ocm-spec ) | The most up-to-date version of the OCM specification | [v2](/schemas/component-descriptor-v2) ([Web Version](schema-v2.html)) \| [v3alpha1](/schemas/component-descriptor-v3alpha1) ([Web Version](schema-v3alpha1.html))
