@@ -349,6 +349,118 @@ ocm-system   ocm.software-redis-1.0.0-6199010409340612397               9m21s
 
 All of the components should have their localization, configuration, and fluxdeployer.
 
+### ComponentVersion
+
+Contains the main component and all the references to all other components that might exist. A healthy `ComponentVersion`
+looks something like this:
+
+```yaml
+apiVersion: delivery.ocm.software/v1alpha1
+kind: ComponentVersion
+metadata:
+  name: podinfocomponent-version
+  namespace: ocm-system
+spec:
+  component: ocm.software/podinfo
+  interval: 10m0s
+  references:
+    expand: true
+  repository:
+    url: ghcr.io/skarlso/mpas
+  serviceAccountName: admin-account
+  version:
+    semver: 1.0.16
+status:
+  componentDescriptor:
+    componentDescriptorRef:
+      name: ocm.software-podinfo-1.0.16-2456627037531301773
+      namespace: ocm-system
+    name: ocm.software/podinfo
+    references:
+    - componentDescriptorRef:
+        name: ocm.software-podinfo-backend-1.0.0-3945706267509967991
+        namespace: ocm-system
+      name: backend
+      version: 1.0.0
+    - componentDescriptorRef:
+        name: ocm.software-podinfo-frontend-1.0.8-11612684200430752646
+        namespace: ocm-system
+      name: frontend
+      version: 1.0.8
+    - componentDescriptorRef:
+        name: ocm.software-redis-1.0.0-6199010409340612397
+        namespace: ocm-system
+      name: redis
+      version: 1.0.0
+    version: 1.0.16
+  conditions:
+  - lastTransitionTime: "2023-06-21T10:59:22Z"
+    message: 'Applied version: '
+    observedGeneration: 1
+    reason: Succeeded
+    status: "True"
+    type: Ready
+  observedGeneration: 1
+  reconciledVersion: 1.0.16
+
+```
+
+The important bits here are the `references`. These are all the components that the top component contains. These
+references are used to fetch and identify component dependencies. This component will also contain which version was
+last reconciled.
+
+### ComponentDescriptor
+
+Taking a look at one of the component descriptor refs...:
+
+```yaml
+apiVersion: delivery.ocm.software/v1alpha1
+kind: ComponentDescriptor
+metadata:
+  name: ocm.software-podinfo-backend-1.0.0-3945706267509967991
+  namespace: ocm-system
+spec:
+  resources:
+  - access:
+      globalAccess:
+        digest: sha256:4a9fd7d9d861aff437746c170b199d15539044405f1b822e316ef49ac5f99db8
+        mediaType: application/yaml
+        ref: ghcr.io/skarlso/podify/component-descriptors/ocm.software/podinfo/backend
+        size: 354
+        type: ociBlob
+      localReference: sha256:4a9fd7d9d861aff437746c170b199d15539044405f1b822e316ef49ac5f99db8
+      mediaType: application/yaml
+      type: localBlob
+    name: config
+    relation: local
+    type: configdata.ocm.software
+    version: 1.0.0
+  - access:
+      imageReference: ghcr.io/stefanprodan/podinfo:6.2.0
+      type: ociArtifact
+    name: image
+    relation: external
+    type: ociImage
+    version: 6.2.0
+  - access:
+      globalAccess:
+        digest: sha256:c61bc74d0b5ecfcca20b447c10d97d07a3cec649e1fc57a25f08fc93fcf42fde
+        mediaType: application/x-tgz
+        ref: ghcr.io/skarlso/podify/component-descriptors/ocm.software/podinfo/backend
+        size: 963
+        type: ociBlob
+      localReference: sha256:c61bc74d0b5ecfcca20b447c10d97d07a3cec649e1fc57a25f08fc93fcf42fde
+      mediaType: application/x-tgz
+      type: localBlob
+    name: manifests
+    relation: local
+    type: kustomize.ocm.fluxcd.io
+    version: 1.0.0
+  version: 1.0.0
+```
+
+This descriptor will contain all the resource references that this component contains.
+
 ### Localization
 
 A localization should look something like this:
@@ -528,13 +640,199 @@ If the deployment isn't appearing, there are several places to check for errors:
 
 ### Controller Logs
 
+There are several controllers to sift through in case something doesn't happen the way it should.
+
+#### ocm-controller
+
+To get the `ocm-controller` logs run:
+
+```
+kubectl logs `k get pods --template '{{range .items}}{{.metadata.name}}{{end}}' --selector=app=ocm-controller -n ocm-system` -n ocm-system
+```
+
+If everything goes according to plan, there should be no errors in the logs.
+
+#### Flux controllers
+
+Flux has a couple of controllers we can check if things don't start up (especially if we don't see any resources in the
+cluster, or if we don't see the podinfo deployment being started).
+
+**source-controller**:
+  This controller will contain information about the latest applied code from the repository. If there is an error here
+  it means that the source, or rather our modifications, weren't applied.
+
+**kustomize-controller**:
+  This controller will contain information about reconciled objects. A Kustomization source is usually either a
+  GitRepository or an OCIRepository. In this case, the source will be an OCIRepositoy. That repository is pointing to
+  the in-cluster OCI repository. A snapshot creates these entries and that's where it will load the data from.
+
+
+**helm-controller** and **notification-controller** aren't relevant.
+
 ### Object statuses
 
-### Flux components
+**ComponentVersion**:
+
+The `ComponentVersion` object will contain information about what components have been reconciled. We talked about that
+earlier at [Component Version](#componentversion). The `Status` section will contain any errors that could have
+occurred when reconciling information. If you find that the references section is empty, your component version is missing
+`expand: true` setting.
+
+**ComponentDescriptor**:
+
+The `ComponentDescriptor` will hold information about each component and their resources. Read more at [ComponentDescriptors](#componentdescriptor).
+
+If the resources section is empty in the `status`, there is something wrong reconciling the individual items.
+
+**Localization**:
+
+The status section will contain information about the snapshot that this object created. The snapshot is used to point
+to the right repository in the internal OCI cache. It will also contain the last applied version. The conditions
+section will contain any errors while reconciling the resource.
+
+**Configuration**:
+
+The status section will contain information about the snapshot that this object created. The snapshot is used to point
+to the right repository in the internal OCI cache. It will also contain the last applied version. The conditions
+section will contain any errors while reconciling the resource.
+
+**Snapshots**:
+
+The Snapshot, most of the time, is transparent to the user. The sources are Snapshot providers. That means any object
+that can produce a Snapshot can be a source to a Localization, Configuration or a Resource object. A Source is a thing
+from which to fetch resource data such as Manifests, rules, Markdown files, descriptors, etc.
+
+We can also use Snapshots to look for errors in reconciling resource data. A Snapshot's status contains information.
+
+```yaml
+apiVersion: delivery.ocm.software/v1alpha1
+kind: Snapshot
+metadata:
+  creationTimestamp: "2023-06-21T10:49:35Z"
+  finalizers:
+  - finalizers.snapshot.ocm.software
+  generation: 2
+  name: backend-configuration-2agwrnt
+  namespace: mpas-sample-project
+  ownerReferences:
+  - apiVersion: delivery.ocm.software/v1alpha1
+    kind: Configuration
+    name: backend-configuration
+    uid: dfb8dede-5234-406c-8077-fc5e382ec8fd
+  resourceVersion: "4591"
+  uid: b8c0b983-9c27-4597-92b1-fe19aad2abca
+spec:
+  digest: sha256:1f5f6173f3180c2fda00dd1267ca190628a2e8b5fa707232cebc9059f7845e29
+  identity:
+    component-name: mpas.ocm.software-podinfo-1.0.16-2456627037531301773
+    component-version: 1.0.16
+    resource-name: config
+    resource-version: 1.0.0
+  tag: "1533"
+status:
+  conditions:
+  - lastTransitionTime: "2023-06-21T10:49:35Z"
+    message: Snapshot with name 'backend-configuration-2agwrnt' is ready
+    observedGeneration: 2
+    reason: Succeeded
+    status: "True"
+    type: Ready
+  digest: sha256:1f5f6173f3180c2fda00dd1267ca190628a2e8b5fa707232cebc9059f7845e29
+  observedGeneration: 2
+  repositoryURL: http://registry.ocm-system.svc.cluster.local:5000/sha-2819236492453137798
+  tag: "1533"
+```
+
+This Snapshot contains a lot of information about what has been replicated in the internal registry. We can use `crane`
+to fetch it and check the generated content.
+
+**FluxDeployment**:
+
+FluxDeployment is used to apply the generated objects to a cluster. In the background, it's leveraging Flux's
+Kustomization object. This object's status will contain any errors that could occur during applying generated content,
+like invalid data, invalid CRDs, invalid yaml, no access to the cluster, permission issues, etc. Each component
+will have a `FluxDeployer` applying some kind of component data to the cluster such as, Deployments, ConfigMaps,
+ReplicaSets, etc.
+
+**OCIRepository**:
+
+There should be one OCIRepository per component. The OCIRepository object is created by FluxDeployer. OCIRepository will
+contain any errors regarding the content of the internal registry.
+
+**Kustomization**:
+
+Kustomization objects are also created by the FluxDeployer. These objects will contain applying errors.
 
 ### Common issues
 
 **tar header invalid**:
+
+Usually, this means that the content we are trying to sync from the OCIRepository is not a tar file. This can happen if
+the resource wasn't a `Directory` or if the fetching of the data somehow failed.
+
+To verify, we can use [crane](https://github.com/google/go-containerregistry/blob/main/cmd/crane/doc/crane.md) to check the content.
+
+To run crane, first, expose the internal registry using `port-forward` like this:
+```
+kubectl port-forward service/registry -n ocm-system 5000:5000
+```
+
+Then, verify that the connection is working by running a `catalog` command:
+```
+crane catalog http://127.0.0.1:5000
+```
+
+This should list something like this:
+```
+crane catalog 127.0.0.1:5000
+sha-10883673987458280187
+sha-16809550111814969680
+sha-1990151198423805921
+sha-2092408510764941850
+sha-2819236492453137798
+sha-6687852683187729914
+sha-9139473762086563639
+```
+
+To identify which of these contains our failed resource, check the failing OCIRepository object.
+
+```
+kubectl get ocirepository -A
+NAMESPACE    NAME      URL                                                                         READY   STATUS                                                                                       AGE
+ocm-system   podinfo   oci://registry.ocm-system.svc.cluster.local:5000/sha-10883673987458280187   False   failed to extract layer contents from artifact: tar error: archive/tar: invalid tar header   21h
+```
+
+Now we know which of these contains the invalid resource. We can further identify which blob it is by either, describing the
+relevant snapshot, or by running a `manifest` command with crane.
+
+```
+crane manifest 127.0.0.1:5000/sha-10883673987458280187:1.0.0|jq
+{
+  "schemaVersion": 2,
+  "mediaType": "application/vnd.docker.distribution.manifest.v2+json",
+  "config": {
+    "mediaType": "application/vnd.docker.container.image.v1+json",
+    "size": 233,
+    "digest": "sha256:6e3b5d3bfbd044c33125f20d83c2b82cd1c348b58422df4859678bc0e6c8aed5"
+  },
+  "layers": [
+    {
+      "mediaType": "application/vnd.oci.image.layer.v1.tar+gzip",
+      "size": 1044,
+      "digest": "sha256:eae39564a446ee92d1fec8728ef0c27077995d01bbedc25e0688a1cbb7582adc"
+    }
+  ]
+}
+```
+
+One of these will not be what they seem. To fetch a blob run:
+
+```
+crane blob 127.0.0.1:5000/sha-10883673987458280187@sha256:eae39564a446ee92d1fec8728ef0c27077995d01bbedc25e0688a1cbb7582adc > temp.tar
+```
+
+And then check what that `temp.tar` looks like. If the content is human-readable, there is a problem. If you encounter
+the `component descriptor` file, you can skip that. That's not what you are looking for.
 
 ## Conclusion
 
