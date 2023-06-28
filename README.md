@@ -2,7 +2,7 @@
 
 [![REUSE status](https://api.reuse.software/badge/github.com/open-component-model/ocm-website)](https://api.reuse.software/info/github.com/open-component-model/ocm-website)
 
-This repository houses the assets used to build [Open Component Model website](https://ocm.sofware).
+This repository houses the assets used to build [Open Component Model website](https://ocm.software).
 
 The sources for some of the documentation are housed in other repositories with the Open Component Model GitHub Organisation. Documentation issues and pull requests should be made against those repositories:
 
