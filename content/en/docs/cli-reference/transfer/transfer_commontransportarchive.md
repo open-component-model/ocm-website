@@ -60,7 +60,7 @@ are configured for the transport target. It has the following format
 
 The uploader name may be a path expression with the following possibilities:
 - <code>ocm/ociRegistry</code>: oci Registry upload for local OCI artifact blobs.
-  The media type is optional. If given ist must be an OCI artifact media type.
+  The media type is optional. If given it must be an OCI artifact media type.
 - <code>plugin/<plugin name>[/<uploader name]</code>: uploader provided by plugin.
 
 It is possible to use a dedicated transfer script based on spiff.
