@@ -7,12 +7,18 @@ table {
     border-bottom-color: $secondary-blue;
   }
 
-  th,tr {
+  tr {
     color: $white;
+    background-color: lighten($body-bg,4%);
+  }
+
+  tbody tr:nth-child(odd) {
+    background-color: $gray-700;
+    color: #fff;
   }
 
   a {
-    color: $secondary-blue;
+    color: $link-color;
   }
 }
 
