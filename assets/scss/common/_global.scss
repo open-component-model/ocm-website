@@ -518,3 +518,22 @@ body {
     }
   }
 }
+
+.bi {
+  color: $gray-400!important;
+  font-size: 0.75rem;
+  margin-right: 0.3rem;
+}
+
+.nav-link i {
+  transition: transform 0.2s;
+  transform: rotate(90deg);
+}
+
+.nav-link.collapsed i {
+  transform: rotate(0deg);
+}
+
+.nav-link i.active {
+  transform: rotate(90deg);
+}
