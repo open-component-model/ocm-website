@@ -23,12 +23,12 @@ complex scenario using plain Localizations and Configurations without the use of
 We are going to use [podinfo](https://github.com/stefanprodan/podinfo) in microservices mode. This enables us to deploy several components and configure them
 individually.
 
-Podinfo has three components which we are going to put into individual component descriptors.
+Podinfo has three services which we are going to put into individual component descriptors.
 - backend
 - frontend
 - cache (redis)
 
-We will use the following example application to demonstrate multi-component structure: [Podinfo Component](https://github.com/open-component-model/podinfo).
+We will use the following example application to demonstrate a multi-component structure using `podinfo`: [Podinfo Component](https://github.com/open-component-model/podinfo).
 
 This repository contains the following items:
 
@@ -82,13 +82,13 @@ transferring version "github.com/skarlso/podify:v1.0.2"...
 
 ### Backend
 
-The backend resources contain the following relevant data:
+The backend files contain the following relevant data:
 
 - manifests
     - `configmap.yaml`
         - contains configuration options such as `PODINFO_UI_COLOR`
     - `deploy.yaml`
-        - the deployment configuration. _note_ that this deployment yaml contains an image setting that will be configured.
+        - the deployment configuration. __note__ that this deployment yaml contains an image setting that will be configured.
         ```yaml
             spec:
             containers:
@@ -105,12 +105,12 @@ The backend resources contain the following relevant data:
             - will use the config information to configure some default values for those values such as color and message.
 - `resource.yaml`
     - contains the resources which point to the above elements
-    - _note_ that manifests _MUST_ be a directory
+    - __note__ that manifests __MUST__ be a directory
 
 
 ### Frontend
 
-Frontend contains the same resources as backend. The only differences are the values of those deployments.
+Frontend contains the same file structure as backend. The only differences are the deployed services.
 
 ### Cache
 
@@ -127,7 +127,7 @@ component version.
 
 ### Backend
 
-We don't have the backend configuration but our localization rules are also inside the same ConfigData object. So we'll
+We don't have any configuration for the backend but our localization rules are present inside the ConfigData object. So we'll
 point at that. And we'll use the `image` resource for localizing the deployment.
 
 ```yaml
@@ -312,8 +312,8 @@ It will use this dependency graph to lookup resource data in the right component
 
 Let's take a look at each object in the cluster next.
 
-```
-k get localizations -A
+```shell
+kubectl get localizations -A
 NAMESPACE    NAME                    READY   SOURCE VERSION   CONFIG VERSION   AGE
 ocm-system   backend-localization    True    1.0.16           1.0.16           5m
 ocm-system   cache-localization      True    1.0.16           1.0.16           5m
@@ -352,7 +352,7 @@ All of the components should have their localization, configuration, and fluxdep
 ### ComponentVersion
 
 Contains the main component and all the references to all other components that might exist. A healthy `ComponentVersion`
-looks something like this:
+looks like this:
 
 ```yaml
 apiVersion: delivery.ocm.software/v1alpha1
@@ -582,9 +582,9 @@ configuration:
     path: data.PODINFO_UI_MESSAGE
 ```
 
-Now, note. This configuration has a source that is pointing at the `Localization` resource that we created. This is
+**Note**. This configuration has a source that is pointing at the `Localization` resource that we created. This is
 important because the configuration needs to work on the localized entities. Once it's reconciled, it will create a
-Snapshot. That snapshot contains the created resources that have been configured.
+`Snapshot`. That snapshot contains the created resources that have been configured.
 
 ### FluxDeployment
 
@@ -627,14 +627,14 @@ for which we would like to apply the results.
 Once all objects are applied, we should see `podinfo` deployed in the `default` namespace:
 
 ```
-k get pods
+kubectl get pods
 NAME                        READY   STATUS    RESTARTS   AGE
 backend-6dd8f5fbf8-xfdmq    1/1     Running   0          54m
 frontend-56ff5b9864-h8fgh   1/1     Running   0          54m
 redis-7475dd84c4-hzp2b      1/1     Running   0          54m
 ```
 
-_Note_: pod count might vary based on the default settings in the configuration data.
+__Note__: pod count might vary based on the default settings in the configuration data.
 
 If the deployment isn't appearing, there are several places to check for errors:
 
