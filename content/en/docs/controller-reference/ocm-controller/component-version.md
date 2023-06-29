@@ -16,7 +16,7 @@ toc: true
 
 The `ComponentVersion` API produces component descriptors for a specific component version.
 
-### Example
+## Example
 
 The following is an example of a ComponentVersion.
 
@@ -156,7 +156,116 @@ spec:
 
 ```
 
-### Writing a ComponentVersion spec
+## Writing a ComponentVersion spec
+
+As with all other Kubernetes config, an ComponentVersion needs `apiVersion`, `kind`, and `metadata` fields. The name of an ComponentVersion object must be a valid DNS subdomain name.
+
+An ComponentVersion also needs a `.spec` [section](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#spec-and-status).
+
+### Component
+
+`.spec.component` is a required field that specifies the name of the component.
+
+### Version
+
+`.spec.version.semver` specifies
+
+### Repository
+
+`.spec.repository` provides the necessary configuration for the `ocm-controller` to access the OCI repository where the component version is stored.
+
+### URL
+
+`.spec.repository.url` is a required field that denoting the registry in which the OCM component is stored.
+
+### Secret Reference
+
+`.spec.repository.secretRef.name` is an optional field to specify a name reference to a Secret in the same namespace as the ComponentVersion, containing authentication credentials for the OCI repository.
+
+This secret is expected to contain the keys `username` and `password`. You can create such a secret using `kubectl`:
+
+```bash
+kubectl create secret generic registry-credentials --from-literal=username=$GITHUB_USER --from-literal=password=$GITHUB_TOKEN
+```
+
+### Service Account Name
+
+`.spec.serviceAccountName` is an optional field to specify a name reference to a Service Account in the same namespace as the ComponentVersion. The controller will fetch the image pull secrets attached to the service account and use them for authentication.
+
+Note: that for a publicly accessible OCI repository, you don’t need to provide a secretRef nor serviceAccountName.
+
+### Interval
+
+`.spec.interval` is a required field that specifies the interval at which the ComponentVersion must be reconciled.
+
+After successfully reconciling the object, the ocm-controller requeues it for inspection after the specified interval. The value must be in a Go recognized duration string format, e.g. `10m0s` to reconcile the object every 10 minutes.
+
+If the `.metadata.generation` of a resource changes (due to e.g. a change to the spec), this is handled instantly outside the interval window.
+
+### Verify
+
+`.spec.verify` is an optional list of signatures that should be validated before the component version is marked as verified. A ComponentVersion that is not verified will not be consumed by downstream ocm-controller resources. Each signature item consists of a `name` and a `publicKey`.
+
+### Name
+
+`.spec.verify.[].name` is a required field that specifies the name of the signature that should be verified.
+
+### Public Key
+
+`.spec.verify.[].publicKey` is a required field that specifies a reference to a secret containing the public key that can be used to verify the signature. The key of the public key in the secret must match the name of the signature.
+
+For example, the following ComponentVersion verifies two signatures:
+
+```
+apiVersion: delivery.ocm.software/v1alpha1
+kind: ComponentVersion
+metadata:
+  name: podinfo
+  namespace: default
+spec:
+  interval: 10m0s
+  component: phoban.io/podinfo
+  repository:
+    url: ghcr.io/phoban01
+  version:
+    semver: ">=6.3.x"
+  verify:
+  - name: operations
+    publicKey:
+      secretRef:
+        name: signing-keys
+  - name: security
+    publicKey:
+      secretRef:
+        name: signing-keys
+```
+
+The accompanying secret should be in the following format:
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: signing-keys
+type: Opaque
+data:
+  operations: <BASE64>
+  security: <BASE64>
+```
+
+### References
+
+`.spec.references` is an optional field that can be used to configure parameters for the handling of component references. Component references are employed when creating aggregated components.
+
+### Expand
+
+`.spec.references.expand` is an optional boolean field that indicates whether the component descriptor for all component references that are present in the "root" component descriptor should also be retrieved and stored in the cluster.
+
+### Suspend
+
+`.spec.suspend` is an optional field to suspend the reconciliation of a ComponentVersion. When set to true, the controller will stop reconciling the ComponentVersion. When the field is set to false or removed, it will resume.
+
+####
 
 ### Working with ComponentVersions
 
