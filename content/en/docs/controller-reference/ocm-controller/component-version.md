@@ -18,7 +18,7 @@ The `ComponentVersion` API produces component descriptors for a specific compone
 
 ## Example
 
-The following is an example of a ComponentVersion.
+The following is an example of a ComponentVersion:
 
 ```yaml
 apiVersion: delivery.ocm.software/v1alpha1
@@ -265,8 +265,97 @@ data:
 
 `.spec.suspend` is an optional field to suspend the reconciliation of a ComponentVersion. When set to true, the controller will stop reconciling the ComponentVersion. When the field is set to false or removed, it will resume.
 
-####
+## Debugging ComponentVersions
 
-### Working with ComponentVersions
+There are several ways to gather information about a ComponentVersion for debugging purposes.
 
-### ComponentVersion Status
+### Describe the ComponentVersion
+
+Describing an ComponentVersion using `kubectl describe componentversion <repository-name>` displays the latest recorded information for the resource in the Status and Events sections:
+
+```bash
+...
+Status:
+...
+  Conditions:
+    Last Transition Time:  2023-06-29T11:54:23Z
+    Message:               reconcilation in progress for component: phoban.io/podinfo
+    Observed Generation:   1
+    Reason:                ProgressingWithRetry
+    Status:                True
+    Type:                  Reconciling
+    Last Transition Time:  2023-06-29T11:54:23Z
+    Message:               failed to verify phoban.io/podinfo with constraint >=6.3.x
+    Observed Generation:   1
+    Reason:                ComponentVerificationFailed
+    Status:                False
+    Type:                  Ready
+Events:
+  Type     Reason                       Age   From            Message
+  ----     ------                       ----  ----            -------
+  Normal   Progressing                  18s   ocm-controller  Version check succeeded, found latest version: 6.3.6
+  Warning  ComponentVerificationFailed  16s   ocm-controller  failed to get public key for verification: public key not found, retrying in 10m0s
+  Warning  ComponentVerificationFailed  16s   ocm-controller  Reconciliation did not succeed, retrying in 10m0s
+```
+
+### Trace emitted Events
+
+To view events for specific ComponentVersion(s), `kubectl` events can be used in combination with `--for` to list the Events for specific objects. For example, running:
+
+```bash
+kubectl events --for ComponentVersion/<name>
+```
+
+outputs:
+
+```bash
+LAST SEEN               TYPE      REASON                        OBJECT                     MESSAGE
+38s                     Warning   ComponentVerificationFailed   ComponentVersion/podinfo   failed to get public key for verification: public key not found, retrying in 10m0s
+38s                     Warning   ComponentVerificationFailed   ComponentVersion/podinfo   Reconciliation did not succeed, retrying in 10m0s
+```
+
+Besides being reported in Events, the reconciliation errors are also logged by the controller. You can use a tool such as [stern](https://github.com/stern/stern) in tandem with `grep` to filter and refine the output of controller logs:
+
+```bash
+stern ocm-controller -n ocm-system | grep ComponentVersion
+```
+
+will output the following log stream:
+
+```bash
+ocm-controller-bcf4cbbb8-crd4d manager 2023-06-29T11:54:21Z     INFO    Version check succeeded, found latest version: 6.3.6    {"name": "podinfo", "namespace": "default", "reconciler kind": "ComponentVersion", "reason": "Progressing", "annotations": {}}
+ocm-controller-bcf4cbbb8-crd4d manager 2023-06-29T11:54:23Z     ERROR   failed to get public key for verification: public key not found, retrying in 10m0s     {"name": "podinfo", "namespace": "default", "reconciler kind": "ComponentVersion", "annotations": {}, "error": "ComponentVerificationFailed"}
+ocm-controller-bcf4cbbb8-crd4d manager github.com/open-component-model/ocm-controller/controllers.(*ComponentVersionReconciler).Reconcile
+ocm-controller-bcf4cbbb8-crd4d manager 2023-06-29T11:54:23Z     ERROR   Reconciliation did not succeed, retrying in 10m0s       {"name": "podinfo", "namespace": "default", "reconciler kind": "ComponentVersion", "annotations": {}, "error": "ComponentVerificationFailed"}
+ocm-controller-bcf4cbbb8-crd4d manager github.com/open-component-model/ocm-controller/controllers.(*ComponentVersionReconciler).Reconcile.func1
+ocm-controller-bcf4cbbb8-crd4d manager github.com/open-component-model/ocm-controller/controllers.(*ComponentVersionReconciler).Reconcile
+```
+
+## ComponentVersion Status
+
+### Observed Generation
+
+The ocm-controller reports an observed generation in the ComponentVersion’s `.status.observedGeneration`. The observed generation is the latest `.metadata.generation` which resulted in either a ready state, or stalled due to error it can not recover from without human intervention.
+
+### Conditions
+
+ComponentVersion has various states during its lifecycle, reflected as Kubernetes Conditions. It can be reconciling while fetching the remote ComponentVersion or verifying signatures, it can be ready, or it can fail during reconciliation.
+
+### Component Descriptor
+
+The status contains a reference to the component descriptor for the reconciled component version.
+
+The following fields make up the reference:
+
+- `name`: name of the reconciled component.
+- `version`: version of the reconciled component.
+- `extraIdentity`: additional identity attributes of the reconciled component.
+- `references`: a list of component references.
+- `componentDescriptorRef`: a reference to the ComponentDescriptor Kubernetes representation.
+
+### Reconciled Version
+
+The reconciled version status field holds the specific version that was reconciled by the ocm-controller.
+
+### Verified
+
