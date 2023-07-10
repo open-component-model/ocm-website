@@ -1,16 +1,19 @@
 ---
-title: "Replication Controller"
+title: "Replication Controller API v1"
 description: ""
 lead: ""
-date: 2022-01-25T14:40:56+01:00
-lastmod: 2022-01-25T14:40:56+01:00
-draft: true
+date: 2023-07-10T11:34:56+01:00
+lastmod: 2023-07-10T11:34:56+01:00
+draft: false
 images: []
-type: docs
-weight: 3
+menu:
+  docs:
+    parent: ""
+    identifier: "replication-controller-9f6db3d3e7bfde2923f36c48e99ae429"
+weight: 2
+toc: true
 ---
 
-<h1>OCM Controller API reference v1alpha1</h1>
 <p>Packages:</p>
 <ul class="simple">
 <li>
@@ -21,55 +24,6 @@ weight: 3
 <p>Package v1alpha1 contains API Schema definitions for the delivery v1alpha1 API group</p>
 Resource Types:
 <ul class="simple"></ul>
-<h3 id="delivery.ocm.software/v1alpha1.Component">Component
-</h3>
-<p>Component gathers together reconciled information about a component.</p>
-<div class="md-typeset__scrollwrap">
-<div class="md-typeset__table">
-<table>
-<thead>
-<tr>
-<th>Field</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<code>name</code><br>
-<em>
-string
-</em>
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td>
-<code>version</code><br>
-<em>
-string
-</em>
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td>
-<code>registry</code><br>
-<em>
-<a href="#delivery.ocm.software/v1alpha1.Registry">
-Registry
-</a>
-</em>
-</td>
-<td>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
 <h3 id="delivery.ocm.software/v1alpha1.ComponentSubscription">ComponentSubscription
 </h3>
 <p>ComponentSubscription is the Schema for the componentsubscriptions API</p>
@@ -112,16 +66,26 @@ ComponentSubscriptionSpec
 <table>
 <tr>
 <td>
-<code>interval</code><br>
+<code>component</code><br>
 <em>
-<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration">
-Kubernetes meta/v1.Duration
-</a>
+string
 </em>
 </td>
 <td>
-<p>Interval is the reconciliation interval, i.e. at what interval shall a reconciliation happen.
-This is used to requeue objects for reconciliation in case of success as well as already reconciling objects.</p>
+<p>Component specifies the name of the Component that should be replicated.</p>
+</td>
+</tr>
+<tr>
+<td>
+<code>semver</code><br>
+<em>
+string
+</em>
+</td>
+<td>
+<em>(Optional)</em>
+<p>Semver specifies an optional semver constraint that is used to evaluate the component
+versions that should be replicated.</p>
 </td>
 </tr>
 <tr>
@@ -134,6 +98,7 @@ OCMRepository
 </em>
 </td>
 <td>
+<p>Source holds the OCM Repository details for the replication source.</p>
 </td>
 </tr>
 <tr>
@@ -146,16 +111,23 @@ OCMRepository
 </em>
 </td>
 <td>
+<em>(Optional)</em>
+<p>Destination holds the destination or target OCM Repository details. The ComponentVersion
+will be transfered into this repository.</p>
 </td>
 </tr>
 <tr>
 <td>
-<code>component</code><br>
+<code>interval</code><br>
 <em>
-string
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration">
+Kubernetes meta/v1.Duration
+</a>
 </em>
 </td>
 <td>
+<p>Interval is the reconciliation interval, i.e. at what interval shall a reconciliation happen.
+This is used to requeue objects for reconciliation in case of success as well as already reconciling objects.</p>
 </td>
 </tr>
 <tr>
@@ -175,17 +147,6 @@ it is still allowed to do so.
 </tr>
 <tr>
 <td>
-<code>semver</code><br>
-<em>
-string
-</em>
-</td>
-<td>
-<em>(Optional)</em>
-</td>
-</tr>
-<tr>
-<td>
 <code>verify</code><br>
 <em>
 <a href="#delivery.ocm.software/v1alpha1.Signature">
@@ -194,6 +155,9 @@ string
 </em>
 </td>
 <td>
+<em>(Optional)</em>
+<p>Verify specifies a list signatures that should be validated before the ComponentVersion
+is marked Verified.</p>
 </td>
 </tr>
 </table>
@@ -221,7 +185,9 @@ ComponentSubscriptionStatus
 (<em>Appears on:</em>
 <a href="#delivery.ocm.software/v1alpha1.ComponentSubscription">ComponentSubscription</a>)
 </p>
-<p>ComponentSubscriptionSpec defines the desired state of ComponentSubscription</p>
+<p>ComponentSubscriptionSpec defines the desired state of ComponentSubscription. It specifies
+the parameters that the replication controller will use to replicate a desired Component from
+a source OCM repository to a destination OCM repository.</p>
 <div class="md-typeset__scrollwrap">
 <div class="md-typeset__table">
 <table>
@@ -234,16 +200,26 @@ ComponentSubscriptionStatus
 <tbody>
 <tr>
 <td>
-<code>interval</code><br>
+<code>component</code><br>
 <em>
-<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration">
-Kubernetes meta/v1.Duration
-</a>
+string
 </em>
 </td>
 <td>
-<p>Interval is the reconciliation interval, i.e. at what interval shall a reconciliation happen.
-This is used to requeue objects for reconciliation in case of success as well as already reconciling objects.</p>
+<p>Component specifies the name of the Component that should be replicated.</p>
+</td>
+</tr>
+<tr>
+<td>
+<code>semver</code><br>
+<em>
+string
+</em>
+</td>
+<td>
+<em>(Optional)</em>
+<p>Semver specifies an optional semver constraint that is used to evaluate the component
+versions that should be replicated.</p>
 </td>
 </tr>
 <tr>
@@ -256,6 +232,7 @@ OCMRepository
 </em>
 </td>
 <td>
+<p>Source holds the OCM Repository details for the replication source.</p>
 </td>
 </tr>
 <tr>
@@ -268,16 +245,23 @@ OCMRepository
 </em>
 </td>
 <td>
+<em>(Optional)</em>
+<p>Destination holds the destination or target OCM Repository details. The ComponentVersion
+will be transfered into this repository.</p>
 </td>
 </tr>
 <tr>
 <td>
-<code>component</code><br>
+<code>interval</code><br>
 <em>
-string
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration">
+Kubernetes meta/v1.Duration
+</a>
 </em>
 </td>
 <td>
+<p>Interval is the reconciliation interval, i.e. at what interval shall a reconciliation happen.
+This is used to requeue objects for reconciliation in case of success as well as already reconciling objects.</p>
 </td>
 </tr>
 <tr>
@@ -297,17 +281,6 @@ it is still allowed to do so.
 </tr>
 <tr>
 <td>
-<code>semver</code><br>
-<em>
-string
-</em>
-</td>
-<td>
-<em>(Optional)</em>
-</td>
-</tr>
-<tr>
-<td>
 <code>verify</code><br>
 <em>
 <a href="#delivery.ocm.software/v1alpha1.Signature">
@@ -316,6 +289,9 @@ string
 </em>
 </td>
 <td>
+<em>(Optional)</em>
+<p>Verify specifies a list signatures that should be validated before the ComponentVersion
+is marked Verified.</p>
 </td>
 </tr>
 </tbody>
@@ -412,7 +388,7 @@ string
 (<em>Appears on:</em>
 <a href="#delivery.ocm.software/v1alpha1.ComponentSubscriptionSpec">ComponentSubscriptionSpec</a>)
 </p>
-<p>OCMRepository defines details for a repository, such as access keys and the url.</p>
+<p>OCMRepository specifies access details for an OCI based OCM Repository.</p>
 <div class="md-typeset__scrollwrap">
 <div class="md-typeset__table">
 <table>
@@ -431,50 +407,21 @@ string
 </em>
 </td>
 <td>
+<p>URL specifies the URL of the OCI registry.</p>
 </td>
 </tr>
 <tr>
 <td>
 <code>secretRef</code><br>
 <em>
-<a href="https://pkg.go.dev/github.com/fluxcd/pkg/apis/meta#LocalObjectReference">
-github.com/fluxcd/pkg/apis/meta.LocalObjectReference
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.19/#localobjectreference-v1-core">
+Kubernetes core/v1.LocalObjectReference
 </a>
 </em>
 </td>
 <td>
 <em>(Optional)</em>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<h3 id="delivery.ocm.software/v1alpha1.Registry">Registry
-</h3>
-<p>
-(<em>Appears on:</em>
-<a href="#delivery.ocm.software/v1alpha1.Component">Component</a>)
-</p>
-<p>Registry defines information about the location of a component.</p>
-<div class="md-typeset__scrollwrap">
-<div class="md-typeset__table">
-<table>
-<thead>
-<tr>
-<th>Field</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<code>url</code><br>
-<em>
-string
-</em>
-</td>
-<td>
+<p>SecretRef specifies the credentials used to access the OCI registry.</p>
 </td>
 </tr>
 </tbody>
@@ -539,7 +486,8 @@ string
 </em>
 </td>
 <td>
-<p>Name of the signature.</p>
+<p>Name specifies the name of the signature. An OCM component may have multiple
+signatures.</p>
 </td>
 </tr>
 <tr>
@@ -552,7 +500,8 @@ SecretRef
 </em>
 </td>
 <td>
-<p>Key which is used for verification.</p>
+<p>PublicKey provides a reference to a Kubernetes Secret that contains a public key
+which will be used to validate the named signature.</p>
 </td>
 </tr>
 </tbody>
