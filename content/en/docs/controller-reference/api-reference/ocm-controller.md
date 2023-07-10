@@ -10,7 +10,7 @@ menu:
   docs:
     parent: "api-reference"
     identifier: "ocm-controller-0557140581b3b1668c12c30b1b9ac91f"
-weight: 999
+weight: 1
 toc: true
 ---
 
