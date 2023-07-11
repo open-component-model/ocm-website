@@ -28,9 +28,9 @@ toc: true
       - [utf-8](#utf-8)
     - [Access Types](#access-types)
       - [git](#git)
-      - [localBlob](#localblob)
+      - [helm](#helm-1)
+      - [npm](#npm)
       - [ociArtifact](#ociartifact)
-      - [ociBlob](#ociblob)
       - [s3](#s3)
 
 # Input and Access Types
@@ -279,9 +279,34 @@ Refers to Git repository at certain commit or tag
       commit: 42cc249aec77aa64984b2b91eb0f3b96dd63aacd
 ```
 
-#### localBlob
+#### helm
 
-*To be done.*
+Refers to a helm chart located in a helm chart repository
+
+```yaml
+  - name: mariadb-chart
+    type: helmChart
+    version: ${VERSION}
+    access:
+      type: helm
+      helmChart: mariadb:12.2.7
+      helmRepository: https://charts.bitnami.com/bitnami
+```
+
+#### npm
+
+Refers to an npm package located in a Javascript package registry
+
+```yaml
+  - name: prime-npm
+    type: helmChart
+    version: ${VERSION}
+    access:
+      type: npm
+      package: random-prime
+      version: 4.0.0
+      registry: https://registry.npmjs.org
+```
 
 #### ociArtifact
 
@@ -296,9 +321,6 @@ Refers to an image in an (external) OCI registry
       type: ociArtifact
       imageReference: gcr.io/google_containers/echoserver:1.10
 ```
-
-#### ociBlob
-*To be done.*
 
 #### s3
 
