@@ -115,7 +115,7 @@ kubectl create secret generic registry-credentials --from-literal=username=$GITH
 
 ### Destination Repository
 
-`.spec.destination` is an optional field that provides the necessary configuration for the `replication-controller` to access destination repository into which components will be replicated.
+`.spec.destination` is an optional field that provides the necessary configuration for the `replication-controller` to access the destination repository into which components will be replicated.
 
 ### Service Account Name
 
