@@ -91,7 +91,7 @@ An ComponentSubscription also needs a `.spec` [section](https://github.com/kuber
 
 ### Version
 
-`.spec.semver` specifies a semantic version constraint that is used to determine the range of versions to be replicated.
+`.spec.semver` specifies a semantic version constraint used to determine the range of versions to be replicated.
 
 ### Source Repository
 
