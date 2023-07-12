@@ -99,7 +99,7 @@ An ComponentSubscription also needs a `.spec` [section](https://github.com/kuber
 
 ### Source Repository URL
 
-`.spec.source.url` is a required field that denoting the registry in which the source OCM components are stored.
+`.spec.source.url` is a required field denoting the registry in which the source OCM components are stored.
 
 ### Source Repository Secret Reference
 
