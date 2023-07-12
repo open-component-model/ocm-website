@@ -227,7 +227,11 @@ The replication-controller reports an observed generation in the ComponentSubscr
 
 ### Conditions
 
-ComponentSubscription has various states during its lifecycle, reflected as Kubernetes Conditions. It can be reconciling while fetching the remote ComponentSubscription or verifying signatures, it can be ready, or it can fail during reconciliation.
+ComponentSubscription has various states during its lifecycle, reflected as Kubernetes Conditions. These are as follows:
+- reconciling
+- signature verification
+- ready
+- failed reconciling
 
 ### Last Applied Version
 
