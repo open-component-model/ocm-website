@@ -231,7 +231,7 @@ ComponentSubscription has various states during its lifecycle, reflected as Kube
 
 ### Last Applied Version
 
-The LastAppliedVersion field holds information regarding the most up-to-date version that has been successfully replicated to the destination repository.
+The `LastAppliedVersion` field holds information regarding the most up-to-date version that has been successfully replicated to the destination repository.
 
 ### Replicated Repository URL
 
