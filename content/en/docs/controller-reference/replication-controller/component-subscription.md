@@ -235,4 +235,4 @@ The LastAppliedVersion field holds information regarding the most up-to-date ver
 
 ### Replicated Repository URL
 
-Replicated repository URL holds information regarding the URL of the repository into which the last applied version has been replicated.
+`ReplicatedRepositoryURL` holds information regarding the repository's URL into which the last applied version has been replicated.
