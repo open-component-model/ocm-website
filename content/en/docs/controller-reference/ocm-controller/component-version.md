@@ -168,7 +168,7 @@ An ComponentVersion also needs a `.spec` [section](https://github.com/kubernetes
 
 ### Version
 
-`.spec.version.semver` specifies
+`.spec.version.semver` specifies a semantic version constraint that is used to determine the specific component version or range of versions that will be reconciled.
 
 ### Repository
 
