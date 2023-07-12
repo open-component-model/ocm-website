@@ -40,3 +40,13 @@ Flags:
 Description:
   Install either a specific or latest version of the ocm-controller.
 ```
+
+## replication-controller
+
+The `replication-controller` can be installed using `kubectl`:
+
+```shell
+VERSION=$(curl -sL https://api.github.com/repos/open-component-model/replication-controller/releases/latest | jq -r '.name')
+
+kubectl apply -f https://github.com/open-component-model/replication-controller/releases/download/$VERSION/install.yaml
+```

@@ -156,8 +156,8 @@ it is still allowed to do so.
 </td>
 <td>
 <em>(Optional)</em>
-<p>Verify specifies a list signatures that should be validated before the ComponentVersion
-is marked Verified.</p>
+
+<p>Verify specifies a list signatures that must be verified before a ComponentVersion is replicated.</p>
 </td>
 </tr>
 </table>
