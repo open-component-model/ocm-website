@@ -87,7 +87,7 @@ An ComponentSubscription also needs a `.spec` [section](https://github.com/kuber
 
 ### Component
 
-`.spec.component` is a required field that specifies the name of the component.
+`.spec.component` is a required field that specifies the component's name.
 
 ### Version
 
