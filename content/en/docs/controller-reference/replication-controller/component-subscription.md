@@ -223,7 +223,7 @@ replication-controller-76848b97c5-4flrl manager 2023-07-12T10:13:06Z    ERROR   
 
 ### Observed Generation
 
-The replication-controller reports an observed generation in the ComponentSubscription’s `.status.observedGeneration`. The observed generation is the latest `.metadata.generation` which resulted in either a ready state, or stalled due to error it can not recover from without human intervention.
+The replication-controller reports an observed generation in the ComponentSubscription's `.status.observedGeneration`. The observed generation is the latest `.metadata.generation`, which resulted in either a ready state or stalled due to an error it can not recover from without human intervention.
 
 ### Conditions
 
