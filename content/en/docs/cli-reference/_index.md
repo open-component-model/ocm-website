@@ -1,8 +1,8 @@
 ---
-title: CLI Reference
+title: cli-reference
 name: cli-reference
 url: /docs/cli/
-date: 2023-06-07T09:43:27Z
+date: 2023-07-14T13:44:00Z
 draft: false
 images: []
 menu:
@@ -29,7 +29,7 @@ isCommand: false
 
 
 The Open Component Model command line client support the work with OCM
-artifacts, like Component Archives, Common Transport Archive,
+artifacts, like Component Archives, Common Transport Archive,  
 Component Repositories, and component versions.
 
 Additionally it provides some limited support for the docker daemon, OCI artifacts and
@@ -47,7 +47,7 @@ for various environments on the command line. Nevertheless it is always preferra
 to use the cli config file.
 Every credential setting is related to a dedicated consumer and provides a set of
 credential attributes. All this can be specified by a sequence of <code>--cred</code>
-options.
+options. 
 
 Every option value has the format
 
@@ -70,8 +70,8 @@ For example:
     <pre>--cred :type=ociRegistry --cred hostname=ghcr.io --cred usename=mandelsoft --cred password=xyz</pre>
 </center>
 
-With the option <code>-X</code> it is possible to pass global settings of the
-form
+With the option <code>-X</code> it is possible to pass global settings of the 
+form 
 
 <center>
     <pre>-X &lt;attribute>=&lt;value></pre>
@@ -107,7 +107,7 @@ attributes are supported:
 
   Public and private Key settings given as JSON document with the following
   format:
-
+  
   <pre>
   {
     "publicKeys"": [
@@ -121,7 +121,7 @@ attributes are supported:
        }
     ]
   </pre>
-
+  
   One of following data fields are possible:
   - <code>data</code>:       base64 encoded binary data
   - <code>stringdata</code>: plain text data

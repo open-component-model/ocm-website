@@ -2,7 +2,7 @@
 title: componentversions
 name: transfer componentversions
 url: /docs/cli/transfer/componentversions/
-date: 2023-06-07T09:43:27Z
+date: 2023-07-14T13:44:00Z
 draft: false
 images: []
 menu:
@@ -52,7 +52,7 @@ relative to the specified repository using the syntax
     <pre>&lt;component>[:&lt;version>]</pre>
 </center>
 
-If no <code>--repo</code> option is specified the given names are interpreted
+If no <code>--repo</code> option is specified the given names are interpreted 
 as located OCM component version references:
 
 <center>
@@ -75,7 +75,7 @@ The <code>--repo</code> option takes an OCM repository specification:
 For the *Common Transport Format* the types <code>directory</code>,
 <code>tar</code> or <code>tgz</code> is possible.
 
-Using the JSON variant any repository type supported by the
+Using the JSON variant any repository type supported by the 
 linked library can be used:
 
 Dedicated OCM repository types:
@@ -102,7 +102,7 @@ With the option <code>--recursive</code> the complete reference tree of a compon
 
 If a component lookup for building a reference closure is required
 the <code>--lookup</code>  option can be used to specify a fallback
-lookup repository.
+lookup repository. 
 By default the component versions are searched in the repository
 holding the component version for which the closure is determined.
 For *Component Archives* this is never possible, because it only
@@ -113,7 +113,7 @@ references.
 It the option <code>--overwrite</code> is given, component version in the
 target repository will be overwritten, if they already exist.
 
-It the option <code>--copy-resources</code> is given, all referential
+It the option <code>--copy-resources</code> is given, all referential 
 resources will potentially be localized, mapped to component version local
 resources in the target repository.
 This behaviour can be further influenced by specifying a transfer script
@@ -128,19 +128,19 @@ are configured for the transport target. It has the following format
 
 The uploader name may be a path expression with the following possibilities:
 - <code>ocm/ociRegistry</code>: oci Registry upload for local OCI artifact blobs.
-  The media type is optional. If given it must be an OCI artifact media type.
+  The media type is optional. If given ist must be an OCI artifact media type.
 - <code>plugin/<plugin name>[/<uploader name]</code>: uploader provided by plugin.
 
 It is possible to use a dedicated transfer script based on spiff.
 The option <code>--scriptFile</code> can be used to specify this script
-by a file name. With <code>--script</code> it can be taken from the
+by a file name. With <code>--script</code> it can be taken from the 
 CLI config using an entry of the following format:
 
 <pre>
 type: scripts.ocm.config.ocm.software
 scripts:
-  &lt;name>:
-    path: &lt;filepath>
+  &lt;name>: 
+    path: &lt;filepath> 
     script:
       &lt;scriptdata>
 </pre>
