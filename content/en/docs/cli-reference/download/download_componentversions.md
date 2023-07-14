@@ -2,7 +2,7 @@
 title: componentversions
 name: download componentversions
 url: /docs/cli/download/componentversions/
-date: 2023-06-07T09:43:27Z
+date: 2023-07-14T13:44:00Z
 draft: false
 images: []
 menu:
