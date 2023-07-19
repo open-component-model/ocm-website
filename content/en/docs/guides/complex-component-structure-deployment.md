@@ -1,6 +1,6 @@
 ---
-title: "Deployment scenario using a complex component"
-description: "Deploying a complex microservice architecture component."
+title: "Deployment scenario using a aggregate(d) component"
+description: "Deploying a microservice architecture with components."
 date: 2023-06-20T10:00:00+00:00
 lastmod: 2023-06-20:00:00+00:00
 draft: true
@@ -16,7 +16,7 @@ toc: true
 ## Prerequisite
 
 We assume that the reader has already read all the previous guides in the component area. This guide discusses a more
-complex scenario using plain Localizations and Configurations without the use of Unpacker.
+complex scenario using plain Localizations and Configurations without the use of [Unpacker](https://github.com/open-component-model/unpacker-controller).
 
 ## Constructing the Component
 
@@ -32,53 +32,194 @@ We will use the following example application to demonstrate a multi-component s
 
 This repository contains the following items:
 
-### Makefile
+### Component File
 
-A `Makefile` that can be used to build the component and push it to a user repository.
-To build the component, edit the `PROVIDER` and the `OCI_REPO` in the Makefile and update the references in `reference.yaml`.
+We are going to use the following component descriptor:
 
-Now run `make ca`.
+```yaml
+components:
+# -- product component
+- name: mpas.ocm.software/podinfo
+  version: 1.0.2
+  provider:
+    name: open-component-model
+  componentReferences:
+  - name: backend
+    componentName: mpas.ocm.software/podinfo/backend
+    version: 1.0.0
+  - name: frontend
+    componentName: mpas.ocm.software/podinfo/frontend
+    version: 1.0.0
+  - name: redis
+    componentName: mpas.ocm.software/redis
+    version: 1.0.0
+# -- backend component
+- name: mpas.ocm.software/podinfo/backend
+  version: 1.0.0
+  provider:
+    name: open-component-model
+  resources:
+  - name: config
+    type: configdata.ocm.software
+    input:
+      type: file
+      mediaType: application/yaml
+      path: backend/config.yaml
+      compress: true
+  - name: image
+    relation: external
+    type: ociImage
+    version: 6.2.0
+    access:
+      type: ociArtifact
+      imageReference: ghcr.io/stefanprodan/podinfo:6.2.0
+  - name: manifests
+    type: kustomize.ocm.fluxcd.io
+    input:
+      type: dir
+      path: backend/manifests
+      compress: true
+# -- frontend component
+- name: mpas.ocm.software/podinfo/frontend
+  version: 1.0.0
+  provider:
+    name: open-component-model
+  resources:
+  - name: config
+    type: configdata.ocm.software
+    input:
+      type: file
+      mediaType: application/yaml
+      path: frontend/config.yaml
+      compress: true
+  - name: image
+    relation: external
+    type: ociImage
+    version: 6.2.0
+    access:
+      type: ociArtifact
+      imageReference: ghcr.io/stefanprodan/podinfo:6.2.0
+  - name: manifests
+    type: kustomize.ocm.fluxcd.io
+    input:
+      type: dir
+      path: frontend/manifests
+      compress: true
+# -- redis component
+- name: mpas.ocm.software/redis
+  version: 1.0.0
+  provider:
+    name: open-component-model
+  resources:
+  - name: config
+    type: configdata.ocm.software
+    input:
+      type: file
+      mediaType: application/yaml
+      path: redis/config.yaml
+      compress: true
+  - name: image
+    relation: external
+    type: ociImage
+    version: 6.0.1
+    access:
+      type: ociArtifact
+      imageReference: redis:6.0.1
+  - name: manifests
+    type: kustomize.ocm.fluxcd.io
+    input:
+      type: dir
+      path: redis/manifests
+      compress: true
 
 ```
-make ca
-ocm create ca -f github.com/skarlso/podify v1.0.2 --provider skarlso -F gen/ca --scheme ocm.software/v3alpha1
-ocm add references gen/ca references.yaml
-processing references.yaml...
+
+First, we build a component out from this using `ocm` by running the following command:
+
+```
+ocm add componentversions --create components.yaml
+processing components.yaml...
   processing document 1...
     processing index 1
-  processing document 2...
-    processing index 1
-  processing document 3...
-    processing index 1
-found 3 references
-adding reference github.com/skarlso/backend: "name"="backend","version"="v1.0.2"...
-adding reference github.com/skarlso/frontend: "name"="frontend","version"="v1.0.1"...
-adding reference github.com/skarlso/cache: "name"="cache","version"="v1.0.0"...
-
+    processing index 2
+    processing index 3
+    processing index 4
+found 4 components
+adding component ocm.software/podinfo:1.0.2...
+  adding reference ocm.software/podinfo/backend: "name"="backend","version"="1.0.0"...
+  adding reference ocm.software/podinfo/frontend: "name"="frontend","version"="1.0.0"...
+  adding reference ocm.software/redis: "name"="redis","version"="1.0.0"...
+adding component ocm.software/podinfo/backend:1.0.0...
+  adding resource configdata.ocm.software: "name"="config","version"="<componentversion>"...
+  adding resource ociImage: "name"="image","version"="6.2.0"...
+  adding resource kustomize.ocm.fluxcd.io: "name"="manifests","version"="<componentversion>"...
+adding component ocm.software/podinfo/frontend:1.0.0...
+  adding resource configdata.ocm.software: "name"="config","version"="<componentversion>"...
+  adding resource ociImage: "name"="image","version"="6.2.0"...
+  adding resource kustomize.ocm.fluxcd.io: "name"="manifests","version"="<componentversion>"...
+adding component ocm.software/redis:1.0.0...
+  adding resource configdata.ocm.software: "name"="config","version"="<componentversion>"...
+  adding resource ociImage: "name"="image","version"="6.0.1"...
+  adding resource kustomize.ocm.fluxcd.io: "name"="manifests","version"="<componentversion>"...
 ```
 
-Then, to push it to the repository, run `make push`.
+This should have created a folder called `transport-archive`. The structure of that should look something like this:
+```
+tree .
+.
+├── artifact-index.json
+└── blobs
+    ├── sha256.03ac3a7611e118d08fcf70e9b7be263c4a7082066f9763f71d8901d7fa2afc9d
+    ├── sha256.118b6e8282ee1d335b1638a76a20022b6acc319177dbbce3089700da835afb6a
+    ├── sha256.12073781e4fba95f19f046c51c90f0c4e1338d47afe4795bf6fcca163ae46eb8
+    ├── sha256.1f239399104ec0cc7680956eb60960d212b3368609feb83dac2c95040d24b480
+    ├── sha256.3c9c902ce013ca070a29634e4603c90063c96df632ef2c8e6b4447aaeb70b67e
+    ├── sha256.3dc6209959eb782fa6f5f44892f66e9657276735bfb40407bd00ddca30d0a9d1
+    ├── sha256.654debd65dbadbcee73e55b675980865ddf22acffcec166c59a5e48a213e4dd5
+    ├── sha256.699ea8628e39256048cd1687c496fe64999a41f16f200ef5ce938ee9f19c37f0
+    ├── sha256.70a47378c043721e3099801dec02c44b1dd9cdef0ebf79c55784eb4666bdbc29
+    ├── sha256.773b28fb63f1195ff73e328744639ddc1c574d58c1e723d6e386fcd66b45bd9c
+    ├── sha256.893be914eebd8230ef848ea82b3433c6201152f5d9925e7b5b8d68e0cec7133e
+    ├── sha256.92991cf391167c928f3afe6891001f3dd325b64ce800cf34fad4c038141fc57f
+    ├── sha256.98ca4d46130f5c09a704b3d8ee9af94de3c0ac73d7e990df53e64606c418fea8
+    ├── sha256.a779270c2fea310835d3125de90e089e423c9730a98f1acdda328470d21fced0
+    ├── sha256.a7dd532f80e8417ed33cf0c97328582847017895fc5146e499bdf4c94a9d17b5
+    ├── sha256.cae4365f264251c616210707aa4765bd95f23fd22f98abc68bae9f58d6e4506d
+    ├── sha256.ee79c92bbcce9e7a98f07c6577fd56dd45cf6f7c2d3115216ee249f42119030e
+    └── sha256.f6a82a23220752c232e5f66ce46f0be28b27a5af19474072c77dac6d1feb0c16
+
+2 directories, 19 files
+```
+
+These blobs are OCI layers. They contain information about our podinfo application. If we cat a random blob we get
+something like this:
+```
+cat sha256.3c9c902ce013ca070a29634e4603c90063c96df632ef2c8e6b4447aaeb70b67e
+{"componentDescriptorLayer":{"mediaType":"application/vnd.ocm.software.component-descriptor.v2+yaml+tar","digest":"sha256:699ea8628e39256048cd1687c496fe64999a41f16f200ef5ce938ee9f19c37f0","size":2560}}%
+```
+
+Next, we transfer this component to a location of your choice. For example:
 
 ```
-make push
-ocm create ca -f github.com/skarlso/podify v1.0.2 --provider skarlso -F gen/ca --scheme ocm.software/v3alpha1
-ocm add references gen/ca references.yaml
-processing references.yaml...
-  processing document 1...
-    processing index 1
-  processing document 2...
-    processing index 1
-  processing document 3...
-    processing index 1
-found 3 references
-adding reference github.com/skarlso/backend: "name"="backend","version"="v1.0.2"...
-adding reference github.com/skarlso/frontend: "name"="frontend","version"="v1.0.1"...
-adding reference github.com/skarlso/cache: "name"="cache","version"="v1.0.0"...
-ocm transfer component -f gen/ca ghcr.io/skarlso
-transferring version "github.com/skarlso/podify:v1.0.2"...
+ocm transfer component ./transport-archive ghcr.io/skarlso/mpas-demo-component
+transferring version "ocm.software/podinfo:1.0.2"...
 ...adding component version...
-1 versions transferred
+transferring version "ocm.software/podinfo/backend:1.0.0"...
+...resource 0...
+...resource 2...
+...adding component version...
+transferring version "ocm.software/podinfo/frontend:1.0.0"...
+...resource 0...
+...resource 2...
+...adding component version...
+transferring version "ocm.software/redis:1.0.0"...
+...resource 0...
+...resource 2...
+...adding component version...
+4 versions transferred
 ```
+
+Now, we should have a component that we can use and deploy.
 
 ### Backend
 
@@ -96,17 +237,13 @@ The backend files contain the following relevant data:
                 image: not-an-image
         ```
     - `kustomization.yaml` makes sure only the relevant files are applied
-    - `service.yaml` to expose the communication between services
-- `configdata.yaml`
+    - `service.yaml` to expose the service endpoint and make discoverable
+- `config.yaml`
     - contains the configuration and localization rules which will be applied to the deployment file.
         - Localization
             - will use an `image` resource to replace the above image value with the correct one
         - Configuration
             - will use the config information to configure some default values for those values such as color and message.
-- `resource.yaml`
-    - contains the resources which point to the above elements
-    - __note__ that manifests __MUST__ be a directory
-
 
 ### Frontend
 
@@ -366,7 +503,7 @@ spec:
   references:
     expand: true
   repository:
-    url: ghcr.io/skarlso/mpas
+    url: ghcr.io/skarlso/mpas-demo-component
   serviceAccountName: admin-account
   version:
     semver: 1.0.16
