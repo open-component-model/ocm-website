@@ -423,24 +423,7 @@ these.
 
 How does the whole flow work?
 
-```mermaid
-graph TD;
-    A[Podinfo Component Version]-->B[Backend Component Descriptor];
-    A[Podinfo Component Version]-->C[Frontend Component Descriptor];
-    A[Podinfo Component Version]-->D[Cache Component Descriptor];
-    B[Backend Component Descriptor]-->F[Localization];
-    F[Localization]-->E[Configuration];
-    C[Frontend Component Descriptor]-->G[Localization];
-    G[Localization]-->H[Configuration];
-    D[Cache Component Descriptor]-->I[Localization];
-    I[Localization]-->J[Configuration];
-    E[Configuration]-->K[FluxDeployer];
-    H[Configuration]-->M[FluxDeployer];
-    J[Configuration]-->N[FluxDeployer];
-    K[FluxDeployer]-->L[Deploy all of the generated YAML using flux Kustomization]
-    M[FluxDeployer]-->L[Deploy all of the generated YAML using flux Kustomization]
-    N[FluxDeployer]-->L[Deploy all of the generated YAML using flux Kustomization]
-```
+![mpas-flow](/images/mpas-workflow.png)
 
 `ocm-controller` creates `ComponentDescriptor` objects for each referenced component version. Those component descriptors
 will contain all the resources that those versions have such as the manifest files, configuration, deployment files, etc.
