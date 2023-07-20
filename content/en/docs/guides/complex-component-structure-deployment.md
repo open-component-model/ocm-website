@@ -34,7 +34,7 @@ This repository contains the following items:
 
 ### Component File
 
-We are going to use the following component descriptor:
+We are going to use the following component descriptor, which consists of four components: three individual components that represent the podinfo micro services for backend, frontend and cache and one product component that contains references to the individual components. 
 
 ```yaml
 components:
