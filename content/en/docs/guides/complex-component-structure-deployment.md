@@ -255,9 +255,9 @@ The cache contains the same resources as backend. The only differences are the v
 
 ## Constructing the Localizations and Configurations
 
-Normally, these objects would be created for use. But once we have the component, let's create the localization and
-configuration objects by hand. We will need to apply these objects, like the component version, to the cluster. This
-can be done either by hand or by using flux.
+Normally, these objects would be created for use by [Unpacker](https://github.com/open-component-model/unpacker-controller) or by the [MPAS System](https://github.com/open-component-model/MPAS).
+
+Here, we'll create the localization and configuration YAML by hand and then apply it to the cluster.
 
 We have to create three of each of these components. Localization, Configuration and a FluxDeployer. One for each
 component version.
