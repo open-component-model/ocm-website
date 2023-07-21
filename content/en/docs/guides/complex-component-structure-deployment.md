@@ -34,7 +34,7 @@ This repository contains the following items:
 
 ### Component File
 
-We are going to use the following component descriptor:
+We are going to use the following component descriptor, which consists of four components: three individual components that represent the podinfo micro services for backend, frontend and cache and one product component that contains references to the individual components. 
 
 ```yaml
 components:
@@ -52,6 +52,15 @@ components:
     version: 1.0.0
   - name: redis
     componentName: mpas.ocm.software/redis
+    version: 1.0.0
+  sources:
+  - access:
+      commit: ac0afafcf4aa333546634cba631f0090a0a4cbe3
+      ref: refs/heads/main
+      repoUrl: https://github.com/open-component-model/podinfo
+      type: github
+    name: github_com_open_component_model_podinfo
+    type: git
     version: 1.0.0
 # -- backend component
 - name: mpas.ocm.software/podinfo/backend
