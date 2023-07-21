@@ -23,7 +23,7 @@ complex scenario using plain Localizations and Configurations without the use of
 We are going to use [podinfo](https://github.com/stefanprodan/podinfo) in microservices mode. This enables us to deploy several components and configure them
 individually.
 
-Podinfo has three services which we are going to put into individual component descriptors.
+Podinfo has three services which we are going to model using individual component descriptors.
 - backend
 - frontend
 - cache (redis)
@@ -34,7 +34,7 @@ This repository contains the following items:
 
 ### Component File
 
-We are going to use the following component descriptor, which consists of four components: three individual components that represent the podinfo micro services for backend, frontend and cache and one product component that contains references to the individual components. 
+The following component file describes four components: three components that represent the podinfo microservices and one  _aggregate_ component that brings together the podinfo components using _references_.  We refer to the aggregate component as the _product component_.
 
 ```yaml
 components:
@@ -184,10 +184,10 @@ components:
 
 ```
 
-First, we build a component out from this using `ocm` by running the following command:
+With the components modeled we can start to build a component archive using the `ocm`  cli:
 
 ```
-ocm add componentversions --create components.yaml
+ocm add componentversions --create --file component-archive components.yaml
 processing components.yaml...
   processing document 1...
     processing index 1
@@ -213,7 +213,7 @@ adding component ocm.software/redis:1.0.0...
   adding resource kustomize.ocm.fluxcd.io: "name"="manifests","version"="<componentversion>"...
 ```
 
-This should have created a folder called `transport-archive`. The structure of that should look something like this:
+This will create a folder called `component-archive`. The structure of that should look something like this:
 ```
 tree .
 .
@@ -241,7 +241,7 @@ tree .
 2 directories, 19 files
 ```
 
-These blobs are OCI layers. They contain information about our podinfo application. If we cat a random blob we get
+These blobs contain the resources we described when modelling our podinfo application. If we `cat `a random blob we get
 something like this:
 ```
 cat sha256.3c9c902ce013ca070a29634e4603c90063c96df632ef2c8e6b4447aaeb70b67e
@@ -251,7 +251,7 @@ cat sha256.3c9c902ce013ca070a29634e4603c90063c96df632ef2c8e6b4447aaeb70b67e
 Next, we transfer this component to a location of your choice. For example:
 
 ```
-ocm transfer component ./transport-archive ghcr.io/skarlso/mpas-demo-component
+ocm transfer component ./component-archive ghcr.io/skarlso/mpas-demo-component
 transferring version "ocm.software/podinfo:1.0.2"...
 ...adding component version...
 transferring version "ocm.software/podinfo/backend:1.0.0"...
@@ -269,11 +269,11 @@ transferring version "ocm.software/redis:1.0.0"...
 4 versions transferred
 ```
 
-Now, we should have a component that we can use and deploy.
+With the transfer complete, we now have a component that we can use and deploy.
 
 ### ComponentVersion
 
-We start by creating a pull secret since the component that we just transferred is private. This pull secret will be
+We start by creating an image pull secret since the component that we just transferred is private. This pull secret will be
 used by OCM to access this package in ghcr. To create the secret, run:
 
 ```
@@ -284,7 +284,7 @@ kubectl create secret docker-registry pull-secret -n ocm-system \
     --docker-email=$GITHUB_EMAIL
 ```
 
-We start by applying the components version main object to reconcile the component.
+We start by applying a `ComponentVersion` custom resource that will reconcile the podinfo component.
 
 ```yaml
 apiVersion: delivery.ocm.software/v1alpha1
@@ -305,7 +305,7 @@ spec:
     semver: 1.0.2
 ```
 
-This will reconcile the version into the cluster for the rest of objects to gather data from. If everything was successful
+This will reconcile the `ComponentDescriptor` for the specific version, making the component metadata available for other Kubernetes resources to consume. If everything was successful
 we can inspect the created component version:
 
 ```
@@ -369,7 +369,10 @@ last reconciled.
 
 ### ComponentDescriptor
 
-Taking a look at one of the component descriptor refs...:
+We can also examine the component descriptors using the following command:
+```kubectl get componentdescriptors```
+
+``
 
 ```yaml
 apiVersion: delivery.ocm.software/v1alpha1
@@ -417,8 +420,7 @@ spec:
   version: 1.0.0
 ```
 
-This descriptor will contain all the resource references that this component contains and will be used to fetch
-identities of these references.
+This descriptor specifies the location of the component's resource based on the current context (`globalAccess`). We can use this information to retrieve the resource from a storage layer that is accessible within our current environment.
 
 ### Backend
 
@@ -454,7 +456,6 @@ The cache contains the same resources as backend. The only differences are the v
 
 ## Constructing the Localizations and Configurations
 
-Normally, these objects would be created for use by [Unpacker](https://github.com/open-component-model/unpacker-controller) or by the [MPAS System](https://github.com/open-component-model/MPAS).
 
 Here, we'll create the localization and configuration YAML by hand and then apply it to the cluster.
 
@@ -814,11 +815,11 @@ configuration:
 
 **Note**. This configuration has a source that is pointing at the `Localization` resource that we created. This is
 important because the configuration needs to work on the localized entities. Once it's reconciled, it will create a
-`Snapshot`. That snapshot contains the created resources that have been configured.
+`Snapshot`. That snapshot contains the input resources that have been transformed using the supplied configuration rules.
 
 ### FluxDeployment
 
-Next, comes the `FluxDeployment`. The `FluxDeployment` will point to the last item in the change of transformations
+Next, comes the `FluxDeployment`. The `FluxDeployment` will point to the last Snapshot in the chain of transformations
 which is the `Configuration`. It looks something like this:
 
 ```yaml
