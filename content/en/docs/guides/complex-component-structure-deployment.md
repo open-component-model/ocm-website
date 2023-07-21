@@ -44,7 +44,7 @@ components:
   labels:
   - name: ocm.software/labels/podinfo/purpose
     value:
-      - kind: test 
+      - kind: test
         type: manual
   provider:
     name: open-component-model
@@ -251,7 +251,7 @@ cat sha256.3c9c902ce013ca070a29634e4603c90063c96df632ef2c8e6b4447aaeb70b67e
 Next, we transfer this component to a location of your choice. For example:
 
 ```
-ocm transfer component ./component-archive ghcr.io/skarlso/mpas-demo-component
+ocm transfer component ./component-archive ghcr.io/skarlso/demo-component
 transferring version "ocm.software/podinfo:1.0.2"...
 ...adding component version...
 transferring version "ocm.software/podinfo/backend:1.0.0"...
@@ -298,7 +298,7 @@ spec:
   references:
     expand: true
   repository:
-    url: ghcr.io/skarlso/mpas-demo-component # this should be where you transferred the component.
+    url: ghcr.io/skarlso/demo-component # this should be where you transferred the component.
     secretRef:
       name: pull-secret
   version:
@@ -324,7 +324,7 @@ spec:
   references:
     expand: true
   repository:
-    url: ghcr.io/skarlso/mpas-demo-component
+    url: ghcr.io/skarlso/demo-component
   serviceAccountName: admin-account
   version:
     semver: 1.0.2
@@ -644,7 +644,7 @@ kubectl apply -f redis/components
 
 How does the whole flow work?
 
-![mpas-flow](/images/mpas-workflow.png)
+![flow](/images/demo-workflow.png)
 
 `ocm-controller` creates `ComponentDescriptor` objects for each referenced component version. Those component descriptors
 will contain all the resources that those versions have such as the manifest files, configuration, deployment files, etc.
@@ -944,7 +944,7 @@ metadata:
   - finalizers.snapshot.ocm.software
   generation: 2
   name: backend-configuration-2agwrnt
-  namespace: mpas-sample-project
+  namespace: ocm-system
   ownerReferences:
   - apiVersion: delivery.ocm.software/v1alpha1
     kind: Configuration
@@ -955,7 +955,7 @@ metadata:
 spec:
   digest: sha256:1f5f6173f3180c2fda00dd1267ca190628a2e8b5fa707232cebc9059f7845e29
   identity:
-    component-name: mpas.ocm.software-podinfo-1.0.16-2456627037531301773
+    component-name: ocm.software-podinfo-1.0.16-2456627037531301773
     component-version: 1.0.16
     resource-name: config
     resource-version: 1.0.0
