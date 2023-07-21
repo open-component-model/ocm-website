@@ -37,7 +37,7 @@ toc: true
 
 The Open Component Model spec supports multiple methods how to add resources to a component version. There are two different ways how to add content: Input Type and Access Type
 
-An **Input type** adds content along with the component descriptor and stores it in the same target repository where the component is store. After pusing the content this always resolves to a
+An **Input type** adds content along with the component descriptor and stores it in the same target repository where the component is store. After pushing the content this always resolves to a
 
 ```
 relation: local
