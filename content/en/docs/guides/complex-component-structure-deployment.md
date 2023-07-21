@@ -271,6 +271,155 @@ transferring version "ocm.software/redis:1.0.0"...
 
 Now, we should have a component that we can use and deploy.
 
+### ComponentVersion
+
+We start by creating a pull secret since the component that we just transferred is private. This pull secret will be
+used by OCM to access this package in ghcr. To create the secret, run:
+
+```
+kubectl create secret docker-registry pull-secret -n ocm-system \
+    --docker-server=ghcr.io \
+    --docker-username=$GITHUB_USER \
+    --docker-password=$GITHUB_TOKEN \
+    --docker-email=$GITHUB_EMAIL
+```
+
+We start by applying the components version main object to reconcile the component.
+
+```yaml
+apiVersion: delivery.ocm.software/v1alpha1
+kind: ComponentVersion
+metadata:
+  name: podinfocomponent-version
+  namespace: ocm-system
+spec:
+  component: ocm.software/podinfo
+  interval: 10m0s
+  references:
+    expand: true
+  repository:
+    url: ghcr.io/skarlso/mpas-demo-component # this should be where you transferred the component.
+    secretRef:
+      name: pull-secret
+  version:
+    semver: 1.0.2
+```
+
+This will reconcile the version into the cluster for the rest of objects to gather data from. If everything was successful
+we can inspect the created component version:
+
+```
+kubectl describe componentversion -n ocm-system podinfocomponent-version
+```
+
+```yaml
+apiVersion: delivery.ocm.software/v1alpha1
+kind: ComponentVersion
+metadata:
+  name: podinfocomponent-version
+  namespace: ocm-system
+spec:
+  component: ocm.software/podinfo
+  interval: 10m0s
+  references:
+    expand: true
+  repository:
+    url: ghcr.io/skarlso/mpas-demo-component
+  serviceAccountName: admin-account
+  version:
+    semver: 1.0.2
+status:
+  componentDescriptor:
+    componentDescriptorRef:
+      name: ocm.software-podinfo-1.0.2-2456627037531301773
+      namespace: ocm-system
+    name: ocm.software/podinfo
+    references:
+    - componentDescriptorRef:
+        name: ocm.software-podinfo-backend-1.0.0-3945706267509967991
+        namespace: ocm-system
+      name: backend
+      version: 1.0.0
+    - componentDescriptorRef:
+        name: ocm.software-podinfo-frontend-1.0.8-11612684200430752646
+        namespace: ocm-system
+      name: frontend
+      version: 1.0.8
+    - componentDescriptorRef:
+        name: ocm.software-redis-1.0.0-6199010409340612397
+        namespace: ocm-system
+      name: redis
+      version: 1.0.0
+    version: 1.0.2
+  conditions:
+  - lastTransitionTime: "2023-06-21T10:59:22Z"
+    message: 'Applied version: '
+    observedGeneration: 1
+    reason: Succeeded
+    status: "True"
+    type: Ready
+  observedGeneration: 1
+  reconciledVersion: 1.0.2
+
+```
+
+The important bits here are the `references`. These are all the components that the top component contains. These
+references are used to fetch and identify component dependencies. This component will also contain which version was
+last reconciled.
+
+### ComponentDescriptor
+
+Taking a look at one of the component descriptor refs...:
+
+```yaml
+apiVersion: delivery.ocm.software/v1alpha1
+kind: ComponentDescriptor
+metadata:
+  name: ocm.software-podinfo-backend-1.0.0-3945706267509967991
+  namespace: ocm-system
+spec:
+  resources:
+  - access:
+      globalAccess:
+        digest: sha256:4a9fd7d9d861aff437746c170b199d15539044405f1b822e316ef49ac5f99db8
+        mediaType: application/yaml
+        ref: ghcr.io/skarlso/podify/component-descriptors/ocm.software/podinfo/backend
+        size: 354
+        type: ociBlob
+      localReference: sha256:4a9fd7d9d861aff437746c170b199d15539044405f1b822e316ef49ac5f99db8
+      mediaType: application/yaml
+      type: localBlob
+    name: config
+    relation: local
+    type: configdata.ocm.software
+    version: 1.0.0
+  - access:
+      imageReference: ghcr.io/stefanprodan/podinfo:6.2.0
+      type: ociArtifact
+    name: image
+    relation: external
+    type: ociImage
+    version: 6.2.0
+  - access:
+      globalAccess:
+        digest: sha256:c61bc74d0b5ecfcca20b447c10d97d07a3cec649e1fc57a25f08fc93fcf42fde
+        mediaType: application/x-tgz
+        ref: ghcr.io/skarlso/podify/component-descriptors/ocm.software/podinfo/backend
+        size: 963
+        type: ociBlob
+      localReference: sha256:c61bc74d0b5ecfcca20b447c10d97d07a3cec649e1fc57a25f08fc93fcf42fde
+      mediaType: application/x-tgz
+      type: localBlob
+    name: manifests
+    relation: local
+    type: kustomize.ocm.fluxcd.io
+    version: 1.0.0
+  version: 1.0.0
+```
+
+This descriptor will contain all the resource references that this component contains and will be used to fetch
+identities of these references.
+
 ### Backend
 
 The backend files contain the following relevant data:
@@ -391,6 +540,14 @@ spec:
 
 And that's it.
 
+These components can be found under [podinfo/backend/components](https://github.com/open-component-model/podinfo/tree/f6fd27a94a5cf39784754858bd2a139bd90e0ad9/backend/components).
+
+To apply them, simply run this command from the podinfo root:
+
+```
+kubectl apply -f backend/components
+```
+
 ### Frontend
 
 Same for the Frontend
@@ -464,10 +621,23 @@ spec:
     namespace: ocm-system
 ```
 
+To apply them, simply run this command from the podinfo root:
+
+```
+kubectl apply -f frontend/components
+```
+
 ### Redis
 
 Redis is exactly the same as the above two. Just with different names and pointing to the redis resource. Try creating
-these.
+these yourself to see if you understood the structure. If you get stuck, you can always take a peek under
+[podinfo/redis/components](https://github.com/open-component-model/podinfo/tree/f6fd27a94a5cf39784754858bd2a139bd90e0ad9/redis/components).
+
+To apply them, simply run this command from the podinfo root:
+
+```
+kubectl apply -f redis/components
+```
 
 ## Understanding the moving parts
 
@@ -519,117 +689,7 @@ ocm-system   ocm.software-redis-1.0.0-6199010409340612397               9m21s
 
 All of the components should have their localization, configuration, and fluxdeployer.
 
-### ComponentVersion
-
-Contains the main component and all the references to all other components that might exist. A healthy `ComponentVersion`
-looks like this:
-
-```yaml
-apiVersion: delivery.ocm.software/v1alpha1
-kind: ComponentVersion
-metadata:
-  name: podinfocomponent-version
-  namespace: ocm-system
-spec:
-  component: ocm.software/podinfo
-  interval: 10m0s
-  references:
-    expand: true
-  repository:
-    url: ghcr.io/skarlso/mpas-demo-component
-  serviceAccountName: admin-account
-  version:
-    semver: 1.0.16
-status:
-  componentDescriptor:
-    componentDescriptorRef:
-      name: ocm.software-podinfo-1.0.16-2456627037531301773
-      namespace: ocm-system
-    name: ocm.software/podinfo
-    references:
-    - componentDescriptorRef:
-        name: ocm.software-podinfo-backend-1.0.0-3945706267509967991
-        namespace: ocm-system
-      name: backend
-      version: 1.0.0
-    - componentDescriptorRef:
-        name: ocm.software-podinfo-frontend-1.0.8-11612684200430752646
-        namespace: ocm-system
-      name: frontend
-      version: 1.0.8
-    - componentDescriptorRef:
-        name: ocm.software-redis-1.0.0-6199010409340612397
-        namespace: ocm-system
-      name: redis
-      version: 1.0.0
-    version: 1.0.16
-  conditions:
-  - lastTransitionTime: "2023-06-21T10:59:22Z"
-    message: 'Applied version: '
-    observedGeneration: 1
-    reason: Succeeded
-    status: "True"
-    type: Ready
-  observedGeneration: 1
-  reconciledVersion: 1.0.16
-
-```
-
-The important bits here are the `references`. These are all the components that the top component contains. These
-references are used to fetch and identify component dependencies. This component will also contain which version was
-last reconciled.
-
-### ComponentDescriptor
-
-Taking a look at one of the component descriptor refs...:
-
-```yaml
-apiVersion: delivery.ocm.software/v1alpha1
-kind: ComponentDescriptor
-metadata:
-  name: ocm.software-podinfo-backend-1.0.0-3945706267509967991
-  namespace: ocm-system
-spec:
-  resources:
-  - access:
-      globalAccess:
-        digest: sha256:4a9fd7d9d861aff437746c170b199d15539044405f1b822e316ef49ac5f99db8
-        mediaType: application/yaml
-        ref: ghcr.io/skarlso/podify/component-descriptors/ocm.software/podinfo/backend
-        size: 354
-        type: ociBlob
-      localReference: sha256:4a9fd7d9d861aff437746c170b199d15539044405f1b822e316ef49ac5f99db8
-      mediaType: application/yaml
-      type: localBlob
-    name: config
-    relation: local
-    type: configdata.ocm.software
-    version: 1.0.0
-  - access:
-      imageReference: ghcr.io/stefanprodan/podinfo:6.2.0
-      type: ociArtifact
-    name: image
-    relation: external
-    type: ociImage
-    version: 6.2.0
-  - access:
-      globalAccess:
-        digest: sha256:c61bc74d0b5ecfcca20b447c10d97d07a3cec649e1fc57a25f08fc93fcf42fde
-        mediaType: application/x-tgz
-        ref: ghcr.io/skarlso/podify/component-descriptors/ocm.software/podinfo/backend
-        size: 963
-        type: ociBlob
-      localReference: sha256:c61bc74d0b5ecfcca20b447c10d97d07a3cec649e1fc57a25f08fc93fcf42fde
-      mediaType: application/x-tgz
-      type: localBlob
-    name: manifests
-    relation: local
-    type: kustomize.ocm.fluxcd.io
-    version: 1.0.0
-  version: 1.0.0
-```
-
-This descriptor will contain all the resource references that this component contains.
+Contains the main component and all the references to all other components that might exist.
 
 ### Localization
 
