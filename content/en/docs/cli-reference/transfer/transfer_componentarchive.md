@@ -2,7 +2,7 @@
 title: componentarchive
 name: transfer componentarchive
 url: /docs/cli/transfer/componentarchive/
-date: 2023-07-14T13:44:00Z
+date: 2023-07-21T15:03:29Z
 draft: false
 images: []
 menu:
