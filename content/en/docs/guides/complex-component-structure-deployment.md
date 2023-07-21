@@ -39,19 +39,24 @@ We are going to use the following component descriptor, which consists of four c
 ```yaml
 components:
 # -- product component
-- name: mpas.ocm.software/podinfo
+- name: ocm.software/podinfo
   version: 1.0.2
+  labels:
+  - name: ocm.software/labels/podinfo/purpose
+    value:
+      - kind: test 
+        type: manual
   provider:
     name: open-component-model
   componentReferences:
   - name: backend
-    componentName: mpas.ocm.software/podinfo/backend
+    componentName: ocm.software/podinfo/backend
     version: 1.0.0
   - name: frontend
-    componentName: mpas.ocm.software/podinfo/frontend
+    componentName: ocm.software/podinfo/frontend
     version: 1.0.0
   - name: redis
-    componentName: mpas.ocm.software/redis
+    componentName: ocm.software/redis
     version: 1.0.0
   sources:
   - access:
@@ -63,10 +68,13 @@ components:
     type: git
     version: 1.0.0
 # -- backend component
-- name: mpas.ocm.software/podinfo/backend
+- name: ocm.software/podinfo/backend
   version: 1.0.0
   provider:
     name: open-component-model
+  labels:
+  - name: ocm.software/labels/podinfo/service
+    value: backend
   resources:
   - name: config
     type: configdata.ocm.software
@@ -88,11 +96,23 @@ components:
       type: dir
       path: backend/manifests
       compress: true
+  sources:
+  - access:
+      commit: 9d294e85d8d3fe7803d1eccbf009619078d30cb9
+      ref: refs/heads/main
+      repoUrl: https://github.com/open-component-model/podinfo
+      type: github
+    name: github_com_open_component_model_podinfo
+    type: git
+    version: 1.0.0
 # -- frontend component
-- name: mpas.ocm.software/podinfo/frontend
+- name: ocm.software/podinfo/frontend
   version: 1.0.0
   provider:
     name: open-component-model
+  labels:
+  - name: ocm.software/labels/podinfo/service
+    value: frontend
   resources:
   - name: config
     type: configdata.ocm.software
@@ -114,11 +134,23 @@ components:
       type: dir
       path: frontend/manifests
       compress: true
+  sources:
+  - access:
+      commit: 9d294e85d8d3fe7803d1eccbf009619078d30cb9
+      ref: refs/heads/main
+      repoUrl: https://github.com/open-component-model/podinfo
+      type: github
+    name: github_com_open_component_model_podinfo
+    type: git
+    version: 1.0.0
 # -- redis component
-- name: mpas.ocm.software/redis
+- name: ocm.software/redis
   version: 1.0.0
   provider:
     name: open-component-model
+  labels:
+  - name: ocm.software/labels/podinfo/service
+    value: redis
   resources:
   - name: config
     type: configdata.ocm.software
@@ -140,6 +172,15 @@ components:
       type: dir
       path: redis/manifests
       compress: true
+  sources:
+  - access:
+      commit: 9d294e85d8d3fe7803d1eccbf009619078d30cb9
+      ref: refs/heads/main
+      repoUrl: https://github.com/open-component-model/podinfo
+      type: github
+    name: github_com_open_component_model_podinfo
+    type: git
+    version: 1.0.0
 
 ```
 
