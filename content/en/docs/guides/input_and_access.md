@@ -15,7 +15,6 @@ toc: true
 ---
 
 - [Input and Access Types](#input-and-access-types)
-  - [Usage:](#usage)
     - [Input Types](#input-types)
       - [binary](#binary)
       - [dir](#dir)
@@ -37,7 +36,7 @@ toc: true
 
 The Open Component Model spec supports multiple methods how to add resources to a component version. There are two different ways how to add content: Input Type and Access Type
 
-An **Input type** adds content along with the component descriptor and stores it in the same target repository where the component is store. After pushing the content this always resolves to a
+An **Input type** adds content along with the component descriptor and stores it in the same target repository where the component is stored. After pushing the content to the target registry this always resolves to the attribute
 
 ```
 relation: local
@@ -45,7 +44,7 @@ relation: local
 
 in a component descriptor.
 
-An **Access Type** adds content as reference to a location somewhere else. It is a kind of pointer in a component descriptor. It resolves to a
+An **Access Type** just adds content as reference to a external location, e.g. an external OCI registry. It is a kind of pointer in a component descriptor. It resolves to the attribute
 
 ```
 relation: external
@@ -73,11 +72,9 @@ The following list of access types is supported:
 * ociBlob
 * s3
 
-Not all access and input types can be combined in useful way with all artifact-types. But the OCM specification defines no restrictions on possible combinations.
+Not all access and input types can be combined in useful ways with all artifact types. But the OCM specification defines no restrictions on possible combinations.
 
-## Usage:
-
-This section gives an overview and typical usages examples. Ist describes not the full list of fields and their meaning. Please see the [command reference](https://ocm.software/docs/cli/add/resources/) for this. The examples below are used in a component
+This following sections give an overview and typical usages examples for access and input types. It does not describes the full list of possible fields and their meaning. For a complete list of attributes please see the [command reference](https://ocm.software/docs/cli/add/resources/). The examples below are meant to be used in a component that looks like this:
 
 ```yaml
 - name: github.com/open-component-model/megacomponent
@@ -103,7 +100,7 @@ Allows to define resources with binary content being base64 encoded. Should only
 
 #### dir
 
-Defines a resource from content of a directory in the file system. It is packed with `tar` and optionally compressed.
+Defines a resource from content of a directory in the local file system. It is packed with `tar` and optionally compressed.
 
 ```yaml
   resources:
@@ -116,7 +113,7 @@ Defines a resource from content of a directory in the file system. It is packed 
 
 #### docker
 
-Takes an image from the local docker registry and adds it as a resource. Requires a running docker daemon.
+Takes an image from a local docker registry and adds it as a resource. Requires a running docker daemon.
 
 ```yaml
   resources:
@@ -135,7 +132,7 @@ REPOSITORY                         TAG                       IMAGE ID       CREA
 megacomp                           0.1.0                     9aab9cbca56e   5 days ago      7.46MB
 ```
 
-The target location of the image can be set with the `repository` field. Here the resulting image will be stored at `<REPO_URL>/github.com/open-component-model/megacomponent/images/mega:1.10` and contain a field in the component descriptor:
+The target location of the image can be set with the `repository` field. Here the resulting image will be stored at `<REPO_URL>/github.com/open-component-model/megacomponent/images/mega:1.10` and contained in the field `referenceName` in the component descriptor:
 
 ```yaml
    - access:
@@ -148,7 +145,7 @@ The target location of the image can be set with the `repository` field. Here th
 
 #### dockermulti
 
-Takes multiple image from the local docker registry and adds them as single multiarch image. Requires a running docker daemon. The images have to be built for different architectures/os and need a unique tag identifying them. As docker does not support multiarch images at the time of writing this is a workaround.
+Takes multiple images from a local docker registry and adds them as single multiarch image. Requires a running docker daemon. The images have to be built for different architectures/os and need a unique tag identifying them. As docker does not support multiarch images at the time of writing this is a workaround.
 
 ```yaml
   resources:
@@ -170,7 +167,7 @@ megacomp                           0.1.0-linux-amd64         96659c4f7a35   5 da
 megacomp                           0.1.0-linux-arm64         64f209acb814   5 days ago      7.46MB
 ```
 
-The target location of the image can be set with the `repository` field. Here the resulting image will be stored at `<REPO_URL>/github.com/open-component-model/megacomponent/images/megamulti:1.10` and contain a field in the component descriptor:
+The target location of the image can be set with the `repository` field. Here the resulting image will be stored at `<REPO_URL>/github.com/open-component-model/megacomponent/images/megamulti:1.10` and contained in the field `referenceName` in the component descriptor:
 
 ```yaml
    - access:
@@ -209,7 +206,7 @@ Imports a helm chart from the local file system and adds it as a resource.
 
 #### ociImage
 
-Takes an image that is located in an OCI registry and adds it as a resource
+Takes an image that is located in an OCI registry and adds it as a resource.
 
 ```yaml
   resources:
@@ -220,7 +217,7 @@ Takes an image that is located in an OCI registry and adds it as a resource
       path: gcr.io/google_containers/echoserver:1.10
       repository: images/echo
 ```
-The target location of the image can be set with the `repository` field. Here the resulting image will be stored at `github.com/open-component-model/megacomponent/images/echo:1.10` and contain a field in the component descriptor:
+The target location of the image can be set with the `repository` field. Here the resulting image will be stored at `github.com/open-component-model/megacomponent/images/echo:1.10` and contained in the field `referenceName` in the component descriptor:
 
 ```yaml
    - access:
@@ -233,7 +230,7 @@ The target location of the image can be set with the `repository` field. Here th
 
 #### spiff
 
-Processes a resource using the spiff templater and can provide values for variables
+Processes a resource using the spiff templater and can provide values for variables.
 
 ```yaml
   resources:
@@ -266,7 +263,7 @@ Adds a resource from inline text.
 
 #### git
 
-Refers to Git repository at certain commit or tag
+Refers to a Git repository at a certain commit or tag.
 
 ```yaml
   resources:
@@ -281,7 +278,7 @@ Refers to Git repository at certain commit or tag
 
 #### helm
 
-Refers to a helm chart located in a helm chart repository
+Refers to a helm chart located in a helm chart repository.
 
 ```yaml
   - name: mariadb-chart
@@ -295,7 +292,7 @@ Refers to a helm chart located in a helm chart repository
 
 #### npm
 
-Refers to an npm package located in a Javascript package registry
+Refers to an npm package located in a Javascript package registry.
 
 ```yaml
   - name: prime-npm
@@ -310,7 +307,7 @@ Refers to an npm package located in a Javascript package registry
 
 #### ociArtifact
 
-Refers to an image in an (external) OCI registry
+Refers to an image in an (external) OCI registry.
 
 ```yaml
   resources:
@@ -324,7 +321,7 @@ Refers to an image in an (external) OCI registry
 
 #### s3
 
-Refers to an object in an AWS S3 store
+Refers to an object in an AWS S3 store.
 
 ```yaml
   resources:
