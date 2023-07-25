@@ -747,8 +747,8 @@ status:
   snapshotName: backend-localization-uvnrzql
 ```
 
-The important fields are `configRef` and `sourceRef`. The `configRef` will point to the resource that contains our
-localization rules. Something like this:
+The important fields are `configRef` and `sourceRef`. The `configRef` points to the resource that contains our
+localization rules:
 
 ```yaml
 localization:
@@ -804,7 +804,7 @@ status:
 ```
 
 The important details here are the `configRef` field and the `sourceRef` field. The `configRef` field defines where the
-configuration values are located at. Something like:
+configuration values are located at:
 
 ```yaml
 configuration:
@@ -825,7 +825,7 @@ configuration:
 ```
 
 **Note**. This configuration has a source that is pointing at the `Localization` resource that we created. This is
-important because the configuration needs to work on the localized entities. Once it's reconciled, it will create a
+important because the configuration needs to work on the localized entities. Once reconciled, it will create a
 `Snapshot`. That snapshot contains the input resources that have been transformed using the supplied configuration rules.
 
 ### FluxDeployment
