@@ -271,6 +271,42 @@ transferring version "ocm.software/redis:1.0.0"...
 
 With the transfer complete, we now have a component that we can use and deploy.
 
+### Podinfo Components
+
+#### Backend
+
+The backend files contain the following relevant data:
+
+- manifests
+    - `configmap.yaml`
+        - contains configuration options such as `PODINFO_UI_COLOR`
+    - `deploy.yaml`
+        - the deployment configuration. __note__ that this deployment yaml contains an image setting that will be configured.
+        ```yaml
+            spec:
+            containers:
+            - name: backend
+                image: not-an-image
+        ```
+    - `kustomization.yaml` makes sure only the relevant files are applied
+    - `service.yaml` to expose the service endpoint and make discoverable
+- `config.yaml`
+    - contains the configuration and localization rules which will be applied to the deployment file.
+        - Localization
+            - will use an `image` resource to replace the above image value with the correct one
+        - Configuration
+            - will use the config information to configure some default values for those values such as color and message.
+
+#### Frontend
+
+Frontend contains the same file structure as backend. The only differences are the deployed services.
+
+#### Cache
+
+The cache contains the same resources as backend. The only differences are the values of those deployments.
+
+## Constructing the Kubernetes Objects
+
 ### ComponentVersion
 
 We start by creating an image pull secret since the component that we just transferred is private. This pull secret will be
@@ -284,7 +320,7 @@ kubectl create secret docker-registry pull-secret -n ocm-system \
     --docker-email=$GITHUB_EMAIL
 ```
 
-We start by applying a `ComponentVersion` custom resource that will reconcile the podinfo component.
+After that, we'll create a `ComponentVersion` custom resource that will reconcile the podinfo component.
 
 ```yaml
 apiVersion: delivery.ocm.software/v1alpha1
@@ -305,8 +341,8 @@ spec:
     semver: 1.0.2
 ```
 
-This will reconcile the `ComponentDescriptor` for the specific version, making the component metadata available for other Kubernetes resources to consume. If everything was successful
-we can inspect the created component version:
+This will reconcile the `ComponentDescriptor` for the specific version, making the component metadata available for
+other Kubernetes resources to consume. If everything was successful, we can inspect the created component version:
 
 ```
 kubectl describe componentversion -n ocm-system podinfocomponent-version
@@ -372,8 +408,6 @@ last reconciled.
 We can also examine the component descriptors using the following command:
 ```kubectl get componentdescriptors```
 
-``
-
 ```yaml
 apiVersion: delivery.ocm.software/v1alpha1
 kind: ComponentDescriptor
@@ -422,50 +456,27 @@ spec:
 
 This descriptor specifies the location of the component's resource based on the current context (`globalAccess`). We can use this information to retrieve the resource from a storage layer that is accessible within our current environment.
 
-### Backend
-
-The backend files contain the following relevant data:
-
-- manifests
-    - `configmap.yaml`
-        - contains configuration options such as `PODINFO_UI_COLOR`
-    - `deploy.yaml`
-        - the deployment configuration. __note__ that this deployment yaml contains an image setting that will be configured.
-        ```yaml
-            spec:
-            containers:
-            - name: backend
-                image: not-an-image
-        ```
-    - `kustomization.yaml` makes sure only the relevant files are applied
-    - `service.yaml` to expose the service endpoint and make discoverable
-- `config.yaml`
-    - contains the configuration and localization rules which will be applied to the deployment file.
-        - Localization
-            - will use an `image` resource to replace the above image value with the correct one
-        - Configuration
-            - will use the config information to configure some default values for those values such as color and message.
-
-### Frontend
-
-Frontend contains the same file structure as backend. The only differences are the deployed services.
-
-### Cache
-
-The cache contains the same resources as backend. The only differences are the values of those deployments.
-
-## Constructing the Localizations and Configurations
-
+### Localizations, Configurations and FluxDeployer
 
 Here, we'll create the localization and configuration YAML by hand and then apply it to the cluster.
 
 We have to create three of each of these components. Localization, Configuration and a FluxDeployer. One for each
 component version.
 
-### Backend
+#### Backend
 
-We don't have any configuration for the backend but our localization rules are present inside the ConfigData object. So we'll
-point at that. And we'll use the `image` resource for localizing the deployment.
+Both, localization and configuration, are in the ConfigData object. So we'll point to that. The controller will use the
+`image` resource to localize the backend image. This is how it's defined in the localizations rule:
+
+```yaml
+localization:
+- resource:
+    name: image
+  file: deploy.yaml
+  image: spec.template.spec.containers[0].image
+```
+
+Now, let's construct these objects:
 
 ```yaml
 # Localization
@@ -521,6 +532,8 @@ spec:
     namespace: ocm-system
 ```
 
+Finally, let's add the FluxDeployer too, which will make sure that this component is deployed to the target location.
+
 ```yaml
 # FluxDeployment
 apiVersion: delivery.ocm.software/v1alpha1
@@ -549,7 +562,7 @@ To apply them, simply run this command from the podinfo root:
 kubectl apply -f backend/components
 ```
 
-### Frontend
+#### Frontend
 
 Same for the Frontend
 
@@ -628,7 +641,7 @@ To apply them, simply run this command from the podinfo root:
 kubectl apply -f frontend/components
 ```
 
-### Redis
+#### Redis
 
 Redis is exactly the same as the above two. Just with different names and pointing to the redis resource. Try creating
 these yourself to see if you understood the structure. If you get stuck, you can always take a peek under
@@ -688,7 +701,7 @@ ocm-system   ocm.software-podinfo-frontend-1.0.8-11612684200430752646   9m23s
 ocm-system   ocm.software-redis-1.0.0-6199010409340612397               9m21s
 ```
 
-All of the components should have their localization, configuration, and fluxdeployer.
+All of the components should have their localization, configuration, and FluxDeployer.
 
 Contains the main component and all the references to all other components that might exist.
 
@@ -868,6 +881,48 @@ redis-7475dd84c4-hzp2b      1/1     Running   0          54m
 __Note__: pod count might vary based on the default settings in the configuration data.
 
 If the deployment isn't appearing, there are several places to check for errors:
+
+**Flux**:
+
+Maybe Flux didn't kick in yet. Try to force a reconcile by running:
+
+```
+flux reconcile source git flux-system -n flux-system
+```
+
+**Events**:
+
+Kubernetes Events could hold some extra information. List the most recent ones with:
+
+```
+kubectl events -A
+```
+
+**Logs**:
+
+Sometimes, you can see errors in the `source-controller` failing to get the right resources. Or `kustomize-controller`
+doesn't understand something. We'll go into getting logs in [Controller Logs](#controller-logs) section.
+
+**Object Status**:
+
+Many of the objects will have a status with the most recent error on them. The relevant objects in this case are the
+`FluxDeployer` and the `OCIRepository` objects. Make sure they have successful statuses.
+
+```
+kubectl get ocirepositories -A
+NAMESPACE    NAME                     URL                                                                        READY   STATUS                                                                                                      AGE
+ocm-system   backend-kustomization    oci://registry.ocm-system.svc.cluster.local:5000/sha-3644589785534619751   True    stored artifact for digest '2234@sha256:12100267c60d3eb5acfc564b56eb94288e33fa875c7f2191ec0a662594283ad0'   5m17s
+ocm-system   cache-kustomization      oci://registry.ocm-system.svc.cluster.local:5000/sha-3644589785534619751   True    stored artifact for digest '2393@sha256:f12873dff8d8f91b5d917711f0d7d20ebc85dbfc1652bf01c8b50dc198d7f32d'   4m57s
+ocm-system   frontend-kustomization   oci://registry.ocm-system.svc.cluster.local:5000/sha-3644589785534619751   True    stored artifact for digest '2539@sha256:1a37fdfbf0f109498b813bbd784a81c8b1a818d4770a49a319cc2562621dcf40'   4m47s
+```
+
+```
+kubectl get fluxdeployer -A
+NAMESPACE    NAME                     READY   AGE
+ocm-system   backend-kustomization    True    8m13s
+ocm-system   cache-kustomization      True    7m53s
+ocm-system   frontend-kustomization   True    7m43s
+```
 
 ### Controller Logs
 
