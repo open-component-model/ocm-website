@@ -281,7 +281,7 @@ The backend files contain the following relevant data:
     - `configmap.yaml`
         - contains configuration options such as `PODINFO_UI_COLOR`
     - `deploy.yaml`
-        - the deployment configuration. __Note__ that this deployment yaml contains an attribute `image` that will be configured using the config.yaml explained below.  
+        - the deployment configuration. __Note__ that this deployment yaml contains an attribute `image` that will be configured using the config.yaml explained below.
         ```yaml
             spec:
             containers:
@@ -533,7 +533,7 @@ spec:
 Finally, let's add the FluxDeployer too, which makes sure that this component is deployed to the target location.
 
 ```yaml
-# FluxDeployment
+# FluxDeployer
 apiVersion: delivery.ocm.software/v1alpha1
 kind: FluxDeployer
 metadata:
@@ -699,9 +699,7 @@ ocm-system   ocm.software-podinfo-frontend-1.0.8-11612684200430752646   9m23s
 ocm-system   ocm.software-redis-1.0.0-6199010409340612397               9m21s
 ```
 
-All of the components should have their localization, configuration, and FluxDeployer.
-
-Contains the main component and all the references to all other components that might exist.
+All of the components should have their Localization, Configuration, and FluxDeployer.
 
 ### Localization
 
@@ -828,9 +826,9 @@ configuration:
 important because the configuration needs to work on the localized entities. Once reconciled, it will create a
 `Snapshot`. That snapshot contains the input resources that have been transformed using the supplied configuration rules.
 
-### FluxDeployment
+### FluxDeployer
 
-Next, comes the `FluxDeployment`. The `FluxDeployment` will point to the last Snapshot in the chain of transformations
+Next, comes the `FluxDeployer`. The `FluxDeployer` will point to the last Snapshot in the chain of transformations
 which is the `Configuration`. It looks something like this:
 
 ```yaml
@@ -948,7 +946,7 @@ cluster, or if we don't see the podinfo deployment being started).
 **kustomize-controller**:
   This controller will contain information about reconciled objects. A Kustomization source is usually either a
   GitRepository or an OCIRepository. In this case, the source will be an OCIRepositoy. That repository is pointing to
-  the in-cluster OCI repository. A snapshot creates these entries and that's where it loads the data from.  
+  the in-cluster OCI repository. A snapshot creates these entries and that's where it loads the data from.
 
 The **helm-controller** and **notification-controller** aren't relevant.
 
@@ -1029,11 +1027,11 @@ status:
 This Snapshot contains a lot of information about what has been replicated in the internal registry. We can use `crane`
 to fetch it and check the generated content.
 
-**FluxDeployment**:
+**FluxDeployer**:
 
-FluxDeployment is used to apply the generated objects to a cluster. In the background, it's leveraging Flux's
+FluxDeployer is used to apply the generated objects to a cluster. In the background, it's leveraging Flux's
 Kustomization object. This object's status will contain any errors that could occur during applying generated content,
-like invalid data, invalid CRDs, invalid yaml, no access to the cluster, permission issues, etc. Each component has a 
+like invalid data, invalid CRDs, invalid yaml, no access to the cluster, permission issues, etc. Each component has a
 `FluxDeployer` applying some kind of component data to the cluster such as, Deployments, ConfigMaps,
 ReplicaSets, etc.
 
