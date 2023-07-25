@@ -248,10 +248,10 @@ cat sha256.3c9c902ce013ca070a29634e4603c90063c96df632ef2c8e6b4447aaeb70b67e
 {"componentDescriptorLayer":{"mediaType":"application/vnd.ocm.software.component-descriptor.v2+yaml+tar","digest":"sha256:699ea8628e39256048cd1687c496fe64999a41f16f200ef5ce938ee9f19c37f0","size":2560}}%
 ```
 
-Next, we transfer this component to a location of your choice. For example:
+Next, we transfer this component to a location of your choice. Here `<your-location>` for me was `ghcr.io/skarlso/demo-component`.
 
 ```
-ocm transfer component ./component-archive ghcr.io/skarlso/demo-component
+ocm transfer component ./component-archive <your-location>
 transferring version "ocm.software/podinfo:1.0.2"...
 ...adding component version...
 transferring version "ocm.software/podinfo/backend:1.0.0"...
@@ -334,7 +334,7 @@ spec:
   references:
     expand: true
   repository:
-    url: ghcr.io/skarlso/demo-component # this is where you transferred the component to
+    url: <your-location> # this is where you transferred the component to
     secretRef:
       name: pull-secret
   version:
@@ -360,7 +360,7 @@ spec:
   references:
     expand: true
   repository:
-    url: ghcr.io/skarlso/demo-component
+    url: <your-location>
   serviceAccountName: admin-account
   version:
     semver: 1.0.2
