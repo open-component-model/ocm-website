@@ -281,7 +281,7 @@ The backend files contain the following relevant data:
     - `configmap.yaml`
         - contains configuration options such as `PODINFO_UI_COLOR`
     - `deploy.yaml`
-        - the deployment configuration. __Note__ that this deployment yaml contains an attribute 'image' that will be configured using the config.yaml explained below.  
+        - the deployment configuration. __Note__ that this deployment yaml contains an attribute `image` that will be configured using the config.yaml explained below.  
         ```yaml
             spec:
             containers:
@@ -293,7 +293,7 @@ The backend files contain the following relevant data:
 - `config.yaml`
     - contains the configuration and localization rules which will be applied to the deployment file.
         - Localization
-            - will use an `image` resource to replace the above value for the atribute 'image' with the correct one
+            - will use an `image` resource to replace the above value for the atribute `image` with the correct one
         - Configuration
             - will use the config information to configure some default values for those values such as color and message.
 
@@ -309,8 +309,8 @@ The cache contains the same resources as backend. The only differences are the v
 
 ### ComponentVersion
 
-We start by creating an image pull secret since the component that we just transferred is private. This pull secret will be
-used by OCM to access this package in ghcr. To create the secret, run:
+We start by creating an image pull secret since the component that we just transferred was placed in a private OCI registry. The pull secret will be
+used by the OCM client or OCM controller to access this package in ghcr. To create the secret, run:
 
 ```
 kubectl create secret docker-registry pull-secret -n ocm-system \
@@ -320,7 +320,7 @@ kubectl create secret docker-registry pull-secret -n ocm-system \
     --docker-email=$GITHUB_EMAIL
 ```
 
-After that, we'll create a `ComponentVersion` custom resource that will reconcile the podinfo component.
+Now we create a `ComponentVersion` custom resource that will trigger a reconcile of the podinfo component.
 
 ```yaml
 apiVersion: delivery.ocm.software/v1alpha1
@@ -334,7 +334,7 @@ spec:
   references:
     expand: true
   repository:
-    url: ghcr.io/skarlso/demo-component # this should be where you transferred the component.
+    url: ghcr.io/skarlso/demo-component # this is where you transferred the component to
     secretRef:
       name: pull-secret
   version:
@@ -399,9 +399,7 @@ status:
 
 ```
 
-The important bits here are the `references`. These are all the components that the top component contains. These
-references are used to fetch and identify component dependencies. This component will also contain which version was
-last reconciled.
+The important bits here are the `references`. These are all the components that the top component contains. These references are used to fetch and identify component dependencies. This component will also contain which version was last reconciled.
 
 ### ComponentDescriptor
 
@@ -458,14 +456,14 @@ This descriptor specifies the location of the component's resource based on the 
 
 ### Localizations, Configurations and FluxDeployer
 
-Here, we'll create the localization and configuration YAML by hand and then apply it to the cluster.
+Here, we will create the localization and configuration YAML by hand and then apply it to the cluster.
 
 We have to create three of each of these components. Localization, Configuration and a FluxDeployer. One for each
 component version.
 
 #### Backend
 
-Both, localization and configuration, are in the ConfigData object. So we'll point to that. The controller will use the
+Both, localization and configuration, are in the ConfigData object. So we point to that. The controller will use the
 `image` resource to localize the backend image. This is how it's defined in the localizations rule:
 
 ```yaml
@@ -554,7 +552,7 @@ spec:
 
 And that's it.
 
-These components can be found under [podinfo/backend/components](https://github.com/open-component-model/podinfo/tree/f6fd27a94a5cf39784754858bd2a139bd90e0ad9/backend/components).
+The components can be found under [podinfo/backend/components](https://github.com/open-component-model/podinfo/tree/f6fd27a94a5cf39784754858bd2a139bd90e0ad9/backend/components).
 
 To apply them, simply run this command from the podinfo root:
 
@@ -564,7 +562,7 @@ kubectl apply -f backend/components
 
 #### Frontend
 
-Same for the Frontend
+We do the same for the Frontend component:
 
 ```yaml
 apiVersion: delivery.ocm.software/v1alpha1
@@ -659,8 +657,8 @@ How does the whole flow work?
 
 ![flow](/images/demo-workflow.png)
 
-`ocm-controller` creates `ComponentDescriptor` objects for each referenced component version. Those component descriptors
-will contain all the resources that those versions have such as the manifest files, configuration, deployment files, etc.
+The `ocm-controller` creates `ComponentDescriptor` resources for each referenced component version. Those component descriptors
+will contain all the resources that those versions have, such as manifest files, configuration files, deployment files, etc.
 
 It will use this dependency graph to lookup resource data in the right component version.
 
