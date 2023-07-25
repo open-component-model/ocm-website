@@ -281,7 +281,7 @@ The backend files contain the following relevant data:
     - `configmap.yaml`
         - contains configuration options such as `PODINFO_UI_COLOR`
     - `deploy.yaml`
-        - the deployment configuration. __Note__ that this deployment yaml contains an attribute "image" that will be configured using the config.yaml explained below.  
+        - the deployment configuration. __Note__ that this deployment yaml contains an attribute 'image' that will be configured using the config.yaml explained below.  
         ```yaml
             spec:
             containers:
@@ -293,7 +293,7 @@ The backend files contain the following relevant data:
 - `config.yaml`
     - contains the configuration and localization rules which will be applied to the deployment file.
         - Localization
-            - will use an `image` resource to replace the above image value with the correct one
+            - will use an `image` resource to replace the above value for the atribute 'image' with the correct one
         - Configuration
             - will use the config information to configure some default values for those values such as color and message.
 
