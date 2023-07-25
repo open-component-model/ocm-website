@@ -530,7 +530,7 @@ spec:
     namespace: ocm-system
 ```
 
-Finally, let's add the FluxDeployer too, which will make sure that this component is deployed to the target location.
+Finally, let's add the FluxDeployer too, which makes sure that this component is deployed to the target location.
 
 ```yaml
 # FluxDeployment
@@ -658,7 +658,7 @@ How does the whole flow work?
 ![flow](/images/demo-workflow.png)
 
 The `ocm-controller` creates `ComponentDescriptor` resources for each referenced component version. Those component descriptors
-will contain all the resources that those versions have, such as manifest files, configuration files, deployment files, etc.
+contain all the resources that those versions have, such as manifest files, configuration files, deployment files, etc.
 
 It will use this dependency graph to lookup resource data in the right component version.
 
@@ -903,7 +903,7 @@ doesn't understand something. We'll go into getting logs in [Controller Logs](#c
 
 **Object Status**:
 
-Many of the objects will have a status with the most recent error on them. The relevant objects in this case are the
+Many of the objects have a status with the most recent error on them. The relevant objects in this case are the
 `FluxDeployer` and the `OCIRepository` objects. Make sure they have successful statuses.
 
 ```
@@ -948,36 +948,35 @@ cluster, or if we don't see the podinfo deployment being started).
 **kustomize-controller**:
   This controller will contain information about reconciled objects. A Kustomization source is usually either a
   GitRepository or an OCIRepository. In this case, the source will be an OCIRepositoy. That repository is pointing to
-  the in-cluster OCI repository. A snapshot creates these entries and that's where it will load the data from.
+  the in-cluster OCI repository. A snapshot creates these entries and that's where it loads the data from.  
 
-
-**helm-controller** and **notification-controller** aren't relevant.
+The **helm-controller** and **notification-controller** aren't relevant.
 
 ### Object statuses
 
 **ComponentVersion**:
 
-The `ComponentVersion` object will contain information about what components have been reconciled. We talked about that
-earlier at [Component Version](#componentversion). The `Status` section will contain any errors that could have
+The `ComponentVersion` object contains information about what components have been reconciled. We talked about that
+earlier at [Component Version](#componentversion). The `Status` section contains any errors that could have
 occurred when reconciling information. If you find that the references section is empty, your component version is missing
 `expand: true` setting.
 
 **ComponentDescriptor**:
 
-The `ComponentDescriptor` will hold information about each component and their resources. Read more at [ComponentDescriptors](#componentdescriptor).
+The `ComponentDescriptor` holds information about each component and their resources. Read more at [ComponentDescriptors](#componentdescriptor).
 
 If the resources section is empty in the `status`, there is something wrong reconciling the individual items.
 
 **Localization**:
 
-The status section will contain information about the snapshot that this object created. The snapshot is used to point
-to the right repository in the internal OCI cache. It will also contain the last applied version. The conditions
+The status section contains information about the snapshot that this object created. The snapshot is used to point
+to the right repository in the internal OCI cache. It also contains the last applied version. The conditions
 section will contain any errors while reconciling the resource.
 
 **Configuration**:
 
-The status section will contain information about the snapshot that this object created. The snapshot is used to point
-to the right repository in the internal OCI cache. It will also contain the last applied version. The conditions
+The status section contains information about the snapshot that this object created. The snapshot is used to point
+to the right repository in the internal OCI cache. It also contains the last applied version. The conditions
 section will contain any errors while reconciling the resource.
 
 **Snapshots**:
@@ -1034,13 +1033,13 @@ to fetch it and check the generated content.
 
 FluxDeployment is used to apply the generated objects to a cluster. In the background, it's leveraging Flux's
 Kustomization object. This object's status will contain any errors that could occur during applying generated content,
-like invalid data, invalid CRDs, invalid yaml, no access to the cluster, permission issues, etc. Each component
-will have a `FluxDeployer` applying some kind of component data to the cluster such as, Deployments, ConfigMaps,
+like invalid data, invalid CRDs, invalid yaml, no access to the cluster, permission issues, etc. Each component has a 
+`FluxDeployer` applying some kind of component data to the cluster such as, Deployments, ConfigMaps,
 ReplicaSets, etc.
 
 **OCIRepository**:
 
-There should be one OCIRepository per component. The OCIRepository object is created by FluxDeployer. OCIRepository will
+There should be one OCIRepository resource per component. The OCIRepository is created by the FluxDeployer. OCIRepository will
 contain any errors regarding the content of the internal registry.
 
 **Kustomization**:
