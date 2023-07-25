@@ -56,6 +56,9 @@ Additionally, the **model needs to be extensible**. Being able to easily adapt t
 ### Signing 
 The model needs to support signing and verification processes out-of-the-box. This enables consumers of software components to verify that delivered components have not been tampered with. The signing and verification support has to acknowledge the fact that the technical artifact locations may change over time, which means that these concrete locations must not be part of the signing process.
 
+### Network effects
+Re-use components described with OCM are ready for secure consumption and immediate integration by higher level components (or products). Linking to trusted and already attested components can spawn across different teams within the organization. This directly improves efficiency (cf. proficiency of package models of maven or npm). With other parties also describing component with OCM, a commercial contract can cover the necessary technical trust outside the organization and simplify its secure import and compliant re-use. OCM envisions a network effect across the industry.
+
 ## TL;DR - Summary
 All of the above boils down to the following requirements.<br>
 A modern standardized software component model must:
