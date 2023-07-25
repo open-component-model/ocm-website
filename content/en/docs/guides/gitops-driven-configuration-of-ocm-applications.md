@@ -20,7 +20,7 @@ This guide is the final part of our series exploring OCM, the `ocm-controller` a
 
 Checkout the previous guides if you haven't already:
 
-- [Deploy Applications with OCM & GitOps](/docs/guides/deploying-applications-with-gitops)
+- [Deploy Applications with OCM & GitOps](/docs/guides/deploying-applications-with-ocm-and-gitops)
 - [Air-gapped GitOps with OCM & Flux](/docs/guides/air-gapped-gitops-with-ocm-and-flux)
 
 In this guide we will pick-up where we left off in the air-gapped example.
@@ -30,11 +30,13 @@ We have successfully transferred a component to our private environment and depl
 Let's fix that.
 
 ## Table of contents
+- [Introduction](#introduction)
+- [Table of contents](#table-of-contents)
 - [Requirements](#requirements)
-- [Component Content Recap](#component-content)
-- [Gitops & Configuration](#gitops-configuration)
-- [Verification](#verification)
-- [Conclusion](#conclusion)
+  - [Component Content Recap](#component-content-recap)
+  - [GitOps \& Configuration](#gitops--configuration)
+  - [Verify Deployment](#verify-deployment)
+  - [Conclusion](#conclusion)
 
 ## Requirements
 

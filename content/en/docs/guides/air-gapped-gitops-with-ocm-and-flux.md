@@ -20,16 +20,18 @@ In this guide, we will show how the tools provided by OCM make it possible to au
 
 Air-gapped can mean different things depending on the context. For this guide, we'll assume it means your deployment artifacts are stored in a private registry protected by the security controls at your organization. Your applications only have access to this private registry and little to no public internet access.
 
-We'll take the same `podinfo` component that we deployed in the [Deploy Applications with OCM & GitOps](/docs/guides/deploying-applications-with-gitops) guide but this time we shall use the OCM CLI to transfer the component to our own registry. The application will then be deployed from this "private" registry. This, of course, mimics a real-world air-gap scenario. In practice there could be many layers of security between the two registries; however, the mechanics are ultimately the same.
+We'll take the same `podinfo` component that we deployed in the [Deploy Applications with OCM & GitOps](/docs/guides/deploying-applications-with-ocm-and-gitops) guide but this time we shall use the OCM CLI to transfer the component to our own registry. The application will then be deployed from this "private" registry. This, of course, mimics a real-world air-gap scenario. In practice there could be many layers of security between the two registries; however, the mechanics are ultimately the same.
 
 ## Table of contents
+- [Introduction](#introduction)
+- [Table of contents](#table-of-contents)
 - [Requirements](#requirements)
-- [Component Content](#component-content)
-- [Component Transfer](#component-transfer)
-- [Gitops & Localization](#gitops-localization)
-- [Verification](#verification)
-- [To Be Continued](#to-be-continued)
-- [Conclusion](#to-be-continued)
+  - [Component Content](#component-content)
+  - [Component Transfer](#component-transfer)
+  - [GitOps \& Localization](#gitops--localization)
+  - [Verification](#verification)
+  - [To be continued](#to-be-continued)
+  - [Conclusion](#conclusion)
 
 ## Requirements
 
@@ -122,7 +124,7 @@ We can see that the image reference now points to an image stored in our air-gap
 
 Now that our component has been successfully transferred, let's deploy it using GitOps.
 
-We assume you have completed the [Deploy Applications with OCM & GitOps](/docs/guides/deploying-applications-with-gitops) guide and shall use that repository as the starting point for our air-gapped deployment.
+We assume you have completed the [Deploy Applications with OCM & GitOps](/docs/guides/deploying-applications-with-ocm-and-gitops) guide and shall use that repository as the starting point for our air-gapped deployment.
 
 Because our air-gapped OCM repository is private, we need to provide credentials. This will enable the `ocm-controller` to retrieve components from the repository.
 
