@@ -269,7 +269,7 @@ transferring version "ocm.software/redis:1.0.0"...
 4 versions transferred
 ```
 
-With the transfer complete, we now have a component that we can use and deploy.
+With the transfer completed, we now have a component version that we can use and deploy throughout this example.
 
 ### Podinfo Components
 
