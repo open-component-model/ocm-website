@@ -44,7 +44,7 @@ relation: local
 
 in a component descriptor.
 
-An **Access Type** just adds content as reference to a external location, e.g. an external OCI registry. It is a kind of pointer in a component descriptor. It resolves to the attribute
+An **Access Type** just adds content as reference to an external location, e.g. an OCI registry. It is a kind of pointer in a component descriptor. It resolves to the attribute
 
 ```
 relation: external
