@@ -3,7 +3,7 @@ title: "Deployment scenario using a aggregate(d) component"
 description: "Deploying a microservice architecture with components."
 date: 2023-06-20T10:00:00+00:00
 lastmod: 2023-06-20:00:00+00:00
-draft: true
+draft: false
 images: []
 menu:
   docs:
