@@ -1,5 +1,5 @@
 ---
-title: "Deployment scenario using a aggregate(d) component"
+title: "Deployment scenario using an aggregate(d) component"
 description: "Deploying a microservice architecture with components."
 date: 2023-06-20T10:00:00+00:00
 lastmod: 2023-06-20:00:00+00:00
@@ -8,7 +8,7 @@ images: []
 menu:
   docs:
     parent: ""
-    identifier: "gitops-driven-configuration-of-ocm-applications"
+    identifier: "complex-component-structure-deployment"
 weight: 115
 toc: true
 ---
