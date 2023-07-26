@@ -113,7 +113,7 @@ Defines a resource from content of a directory in the local file system. It is p
 
 #### docker
 
-Takes an image from a local docker registry and adds it as a resource. Requires a running docker daemon.
+Takes an image from the local docker registry and adds it as a resource. Requires a running docker daemon.
 
 ```yaml
   resources:
@@ -145,7 +145,7 @@ The target location of the image can be set with the `repository` field. Here th
 
 #### dockermulti
 
-Takes multiple images from a local docker registry and adds them as single multiarch image. Requires a running docker daemon. The images have to be built for different architectures/os and need a unique tag identifying them. As docker does not support multiarch images at the time of writing this is a workaround.
+Takes multiple images from the local docker registry and adds them as single multiarch image. Requires a running docker daemon. The images have to be built for different architectures/os and need a unique tag identifying them. As docker does not support multiarch images at the time of writing this is a workaround.
 
 ```yaml
   resources:
