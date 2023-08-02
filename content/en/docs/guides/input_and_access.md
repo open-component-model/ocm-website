@@ -14,23 +14,24 @@ weight: 105
 toc: true
 ---
 
-- [Input and Access Types](#input-and-access-types)
-    - [Input Types](#input-types)
-      - [binary](#binary)
-      - [dir](#dir)
-      - [docker](#docker)
-      - [dockermulti](#dockermulti)
-      - [file](#file)
-      - [helm](#helm)
-      - [ociImage](#ociimage)
-      - [spiff](#spiff)
-      - [utf-8](#utf-8)
-    - [Access Types](#access-types)
-      - [git](#git)
-      - [helm](#helm-1)
-      - [npm](#npm)
-      - [ociArtifact](#ociartifact)
-      - [s3](#s3)
+* [Input and Access Types](#input-and-access-types)
+    * [Input Types](#input-types)
+      * [binary](#binary)
+      * [dir](#dir)
+      * [docker](#docker)
+      * [dockermulti](#dockermulti)
+      * [file](#file)
+      * [helm](#helm)
+      * [ociImage](#ociimage)
+      * [spiff](#spiff)
+      * [utf-8](#utf-8)
+    * [Access Types](#access-types)
+      * [git](#git)
+      * [helm](#helm-1)
+      * [npm](#npm)
+      * [ociArtifact](#ociartifact)
+      * [s3](#s3)
+
 
 # Input and Access Types
 
@@ -202,6 +203,38 @@ Imports a helm chart from the local file system and adds it as a resource.
     input:
       type: helm
       path: ./megachart
+      repository: charts/mega
+```
+
+After transporting the corresponding component version to an OCI registry the helm chart will be made available under `charts/mega` prefixed by the name of the component version. This auto-prefix can be disabled by using a leading slash `/charts/mega`. If the `repository` tag is omitted the name of the helm chart from `Chart.yaml` will be used.
+
+It is also possible to import a helm chart from a helm chart repository:
+
+```yaml
+  resources:
+  - name: mariadb-chart
+    type: helmChart
+    input:
+      type: helm
+      helmRepository: https://charts.bitnami.com/bitnami
+      repository: charts/mariadb
+      path: mariadb
+      version: 12.2.7
+```
+
+Here the helm chart version `12.2.7` is copied from the path `mariadb` in helm chart repository `https://charts.bitnami.com/bitnami`. After transporting the corresponding component version to an OCI registry the helm chart will be made available under `charts/mariadb` prefixed by the name of the component version. This auto-prefix can be disabled by using a leading slash `/charts/mariadb`. If the `repository` tag is omitted the name of the helm chart from `Chart.yaml` will be used. There are additional optional fields `caCert` and `caCertFile` to specify a TLS certificate for the helm chart repository. The resulting path is contained in the field `referenceName` in the component descriptor:
+
+```yaml
+spec:
+  resources:
+      ...
+  - name: mariadb-chart
+    version: 12.2.7
+    type: helmChart
+    ...
+    access:
+      ...
+      referenceName: github.com/jensh007/mariadb/charts/mariadb:12.2.7
 ```
 
 #### ociImage
@@ -217,15 +250,18 @@ Takes an image that is located in an OCI registry and adds it as a resource.
       path: gcr.io/google_containers/echoserver:1.10
       repository: images/echo
 ```
-The target location of the image can be set with the `repository` field. Here the resulting image will be stored at `github.com/open-component-model/megacomponent/images/echo:1.10` and contained in the field `referenceName` in the component descriptor:
+
+The target location of the image after transporting to an OCI registry can be set with the `repository` field. Here the resulting image will be prefixed with the name of the component version, e.g. `github.com/open-component-model/megacomponent/images/echo:1.10`. This auto-prefix can be disabled by using a leading slash `/images/echo`. The resulting path is contained in the field `referenceName` in the component descriptor:
 
 ```yaml
-   - access:
-        ...
-        referenceName: github.com/open-component-model/megacomponent/images/echo:1.10
-      name: mega-image
-      version: 0.1.0
+spec:
+  resources:
+  - name: mega-image
+    version: 0.1.0
+    access:
       ...
+      referenceName: github.com/open-component-model/megacomponent/images/echo:1.10
+    ...
 ```
 
 #### spiff
