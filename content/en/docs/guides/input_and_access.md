@@ -26,7 +26,7 @@ toc: true
       * [spiff](#spiff)
       * [utf-8](#utf-8)
     * [Access Types](#access-types)
-      * [git](#git)
+      * [gitHub](#github)
       * [helm](#helm-1)
       * [npm](#npm)
       * [ociArtifact](#ociartifact)
@@ -67,7 +67,7 @@ The following input types are supported:
 
 The following list of access types is supported:
 
-* git
+* gitHub
 * localBlob
 * ociArtifact
 * ociBlob
@@ -217,25 +217,12 @@ It is also possible to import a helm chart from a helm chart repository:
     input:
       type: helm
       helmRepository: https://charts.bitnami.com/bitnami
-      repository: charts/mariadb
       path: mariadb
       version: 12.2.7
+      repository: charts/mariadb
 ```
 
-Here the helm chart version `12.2.7` is copied from the path `mariadb` in helm chart repository `https://charts.bitnami.com/bitnami`. After transporting the corresponding component version to an OCI registry the helm chart will be made available under `charts/mariadb` prefixed by the name of the component version. This auto-prefix can be disabled by using a leading slash `/charts/mariadb`. If the `repository` tag is omitted the name of the helm chart from `Chart.yaml` will be used. There are additional optional fields `caCert` and `caCertFile` to specify a TLS certificate for the helm chart repository. The resulting path is contained in the field `referenceName` in the component descriptor:
-
-```yaml
-spec:
-  resources:
-      ...
-  - name: mariadb-chart
-    version: 12.2.7
-    type: helmChart
-    ...
-    access:
-      ...
-      referenceName: github.com/jensh007/mariadb/charts/mariadb:12.2.7
-```
+Here the helm chart version `12.2.7` is copied from the path `mariadb` in helm chart repository `https://charts.bitnami.com/bitnami`. After transporting the corresponding component version to an OCI registry the helm chart will be made available under `charts/mariadb` prefixed by the name of the component version. This auto-prefix can be disabled by using a leading slash `/charts/mariadb`. If the `repository` tag is omitted the name of the helm chart from `Chart.yaml` will be used. There are additional optional fields `caCert` and `caCertFile` to specify a TLS certificate for the helm chart repository.
 
 #### ociImage
 
@@ -297,7 +284,7 @@ Adds a resource from inline text.
 
 ### Access Types
 
-#### git
+#### gitHub
 
 Refers to a Git repository at a certain commit or tag.
 
