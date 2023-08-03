@@ -14,23 +14,24 @@ weight: 105
 toc: true
 ---
 
-- [Input and Access Types](#input-and-access-types)
-    - [Input Types](#input-types)
-      - [binary](#binary)
-      - [dir](#dir)
-      - [docker](#docker)
-      - [dockermulti](#dockermulti)
-      - [file](#file)
-      - [helm](#helm)
-      - [ociImage](#ociimage)
-      - [spiff](#spiff)
-      - [utf-8](#utf-8)
-    - [Access Types](#access-types)
-      - [git](#git)
-      - [helm](#helm-1)
-      - [npm](#npm)
-      - [ociArtifact](#ociartifact)
-      - [s3](#s3)
+* [Input and Access Types](#input-and-access-types)
+    * [Input Types](#input-types)
+      * [binary](#binary)
+      * [dir](#dir)
+      * [docker](#docker)
+      * [dockermulti](#dockermulti)
+      * [file](#file)
+      * [helm](#helm)
+      * [ociImage](#ociimage)
+      * [spiff](#spiff)
+      * [utf-8](#utf-8)
+    * [Access Types](#access-types)
+      * [gitHub](#github)
+      * [helm](#helm-1)
+      * [npm](#npm)
+      * [ociArtifact](#ociartifact)
+      * [s3](#s3)
+
 
 # Input and Access Types
 
@@ -66,7 +67,7 @@ The following input types are supported:
 
 The following list of access types is supported:
 
-* git
+* gitHub
 * localBlob
 * ociArtifact
 * ociBlob
@@ -132,16 +133,7 @@ REPOSITORY                         TAG                       IMAGE ID       CREA
 megacomp                           0.1.0                     9aab9cbca56e   5 days ago      7.46MB
 ```
 
-The target location of the image can be set with the `repository` field. Here the resulting image will be stored at `<REPO_URL>/github.com/open-component-model/megacomponent/images/mega:1.10` and contained in the field `referenceName` in the component descriptor:
-
-```yaml
-   - access:
-        ...
-        referenceName: github.com/open-component-model/megacomponent/images/mega:0.1.0
-      name: megaimage
-      version: 0.1.0
-      ...
-```
+The target location of the image can be set with the `repository` field. Here the resulting image will be stored at `<REPO_URL>/github.com/open-component-model/megacomponent/images/mega:1.10`.
 
 #### dockermulti
 
@@ -167,16 +159,7 @@ megacomp                           0.1.0-linux-amd64         96659c4f7a35   5 da
 megacomp                           0.1.0-linux-arm64         64f209acb814   5 days ago      7.46MB
 ```
 
-The target location of the image can be set with the `repository` field. Here the resulting image will be stored at `<REPO_URL>/github.com/open-component-model/megacomponent/images/megamulti:1.10` and contained in the field `referenceName` in the component descriptor:
-
-```yaml
-   - access:
-        ...
-        referenceName: github.com/open-component-model/megacomponent/images/megamulti:0.1.0
-      name: megaimage
-      version: 0.1.0
-      ...
-```
+The target location of the image can be set with the `repository` field. Here the resulting image will be stored at `<REPO_URL>/github.com/open-component-model/megacomponent/images/megamulti:1.10`.
 
 #### file
 
@@ -202,7 +185,26 @@ Imports a helm chart from the local file system and adds it as a resource.
     input:
       type: helm
       path: ./megachart
+      repository: charts/mega
 ```
+
+After transporting the corresponding component version to an OCI registry the helm chart will be made available under `charts/mega` prefixed by the name of the component version. This auto-prefix can be disabled by using a leading slash `/charts/mega`. If the `repository` tag is omitted the name of the helm chart from `Chart.yaml` will be used.
+
+It is also possible to import a helm chart from a helm chart repository:
+
+```yaml
+  resources:
+  - name: mariadb-chart
+    type: helmChart
+    input:
+      type: helm
+      helmRepository: https://charts.bitnami.com/bitnami
+      path: mariadb
+      version: 12.2.7
+      repository: charts/mariadb
+```
+
+Here the helm chart version `12.2.7` is copied from the path `mariadb` in helm chart repository `https://charts.bitnami.com/bitnami`. After transporting the corresponding component version to an OCI registry the helm chart will be made available under `charts/mariadb` prefixed by the name of the component version. This auto-prefix can be disabled by using a leading slash `/charts/mariadb`. If the `repository` tag is omitted the name of the helm chart from `Chart.yaml` will be used. There are additional optional fields `caCert` and `caCertFile` to specify a TLS certificate for the helm chart repository.
 
 #### ociImage
 
@@ -217,16 +219,8 @@ Takes an image that is located in an OCI registry and adds it as a resource.
       path: gcr.io/google_containers/echoserver:1.10
       repository: images/echo
 ```
-The target location of the image can be set with the `repository` field. Here the resulting image will be stored at `github.com/open-component-model/megacomponent/images/echo:1.10` and contained in the field `referenceName` in the component descriptor:
 
-```yaml
-   - access:
-        ...
-        referenceName: github.com/open-component-model/megacomponent/images/echo:1.10
-      name: mega-image
-      version: 0.1.0
-      ...
-```
+The target location of the image after transporting to an OCI registry can be set with the `repository` field. Here the resulting image will be prefixed with the name of the component version, e.g. `github.com/open-component-model/megacomponent/images/echo:1.10`. This auto-prefix can be disabled by using a leading slash `/images/echo`.
 
 #### spiff
 
@@ -261,7 +255,7 @@ Adds a resource from inline text.
 
 ### Access Types
 
-#### git
+#### gitHub
 
 Refers to a Git repository at a certain commit or tag.
 
