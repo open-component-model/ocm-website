@@ -133,16 +133,7 @@ REPOSITORY                         TAG                       IMAGE ID       CREA
 megacomp                           0.1.0                     9aab9cbca56e   5 days ago      7.46MB
 ```
 
-The target location of the image can be set with the `repository` field. Here the resulting image will be stored at `<REPO_URL>/github.com/open-component-model/megacomponent/images/mega:1.10` and contained in the field `referenceName` in the component descriptor:
-
-```yaml
-   - access:
-        ...
-        referenceName: github.com/open-component-model/megacomponent/images/mega:0.1.0
-      name: megaimage
-      version: 0.1.0
-      ...
-```
+The target location of the image can be set with the `repository` field. Here the resulting image will be stored at `<REPO_URL>/github.com/open-component-model/megacomponent/images/mega:1.10`.
 
 #### dockermulti
 
@@ -168,16 +159,7 @@ megacomp                           0.1.0-linux-amd64         96659c4f7a35   5 da
 megacomp                           0.1.0-linux-arm64         64f209acb814   5 days ago      7.46MB
 ```
 
-The target location of the image can be set with the `repository` field. Here the resulting image will be stored at `<REPO_URL>/github.com/open-component-model/megacomponent/images/megamulti:1.10` and contained in the field `referenceName` in the component descriptor:
-
-```yaml
-   - access:
-        ...
-        referenceName: github.com/open-component-model/megacomponent/images/megamulti:0.1.0
-      name: megaimage
-      version: 0.1.0
-      ...
-```
+The target location of the image can be set with the `repository` field. Here the resulting image will be stored at `<REPO_URL>/github.com/open-component-model/megacomponent/images/megamulti:1.10`.
 
 #### file
 
@@ -238,18 +220,7 @@ Takes an image that is located in an OCI registry and adds it as a resource.
       repository: images/echo
 ```
 
-The target location of the image after transporting to an OCI registry can be set with the `repository` field. Here the resulting image will be prefixed with the name of the component version, e.g. `github.com/open-component-model/megacomponent/images/echo:1.10`. This auto-prefix can be disabled by using a leading slash `/images/echo`. The resulting path is contained in the field `referenceName` in the component descriptor:
-
-```yaml
-spec:
-  resources:
-  - name: mega-image
-    version: 0.1.0
-    access:
-      ...
-      referenceName: github.com/open-component-model/megacomponent/images/echo:1.10
-    ...
-```
+The target location of the image after transporting to an OCI registry can be set with the `repository` field. Here the resulting image will be prefixed with the name of the component version, e.g. `github.com/open-component-model/megacomponent/images/echo:1.10`. This auto-prefix can be disabled by using a leading slash `/images/echo`.
 
 #### spiff
 
