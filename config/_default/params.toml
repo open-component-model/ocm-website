@@ -68,10 +68,10 @@ defaultImage = "default-image.png" # put in `./assets/images/`
 fillImage = "1270x740 Center" # normalize image size
 
 # Footer
-footer = '<small>© Copyright 2022, SAP SE and Open Component Model Contributors | <a href="/privacy-policy/">Privacy Policy</a> | <a href="https://www.sap.com/corporate/en/legal/terms-of-use.html">Terms of Use</a> | <a href="/legal">Legal</a></small>'
+footer = '<small>© Copyright 2023, SAP SE and Open Component Model Contributors | <a href="/privacy-policy/">Privacy Policy</a> | <a href="https://www.sap.com/corporate/en/legal/terms-of-use.html">Terms of Use</a> | <a href="/legal">Legal</a></small>'
 
 # Feed
-copyRight = "© Copyright 2022, SAP SE and Open Component Model Contributors"
+copyRight = "© Copyright 2023, SAP SE and Open Component Model Contributors"
 
 # Alert
 alert = false
