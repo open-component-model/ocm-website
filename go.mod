@@ -38,7 +38,7 @@ require (
 	github.com/containers/libtrust v0.0.0-20200511145503-9c3a6c22cd9a // indirect
 	github.com/containers/ocicrypt v1.1.3 // indirect
 	github.com/containers/storage v1.38.2 // indirect
-	github.com/cyphar/filepath-securejoin v0.2.3 // indirect
+	github.com/cyphar/filepath-securejoin v0.2.4 // indirect
 	github.com/docker/cli v20.10.21+incompatible // indirect
 	github.com/docker/distribution v2.8.2+incompatible // indirect
 	github.com/docker/docker v20.10.24+incompatible // indirect
