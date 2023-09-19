@@ -1,5 +1,5 @@
 ---
-title: "Get Started with Mpas"
+title: "Get Started with MPAS"
 description: ""
 lead: ""
 date: 2023-09-12T10:37:58+01:00
@@ -10,7 +10,7 @@ weight: 101
 toc: true
 ---
 
-This tutorial shows you how to bootstrap Mpas to a Kubernetes cluster and deploy
+This tutorial shows you how to bootstrap MPAS to a Kubernetes cluster and deploy
 a simple application.
 
 ## Prerequisites
@@ -21,15 +21,15 @@ a simple application.
 
 ## Objectives
 
-- Bootstrap Mpas to a Kubernetes cluster
+- Bootstrap MPAS to a Kubernetes cluster
 - Deploy a simple application
 
-## Install the Mpas CLI
+## Install the MPAS CLI
 
-The Mpas CLI is the primary tool for interacting with Mpas. It can be used to
-bootstrap Mpas to a Kubernetes cluster.
+The MPAS CLI is the primary tool for interacting with MPAS. It can be used to
+bootstrap MPAS to a Kubernetes cluster.
 
-To install the Mpas CLI using `brew`:
+To install the MPAS CLI using `brew`:
 
 ```bash
 brew install open-component-model/tap/mpas
@@ -37,11 +37,11 @@ brew install open-component-model/tap/mpas
 
 For other installation methods, see the [installation guide](/mpas/overview/installation/).
 
-## Bootstrap Mpas
+## Bootstrap MPAS
 
 ### Export your Github access token
 
-The Mpas CLI uses your Github access token to authenticate with Github. To create a
+The MPAS CLI uses your Github access token to authenticate with Github. To create a
 Github access token, see the [Github documentation](https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token).
 
 ```bash
@@ -49,9 +49,9 @@ export GITHUB_TOKEN=<your-github-access-token>
 export GITHUB_USER=<your-username>
 ```
 
-### Bootstrap Mpas
+### Bootstrap MPAS
 
-To bootstrap Mpas to your Kubernetes cluster, run the following command:
+To bootstrap MPAS to your Kubernetes cluster, run the following command. If nothing is specified it will use the KUBECONFIG specified in the user's environment. It is also possible to specify a dedicated config using the --kubeconfig option. 
 
 ```bash
 mpas bootstrap github \
@@ -63,7 +63,7 @@ mpas bootstrap github \
 ```
 
 This command will create a new Github repository called `mpas-bootstrap` and bootstrap
-Mpas to your Kubernetes cluster. The following components will be installed:
+MPAS to your Kubernetes cluster. The following components will be installed:
 - [Flux](https://fluxcd.io/docs/components/): A Kubernetes operator that will
   install and manage the other components.
 - [Ocm-controller](https://github.com/open-component-model/ocm-controller): A Kubernetes operator 
@@ -72,8 +72,8 @@ Mpas to your Kubernetes cluster. The following components will be installed:
   Kubernetes controller that will create Pull Requests in the target Github repository
   when changes are made to the cluster.
 - [Replication-controller](https://github.com/open-component-model/git-controller):
-- [Mpas-product-controller](https://github.com/open-component-model/mpas-product-controller):
-- [Mpas-project-controller](https://github.com/open-component-model/mpas-project-controller):
+- [MPAS-product-controller](https://github.com/open-component-model/mpas-product-controller):
+- [MPAS-project-controller](https://github.com/open-component-model/mpas-project-controller):
 
 The output is similar to the following:
 
@@ -108,8 +108,8 @@ cd mpas-bootstrap
 
 #### Registry certificate
 
-The `--dev` flag will bootstrap Mpas in development mode, which means that a self-signed
-certificate will be used for the Mpas components to communicate with the internal `oci` registry.
+The `--dev` flag will bootstrap MPAS in development mode, which means that a self-signed
+certificate will be used for the MPAS components to communicate with the internal `oci` registry.
 
 You may want to provide your own certificate for production use, for example by using [cert-manager](https://cert-manager.io/docs/usage/certificate/).
 The certificate should be named `ocm-registry-tls-certs` and should be placed in the `mpas-system`
@@ -129,7 +129,7 @@ mpas create project podinfo-project --export > podinfo-project.yaml
 We should also have a command to create a component subscription as well as a product deployment generator.
 --->
 
-1. Create a secret containing your Github credentials that will be used by Mpas to
+1. Create a secret containing your Github credentials that will be used by MPAS to
 create your project repository.
 
 ```bash
