@@ -12,7 +12,7 @@ toc: true
 
 ## Install using Binaries
 
-To install the MPAS CLI you can download binaries for major platforms from the GitHub [releases page](https://github.com/open-component-model/mpas/releases).
+To install the MPAS CLI, you can download the binaries for major platforms from the GitHub [releases page](https://github.com/open-component-model/mpas/releases).
 ## Homebrew
 
 You can also install via [homebrew](https://brew.sh/) for macOS and Linux:
