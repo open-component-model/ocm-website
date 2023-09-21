@@ -15,7 +15,7 @@ toc: true
 
 Products are packages of software that can be deployed to a Kubernetes cluster.
 Products are made available to the `MPAS` system as `OCM` Components via a Subscription.
-Multiple instances of a Product may be installed that refer to same Subscription.
+Multiple instances of a Product may be installed that refer to the same Subscription.
 
 A `ProductDeployment` is a Kubernetes Custom Resource that represents a product to 
 be deployed to a Kubernetes cluster. The `ProductDeployment` is reconciled by the
