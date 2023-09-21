@@ -2,7 +2,7 @@
 title: references
 name: add references
 url: /docs/cli/add/references/
-date: 2023-07-21T15:03:29Z
+date: 2023-09-14T14:06:42Z
 draft: false
 images: []
 menu:

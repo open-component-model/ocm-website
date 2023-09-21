@@ -2,7 +2,7 @@
 title: plugins
 name: describe plugins
 url: /docs/cli/describe/plugins/
-date: 2023-07-21T15:03:29Z
+date: 2023-09-14T14:06:42Z
 draft: false
 images: []
 menu:
