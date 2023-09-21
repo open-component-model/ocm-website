@@ -44,7 +44,9 @@ a `MPAS` project. A `Project` is reconciled by the `MPAS Project Controller` whi
 will generate a project namespace and a git repository for the project containing
 the project folder structure. The controller will also generate the necessary
 `Flux kustomization` resources in the `mpas-system` namespace in order to update
-the cluster with the project resources from the git repository.
+the cluster with the project resources from the git repository. All items that the 
+'MPAS Project controller` created during reconcile, are visible in the status of a 
+`Project` CR.
 
 The project git repository is designed to be used as a gitops repository for the
 project. It is where all the product custom resources are to be defined in order
@@ -57,11 +59,11 @@ Product from a delivery registry to a registry in the `MPAS` customer's environm
 
 A `ComponentSubscription` is a Kubernetes Custom Resource that represents a subscription
 to a component. The `ComponentSubscription` is reconciled by the `OCM Replication Controller`
-which will generate the necessary Kubernetes resources to replicate the component to the
-target registry.
+which will transfer the OCM component using the OCM library into the target registry.
 
 ## Target
 
 A `Target` is a Kubernetes Custom Resource that represents a target environment where
-a `Product` is to be deployed. The `Target` is reconciled by the `MPAS Product Controller`
-which will generate the necessary Kubernetes namespace and service account for the target.
+a `Product` is to be deployed. The `MPAS Product Controller` controller reconciles the `Target` 
+and creates any necessary prerequisite that needs to exist in the target environment, e.g.
+a namespace and service account.
