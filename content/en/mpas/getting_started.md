@@ -369,7 +369,7 @@ It is possible to verify this with the command:
 k describe productdeployment -n mpas-podinfo-application  
 ```
 
-The result should something like:
+The result should look something like:
 
 ```bash
 Name:         podinfo
