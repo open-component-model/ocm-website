@@ -202,7 +202,7 @@ git add --all && git commit -m "Add podinfo project" && git push
 
 `Flux` will detect the changes and apply the project to the cluster.
 
-This will create in the cluster a `namespace` for the project, a `service account`, and RBAC.
+This will create in the cluster a `namespace` for the project, a `serviceaccount`, and RBAC.
 It will also create a GitHub repository for the project, and configure `Flux` to manage the project's resources.
 
 3. Add the needed secrets to the namespace
@@ -226,7 +226,7 @@ kubectl create secret generic \
 
 **Note** The credentials should have access to GitHub packages.
 
-As part of step 2, a `service account` was created for the project. We will use this service account
+As part of step 2, a `serviceaccount` was created for the project. We will use this service account
 to provide the necessary permissions to pull from the `ghcr` registry.
 
 First, create a secret containing the credentials for the service account:
