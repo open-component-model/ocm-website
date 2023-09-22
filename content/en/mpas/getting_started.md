@@ -391,4 +391,4 @@ Status:
   Observed Generation:     1
 ```
 
-The application is deployed in the `podinfo` namespace.
+The application is deployed in the `mpas-podinfo-application` namespace.
