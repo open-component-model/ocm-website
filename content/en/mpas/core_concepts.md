@@ -10,22 +10,24 @@ weight: 101
 toc: true
 ---
 
+This section describes the core concepts of `MPAS`. To learn more about the `MPAS` architecture,
+see [Architecture](https://github.com/open-component-model/MPAS/tree/main/docs/concepts).
 
 ## Product
 
-Products are packages of software that can be deployed to a Kubernetes cluster.
+Products are packages of software that can be deployed to targets such as Kubernetes clusters,
+virtual machines or bare-metal devices.
+
 Products are made available to the `MPAS` system as `OCM` Components via a Subscription.
 Multiple instances of a Product may be installed that refer to the same Subscription.
 
 A `ProductDeployment` is a Kubernetes Custom Resource that represents a product to 
-be deployed to a Kubernetes cluster. The `ProductDeployment` is reconciled by the
-`MPAS Product Controller` which will generate the necessary Kubernetes resources
-to deploy the product to the cluster.
+be deployed to a target. The `ProductDeployment` is reconciled by the `MPAS Product Controller` 
+which will generate the necessary Kubernetes resources to deploy the product to the cluster.
 
 A `ProductDeploymentGenerator` is a Kubernetes Custom Resource that represents a
-`ProductDeployment` to be deployed to a Kubernetes cluster.
-The `ProductDeploymentGenerator` is reconciled by the `MPAS Product Controller`
-in order to generate the `ProductDeployment` resource.
+`ProductDeployment` to be deployed to a Kubernetes cluster. The `ProductDeploymentGenerator`
+is reconciled by the `MPAS Product Controller` in order to generate the `ProductDeployment` resource.
 
 A `ProductDescription` is a manifest that describes a product. It specifies the set 
 of resources that are needed to deploy the product in a form of pipeline steps.
@@ -45,8 +47,8 @@ will generate a project namespace and a git repository for the project containin
 the project folder structure. The controller will also generate the necessary
 `Flux kustomization` resources in the `mpas-system` namespace in order to update
 the cluster with the project resources from the git repository. All items that the 
-'MPAS Project controller` created during reconcile, are visible in the status of a 
-`Project` CR.
+`MPAS Project controller` created during reconcile, are visible in the `status` subresource
+of a `Project` CR.
 
 The project git repository is designed to be used as a gitops repository for the
 project. It is where all the product custom resources are to be defined in order
