@@ -71,7 +71,7 @@ MPAS to your Kubernetes cluster. The following components will be installed:
 - [git-controller](https://github.com/open-component-model/git-controller): A
   Kubernetes controller that will create pull requests in the target Github repository
   when changes are made to the cluster.
-- [replication-controller](https://github.com/open-component-model/git-controller): A Kubernetes controller that 
+- [replication-controller](https://github.com/open-component-model/replication-controller): A Kubernetes controller that 
   keeps keep component versions in the cluster up-to-date with a version defined by the consumer in the `ComponentSubscription` resource. 
 - [mpas-product-controller](https://github.com/open-component-model/mpas-product-controller): A Kubernetes controller, responsible for creating a product. Reconciles the `Product` resource.
 - [mpas-project-controller](https://github.com/open-component-model/mpas-project-controller): A Kubernetes controller responsible for bootstrapping a whole project. Creates relevant access credentials, service accounts, roles and the main GitOps repository and 
