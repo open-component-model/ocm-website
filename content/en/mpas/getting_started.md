@@ -99,6 +99,15 @@ yaml manifests for the components to be installed on the cluster and Flux will
 apply all of them to get the components installed. Furthermore the installed `Flux` components will
 be configured to watch the target github repository for changes in the path `./clusters/my-cluster`.
 
+#### Registry certificate
+
+The `--dev` flag used in the bootstrap command above will bootstrap MPAS in development mode, which means that a self-signed
+certificate will be used for the MPAS components to communicate with the internal `oci` registry.
+
+You may want to provide your own certificate for production use, for example by using [cert-manager](https://cert-manager.io/docs/usage/certificate/).
+The certificate should be named `ocm-registry-tls-certs` and should be placed in the `mpas-system`
+and `ocm-system` namespaces. You can use [syncing-secrets-across-namespaces](https://cert-manager.io/docs/tutorials/syncing-secrets-across-namespaces/) guide to sync the certificate between namespaces.
+
 #### Clone the git repository
 
 Clone the `mpas-bootstrap` repository to your local machine:
@@ -107,16 +116,6 @@ Clone the `mpas-bootstrap` repository to your local machine:
 git clone https://github.com/$GITHUB_USER/mpas-bootstrap
 cd mpas-bootstrap
 ```
-
-#### Registry certificate
-
-The `--dev` flag will bootstrap MPAS in development mode, which means that a self-signed
-certificate will be used for the MPAS components to communicate with the internal `oci` registry.
-
-You may want to provide your own certificate for production use, for example by using [cert-manager](https://cert-manager.io/docs/usage/certificate/).
-The certificate should be named `ocm-registry-tls-certs` and should be placed in the `mpas-system`
-and `ocm-system` namespaces. You can use [syncing-secrets-across-namespaces](https://cert-manager.io/docs/tutorials/syncing-secrets-across-namespaces/) guide to sync the certificate between namespaces.
-
 
 ### Deploy podinfo application
 
@@ -182,7 +181,7 @@ git add --all && git commit -m "Add podinfo project" && git push
 
 `Flux` will detect the changes and apply the project to the cluster.
 
-This will create in the cluster a `namespace` for the project, a `service account`, and RBAC.
+This will create in the cluster a `namespace` for the project, a `serviceaccount`, and RBAC.
 It will also create a GitHub repository for the project, and configure `Flux` to manage the project's resources.
 
 3. Add the needed secrets to the namespace
@@ -191,8 +190,7 @@ It will also create a GitHub repository for the project, and configure `Flux` to
 registry, we have to provide the certificate to use `https`.
 
 ```bash
-kubectl get secret ocm-registry-tls-certs --namespace=mpas-system -o yaml | sed 's/namespace: 
-.*/namespace: mpas-podinfo-application/' | kubectl apply -f -
+kubectl get secret ocm-registry-tls-certs --namespace=mpas-system -o yaml | sed 's/namespace: .*/namespace: mpas-podinfo-application/' | kubectl apply -f -
 ```
 
 We also need a secret in the project namespace that will be used to communicate with github:
@@ -207,7 +205,7 @@ kubectl create secret generic \
 
 **Note** The credentials should have access to GitHub packages.
 
-As part of step 2, a `service account` was created for the project. We will use this service account
+As part of step 2, a `serviceaccount` was created for the project. We will use this service account
 to provide the necessary permissions to pull from the `ghcr` registry.
 
 First, create a secret containing the credentials for the service account:
@@ -338,13 +336,13 @@ the product to be deployed. There is a check that should pass before merging the
 Once the pull request is merged, `Flux` will detect the changes and deploy the application to the cluster.
 
 After a moment the `ProductDeployment` should be deployed successfully.
-It is possible to verify with the command:
+It is possible to verify this with the command:
 
 ```bash
-k describe productDeployment -n mpas-podinfo-application  
+k describe productdeployment -n mpas-podinfo-application  
 ```
 
-The result should something like:
+The result should look something like:
 
 ```bash
 Name:         podinfo
@@ -366,4 +364,4 @@ Status:
   Observed Generation:     1
 ```
 
-The application is deployed in the `podinfo` namespace.
+The application is deployed in the `mpas-podinfo-application` namespace.
