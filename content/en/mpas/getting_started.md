@@ -366,7 +366,7 @@ After a moment the `ProductDeployment` should be deployed successfully.
 It is possible to verify this with the command:
 
 ```bash
-k describe productDeployment -n mpas-podinfo-application  
+k describe productdeployment -n mpas-podinfo-application  
 ```
 
 The result should something like:
