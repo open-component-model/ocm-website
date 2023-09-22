@@ -99,6 +99,15 @@ yaml manifests for the components to be installed on the cluster and Flux will
 apply all of them to get the components installed. Furthermore the installed `Flux` components will
 be configured to watch the target github repository for changes in the path `./clusters/my-cluster`.
 
+#### Registry certificate
+
+The `--dev` flag used in the bootstrap command above will bootstrap MPAS in development mode, which means that a self-signed
+certificate will be used for the MPAS components to communicate with the internal `oci` registry.
+
+You may want to provide your own certificate for production use, for example by using [cert-manager](https://cert-manager.io/docs/usage/certificate/).
+The certificate should be named `ocm-registry-tls-certs` and should be placed in the `mpas-system`
+and `ocm-system` namespaces. You can use [syncing-secrets-across-namespaces](https://cert-manager.io/docs/tutorials/syncing-secrets-across-namespaces/) guide to sync the certificate between namespaces.
+
 #### Clone the git repository
 
 Clone the `mpas-bootstrap` repository to your local machine:
@@ -107,16 +116,6 @@ Clone the `mpas-bootstrap` repository to your local machine:
 git clone https://github.com/$GITHUB_USER/mpas-bootstrap
 cd mpas-bootstrap
 ```
-
-#### Registry certificate
-
-The `--dev` flag will bootstrap MPAS in development mode, which means that a self-signed
-certificate will be used for the MPAS components to communicate with the internal `oci` registry.
-
-You may want to provide your own certificate for production use, for example by using [cert-manager](https://cert-manager.io/docs/usage/certificate/).
-The certificate should be named `ocm-registry-tls-certs` and should be placed in the `mpas-system`
-and `ocm-system` namespaces. You can use [syncing-secrets-across-namespaces](https://cert-manager.io/docs/tutorials/syncing-secrets-across-namespaces/) guide to sync the certificate between namespaces.
-
 
 ### Deploy podinfo application
 
@@ -212,8 +211,7 @@ It will also create a GitHub repository for the project, and configure `Flux` to
 registry, we have to provide the certificate to use `https`.
 
 ```bash
-kubectl get secret ocm-registry-tls-certs --namespace=mpas-system -o yaml | sed 's/namespace: 
-.*/namespace: mpas-podinfo-application/' | kubectl apply -f -
+kubectl get secret ocm-registry-tls-certs --namespace=mpas-system -o yaml | sed 's/namespace: .*/namespace: mpas-podinfo-application/' | kubectl apply -f -
 ```
 
 We also need a secret in the project namespace that will be used to communicate with github:
