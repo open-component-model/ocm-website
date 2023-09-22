@@ -363,7 +363,7 @@ the product to be deployed. There is a check that should pass before merging the
 Once the pull request is merged, `Flux` will detect the changes and deploy the application to the cluster.
 
 After a moment the `ProductDeployment` should be deployed successfully.
-It is possible to verify with the command:
+It is possible to verify this with the command:
 
 ```bash
 k describe productDeployment -n mpas-podinfo-application  
