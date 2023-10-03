@@ -144,33 +144,21 @@ mkdir -p ./clusters/my-cluster/podinfo
 Then, create a `project.yaml` file in the `./clusters/my-cluster/podinfo` directory:
 
 ```bash
-cat <<EOF >> ./clusters/my-cluster/podinfo/project.yaml
-apiVersion: mpas.ocm.software/v1alpha1
-kind: Project
-metadata:
-  name: podinfo-application
-  namespace: mpas-system
-spec:
-  flux:
-    interval: 1h
-  git:
-    provider: github
-    owner: $GITHUB_USER
-    isOrganization: false
-    visibility: public
-    maintainers:
-    - $GITHUB_USER
-    existingRepositoryPolicy: adopt
-    defaultBranch: main
-    credentials:
-      secretRef:
-        name: github-access
-    commitTemplate:
-      email: <MY_EMAIL>
-      message: Initializing Project repository
-      name: mpas-admin
-  prune: true
-EOF
+mpas create project podinfo-application \
+  --owner=$GITHUB_USER \
+  --provider=github \
+  --secret-ref=github-secret \
+  --visibility=public \
+  --already-exists-policy=abort \
+  --branch=main \
+  --secret-ref=github-access \
+  --email=$MY_EMAIL \
+  --message=xxx \
+  --author=mpas-admin \
+  --maintainers=$GITHUB_USER \
+  --prune \
+  --personal \
+  --export  >> ./clusters/my-cluster/podinfo/project.yaml
 ```
 
 Then, apply the project to the cluster in a gitOps fashion:
@@ -235,25 +223,15 @@ cd mpas-podinfo-application
 Create a file under `./subscriptions/` that will contains the subscription declaration.
 
 ```bash
-cat <<EOF >> ./subscriptions/podinfo.yaml
-apiVersion: delivery.ocm.software/v1alpha1
-kind: ComponentSubscription
-metadata:
-  name: podinfo-subscription
-  namespace: mpas-podinfo-application
-spec:
-  interval: 30s
-  component: mpas.ocm.software/podinfo
-  semver: ">=v1.0.0"
-  source:
-    url: ghcr.io/open-component-model/mpas
-    secretRef:
-      name: github-access
-  destination:
-    url: ghcr.io/$GITHUB_USER
-    secretRef:
-      name: github-access
-EOF
+mpas create cs podinfo-subscription \
+  --component=mpas.ocm.software/podinfo \
+  --semver=">=v1.0.0" \
+  --source-url=ghcr.io/open-component-model/mpas \
+  --source-secret-ref=github-access \
+  --target-url=ghcr.io/$GITHUB_USER \
+  --target-secret-ref=github-access \
+  --namespace=mpas-podinfo-application  \
+  --export >> ./subscriptions/podinfo.yaml
 ```
 
 Then, apply the `ComponentSubscription` to the project in a gitOps fashion:
@@ -301,19 +279,12 @@ git add --all && git commit -m "Add a target for podinfo" && git push
 In order to deploy the podinfo application, we need to create a `ProductDeploymentGenerator` resource:
 
 ```bash
-cat <<EOF >> ./generators/podinfo.yaml
-apiVersion: mpas.ocm.software/v1alpha1
-kind: ProductDeploymentGenerator
-metadata:
-  name: podinfo
-  namespace: mpas-podinfo-application
-spec:
-  interval: 1m
-  serviceAccountName: mpas-podinfo-application
-  subscriptionRef:
-    name: podinfo-subscription
-    namespace: mpas-podinfo-application
-EOF
+mpas create pdg podinfo \
+  --service-account=mpas-podinfo-application \
+  --subscription-name=podinfo-subscription \
+  --subscription-namespace=mpas-podinfo-application  \
+  --namespace=mpas-podinfo-application \
+  --export >> ./generators/podinfo.yaml
 ```
 
 Then, apply the `ProductDeploymentGenerator` to the project in a gitOps fashion:
