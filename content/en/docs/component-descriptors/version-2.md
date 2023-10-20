@@ -44,7 +44,7 @@ component:
       imageReference: ghcr.io/weaveworks/wego-app:v0.14.1
     digest: # signing metadata for the resource
       hashAlgorithm: SHA-256
-      normalisationAlgorithm: ociArtifactDigest/v1x
+      normalisationAlgorithm: ociArtifactDigest/v1
       value: efa2b9980ca2de65dc5a0c8cc05638b1a4b4ce8f6972dc08d0e805e5563ba5bb
   sources: # list of sources relevant to this component
   - name: weave-gitops # source name
