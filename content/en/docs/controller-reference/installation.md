@@ -10,7 +10,7 @@ menu:
   docs:
     parent: ""
     identifier: "installation-5e4ab8b36af0ff709b159d39b8ef6ce7"
-weight: -1
+weight: 1
 toc: true
 ---
 
