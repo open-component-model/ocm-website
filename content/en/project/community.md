@@ -17,7 +17,7 @@ You can stay updated with OCM's latest advancements, join our active conversatio
 
 If you're just starting with OCM, we recommend beginning with the 'good first issue' label in our repositories. 
 
-Ready to contribute directly to OCM? Whether it's adding code, writing tests, or assisting with our documentation, please adhere to the guidelines provided in the 'contributing' documentation of the relevant OCM repository.
+Ready to contribute directly to OCM? Whether adding code, writing tests, or assisting with our documentation, please adhere to the guidelines provided in the 'contributing' documentation of the relevant OCM repository.
 
 ## Slack
 
