@@ -24,12 +24,11 @@ ocm componentversion get --repo ghcr.io/phoban01/ocm github.com/weaveworks/weave
 
 ```yaml
 meta:
-  configuredSchemaVersion: v2 # component schema version
+  schemaVersion: v2 # component schema version
 component:
   name: github.com/weaveworks/weave-gitops # name of the component
   version: v1.0.0 # version of the component
-  provider: # component provider information
-    name: weaveworks
+  provider: weaveworks # component provider information
   repositoryContexts: # origin of this document
   - baseUrl: ghcr.io
     componentNameMapping: urlPath
@@ -45,7 +44,7 @@ component:
       imageReference: ghcr.io/weaveworks/wego-app:v0.14.1
     digest: # signing metadata for the resource
       hashAlgorithm: SHA-256
-      normalisationAlgorithm: ociArtifactDigest/v1
+      normalisationAlgorithm: ociArtifactDigest/v1x
       value: efa2b9980ca2de65dc5a0c8cc05638b1a4b4ce8f6972dc08d0e805e5563ba5bb
   sources: # list of sources relevant to this component
   - name: weave-gitops # source name
