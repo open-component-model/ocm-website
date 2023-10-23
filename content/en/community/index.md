@@ -1,14 +1,12 @@
 ---
-title : "Community"
+title: "Community"
 description: ""
-lead: ""
-date: 2020-10-06T08:48:23+00:00
-lastmod: 2020-10-06T08:48:23+00:00
+date: 2023-10-23T10:13:45+01:00
+lastmod: 2023-10-23T10:13:45+01:00
 draft: false
 images: []
-menu:
-    project:
-        parent: ""
+aliases:
+- /project/community/
 ---
 
 ## GitHub
@@ -33,4 +31,4 @@ The OCM team holds regular community meetings to discuss new developments in the
 
 ---
 
-Please consult our [community repository](https://github.com/open-component-model-community) for more details about the Open Component Model Community.
+Please consult our [community documentation](https://github.com/open-component-model/.github/blob/main/README.md) for more details about the Open Component Model Community.
