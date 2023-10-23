@@ -16,7 +16,7 @@
 
 [[main]]
   name = "Community"
-  url = "/project/community"
+  url = "/community"
   weight = 40
 
 # [[main]]
