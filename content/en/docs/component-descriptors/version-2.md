@@ -24,12 +24,11 @@ ocm componentversion get --repo ghcr.io/phoban01/ocm github.com/weaveworks/weave
 
 ```yaml
 meta:
-  configuredSchemaVersion: v2 # component schema version
+  schemaVersion: v2 # component schema version
 component:
   name: github.com/weaveworks/weave-gitops # name of the component
   version: v1.0.0 # version of the component
-  provider: # component provider information
-    name: weaveworks
+  provider: weaveworks # component provider information
   repositoryContexts: # origin of this document
   - baseUrl: ghcr.io
     componentNameMapping: urlPath
