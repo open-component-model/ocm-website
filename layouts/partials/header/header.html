@@ -61,7 +61,8 @@
           {{- $current := . -}}
           {{- $section := $current.Section -}}
           {{ range .Site.Menus.main -}}
-            {{- $active := or ($current.IsMenuCurrent "main" .) ($current.HasMenuCurrent "main" .) -}}
+            {{ $active := false }}
+            {{- $isInSection := eq $current.Section "project" -}}
             {{- $active = or $active (eq .Name $current.Title) -}}
             {{- $active = or $active (and (eq .Name ($section | humanize)) (eq $current.Section $section)) -}}
             {{- $active = or $active (and (eq .Name "Blog") (eq $current.Section "blog" "contributors" "categories" "tags")) -}}
@@ -91,7 +92,10 @@
         <ul class="nav flex-column flex-lg-row">
           {{ range .Site.Menus.social -}}
             <li class="nav-item">
-              <a class="nav-link social-link" href="{{ .URL | relURL }}">{{ .Pre | safeHTML }}<small class="ms-2 d-lg-none">{{ .Name | safeHTML }}</small></a>
+              <a class="nav-link social-link" href="{{ .URL | relURL }}">
+                {{ $path := .Name | lower | printf "svg/%s.svg" }}
+                {{ partial $path }}
+                <small class="ms-2 d-lg-none">{{ .Name | safeHTML }}</small></a>
             </li>
           {{ end -}}
         </ul>

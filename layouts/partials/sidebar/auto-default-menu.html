@@ -2,7 +2,7 @@
 {{ $currentPage := . -}}
 {{ $section := $currentPage.Section -}}
 {{ range (where .Site.Sections "Section" "in" $section) }}
-    <ul class="list-unstyled mb-2 ms-3">
+    <ul class="list-unstyled mt-4 mb-2 ms-3">
     {{ range .Pages }}
           {{ if not .IsNode }}
             {{ $active := in $currentPage.RelPermalink .RelPermalink }}

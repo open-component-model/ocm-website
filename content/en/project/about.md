@@ -1,6 +1,6 @@
 ---
-title : "About"
-description: "About OCM"
+title : "About the OCM Project"
+description: "About the Open Component Model Project"
 lead: ""
 date: 2020-10-06T08:48:23+00:00
 lastmod: 2020-10-06T08:48:23+00:00

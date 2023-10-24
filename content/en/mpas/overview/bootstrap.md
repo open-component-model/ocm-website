@@ -11,24 +11,29 @@ toc: true
 ---
 
 
-The `MPAS Bootstrap`` command deploys the following components to your cluster:
+The `mpas bootstrap` command deploys the following components to your cluster:
 - [Flux](https://fluxcd.io/docs/components/): A Kubernetes operator that will
   install and manage the other components.
-- [Ocm-controller](https://github.com/open-component-model/ocm-controller): A Kubernetes operator 
-  that enable the automated deployment of software using the Open Component Model and `Flux``.
-- [Git-controller](https://github.com/open-component-model/git-controller): A
-  Kubernetes controller that will create Pull Requests in the target Github repository
+- [ocm-controller](https://github.com/open-component-model/ocm-controller): A Kubernetes controller 
+  that enables the automated deployment of software using the Open Component Model and `Flux`.
+- [git-controller](https://github.com/open-component-model/git-controller): A
+  Kubernetes controller that will create pull requests in the target Github repository
   when changes are made to the cluster.
-- [Replication-controller](https://github.com/open-component-model/git-controller):
-- [MPAS-product-controller](https://github.com/open-component-model/mpas-product-controller):
-- [MPAS-project-controller](https://github.com/open-component-model/mpas-project-controller):
+- [replication-controller](https://github.com/open-component-model/git-controller): A Kubernetes controller that replicates
+   everything defined and bundled in an OCM component version (and that the consumer subscribed to)
+   into the local OCI registry of the cluster.
+- [mpas-product-controller](https://github.com/open-component-model/mpas-product-controller): A Kubernetes controller responsible
+   for creating the custom resource `Product`. 
+- [mpas-project-controller](https://github.com/open-component-model/mpas-project-controller): A Kubernetes controller responsible
+  for bootstrapping a whole project and creating relevant access credentials, service accounts, roles and the main repository.
+  It reconciles the `Project` resource.
 
-Besides the above components, the `MPAS Bootstrap` command will also push the corresponding
-components manifests to the target Git repository and configure `Flux` to continuously update
+Besides the above components, the `mpas bootstrap` command will also push the corresponding
+component manifests to the target Git repository and configure `Flux` to continuously update
 the installed components from the target Git repository.
 
-After the `MPAS Bootstrap` command is executed, the cluster is ready to deploy software
-in a gitops fashion using the Open Component Model and `MPAS`.
+After the `mpas bootstrap` command is executed, the cluster is ready to deploy software
+in a GitOps fashion using the Open Component Model and `MPAS`.
 
 {{% alert color="danger" title="Required permissions" %}}
 To bootstrap `MPAS`, the person running the command must have **cluster admin rights** for the target Kubernetes cluster.
@@ -38,18 +43,18 @@ or to have admin rights of a GitHub organization.
 
 ## Bootstrap for GitHub
 
-### GitHub PAT 
+### GitHub Personal Access Token (PAT)
 
 For accessing the GitHub API, the boostrap command requires a GitHub personal access token (PAT)
 with administration permissions.
 
-The GitHub PAT can be exported as an environment variable:
+The GitHub PAT can be exported as environment variable:
 
 ```bash
 export GITHUB_TOKEN=<your-github-pat>
 ```
 
-If the `GITHUB_TOKEN` environment variable is not set, the `MPAS Bootstrap` command will prompt
+If the `GITHUB_TOKEN` environment variable is not set, the `mpas bootstrap` command will prompt
 for the GitHub PAT.
 
 {{% alert color="danger" title="PAT secret" %}}
@@ -59,7 +64,7 @@ inside the `flux-system` namespace.
 
 ### Personal account
 
-Run bootstrap for a repository on your personal GitHub account:
+Run the bootstrap for a repository on your personal GitHub account:
 
 ```bash
 mpas bootstrap github \
@@ -70,7 +75,7 @@ mpas bootstrap github \
   --personal
 ```
 
-If the specified repository does not exist, the `MPAS Bootstrap` command will create it
+If the specified repository does not exist, the `mpas bootstrap` command will create it
 as a private repository. If you wish to create a public repository, you can use the `--private=false`
 flag.
 
@@ -103,7 +108,7 @@ The Gitea API Token can be exported as an environment variable:
 export GITEA_TOKEN=<your-gitea-api-token>
 ```
 
-If the `GITEA_TOKEN` environment variable is not set, the `MPAS Bootstrap` command will prompt
+If the `GITEA_TOKEN` environment variable is not set, the `mpas bootstrap` command will prompt
 for the Gitea API token.
 
 {{% alert color="danger" title="API Token secret" %}}
@@ -124,14 +129,14 @@ mpas bootstrap gitea \
   --personal
 ```
 
-If the specified repository does not exist, the `MPAS Bootstrap` command will create it
+If the specified repository does not exist, the `mpas bootstrap` command will create it
 as a private repository. If you wish to create a public repository, you can use the `--private=false`
 flag.
 
 ### Organization
 
 If you want to bootstrap `MPAS` for a repository owned by an Gitea organization,
-it is recommended to create a dedicated Gita user for `MPAS` and use that user to bootstrap
+it is recommended to create a dedicated Gitea user for `MPAS` and use that user to bootstrap
 the repository.
 
 Run the bootstrap for a repository owned by a Gitea organization:
@@ -163,7 +168,7 @@ mpas bootstrap \
 
 The above command will export the bootstrap components archive to `/tmp/mpas-bundle.tar.gz`.
 
-It is then possible to import the bootstrap components bundle in an air-gapped environment
+It is then possible to import the bootstrap components bundle into an air-gapped environment
 registry and use it to bootstrap `MPAS` for a repository in that environment.
 
 ```bash
