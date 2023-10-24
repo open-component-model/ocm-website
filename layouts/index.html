@@ -21,32 +21,40 @@
   <section class="section section-what-is">
     <div class="what-is">
       <h1>What is the Open Component Model?</h1>
-      <p>The Open Component Model (OCM) is an open standard to describe software bills of delivery (SBOD). OCM is a
-      technology-agnostic and machine-readable format focused on the software artifacts that must be delivered for software
-      products.</p>
+      <p>The Open Component Model (OCM) is an open standard to describe Software Bills of Delivery (SBOD). OCM is a
+      technology-agnostic and machine-readable format focused on software artifacts that must be delivered securely
+      across boundaries, whilst maintaining integrity and provenance.</p>
     </div>
   </section>
   <section class="section px-5">
     <div class="row justify-content-between text-center flex-grow-1">
-        <div class="homepage-card">
-          <img src="/images/describe-test.png"/>
-          <h2>Describe</h2>
-          <p>Describe the resources and source repositories of a software product in code. Signing provides verifiable
-          digests of the content</p>
-        </div>
-        <div class="homepage-card">
-          <img src="/images/transport-test.png" class="bump-left"/>
-          <h2>Transport</h2>
-          <p>Transport resource contents to any environment, be it public cloud, on-prem, or air gapped</p>
-        </div>
-        <div class="homepage-card">
-          <img src="/images/deploy-test.png"/>
-          <h2>Deploy</h2>
-          <p>Leverage built-in Flux integration to seamlessly automate the deployment of components via GitOps</p>
-        </div>
+      <div class="homepage-card">
+        <img src="/images/describe-test.png"/>
+        <h2>Describe</h2>
+        <p>Describe the resources and source repositories of a software product in code. Signing provides verifiable
+        digests of the content</p>
+      </div>
+      <div class="homepage-card">
+        <img src="/images/transport-test.png" class="bump-left"/>
+        <h2>Transport</h2>
+        <p>Transport resource contents to any environment, be it public cloud, on-prem, or air gapped</p>
+      </div>
+      <div class="homepage-card">
+        <img src="/images/deploy-test.png"/>
+        <h2>Deploy</h2>
+        <p>Leverage built-in Flux integration to seamlessly automate the deployment of components via GitOps</p>
+      </div>
     </div>
   </section>
   <section class="section section-what-is">
+    <div class="what-is">  
+      <h1>Yet another SBOM?</h1>
+      <p>Whilst OCM may appear similar to both package management tools and the Software Bill of Materials (SBOM), in truth it is neither.</p>
+      <br>
+      <p>An SBOM describes the constituent parts of a software product required during the development process. In contrast, OCM describes those parts necessary for delivery & deployment. We think of this as a Software Bill of Delivery (SBOD).</p>
+    </div>
+  </section>
+  <section class="section ">
     <div class="row justify-content-between text-center flex-grow-1">
       <h1>Deploying to Airgap with Flux & OCM</h1>
       <img
@@ -57,7 +65,7 @@
         data-v="3"
         data-type="inline"
       />
-      <small>Try it yourself <a href="https://github.com/open-component-model/demo-secure-delivery" target="_blank">here</a>.
+      <p>Try it yourself <a href="https://github.com/open-component-model/demo-secure-delivery" target="_blank">here</a>.
     </div>
   </section>
   {{ end }}
