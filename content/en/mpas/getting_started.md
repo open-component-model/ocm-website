@@ -3,8 +3,8 @@ title: "Get Started with MPAS"
 description: ""
 lead: ""
 date: 2023-09-12T10:37:58+01:00
-lastmod: 2023-09-12T10:37:58+01:00
-draft: true
+lastmod: 2023-11-03T10:53:00+01:00
+draft: false
 images: []
 weight: 101
 toc: true
@@ -58,7 +58,6 @@ mpas bootstrap github \
   --owner=$GITHUB_USER \
   --repository=mpas-bootstrap \
   --path=./clusters/my-cluster \
-  --dev \
   --personal
 ```
 
@@ -81,14 +80,20 @@ The output of the bootstrap is similar to the following:
 
 ```bash
 Running mpas bootstrap ...
- ✓   Preparing Management repository mpas-bootstrap
+ ✓   Preparing Management repository mpas-test
  ✓   Fetching bootstrap component from ghcr.io/open-component-model/mpas-bootstrap-component
  ✓   Installing flux with version v2.1.0
- ✓   Generating git-controller manifest with version v0.7.1
- ✓   Generating mpas-product-controller manifest with version v0.3.3
- ✓   Generating mpas-project-controller manifest with version v0.1.2
- ✓   Generating ocm-controller manifest with version v0.12.2
- ✓   Generating replication-controller manifest with version v0.6.2
+ ✓   Installing cert-manager with version v1.13.1
+ ✓   Reconciling infrastructure components
+ ✓   Waiting for cert-manager to be available
+ ✓   Generating external-secrets-operator manifest with version v0.9.6
+ ✓   Generating git-controller manifest with version v0.9.0
+ ✓   Generating mpas-product-controller manifest with version v0.6.0
+ ✓   Generating mpas-project-controller manifest with version v0.5.0
+ ✓   Generating ocm-controller manifest with version v0.14.1
+ ✓   Generating replication-controller manifest with version v0.8.0
+ ✓   Generate certificate manifests
+ ✓   Reconciling infrastructure components
  ✓   Waiting for components to be ready
 
 Bootstrap completed successfully!
@@ -98,15 +103,6 @@ After completing the bootstrap process, the target github repository will contai
 yaml manifests for the components to be installed on the cluster and Flux will
 apply all of them to get the components installed. Furthermore the installed `Flux` components will
 be configured to watch the target github repository for changes in the path `./clusters/my-cluster`.
-
-#### Registry certificate
-
-The `--dev` flag used in the bootstrap command above will bootstrap MPAS in development mode, which means that a self-signed
-certificate will be used for the MPAS components to communicate with the internal `oci` registry.
-
-You may want to provide your own certificate for production use, for example by using [cert-manager](https://cert-manager.io/docs/usage/certificate/).
-The certificate should be named `ocm-registry-tls-certs` and should be placed in the `mpas-system`
-and `ocm-system` namespaces. You can use [syncing-secrets-across-namespaces](https://cert-manager.io/docs/tutorials/syncing-secrets-across-namespaces/) guide to sync the certificate between namespaces.
 
 #### Clone the git repository
 
@@ -174,14 +170,8 @@ It will also create a GitHub repository for the project, and configure `Flux` to
 
 3. Add the needed secrets to the namespace
 
-`Flux` is used to deploy all workloads in a gitOps way. In order for `Flux` to access the internal
-registry, we have to provide the certificate to use `https`.
-
-```bash
-kubectl get secret ocm-registry-tls-certs --namespace=mpas-system -o yaml | sed 's/namespace: .*/namespace: mpas-podinfo-application/' | kubectl apply -f -
-```
-
-We also need a secret in the project namespace that will be used to communicate with github:
+`Flux` is used to deploy all workloads in a gitOps way. `Flux` needs a secret in
+the project namespace that will be used to communicate with github:
 
 ```bash
 kubectl create secret generic \
@@ -211,7 +201,7 @@ kubectl patch serviceaccount mpas-podinfo-application -p '{"imagePullSecrets": [
   -n mpas-podinfo-application
 ```
 
-4. Clone the project repository
+1. Clone the project repository
 
 ```bash
 git clone https://github.com/$GITHUB_USER/mpas-podinfo-application
@@ -263,6 +253,9 @@ spec:
   type: kubernetes
   access:
     targetNamespace: podinfo
+  serviceAccountName: podinfo-sa
+  selector:
+    mpas.ocm.software/target-selector: podinfo-kubernetes-target
 EOF
 ```
 
@@ -273,6 +266,23 @@ git add --all && git commit -m "Add a target for podinfo" && git push
 ```
 
 `Flux` will detect the changes and apply the target to the cluster.
+
+In order for the `Target` to reach a `Ready` state, the needed secrets should be created in the `podinfo` namespace.
+
+First, create a secret containing the credentials for the service account:
+
+```bash
+kubectl create secret docker-registry github-registry-key --docker-server=ghcr.io \
+  --docker-username=$GITHUB_USER --docker-password=$GITHUB_TOKEN \
+  --docker-email=<MY_EMAIL> -n podinfo
+```
+
+Then, add a label to allow the target to select it using the label selector:
+
+```bash
+kubectl label secret github-registry-key mpas.ocm.software/target-selector=podinfo-kubernetes-target -n podinfo
+```
+```
 
 1. Deploy the podinfo application
 
