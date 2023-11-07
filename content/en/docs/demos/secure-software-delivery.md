@@ -12,6 +12,8 @@ toc: true
 
 # Secure software delivery with Flux and Open Component Model
 
+**The source code for the demo can be found at [https://github.com/open-component-model/demo-secure-delivery](https://github.com/open-component-model/demo-secure-delivery)**
+
 ## Overview 
 
 ![workflow](https://github.com/open-component-model/demo-secure-delivery/raw/main/docs/images/diagram.png)
@@ -39,6 +41,15 @@ Once this pull request is merged the Flux machinery will deploy the dependency `
 ## Walkthrough
 
 Instructions are provided to guide you through the process of deploying the demo environment, cutting a release for "podinfo," verifying the release automation, installing the component, viewing the Weave GitOps dashboard, accessing the deployed application, applying configuration changes, monitoring the application update, and cutting a new release with updated features.
+
+**The source code for the demo can be found at [https://github.com/open-component-model/demo-secure-delivery](https://github.com/open-component-model/demo-secure-delivery)**
+
+#### 0. Checkout the source repository
+
+```bash
+git clone https://github.com/open-component-model/demo-secure-delivery && \
+cd demo-secure-delivery
+```
 
 #### 1. Setup demo environment
 
