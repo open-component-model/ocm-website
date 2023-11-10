@@ -6,7 +6,7 @@ date: 2023-09-12T10:37:58+01:00
 lastmod: 2023-11-03T10:53:00+01:00
 draft: false
 images: []
-weight: 101
+weight: 103
 toc: true
 ---
 
@@ -143,9 +143,8 @@ Then, create a `project.yaml` file in the `./clusters/my-cluster/podinfo` direct
 mpas create project podinfo-application \
   --owner=$GITHUB_USER \
   --provider=github \
-  --secret-ref=github-secret \
   --visibility=public \
-  --already-exists-policy=abort \
+  --already-exists-policy=fail \
   --branch=main \
   --secret-ref=github-access \
   --email=$MY_EMAIL \
@@ -214,7 +213,7 @@ Create a file under `./subscriptions/` that will contains the subscription decla
 
 ```bash
 mpas create cs podinfo-subscription \
-  --component=mpas.ocm.software/podinfo \
+  --component=ocm.software/mpas/podinfo \
   --semver=">=v1.0.0" \
   --source-url=ghcr.io/open-component-model/mpas \
   --source-secret-ref=github-access \
@@ -255,7 +254,9 @@ spec:
     targetNamespace: podinfo
   serviceAccountName: podinfo-sa
   selector:
-    mpas.ocm.software/target-selector: podinfo-kubernetes-target
+    matchLabels:
+      mpas.ocm.software/target-selector: podinfo-kubernetes-target
+  interval: 5m0s
 EOF
 ```
 
@@ -281,7 +282,6 @@ Then, add a label to allow the target to select it using the label selector:
 
 ```bash
 kubectl label secret github-registry-key mpas.ocm.software/target-selector=podinfo-kubernetes-target -n podinfo
-```
 ```
 
 1. Deploy the podinfo application
