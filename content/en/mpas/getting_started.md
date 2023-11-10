@@ -80,7 +80,7 @@ The output of the bootstrap is similar to the following:
 
 ```bash
 Running mpas bootstrap ...
- ✓   Preparing Management repository mpas-bootstrap
+ ✓   Preparing Management repository mpas-test
  ✓   Fetching bootstrap component from ghcr.io/open-component-model/mpas-bootstrap-component
  ✓   Installing flux with version v2.1.0
  ✓   Installing cert-manager with version v1.13.1
@@ -200,7 +200,7 @@ kubectl patch serviceaccount mpas-podinfo-application -p '{"imagePullSecrets": [
   -n mpas-podinfo-application
 ```
 
-4. Clone the project repository
+1. Clone the project repository
 
 ```bash
 git clone https://github.com/$GITHUB_USER/mpas-podinfo-application
