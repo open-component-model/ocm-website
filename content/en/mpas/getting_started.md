@@ -80,7 +80,7 @@ The output of the bootstrap is similar to the following:
 
 ```bash
 Running mpas bootstrap ...
- ✓   Preparing Management repository mpas-test
+ ✓   Preparing Management repository mpas-bootstrap
  ✓   Fetching bootstrap component from ghcr.io/open-component-model/mpas-bootstrap-component
  ✓   Installing flux with version v2.1.0
  ✓   Installing cert-manager with version v1.13.1
@@ -143,9 +143,8 @@ Then, create a `project.yaml` file in the `./clusters/my-cluster/podinfo` direct
 mpas create project podinfo-application \
   --owner=$GITHUB_USER \
   --provider=github \
-  --secret-ref=github-secret \
   --visibility=public \
-  --already-exists-policy=abort \
+  --already-exists-policy=fail \
   --branch=main \
   --secret-ref=github-access \
   --email=$MY_EMAIL \
@@ -201,7 +200,7 @@ kubectl patch serviceaccount mpas-podinfo-application -p '{"imagePullSecrets": [
   -n mpas-podinfo-application
 ```
 
-1. Clone the project repository
+4. Clone the project repository
 
 ```bash
 git clone https://github.com/$GITHUB_USER/mpas-podinfo-application
@@ -214,7 +213,7 @@ Create a file under `./subscriptions/` that will contains the subscription decla
 
 ```bash
 mpas create cs podinfo-subscription \
-  --component=mpas.ocm.software/podinfo \
+  --component=ocm.software/mpas/podinfo \
   --semver=">=v1.0.0" \
   --source-url=ghcr.io/open-component-model/mpas \
   --source-secret-ref=github-access \
@@ -255,7 +254,9 @@ spec:
     targetNamespace: podinfo
   serviceAccountName: podinfo-sa
   selector:
-    mpas.ocm.software/target-selector: podinfo-kubernetes-target
+    matchLabels:
+      mpas.ocm.software/target-selector: podinfo-kubernetes-target
+  interval: 5m0s
 EOF
 ```
 
@@ -281,7 +282,6 @@ Then, add a label to allow the target to select it using the label selector:
 
 ```bash
 kubectl label secret github-registry-key mpas.ocm.software/target-selector=podinfo-kubernetes-target -n podinfo
-```
 ```
 
 1. Deploy the podinfo application
