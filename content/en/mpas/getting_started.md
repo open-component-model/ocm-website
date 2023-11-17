@@ -80,7 +80,7 @@ The output of the bootstrap is similar to the following:
 
 ```bash
 Running mpas bootstrap ...
- ✓   Preparing Management repository mpas-test
+ ✓   Preparing Management repository mpas-bootstrap
  ✓   Fetching bootstrap component from ghcr.io/open-component-model/mpas-bootstrap-component
  ✓   Installing flux with version v2.1.0
  ✓   Installing cert-manager with version v1.13.1
