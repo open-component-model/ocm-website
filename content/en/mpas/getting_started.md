@@ -42,11 +42,12 @@ For other installation methods, see the [installation guide](/mpas/overview/inst
 ### Export your GitHub access token
 
 The MPAS CLI uses your GitHub access token to authenticate with GitHub. To create a
-GitHub access token, see the [GitHub documentation](https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token).
+GitHub access token, see the [GitHub documentation](https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token). In addition to that we need to export your GitHub user and an your email address as they are used later.
 
 ```bash
 export GITHUB_TOKEN=<your-github-access-token>
 export GITHUB_USER=<your-username>
+export MY_EMAIL=<your-email-address>
 ```
 
 ### Bootstrap MPAS
@@ -156,7 +157,7 @@ mpas create project podinfo-application \
   --export  >> ./clusters/my-cluster/podinfo/project.yaml
 ```
 
-Then, apply the project to the cluster in a gitOps fashion:
+Then, apply the project to the cluster in a GitOps fashion:
 
 ```bash
 git add --all && git commit -m "Add podinfo project" && git push
@@ -164,12 +165,12 @@ git add --all && git commit -m "Add podinfo project" && git push
 
 `Flux` will detect the changes and apply the project to the cluster.
 
-This will create in the cluster a `namespace` for the project, a `serviceaccount`, and RBAC.
+This will create a `namespace` for the project, a `serviceaccount`, and RBAC in the cluster.
 It will also create a GitHub repository for the project, and configure `Flux` to manage the project's resources.
 
 3. Add the needed secrets to the namespace
 
-`Flux` is used to deploy all workloads in a gitOps way. `Flux` needs a secret in
+`Flux` is used to deploy all workloads in a GitOps way. `Flux` needs a secret in
 the project namespace that will be used to communicate with github:
 
 ```bash
@@ -190,7 +191,7 @@ First, create a secret containing the credentials for the service account:
 ```bash
 kubectl create secret docker-registry github-registry-key --docker-server=ghcr.io \
   --docker-username=$GITHUB_USER --docker-password=$GITHUB_TOKEN \
-  --docker-email=<MY_EMAIL> -n mpas-podinfo-application
+  --docker-email=$MY_EMAIL -n mpas-podinfo-application
 ```
 
 Then, patch the service account to use the secret:
@@ -207,9 +208,9 @@ git clone https://github.com/$GITHUB_USER/mpas-podinfo-application
 cd mpas-podinfo-application
 ```
 
-5. Add the podinfo component subscription
+5. Add the podinfo `ComponentSubscription`
 
-Create a file under `./subscriptions/` that will contains the subscription declaration.
+Create a file under `./subscriptions/` that will contain the subscription declaration.
 
 ```bash
 mpas create cs podinfo-subscription \
@@ -223,7 +224,7 @@ mpas create cs podinfo-subscription \
   --export >> ./subscriptions/podinfo.yaml
 ```
 
-Then, apply the `ComponentSubscription` to the project in a gitOps fashion:
+Then, apply the `ComponentSubscription` to the project in a GitOps fashion:
 
 ```bash
 git add --all && git commit -m "Add podinfo subscription" && git push
@@ -231,10 +232,10 @@ git add --all && git commit -m "Add podinfo subscription" && git push
 
 `Flux` will detect the changes and apply the subscription to the cluster.
 
-This will replicate the product referenced by the `ComponentSubscription` `spec.component` field from
-defined registry in the `spec.source.url` to the `spec.destination.url` registry.
+This will replicate the product referenced by the field `spec.component` in the `ComponentSubscription` resource from
+the defined registry in `spec.source.url` to the `spec.destination.url` registry.
 
-6. Add a target for the podinfo application
+6. Add a `Target` for the podinfo application
 
 The target will define where the application will be installed
 
@@ -260,7 +261,7 @@ spec:
 EOF
 ```
 
-Then, apply the `Target` to the project in a gitOps fashion:
+Then, apply the `Target` to the project in a GitOps fashion:
 
 ```bash
 git add --all && git commit -m "Add a target for podinfo" && git push
@@ -275,7 +276,7 @@ First, create a secret containing the credentials for the service account:
 ```bash
 kubectl create secret docker-registry github-registry-key --docker-server=ghcr.io \
   --docker-username=$GITHUB_USER --docker-password=$GITHUB_TOKEN \
-  --docker-email=<MY_EMAIL> -n podinfo
+  --docker-email=$MY_EMAIL -n podinfo
 ```
 
 Then, add a label to allow the target to select it using the label selector:
@@ -297,7 +298,7 @@ mpas create pdg podinfo \
   --export >> ./generators/podinfo.yaml
 ```
 
-Then, apply the `ProductDeploymentGenerator` to the project in a gitOps fashion:
+Then, apply the `ProductDeploymentGenerator` to the project in a GitOps fashion:
 
 ```bash
 git add --all && git commit -m "Add podinfo deployment generator" && git push
