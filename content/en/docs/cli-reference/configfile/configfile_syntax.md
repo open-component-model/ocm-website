@@ -1,7 +1,7 @@
 ---
 title: Config File Syntax
 name: Config File Syntax
-url: /docs/cli/configfile/sytnax/
+url: /docs/cli/configfile/syntax/
 date: 2023-12-11T10:43:19Z
 draft: false
 images: []
@@ -12,7 +12,7 @@ toc: true
 isCommand: false
 ---
 
-### Configuration File Syntax
+### Description
 
 The command line client supports configuration using a configuration file.
 If existent, by default, the file <code>$HOME/.ocmconfig</code> will be read.
@@ -354,3 +354,7 @@ configurations:
       sap.com:
         path: /Users/myuser/.ocm/keys/mycomp.com.pub
 ```
+
+### See Also
+
+* [Config File](/docs/cli/configfile)	 &mdash; OCM CLI configuration file
