@@ -1,7 +1,7 @@
 ---
 title: Config File Examples
 name: Config File Examples
-url: /docs/cli/configfile/examples
+url: /docs/cli/configfile/examples/
 date: 2023-12-11T10:43:19Z
 draft: false
 images: []
@@ -9,12 +9,10 @@ menu:
   docs:
     parent: configfile
 toc: true
-isCommand: true
+isCommand: false
 ---
 
-### Examples for .ocmconfig files
-
-Pointing the configuration to an existing Docker config json:
+### Reference an existing Docker config.json:
 
 ```yaml
 type: generic.config.ocm.software/v1
@@ -27,7 +25,9 @@ configurations:
           propagateConsumerIdentity: true
 ```
 
-Pointing to an existing Docker config json and configure two additional consumers
+### Configure multiple Consumers, Cache and Signing
+
+Configuring an existing Docker config json and two additional consumers
 for a Github repository and a Helm chart repository.
 Caching for OCM component versions is switched on.
 A key pair for signing / verifiying OCM component versions has been configured, too.
@@ -70,3 +70,7 @@ configurations:
       sap.com:
         path: /Users/myuser/.ocm/keys/mycomp.com.pub
 ```
+
+### See Also
+
+* [Config File](/docs/cli/configfile)	 &mdash; OCM CLI configuration file
