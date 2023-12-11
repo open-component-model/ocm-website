@@ -24,5 +24,3 @@ For a detailed description of the configuration file structure and all possible 
 
 ### Examples
 * [Config File Examples](/docs/cli/configfile/examples)	 &mdash; OCM CLI configuration file examples
-
-###
