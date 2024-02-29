@@ -14,7 +14,7 @@ weight: 100
 toc: false
 ---
 
-The following is an example of a signed component descriptor containing a resource, source and one component reference. It uses the `v3alpha1` schema.
+The following is an example of a signed component descriptor containing a resource, source and one component reference. It uses the `v3alpha1` schema. There are no differences in the semantics between v2 and v3. "version" is used as kind of moniker for different serializing/deserializing formats (`v3` has the format of Kubbernetes resources).
 
 This component is publicly available and can be inspected using the following command:
 
@@ -32,7 +32,7 @@ metadata:
   provider: # component provider information
     name: weaveworks
   version: v1.0.0 # version of the component
-repositoryContexts: # origin of this document
+repositoryContexts: # list of repository context the component version "lived" in, with the current one at the top 
 - baseUrl: ghcr.io
   componentNameMapping: urlPath
   subPath: phoban01/ocm

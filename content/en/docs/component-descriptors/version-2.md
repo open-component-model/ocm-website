@@ -1,5 +1,5 @@
 ---
-title: "Version 2 (legacy)"
+title: "Version 2"
 description: ""
 lead: ""
 date: 2023-01-17T10:22:20Z
@@ -14,7 +14,7 @@ weight: 200
 toc: false
 ---
 
-The following is an example of a signed component descriptor containing a resource, source and one component reference. It uses the `v2` schema.
+The following is an example of a signed component descriptor containing a resource, source and one component reference. It uses the `v2` schema. There are no differences in the semantics between v2 and v3. "version" is used as kind of moniker for different serializing/deserializing formats (`v3` has the format of Kubbernetes resources).
 
 This component is publicly available and can be inspected using the following command:
 
@@ -29,14 +29,14 @@ component:
   name: github.com/weaveworks/weave-gitops # name of the component
   version: v1.0.0 # version of the component
   provider: weaveworks # component provider information
-  repositoryContexts: # origin of this document
+  repositoryContexts: # list of repository context the component version "lived" in, with the current one at the top 
   - baseUrl: ghcr.io
     componentNameMapping: urlPath
     subPath: phoban01/ocm
     type: OCIRegistry
   resources: # list of resources modelled by the component
   - name: image # resource name
-    relation: external # resource location
+    relation: external # resource location (external repository or internal to this repository)
     type: ociImage # resource type
     version: v0.14.1 # resource version
     access: # metadata describing how to access the resource
