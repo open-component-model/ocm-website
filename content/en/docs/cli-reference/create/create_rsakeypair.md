@@ -2,7 +2,7 @@
 title: rsakeypair
 name: create rsakeypair
 url: /docs/cli/create/rsakeypair/
-date: 2023-10-09T10:43:19Z
+date: 2024-03-07T09:08:54Z
 draft: false
 images: []
 menu:
@@ -20,10 +20,14 @@ ocm create rsakeypair [<private key file> [<public key file>]] {<subject-attribu
 ### Options
 
 ```
-      --cacert string       certificate authority to sign public key
-      --cakey string        private key for certificate authority
-  -h, --help                help for rsakeypair
-      --validity duration   certificate validity (default 87600h0m0s)
+      --ca                     create certificate for a signing authority
+      --ca-cert string         certificate authority to sign public key
+      --ca-key string          private key for certificate authority
+  -E, --encrypt                encrypt private key with new key
+  -e, --encryptionKey string   encrypt private key with given key
+  -h, --help                   help for rsakeypair
+      --root-certs string      root certificates used to validate used certificate authority
+      --validity duration      certificate validity (default 87600h0m0s)
 ```
 
 ### Description
@@ -33,10 +37,17 @@ Create an RSA public key pair and save to files.
 
 The default for the filename to store the private key is <code>rsa.priv</code>.
 If no public key file is specified, its name will be derived from the filename for
-the private key (suffix <code>.pub</code> for public key or <code>.cert</code> for certificate).
-If a certificate authority is given (<code>--cacert</code>) the public key
-will be signed. In this case a subject (at least common name/issuer) and a private
-key (<code>--cakey</code>) is required. If only a subject is given, the public key will be self-signed.
+the private key (suffix <code>.pub</code> for public key or <code>.cert</code>
+for certificate). If a certificate authority is given (<code>--ca-cert</code>)
+the public key will be signed. In this case a subject (at least common 
+name/issuer) and a private key (<code>--ca-key</code>) for the ca used to sign the
+key is required.
+
+If only a subject is given and no ca, the public key will be self-signed.
+A signed public key always contains the complete certificate chain. If a
+non-self-signed ca is used to sign the key, its certificate chain is verified.
+Therefore, an additional root certificate (<code>--root-certs</code>) is required,
+if no public root certificate was used to create the used ca.
 
 For signing the public key the following subject attributes are supported:
 - <code>CN</code>, <code>common-name</code>, <code>issuer</code>: Common Name/Issuer
