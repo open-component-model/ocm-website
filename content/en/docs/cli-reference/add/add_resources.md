@@ -2,7 +2,7 @@
 title: resources
 name: add resources
 url: /docs/cli/add/resources/
-date: 2023-10-09T10:43:19Z
+date: 2024-03-07T09:08:54Z
 draft: false
 images: []
 menu:
@@ -22,6 +22,8 @@ ocm add resources [<options>] [<target>] {<resourcefile> | <var>=<value>}
 ```
       --access YAML                  blob access specification (YAML)
       --accessHostname string        hostname used for access
+      --accessPackage string         package or object name
+      --accessRegistry string        registry base URL
       --accessRepository string      repository URL
       --accessType string            type of blob access specification
       --accessVersion string         version for access specification
@@ -41,15 +43,20 @@ ocm add resources [<options>] [<target>] {<resourcefile> | <var>=<value>}
       --inputData !bytesBase64       data (string, !!string or !<base64>
       --inputExcludes stringArray    excludes (path) for inputs
       --inputFollowSymlinks          follow symbolic links during archive creation for inputs
+      --inputFormattedJson YAML      JSON formatted text
+      --inputHelmRepository string   helm repository base URL
       --inputIncludes stringArray    includes (path) for inputs
+      --inputJson YAML               JSON formatted text
       --inputLibraries stringArray   library path for inputs
-      --inputPath string             path field for input
+      --inputPath filepath           path field for input
+      --inputPlatforms stringArray   input filter for image platforms ([os]/[architecture])
       --inputPreserveDir             preserve directory in archive for inputs
       --inputText string             utf8 text
       --inputType string             type of blob input specification
       --inputValues YAML             YAML based generic values for inputs
       --inputVariants stringArray    (platform) variants for inputs
-      --inputVersion stringArray     version info for inputs
+      --inputVersion string          version info for inputs
+      --inputYaml YAML               YAML formatted text
       --label <name>=<YAML>          resource label (leading * indicates signature relevant, optional version separated by @)
       --mediaType string             media type for artifact blob representation
       --name string                  resource name
@@ -59,6 +66,7 @@ ocm add resources [<options>] [<target>] {<resourcefile> | <var>=<value>}
       --resource YAML                resource meta data (yaml)
   -s, --settings stringArray         settings file with variable settings (yaml)
       --size int                     blob size
+      --skip-digest-generation       skip digest creation
       --templater string             templater to use (go, none, spiff, subst) (default "subst")
       --type string                  resource type
       --version string               resource version
@@ -226,6 +234,8 @@ with the field <code>type</code> in the <code>input</code> field:
 
   The path must denote an image tag that can be found in the local
   docker daemon. The denoted image is packed as OCI artifact set.
+  The OCI image will contain an informational back link to the component version
+  using the manifest annotation <code>software.ocm/component-version</code>.
   
   This blob type specification supports the following fields: 
   - **<code>path</code>** *string*
@@ -246,7 +256,10 @@ with the field <code>type</code> in the <code>input</code> field:
   This input type describes the composition of a multi-platform OCI image.
   The various variants are taken from the local docker daemon. They should be 
   built with the buildx command for cross platform docker builds.
-  The denoted images, as well as the wrapping image index is packed as OCI artifact set.
+  The denoted images, as well as the wrapping image index is packed as OCI
+  artifact set.
+  They will contain an informational back link to the component version
+  using the manifest annotation <code>software.ocm/component-version</code>.
   
   This blob type specification supports the following fields:
   - **<code>variants</code>** *[]string*
@@ -271,7 +284,7 @@ with the field <code>type</code> in the <code>input</code> field:
   This blob type specification supports the following fields: 
   - **<code>path</code>** *string*
   
-    This REQUIRED property describes the file path to the helm chart relative to the
+    This REQUIRED property describes the path to the file relative to the
     resource file location.
   
   - **<code>mediaType</code>** *string*
@@ -290,13 +303,13 @@ with the field <code>type</code> in the <code>input</code> field:
 - Input type <code>helm</code>
 
   The path must denote an helm chart archive or directory
-  relative to the resources file.
+  relative to the resources file or a chart name in a helm chart repository.
   The denoted chart is packed as an OCI artifact set.
-  Additional provider info is taken from a file with the same name
-  and the suffix <code>.prov</code>.
+  For the filesystem version additional provider info is taken from a file with
+  the same name and the suffix <code>.prov</code>.
   
-  If the chart should just be stored as archive, please use the 
-  type <code>file</code> or <code>dir</code>.
+  If the chart should just be stored as plain archive, please use the 
+  type <code>file</code> or <code>dir</code>, instead.
   
   This blob type specification supports the following fields: 
   - **<code>path</code>** *string*
@@ -307,13 +320,37 @@ with the field <code>type</code> in the <code>input</code> field:
   - **<code>version</code>** *string*
   
     This OPTIONAL property can be set to configure an explicit version hint.
-    If not specified the versio from the chart will be used.
+    If not specified the version from the chart will be used.
     Basically, it is a good practice to use the component version for local resources
     This can be achieved by using templating for this attribute in the resource file.
   
-  Options used to configure fields: <code>--inputCompress</code>, <code>--inputPath</code>, <code>--inputVersion</code>, <code>--mediaType</code>
+  - **<code>helmRepository</code>** *string*
+  
+    This OPTIONAL property can be set, if the helm chart should be loaded from 
+    a helm repository instead of the local filesystem. It describes
+    the base URL of the chart repository. If specified, the <code>path</code> field
+    must describe the name of the chart in the chart repository, and <code>version</code>
+    must describe the version of the chart imported from the chart repository
+  
+  - **<code>repository</code>** *string*
+  
+    This OPTIONAL property can be used to specify the repository hint for the
+    generated local artifact access. It is prefixed by the component name if
+    it does not start with slash "/".
+  
+  - **<code>caCertFile</code>** *string*
+  
+    This OPTIONAL property can be used to specify a relative filename for
+    the TLS root certificate used to access a helm repository.
+  
+  - **<code>caCert</code>** *string*
+  
+    This OPTIONAL property can be used to specify a TLS root certificate used to
+    access a helm repository.
+  
+  Options used to configure fields: <code>--hint</code>, <code>--inputCompress</code>, <code>--inputHelmRepository</code>, <code>--inputPath</code>, <code>--inputVersion</code>, <code>--mediaType</code>
 
-- Input type <code>ociImage</code>
+- Input type <code>ociArtifact</code>
 
   The path must denote an OCI image reference.
   
@@ -329,7 +366,19 @@ with the field <code>type</code> in the <code>input</code> field:
     generated local artifact access. It is prefixed by the component name if
     it does not start with slash "/".
   
-  Options used to configure fields: <code>--hint</code>, <code>--inputCompress</code>, <code>--inputPath</code>, <code>--mediaType</code>
+  - **<code>platforms</code>** *[]string*
+  
+    This OPTIONAL property can be used to filter index artifacts to include
+    only images for dedicated operating systems/architectures.
+    Elements must meet the syntax [&lt;os>]/[&lt;architecture>].
+  
+  Options used to configure fields: <code>--hint</code>, <code>--inputCompress</code>, <code>--inputPath</code>, <code>--inputPlatforms</code>, <code>--mediaType</code>
+
+- Input type <code>ociImage</code>
+
+  DEPRECATED: This type is deprecated, please use ociArtifact instead.
+  
+  Options used to configure fields: <code>--hint</code>, <code>--inputCompress</code>, <code>--inputPath</code>, <code>--inputPlatforms</code>, <code>--mediaType</code>
 
 - Input type <code>spiff</code>
 
@@ -340,7 +389,7 @@ with the field <code>type</code> in the <code>input</code> field:
   This blob type specification supports the following fields: 
   - **<code>path</code>** *string*
   
-    This REQUIRED property describes the file path to the helm chart relative to the
+    This REQUIRED property describes the path to the file relative to the
     resource file location.
   
   - **<code>mediaType</code>** *string*
@@ -377,6 +426,18 @@ with the field <code>type</code> in the <code>input</code> field:
   
     The utf8 string content to provide.
   
+  - **<code>json</code>** *JSON or JSON string interpreted as JSON*
+  
+    The content emitted as JSON.
+  
+  - **<code>formattedJson</code>** *YAML/JSON or JSON/YAML string interpreted as JSON*
+  
+    The content emitted as formatted JSON.
+  
+  - **<code>yaml</code>** *AML/JSON or JSON/YAML string interpreted as YAML*
+  
+    The content emitted as YAML.
+  
   - **<code>mediaType</code>** *string*
   
     This OPTIONAL property describes the media type to store with the local blob.
@@ -388,7 +449,7 @@ with the field <code>type</code> in the <code>input</code> field:
     This OPTIONAL property describes whether the content should be stored
     compressed or not.
   
-  Options used to configure fields: <code>--inputCompress</code>, <code>--inputText</code>, <code>--mediaType</code>
+  Options used to configure fields: <code>--inputCompress</code>, <code>--inputFormattedJson</code>, <code>--inputJson</code>, <code>--inputText</code>, <code>--inputYaml</code>, <code>--mediaType</code>
 
 The following list describes the supported access methods, their versions
 and specification formats.
@@ -418,7 +479,37 @@ shown below.
     
       The key of the desired blob
     
-    Options used to configure fields: <code>--accessVersion</code>, <code>--bucket</code>, <code>--mediaType</code>, <code>--reference</code>, <code>--region</code>
+    - **<code>version</code>** (optional) *string*
+    
+      The key of the desired blob
+    
+    - **<code>mediaType</code>** (optional) *string*
+    
+      The media type of the content
+  
+  - Version <code>v2</code>
+  
+    The type specific specification fields are:
+    
+    - **<code>region</code>** (optional) *string*
+    
+      OCI repository reference (this artifact name used to store the blob).
+    
+    - **<code>bucketName</code>** *string*
+    
+      The name of the S3 bucket containing the blob
+    
+    - **<code>objectKey</code>** *string*
+    
+      The key of the desired blob
+    
+    - **<code>version</code>** (optional) *string*
+    
+      The key of the desired blob
+    
+    - **<code>mediaType</code>** (optional) *string*
+    
+      The media type of the content
   
 
 - Access type <code>gitHub</code>
@@ -442,10 +533,43 @@ shown below.
     - **<code>commit</code>** *string*
     
       The sha/id of the git commit
-    
-    Options used to configure fields: <code>--accessHostname</code>, <code>--accessRepository</code>, <code>--commit</code>
   
+  Options used to configure fields: <code>--accessHostname</code>, <code>--accessRepository</code>, <code>--commit</code>
+  
+- Access type <code>helm</code>
 
+  This method implements the access of a Helm chart stored in a Helm repository.
+
+  The following versions are supported:
+  - Version <code>v1</code>
+  
+    The type specific specification fields are:
+    
+    - **<code>helmRepository</code>** *string*
+    
+      Helm repository URL.
+    
+    - **<code>helmChart</code>** *string*
+    
+      The name of the Helm chart and its version separated by a colon.
+    
+    - **<code>version</code>** *string*
+    
+      The version of the Helm chart if not specified as part of the chart name.
+    
+    - **<code>caCert</code>** *string*
+    
+      An optional TLS root certificate.
+    
+    - **<code>keyring</code>** *string*
+    
+      An optional keyring used to verify the chart.
+    
+    It uses the consumer identity type HelmChartRepository with the fields
+    for a hostpath identity matcher (see [ocm get credentials](/docs/cli/get/credentials)).
+  
+  Options used to configure fields: <code>--accessPackage</code>, <code>--accessRepository</code>, <code>--accessVersion</code>
+  
 - Access type <code>localBlob</code>
 
   This method is used to store a resource blob along with the component descriptor
@@ -498,15 +622,37 @@ shown below.
     
       This additional external access information can be added using
       a second external access method specification.
-    
-    Options used to configure fields: <code>--globalAccess</code>, <code>--hint</code>, <code>--mediaType</code>, <code>--reference</code>
   
-
+  Options used to configure fields: <code>--globalAccess</code>, <code>--hint</code>, <code>--mediaType</code>, <code>--reference</code>
+  
 - Access type <code>none</code>
 
   dummy resource with no access
 
 
+- Access type <code>npm</code>
+
+  This method implements the access of an NPM package in an NPM registry.
+
+  The following versions are supported:
+  - Version <code>v1</code>
+  
+    The type specific specification fields are:
+    
+    - **<code>registry</code>** *string*
+    
+      Base URL of the NPM registry.
+    
+    - **<code>package</code>** *string*
+    
+      The name of the NPM package
+    
+    - **<code>version</code>** *string*
+    
+      The version name of the NPM package
+  
+  Options used to configure fields: <code>--accessPackage</code>, <code>--accessRegistry</code>, <code>--accessVersion</code>
+  
 - Access type <code>ociArtifact</code>
 
   This method implements the access of an OCI artifact stored in an OCI registry.
@@ -521,10 +667,9 @@ shown below.
       OCI image/artifact reference following the possible docker schemes:
       - <code>&lt;repo>/&lt;artifact>:&lt;digest>@&lt;tag></code>
       - <code><host>[&lt;port>]/&lt;repo path>/&lt;artifact>:&lt;version>@&lt;tag></code>
-    
-    Options used to configure fields: <code>--reference</code>
   
-
+  Options used to configure fields: <code>--reference</code>
+  
 - Access type <code>ociBlob</code>
 
   This method implements the access of an OCI blob stored in an OCI repository.
@@ -549,8 +694,63 @@ shown below.
     - **<code>size</code>** *integer*
     
       The size of the blob
+  
+  Options used to configure fields: <code>--digest</code>, <code>--mediaType</code>, <code>--reference</code>, <code>--size</code>
+  
+- Access type <code>s3</code>
+
+  This method implements the access of a blob stored in an S3 bucket.
+
+  The following versions are supported:
+  - Version <code>v1</code>
+  
+    The type specific specification fields are:
     
-    Options used to configure fields: <code>--digest</code>, <code>--mediaType</code>, <code>--reference</code>, <code>--size</code>
+    - **<code>region</code>** (optional) *string*
+    
+      OCI repository reference (this artifact name used to store the blob).
+    
+    - **<code>bucket</code>** *string*
+    
+      The name of the S3 bucket containing the blob
+    
+    - **<code>key</code>** *string*
+    
+      The key of the desired blob
+    
+    - **<code>version</code>** (optional) *string*
+    
+      The key of the desired blob
+    
+    - **<code>mediaType</code>** (optional) *string*
+    
+      The media type of the content
+  
+  - Version <code>v2</code>
+  
+    The type specific specification fields are:
+    
+    - **<code>region</code>** (optional) *string*
+    
+      OCI repository reference (this artifact name used to store the blob).
+    
+    - **<code>bucketName</code>** *string*
+    
+      The name of the S3 bucket containing the blob
+    
+    - **<code>objectKey</code>** *string*
+    
+      The key of the desired blob
+    
+    - **<code>version</code>** (optional) *string*
+    
+      The key of the desired blob
+    
+    - **<code>mediaType</code>** (optional) *string*
+    
+      The media type of the content
+  
+  Options used to configure fields: <code>--accessVersion</code>, <code>--bucket</code>, <code>--mediaType</code>, <code>--reference</code>, <code>--region</code>
   
 
 All yaml/json defined resources can be templated.
@@ -606,7 +806,7 @@ Add a resource by a description file:
 *resources.yaml*:
 ---
 name: myrresource
-type: PlainText
+type: plainText
 version: ${version]
 input:
   type: file
@@ -618,5 +818,5 @@ $ ocm add resources --file path/to/ca  resources.yaml VERSION=1.0.0
 
 ### See Also
 
-* [ocm add](/docs/cli/add)	 &mdash; Add resources or sources to a component archive
+* [ocm add](/docs/cli/add)	 &mdash; Add elements to a component repository or component version
 

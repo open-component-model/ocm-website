@@ -2,7 +2,7 @@
 title: get
 name: get
 url: /docs/cli/get/
-date: 2023-10-09T10:43:19Z
+date: 2024-03-07T09:08:54Z
 draft: false
 images: []
 menu:
@@ -35,5 +35,6 @@ ocm get [<options>] <sub command> ...
 * [ocm get <b>plugins</b>](/docs/cli/get/plugins)	 &mdash; get plugins
 * [ocm get <b>references</b>](/docs/cli/get/references)	 &mdash; get references of a component version
 * [ocm get <b>resources</b>](/docs/cli/get/resources)	 &mdash; get resources of a component version
+* [ocm get <b>routingslips</b>](/docs/cli/get/routingslips)	 &mdash; get routings slips for a component version
 * [ocm get <b>sources</b>](/docs/cli/get/sources)	 &mdash; get sources of a component version
 

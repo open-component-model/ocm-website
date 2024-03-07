@@ -2,7 +2,7 @@
 title: describe
 name: describe
 url: /docs/cli/describe/
-date: 2023-10-09T10:43:19Z
+date: 2024-03-07T09:08:54Z
 draft: false
 images: []
 menu:
@@ -30,5 +30,7 @@ ocm describe [<options>] <sub command> ...
 ##### Sub Commands
 
 * [ocm describe <b>artifacts</b>](/docs/cli/describe/artifacts)	 &mdash; describe artifact version
+* [ocm describe <b>cache</b>](/docs/cli/describe/cache)	 &mdash; show OCI blob cache information
+* [ocm describe <b>package</b>](/docs/cli/describe/package)	 &mdash; describe TOI package
 * [ocm describe <b>plugins</b>](/docs/cli/describe/plugins)	 &mdash; get plugins
 

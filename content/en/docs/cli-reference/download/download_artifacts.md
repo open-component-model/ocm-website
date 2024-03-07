@@ -2,7 +2,7 @@
 title: artifacts
 name: download artifacts
 url: /docs/cli/download/artifacts/
-date: 2023-10-09T10:43:19Z
+date: 2024-03-07T09:08:54Z
 draft: false
 images: []
 menu:
@@ -20,7 +20,9 @@ ocm download artifacts [<options>]  {<artifact>}
 ### Options
 
 ```
+      --dirtree          extract as effective filesystem content
   -h, --help             help for artifacts
+      --layers ints      extract dedicated layers
   -O, --outfile string   output file or directory
       --repo string      repository name or spec
   -t, --type string      archive format (directory, tar, tgz) (default "directory")
@@ -33,6 +35,7 @@ Download artifacts from an OCI registry. The result is stored in
 artifact set format, without the repository part
 
 The files are named according to the artifact repository name.
+
 
 If the repository/registry option is specified, the given names are interpreted
 relative to the specified registry using the syntax
@@ -57,15 +60,23 @@ The <code>--repo</code> option takes a repository/OCI registry specification:
 For the *Common Transport Format* the types <code>directory</code>,
 <code>tar</code> or <code>tgz</code> are possible.
 
-Using the JSON variant any repository type supported by the 
+Using the JSON variant any repository types supported by the 
 linked library can be used:
-- `ArtifactSet`
-- `CommonTransportFormat`
-- `DockerDaemon`
-- `Empty`
-- `OCIRegistry`
-- `oci`
-- `ociRegistry`
+  - <code>ArtifactSet</code>: v1
+  - <code>CommonTransportFormat</code>: v1
+  - <code>DockerDaemon</code>: v1
+  - <code>Empty</code>: v1
+  - <code>OCIRegistry</code>: v1
+  - <code>oci</code>: v1
+  - <code>ociRegistry</code>
+
+
+
+With option <code>--layers</code> it is possible to request the download of
+dedicated layers, only. Option <code>--dirtree</code> expects the artifact to
+be a layered filesystem (for example OCI Image) and provided the effective
+filesystem content.
+
 
 The <code>--type</code> option accepts a file format for the
 target archive to use. The following formats are supported:

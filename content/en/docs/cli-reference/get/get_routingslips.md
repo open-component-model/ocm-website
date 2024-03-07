@@ -1,7 +1,7 @@
 ---
-title: sources
-name: get sources
-url: /docs/cli/get/sources/
+title: routingslips
+name: get routingslips
+url: /docs/cli/get/routingslips/
 date: 2024-03-07T09:08:54Z
 draft: false
 images: []
@@ -14,29 +14,28 @@ isCommand: true
 ### Usage
 
 ```
-ocm get sources [<options>]  <component> {<name> { <key>=<value> }}
+ocm get routingslips [<options>]  <component> {<name>}
 ```
 
 ### Options
 
 ```
+      --all-columns               show all table columns
   -c, --constraints constraints   version constraint
-  -h, --help                      help for sources
+      --fail-on-error             fail on validation error
+  -h, --help                      help for routingslips
       --latest                    restrict component versions to latest
       --lookup stringArray        repository name or spec for closure lookup fallback
-  -o, --output string             output mode (JSON, json, tree, wide, yaml)
-  -r, --recursive                 follow component reference nesting
+  -o, --output string             output mode (JSON, json, wide, yaml)
       --repo string               repository name or spec
   -s, --sort stringArray          sort fields
+  -v, --verify                    verify signature
 ```
 
 ### Description
 
 
-Get sources of a component version. Sources are specified
-by identities. An identity consists of 
-a name argument followed by optional <code>&lt;key>=&lt;value></code>
-arguments.
+Get all or the selected routing slips for a component version specification.
 
 
 If the option <code>--constraints</code> is given, and no version is specified
@@ -89,9 +88,6 @@ OCI Repository types (using standard component repository to OCI mapping):
   - <code>ociRegistry</code>
 
 
-
-With the option <code>--recursive</code> the complete reference tree of a component reference is traversed.
-
 \
 If a component lookup for building a reference closure is required
 the <code>--lookup</code>  option can be used to specify a fallback
@@ -107,7 +103,6 @@ The following modes are supported:
   - <code></code> (default)
   - <code>JSON</code>
   - <code>json</code>
-  - <code>tree</code>
   - <code>wide</code>
   - <code>yaml</code>
 
