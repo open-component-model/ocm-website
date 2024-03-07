@@ -1,50 +1,65 @@
 ---
-title: sources
-name: get sources
-url: /docs/cli/get/sources/
+title: routingslips
+name: add routingslips
+url: /docs/cli/add/routingslips/
 date: 2024-03-07T09:08:54Z
 draft: false
 images: []
 menu:
   docs:
-    parent: get
+    parent: add
 toc: true
 isCommand: true
 ---
 ### Usage
 
 ```
-ocm get sources [<options>]  <component> {<name> { <key>=<value> }}
+ocm add routingslips [<options>] <component-version> <routing-slip> <type>
 ```
 
 ### Options
 
 ```
-  -c, --constraints constraints   version constraint
-  -h, --help                      help for sources
-      --latest                    restrict component versions to latest
-      --lookup stringArray        repository name or spec for closure lookup fallback
-  -o, --output string             output mode (JSON, json, tree, wide, yaml)
-  -r, --recursive                 follow component reference nesting
-      --repo string               repository name or spec
-  -s, --sort stringArray          sort fields
+  -S, --algorithm string     signature handler (default "RSASSA-PKCS1-V1_5")
+      --comment string       comment field value
+      --digest string        parent digest to use
+      --entry YAML           routing slip entry specification (YAML)
+  -h, --help                 help for routingslips
+      --links strings        links to other slip/entries (<slipname>[@<digest>])
+      --lookup stringArray   repository name or spec for closure lookup fallback
+      --repo string          repository name or spec
 ```
 
 ### Description
 
 
-Get sources of a component version. Sources are specified
-by identities. An identity consists of 
-a name argument followed by optional <code>&lt;key>=&lt;value></code>
-arguments.
+Add a routing slip entry for the specified routing slip name to the given
+component version. The name is typically a DNS domain name followed by some
+qualifiers separated by a slash (/). It is possible to use arbitrary types,
+the type is not checked, if it is not known. Accordingly, an arbitrary config
+given as JSON or YAML can be given to determine the attribute set of the new
+entry for unknown types.
 
 
-If the option <code>--constraints</code> is given, and no version is specified
-for a component, only versions matching the given version constraints
-(semver https://github.com/Masterminds/semver) are selected.
-With <code>--latest</code> only
-the latest matching versions will be selected.
+The following list describes the well-known entry types explicitly supported
+by this version of the CLI, their versions and specification formats. Other
+kinds of entries can be configured using the <code>--entry</code> option.
 
+- Entry type <code>comment</code>
+
+  An unstructured comment as entry in a routing slip.
+
+  The following versions are supported:
+  - Version <code>v1</code>
+  
+    The type specific specification fields are:
+    
+    - **<code>comment</code>**  *string*
+    
+      Any text as entry in a routing slip.
+  
+  Options used to configure fields: <code>--comment</code>
+  
 
 If the <code>--repo</code> option is specified, the given names are interpreted
 relative to the specified repository using the syntax
@@ -88,10 +103,6 @@ OCI Repository types (using standard component repository to OCI mapping):
   - <code>oci</code>: v1
   - <code>ociRegistry</code>
 
-
-
-With the option <code>--recursive</code> the complete reference tree of a component reference is traversed.
-
 \
 If a component lookup for building a reference closure is required
 the <code>--lookup</code>  option can be used to specify a fallback
@@ -102,17 +113,16 @@ it only contains a single component version. Therefore, in this scenario
 this option must always be specified to be able to follow component
 references.
 
-With the option <code>--output</code> the output mode can be selected.
-The following modes are supported:
-  - <code></code> (default)
-  - <code>JSON</code>
-  - <code>json</code>
-  - <code>tree</code>
-  - <code>wide</code>
-  - <code>yaml</code>
 
+### Examples
+
+```
+
+$ ocm add routingslip ghcr.io/mandelsoft/ocm//ocmdemoinstaller:0.0.1-dev mandelsoft.org comment --entry "comment=some text"
+
+```
 
 ### See Also
 
-* [ocm get](/docs/cli/get)	 &mdash; Get information about artifacts and components
+* [ocm add](/docs/cli/add)	 &mdash; Add elements to a component repository or component version
 

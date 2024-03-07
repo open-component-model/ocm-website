@@ -2,7 +2,7 @@
 title: componentversions
 name: sign componentversions
 url: /docs/cli/sign/componentversions/
-date: 2023-10-09T10:43:19Z
+date: 2024-03-07T09:08:54Z
 draft: false
 images: []
 menu:
@@ -21,11 +21,12 @@ ocm sign componentversions [<options>] {<component-reference>}
 
 ```
   -S, --algorithm string          signature handler (default "RSASSA-PKCS1-V1_5")
-      --ca-cert stringArray       Additional root certificates
+      --ca-cert stringArray       additional root certificate authorities
   -c, --constraints constraints   version constraint
-  -H, --hash string               hash algorithm (default "sha256")
+  -H, --hash string               hash algorithm (default "SHA-256")
   -h, --help                      help for componentversions
-  -I, --issuer string             issuer name
+  -I, --issuer stringArray        issuer name or distinguished name (DN) (optionally for dedicated signature) ([<name>:=]<dn>
+      --keyless                   use keyless signing
       --latest                    restrict component versions to latest
       --lookup stringArray        repository name or spec for closure lookup fallback
   -N, --normalization string      normalization algorithm (default "jsonNormalisation/v1")
@@ -34,6 +35,8 @@ ocm sign componentversions [<options>] {<component-reference>}
   -R, --recursive                 recursively sign component versions
       --repo string               repository name or spec
   -s, --signature stringArray     signature name
+      --tsa                       use timestamp authority (default server: http://timestamp.digicert.com)
+      --tsa-url string            TSA server URL
       --update                    update digest in component versions (default true)
   -V, --verify                    verify existing digests (default true)
 ```
@@ -41,11 +44,15 @@ ocm sign componentversions [<options>] {<component-reference>}
 ### Description
 
 
-Sign specified component versions. 
+Sign specified component versions.
 
-If the option <code>--constraints</code> is given, and no version is specified for a component, only versions matching
-the given version constraints (semver https://github.com/Masterminds/semver) are selected. With <code>--latest</code> only
+
+If the option <code>--constraints</code> is given, and no version is specified
+for a component, only versions matching the given version constraints
+(semver https://github.com/Masterminds/semver) are selected.
+With <code>--latest</code> only
 the latest matching versions will be selected.
+
 
 If the <code>--repo</code> option is specified, the given names are interpreted
 relative to the specified repository using the syntax
@@ -77,25 +84,23 @@ The <code>--repo</code> option takes an OCM repository specification:
 For the *Common Transport Format* the types <code>directory</code>,
 <code>tar</code> or <code>tgz</code> is possible.
 
-Using the JSON variant any repository type supported by the 
+Using the JSON variant any repository types supported by the 
 linked library can be used:
 
 Dedicated OCM repository types:
-- `ComponentArchive`
+  - <code>ComponentArchive</code>: v1
 
 OCI Repository types (using standard component repository to OCI mapping):
-- `ArtifactSet`
-- `CommonTransportFormat`
-- `DockerDaemon`
-- `Empty`
-- `OCIRegistry`
-- `oci`
-- `ociRegistry`
+  - <code>CommonTransportFormat</code>: v1
+  - <code>OCIRegistry</code>: v1
+  - <code>oci</code>: v1
+  - <code>ociRegistry</code>
+
 
 The <code>--public-key</code> and <code>--private-key</code> options can be
 used to define public and private keys on the command line. The options have an
 argument of the form <code>[&lt;name>=]&lt;filepath></code>. The optional name
-specifies the signature name the key should be used for. By default this is the
+specifies the signature name the key should be used for. By default, this is the
 signature name specified with the option <code>--signature</code>.
 
 Alternatively a key can be specified as base64 encoded string if the argument
@@ -107,30 +112,30 @@ given signature name will be verified, instead of recreated.
 
 
 The following signing types are supported with option <code>--algorithm</code>:
-
-  - <code>RSASSA-PKCS1-V1_5</code> (default): 
-  - <code>rsa-signingsservice</code>: 
+  - <code>RSASSA-PKCS1-V1_5</code> (default)
+  - <code>RSASSA-PSS</code>
+  - <code>rsa-signingservice</code>
+  - <code>rsapss-signingservice</code>
+  - <code>sigstore</code>
 
 
 The following normalization modes are supported with option <code>--normalization</code>:
-
-  - <code>jsonNormalisation/v1</code> (default): 
-  - <code>jsonNormalisation/v2</code>: 
+  - <code>jsonNormalisation/v1</code> (default)
+  - <code>jsonNormalisation/v2</code>
 
 
 The following hash modes are supported with option <code>--hash</code>:
+  - <code>NO-DIGEST</code>
+  - <code>SHA-256</code> (default)
+  - <code>SHA-512</code>
 
-  - <code>NO-DIGEST</code>: 
-  - <code>sha256</code> (default): 
-  - <code>sha512</code>: 
-
+\
 If a component lookup for building a reference closure is required
 the <code>--lookup</code>  option can be used to specify a fallback
-lookup repository. 
-By default the component versions are searched in the repository
-holding the component version for which the closure is determined.
-For *Component Archives* this is never possible, because it only
-contains a single component version. Therefore, in this scenario
+lookup repository. By default, the component versions are searched in
+the repository holding the component version for which the closure is
+determined. For *Component Archives* this is never possible, because
+it only contains a single component version. Therefore, in this scenario
 this option must always be specified to be able to follow component
 references.
 
@@ -143,5 +148,5 @@ $ ocm sign componentversion --signature mandelsoft --private-key=mandelsoft.key 
 
 ### See Also
 
-* [ocm sign](/docs/cli/sign)	 &mdash; Sign components
+* [ocm sign](/docs/cli/sign)	 &mdash; Sign components or hashes
 

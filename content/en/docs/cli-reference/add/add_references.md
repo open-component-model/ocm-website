@@ -2,7 +2,7 @@
 title: references
 name: add references
 url: /docs/cli/add/references/
-date: 2023-10-09T10:43:19Z
+date: 2024-03-07T09:08:54Z
 draft: false
 images: []
 menu:
@@ -107,6 +107,7 @@ There are several templaters that can be selected by the <code>--templater</code
   </pre>
   
 
+
 All yaml/json defined resources can be templated.
 Variables are specified as regular arguments following the syntax <code>&lt;name>=&lt;value></code>.
 Additionally settings can be specified by a yaml file using the <code>--settings <file></code>
@@ -168,5 +169,5 @@ $ ocm add references  path/to/ca  references.yaml VERSION=1.0.0
 
 ### See Also
 
-* [ocm add](/docs/cli/add)	 &mdash; Add resources or sources to a component archive
+* [ocm add](/docs/cli/add)	 &mdash; Add elements to a component repository or component version
 

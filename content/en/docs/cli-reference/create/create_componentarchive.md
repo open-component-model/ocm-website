@@ -2,7 +2,7 @@
 title: componentarchive
 name: create componentarchive
 url: /docs/cli/create/componentarchive/
-date: 2023-10-09T10:43:19Z
+date: 2024-03-07T09:08:54Z
 draft: false
 images: []
 menu:
@@ -36,6 +36,7 @@ to host component version content or a tar/tgz file (see option --type).
 
 A provider must be specified, additional provider labels are optional.
 
+
 The <code>--type</code> option accepts a file format for the
 target archive to use. The following formats are supported:
 - directory
@@ -44,18 +45,19 @@ target archive to use. The following formats are supported:
 
 The default format is <code>directory</code>.
 
-If the option <code>--scheme</code> is given, the specified component descriptor format is used/generated.
-The following schema versions are supported:
 
-  - <code>ocm.software/v3alpha1</code>: 
-  - <code>v2</code> (default): 
+If the option <code>--scheme</code> is given, the specified component descriptor format is used/generated.
+
+The following schema versions are supported for explicit conversions:
+  - <code>ocm.software/v3alpha1</code>
+  - <code>v2</code> (default)
 
 
 ### Examples
 
 ```
 
-$ ocm create componentarchive --file myfirst --provider acme.org --provider email=alice@acme.org amcme.org/demo 1.0
+$ ocm create componentarchive --file myfirst --provider acme.org --provider email=alice@acme.org acme.org/demo 1.0
 
 ```
 

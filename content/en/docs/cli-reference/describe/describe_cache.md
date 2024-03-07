@@ -1,7 +1,7 @@
 ---
-title: plugins
-name: describe plugins
-url: /docs/cli/describe/plugins/
+title: cache
+name: describe cache
+url: /docs/cli/describe/cache/
 date: 2024-03-07T09:08:54Z
 draft: false
 images: []
@@ -14,28 +14,26 @@ isCommand: true
 ### Usage
 
 ```
-ocm describe plugins [<options>] {<plugin name>}
+ocm describe cache [<options>]
 ```
 
 ### Options
 
 ```
-  -h, --help   help for plugins
+  -h, --help   help for cache
 ```
 
 ### Description
 
 
-Describes provides comprehensive information about the capabilities of
-a plugin.
-
+Show details about the OCI blob cache (if given).
+	
 
 ### Examples
 
 ```
 
-$ ocm describe plugins
-$ ocm describe plugins demo
+$ ocm cache info
 
 ```
 

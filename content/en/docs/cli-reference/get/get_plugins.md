@@ -2,7 +2,7 @@
 title: plugins
 name: get plugins
 url: /docs/cli/get/plugins/
-date: 2023-10-09T10:43:19Z
+date: 2024-03-07T09:08:54Z
 draft: false
 images: []
 menu:
@@ -31,12 +31,14 @@ ocm get plugins [<options>] {<plugin name>}
 Get lists information for all plugins specified, if no plugin is specified
 all registered ones are listed.
 
+
 With the option <code>--output</code> the output mode can be selected.
 The following modes are supported:
- - JSON
- - json
- - wide
- - yaml
+  - <code></code> (default)
+  - <code>JSON</code>
+  - <code>json</code>
+  - <code>wide</code>
+  - <code>yaml</code>
 
 
 ### Examples

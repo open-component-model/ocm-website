@@ -2,7 +2,7 @@
 title: artifacts
 name: transfer artifacts
 url: /docs/cli/transfer/artifacts/
-date: 2023-10-09T10:43:19Z
+date: 2024-03-07T09:08:54Z
 draft: false
 images: []
 menu:
@@ -35,7 +35,7 @@ Several transfer scenarios are supported:
 - copy artifacts from multiple repositories into another registry
 - copy artifacts from multiple repositories into another registry with a given repository prefix (option -R)
 
-By default the target is seen as a single repository if a repository is specified.
+By default, the target is seen as a single repository if a repository is specified.
 If a complete registry is specified as target, option -R is implied, but the source
 must provide a repository. THis combination does not allow an artifact set as source, which
 specifies no repository for the artifacts.
@@ -45,6 +45,7 @@ Sources may be specified as
 - repository (without version), which is resolved to all available tags
 - registry, if the specified registry implementation supports a namespace/repository lister,
   which is not the case for registries conforming to the OCI distribution specification.
+
 If the repository/registry option is specified, the given names are interpreted
 relative to the specified registry using the syntax
 
@@ -68,15 +69,15 @@ The <code>--repo</code> option takes a repository/OCI registry specification:
 For the *Common Transport Format* the types <code>directory</code>,
 <code>tar</code> or <code>tgz</code> are possible.
 
-Using the JSON variant any repository type supported by the 
+Using the JSON variant any repository types supported by the 
 linked library can be used:
-- `ArtifactSet`
-- `CommonTransportFormat`
-- `DockerDaemon`
-- `Empty`
-- `OCIRegistry`
-- `oci`
-- `ociRegistry`
+  - <code>ArtifactSet</code>: v1
+  - <code>CommonTransportFormat</code>: v1
+  - <code>DockerDaemon</code>: v1
+  - <code>Empty</code>: v1
+  - <code>OCIRegistry</code>: v1
+  - <code>oci</code>: v1
+  - <code>ociRegistry</code>
 
 
 ### Examples
