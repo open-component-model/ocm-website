@@ -2,7 +2,7 @@
 title: componentversions
 name: add componentversions
 url: /docs/cli/add/componentversions/
-date: 2024-03-07T09:08:54Z
+date: 2024-03-08T16:14:19Z
 draft: false
 images: []
 menu:
