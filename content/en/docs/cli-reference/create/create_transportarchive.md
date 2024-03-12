@@ -2,7 +2,7 @@
 title: transportarchive
 name: create transportarchive
 url: /docs/cli/create/transportarchive/
-date: 2024-03-07T09:08:54Z
+date: 2024-03-08T16:14:19Z
 draft: false
 images: []
 menu:

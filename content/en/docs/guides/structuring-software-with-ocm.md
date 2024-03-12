@@ -333,7 +333,7 @@ URL of OCI registry: `ghcr.io/acme.org/microblogapp`
 It is convenient to put this into an environment variable:
 
 ```yaml
-OCMREPO=github.com/acme.org/microblog
+OCM_REPO=github.com/acme.org/microblog
 ```
 
 Getting all component-versions of the application with the ocm cli:

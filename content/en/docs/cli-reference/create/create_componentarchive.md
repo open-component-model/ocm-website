@@ -2,7 +2,7 @@
 title: componentarchive
 name: create componentarchive
 url: /docs/cli/create/componentarchive/
-date: 2024-03-07T09:08:54Z
+date: 2024-03-08T16:14:19Z
 draft: false
 images: []
 menu:
