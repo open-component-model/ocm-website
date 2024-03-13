@@ -116,7 +116,7 @@ ca-hello-world
 └── component-descriptor.yaml
 ```
 
-The [component descriptor](../../specification/elements/README.md#component-descriptor)
+The [component descriptor]([../../specification/elements/README.md#component-descriptor](https://github.com/open-component-model/ocm-spec/blob/main/doc/01-model/01-model.md#components-and-component-versions))
 is stored as a yaml file named `component-descriptor.yaml`. It describes the content of a component version.
 
 It contains the following configuration:
@@ -194,8 +194,8 @@ component:
 ```
 
 Because we use content from the local environment, it is directly packaged into the component archive
-using the [access method](https://github.com/open-component-model/ocm-spec/blob/main/doc/specification/elements/README.md#artifact-access) of type
-[`local`](https://github.com/open-component-model/ocm-spec/blob/main/doc/appendix/B/localBlob.md).
+using the [access method](https://github.com/open-component-model/ocm-spec/blob/main/doc/04-extensions/02-access-types/README.md) of type
+[`localBlob`](https://github.com/open-component-model/ocm-spec/blob/main/doc/04-extensions/02-access-types/localblob.md).
 </details>
 
 ### Add an image reference
@@ -339,7 +339,7 @@ access:
 
 A resource is described either by its accesss information to a remote repository or by locally
 provided resources. For remote access the field `access` is used to describe the
-[access method](https://github.com/open-component-model/ocm-spec/blob/main/doc/appendix/B/README.md). The type field is used to specify the kind of access.
+[access method](https://github.com/open-component-model/ocm-spec/blob/main/doc/04-extensions/02-access-types/README.md). The type field is used to specify the kind of access.
 If the resource content should be taken from local resources with the field `input` is used to specify
 the access to local resources. In this case the resource content is directly put into the component
 archive. Like for the `access` attribute the kind of the input source is described by the field `type`.
