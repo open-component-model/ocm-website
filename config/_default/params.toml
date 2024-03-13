@@ -7,7 +7,7 @@ titleAddition = "OCM"
 description = ""
 leader = "An open standard to describe software artifact delivery."
 leader_open_source_text = "Open-source Apache-2.0 Licensed."
-latest_version = "v0.6.0"
+latest_version = "v0.8.0"
 
 ## Documentation
 # docsVersion = "0.3"
