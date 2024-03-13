@@ -17,9 +17,11 @@ Content lives under the `content/en` directory.
 
 - `./content/en/spec` contains the generated OCM Specification documentation
 - `./content/en/docs/cli-reference` contains the generated CLI documentation
+- `./content/en/docs/demos` contains the available OCM related demos
 - `./content/en/docs/guides` contains articles describing OCM use-cases
-- `./content/en/docs/project` contains information about the OCM project & the parties responsible
-- `./content/en/blog` contains all blog posts
+- `./content/en/docs/component-descriptors` contains links to OCM JSON schemas in the `ocm` github repository
+- `./content/en/project` contains information about the OCM project & the parties responsible
+- `./content/en/controller-reference` contains information about all OCM K8s controllers
 
 New pages can be created using the following command:
 
@@ -29,12 +31,11 @@ npm run create <location>
 
 This will create a page in draft mode. To make the page visible (and let it appear in the side bar) change `draft` to `false` in the header section of the page:
 
-```
+```text
 ---
 title: ...
 draft: false
 ```
-
 
 For content generated from external sources (currently only valid for the OCM CLI), a GitHub Action will checkout the latest version of the remote repository, generate the documentation and create a PR against `main`. This can be be triggered as necessary using a manual dispatch:
 
@@ -63,7 +64,7 @@ Then run the site:
 npm run start
 ```
 
-Navigate to http://localhost:1313 to see the site running in your browser. Any updates you make to the site will be reflected in the browser immediately.
+Navigate to `http://localhost:1313` to see the site running in your browser. Any updates you make to the site will be reflected in the browser immediately.
 
 ## Publishing the site
 
@@ -77,6 +78,6 @@ OCM follows the [CNCF Code of Conduct](https://github.com/cncf/foundation/blob/m
 
 ## Licensing
 
-Copyright 2022 SAP SE or an SAP affiliate company and Open Component Model contributors.
+Copyright 2024 SAP SE or an SAP affiliate company and Open Component Model contributors.
 Please see our [LICENSE](LICENSE) for copyright and license information.
 Detailed information including third-party components and their licensing/copyright information is available [via the REUSE tool](https://api.reuse.software/info/github.com/open-component-model/ocm-website).

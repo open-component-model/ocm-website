@@ -316,8 +316,8 @@ transport of the archive the image location changes. The image location can be s
 for a helm based installation. The actual value for the current deployment has to be extracted from
 the component-descriptor and inserted into a helm values file for a helm based installation. In the
 example below we will do the necessary steps. For real deplyoments you will usually use tools to
-automate this. The [toi installation toolkit](https://github.com/open-component-model/ocm/blob/main/docs/reference/ocm_bootstrap_componentversions_toi-bootstrapping.md)
-is one tool supporting this. The [Flux OCM controllers](../getting-started-with-ocm-flux/)
+automate this. The [toi installation toolkit](https://github.com/open-component-model/ocm/blob/main/docs/reference/ocm_toi-bootstrapping.md)
+is one tool supporting this. The [Flux OCM controllers](../controller-reference/overview.md)
 offer this functionality too.
 
 ### Example
