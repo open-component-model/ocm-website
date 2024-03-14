@@ -1,4 +1,19 @@
-<h1>OCM Controller API reference v1alpha1</h1>
+---
+title: "OCM Controller API v1"
+description: ""
+lead: ""
+date: 2023-06-27T13:54:59+01:00
+lastmod: 2024-03-12T11:20:59+01:00
+draft: false
+images: []
+menu:
+  docs:
+    parent: "api-reference"
+    identifier: "ocm-controller-0557140581b3b1668c12c30b1b9ac91f"
+weight: 1
+toc: true
+---
+
 <p>Packages:</p>
 <ul class="simple">
 <li>
@@ -1139,7 +1154,7 @@ MutationStatus
 </h3>
 <p>
 (<em>Appears on:</em>
-<a href="#delivery.ocm.software/v1alpha1.Configuration">Configuration</a>,
+<a href="#delivery.ocm.software/v1alpha1.Configuration">Configuration</a>, 
 <a href="#delivery.ocm.software/v1alpha1.Localization">Localization</a>)
 </p>
 <p>MutationSpec defines a common spec for Localization and Configuration of OCM resources.</p>
@@ -1249,7 +1264,7 @@ bool
 </h3>
 <p>
 (<em>Appears on:</em>
-<a href="#delivery.ocm.software/v1alpha1.Configuration">Configuration</a>,
+<a href="#delivery.ocm.software/v1alpha1.Configuration">Configuration</a>, 
 <a href="#delivery.ocm.software/v1alpha1.Localization">Localization</a>)
 </p>
 <p>MutationStatus defines a common status for Localizations and Configurations.</p>
@@ -1351,9 +1366,9 @@ string
 </h3>
 <p>
 (<em>Appears on:</em>
-<a href="#delivery.ocm.software/v1alpha1.FluxDeployerSpec">FluxDeployerSpec</a>,
-<a href="#delivery.ocm.software/v1alpha1.MutationSpec">MutationSpec</a>,
-<a href="#delivery.ocm.software/v1alpha1.ResourcePipelineSpec">ResourcePipelineSpec</a>,
+<a href="#delivery.ocm.software/v1alpha1.FluxDeployerSpec">FluxDeployerSpec</a>, 
+<a href="#delivery.ocm.software/v1alpha1.MutationSpec">MutationSpec</a>, 
+<a href="#delivery.ocm.software/v1alpha1.ResourcePipelineSpec">ResourcePipelineSpec</a>, 
 <a href="#delivery.ocm.software/v1alpha1.ResourceSpec">ResourceSpec</a>)
 </p>
 <p>ObjectReference defines a resource which may be accessed via a snapshot or component version</p>
@@ -1602,7 +1617,7 @@ string
 </h3>
 <p>
 (<em>Appears on:</em>
-<a href="#delivery.ocm.software/v1alpha1.ComponentVersionStatus">ComponentVersionStatus</a>,
+<a href="#delivery.ocm.software/v1alpha1.ComponentVersionStatus">ComponentVersionStatus</a>, 
 <a href="#delivery.ocm.software/v1alpha1.Reference">Reference</a>)
 </p>
 <p>Reference contains all referred components and their versions.</p>
@@ -2537,7 +2552,7 @@ string
 </h3>
 <p>
 (<em>Appears on:</em>
-<a href="#delivery.ocm.software/v1alpha1.DeliverySpec">DeliverySpec</a>,
+<a href="#delivery.ocm.software/v1alpha1.DeliverySpec">DeliverySpec</a>, 
 <a href="#delivery.ocm.software/v1alpha1.PipelineSpec">PipelineSpec</a>)
 </p>
 <p>WasmStep defines the name version and location of a wasm module that is stored// in an ocm component.
