@@ -734,7 +734,7 @@ COMMIT: 5f03021059c7dbe760ac820a014a8a84166ef8b4
 ```
 
 ```shell
-ocm add componentversions --create --file ../gen/ctf --settings ../gen/dynamic_settings.yaml --settings static_settings.yaml components.yaml
+ocm add componentversions --create --file ../gen/ctf --settings ../gen/dynamic_settings.yaml --settings static_settings.yaml component-constructor.yaml
 ```
 
 ## Debugging: Explain the blobs directory

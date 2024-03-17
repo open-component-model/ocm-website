@@ -187,8 +187,8 @@ components:
 With the components modeled we can start to build a component archive using the `ocm`  cli:
 
 ```
-ocm add componentversions --create --file component-archive components.yaml
-processing components.yaml...
+ocm add componentversions --create --file component-archive component-constructor.yaml
+processing component-constructor.yaml...
   processing document 1...
     processing index 1
     processing index 2
