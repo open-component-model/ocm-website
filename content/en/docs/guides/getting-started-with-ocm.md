@@ -545,7 +545,7 @@ The previous steps can be combined into a single operation working on a single d
 The command [ocm add componentversions](https://github.com/open-component-model/ocm/blob/main/docs/reference/ocm_add_componentversions.md)
 directly creates or extends a common transport archive without the need for creating dedicated component archives
 
-Create a yaml configuration file `components.yaml`, which contains information about the components
+Create a yaml configuration file `component-constructor.yaml`, which contains information about the components
 to create and the elements addded to those components
 
 ```yaml
@@ -569,11 +569,11 @@ components:
 ```
 
 ```shell
-ocm add componentversions --create --file ${CTF_ARCHIVE} components.yaml
+ocm add componentversions --create --file ${CTF_ARCHIVE} component-constructor.yaml
 ```
 
 ```shell
-processing components.yaml...
+processing component-constructor.yaml...
   processing document 1...
     processing index 1
 found 1 component

@@ -114,7 +114,7 @@ Example:
 helm repo add bitnami https://charts.bitnami.com/bitnami
 helm pull --destination . bitnami/mariadb
 ```
-The helm chart for mariadb is then stored in the current working directory as `mariadb:11.4.5.tgz` and can be referenced as path from there in the `components.yaml` file (see below).
+The helm chart for mariadb is then stored in the current working directory as `mariadb:11.4.5.tgz` and can be referenced as path from there in the `component-constructor.yaml` file (see below).
 
 The helm chart for the microblog application is our own and part of the source code. It is
 not downloaded from a public repository.
@@ -122,7 +122,7 @@ not downloaded from a public repository.
 
 ### Input Specification
 
-The corresponding input file for building the component version (`components.yaml`) will then look like this:
+The corresponding input file for building the component version (`component-constructor.yaml`) will then look like this:
 
 ```yaml
 components:
@@ -253,7 +253,7 @@ Note the differences between the various components:
 
 ### Building the Common Transport Archive
 
-From the input file `components.yaml` the common transport archive can be created with the
+From the input file `component-constructor.yaml` the common transport archive can be created with the
 OCM CLI. For all variables we need to provide values. Variable values can be passed in the
 command line or stored in a file. For many variable having a values file is more convenient.
 The corresponding file `settings.yaml` may look like this:
@@ -274,7 +274,7 @@ NGINX_CHART_VERSION: 4.4.2
 Create the transport archive then with:
 
 ```shell
-ocm add componentversions --create --file <ctf-target-dir> --settings settings.yaml components.yaml
+ocm add componentversions --create --file <ctf-target-dir> --settings settings.yaml component-constructor.yaml
 ```
 
 You can view the generated component descriptor using the command:

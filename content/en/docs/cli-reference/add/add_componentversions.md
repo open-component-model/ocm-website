@@ -14,7 +14,7 @@ isCommand: true
 ### Usage
 
 ```
-ocm add componentversions [<options>] [--version <version>] [<ctf archive>] {<components.yaml>}
+ocm add componentversions [<options>] [--version <version>] [<ctf archive>] {<component-constructor.yaml>}
 ```
 
 ### Options
@@ -152,9 +152,9 @@ script with the <code>script</code> option family.
 
 ```
 
-$ ocm add componentversions --file ctf --version 1.0 components.yaml
+$ ocm add componentversions --file ctf --version 1.0 component-constructor.yaml
 
-and a file <code>components.yaml</code>:
+and a file <code>component-constructor.yaml</code>:
 
 name: ocm.software/demo/test
 version: 1.0.0
