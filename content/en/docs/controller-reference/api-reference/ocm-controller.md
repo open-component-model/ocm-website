@@ -673,7 +673,7 @@ string
 <td>
 <code>extraIdentity</code><br>
 <em>
-<a href="https://pkg.go.dev/github.com/open-component-model/ocm/pkg/contexts/ocm/compdesc/meta/v1/Identity">
+<a href="https://pkg.go.dev/github.com/open-component-model/ocm/pkg/contexts/ocm/compdesc/meta/v1#Identity">
 github.com/open-component-model/ocm/pkg/contexts/ocm/compdesc/meta/v1.Identity
 </a>
 </em>
@@ -685,7 +685,7 @@ github.com/open-component-model/ocm/pkg/contexts/ocm/compdesc/meta/v1.Identity
 <td>
 <code>labels</code><br>
 <em>
-<a href="https://pkg.go.dev/github.com/open-component-model/ocm/pkg/contexts/ocm/compdesc/meta/v1/Labels">
+<a href="https://pkg.go.dev/github.com/open-component-model/ocm/pkg/contexts/ocm/compdesc/meta/v1#Labels">
 github.com/open-component-model/ocm/pkg/contexts/ocm/compdesc/meta/v1.Labels
 </a>
 </em>
@@ -1154,7 +1154,7 @@ MutationStatus
 </h3>
 <p>
 (<em>Appears on:</em>
-<a href="#delivery.ocm.software/v1alpha1.Configuration">Configuration</a>, 
+<a href="#delivery.ocm.software/v1alpha1.Configuration">Configuration</a>,
 <a href="#delivery.ocm.software/v1alpha1.Localization">Localization</a>)
 </p>
 <p>MutationSpec defines a common spec for Localization and Configuration of OCM resources.</p>
@@ -1264,7 +1264,7 @@ bool
 </h3>
 <p>
 (<em>Appears on:</em>
-<a href="#delivery.ocm.software/v1alpha1.Configuration">Configuration</a>, 
+<a href="#delivery.ocm.software/v1alpha1.Configuration">Configuration</a>,
 <a href="#delivery.ocm.software/v1alpha1.Localization">Localization</a>)
 </p>
 <p>MutationStatus defines a common status for Localizations and Configurations.</p>
@@ -1366,9 +1366,9 @@ string
 </h3>
 <p>
 (<em>Appears on:</em>
-<a href="#delivery.ocm.software/v1alpha1.FluxDeployerSpec">FluxDeployerSpec</a>, 
-<a href="#delivery.ocm.software/v1alpha1.MutationSpec">MutationSpec</a>, 
-<a href="#delivery.ocm.software/v1alpha1.ResourcePipelineSpec">ResourcePipelineSpec</a>, 
+<a href="#delivery.ocm.software/v1alpha1.FluxDeployerSpec">FluxDeployerSpec</a>,
+<a href="#delivery.ocm.software/v1alpha1.MutationSpec">MutationSpec</a>,
+<a href="#delivery.ocm.software/v1alpha1.ResourcePipelineSpec">ResourcePipelineSpec</a>,
 <a href="#delivery.ocm.software/v1alpha1.ResourceSpec">ResourceSpec</a>)
 </p>
 <p>ObjectReference defines a resource which may be accessed via a snapshot or component version</p>
@@ -1617,7 +1617,7 @@ string
 </h3>
 <p>
 (<em>Appears on:</em>
-<a href="#delivery.ocm.software/v1alpha1.ComponentVersionStatus">ComponentVersionStatus</a>, 
+<a href="#delivery.ocm.software/v1alpha1.ComponentVersionStatus">ComponentVersionStatus</a>,
 <a href="#delivery.ocm.software/v1alpha1.Reference">Reference</a>)
 </p>
 <p>Reference contains all referred components and their versions.</p>
@@ -2252,7 +2252,7 @@ ElementMeta
 <td>
 <code>referencePath</code><br>
 <em>
-<a href="https://pkg.go.dev/github.com/open-component-model/ocm/pkg/contexts/ocm/compdesc/meta/v1/Identity">
+<a href="https://pkg.go.dev/github.com/open-component-model/ocm/pkg/contexts/ocm/compdesc/meta/v1#Identity">
 []github.com/open-component-model/ocm/pkg/contexts/ocm/compdesc/meta/v1.Identity
 </a>
 </em>
@@ -2552,7 +2552,7 @@ string
 </h3>
 <p>
 (<em>Appears on:</em>
-<a href="#delivery.ocm.software/v1alpha1.DeliverySpec">DeliverySpec</a>, 
+<a href="#delivery.ocm.software/v1alpha1.DeliverySpec">DeliverySpec</a>,
 <a href="#delivery.ocm.software/v1alpha1.PipelineSpec">PipelineSpec</a>)
 </p>
 <p>WasmStep defines the name version and location of a wasm module that is stored// in an ocm component.
