@@ -193,7 +193,7 @@ should never be overwritten. They serve as source of truth for what the release 
 und should never be changed.
 
 ### Package Visibility 
-Change Github Package Visibility to 'plublic':
+Change Github Package Visibility to 'public':
 
 ![alt text](images/github-packages-ocm-hello-world.png)
 ## Deploying OCM Software Artifact
