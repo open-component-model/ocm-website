@@ -18,7 +18,7 @@ toc: true
 
 Let's illustrate an simple "Hello World" application and show how to leverage OCM to build and deploy a Helm Chart and OCI Image on a local `kind` k8s cluster.
 As base we use the `podinfo` application. 
-All files can be found [here](https://github.com/stb1337/ocm-hello-world).
+All files can be found [here](https://github.com/stb1337/ocm-hello-world-v1).
 
 At the end of the tutorial this application consists of the following components:
 * `podinfo` as our business application
@@ -53,7 +53,8 @@ Reference a Helm Chart from:
 2. local `*.tgz` file
 3. local folder which containing Helm Chart files
 
-First we need to download and unpack the Helm Chart for `podinfo`.
+To demonstrate No. 2+3 we first we need to download and unpack the Helm Chart for `podinfo`. In a real application, this would be your own Helm Charts.
+
 This can easily be achieved with the helm CLI:
 
 ```shell
@@ -75,41 +76,47 @@ tar -czf podinfo-6.6.0.tgz podinfo
 
 ### Input Specification
 
-The corresponding input file for building the component version (`component-constructor.yaml`) will then look like this:
+The corresponding input file for building the component version ([`component-constructor.yaml`](https://github.com/stb1337/ocm-hello-world-v1/blob/main/component-constructor.yaml)) will then look like this:
 
 ```yaml
 components:
+# podinfo component
 - name: ${COMPONENT_NAME_PREFIX}/podinfo
+  labels:
+  - name: "org.opencontainers.image.source"
+    value: "https://github.com/stb1337/ocm-hello-world-v1"  
   version: ${PODINFO_VERSION}
   provider:
     name: ${PROVIDER}
   resources:
   - name: helm-chart-external
-    type: helmChart    
+    type: helmChart
+    version: ${PODINFO_VERSION}
     relation: external
     access:
       type: helm
       helmChart: podinfo:${PODINFO_CHART_VERSION}
       helmRepository: https://stefanprodan.github.io/podinfo
   - name: helm-chart-local-tgz
-    type: helmChart
-    relation: local    
+    type: helmChart    
     input:      
-      type: helm
-      path: podinfo-${PODINFO_CHART_VERSION}.tgz
+      type: helm      
+      path: podinfo-${PODINFO_CHART_VERSION}.tgz      
   - name: helm-chart-local-folder
     type: helmChart
-    relation: local    
-    input:   
+    relation: local
+    version: ${PODINFO_VERSION}
+    input:
       type: dir
-      path: ./podinfo/ 
+      path: ./podinfo/  
   - name: image
     type: ociImage
     version: ${PODINFO_VERSION}
     access:
       type: ociArtifact
       repository: ocm/ocm.software/podinfo/image
-      imageReference: ghcr.io/stefanprodan/podinfo:${PODINFO_VERSION}  
+      imageReference: ghcr.io/stefanprodan/podinfo:${PODINFO_VERSION}
+  
 ```
 
 Some frequently changing parameters have been extracted as variables. The OCM CLI uses
@@ -124,11 +131,11 @@ Note the differences between the various components:
 From the input file `component-constructor.yaml` the common transport archive can be created with the
 OCM CLI. For all variables we need to provide values. Variable values can be passed in the
 command line or stored in a file. For many variable having a values file is more convenient.
-The corresponding file `settings.yaml` may look like this:
+The corresponding file [`settings.yaml`](https://github.com/stb1337/ocm-hello-world-v1/blob/main/settings.yaml) may look like this:
 
 ```yaml
 VERSION: 0.0.1
-NAME: ocm-hello-world
+NAME: ocm-hello-world-v1
 COMPONENT_NAME_PREFIX: ocm.software
 PROVIDER: stb1337
 PODINFO_VERSION: 6.6.0
@@ -174,15 +181,17 @@ ocm transfer ctf -f <ctf-target-dir> <oci-repo-url>
 ```
 
 ```shell
-ocm transfer commontransportarchive --copy-resources --enforce --overwrite ./ocm-hello-world OCIRegistry::ghcr.io/stb1337/ocm-hello-world-2
+ocm transfer commontransportarchive --copy-resources --enforce --overwrite ./ocm-hello-world OCIRegistry::ghcr.io/stb1337/ocm-hello-world-v1
 transferring component "ocm.software/podinfo"...
   transferring version "ocm.software/podinfo:6.6.0"...
-    version "ocm.software/podinfo:6.6.0" already present -> but requires resource transport
-  ...resource 0 helm-chart-external[helmChart] (copy)
-  ...resource 1 helm-chart-local-tgz[helmChart](ocm.software/podinfo/podinfo:6.6.0) (already present)
-  ...resource 2 helm-chart-local-folder[helmChart] (already present)  
-  ...resource 3 image[ociImage](stefanprodan/podinfo:6.6.0) (copy)
+INFO[0000] trying next host - response was http.StatusNotFound  host=ghcr.io
+INFO[0001] trying next host - response was http.StatusNotFound  host=ghcr.io
+  ...resource 0 helm-chart-external[helmChart]...
+  ...resource 1 helm-chart-local-tgz[helmChart](ocm.software/podinfo/podinfo:6.6.0)...
+  ...resource 2 helm-chart-local-folder[helmChart]...  
+  ...resource 3 image[ociImage](stefanprodan/podinfo:6.6.0)...
   ...adding component version...
+
 ```
 
 Note: Be careful with the `-f` or `--overwrite` flag. This will replace existing component
@@ -192,8 +201,8 @@ you should never use this flag**! Released component versions should be immutabl
 should never be overwritten. They serve as source of truth for what the release is made of
 und should never be changed.
 
-### Package Visibility 
-Change Github Package Visibility to 'public':
+### Package 
+Navigate to the overview of your OCI repository, which should list following items:
 
 ![alt text](images/github-packages-ocm-hello-world.png)
 ## Deploying OCM Software Artifact
@@ -315,12 +324,12 @@ ComponentVersion:
 name: `ocm.software/podinfo`
 version: `6.6.0`
 
-URL of OCI registry: `ghcr.io/stb1337/ocm-hello-world-2`
+URL of OCI registry: `ghcr.io/stb1337/ocm-hello-world-v1`
 
 It is convenient to put this into an environment variable:
 
 ```shell
-export OCM_REPO=ghcr.io/stb1337/ocm-hello-world-2
+export OCM_REPO=ghcr.io/stb1337/ocm-hello-world-v1
 ```
 
 Getting all component-versions of the application with the ocm cli:
@@ -333,20 +342,22 @@ ocm get componentversion --repo OCIRegistry::${OCM_REPO} ocm.software/podinfo:6.
 ---
 component:
   componentReferences: []
-  creationTime: "2024-03-20T09:22:20Z"
+  creationTime: "2024-03-21T15:55:18Z"
   labels:
+  - name: org.opencontainers.image.source
+    value: https://github.com/stb1337/ocm-hello-world-v1
   name: ocm.software/podinfo
   provider: stb1337
   repositoryContexts:
   - baseUrl: ghcr.io
     componentNameMapping: urlPath
-    subPath: stb1337/ocm-hello-world-2
+    subPath: stb1337/ocm-hello-world-v1
     type: OCIRegistry
   resources:
   - access:
-      helmChart: podinfo:6.6.0
-      helmRepository: https://stefanprodan.github.io/podinfo
-      type: helm
+      localReference: sha256:cf9318c4944f733f8ce925ca0b818cdae638dce4107a13c3395984bb86306c4b
+      mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+      type: localBlob
     digest:
       hashAlgorithm: SHA-256
       normalisationAlgorithm: genericBlobDigest/v1
@@ -356,7 +367,7 @@ component:
     type: helmChart
     version: 6.6.0
   - access:
-      imageReference: ghcr.io/stb1337/ocm-hello-world-2/ocm.software/podinfo/podinfo:6.6.0
+      imageReference: ghcr.io/stb1337/ocm-hello-world-v1/ocm.software/podinfo/podinfo:6.6.0
       type: ociArtifact
     digest:
       hashAlgorithm: SHA-256
@@ -367,32 +378,31 @@ component:
     type: helmChart
     version: 6.6.0
   - access:
-      localReference: sha256:96a7336a44369d0da90e3c3813d7fd3e3a2745283e99dd9187040ac9d849b194
+      localReference: sha256:8ff0604bfaebe6791ac4285c38a9f02771452497530367eeae49f1cf8594ca4c
       mediaType: application/x-tar
       type: localBlob
     digest:
       hashAlgorithm: SHA-256
       normalisationAlgorithm: genericBlobDigest/v1
-      value: 96a7336a44369d0da90e3c3813d7fd3e3a2745283e99dd9187040ac9d849b194
+      value: 8ff0604bfaebe6791ac4285c38a9f02771452497530367eeae49f1cf8594ca4c
     name: helm-chart-local-folder
     relation: local
     type: helmChart
     version: 6.6.0
   - access:
-      localReference: sha256:1e1f0bea2618c9a7f50c459828cf5aa66b5592c7ce9715be436cbaf70b31f17b
+      localReference: sha256:4a05cbc915a171301efdaad863d7d1bb0bc9193730767eca9385c49361956863
       mediaType: application/x-tgz
       type: localBlob
     digest:
       hashAlgorithm: SHA-256
       normalisationAlgorithm: genericBlobDigest/v1
-      value: 1e1f0bea2618c9a7f50c459828cf5aa66b5592c7ce9715be436cbaf70b31f17b
+      value: 4a05cbc915a171301efdaad863d7d1bb0bc9193730767eca9385c49361956863
     name: manifests
     relation: local
     type: dir
     version: 6.6.0
   - access:
-      imageReference: ghcr.io/stefanprodan/podinfo:6.6.0
-      repository: ocm/ocm.software/podinfo/image
+      imageReference: ghcr.io/stb1337/ocm-hello-world-v1/stefanprodan/podinfo:6.6.0
       type: ociArtifact
     digest:
       hashAlgorithm: SHA-256
@@ -414,17 +424,16 @@ With this we can drill down to the installable helm charts and the container ima
 ocm get resource --repo OCIRegistry::${OCM_REPO} ocm.software/podinfo:6.6.0 -o wide
 NAME                    VERSION IDENTITY TYPE      RELATION ACCESSTYPE  ACCESSSPEC
 helm-chart-external     6.6.0            helmChart external localBlob   {"localReference":"sha256:cf9318c4944f733f8ce925ca0b818cdae638dce4107a13c3395984bb86306c4b","mediaType":"application/vnd.cncf.helm.chart.content.v1.tar+gzip"}
-helm-chart-local-folder 6.6.0            helmChart local    localBlob   {"localReference":"sha256:96a7336a44369d0da90e3c3813d7fd3e3a2745283e99dd9187040ac9d849b194","mediaType":"application/x-tar"}
-helm-chart-local-tgz    6.6.0            helmChart local    ociArtifact {"imageReference":"ghcr.io/stb1337/ocm-hello-world-2/ocm.software/podinfo/podinfo:6.6.0"}
-image                   6.6.0            ociImage  external ociArtifact {"imageReference":"ghcr.io/stb1337/ocm-hello-world-2/stefanprodan/podinfo:6.6.0"}
+helm-chart-local-folder 6.6.0            helmChart local    localBlob   {"localReference":"sha256:8ff0604bfaebe6791ac4285c38a9f02771452497530367eeae49f1cf8594ca4c","mediaType":"application/x-tar"}
+helm-chart-local-tgz    6.6.0            helmChart local    ociArtifact {"imageReference":"ghcr.io/stb1337/ocm-hello-world-v1/ocm.software/podinfo/podinfo:6.6.0"}
+image                   6.6.0            ociImage  external ociArtifact {"imageReference":"ghcr.io/stb1337/ocm-hello-world-v1/stefanprodan/podinfo:6.6.0"}
 ```
 ### Apply k8s manifest
 
-Create file `k8s-component-version/00-pod-info-kind.yaml` with following content:
+Create file [`k8s-component-version/01-pod-info-kind.yaml`](https://github.com/stb1337/ocm-hello-world-v1/blob/main/k8s-component-version/01-pod-info-kind.yaml) with following content:
 
 ```yaml
-#k8s-component-version/00-pod-info-kind.yaml 
-apiVersion: delivery.ocm.software/v1alpha1
+#k8s-component-version/01-pod-info-kind.yaml 
 kind: ComponentVersion
 metadata:
   name: ocm-hello-world-podinfo
@@ -435,7 +444,9 @@ spec:
   references:
     expand: true
   repository:
-    url: ghcr.io/stb1337/ocm-hello-world-2   
+    url: ghcr.io/stb1337/ocm-hello-world-v1
+    secretRef:
+      name: ghcr-pull-secret
   version:
     semver: "6.6.0"
 ---
@@ -473,17 +484,18 @@ spec:
       spec: 
         chart: "podinfo"
         interval: 10s
-    values:
-      serviceAccount:
-        enabled: True
-        imagePullSecrets:
-        - name: pull-secret
+    values:      
       replicaCount: 3
       image:
-        repository: ghcr.io/stb1337/ocm-hello-world-2/stefanprodan/podinfo
+        repository: ghcr.io/stb1337/ocm-hello-world-v1/stefanprodan/podinfo
       ui:
         color: "#8F00FF"
         message: "Hello from remote referenced Helm Chart"      
+      serviceAccount:        
+        enabled: true        
+        name: "sa-podinfo-ghcr-io-1"
+        imagePullSecrets:
+        - name: pull-secret
     interval: 10s
     releaseName: "podinfo-helm-chart-external"
     targetNamespace: default
@@ -525,10 +537,15 @@ spec:
     values:
       replicaCount: 2
       image:
-        repository: ghcr.io/stb1337/ocm-hello-world-2/stefanprodan/podinfo
+        repository: ghcr.io/stb1337/ocm-hello-world-v1/stefanprodan/podinfo
       ui:
         color: "#FFC0CB"
         message: "Hello from local .tar file Helm Chart"        
+      serviceAccount:        
+        enabled: true        
+        name: "sa-podinfo-ghcr-io-2"
+        imagePullSecrets:
+        - name: pull-secret
     interval: 10s
     releaseName: "podinfo-helm-chart-local-tgz"
     targetNamespace: default    
@@ -550,10 +567,25 @@ spec:
       version: "6.6.0"
 ```
 
+Create two k8s secrets in order for OCM and k8s to pull from your private OCI registry:
+```shell
+export GITHUB_USER=.. && export GITHUB_TOKEN=ghp_.... && export GITHUB_USER_EMAIL=steffen....
+
+kubectl create secret docker-registry pull-secret -n default \
+    --docker-server=ghcr.io \
+    --docker-username=$GITHUB_USER \
+    --docker-password=$GITHUB_TOKEN \
+    --docker-email=$GITHUB_USER_EMAIL
+
+kubectl create secret generic ghcr-pull-secret -n ocm-system \
+    --from-literal=username=$GITHUB_USER \
+    --from-literal=password=$GITHUB_TOKEN
+```
+
 Apply manifest to local `kind` cluster:
 
 ```shell
-k apply -f k8s-component-version/00-pod-info-kind.yaml 
+k apply -f k8s-component-version/01-pod-info-kind.yaml 
 componentversion.delivery.ocm.software/ocm-hello-world-podinfo created
 resource.delivery.ocm.software/ocm-hello-world-podinfo-helm-chart-external created
 fluxdeployer.delivery.ocm.software/ocm-hello-world-podinfo-helm-chart-external created
