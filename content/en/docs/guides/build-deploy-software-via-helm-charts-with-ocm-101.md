@@ -16,11 +16,12 @@ toc: true
 
 ## Introduction
 
-Let's illustrate an simple "Hello World" application and show how to leverage OCM to build and deploy a Helm Chart and OCI Image on a local `kind` k8s cluster.
-As base we use the `podinfo` application. 
+Let's illustrate a simple "Hello World" application and show how to leverage OCM to build and deploy a Helm Chart and OCI Image on a local `kind` k8s cluster.
+As base we use the `podinfo` application.
 All files can be found [here](https://github.com/stb1337/ocm-hello-world-v1).
 
-At the end of the tutorial this application consists of the following components:
+At the end of the tutorial the application will consist of the following components:
+
 * `podinfo` as our business application
 
 Following the OCM guidelines we will end-up with two component versions and six OCM OCI images.
@@ -30,14 +31,16 @@ mechanism becomes handy.
 
 ### Requirements
 
-- [OCM command line tool](https://github.com/open-component-model/ocm)
-- [kubectl](https://kubernetes.io/docs/reference/kubectl/)
-- [git](https://git-scm.com/downloads)
-- [kind](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
-- [flux](https://fluxcd.io/flux/installation/#install-the-flux-cli)
+* [OCM command line tool](https://github.com/open-component-model/ocm)
+* [kubectl](https://kubernetes.io/docs/reference/kubectl/)
+* [git](https://git-scm.com/downloads)
+* [kind](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
+* [flux](https://fluxcd.io/flux/installation/#install-the-flux-cli)
 
 ## Building OCM Software Artifact
-First we build an OCM OCI image which contains Helm Charts in different kind of formats.
+
+First we build an OCM component which contains Helm Charts in different kind of formats. This 101 guide explains all possible formats,
+but in reality you'll just pick the one most appropiate to you.
 
 ### Prepare Helm Charts
 
@@ -49,34 +52,38 @@ publicly available helm charts currently are available from helm chart repositor
 not from OCI registries. Therefore the helm charts can be embedded in the component archive in three different ways.
 
 Reference a Helm Chart from:
+
 1. a public Helm Chart repository
 2. local `*.tgz` file
-3. local folder which containing Helm Chart files
+3. local folder containing a Helm Chart file
 
-To demonstrate No. 2+3 we first we need to download and unpack the Helm Chart for `podinfo`. In a real application, this would be your own Helm Charts.
+To demonstrate No. 2. and 3. we first need to download and unpack the Helm Chart for `podinfo`. In a real application, this would be your own Helm Chart.
 
-This can easily be achieved with the helm CLI:
+This can easily be achieved with the Helm CLI:
 
 ```shell
 helm repo add <repo-name> <helm-chart-repo-url>
 helm pull --destination <target-dir> <repo-name/chart-name>
 ```
 
-`podinfo` example:
+For the `podinfo` example:
+
 ```shell
 helm repo add podinfo https://stefanprodan.github.io/podinfo
 helm pull --destination . podinfo/podinfo
 ```
-The helm chart is then stored in the current working directory as `podinfo-6.6.0.tgz` and can be referenced as path from there in the `component-constructor.yaml` file (see below).
 
-Unpack `podinfo-6.6.0.tgz` to simulate the process as if this helm chart is our own and is not downloaded from a public repository.
+The Helm chart is then stored in the current working directory as `podinfo-6.6.0.tgz` and can be referenced as path from there in the `component-constructor.yaml` file (see below).
+
+Unpack `podinfo-6.6.0.tgz` to simulate the process as if this helm chart is our own and is not downloaded from a public repository:
+
 ```shell
 tar -czf podinfo-6.6.0.tgz podinfo
 ```
 
 ### Input Specification
 
-The corresponding input file for building the component version ([`component-constructor.yaml`](https://github.com/stb1337/ocm-hello-world-v1/blob/main/component-constructor.yaml)) will then look like this:
+The corresponding input file for building the component version ([`component-constructor.yaml`](https://github.com/stb1337/ocm-hello-world-v1/blob/main/component-constructor.yaml)) looks like:
 
 ```yaml
 components:
@@ -126,11 +133,11 @@ we use the simple (default) template engine type `subst`.
 
 Note the differences between the various components:
 
-### Building the Common Transport Archive
+### Building the Common Transport Archive (CTF)
 
 From the input file `component-constructor.yaml` the common transport archive can be created with the
 OCM CLI. For all variables we need to provide values. Variable values can be passed in the
-command line or stored in a file. For many variable having a values file is more convenient.
+command line or stored in a file. For many variables having a values file is more convenient.
 The corresponding file [`settings.yaml`](https://github.com/stb1337/ocm-hello-world-v1/blob/main/settings.yaml) may look like this:
 
 ```yaml
@@ -201,25 +208,28 @@ you should never use this flag**! Released component versions should be immutabl
 should never be overwritten. They serve as source of truth for what the release is made of
 und should never be changed.
 
-### Package 
+### Package
+
 Navigate to the overview of your OCI repository, which should list following items:
 
 ![alt text](images/github-packages-ocm-hello-world.png)
-## Deploying OCM Software Artifact
 
-Up to now we have created a transport archive containig all required parts (images, helm charts) for
-installing the application. This archive is self-contained and can be transferred with a single
-command from the OCM tooling. After pushing this archive to an OCI-registry we have a shared location
+## Deploying the OCM Software Artifact
+
+Up to now we have created a transport archive containing all required parts (images and Helm charts) for
+installing the application. This archive is self-contained and can be transferred to an OCI registry with a single
+command from the OCM tooling. After pushing this archive to an OCI registry we have a shared location
 that can be used as a source of deployment without any external references. As an alternative you can
 transport the archive using offline mechanisms (file transfer, USB-stick) and push it on a target
-location to an OCI registry.
+location in an OCI registry.
 
-To actually deploy the application we need to get access to the helm charts contained in the archive.
-We can use the ocm CLI to retrieve their location. See the [example](#example-1) below.
+To actually deploy the application we need to get access to the Helm charts contained in the archive.
+We can use the OCM CLI to retrieve their location. See the [example](#example-1) below.
 
 ### Setup Local Kind Cluster
 
 Create local `kind` cluster on your local machine:
+
 ```shell
 kind create cluster -n ocm-hello-world
 ```
@@ -243,7 +253,7 @@ Have a question, bug, or feature request? Let us know! https://kind.sigs.k8s.io/
 
 Make sure that your current kubectl context is set to "kind-ocm-hello-world":
 
-```shell 
+```shell
 kubectl context to "kind-ocm-hello-world"
 kubectl cluster-info                        
 Kubernetes control plane is running at https://127.0.0.1:52112
@@ -253,6 +263,7 @@ To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
 ```
 
 Install Flux:
+
 ```shell
 flux install                                                                                                         
 ✚ generating manifests
@@ -296,7 +307,9 @@ NetworkPolicy/flux-system/allow-webhooks created
 ✔ source-controller: deployment ready
 ✔ install finished
 ```
+
 Install OCM controller:
+
 ```shell
 ocm controller install                                                                                                                   
 ► running pre-install check
@@ -317,6 +330,7 @@ ocm controller install
 ```
 
 ### Inspect component descriptor
+
 Let's assume that we have pushed the transport archive to an OCI registry. We need the identity of the
 component version and the location of the component-descriptors in the OCI registry:
 
@@ -332,7 +346,7 @@ It is convenient to put this into an environment variable:
 export OCM_REPO=ghcr.io/stb1337/ocm-hello-world-v1
 ```
 
-Getting all component-versions of the application with the ocm cli:
+Getting the component version 6.6.0 of the application with the OCM CLI:
 
 ```shell
 ocm get componentversion --repo OCIRegistry::${OCM_REPO} ocm.software/podinfo:6.6.0 -o yaml
@@ -418,7 +432,7 @@ meta:
   schemaVersion: v2
 ```
 
-With this we can drill down to the installable helm charts and the container images:
+With this we can drill down to the installable Helm charts and the container images:
 
 ```shell
 ocm get resource --repo OCIRegistry::${OCM_REPO} ocm.software/podinfo:6.6.0 -o wide
@@ -428,6 +442,7 @@ helm-chart-local-folder 6.6.0            helmChart local    localBlob   {"localR
 helm-chart-local-tgz    6.6.0            helmChart local    ociArtifact {"imageReference":"ghcr.io/stb1337/ocm-hello-world-v1/ocm.software/podinfo/podinfo:6.6.0"}
 image                   6.6.0            ociImage  external ociArtifact {"imageReference":"ghcr.io/stb1337/ocm-hello-world-v1/stefanprodan/podinfo:6.6.0"}
 ```
+
 ### Apply k8s manifest
 
 Create file [`k8s-component-version/01-pod-info-kind.yaml`](https://github.com/stb1337/ocm-hello-world-v1/blob/main/k8s-component-version/01-pod-info-kind.yaml) with following content:
@@ -568,6 +583,7 @@ spec:
 ```
 
 Create two k8s secrets in order for OCM and k8s to pull from your private OCI registry:
+
 ```shell
 export GITHUB_USER=.. && export GITHUB_TOKEN=ghp_.... && export GITHUB_USER_EMAIL=steffen....
 
@@ -582,7 +598,7 @@ kubectl create secret generic ghcr-pull-secret -n ocm-system \
     --from-literal=password=$GITHUB_TOKEN
 ```
 
-Apply manifest to local `kind` cluster:
+Apply the manifest to your local `kind` cluster:
 
 ```shell
 k apply -f k8s-component-version/01-pod-info-kind.yaml 
@@ -600,6 +616,7 @@ Forwarding from 127.0.0.1:9898 -> 9898
 Forwarding from [::1]:9898 -> 9898
 Handling connection for 9898
 ```
+
 ![alt text](images/guide-helm-charts-hello-world.png)
 
 ```shell
