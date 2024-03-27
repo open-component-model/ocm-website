@@ -2,7 +2,7 @@
 title: toi-bootstrapping
 name: describe_package toi-bootstrapping
 url: /docs/cli/describe_package/toi-bootstrapping/
-date: 2024-03-08T16:14:19Z
+date: 2024-03-27T16:27:00Z
 draft: false
 images: []
 menu:

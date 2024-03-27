@@ -2,7 +2,7 @@
 title: package
 name: describe package
 url: /docs/cli/describe/package/
-date: 2024-03-08T16:14:19Z
+date: 2024-03-27T16:27:00Z
 draft: false
 images: []
 menu:

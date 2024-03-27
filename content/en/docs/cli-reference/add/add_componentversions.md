@@ -2,7 +2,7 @@
 title: componentversions
 name: add componentversions
 url: /docs/cli/add/componentversions/
-date: 2024-03-08T16:14:19Z
+date: 2024-03-27T16:27:00Z
 draft: false
 images: []
 menu:
@@ -14,7 +14,7 @@ isCommand: true
 ### Usage
 
 ```
-ocm add componentversions [<options>] [--version <version>] [<ctf archive>] {<component-constructor.yaml>}
+ocm add componentversions [<options>] [--version <version>] [<ctf archive>] {<components.yaml>}
 ```
 
 ### Options
@@ -152,9 +152,9 @@ script with the <code>script</code> option family.
 
 ```
 
-$ ocm add componentversions --file ctf --version 1.0 component-constructor.yaml
+$ ocm add componentversions --file ctf --version 1.0 components.yaml
 
-and a file <code>component-constructor.yaml</code>:
+and a file <code>components.yaml</code>:
 
 name: ocm.software/demo/test
 version: 1.0.0
