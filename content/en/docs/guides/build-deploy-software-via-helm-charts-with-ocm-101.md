@@ -46,7 +46,7 @@ but in reality you'll just pick the one most appropiate to you.
 
 ### Prepare Helm Charts
 
-We are leveraging Kubernetes deployments which often use helm charts. The OCM specification supports helm charts as
+We are leveraging Kubernetes deployments which often use Helm charts. The OCM specification supports Helm charts as
 an artifact type. For this simple example, we will re-use already existing open source community Helm charts.
 
 The OCM CLI supports referencing helm charts being stored in an OCI registry. However most
