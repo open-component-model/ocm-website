@@ -28,7 +28,7 @@ At the end of the tutorial the application will consist of the following compone
 
 Following the OCM guidelines we will end-up with two component versions and six OCM OCI images.
 
-For building composed components the ["All-in-one"](../getting-started-with-ocm#all-in-one)
+For building composed components the ["all-in-one"](../getting-started-with-ocm#all-in-one)
 mechanism becomes handy.
 
 ### Requirements
