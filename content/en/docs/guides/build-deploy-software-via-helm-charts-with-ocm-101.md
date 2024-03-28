@@ -16,7 +16,9 @@ toc: true
 
 ## Introduction
 
-Let's illustrate a simple "Hello World" application and show how to leverage OCM to build and deploy a Helm Chart and OCI Image on a local `kind` k8s cluster.
+Let's illustrate a very simple "Hello World" example application and show how to leverage OCM to build and deploy a Helm Chart and OCI Image on a local `kind` k8s cluster.
+The topic of `ocm` [`localization`](https://ocm.software/docs/guides/complex-component-structure-deployment/#localization) and [`configuration`](https://ocm.software/docs/guides/complex-component-structure-deployment/#configuration) is NOT part of this very simple example and is part of other in deepth guides.
+
 As base we use the `podinfo` application.
 All files can be found [here](https://github.com/stb1337/ocm-hello-world-v1).
 
@@ -49,7 +51,7 @@ an artifact type. For this simple example, we will re-use already existing open 
 
 The OCM CLI supports referencing helm charts being stored in an OCI registry. However most
 publicly available helm charts currently are available from helm chart repositories and
-not from OCI registries. Therefore the helm charts can be embedded in the component archive in three different ways.
+not from OCI registries. Therefore helm charts can be embedded in the `component archive` in three different ways.
 
 Reference a Helm Chart from:
 
@@ -57,7 +59,7 @@ Reference a Helm Chart from:
 2. local `*.tgz` file
 3. local folder containing a Helm Chart file
 
-To demonstrate No. 2. and 3. we first need to download and unpack the Helm Chart for `podinfo`. In a real application, this would be your own Helm Chart.
+To demonstrate No. 2. and 3. we need a Helm Chart on our local machine. For the sake of the this simplified guide, we download and unpack a already existing open source Helm Chart for `podinfo`. In a real world application, this would be your own Helm Chart. You will most likely already store your own Helm Charts within a `git` repository and leverage CI/CD Pipeline to build `*.tgz` Helm Chart files in order to push to your Helm Chart Repository.
 
 This can easily be achieved with the Helm CLI:
 
@@ -98,8 +100,7 @@ components:
   resources:
   - name: helm-chart-external
     type: helmChart
-    version: ${PODINFO_VERSION}
-    relation: external
+    version: ${PODINFO_VERSION}    
     access:
       type: helm
       helmChart: podinfo:${PODINFO_CHART_VERSION}
@@ -111,7 +112,6 @@ components:
       path: podinfo-${PODINFO_CHART_VERSION}.tgz      
   - name: helm-chart-local-folder
     type: helmChart
-    relation: local
     version: ${PODINFO_VERSION}
     input:
       type: dir
