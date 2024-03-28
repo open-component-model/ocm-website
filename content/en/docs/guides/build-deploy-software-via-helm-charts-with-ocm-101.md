@@ -59,7 +59,7 @@ Reference a Helm Chart from:
 2. local `*.tgz` file
 3. local folder containing a Helm Chart file
 
-To demonstrate No. 2. and 3. we need a Helm Chart on our local machine. For the sake of the this simplified guide, we download and unpack a already existing open source Helm Chart for `podinfo`. In a real world application, this would be your own Helm Chart. You will most likely already store your own Helm Charts within a `git` repository and leverage CI/CD Pipeline to build `*.tgz` Helm Chart files in order to push to your Helm Chart Repository.
+To demonstrate No. 2. and 3. we need a Helm chart on our local machine. For the sake of the this simplified guide, we download and unpack an already existing open source Helm chart for `podinfo`. In a real world application, this would be your own Helm chart. You will most likely already store your own Helm charts within a `git` repository and leverage a CI/CD pipeline to build `*.tgz` Helm chart files in order to push to your Helm chart repository.
 
 This can easily be achieved with the Helm CLI:
 
