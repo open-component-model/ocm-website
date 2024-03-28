@@ -17,7 +17,7 @@ toc: true
 ## Introduction
 
 Let's illustrate a very simple "Hello World" example application and show how to leverage OCM to build an application component containing a Helm Chart and an OCI Image and deploy it to a local `kind` k8s cluster.
-The topic of `ocm` [`localization`](https://ocm.software/docs/guides/complex-component-structure-deployment/#localization) and [`configuration`](https://ocm.software/docs/guides/complex-component-structure-deployment/#configuration) is NOT part of this very simple example and is part of other in deepth guides.
+The topics `ocm` [`localization`](https://ocm.software/docs/guides/complex-component-structure-deployment/#localization) and [`configuration`](https://ocm.software/docs/guides/complex-component-structure-deployment/#configuration) are NOT part of this very simple example and is part of other deep-dive guides.
 
 As base we use the `podinfo` application.
 All files can be found [here](https://github.com/stb1337/ocm-hello-world-v1).
