@@ -39,7 +39,7 @@ mechanism becomes handy.
 * [kind](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
 * [flux](https://fluxcd.io/flux/installation/#install-the-flux-cli)
 
-## Building OCM Software Artifact
+## Building the Application Component using OCM
 
 First we build an OCM component which contains Helm Charts in different kind of formats. This 101 guide explains all possible formats,
 but in reality you'll just pick the one most appropiate to you.
