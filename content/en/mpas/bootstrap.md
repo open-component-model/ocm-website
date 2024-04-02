@@ -10,8 +10,8 @@ weight: 104
 toc: true
 ---
 
-
 The `mpas bootstrap` command deploys the following components to your cluster:
+
 - [Flux](https://fluxcd.io/docs/components/): A Kubernetes operator that will
   install and manage the other components.
 - [ocm-controller](https://github.com/open-component-model/ocm-controller): A Kubernetes controller 

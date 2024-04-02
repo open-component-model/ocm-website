@@ -64,6 +64,7 @@ mpas bootstrap github \
 
 This command will create a new Github repository called `mpas-bootstrap` and bootstrap
 MPAS to your Kubernetes cluster. The following components will be installed:
+
 - [Flux](https://fluxcd.io/docs/components/): A Kubernetes operator that will
   install and manage the other components.
 - [ocm-controller](https://github.com/open-component-model/ocm-controller): A Kubernetes controller 
