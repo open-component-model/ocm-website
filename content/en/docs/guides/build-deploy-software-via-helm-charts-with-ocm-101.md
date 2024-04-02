@@ -22,13 +22,10 @@ The topics `ocm` [`localization`](https://ocm.software/docs/guides/complex-compo
 As base we use the `podinfo` application from Stefan Prodan's [Github repo](https://github.com/stefanprodan/podinfo).
 All files can be found [here](https://github.com/stb1337/ocm-hello-world-v1).
 
-At the end of the tutorial the application will consist of the following components:
+At the end of the tutorial you will have created one OCM component for your business application `podinfo`.
+This component will be composed using the OCM guidelines and consist of several resources, here an OCI image and a Helm chart. 
 
-* `podinfo` as our business application
-
-Following the OCM guidelines we will end-up with two component versions and six OCM OCI images.
-
-For building composed components the ["all-in-one"](../getting-started-with-ocm#all-in-one)
+For building multiple components in one shot the ["all-in-one"](../getting-started-with-ocm#all-in-one)
 mechanism becomes handy.
 
 ### Requirements
