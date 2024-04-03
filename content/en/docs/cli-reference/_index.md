@@ -2,7 +2,7 @@
 title: cli-reference
 name: cli-reference
 url: /docs/cli/
-date: 2024-04-03T14:03:35+02:00
+date: 2024-04-03T14:21:11+02:00
 draft: false
 images: []
 menu:
@@ -356,14 +356,46 @@ by a certificate delivered with the signature.
 
 ### See Also
 
+
+
+##### Sub Commands
+
 * [ocm <b>add</b>](/docs/cli/add)	 &mdash; Add elements to a component repository or component version
+* [ocm <b>bootstrap</b>](/docs/cli/bootstrap)	 &mdash; bootstrap components
+* [ocm <b>cache</b>](/docs/cli/cache)	 &mdash; Cache related commands
+* [ocm <b>check</b>](/docs/cli/check)	 &mdash; check components in OCM repository
 * [ocm <b>clean</b>](/docs/cli/clean)	 &mdash; Cleanup/re-organize elements
+* [ocm <b>controller</b>](/docs/cli/controller)	 &mdash; Commands acting on the ocm-controller
 * [ocm <b>create</b>](/docs/cli/create)	 &mdash; Create transport or component archive
+* [ocm <b>credentials</b>](/docs/cli/credentials)	 &mdash; Commands acting on credentials
 * [ocm <b>describe</b>](/docs/cli/describe)	 &mdash; Describe various elements by using appropriate sub commands.
 * [ocm <b>download</b>](/docs/cli/download)	 &mdash; Download oci artifacts, resources or complete components
+* [ocm <b>execute</b>](/docs/cli/execute)	 &mdash; Execute an element.
 * [ocm <b>get</b>](/docs/cli/get)	 &mdash; Get information about artifacts and components
+* [ocm <b>hash</b>](/docs/cli/hash)	 &mdash; Hash and normalization operations
+* [ocm <b>install</b>](/docs/cli/install)	 &mdash; Install elements.
+* [ocm <b>oci</b>](/docs/cli/oci)	 &mdash; Dedicated command flavors for the OCI layer
+* [ocm <b>ocm</b>](/docs/cli/cli)	 &mdash; Dedicated command flavors for the Open Component Model
 * [ocm <b>show</b>](/docs/cli/show)	 &mdash; Show tags or versions
 * [ocm <b>sign</b>](/docs/cli/sign)	 &mdash; Sign components or hashes
+* [ocm <b>toi</b>](/docs/cli/toi)	 &mdash; Dedicated command flavors for the TOI layer
 * [ocm <b>transfer</b>](/docs/cli/transfer)	 &mdash; Transfer artifacts or components
 * [ocm <b>verify</b>](/docs/cli/verify)	 &mdash; Verify component version signatures
+* [ocm <b>version</b>](/docs/cli/version)	 &mdash; displays the version
+
+
+
+##### Additional Help Topics
+
+* [ocm <b>attributes</b>](/docs/cli/attributes)	 &mdash; configuration attributes used to control the behaviour
+* [ocm <b>configfile</b>](/docs/cli/configfile)	 &mdash; configuration file
+* [ocm <b>credential-handling</b>](/docs/cli/credential-handling)	 &mdash; Provisioning of credentials for credential consumers
+* [ocm <b>logging</b>](/docs/cli/logging)	 &mdash; Configured logging keys
+* [ocm <b>oci-references</b>](/docs/cli/oci-references)	 &mdash; notation for OCI references
+* [ocm <b>ocm-accessmethods</b>](/docs/cli/cli-accessmethods)	 &mdash; List of all supported access methods
+* [ocm <b>ocm-downloadhandlers</b>](/docs/cli/cli-downloadhandlers)	 &mdash; List of all available download handlers
+* [ocm <b>ocm-labels</b>](/docs/cli/cli-labels)	 &mdash; Labels and Label Merging
+* [ocm <b>ocm-references</b>](/docs/cli/cli-references)	 &mdash; notation for OCM references
+* [ocm <b>ocm-uploadhandlers</b>](/docs/cli/cli-uploadhandlers)	 &mdash; List of all available upload handlers
+* [ocm <b>toi-bootstrapping</b>](/docs/cli/toi-bootstrapping)	 &mdash; Tiny OCM Installer based on component versions
 

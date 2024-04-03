@@ -6,25 +6,9 @@ import (
 	"log"
 	"os"
 
-	"golang.org/x/exp/slices"
-
 	"github.com/open-component-model/ocm/cmds/ocm/app"
 	"github.com/open-component-model/ocm/pkg/contexts/clictx"
-	"github.com/spf13/cobra"
 )
-
-var commandsToDocument = []string{
-	"add",
-	"clean",
-	"create",
-	"describe",
-	"download",
-	"get",
-	"show",
-	"sign",
-	"transfer",
-	"verify",
-}
 
 func main() {
 	var outputDir, urlPrefix string
@@ -57,12 +41,6 @@ func run(dir, urlPrefix string) error {
 	cmd := app.NewCliCommand(clictx.DefaultContext())
 	cmd.DisableAutoGenTag = true
 
-	for _, subCmd := range cmd.Commands() {
-		if !shouldDocument(subCmd) {
-			cmd.RemoveCommand(subCmd)
-		}
-	}
-
 	if err := genMarkdownTreeCustom(cmd, dir, urlPrefix, "cli-reference"); err != nil {
 		return fmt.Errorf("error generating markdown: %w", err)
 	}
@@ -70,12 +48,4 @@ func run(dir, urlPrefix string) error {
 	log.Printf("Docs successfully written to %s\n", dir)
 
 	return nil
-}
-
-func shouldDocument(cmd *cobra.Command) bool {
-	if slices.Contains(commandsToDocument, cmd.Name()) {
-		return true
-	}
-
-	return false
 }
