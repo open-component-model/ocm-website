@@ -2,7 +2,7 @@
 title: references
 name: get references
 url: /docs/cli/get/references/
-date: 2024-03-08T16:14:19Z
+date: 2024-04-03T14:03:35+02:00
 draft: false
 images: []
 menu:

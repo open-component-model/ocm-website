@@ -2,7 +2,7 @@
 title: cache
 name: describe cache
 url: /docs/cli/describe/cache/
-date: 2024-03-08T16:14:19Z
+date: 2024-04-03T14:03:35+02:00
 draft: false
 images: []
 menu:

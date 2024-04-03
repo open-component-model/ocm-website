@@ -46,7 +46,7 @@ jobs:
     - name: Regenerate CLI docs
       run: |
         go mod tidy
-        go run ./hack/generate-docs ${{ env.OUTPUT_DIR }}
+        go run ./hack/generate-cli-docs ${{ env.OUTPUT_DIR }}
 
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v4
