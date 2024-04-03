@@ -20,7 +20,7 @@ Let's illustrate a very simple "Hello World" example application and show how to
 The topics `ocm` [`localization`](https://ocm.software/docs/guides/complex-component-structure-deployment/#localization) and [`configuration`](https://ocm.software/docs/guides/complex-component-structure-deployment/#configuration) are NOT part of this very simple example and is part of other deep-dive guides.
 
 As base we use the `podinfo` application from Stefan Prodan's [Github repo](https://github.com/stefanprodan/podinfo).
-All files can be found [here](https://github.com/stb1337/ocm-hello-world-v1).
+All files can be found [here](https://github.com/open-component-model/ocm-examples).
 
 At the end of the tutorial you will have created one OCM component for your business application `podinfo`.
 This component will be composed using the OCM guidelines and consist of several resources, here an OCI image and a Helm chart. 
@@ -82,7 +82,7 @@ tar -czf podinfo-6.6.0.tgz podinfo
 
 ### Input Specification
 
-The corresponding input file for building the component version ([`component-constructor.yaml`](https://github.com/stb1337/ocm-hello-world-v1/blob/main/component-constructor.yaml)) looks like:
+The corresponding input file for building the component version ([`component-constructor.yaml`](https://github.com/open-component-model/ocm-examples/tree/main/components/guide-walkthrough-helm-chart/component-constructor.yaml)) looks like:
 
 ```yaml
 components:
@@ -135,7 +135,7 @@ Note the differences between the various components:
 From the input file `component-constructor.yaml` the common transport archive can be created with the
 OCM CLI. For all variables we need to provide values. Variable values can be passed in the
 command line or stored in a file. For many variables having a values file is more convenient.
-The corresponding file [`settings.yaml`](https://github.com/stb1337/ocm-hello-world-v1/blob/main/settings.yaml) may look like this:
+The corresponding file [`settings.yaml`](https://github.com/open-component-model/ocm-examples/tree/main/components/guide-walkthrough-helm-chart/settings.yaml) may look like this:
 
 ```yaml
 VERSION: 0.0.1
@@ -442,7 +442,7 @@ image                   6.6.0            ociImage  external ociArtifact {"imageR
 
 ### Apply k8s manifest
 
-Create file [`k8s-component-version/01-pod-info-kind.yaml`](https://github.com/stb1337/ocm-hello-world-v1/blob/main/k8s-component-version/01-pod-info-kind.yaml) with following content:
+Create file [`k8s-component-version/01-pod-info-kind.yaml`](https://github.com/open-component-model/ocm-examples/tree/main/kubernetes/guide-walkthrough-helm-chart/01-pod-info-kind.yaml) with following content:
 
 ```yaml
 #k8s-component-version/01-pod-info-kind.yaml 
