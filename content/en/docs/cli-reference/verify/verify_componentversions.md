@@ -2,7 +2,7 @@
 title: componentversions
 name: verify componentversions
 url: /docs/cli/verify/componentversions/
-date: 2024-03-08T16:14:19Z
+date: 2024-04-03T14:03:35+02:00
 draft: false
 images: []
 menu:
@@ -39,6 +39,9 @@ ocm verify componentversions [<options>] {<component-reference>}
 
 
 Verify signature of specified component versions.
+
+If no signature name is given, only the digests are validated against the
+registered ones at the component version.
 
 
 If the option <code>--constraints</code> is given, and no version is specified

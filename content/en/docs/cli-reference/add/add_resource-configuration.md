@@ -2,7 +2,7 @@
 title: resource-configuration
 name: add resource-configuration
 url: /docs/cli/add/resource-configuration/
-date: 2024-03-08T16:14:19Z
+date: 2024-04-03T14:03:35+02:00
 draft: false
 images: []
 menu:
@@ -20,50 +20,55 @@ ocm add resource-configuration [<options>] <target> {<configfile> | <var>=<value
 ### Options
 
 ```
-      --access YAML                  blob access specification (YAML)
-      --accessHostname string        hostname used for access
-      --accessPackage string         package or object name
-      --accessRegistry string        registry base URL
-      --accessRepository string      repository URL
-      --accessType string            type of blob access specification
-      --accessVersion string         version for access specification
-      --bucket string                bucket name
-      --commit string                git commit id
-      --digest string                blob digest
-      --external                     flag non-local resource
-      --extra <name>=<value>         resource extra identity (default [])
-      --globalAccess YAML            access specification for global access
-  -h, --help                         help for resource-configuration
-      --hint string                  (repository) hint for local artifacts
-      --input YAML                   blob input specification (YAML)
-      --inputCompress                compress option for input
-      --inputData !bytesBase64       data (string, !!string or !<base64>
-      --inputExcludes stringArray    excludes (path) for inputs
-      --inputFollowSymlinks          follow symbolic links during archive creation for inputs
-      --inputFormattedJson YAML      JSON formatted text
-      --inputHelmRepository string   helm repository base URL
-      --inputIncludes stringArray    includes (path) for inputs
-      --inputJson YAML               JSON formatted text
-      --inputLibraries stringArray   library path for inputs
-      --inputPath filepath           path field for input
-      --inputPlatforms stringArray   input filter for image platforms ([os]/[architecture])
-      --inputPreserveDir             preserve directory in archive for inputs
-      --inputText string             utf8 text
-      --inputType string             type of blob input specification
-      --inputValues YAML             YAML based generic values for inputs
-      --inputVariants stringArray    (platform) variants for inputs
-      --inputVersion string          version info for inputs
-      --inputYaml YAML               YAML formatted text
-      --label <name>=<YAML>          resource label (leading * indicates signature relevant, optional version separated by @)
-      --mediaType string             media type for artifact blob representation
-      --name string                  resource name
-      --reference string             reference name
-      --region string                region name
-      --resource YAML                resource meta data (yaml)
-  -s, --settings stringArray         settings file with variable settings (yaml)
-      --size int                     blob size
-      --type string                  resource type
-      --version string               resource version
+      --access YAML                         blob access specification (YAML)
+      --accessHostname string               hostname used for access
+      --accessPackage string                package or object name
+      --accessRegistry string               registry base URL
+      --accessRepository string             repository URL
+      --accessType string                   type of blob access specification
+      --accessVersion string                version for access specification
+      --body string                         body of a http request
+      --bucket string                       bucket name
+      --commit string                       git commit id
+      --digest string                       blob digest
+      --external                            flag non-local resource
+      --extra <name>=<value>                resource extra identity (default [])
+      --globalAccess YAML                   access specification for global access
+      --header <name>:<value>,<value>,...   http headers (default {})
+  -h, --help                                help for resource-configuration
+      --hint string                         (repository) hint for local artifacts
+      --input YAML                          blob input specification (YAML)
+      --inputCompress                       compress option for input
+      --inputData !bytesBase64              data (string, !!string or !<base64>
+      --inputExcludes stringArray           excludes (path) for inputs
+      --inputFollowSymlinks                 follow symbolic links during archive creation for inputs
+      --inputFormattedJson YAML             JSON formatted text
+      --inputHelmRepository string          helm repository base URL
+      --inputIncludes stringArray           includes (path) for inputs
+      --inputJson YAML                      JSON formatted text
+      --inputLibraries stringArray          library path for inputs
+      --inputPath filepath                  path field for input
+      --inputPlatforms stringArray          input filter for image platforms ([os]/[architecture])
+      --inputPreserveDir                    preserve directory in archive for inputs
+      --inputText string                    utf8 text
+      --inputType string                    type of blob input specification
+      --inputValues YAML                    YAML based generic values for inputs
+      --inputVariants stringArray           (platform) variants for inputs
+      --inputVersion string                 version info for inputs
+      --inputYaml YAML                      YAML formatted text
+      --label <name>=<YAML>                 resource label (leading * indicates signature relevant, optional version separated by @)
+      --mediaType string                    media type for artifact blob representation
+      --name string                         resource name
+      --noredirect                          http redirect behavior
+      --reference string                    reference name
+      --region string                       region name
+      --resource YAML                       resource meta data (yaml)
+  -s, --settings stringArray                settings file with variable settings (yaml)
+      --size int                            blob size
+      --type string                         resource type
+      --url string                          artifact or server url
+      --verb string                         http request method
+      --version string                      resource version
 ```
 
 ### Description
@@ -441,6 +446,46 @@ with the field <code>type</code> in the <code>input</code> field:
   
   Options used to configure fields: <code>--inputCompress</code>, <code>--inputFormattedJson</code>, <code>--inputJson</code>, <code>--inputText</code>, <code>--inputYaml</code>, <code>--mediaType</code>
 
+- Input type <code>wget</code>
+
+  The <code>url</code> is the url pointing to the http endpoint from which a resource is 
+  downloaded. The <code>mimeType</code> can be used to specify the MIME type of the 
+  resource.
+  
+  This blob type specification supports the following fields:
+  - **<code>url</code>** *string*
+  
+    This REQUIRED property describes the url from which the resource is to be
+    downloaded.
+  
+  - **<code>mediaType</code> *string*
+  
+    This OPTIONAL property describes the media type of the resource to be 
+    downloaded. If omitted, ocm tries to read the mediaType from the Content-Type header
+    of the http response. If the mediaType cannot be set from the Content-Type header as well,
+    ocm tries to deduct the mediaType from the URL. If that is not possible either, the default
+    media type is defaulted to application/octet-stream.
+  
+  - **<code>header</code>** *map[string][]string*
+  	
+    This OPTIONAL property describes the http headers to be set in the http request to the server.
+  
+  - **<code>verb</code>** *string*
+  
+    This OPTIONAL property describes the http verb (also known as http request method) for the http
+    request. If omitted, the http verb is defaulted to GET.
+  
+  - **<code>body</code>** *[]byte*
+    
+    This OPTIONAL property describes the http body to be included in the request.
+  
+  - **<code>noredirect<code>** *bool*
+  
+    This OPTIONAL property describes whether http redirects should be disabled. If omitted,
+    it is defaulted to false (so, per default, redirects are enabled).
+  
+  Options used to configure fields: <code>--body</code>, <code>--header</code>, <code>--mediaType</code>, <code>--noredirect</code>, <code>--url</code>, <code>--verb</code>
+
 The following list describes the supported access methods, their versions
 and specification formats.
 Typically there is special support for the CLI artifact add commands.
@@ -788,7 +833,7 @@ There are several templaters that can be selected by the <code>--templater</code
 
 ```
 
-$ ocm add resource-config resources.yaml --name myresource --type PlainText --input '{ "type": "file", "path": "testdata/testcontent", "mediaType": "text/plain" }'
+$ ocm add resource-configuration resources.yaml --name myresource --type PlainText --input '{ "type": "file", "path": "testdata/testcontent", "mediaType": "text/plain" }'
 
 ```
 
