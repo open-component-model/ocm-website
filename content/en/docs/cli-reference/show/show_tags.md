@@ -2,7 +2,7 @@
 title: tags
 name: show tags
 url: /docs/cli/show/tags/
-date: 2024-04-03T14:03:35+02:00
+date: 2024-04-04T14:09:23+02:00
 draft: false
 images: []
 menu:
