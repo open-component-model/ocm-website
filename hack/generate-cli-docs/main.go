@@ -5,25 +5,26 @@ import (
 	"fmt"
 	"log"
 	"os"
-
-	"golang.org/x/exp/slices"
+	"slices"
 
 	"github.com/open-component-model/ocm/cmds/ocm/app"
 	"github.com/open-component-model/ocm/pkg/contexts/clictx"
-	"github.com/spf13/cobra"
 )
 
-var commandsToDocument = []string{
-	"add",
-	"clean",
-	"create",
-	"describe",
-	"download",
-	"get",
-	"show",
-	"sign",
-	"transfer",
-	"verify",
+var commandDenyList = []string{
+	"bootstrap",
+	"cache",
+	"completion",
+	"controller",
+	"credentials",
+	"execute",
+	"hash",
+	"help",
+	"install",
+	"oci",
+	"ocm",
+	"toi",
+	"version",
 }
 
 func main() {
@@ -58,7 +59,7 @@ func run(dir, urlPrefix string) error {
 	cmd.DisableAutoGenTag = true
 
 	for _, subCmd := range cmd.Commands() {
-		if !shouldDocument(subCmd) {
+		if slices.Contains(commandDenyList, subCmd.Name()) {
 			cmd.RemoveCommand(subCmd)
 		}
 	}
@@ -70,12 +71,4 @@ func run(dir, urlPrefix string) error {
 	log.Printf("Docs successfully written to %s\n", dir)
 
 	return nil
-}
-
-func shouldDocument(cmd *cobra.Command) bool {
-	if slices.Contains(commandsToDocument, cmd.Name()) {
-		return true
-	}
-
-	return false
 }
