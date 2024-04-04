@@ -1,13 +1,13 @@
 ---
 title: ocm-labels
-name: add_componentversions ocm-labels
-url: /docs/cli/add_componentversions/ocm-labels/
+name: ocm-labels
+url: /docs/cli/ocm-labels/
 date: 2024-04-04T14:09:23+02:00
 draft: false
 images: []
 menu:
   docs:
-    parent: add_componentversions
+    parent: cli-reference
 toc: true
 isCommand: true
 ---
@@ -185,6 +185,4 @@ The following label assignments are configured:
 
 ### See Also
 
-* [ocm add componentversions](/docs/cli/add/componentversions)	 &mdash; add component version(s) to a (new) transport archive
-* [ocm add](/docs/cli/add)	 &mdash; Add elements to a component repository or component version
 
