@@ -27,8 +27,8 @@ toc: true
 ## Introduction
 
 In this specification software products are comprised of logical units called
-[**components**](https://github.com/open-component-model/ocm-spec/blob/main/doc/specification/elements/README.md#components). A component version
-consists of a set of technical [artifacts](https://github.com/open-component-model/ocm-spec/blob/main/doc/specification/elements/README.md#artifacts),
+[**components**](https://github.com/open-component-model/ocm-spec/blob/main/doc/01-model/02-elements-toplevel.md#components-and-component-versions). A component version
+consists of a set of technical [artifacts](https://github.com/open-component-model/ocm-spec/blob/main/doc/04-extensions/01-artifact-types/README.md),
 e.g. Docker images, Helm charts, binaries, configuration data etc.
 Such artifacts are called **resources** in this specification. Resources are usually built
 from something, e.g. code in a git repo. Those are named **sources** in this specification.
@@ -40,7 +40,7 @@ component version and how to access them.
 Usually however real-life applications are composed of multiple components. For
 example an application might consist of a frontend, a backend, a database and a web server.
 During the software development process new
-[**component versions**](https://github.com/open-component-model/ocm-spec/blob/main/doc/specification/elements/README.md#component-versions)
+[**component versions**](https://github.com/open-component-model/ocm-spec/blob/main/doc/01-model/02-elements-toplevel.md#components-and-component-versions)
 are created and third-party components might be consumed from a public registry and
 updated from time to time.
 

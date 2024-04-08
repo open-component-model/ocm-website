@@ -2,7 +2,7 @@
 title: hash
 name: sign hash
 url: /docs/cli/sign/hash/
-date: 2024-03-08T16:14:19Z
+date: 2024-04-04T14:09:23+02:00
 draft: false
 images: []
 menu:

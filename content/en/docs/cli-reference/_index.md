@@ -2,7 +2,7 @@
 title: cli-reference
 name: cli-reference
 url: /docs/cli/
-date: 2024-03-08T16:14:19Z
+date: 2024-04-04T14:09:23+02:00
 draft: false
 images: []
 menu:
@@ -356,7 +356,12 @@ by a certificate delivered with the signature.
 
 ### See Also
 
+
+
+##### Sub Commands
+
 * [ocm <b>add</b>](/docs/cli/add)	 &mdash; Add elements to a component repository or component version
+* [ocm <b>check</b>](/docs/cli/check)	 &mdash; check components in OCM repository
 * [ocm <b>clean</b>](/docs/cli/clean)	 &mdash; Cleanup/re-organize elements
 * [ocm <b>create</b>](/docs/cli/create)	 &mdash; Create transport or component archive
 * [ocm <b>describe</b>](/docs/cli/describe)	 &mdash; Describe various elements by using appropriate sub commands.
@@ -366,4 +371,20 @@ by a certificate delivered with the signature.
 * [ocm <b>sign</b>](/docs/cli/sign)	 &mdash; Sign components or hashes
 * [ocm <b>transfer</b>](/docs/cli/transfer)	 &mdash; Transfer artifacts or components
 * [ocm <b>verify</b>](/docs/cli/verify)	 &mdash; Verify component version signatures
+
+
+
+##### Additional Help Topics
+
+* [ocm <b>attributes</b>](/docs/cli/attributes)	 &mdash; configuration attributes used to control the behaviour
+* [ocm <b>configfile</b>](/docs/cli/configfile)	 &mdash; configuration file
+* [ocm <b>credential-handling</b>](/docs/cli/credential-handling)	 &mdash; Provisioning of credentials for credential consumers
+* [ocm <b>logging</b>](/docs/cli/logging)	 &mdash; Configured logging keys
+* [ocm <b>oci-references</b>](/docs/cli/oci-references)	 &mdash; notation for OCI references
+* [ocm <b>ocm-accessmethods</b>](/docs/cli/cli-accessmethods)	 &mdash; List of all supported access methods
+* [ocm <b>ocm-downloadhandlers</b>](/docs/cli/cli-downloadhandlers)	 &mdash; List of all available download handlers
+* [ocm <b>ocm-labels</b>](/docs/cli/cli-labels)	 &mdash; Labels and Label Merging
+* [ocm <b>ocm-references</b>](/docs/cli/cli-references)	 &mdash; notation for OCM references
+* [ocm <b>ocm-uploadhandlers</b>](/docs/cli/cli-uploadhandlers)	 &mdash; List of all available upload handlers
+* [ocm <b>toi-bootstrapping</b>](/docs/cli/toi-bootstrapping)	 &mdash; Tiny OCM Installer based on component versions
 

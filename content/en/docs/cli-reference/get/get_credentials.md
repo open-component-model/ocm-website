@@ -2,7 +2,7 @@
 title: credentials
 name: get credentials
 url: /docs/cli/get/credentials/
-date: 2024-03-08T16:14:19Z
+date: 2024-04-04T14:09:23+02:00
 draft: false
 images: []
 menu:
@@ -140,6 +140,21 @@ Matchers exist for the following usage contexts or consumer types:
       - <code>clientCert</code>: client certificate for authentication
       - <code>privateKey</code>: private key for client certificate
       - <code>caCerts</code>: root certificate for signing server
+    
+
+  - <code>wget</code>: wget credential matcher
+    
+    It matches the <code>wget</code> consumer type and additionally acts like 
+    the <code>hostpath</code> type.
+    
+    Credential consumers of the consumer type wget evaluate the following credential properties:
+    
+      - <code>username</code>: the basic auth user name
+      - <code>password</code>: the basic auth password
+      - <code>identityToken</code>: the bearer token used for non-basic auth authorization
+      - <code>certificateAuthority</code>: the certificate authority certificate used to verify certificates presented by the server
+      - <code>certificate</code>: the certificate used to present to the server
+      - <code>privateKey</code>: the private key corresponding to the certificate
     
 
 
