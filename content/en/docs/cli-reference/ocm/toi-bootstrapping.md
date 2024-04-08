@@ -1,13 +1,13 @@
 ---
 title: toi-bootstrapping
-name: describe_package toi-bootstrapping
-url: /docs/cli/describe_package/toi-bootstrapping/
+name: toi-bootstrapping
+url: /docs/cli/toi-bootstrapping/
 date: 2024-04-04T14:09:23+02:00
 draft: false
 images: []
 menu:
   docs:
-    parent: describe_package
+    parent: cli-reference
 toc: true
 isCommand: true
 ---
@@ -465,6 +465,4 @@ additionalResources:
 
 ### See Also
 
-* [ocm describe package](/docs/cli/describe/package)	 &mdash; describe TOI package
-* [ocm describe](/docs/cli/describe)	 &mdash; Describe various elements by using appropriate sub commands.
 
