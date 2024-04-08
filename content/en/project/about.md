@@ -29,4 +29,4 @@ Here are some suggested starting points:
 
 We welcome all contributions from the community!
 
-Please read the [Contributing Guide](https://github.com/open-component-model/community/tree/main/CONTRIBUTING.md) for instructions on how to contribute.--
+Please read the [Contributing Guide](https://github.com/open-component-model/community/tree/main/CONTRIBUTING.md) for instructions on how to contribute.
