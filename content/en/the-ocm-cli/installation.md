@@ -1,5 +1,5 @@
 ---
-title: "Installation"
+title: "Installing OCM CLI"
 description: ""
 lead: ""
 date: 2022-08-12T10:37:58+01:00
@@ -10,7 +10,7 @@ menu:
   docs:
     parent: ""
     identifier: "installation-4eb8cf9f3d7805b0e5196aeb3679fabf"
-weight: 101
+weight: 10
 toc: true
 ---
 

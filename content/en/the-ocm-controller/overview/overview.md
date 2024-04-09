@@ -10,30 +10,30 @@ menu:
   docs:
     parent: ""
     identifier: "overview-60b199de524dc037c53841d0cd71031c"
-weight: -1
+weight: 10
 toc: true
 ---
 
-The `ocm-controller` is a pivotal part of the Open Component Model (OCM) ecosystem, designed to automate software deployment using the Open Component Model alongside Flux. 
+The `ocm-controller` is a pivotal part of the Open Component Model (OCM) ecosystem, designed to automate software deployment using the Open Component Model alongside Flux.
 
 Here are its core functionalities:
 
-1. **Component Descriptor Resolution**: 
+1. **Component Descriptor Resolution**:
    - Resolves `ComponentDescriptor` metadata for specific component versions.
 
-2. **Authentication**: 
+2. **Authentication**:
    - Handles authentication with OCM repositories, safeguarding secure access to required resources.
 
-3. **Artifact Retrieval**: 
+3. **Artifact Retrieval**:
    - Fetches artifacts from OCM repositories, gathering essential software or data necessary for deployment.
 
-4. **Component Verification**: 
+4. **Component Verification**:
    - Conducts verification of components ensuring integrity and correctness.
 
-5. **Resource Availability**: 
+5. **Resource Availability**:
    - Makes individual resources from components available within the cluster, facilitating proper resource management.
 
-6. **Localization and Configuration**: 
+6. **Localization and Configuration**:
    - Manages localization and configuration of component resources, ensuring correct setup for the target environment.
 
 The `ocm-controller` is developed to be a robust tool within the OCM framework, aiming to streamline the deployment process, making it more structured, secure, and automated. Through its features, it tackles various crucial aspects of modern software deployment, contributing to a more efficient and reliable deployment workflow.
@@ -42,7 +42,7 @@ The `ocm-controller` is developed to be a robust tool within the OCM framework, 
 
 ## Pipeline Model
 
-The `ocm-controller` operates using a **pipeline** model. The purpose of the pipeline is to process resources from a component and automatically prepare them for deployment, using deployment information that is part of the component itself. In this, sense the processing pipeline is "OCM aware". 
+The `ocm-controller` operates using a **pipeline** model. The purpose of the pipeline is to process resources from a component and automatically prepare them for deployment, using deployment information that is part of the component itself. In this, sense the processing pipeline is "OCM aware".
 
 The pipeline model is faciliated through the introduction of a `Snapshot` Kubernetes resource. The `Snapshot` resource is managed by the `ocm-controller` and captures the output of a pipeline step. The content of a `Snapshot` is persisted to an in-cluster OCI registry that is also managed by the `ocm-controller`. As a result of the dedicated Kuberetes resource and OCI-based storage, S`Snapshot`'s can be processed and produced by any third-party Kubernetes controller. In addition, `Snapshot`s are Flux-compliant OCI Images and can be deployed using Flux.
 

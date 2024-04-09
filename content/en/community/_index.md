@@ -1,19 +1,19 @@
 ---
-title: "Community"
+title : "Community"
 description: ""
-date: 2023-10-23T10:13:45+01:00
-lastmod: 2023-10-23T10:13:45+01:00
+weight: 11
+lead: ""
+date: 2020-10-06T08:48:23+00:00
+lastmod: 2020-10-06T08:48:23+00:00
 draft: false
 images: []
-aliases:
-- /project/community/
 ---
 
 ## GitHub
 
 You can stay updated with OCM's latest advancements, join our active conversations, and delve into our enhancement proposals on each project's GitHub issues page specifically for OCM.
 
-If you're just starting with OCM, we recommend beginning with the 'good first issue' label in our repositories. 
+If you're just starting with OCM, we recommend beginning with the 'good first issue' label in our repositories.
 
 Ready to contribute directly to OCM? Whether adding code, writing tests, or assisting with our documentation, please adhere to the guidelines provided in the 'contributing' documentation of the relevant OCM repository.
 

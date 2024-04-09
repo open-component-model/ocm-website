@@ -1,5 +1,5 @@
 ---
-title: "Version 3"
+title: "Component Descriptors"
 description: ""
 lead: ""
 date: 2023-01-17T10:22:23Z
@@ -10,7 +10,7 @@ menu:
   docs:
     parent: ""
     identifier: "version-3-852b5f70347073ca01a6c38d11151fd1"
-weight: 100
+weight: 20
 toc: false
 ---
 
@@ -32,7 +32,7 @@ metadata:
   provider: # component provider information
     name: weaveworks
   version: v1.0.0 # version of the component
-repositoryContexts: # list of repository context the component version "lived" in, with the current one at the top 
+repositoryContexts: # list of repository context the component version "lived" in, with the current one at the top
 - baseUrl: ghcr.io
   componentNameMapping: urlPath
   subPath: phoban01/ocm

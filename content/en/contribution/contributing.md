@@ -6,11 +6,7 @@ date: 2022-08-12T10:38:22+01:00
 lastmod: 2022-08-12T10:38:22+01:00
 draft: false
 images: []
-menu:
-  docs:
-    parent: ""
-    identifier: "contributing"
-weight: 103
+weight: 10
 toc: true
 ---
 
