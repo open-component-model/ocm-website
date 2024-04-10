@@ -1,15 +1,10 @@
 ---
 title: componentversions
 name: add componentversions
-url: /docs/cli/add/componentversions/
 date: 2024-04-04T14:09:23+02:00
 draft: false
 images: []
-menu:
-  docs:
-    parent: add
 toc: true
-isCommand: true
 ---
 ### Usage
 

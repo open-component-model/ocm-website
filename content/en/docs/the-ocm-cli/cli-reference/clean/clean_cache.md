@@ -1,15 +1,10 @@
 ---
 title: cache
 name: clean cache
-url: /docs/cli/clean/cache/
 date: 2024-04-04T14:09:23+02:00
 draft: false
 images: []
-menu:
-  docs:
-    parent: clean
 toc: true
-isCommand: true
 ---
 ### Usage
 
@@ -29,7 +24,7 @@ ocm clean cache [<options>]
 
 
 Cleanup all blobs stored in oci blob cache (if given).
-	
+
 
 ### Examples
 

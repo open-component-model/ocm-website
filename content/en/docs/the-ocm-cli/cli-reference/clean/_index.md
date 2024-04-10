@@ -1,15 +1,10 @@
 ---
 title: clean
 name: clean
-url: /docs/cli/clean/
 date: 2024-04-04T14:09:23+02:00
 draft: false
 images: []
-menu:
-  docs:
-    parent: cli-reference
 toc: true
-isCommand: true
 ---
 ### Usage
 

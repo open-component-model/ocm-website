@@ -1,16 +1,13 @@
 ---
 title: CLI Reference
 name: cli-reference
-url: /the-ocm-cli/ref/
 date: 2024-04-04T14:09:23+02:00
 draft: false
 images: []
-menu:
-  docs:
-    parent: the-ocm-cli
+weight: 12
 toc: true
-isCommand: false
 ---
+
 ### Options
 
 ```

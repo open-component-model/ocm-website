@@ -1,5 +1,5 @@
 ---
-title: "Secure software delivery"
+title: "Secure software delivery with Flux and Open Component Model"
 description: ""
 lead: ""
 date: 2023-11-07T11:45:27Z
@@ -10,11 +10,9 @@ weight: 999
 toc: true
 ---
 
-# Secure software delivery with Flux and Open Component Model
-
 **The source code for the demo can be found at [https://github.com/open-component-model/demo-secure-delivery](https://github.com/open-component-model/demo-secure-delivery)**
 
-## Overview 
+## Overview
 
 ![workflow](https://github.com/open-component-model/demo-secure-delivery/raw/main/docs/images/diagram.png)
 
