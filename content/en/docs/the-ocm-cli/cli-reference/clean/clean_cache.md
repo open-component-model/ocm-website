@@ -1,6 +1,7 @@
 ---
 title: cache
-date: 2024-04-10T14:16:30+02:00
+name: clean cache
+date: 2024-04-10T17:39:09+02:00
 draft: false
 images: []
 toc: true
@@ -35,5 +36,5 @@ $ ocm clean cache
 
 ### See Also
 
-* [ocm clean](/docs/cli/clean)	 &mdash; Cleanup/re-organize elements
+* [ocm clean](/docs/the-ocm-cli/cli-reference/clean)	 &mdash; Cleanup/re-organize elements
 

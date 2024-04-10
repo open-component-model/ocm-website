@@ -1,6 +1,7 @@
 ---
 title: artifacts
-date: 2024-04-10T14:16:30+02:00
+name: download artifacts
+date: 2024-04-10T17:39:09+02:00
 draft: false
 images: []
 toc: true
@@ -83,5 +84,5 @@ The default format is <code>directory</code>.
 
 ### See Also
 
-* [ocm download](/docs/cli/download)	 &mdash; Download oci artifacts, resources or complete components
+* [ocm download](/docs/the-ocm-cli/cli-reference/download)	 &mdash; Download oci artifacts, resources or complete components
 

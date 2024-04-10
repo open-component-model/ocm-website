@@ -1,10 +1,10 @@
 ---
 title: cli-reference
-date: 2024-04-10T14:16:30+02:00
+name: cli-reference
+date: 2024-04-10T17:39:09+02:00
 draft: false
 images: []
 toc: true
-weight: 13
 ---
 ### Options
 
@@ -43,7 +43,7 @@ It can be used in two ways:
 
 The command accepts some top level options, they can only be given before the sub commands.
 
-A configuration according to [ocm configfile](/docs/cli/configfile) is read from a <code>.ocmconfig</code> file
+A configuration according to [ocm configfile](/docs/the-ocm-cli/cli-reference/configfile) is read from a <code>.ocmconfig</code> file
 located in the <code>HOME</code> directory. With the option <code>--config</code> other
 file locations can be specified. If nothing is specified and no file is found at the default
 location a default configuration is composed according to known type specific
@@ -94,19 +94,19 @@ form
 </center>
 
 The <code>--log*</code> options can be used to configure the logging behaviour.
-For details see [ocm logging](/docs/cli/logging).
+For details see [ocm logging](/docs/the-ocm-cli/cli-reference/logging).
 
 There is a quick config option <code>--logkeys</code> to configure simple
 tag/realm based condition rules. The comma-separated names build an AND rule.
 Hereby, names starting with a slash (<code>/</code>) denote a realm (without
 the leading slash). A realm is a slash separated sequence of identifiers. If
-the realm name starts with a plus (<code>+</code>) character the generated rule
+the realm name starts with a plus (<code>+</code>) character the generated rule 
 will match the realm and all its sub-realms, otherwise, only the dedicated
 realm is affected. For example <code>/+ocm=trace</code> will enable all log output of the
 OCM library.
 
 A tag directly matches the logging tags. Used tags and realms can be found under
-topic [ocm logging](/docs/cli/logging). The ocm coding basically uses the realm <code>ocm</code>.
+topic [ocm logging](/docs/the-ocm-cli/cli-reference/logging). The ocm coding basically uses the realm <code>ocm</code>.
 The default level to enable is <code>info</code>. Separated by an equal sign (<code>=</code>)
 optionally a dedicated level can be specified. Log levels can be (<code>error</code>,
 <code>warn</code>, <code>info</code>, <code>debug</code> and <code>trace</code>.
@@ -116,7 +116,7 @@ logging configuration (yaml/json) via command line. If the argument starts with
 an <code>@</code>, the logging configuration is taken from a file.
 
 The value can be a simple type or a JSON/YAML string for complex values
-(see [ocm attributes](/docs/cli/attributes). The following attributes are supported:
+(see [ocm attributes](/docs/the-ocm-cli/cli-reference/attributes). The following attributes are supported:
 - <code>github.com/mandelsoft/logforward</code>: *logconfig* Logging config structure used for config forwarding
 
   This attribute is used to specify a logging configuration intended
@@ -153,7 +153,7 @@ The value can be a simple type or a JSON/YAML string for complex values
   artifact is uploaded as OCI artifact, the repository path part is shortened,
   either by hashing all but the last repository name part or by executing
   some prefix based name mappings.
-
+  
   If a boolean is given the short hash or none mode is enabled.
   The YAML flavor uses the following fields:
   - *<code>mode</code>* *string*: <code>hash</code>, <code>shortHash</code>, <code>prefixMapping</code>
@@ -162,9 +162,9 @@ The value can be a simple type or a JSON/YAML string for complex values
   - *<code>prefix</code>*: *string* repository prefix to use (replaces potential sub path of OCM repo).
     or <code>none</code>.
   - *<code>prefixMapping</code>*: *map[string]string* repository path prefix mapping.
-
+  
   Notes:
-
+  
   - The mapping only occurs in transfer commands and only when transferring to OCI registries (e.g.
     when transferring to a CTF archive this option will be ignored).
   - The mapping only happens for local resources. When external image references are transferred (with
@@ -174,13 +174,13 @@ The value can be a simple type or a JSON/YAML string for complex values
   - The artifact name of the component-descriptor is not mapped.
   - If the mapping is provided on the command line it must be JSON format and needs to be properly
     escaped (see example below).
-
+  
   Example:
-
+  
   Assume a component named <code>github.com/my_org/myexamplewithalongname</code> and a chart name
   <code>echo</code> in the <code>Charts.yaml</code> of the chart archive. The following input to a
   <code>resource.yaml</code> creates a component version:
-
+  
   <pre>
   name: mychart
   type: helmChart
@@ -196,23 +196,23 @@ The value can be a simple type or a JSON/YAML string for complex values
     repository: ocm/ocm.software/ocmcli/ocmcli-image
     path: ghcr.io/acme/ocm/ocm.software/ocmcli/ocmcli-image:0.1.0
   </pre>
-
+  
   The following command:
-
+  
   <pre>
   ocm "-X mapocirepo={\"mode\":\"mapping\",\"prefixMappings\":{\"acme/github.com/my_org/myexamplewithalongname/ocm/ocm.software/ocmcli\":\"acme/cli\", \"acme/github.com/my_org/myexamplewithalongnameabc123\":\"acme/mychart\"}}" transfer ctf -f --copy-resources ./ctf ghcr.io/acme
   </pre>
-
+  
   will result in the following artifacts in <code>ghcr.io/my_org</code>:
-
+  
   <pre>
   mychart/echo
   cli/ocmcli-image
   </pre>
-
+  
   Note that the host name part of the transfer target <code>ghcr.io/acme</code> is excluded from the
   prefix but the path <code>acme</code> is considered.
-
+  
   The same using a config file <code>.ocmconfig</code>:
   <pre>
   type: generic.config.ocm.software/v1
@@ -227,7 +227,7 @@ The value can be a simple type or a JSON/YAML string for complex values
   	    acme/github.com/my\_org/myexamplewithalongname/ocm/ocm.software/ocmcli: acme/cli
   		acme/github.com/my\_org/myexamplewithalongnameabc123: acme/mychart
   </pre>
-
+  
   <pre>
   ocm transfer ca -f --copy-resources ./ca ghcr.io/acme
   </pre>
@@ -244,7 +244,7 @@ The value can be a simple type or a JSON/YAML string for complex values
 
   General root certificate settings given as JSON document with the following
   format:
-
+  
   <pre>
   {
     "rootCertificates"": [
@@ -256,7 +256,7 @@ The value can be a simple type or a JSON/YAML string for complex values
        }
     ],
   </pre>
-
+  
   One of following data fields are possible:
   - <code>data</code>:       base64 encoded binary data
   - <code>stringdata</code>: plain text data
@@ -266,7 +266,7 @@ The value can be a simple type or a JSON/YAML string for complex values
 
   Public and private Key settings given as JSON document with the following
   format:
-
+  
   <pre>
   {
     "publicKeys"": [
@@ -280,7 +280,7 @@ The value can be a simple type or a JSON/YAML string for complex values
        }
     ]
   </pre>
-
+  
   One of following data fields are possible:
   - <code>data</code>:       base64 encoded binary data
   - <code>stringdata</code>: plain text data
@@ -337,7 +337,7 @@ Alternatively a key can be specified as base64 encoded string if the argument
 start with the prefix <code>!</code> or as direct string with the prefix
 <code>=</code>.
 
-With <code>--issuer</code> it is possible to declare expected issuer
+With <code>--issuer</code> it is possible to declare expected issuer 
 constraints for public key certificates provided as part of a signature
 required to accept the provisioned public key (besides the successful
 validation of the certificate). By default, the issuer constraint is
@@ -355,31 +355,31 @@ by a certificate delivered with the signature.
 
 ##### Sub Commands
 
-* [ocm <b>add</b>](/docs/cli/add)	 &mdash; Add elements to a component repository or component version
-* [ocm <b>check</b>](/docs/cli/check)	 &mdash; check components in OCM repository
-* [ocm <b>clean</b>](/docs/cli/clean)	 &mdash; Cleanup/re-organize elements
-* [ocm <b>create</b>](/docs/cli/create)	 &mdash; Create transport or component archive
-* [ocm <b>describe</b>](/docs/cli/describe)	 &mdash; Describe various elements by using appropriate sub commands.
-* [ocm <b>download</b>](/docs/cli/download)	 &mdash; Download oci artifacts, resources or complete components
-* [ocm <b>get</b>](/docs/cli/get)	 &mdash; Get information about artifacts and components
-* [ocm <b>show</b>](/docs/cli/show)	 &mdash; Show tags or versions
-* [ocm <b>sign</b>](/docs/cli/sign)	 &mdash; Sign components or hashes
-* [ocm <b>transfer</b>](/docs/cli/transfer)	 &mdash; Transfer artifacts or components
-* [ocm <b>verify</b>](/docs/cli/verify)	 &mdash; Verify component version signatures
+* [ocm <b>add</b>](/docs/the-ocm-cli/cli-reference/ocm_add)	 &mdash; Add elements to a component repository or component version
+* [ocm <b>check</b>](/docs/the-ocm-cli/cli-reference/ocm_check)	 &mdash; check components in OCM repository
+* [ocm <b>clean</b>](/docs/the-ocm-cli/cli-reference/ocm_clean)	 &mdash; Cleanup/re-organize elements
+* [ocm <b>create</b>](/docs/the-ocm-cli/cli-reference/ocm_create)	 &mdash; Create transport or component archive
+* [ocm <b>describe</b>](/docs/the-ocm-cli/cli-reference/ocm_describe)	 &mdash; Describe various elements by using appropriate sub commands.
+* [ocm <b>download</b>](/docs/the-ocm-cli/cli-reference/ocm_download)	 &mdash; Download oci artifacts, resources or complete components
+* [ocm <b>get</b>](/docs/the-ocm-cli/cli-reference/ocm_get)	 &mdash; Get information about artifacts and components
+* [ocm <b>show</b>](/docs/the-ocm-cli/cli-reference/ocm_show)	 &mdash; Show tags or versions
+* [ocm <b>sign</b>](/docs/the-ocm-cli/cli-reference/ocm_sign)	 &mdash; Sign components or hashes
+* [ocm <b>transfer</b>](/docs/the-ocm-cli/cli-reference/ocm_transfer)	 &mdash; Transfer artifacts or components
+* [ocm <b>verify</b>](/docs/the-ocm-cli/cli-reference/ocm_verify)	 &mdash; Verify component version signatures
 
 
 
 ##### Additional Help Topics
 
-* [ocm <b>attributes</b>](/docs/cli/attributes)	 &mdash; configuration attributes used to control the behaviour
-* [ocm <b>configfile</b>](/docs/cli/configfile)	 &mdash; configuration file
-* [ocm <b>credential-handling</b>](/docs/cli/credential-handling)	 &mdash; Provisioning of credentials for credential consumers
-* [ocm <b>logging</b>](/docs/cli/logging)	 &mdash; Configured logging keys
-* [ocm <b>oci-references</b>](/docs/cli/oci-references)	 &mdash; notation for OCI references
-* [ocm <b>ocm-accessmethods</b>](/docs/cli/cli-accessmethods)	 &mdash; List of all supported access methods
-* [ocm <b>ocm-downloadhandlers</b>](/docs/cli/cli-downloadhandlers)	 &mdash; List of all available download handlers
-* [ocm <b>ocm-labels</b>](/docs/cli/cli-labels)	 &mdash; Labels and Label Merging
-* [ocm <b>ocm-references</b>](/docs/cli/cli-references)	 &mdash; notation for OCM references
-* [ocm <b>ocm-uploadhandlers</b>](/docs/cli/cli-uploadhandlers)	 &mdash; List of all available upload handlers
-* [ocm <b>toi-bootstrapping</b>](/docs/cli/toi-bootstrapping)	 &mdash; Tiny OCM Installer based on component versions
+* [ocm <b>attributes</b>](/docs/the-ocm-cli/cli-reference/attributes)	 &mdash; configuration attributes used to control the behaviour
+* [ocm <b>configfile</b>](/docs/the-ocm-cli/cli-reference/configfile)	 &mdash; configuration file
+* [ocm <b>credential-handling</b>](/docs/the-ocm-cli/cli-reference/credential-handling)	 &mdash; Provisioning of credentials for credential consumers
+* [ocm <b>logging</b>](/docs/the-ocm-cli/cli-reference/logging)	 &mdash; Configured logging keys
+* [ocm <b>oci-references</b>](/docs/the-ocm-cli/cli-reference/oci-references)	 &mdash; notation for OCI references
+* [ocm <b>ocm-accessmethods</b>](/docs/the-ocm-cli/cli-reference/ocm-accessmethods)	 &mdash; List of all supported access methods
+* [ocm <b>ocm-downloadhandlers</b>](/docs/the-ocm-cli/cli-reference/ocm-downloadhandlers)	 &mdash; List of all available download handlers
+* [ocm <b>ocm-labels</b>](/docs/the-ocm-cli/cli-reference/ocm-labels)	 &mdash; Labels and Label Merging
+* [ocm <b>ocm-references</b>](/docs/the-ocm-cli/cli-reference/ocm-references)	 &mdash; notation for OCM references
+* [ocm <b>ocm-uploadhandlers</b>](/docs/the-ocm-cli/cli-reference/ocm-uploadhandlers)	 &mdash; List of all available upload handlers
+* [ocm <b>toi-bootstrapping</b>](/docs/the-ocm-cli/cli-reference/toi-bootstrapping)	 &mdash; Tiny OCM Installer based on component versions
 

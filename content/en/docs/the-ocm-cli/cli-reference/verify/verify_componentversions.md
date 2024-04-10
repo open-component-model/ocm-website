@@ -1,6 +1,7 @@
 ---
 title: componentversions
-date: 2024-04-10T14:16:30+02:00
+name: verify componentversions
+date: 2024-04-10T17:39:09+02:00
 draft: false
 images: []
 toc: true
@@ -117,5 +118,5 @@ $ ocm verify componentversion --signature mandelsoft --public-key=mandelsoft.key
 
 ### See Also
 
-* [ocm verify](/docs/cli/verify)	 &mdash; Verify component version signatures
+* [ocm verify](/docs/the-ocm-cli/cli-reference/verify)	 &mdash; Verify component version signatures
 

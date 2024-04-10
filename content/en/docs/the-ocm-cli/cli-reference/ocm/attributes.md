@@ -1,6 +1,7 @@
 ---
 title: attributes
-date: 2024-04-10T14:16:30+02:00
+name: attributes
+date: 2024-04-10T17:39:09+02:00
 draft: false
 images: []
 toc: true
@@ -10,8 +11,8 @@ toc: true
 
 The OCM library supports a set of attributes, which can be used to influence
 the behaviour of various functions. The CLI also supports setting of those
-attributes using the config file (see [ocm configfile](/docs/cli/configfile)) or by
-command line options of the main command (see [ocm](/docs/cli)).
+attributes using the config file (see [ocm configfile](/docs/the-ocm-cli/cli-reference/configfile)) or by
+command line options of the main command (see [ocm](/docs/the-ocm-cli/cli-reference)).
 
 The following options are available in the currently used version of the
 OCM library:

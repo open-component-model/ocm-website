@@ -1,6 +1,7 @@
 ---
 title: check
-date: 2024-04-10T14:16:30+02:00
+name: check
+date: 2024-04-10T17:39:09+02:00
 draft: false
 images: []
 toc: true
@@ -23,5 +24,5 @@ ocm check [<options>] <sub command> ...
 
 ##### Sub Commands
 
-* [ocm check <b>componentversions</b>](/docs/cli/check/componentversions)	 &mdash; Check completeness of a component version in an OCM repository
+* [ocm check <b>componentversions</b>](/docs/the-ocm-cli/cli-reference/check/check_componentversions)	 &mdash; Check completeness of a component version in an OCM repository
 

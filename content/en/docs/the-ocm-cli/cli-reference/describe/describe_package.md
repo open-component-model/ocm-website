@@ -1,6 +1,7 @@
 ---
 title: package
-date: 2024-04-10T14:16:30+02:00
+name: describe package
+date: 2024-04-10T17:39:09+02:00
 draft: false
 images: []
 toc: true
@@ -26,7 +27,7 @@ Describe a TOI package provided by a resource of an OCM component version.
 
 The package resource must have the type <code>toiPackage</code>.
 This is a simple YAML file resource describing the bootstrapping of a dedicated kind
-of software. See also the topic [ocm toi toi-bootstrapping](/docs/cli/toi/toi-bootstrapping).
+of software. See also the topic [ocm toi toi-bootstrapping](/docs/the-ocm-cli/cli-reference/toi/toi-bootstrapping).
 
 The first matching resource of this type is selected. Optionally a set of
 identity attribute can be specified used to refine the match. This can be the
@@ -96,11 +97,11 @@ $ ocm toi describe package ghcr.io/mandelsoft/ocm//ocmdemoinstaller:0.0.1-dev
 
 ### See Also
 
-* [ocm describe](/docs/cli/describe)	 &mdash; Describe various elements by using appropriate sub commands.
+* [ocm describe](/docs/the-ocm-cli/cli-reference/describe)	 &mdash; Describe various elements by using appropriate sub commands.
 
 
 
 ##### Additional Help Topics
 
-* [ocm describe package <b>toi-bootstrapping</b>](/docs/cli/describe/package/toi-bootstrapping)	 &mdash; Tiny OCM Installer based on component versions
+* [ocm describe package <b>toi-bootstrapping</b>](/docs/the-ocm-cli/cli-reference/describe/package/toi-bootstrapping)	 &mdash; Tiny OCM Installer based on component versions
 

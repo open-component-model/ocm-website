@@ -1,6 +1,7 @@
 ---
 title: resource-configuration
-date: 2024-04-10T14:16:30+02:00
+name: add resource-configuration
+date: 2024-04-10T17:39:09+02:00
 draft: false
 images: []
 toc: true
@@ -68,7 +69,7 @@ ocm add resource-configuration [<options>] <target> {<configfile> | <var>=<value
 ### Description
 
 
-Add a resource specification to a resource config file used by [ocm add resources](/docs/cli/add/resources).
+Add a resource specification to a resource config file used by [ocm add resources](/docs/the-ocm-cli/cli-reference/add/resources).
 
 It is possible to describe a single resource via command line options.
 The meta data of this element is described by the argument of option <code>--resource</code>,
@@ -595,7 +596,7 @@ shown below.
       An optional keyring used to verify the chart.
     
     It uses the consumer identity type HelmChartRepository with the fields
-    for a hostpath identity matcher (see [ocm get credentials](/docs/cli/get/credentials)).
+    for a hostpath identity matcher (see [ocm get credentials](/docs/the-ocm-cli/cli-reference/get/credentials)).
   
   Options used to configure fields: <code>--accessPackage</code>, <code>--accessRepository</code>, <code>--accessVersion</code>
   
@@ -833,5 +834,5 @@ $ ocm add resource-configuration resources.yaml --name myresource --type PlainTe
 
 ### See Also
 
-* [ocm add](/docs/cli/add)	 &mdash; Add elements to a component repository or component version
+* [ocm add](/docs/the-ocm-cli/cli-reference/add)	 &mdash; Add elements to a component repository or component version
 

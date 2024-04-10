@@ -1,6 +1,7 @@
 ---
 title: componentversions
-date: 2024-04-10T14:16:30+02:00
+name: get componentversions
+date: 2024-04-10T17:39:09+02:00
 draft: false
 images: []
 toc: true
@@ -126,5 +127,5 @@ $ ocm get componentversion --repo OCIRegistry::ghcr.io mandelsoft/kubelink
 
 ### See Also
 
-* [ocm get](/docs/cli/get)	 &mdash; Get information about artifacts and components
+* [ocm get](/docs/the-ocm-cli/cli-reference/get)	 &mdash; Get information about artifacts and components
 

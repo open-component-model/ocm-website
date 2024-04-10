@@ -1,6 +1,7 @@
 ---
 title: logging
-date: 2024-04-10T14:16:30+02:00
+name: logging
+date: 2024-04-10T17:39:09+02:00
 draft: false
 images: []
 toc: true
@@ -8,8 +9,8 @@ toc: true
 ### Description
 
 
-Logging can be configured as part of the ocm config file ([ocm configfile](/docs/cli/configfile))
-or by command line options of the [ocm](/docs/cli) command. Details about
+Logging can be configured as part of the ocm config file ([ocm configfile](/docs/the-ocm-cli/cli-reference/configfile))
+or by command line options of the [ocm](/docs/the-ocm-cli/cli-reference) command. Details about
 the YAML structure of a logging settings can be found on https://github.com/mandelsoft/logging.
 
 The command line also supports some quick-config options for enabling log levels

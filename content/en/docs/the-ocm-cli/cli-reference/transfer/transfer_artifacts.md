@@ -1,6 +1,7 @@
 ---
 title: artifacts
-date: 2024-04-10T14:16:30+02:00
+name: transfer artifacts
+date: 2024-04-10T17:39:09+02:00
 draft: false
 images: []
 toc: true
@@ -87,5 +88,5 @@ $ ocm oci artifact transfer /tmp/ctf gcr.io/my-project
 
 ### See Also
 
-* [ocm transfer](/docs/cli/transfer)	 &mdash; Transfer artifacts or components
+* [ocm transfer](/docs/the-ocm-cli/cli-reference/transfer)	 &mdash; Transfer artifacts or components
 

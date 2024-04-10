@@ -1,6 +1,7 @@
 ---
 title: show
-date: 2024-04-10T14:16:30+02:00
+name: show
+date: 2024-04-10T17:39:09+02:00
 draft: false
 images: []
 toc: true
@@ -23,6 +24,6 @@ ocm show [<options>] <sub command> ...
 
 ##### Sub Commands
 
-* [ocm show <b>tags</b>](/docs/cli/show/tags)	 &mdash; show dedicated tags of OCI artifacts
-* [ocm show <b>versions</b>](/docs/cli/show/versions)	 &mdash; show dedicated versions (semver compliant)
+* [ocm show <b>tags</b>](/docs/the-ocm-cli/cli-reference/show/show_tags)	 &mdash; show dedicated tags of OCI artifacts
+* [ocm show <b>versions</b>](/docs/the-ocm-cli/cli-reference/show/show_versions)	 &mdash; show dedicated versions (semver compliant)
 

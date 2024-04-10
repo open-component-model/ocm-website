@@ -1,6 +1,7 @@
 ---
 title: componentversions
-date: 2024-04-10T14:16:30+02:00
+name: sign componentversions
+date: 2024-04-10T17:39:09+02:00
 draft: false
 images: []
 toc: true
@@ -142,5 +143,5 @@ $ ocm sign componentversion --signature mandelsoft --private-key=mandelsoft.key 
 
 ### See Also
 
-* [ocm sign](/docs/cli/sign)	 &mdash; Sign components or hashes
+* [ocm sign](/docs/the-ocm-cli/cli-reference/sign)	 &mdash; Sign components or hashes
 

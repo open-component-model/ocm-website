@@ -1,6 +1,7 @@
 ---
 title: resources
-date: 2024-04-10T14:16:30+02:00
+name: download resources
+date: 2024-04-10T17:39:09+02:00
 draft: false
 images: []
 toc: true
@@ -199,7 +200,7 @@ The downloader name may be a path expression with the following possibilities:
 
 
 
-See [ocm ocm-downloadhandlers](/docs/cli/cli-downloadhandlers) for further details on using
+See [ocm ocm-downloadhandlers](/docs/the-ocm-cli/cli-reference/ocm-downloadhandlers) for further details on using
 download handlers.
 
 
@@ -225,5 +226,5 @@ references.
 
 ### See Also
 
-* [ocm download](/docs/cli/download)	 &mdash; Download oci artifacts, resources or complete components
+* [ocm download](/docs/the-ocm-cli/cli-reference/download)	 &mdash; Download oci artifacts, resources or complete components
 

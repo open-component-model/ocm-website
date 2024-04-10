@@ -1,6 +1,7 @@
 ---
 title: hash
-date: 2024-04-10T14:16:30+02:00
+name: sign hash
+date: 2024-04-10T17:39:09+02:00
 draft: false
 images: []
 toc: true
@@ -36,5 +37,5 @@ $ ocm sign hash key.priv SHA-256:810ff2fb242a5dee4220f2cb0e6a519891fb67f2f828a6c
 
 ### See Also
 
-* [ocm sign](/docs/cli/sign)	 &mdash; Sign components or hashes
+* [ocm sign](/docs/the-ocm-cli/cli-reference/sign)	 &mdash; Sign components or hashes
 

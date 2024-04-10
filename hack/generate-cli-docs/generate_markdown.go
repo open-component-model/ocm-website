@@ -17,6 +17,7 @@ import (
 
 const fmTmpl = `---
 title: %s
+name: %s
 date: %s
 draft: false
 images: []
@@ -24,13 +25,14 @@ toc: true
 ---
 `
 
-func genMarkdownTreeCustom(cmd *cobra.Command, dir, urlPrefix string) error {
+func genMarkdownTreeCustom(cmd *cobra.Command, dir, urlPrefix, parentCmd string) error {
 	for _, c := range cmd.Commands() {
 		if !c.IsAvailableCommand() && !c.IsAdditionalHelpTopicCommand() {
 			continue
 		}
 
-		if err := genMarkdownTreeCustom(c, dir, urlPrefix); err != nil {
+		parent := commandToID(c.Parent().CommandPath())
+		if err := genMarkdownTreeCustom(c, dir, urlPrefix, parent); err != nil {
 			return err
 		}
 	}
@@ -62,7 +64,7 @@ func genMarkdownTreeCustom(cmd *cobra.Command, dir, urlPrefix string) error {
 
 	linkHandler := func(path string) string {
 		link := strings.Replace(path, " ", "/", -1)
-		link = strings.Replace(link, "ocm", "cli", -1)
+		link = strings.Replace(link, "ocm", "the-ocm-cli/cli-reference", 1)
 		return "/docs/" + link
 	}
 
@@ -70,7 +72,15 @@ func genMarkdownTreeCustom(cmd *cobra.Command, dir, urlPrefix string) error {
 		now := time.Now().Format(time.RFC3339)
 		cmdName := commandToID(cmd.Name())
 		title := strings.TrimSuffix(cmdName, path.Ext(cmdName))
-		return fmt.Sprintf(fmTmpl, title, now)
+		var name string
+		if cmdName == "cli-reference" {
+			name = title
+		} else if parentCmd == "cli-reference" {
+			name = title
+		} else {
+			name = fmt.Sprintf("%s %s", parentCmd, title)
+		}
+		return fmt.Sprintf(fmTmpl, title, name, now)
 	}
 
 	if _, err := io.WriteString(f, frontmatter()); err != nil {
@@ -151,8 +161,19 @@ func genMarkdownCustom(cmd *cobra.Command, w io.Writer, linkHandler func(string)
 				buf.WriteString("\n\n##### Sub Commands\n\n")
 				subheader = true
 			}
+
+			// exp: ocm sign componentversions
+			command := child.CommandPath()
+			if subheader {
+				// convert to ocm/sign/ocm_componentversions
+				split := strings.Split(command, " ")
+				split[len(split)-1] = fmt.Sprintf("%s_%s", child.Parent().Name(), split[len(split)-1])
+
+				command = strings.Join(split, " ")
+			}
+
 			cname := name + " " + "<b>" + child.Name() + "</b>"
-			buf.WriteString(fmt.Sprintf("* [%s](%s)\t &mdash; %s\n", cname, linkHandler(child.CommandPath()), child.Short))
+			buf.WriteString(fmt.Sprintf("* [%s](%s)\t &mdash; %s\n", cname, linkHandler(command), child.Short))
 		}
 		buf.WriteString("\n")
 
@@ -208,7 +229,7 @@ func printOptions(buf *bytes.Buffer, cmd *cobra.Command) error {
 
 func useLine(c *cobra.Command) string {
 	useline := c.Use
-	if strings.Index(useline, " ") < 0 {
+	if !strings.Contains(useline, " ") {
 		if c.HasAvailableLocalFlags() {
 			useline += " [<options>]"
 		}

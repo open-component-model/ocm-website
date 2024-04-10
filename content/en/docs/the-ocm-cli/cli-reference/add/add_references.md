@@ -1,6 +1,7 @@
 ---
 title: references
-date: 2024-04-10T14:16:30+02:00
+name: add references
+date: 2024-04-10T17:39:09+02:00
 draft: false
 images: []
 toc: true
@@ -163,5 +164,5 @@ $ ocm add references  path/to/ca  references.yaml VERSION=1.0.0
 
 ### See Also
 
-* [ocm add](/docs/cli/add)	 &mdash; Add elements to a component repository or component version
+* [ocm add](/docs/the-ocm-cli/cli-reference/add)	 &mdash; Add elements to a component repository or component version
 

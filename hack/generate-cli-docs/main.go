@@ -64,7 +64,7 @@ func run(dir, urlPrefix string) error {
 		}
 	}
 
-	if err := genMarkdownTreeCustom(cmd, dir, urlPrefix); err != nil {
+	if err := genMarkdownTreeCustom(cmd, dir, urlPrefix, "cli-reference"); err != nil {
 		return fmt.Errorf("error generating markdown: %w", err)
 	}
 

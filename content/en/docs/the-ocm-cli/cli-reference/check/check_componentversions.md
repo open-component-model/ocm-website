@@ -1,6 +1,7 @@
 ---
 title: componentversions
-date: 2024-04-10T14:16:30+02:00
+name: check componentversions
+date: 2024-04-10T17:39:09+02:00
 draft: false
 images: []
 toc: true
@@ -98,5 +99,5 @@ $ ocm get componentversion --repo OCIRegistry::ghcr.io mandelsoft/kubelink
 
 ### See Also
 
-* [ocm check](/docs/cli/check)	 &mdash; check components in OCM repository
+* [ocm check](/docs/the-ocm-cli/cli-reference/check)	 &mdash; check components in OCM repository
 

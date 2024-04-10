@@ -1,6 +1,7 @@
 ---
 title: credentials
-date: 2024-04-10T14:16:30+02:00
+name: get credentials
+date: 2024-04-10T17:39:09+02:00
 draft: false
 images: []
 toc: true
@@ -175,5 +176,5 @@ The usage of a dedicated matcher can be enforced by the option <code>--matcher</
 
 ### See Also
 
-* [ocm get](/docs/cli/get)	 &mdash; Get information about artifacts and components
+* [ocm get](/docs/the-ocm-cli/cli-reference/get)	 &mdash; Get information about artifacts and components
 
