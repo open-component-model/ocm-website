@@ -1,15 +1,9 @@
 ---
 title: sources
-name: get sources
-url: /docs/cli/get/sources/
-date: 2024-04-04T14:09:23+02:00
+date: 2024-04-10T14:16:30+02:00
 draft: false
 images: []
-menu:
-  docs:
-    parent: get
 toc: true
-isCommand: true
 ---
 ### Usage
 

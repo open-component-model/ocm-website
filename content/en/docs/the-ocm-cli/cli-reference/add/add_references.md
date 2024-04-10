@@ -1,7 +1,6 @@
 ---
 title: references
-name: add references
-date: 2024-04-04T14:09:23+02:00
+date: 2024-04-10T14:16:30+02:00
 draft: false
 images: []
 toc: true
@@ -55,9 +54,9 @@ it is possible to add extra identity attributes. Explicitly specified options
 override values specified by the <code>--reference</code> option.
 (Note: Go templates are not supported for YAML-based option values. Besides
 this restriction, the finally composed element description is still processd
-by the selected templater.)
+by the selected templater.) 
 
-The component name can be specified with the option <code>--component</code>.
+The component name can be specified with the option <code>--component</code>. 
 Therefore, basic references not requiring any additional labels or extra
 identities can just be specified by those simple value options without the need
 for the YAML option.
@@ -66,7 +65,7 @@ All yaml/json defined resources can be templated.
 Variables are specified as regular arguments following the syntax <code>&lt;name>=&lt;value></code>.
 Additionally settings can be specified by a yaml file using the <code>--settings <file></code>
 option. With the option <code>--addenv</code> environment variables are added to the binding.
-Values are overwritten in the order environment, settings file, command line settings.
+Values are overwritten in the order environment, settings file, command line settings. 
 
 Note: Variable names are case-sensitive.
 
@@ -82,7 +81,7 @@ There are several templaters that can be selected by the <code>--templater</code
     key:
       subkey: "abc {{.MY_VAL}}"
   </pre>
-
+  
 - <code>none</code> do not do any substitution.
 
 - <code>spiff</code> [spiff templating](https://github.com/mandelsoft/spiff).
@@ -92,7 +91,7 @@ There are several templaters that can be selected by the <code>--templater</code
     key:
       subkey: "abc (( values.MY_VAL ))"
   </pre>
-
+  
 - <code>subst</code> simple value substitution with the <code>drone/envsubst</code> templater.
 
   It supports string values, only. Complex settings will be json encoded.
@@ -100,14 +99,14 @@ There are several templaters that can be selected by the <code>--templater</code
     key:
       subkey: "abc ${MY_VAL}"
   </pre>
-
+  
 
 
 All yaml/json defined resources can be templated.
 Variables are specified as regular arguments following the syntax <code>&lt;name>=&lt;value></code>.
 Additionally settings can be specified by a yaml file using the <code>--settings <file></code>
 option. With the option <code>--addenv</code> environment variables are added to the binding.
-Values are overwritten in the order environment, settings file, command line settings.
+Values are overwritten in the order environment, settings file, command line settings. 
 
 Note: Variable names are case-sensitive.
 
@@ -123,7 +122,7 @@ There are several templaters that can be selected by the <code>--templater</code
     key:
       subkey: "abc {{.MY_VAL}}"
   </pre>
-
+  
 - <code>none</code> do not do any substitution.
 
 - <code>spiff</code> [spiff templating](https://github.com/mandelsoft/spiff).
@@ -133,7 +132,7 @@ There are several templaters that can be selected by the <code>--templater</code
     key:
       subkey: "abc (( values.MY_VAL ))"
   </pre>
-
+  
 - <code>subst</code> simple value substitution with the <code>drone/envsubst</code> templater.
 
   It supports string values, only. Complex settings will be json encoded.
@@ -141,7 +140,7 @@ There are several templaters that can be selected by the <code>--templater</code
     key:
       subkey: "abc ${MY_VAL}"
   </pre>
-
+  
 
 
 ### Examples

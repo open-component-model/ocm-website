@@ -5,11 +5,7 @@ date: 2023-06-20T10:00:00+00:00
 lastmod: 2023-06-20:00:00+00:00
 draft: false
 images: []
-menu:
-  docs:
-    parent: ""
-    identifier: "complex-component-structure-deployment"
-weight: 115
+weight: 65
 toc: true
 ---
 

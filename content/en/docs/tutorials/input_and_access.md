@@ -6,11 +6,7 @@ date: 2023-04-05T08:24:35+02:00
 lastmod: 2023-04-05T08:24:35+02:00
 draft: false
 images: []
-menu:
-  docs:
-    parent: ""
-    identifier: "input_and_access-2fd9b49dc5eda4c0921ef431ba3660d5"
-weight: 105
+weight: 68
 toc: true
 ---
 

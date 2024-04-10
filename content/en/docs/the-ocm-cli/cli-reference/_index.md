@@ -1,13 +1,11 @@
 ---
-title: CLI Reference
-name: cli-reference
-date: 2024-04-04T14:09:23+02:00
+title: cli-reference
+date: 2024-04-10T14:16:30+02:00
 draft: false
 images: []
-weight: 12
 toc: true
+weight: 13
 ---
-
 ### Options
 
 ```

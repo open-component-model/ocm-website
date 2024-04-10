@@ -6,7 +6,7 @@ date: 2023-09-12T10:37:58+01:00
 lastmod: 2023-11-03T10:53:00+01:00
 draft: false
 images: []
-weight: 103
+weight: 131
 toc: true
 ---
 
@@ -52,7 +52,7 @@ export MY_EMAIL=<your-email-address>
 
 ### Bootstrap MPAS
 
-To bootstrap MPAS to your Kubernetes cluster, run the following command. If nothing is specified it will use the KUBECONFIG specified in the user's environment. It is also possible to specify a dedicated config using the --kubeconfig option. 
+To bootstrap MPAS to your Kubernetes cluster, run the following command. If nothing is specified it will use the KUBECONFIG specified in the user's environment. It is also possible to specify a dedicated config using the --kubeconfig option.
 
 ```bash
 mpas bootstrap github \
@@ -67,15 +67,15 @@ MPAS to your Kubernetes cluster. The following components will be installed:
 
 - [Flux](https://fluxcd.io/docs/components/): A Kubernetes operator that will
   install and manage the other components.
-- [ocm-controller](https://github.com/open-component-model/ocm-controller): A Kubernetes controller 
+- [ocm-controller](https://github.com/open-component-model/ocm-controller): A Kubernetes controller
   that enables the automated deployment of software components using the Open Component Model and Flux.
 - [git-controller](https://github.com/open-component-model/git-controller): A
   Kubernetes controller that will create pull requests in the target Github repository
   when changes are made to the cluster.
-- [replication-controller](https://github.com/open-component-model/replication-controller): A Kubernetes controller that 
-  keeps keep component versions in the cluster up-to-date with a version defined by the consumer in the `ComponentSubscription` resource. 
+- [replication-controller](https://github.com/open-component-model/replication-controller): A Kubernetes controller that
+  keeps keep component versions in the cluster up-to-date with a version defined by the consumer in the `ComponentSubscription` resource.
 - [mpas-product-controller](https://github.com/open-component-model/mpas-product-controller): A Kubernetes controller, responsible for creating a product. Reconciles the `Product` resource.
-- [mpas-project-controller](https://github.com/open-component-model/mpas-project-controller): A Kubernetes controller responsible for bootstrapping a whole project. Creates relevant access credentials, service accounts, roles and the main GitOps repository and 
+- [mpas-project-controller](https://github.com/open-component-model/mpas-project-controller): A Kubernetes controller responsible for bootstrapping a whole project. Creates relevant access credentials, service accounts, roles and the main GitOps repository and
 reconciles the `Project` resource.
 
 The output of the bootstrap is similar to the following:
@@ -310,7 +310,7 @@ git add --all && git commit -m "Add podinfo deployment generator" && git push
 This will create a pull request in the project repository with the `ProductDeployment` resource
 that will deploy the podinfo application.
 
-Go to the project repository and retrieve the pull request. 
+Go to the project repository and retrieve the pull request.
 It should contain a `ProductDeployment` declaration that provides the configuration and
 all steps needed to deploy the product, as well as a `values.yaml` file. The `values` file
 contains values that should be used to configure the different resources that are part of
@@ -322,7 +322,7 @@ After a moment the `ProductDeployment` should be deployed successfully.
 It is possible to verify this with the command:
 
 ```bash
-k describe productdeployment -n mpas-podinfo-application  
+k describe productdeployment -n mpas-podinfo-application
 ```
 
 The result should look something like:

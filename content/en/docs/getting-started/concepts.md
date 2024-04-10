@@ -11,5 +11,3 @@ toc: true
 ---
 
 ## Core Concepts
-
-Bla

@@ -17,29 +17,20 @@ import (
 
 const fmTmpl = `---
 title: %s
-name: %s
-url: %s
 date: %s
 draft: false
 images: []
-menu:
-  docs:
-    parent: %s
 toc: true
-isCommand: %v
 ---
 `
 
-func genMarkdownTreeCustom(cmd *cobra.Command, dir, urlPrefix, parentCmd string) error {
+func genMarkdownTreeCustom(cmd *cobra.Command, dir, urlPrefix string) error {
 	for _, c := range cmd.Commands() {
-		if c.Name() == "configfile" {
-			strings.TrimSpace(c.Name())
-		}
 		if !c.IsAvailableCommand() && !c.IsAdditionalHelpTopicCommand() {
 			continue
 		}
-		parent := commandToID(c.Parent().CommandPath())
-		if err := genMarkdownTreeCustom(c, dir, urlPrefix, parent); err != nil {
+
+		if err := genMarkdownTreeCustom(c, dir, urlPrefix); err != nil {
 			return err
 		}
 	}
@@ -75,27 +66,14 @@ func genMarkdownTreeCustom(cmd *cobra.Command, dir, urlPrefix, parentCmd string)
 		return "/docs/" + link
 	}
 
-	frontmatter := func(filename string) string {
+	frontmatter := func() string {
 		now := time.Now().Format(time.RFC3339)
 		cmdName := commandToID(cmd.Name())
 		title := strings.TrimSuffix(cmdName, path.Ext(cmdName))
-		var url, name string
-		isCmd := true
-		if cmdName == "cli-reference" {
-			url = urlPrefix
-			name = title
-			isCmd = false
-		} else if parentCmd == "cli-reference" {
-			url = urlPrefix + strings.ToLower(title) + "/"
-			name = title
-		} else {
-			url = urlPrefix + parentCmd + "/" + strings.ToLower(title) + "/"
-			name = fmt.Sprintf("%s %s", parentCmd, title)
-		}
-		return fmt.Sprintf(fmTmpl, title, name, url, now, parentCmd, isCmd)
+		return fmt.Sprintf(fmTmpl, title, now)
 	}
 
-	if _, err := io.WriteString(f, frontmatter(filename)); err != nil {
+	if _, err := io.WriteString(f, frontmatter()); err != nil {
 		return err
 	}
 
@@ -104,10 +82,6 @@ func genMarkdownTreeCustom(cmd *cobra.Command, dir, urlPrefix, parentCmd string)
 	}
 
 	return nil
-}
-
-func genMarkdown(cmd *cobra.Command, w io.Writer) error {
-	return genMarkdownCustom(cmd, w, cobrautils.LinkForPath)
 }
 
 func genMarkdownCustom(cmd *cobra.Command, w io.Writer, linkHandler func(string) string) error {
@@ -123,7 +97,7 @@ func genMarkdownCustom(cmd *cobra.Command, w io.Writer, linkHandler func(string)
 	}
 
 	if cmd.IsAvailableCommand() {
-		if err := printOptions(buf, cmd, name); err != nil {
+		if err := printOptions(buf, cmd); err != nil {
 			return err
 		}
 	}
@@ -208,7 +182,7 @@ func genMarkdownCustom(cmd *cobra.Command, w io.Writer, linkHandler func(string)
 	return err
 }
 
-func printOptions(buf *bytes.Buffer, cmd *cobra.Command, name string) error {
+func printOptions(buf *bytes.Buffer, cmd *cobra.Command) error {
 	flags := cmd.NonInheritedFlags()
 
 	flags.SetOutput(buf)

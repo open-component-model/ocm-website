@@ -6,7 +6,7 @@ date: 2023-09-12T10:37:58+01:00
 lastmod: 2023-09-12T10:37:58+01:00
 draft: false
 images: []
-weight: 104
+weight: 134
 toc: true
 ---
 
@@ -14,7 +14,7 @@ The `mpas bootstrap` command deploys the following components to your cluster:
 
 - [Flux](https://fluxcd.io/docs/components/): A Kubernetes operator that will
   install and manage the other components.
-- [ocm-controller](https://github.com/open-component-model/ocm-controller): A Kubernetes controller 
+- [ocm-controller](https://github.com/open-component-model/ocm-controller): A Kubernetes controller
   that enables the automated deployment of software using the Open Component Model and `Flux`.
 - [git-controller](https://github.com/open-component-model/git-controller): A
   Kubernetes controller that will create pull requests in the target Github repository
@@ -23,7 +23,7 @@ The `mpas bootstrap` command deploys the following components to your cluster:
    everything defined and bundled in an OCM component version (and that the consumer subscribed to)
    into the local OCI registry of the cluster.
 - [mpas-product-controller](https://github.com/open-component-model/mpas-product-controller): A Kubernetes controller responsible
-   for creating the custom resource `Product`. 
+   for creating the custom resource `Product`.
 - [mpas-project-controller](https://github.com/open-component-model/mpas-project-controller): A Kubernetes controller responsible
   for bootstrapping a whole project and creating relevant access credentials, service accounts, roles and the main repository.
   It reconciles the `Project` resource.
@@ -35,11 +35,9 @@ the installed components from the target Git repository.
 After the `mpas bootstrap` command is executed, the cluster is ready to deploy software
 in a GitOps fashion using the Open Component Model and `MPAS`.
 
-{{% alert color="danger" title="Required permissions" %}}
-To bootstrap `MPAS`, the person running the command must have **cluster admin rights** for the target Kubernetes cluster.
+**NOTE:** To bootstrap `MPAS`, the person running the command must have **cluster admin rights** for the target Kubernetes cluster.
 It is also required that the person running the command to be the **owner** of the GitHub repository,
 or to have admin rights of a GitHub organization.
-{{% /alert %}}
 
 ## Bootstrap for GitHub
 
@@ -57,10 +55,9 @@ export GITHUB_TOKEN=<your-github-pat>
 If the `GITHUB_TOKEN` environment variable is not set, the `mpas bootstrap` command will prompt
 for the GitHub PAT.
 
-{{% alert color="danger" title="PAT secret" %}}
+**NOTE:**
 Note that the GitHub PAT is stored in the cluster as a **Kubernetes Secret** named `flux-system`
 inside the `flux-system` namespace.
-{{% /alert %}}
 
 ### Personal account
 
@@ -111,10 +108,9 @@ export GITEA_TOKEN=<your-gitea-api-token>
 If the `GITEA_TOKEN` environment variable is not set, the `mpas bootstrap` command will prompt
 for the Gitea API token.
 
-{{% alert color="danger" title="API Token secret" %}}
+**NOTE:**
 Note that the Gitea API Token is stored in the cluster as a **Kubernetes Secret** named `flux-system`
 inside the `flux-system` namespace.
-{{% /alert %}}
 
 ### Personal account
 

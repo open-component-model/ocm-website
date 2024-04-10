@@ -7,7 +7,7 @@ lastmod: 2022-01-25T14:40:56+01:00
 draft: false
 images: []
 type: docs
-weight: 3
+weight: 28
 ---
 
 <h1>OCM Controller API reference v1alpha1</h1>

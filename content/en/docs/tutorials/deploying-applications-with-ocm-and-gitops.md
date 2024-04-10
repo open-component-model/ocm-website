@@ -6,11 +6,7 @@ date: 2022-11-23T10:00:00+00:00
 lastmod: 2022-11-23:00:00+00:00
 draft: false
 images: []
-menu:
-  docs:
-    parent: ""
-    identifier: "deploying-applications-with-ocm-and-gitops"
-weight: 102
+weight: 66
 toc: true
 ---
 

@@ -6,11 +6,7 @@ date: 2022-11-23T10:00:00+00:00
 lastmod: 2022-11-23:00:00+00:00
 draft: false
 images: []
-menu:
-  docs:
-    parent: ""
-    identifier: "air-gapped-gitops-with-ocm-flux"
-weight: 103
+weight: 62
 toc: true
 ---
 

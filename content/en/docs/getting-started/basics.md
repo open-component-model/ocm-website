@@ -11,5 +11,3 @@ toc: true
 ---
 
 ## Understand the Basics
-
-Bla

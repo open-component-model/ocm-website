@@ -1,16 +1,12 @@
 ---
-title: "Build & Deploy Infrastructure via Helm Charts with OCM" 
+title: "Build & Deploy Infrastructure via Helm Charts with OCM"
 description: ""
 lead: ""
 date: 2024-03-19T10:36:48+01:00
 lastmod: 2024-03-19T10:36:48+01:00
 draft: false
 images: []
-menu:
-  docs:
-    parent: ""
-    identifier: "build-deploy-software-via-helm-charts-with-ocm"
-weight: 101
+weight: 64
 toc: true
 ---
 
@@ -23,7 +19,7 @@ As base we use the `podinfo` application from Stefan Prodan's [Github repo](http
 All files can be found [here](https://github.com/open-component-model/ocm-examples).
 
 At the end of the tutorial you will have created one OCM component for your business application `podinfo`.
-This component will be composed using the OCM guidelines and consist of several resources, here an OCI image and a Helm chart. 
+This component will be composed using the OCM guidelines and consist of several resources, here an OCI image and a Helm chart.
 
 For building multiple components in one shot the ["all-in-one"](../getting-started-with-ocm#all-in-one)
 mechanism becomes handy.
@@ -90,29 +86,29 @@ components:
 - name: ${COMPONENT_NAME_PREFIX}/podinfo
   labels:
   - name: "org.opencontainers.image.source"
-    value: "https://github.com/stb1337/ocm-hello-world-v1"  
+    value: "https://github.com/stb1337/ocm-hello-world-v1"
   version: ${PODINFO_VERSION}
   provider:
     name: ${PROVIDER}
   resources:
   - name: helm-chart-external
     type: helmChart
-    version: ${PODINFO_VERSION}    
+    version: ${PODINFO_VERSION}
     access:
       type: helm
       helmChart: podinfo:${PODINFO_CHART_VERSION}
       helmRepository: https://stefanprodan.github.io/podinfo
   - name: helm-chart-local-tgz
-    type: helmChart    
-    input:      
-      type: helm      
-      path: podinfo-${PODINFO_CHART_VERSION}.tgz      
+    type: helmChart
+    input:
+      type: helm
+      path: podinfo-${PODINFO_CHART_VERSION}.tgz
   - name: helm-chart-local-folder
     type: helmChart
     version: ${PODINFO_VERSION}
     input:
       type: dir
-      path: ./podinfo/  
+      path: ./podinfo/
   - name: image
     type: ociImage
     version: ${PODINFO_VERSION}
@@ -120,7 +116,7 @@ components:
       type: ociArtifact
       repository: ocm/ocm.software/podinfo/image
       imageReference: ghcr.io/stefanprodan/podinfo:${PODINFO_VERSION}
-  
+
 ```
 
 Some frequently changing parameters have been extracted as variables. The OCM CLI uses
@@ -161,7 +157,7 @@ found 1 component
 adding component ocm.software/podinfo:6.6.0...
   adding resource helmChart: "name"="helm-chart-external","version"="6.6.0"...
   adding resource helmChart: "name"="helm-chart-local-tgz","version"="<componentversion>"...
-  adding resource helmChart: "name"="helm-chart-local-folder","version"="6.6.0"...  
+  adding resource helmChart: "name"="helm-chart-local-folder","version"="6.6.0"...
   adding resource ociImage: "name"="image","version"="6.6.0"...
 ```
 
@@ -172,7 +168,7 @@ ocm get component -o yaml <ctf-target-dir>
 ```
 
 ```shell
-ocm get component ./ocm-hello-world 
+ocm get component ./ocm-hello-world
 COMPONENT            VERSION PROVIDER
 ocm.software/podinfo 6.6.0   stb1337
 ```
@@ -192,7 +188,7 @@ INFO[0000] trying next host - response was http.StatusNotFound  host=ghcr.io
 INFO[0001] trying next host - response was http.StatusNotFound  host=ghcr.io
   ...resource 0 helm-chart-external[helmChart]...
   ...resource 1 helm-chart-local-tgz[helmChart](ocm.software/podinfo/podinfo:6.6.0)...
-  ...resource 2 helm-chart-local-folder[helmChart]...  
+  ...resource 2 helm-chart-local-folder[helmChart]...
   ...resource 3 image[ociImage](stefanprodan/podinfo:6.6.0)...
   ...adding component version...
 
@@ -235,11 +231,11 @@ kind create cluster -n ocm-hello-world
 kind create cluster -n ocm-hello-world
 Creating cluster "ocm-hello-world" ...
  ✓ Ensuring node image (kindest/node:v1.29.2) 🖼
- ✓ Preparing nodes 📦  
- ✓ Writing configuration 📜 
- ✓ Starting control-plane 🕹️ 
- ✓ Installing CNI 🔌 
- ✓ Installing StorageClass 💾 
+ ✓ Preparing nodes 📦
+ ✓ Writing configuration 📜
+ ✓ Starting control-plane 🕹️
+ ✓ Installing CNI 🔌
+ ✓ Installing StorageClass 💾
 Set kubectl context to "kind-ocm-hello-world"
 You can now use your cluster with:
 
@@ -252,7 +248,7 @@ Make sure that your current kubectl context is set to "kind-ocm-hello-world":
 
 ```shell
 kubectl context to "kind-ocm-hello-world"
-kubectl cluster-info                        
+kubectl cluster-info
 Kubernetes control plane is running at https://127.0.0.1:52112
 CoreDNS is running at https://127.0.0.1:52112/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
 
@@ -262,7 +258,7 @@ To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
 Install Flux:
 
 ```shell
-flux install                                                                                                         
+flux install
 ✚ generating manifests
 ✔ manifests build completed
 ► installing components in flux-system namespace
@@ -308,7 +304,7 @@ NetworkPolicy/flux-system/allow-webhooks created
 Install OCM controller:
 
 ```shell
-ocm controller install                                                                                                                   
+ocm controller install
 ► running pre-install check
 ► installing prerequisites
 ► installing cert-manager with version v1.13.2
@@ -445,7 +441,7 @@ image                   6.6.0            ociImage  external ociArtifact {"imageR
 Create file [`k8s-component-version/01-pod-info-kind.yaml`](https://github.com/open-component-model/ocm-examples/tree/main/kubernetes/guide-walkthrough-helm-chart/01-pod-info-kind.yaml) with following content:
 
 ```yaml
-#k8s-component-version/01-pod-info-kind.yaml 
+#k8s-component-version/01-pod-info-kind.yaml
 kind: ComponentVersion
 metadata:
   name: ocm-hello-world-podinfo
@@ -492,19 +488,19 @@ spec:
     kind: Resource
     name: ocm-hello-world-podinfo-helm-chart-external
   helmReleaseTemplate:
-    chart: 
-      spec: 
+    chart:
+      spec:
         chart: "podinfo"
         interval: 10s
-    values:      
+    values:
       replicaCount: 3
       image:
         repository: ghcr.io/stb1337/ocm-hello-world-v1/stefanprodan/podinfo
       ui:
         color: "#8F00FF"
-        message: "Hello from remote referenced Helm Chart"      
-      serviceAccount:        
-        enabled: true        
+        message: "Hello from remote referenced Helm Chart"
+      serviceAccount:
+        enabled: true
         name: "sa-podinfo-ghcr-io-1"
         imagePullSecrets:
         - name: pull-secret
@@ -542,25 +538,25 @@ spec:
     kind: Resource
     name: ocm-hello-world-podinfo-helm-chart-local-tgz
   helmReleaseTemplate:
-    chart: 
-      spec: 
+    chart:
+      spec:
         chart: "podinfo"
-        interval: 10s        
+        interval: 10s
     values:
       replicaCount: 2
       image:
         repository: ghcr.io/stb1337/ocm-hello-world-v1/stefanprodan/podinfo
       ui:
         color: "#FFC0CB"
-        message: "Hello from local .tar file Helm Chart"        
-      serviceAccount:        
-        enabled: true        
+        message: "Hello from local .tar file Helm Chart"
+      serviceAccount:
+        enabled: true
         name: "sa-podinfo-ghcr-io-2"
         imagePullSecrets:
         - name: pull-secret
     interval: 10s
     releaseName: "podinfo-helm-chart-local-tgz"
-    targetNamespace: default    
+    targetNamespace: default
 ---
 apiVersion: delivery.ocm.software/v1alpha1
 kind: Resource
@@ -598,7 +594,7 @@ kubectl create secret generic ghcr-pull-secret -n ocm-system \
 Apply the manifest to your local `kind` cluster:
 
 ```shell
-k apply -f k8s-component-version/01-pod-info-kind.yaml 
+k apply -f k8s-component-version/01-pod-info-kind.yaml
 componentversion.delivery.ocm.software/ocm-hello-world-podinfo created
 resource.delivery.ocm.software/ocm-hello-world-podinfo-helm-chart-external created
 fluxdeployer.delivery.ocm.software/ocm-hello-world-podinfo-helm-chart-external created
@@ -617,7 +613,7 @@ Handling connection for 9898
 ![alt text](images/guide-helm-charts-hello-world.png)
 
 ```shell
-kubectl port-forward service/podinfo-helm-chart-local-tgz -n default 9898:9898 
+kubectl port-forward service/podinfo-helm-chart-local-tgz -n default 9898:9898
 Forwarding from 127.0.0.1:9898 -> 9898
 Forwarding from [::1]:9898 -> 9898
 Handling connection for 9898
