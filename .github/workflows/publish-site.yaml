@@ -47,7 +47,7 @@ jobs:
 
     - name: Copy Schema
       run: |
-        cp schema-v2.html schema-v3alpha1.html schema_doc.css schema_doc.min.js public/spec
+        cp schema-v2.html schema-v3alpha1.html schema_doc.css schema_doc.min.js public/docs/cli/spec
 
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v3
