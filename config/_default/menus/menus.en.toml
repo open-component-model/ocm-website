@@ -7,7 +7,7 @@
   name = "Spec"
   weight = 20
   identifier = "specification"
-  url = "/spec/"
+  url = "/docs/cli/spec/spec"
 
 [[main]]
   name = "Project"
@@ -16,13 +16,8 @@
 
 [[main]]
   name = "Community"
-  url = "/community"
+  url = "/docs/community/community/"
   weight = 40
-
-# [[main]]
-#   name = "Blog"
-#   url = "/blog/"
-#   weight = 40
 
 [[social]]
   name = "GitHub"

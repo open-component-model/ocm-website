@@ -6,7 +6,7 @@ on:
     types: [ocm-cli-release]
 
 env:
-  OUTPUT_DIR: ./content/en/docs/cli-reference
+  OUTPUT_DIR: ./content/en/docs/cli/cli-reference
 
 jobs:
   setup-build-pull:
@@ -46,7 +46,7 @@ jobs:
     - name: Regenerate CLI docs
       run: |
         go mod tidy
-        go run ./hack/generate-cli-docs ${{ env.OUTPUT_DIR }}
+        go run ./hack/generate-cli-docs --output-dir=${{ env.OUTPUT_DIR }}
 
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v4
