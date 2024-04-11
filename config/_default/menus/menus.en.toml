@@ -7,7 +7,7 @@
   name = "Spec"
   weight = 20
   identifier = "specification"
-  url = "/docs/the-ocm-cli/spec/spec"
+  url = "/docs/cli/spec/spec"
 
 [[main]]
   name = "Project"

@@ -65,7 +65,7 @@ func genMarkdownTreeCustom(cmd *cobra.Command, dir, urlPrefix, parentCmd string)
 
 	linkHandler := func(path string) string {
 		link := strings.Replace(path, " ", "/", -1)
-		link = strings.Replace(link, "ocm", "the-ocm-cli/cli-reference", 1)
+		link = strings.Replace(link, "ocm", "cli/cli-reference", 1)
 		return "/docs/" + link
 	}
 
