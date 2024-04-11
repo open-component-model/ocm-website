@@ -1,7 +1,8 @@
 ---
 title: verify
 name: verify
-date: 2024-04-10T17:39:09+02:00
+url: /docs/the-ocm-cli/cli-reference/verify/
+date: 2024-04-11T10:41:03+02:00
 draft: false
 images: []
 toc: true
@@ -24,5 +25,5 @@ ocm verify [<options>] <sub command> ...
 
 ##### Sub Commands
 
-* [ocm verify <b>componentversions</b>](/docs/the-ocm-cli/cli-reference/verify/verify_componentversions)	 &mdash; Verify signature of component version
+* [ocm verify <b>componentversions</b>](/docs/the-ocm-cli/cli-reference/verify/componentversions)	 &mdash; Verify signature of component version
 

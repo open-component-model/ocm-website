@@ -1,7 +1,8 @@
 ---
 title: cli-reference
 name: cli-reference
-date: 2024-04-10T17:39:09+02:00
+url: /docs/the-ocm-cli/cli-reference/
+date: 2024-04-11T10:41:03+02:00
 draft: false
 images: []
 toc: true
@@ -355,17 +356,17 @@ by a certificate delivered with the signature.
 
 ##### Sub Commands
 
-* [ocm <b>add</b>](/docs/the-ocm-cli/cli-reference/ocm_add)	 &mdash; Add elements to a component repository or component version
-* [ocm <b>check</b>](/docs/the-ocm-cli/cli-reference/ocm_check)	 &mdash; check components in OCM repository
-* [ocm <b>clean</b>](/docs/the-ocm-cli/cli-reference/ocm_clean)	 &mdash; Cleanup/re-organize elements
-* [ocm <b>create</b>](/docs/the-ocm-cli/cli-reference/ocm_create)	 &mdash; Create transport or component archive
-* [ocm <b>describe</b>](/docs/the-ocm-cli/cli-reference/ocm_describe)	 &mdash; Describe various elements by using appropriate sub commands.
-* [ocm <b>download</b>](/docs/the-ocm-cli/cli-reference/ocm_download)	 &mdash; Download oci artifacts, resources or complete components
-* [ocm <b>get</b>](/docs/the-ocm-cli/cli-reference/ocm_get)	 &mdash; Get information about artifacts and components
-* [ocm <b>show</b>](/docs/the-ocm-cli/cli-reference/ocm_show)	 &mdash; Show tags or versions
-* [ocm <b>sign</b>](/docs/the-ocm-cli/cli-reference/ocm_sign)	 &mdash; Sign components or hashes
-* [ocm <b>transfer</b>](/docs/the-ocm-cli/cli-reference/ocm_transfer)	 &mdash; Transfer artifacts or components
-* [ocm <b>verify</b>](/docs/the-ocm-cli/cli-reference/ocm_verify)	 &mdash; Verify component version signatures
+* [ocm <b>add</b>](/docs/the-ocm-cli/cli-reference/add)	 &mdash; Add elements to a component repository or component version
+* [ocm <b>check</b>](/docs/the-ocm-cli/cli-reference/check)	 &mdash; check components in OCM repository
+* [ocm <b>clean</b>](/docs/the-ocm-cli/cli-reference/clean)	 &mdash; Cleanup/re-organize elements
+* [ocm <b>create</b>](/docs/the-ocm-cli/cli-reference/create)	 &mdash; Create transport or component archive
+* [ocm <b>describe</b>](/docs/the-ocm-cli/cli-reference/describe)	 &mdash; Describe various elements by using appropriate sub commands.
+* [ocm <b>download</b>](/docs/the-ocm-cli/cli-reference/download)	 &mdash; Download oci artifacts, resources or complete components
+* [ocm <b>get</b>](/docs/the-ocm-cli/cli-reference/get)	 &mdash; Get information about artifacts and components
+* [ocm <b>show</b>](/docs/the-ocm-cli/cli-reference/show)	 &mdash; Show tags or versions
+* [ocm <b>sign</b>](/docs/the-ocm-cli/cli-reference/sign)	 &mdash; Sign components or hashes
+* [ocm <b>transfer</b>](/docs/the-ocm-cli/cli-reference/transfer)	 &mdash; Transfer artifacts or components
+* [ocm <b>verify</b>](/docs/the-ocm-cli/cli-reference/verify)	 &mdash; Verify component version signatures
 
 
 

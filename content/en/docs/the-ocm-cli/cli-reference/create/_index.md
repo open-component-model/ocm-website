@@ -1,7 +1,8 @@
 ---
 title: create
 name: create
-date: 2024-04-10T17:39:09+02:00
+url: /docs/the-ocm-cli/cli-reference/create/
+date: 2024-04-11T10:41:03+02:00
 draft: false
 images: []
 toc: true
@@ -24,7 +25,7 @@ ocm create [<options>] <sub command> ...
 
 ##### Sub Commands
 
-* [ocm create <b>componentarchive</b>](/docs/the-ocm-cli/cli-reference/create/create_componentarchive)	 &mdash; create new component archive
-* [ocm create <b>rsakeypair</b>](/docs/the-ocm-cli/cli-reference/create/create_rsakeypair)	 &mdash; create RSA public key pair
-* [ocm create <b>transportarchive</b>](/docs/the-ocm-cli/cli-reference/create/create_transportarchive)	 &mdash; create new OCI/OCM transport  archive
+* [ocm create <b>componentarchive</b>](/docs/the-ocm-cli/cli-reference/create/componentarchive)	 &mdash; create new component archive
+* [ocm create <b>rsakeypair</b>](/docs/the-ocm-cli/cli-reference/create/rsakeypair)	 &mdash; create RSA public key pair
+* [ocm create <b>transportarchive</b>](/docs/the-ocm-cli/cli-reference/create/transportarchive)	 &mdash; create new OCI/OCM transport  archive
 

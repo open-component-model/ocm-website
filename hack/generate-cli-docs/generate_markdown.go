@@ -18,6 +18,7 @@ import (
 const fmTmpl = `---
 title: %s
 name: %s
+url: %s
 date: %s
 draft: false
 images: []
@@ -72,15 +73,18 @@ func genMarkdownTreeCustom(cmd *cobra.Command, dir, urlPrefix, parentCmd string)
 		now := time.Now().Format(time.RFC3339)
 		cmdName := commandToID(cmd.Name())
 		title := strings.TrimSuffix(cmdName, path.Ext(cmdName))
-		var name string
+		var url, name string
 		if cmdName == "cli-reference" {
+			url = urlPrefix
 			name = title
 		} else if parentCmd == "cli-reference" {
+			url = urlPrefix + strings.ToLower(title) + "/"
 			name = title
 		} else {
+			url = urlPrefix + parentCmd + "/" + strings.ToLower(title) + "/"
 			name = fmt.Sprintf("%s %s", parentCmd, title)
 		}
-		return fmt.Sprintf(fmTmpl, title, name, now)
+		return fmt.Sprintf(fmTmpl, title, name, url, now)
 	}
 
 	if _, err := io.WriteString(f, frontmatter()); err != nil {
@@ -162,18 +166,8 @@ func genMarkdownCustom(cmd *cobra.Command, w io.Writer, linkHandler func(string)
 				subheader = true
 			}
 
-			// exp: ocm sign componentversions
-			command := child.CommandPath()
-			if subheader {
-				// convert to ocm/sign/ocm_componentversions
-				split := strings.Split(command, " ")
-				split[len(split)-1] = fmt.Sprintf("%s_%s", child.Parent().Name(), split[len(split)-1])
-
-				command = strings.Join(split, " ")
-			}
-
 			cname := name + " " + "<b>" + child.Name() + "</b>"
-			buf.WriteString(fmt.Sprintf("* [%s](%s)\t &mdash; %s\n", cname, linkHandler(command), child.Short))
+			buf.WriteString(fmt.Sprintf("* [%s](%s)\t &mdash; %s\n", cname, linkHandler(child.CommandPath()), child.Short))
 		}
 		buf.WriteString("\n")
 
