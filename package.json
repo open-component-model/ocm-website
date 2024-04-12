@@ -1,8 +1,8 @@
 {
-  "name": "ocm-website-v2",
+  "name": "ocm-website",
   "version": "0.0.0",
-  "description": "Doks theme",
-  "author": "Hyas",
+  "description": "OCM website",
+  "author": "open-component-model",
   "license": "MIT",
   "scripts": {
     "dev": "exec-bin node_modules/.bin/hugo/hugo server --bind=0.0.0.0 --disableFastRender --baseURL=http://localhost --noHTTPCache",
