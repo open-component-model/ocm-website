@@ -1,0 +1,14 @@
+// Put your custom SCSS code here
+.container-fw {
+    // max-width: 1200px;
+    max-width: 100%;
+
+    .docs-toc {
+        margin-left: 15rem;
+    }
+}
+
+.navbar {
+    background: #233545;
+    background-color: #233545 !important; // important is added so the dark CSS template doesn't overwrite this value.
+}
