@@ -70,6 +70,6 @@ The core OCM does not make any assumptions about the
 - kinds of technical artifacts (e.g. resources like Docker images, Helm charts, binaries etc. or Git sources)
 - technology how to store and access technical artifacts (e.g. as OCI artifacts in an OCI registry)
 
-OCM is a technology-agnostic specification and allows [implementations](https://github.com/open-component-model/ocm-spec/blob/main/doc/specification/extensionpoints/README.md) to provide support for exactly those technical aspects as an extension of the basic model.
+OCM is a technology-agnostic specification and allows [implementations](https://github.com/open-component-model/ocm-spec/blob/main/doc/04-extensions/README.md) to provide support for exactly those technical aspects as an extension of the basic model.
 The description formalism is even valid and can (at least partly) formally processed,
 if not all specified aspects are covered by an actual implementation.
