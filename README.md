@@ -61,7 +61,7 @@ npm install
 Then run the site:
 
 ```bash
-npm run start
+npm run dev
 ```
 
 Navigate to `http://localhost:1313` to see the site running in your browser. Any updates you make to the site will be reflected in the browser immediately.
