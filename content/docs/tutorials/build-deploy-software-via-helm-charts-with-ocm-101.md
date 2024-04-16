@@ -442,6 +442,7 @@ Create file [`k8s-component-version/01-pod-info-kind.yaml`](https://github.com/o
 
 ```yaml
 #k8s-component-version/01-pod-info-kind.yaml
+apiVersion: delivery.ocm.software/v1alpha1
 kind: ComponentVersion
 metadata:
   name: ocm-hello-world-podinfo
