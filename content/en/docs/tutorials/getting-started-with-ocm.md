@@ -542,12 +542,12 @@ The command [ocm add componentversions](https://github.com/open-component-model/
 directly creates or extends a common transport archive without the need for creating dedicated component archives
 
 Create a yaml configuration file `component-constructor.yaml`, which contains information about the components
-to create and the elements addded to those components
+to create and the elements added to those components
 
 ```yaml
 components:
 - name: github.com/acme.org/helloworld
-  version: "1.0.0"
+  version: 1.0.0
   provider:
     name: acme.org
   resources:
@@ -558,7 +558,7 @@ components:
         path: ./helmchart
     - name: image
       type: ociImage
-      version: "1.0.0"
+      version: 1.10.0
       access:
         type: ociArtifact
         imageReference: gcr.io/google_containers/echoserver:1.10
@@ -575,7 +575,7 @@ processing component-constructor.yaml...
 found 1 component
 adding component github.com/acme.org/helloworld:1.0.0...
   adding resource helmChart: "name"="mychart","version"="<componentversion>"...
-  adding resource ociImage: "name"="image","version"="1.0.0"...
+  adding resource ociImage: "name"="image","version"="1.10"...
 ```
 
 <details><summary>What happened?</summary>
