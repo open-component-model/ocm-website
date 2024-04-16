@@ -44,6 +44,9 @@ func genMarkdownTreeCustom(cmd *cobra.Command, dir, urlPrefix, parentCmd string)
 	} else if cmd.HasAvailableSubCommands() && cmd.HasParent() {
 		basename = "_index.md"
 		dir = path.Join(dir, commandToDir(cmd.CommandPath()))
+	} else if cmd.IsAdditionalHelpTopicCommand() {
+		basename = commandToID(cmd.CommandPath()) + ".md"
+		dir = path.Join(dir, "help")
 	} else if cmd.HasParent() {
 		dir = path.Join(dir, commandToDir(cmd.Parent().CommandPath()))
 		basename = commandToID(cmd.CommandPath()) + ".md"
@@ -79,9 +82,15 @@ func genMarkdownTreeCustom(cmd *cobra.Command, dir, urlPrefix, parentCmd string)
 			name = title
 		} else if parentCmd == "cli-reference" {
 			url = urlPrefix + strings.ToLower(title) + "/"
+			if cmd.IsAdditionalHelpTopicCommand() {
+				url = urlPrefix + "help/" + strings.ToLower(title) + "/"
+			}
 			name = title
 		} else {
 			url = urlPrefix + parentCmd + "/" + strings.ToLower(title) + "/"
+			if cmd.IsAdditionalHelpTopicCommand() {
+				url = urlPrefix + "help/" + strings.ToLower(title) + "/"
+			}
 			name = fmt.Sprintf("%s %s", parentCmd, title)
 		}
 		return fmt.Sprintf(fmTmpl, title, name, url, now)

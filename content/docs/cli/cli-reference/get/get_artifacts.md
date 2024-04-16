@@ -2,7 +2,7 @@
 title: artifacts
 name: get artifacts
 url: /docs/cli/cli-reference/get/artifacts/
-date: 2024-04-11T12:48:04+02:00
+date: 2024-04-16T09:35:25+02:00
 draft: false
 images: []
 toc: true

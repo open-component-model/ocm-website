@@ -2,7 +2,7 @@
 title: cache
 name: clean cache
 url: /docs/cli/cli-reference/clean/cache/
-date: 2024-04-11T12:48:04+02:00
+date: 2024-04-16T09:35:25+02:00
 draft: false
 images: []
 toc: true

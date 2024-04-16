@@ -1,8 +1,8 @@
 ---
 title: ocm-labels
 name: ocm-labels
-url: /docs/cli/cli-reference/ocm-labels/
-date: 2024-04-11T12:48:04+02:00
+url: /docs/cli/cli-reference/help/ocm-labels/
+date: 2024-04-16T09:35:25+02:00
 draft: false
 images: []
 toc: true

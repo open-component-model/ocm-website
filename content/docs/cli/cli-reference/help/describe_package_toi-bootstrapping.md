@@ -1,8 +1,8 @@
 ---
 title: toi-bootstrapping
-name: toi-bootstrapping
-url: /docs/cli/cli-reference/toi-bootstrapping/
-date: 2024-04-11T12:48:04+02:00
+name: describe_package toi-bootstrapping
+url: /docs/cli/cli-reference/help/toi-bootstrapping/
+date: 2024-04-16T09:35:25+02:00
 draft: false
 images: []
 toc: true
@@ -461,4 +461,6 @@ additionalResources:
 
 ### See Also
 
+* [ocm describe package](/docs/cli/cli-reference/describe/package)	 &mdash; describe TOI package
+* [ocm describe](/docs/cli/cli-reference/describe)	 &mdash; Describe various elements by using appropriate sub commands.
 
