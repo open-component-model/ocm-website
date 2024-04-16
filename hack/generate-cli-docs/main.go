@@ -5,7 +5,9 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"path/filepath"
 	"slices"
+	"strings"
 
 	"github.com/open-component-model/ocm/cmds/ocm/app"
 	"github.com/open-component-model/ocm/pkg/contexts/clictx"
@@ -30,8 +32,8 @@ var commandDenyList = []string{
 func main() {
 	var outputDir, urlPrefix string
 
-	flag.StringVar(&outputDir, "output-dir", "./content/en/docs/cli/cli-reference", "output directory for generated docs")
-	flag.StringVar(&urlPrefix, "url-prefix", "/docs/cli/cli-reference/", "prefix for cli docs urls")
+	flag.StringVar(&outputDir, "output-dir", "./content/docs/cli/cli-reference/ocm", "output directory for generated docs")
+	flag.StringVar(&urlPrefix, "url-prefix", "/docs/cli/cli-reference/ocm", "prefix for cli docs urls")
 
 	flag.Parse()
 
@@ -45,6 +47,10 @@ func main() {
 }
 
 func run(dir, urlPrefix string) error {
+	if !strings.HasSuffix(urlPrefix, "/") {
+		urlPrefix += "/"
+	}
+
 	log.Println("Generating docs for OCM CLI")
 
 	if err := os.RemoveAll(dir); err != nil {
@@ -64,8 +70,12 @@ func run(dir, urlPrefix string) error {
 		}
 	}
 
-	if err := genMarkdownTreeCustom(cmd, dir, urlPrefix, "cli-reference"); err != nil {
+	if err := genMarkdownTreeCustom(cmd, dir, urlPrefix, "ocm"); err != nil {
 		return fmt.Errorf("error generating markdown: %w", err)
+	}
+
+	if err := genIndexForRootHelpTopics(filepath.Join(dir, "ocm"), urlPrefix); err != nil {
+		return fmt.Errorf("error generating ocm index: %w", err)
 	}
 
 	log.Printf("Docs successfully written to %s\n", dir)

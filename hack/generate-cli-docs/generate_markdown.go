@@ -23,6 +23,8 @@ date: %s
 draft: false
 images: []
 toc: true
+sidebar:
+  collapsed: true
 ---
 `
 
@@ -44,10 +46,20 @@ func genMarkdownTreeCustom(cmd *cobra.Command, dir, urlPrefix, parentCmd string)
 	} else if cmd.HasAvailableSubCommands() && cmd.HasParent() {
 		basename = "_index.md"
 		dir = path.Join(dir, commandToDir(cmd.CommandPath()))
-	} else if cmd.HasParent() {
+	} else if cmd.HasParent() && !cmd.IsAdditionalHelpTopicCommand() {
 		dir = path.Join(dir, commandToDir(cmd.Parent().CommandPath()))
 		basename = commandToID(cmd.CommandPath()) + ".md"
-	} else {
+	} else if cmd.HasParent() && cmd.IsAdditionalHelpTopicCommand() {
+		// Put the additional topic into where the command is sitting and not where
+		// subcommand would be.
+		// ocm/add instead of ocm/add/componentversion
+		parent := cmd.Parent()
+		if parent.HasParent() {
+			parent = parent.Parent()
+		}
+		parentCmd = parent.Name()
+
+		dir = path.Join(dir, commandToDir(parent.CommandPath()))
 		basename = commandToID(cmd.CommandPath()) + ".md"
 	}
 
@@ -65,7 +77,7 @@ func genMarkdownTreeCustom(cmd *cobra.Command, dir, urlPrefix, parentCmd string)
 
 	linkHandler := func(path string) string {
 		link := strings.Replace(path, " ", "/", -1)
-		link = strings.Replace(link, "ocm", "cli/cli-reference", 1)
+		link = strings.Replace(link, "ocm", "cli/cli-reference/ocm", 1)
 		return "/docs/" + link
 	}
 
@@ -76,7 +88,8 @@ func genMarkdownTreeCustom(cmd *cobra.Command, dir, urlPrefix, parentCmd string)
 		var url, name string
 		if cmdName == "cli-reference" {
 			url = urlPrefix
-			name = title
+			name = "ocm"
+			title = "ocm"
 		} else if parentCmd == "cli-reference" {
 			url = urlPrefix + strings.ToLower(title) + "/"
 			name = title
