@@ -1,5 +1,5 @@
 ---
-title : "OCM Tutorials / Guides"
+title : "OCM Tutorials"
 description: ""
 weight: 60
 lead: ""
