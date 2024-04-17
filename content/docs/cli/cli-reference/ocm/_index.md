@@ -9,6 +9,41 @@ toc: true
 sidebar:
   collapsed: true
 ---
+## Command
+
+```
+ocm — Open Component Model Command Line Client
+
+Synopsis:
+  ocm [<options>] <sub-command> ...
+
+Available Commands:
+  add                  Add elements to a component repository or component version
+  bootstrap            bootstrap components
+  cache                Cache related commands
+  check                check components in OCM repository
+  clean                Cleanup/re-organize elements
+  completion           Generate the autocompletion script for the specified shell
+  controller           Commands acting on the ocm-controller
+  create               Create transport or component archive
+  credentials          Commands acting on credentials
+  describe             Describe various elements by using appropriate sub commands.
+  download             Download oci artifacts, resources or complete components
+  execute              Execute an element.
+  get                  Get information about artifacts and components
+  hash                 Hash and normalization operations
+  help                 Help about any command
+  install              Install elements.
+  oci                  Dedicated command flavors for the OCI layer
+  ocm                  Dedicated command flavors for the Open Component Model
+  show                 Show tags or versions
+  sign                 Sign components or hashes
+  toi                  Dedicated command flavors for the TOI layer
+  transfer             Transfer artifacts or components
+  verify               Verify component version signatures
+  version              displays the version
+```
+
 ### Options
 
 ```
@@ -385,4 +420,3 @@ by a certificate delivered with the signature.
 * [ocm <b>ocm-references</b>](/docs/cli/cli-reference/ocm/ocm-references)	 &mdash; notation for OCM references
 * [ocm <b>ocm-uploadhandlers</b>](/docs/cli/cli-reference/ocm/ocm-uploadhandlers)	 &mdash; List of all available upload handlers
 * [ocm <b>toi-bootstrapping</b>](/docs/cli/cli-reference/ocm/toi-bootstrapping)	 &mdash; Tiny OCM Installer based on component versions
-

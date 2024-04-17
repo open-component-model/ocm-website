@@ -7,7 +7,7 @@ weight: 1
 toc: true
 ---
 
-# What is the Open Component Model?
+## What is the Open Component Model?
 
  OCM is an open standard that's streamlining software lifecycle processes, like delivery and deployment as well as compliance.
  It's a reliable tool for secure, adaptable, and efficient software delivery.
@@ -22,13 +22,13 @@ toc: true
 
 <div style="display: grid; grid-template-columns: repeat(3, 1fr); grid-gap: 20px; margin-bottom: 40px;">
   <div style="text-align: center;">
-    <img src="../../../static/images/describe-test.png" alt="Describe" style="max-width: 120px;">
+    <img src="{{ .Site.BaseURL }}static/images/describe-test.png" alt="Describe" style="max-width: 120px;">
   </div>
   <div style="text-align: center;">
-    <img src="../../../static/images/transport-test.png" alt="Transport" style="max-width: 180px;">
+    <img src="{{ .Site.BaseURL }}static/images/transport-test.png" alt="Transport" style="max-width: 180px;">
   </div>
   <div style="text-align: center;">
-    <img src="../../../static/images/deploy-test.png" alt="Deploy" style="max-width: 120px;">
+    <img src="{{ .Site.BaseURL }}static/images/deploy-test.png" alt="Deploy" style="max-width: 120px;">
   </div>
   <div style="text-align: center;">
     <h3 style="font-size: 20px; font-weight: bold; margin: 0;">Describe</h3>
@@ -41,7 +41,7 @@ toc: true
   </div>
 </div>
 
-### OCM - Your practical approach to the future of software delivery
+**OCM - Your practical approach to the future of software delivery**
 
 &nbsp;&nbsp;&nbsp;&nbsp;
 

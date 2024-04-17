@@ -1,5 +1,5 @@
 ---
-title: "Installing OCM CLI"
+title: "Installing the OCM CLI"
 description: ""
 lead: ""
 date: 2022-08-12T10:37:58+01:00
@@ -10,9 +10,11 @@ weight: 10
 toc: true
 ---
 
-## Homebrew
+## Using Binaries
 
-To install the OCM CLI you can download binaries for major platforms from the GitHub [releases page](https://github.com/open-component-model/ocm/releases).
+To install the OCM CLI you can download binaries for the major platforms from the GitHub [releases page](https://github.com/open-component-model/ocm/releases).
+
+## Homebrew
 
 You can also install via [homebrew](https://brew.sh/) for macOS and Linux:
 
@@ -52,5 +54,3 @@ Verify the installation:
 ```bash
 ocm version
 ```
-
-

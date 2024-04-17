@@ -1,5 +1,5 @@
 ---
-title : "The OCM Controller"
+title : "OCM Controller"
 description: ""
 weight: 20
 lead: ""
