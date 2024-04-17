@@ -6,7 +6,7 @@ date: 2023-03-13T09:38:41+01:00
 lastmod: 2023-03-13T09:38:41+01:00
 draft: false
 images: []
-weight: 61
+weight: 3
 toc: true
 ---
 <!-- omit in toc -->
@@ -18,15 +18,15 @@ You will learn how to create a component version, display and examine the compon
 
 To follow the steps described in this section, you will need:
 
-### Install the OCM Command Line Interface (CLI)
+#### Install the OCM Command Line Interface (CLI)
 
 The CLI is used to interact with component versions and registries. Install it like described [here](../cli/installation.md).
 
-### Access to an OCM repository
+#### Access to an OCM repository
 
 This can be any OCI registry for which you have write permission (e.g. GitHub Packages). An OCM repository based on an OCI registry is identified by a leading OCI repository prefix. For example: `ghcr.io/<YOUR-ORG>/ocm`.
 
-### Credentials for the CLI to access the OCM repository
+#### Credentials for the CLI to access the OCM repository
 
 The easiest way to do this is to reuse your Docker configuration `json` file.
 
