@@ -10,8 +10,9 @@ images: []
 toc: true
 sidebar:
   collapsed: true
+toc: true
 ---
 
-![](roadmap_Q2-2024.png)
+![roadmap](/images/roadmap_Q2-2024.png)
 
 The roadmap is based on issues and PRs from the [OCM project repository](https://github.com/open-component-model/ocm-project).

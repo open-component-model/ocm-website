@@ -32,8 +32,8 @@ var commandDenyList = []string{
 func main() {
 	var outputDir, urlPrefix string
 
-	flag.StringVar(&outputDir, "output-dir", "./content/docs/cli/cli-reference/ocm", "output directory for generated docs")
-	flag.StringVar(&urlPrefix, "url-prefix", "/docs/cli/cli-reference/ocm", "prefix for cli docs urls")
+	flag.StringVar(&outputDir, "output-dir", "./content/docs/cli/cli-reference", "output directory for generated docs")
+	flag.StringVar(&urlPrefix, "url-prefix", "/docs/cli/cli-reference", "prefix for cli docs urls")
 
 	flag.Parse()
 
@@ -70,11 +70,11 @@ func run(dir, urlPrefix string) error {
 		}
 	}
 
-	if err := genMarkdownTreeCustom(cmd, dir, urlPrefix, "ocm"); err != nil {
+	if err := genMarkdownTreeCustom(cmd, dir, urlPrefix, "cli-reference"); err != nil {
 		return fmt.Errorf("error generating markdown: %w", err)
 	}
 
-	if err := genIndexForRootHelpTopics(filepath.Join(dir, "ocm"), urlPrefix); err != nil {
+	if err := genIndexForRootHelpTopics(filepath.Join(dir, "help"), urlPrefix); err != nil {
 		return fmt.Errorf("error generating ocm index: %w", err)
 	}
 

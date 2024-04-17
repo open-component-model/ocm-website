@@ -4,6 +4,7 @@ name: ocm specification
 date: 2022-09-15 20:55:05.533505515 +0100 IST m=+0.000179772
 draft: false
 weight: 4
+toc: true
 ---
 
 ## Where to find the specification
