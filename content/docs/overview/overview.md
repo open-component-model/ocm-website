@@ -22,13 +22,13 @@ toc: true
 
 <div style="display: grid; grid-template-columns: repeat(3, 1fr); grid-gap: 20px; margin-bottom: 40px;">
   <div style="text-align: center;">
-    <img src="{{ .Site.BaseURL }}static/images/describe-test.png" alt="Describe" style="max-width: 120px;">
+    <img src="{{ .Site.BaseURL }}images/describe-test.png" alt="Describe" style="max-width: 120px;">
   </div>
   <div style="text-align: center;">
-    <img src="{{ .Site.BaseURL }}static/images/transport-test.png" alt="Transport" style="max-width: 180px;">
+    <img src="../../../static/images/transport-test.png" alt="Transport" style="max-width: 180px;">
   </div>
   <div style="text-align: center;">
-    <img src="{{ .Site.BaseURL }}static/images/deploy-test.png" alt="Deploy" style="max-width: 120px;">
+    <img src="../../../static/images/deploy-test.png" alt="Deploy" style="max-width: 120px;">
   </div>
   <div style="text-align: center;">
     <h3 style="font-size: 20px; font-weight: bold; margin: 0;">Describe</h3>
