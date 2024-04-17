@@ -9,6 +9,8 @@ weight: 3
 toc: true
 ---
 
+## Aspects of operating software products
+
 Operating software products, both for cloud and on-premises, covers many aspects:
 
 - How, when and where are the technical artifacts created?
@@ -21,11 +23,15 @@ Operating software products, both for cloud and on-premises, covers many aspects
 - Which other software installations are required and how are they deployed and accessed?
 - etc.
 
+## Problem Domain
+
 The overall problem domain has a complexity that makes it challenging to be solved as a whole.
 However, the problem domain can be divided into two disjoint phases:
 
 - production of technical artifacts
 - deployment and lifecycle management of technical artifacts
+
+## How OCM helps
 
 The produced artifacts must be stored somewhere to access and collect them for the deployment.
 OCM defines a standard to describe which technical artifacts belong to a software product and how to

@@ -12,47 +12,23 @@ toc: true
 <!-- omit in toc -->
 
 This chapter walks you through some basic steps to get started with OCM concepts and the OCM CLI.
-
-- [Prerequisites](#prerequisites)
-- [Create a component version](#create-a-component-version)
-  - [Create a component archive](#create-a-component-archive)
-  - [Add a local resource](#add-a-local-resource)
-  - [Add an image reference](#add-an-image-reference)
-  - [Add an image resource](#add-an-image-resource)
-  - [Using a resources file](#using-a-resources-file)
-  - [Uploading component versions](#uploading-component-versions)
-  - [Bundle composed components](#bundle-composed-components)
-  - [All in One](#all-in-one)
-- [Display and Examine component versions](#display-and-examine-component-versions)
-  - [List component versions](#list-component-versions)
-  - [List the resources of a component version](#list-the-resources-of-a-component-version)
-  - [Download the resources of a component version](#download-the-resources-of-a-component-version)
-    - [Download with download handlers](#download-with-download-handlers)
-    - [Download an image](#download-an-image)
-    - [Download an executable](#download-an-executable)
-    - [Download a full component version](#download-a-full-component-version)
-  - [Download OCI Artifacts](#download-oci-artifacts)
-- [Transport OCM component versions](#transport-ocm-component-versions)
-- [Sign component versions](#sign-component-versions)
-  - [Signing with certificates](#signing-with-certificates)
-  - [Signature Verification](#signature-verification)
+You will learn how to create a component version, display and examine the component and how to transport and sign it.
 
 ## Prerequisites
 
 To follow the steps described in this section, you will need:
 
-- The OCM Command Line Interface (CLI) to interact with component versions and registries. Download it from the [releases](https://github.com/open-component-model/ocm/releases) or with the following command:
+### Install the OCM Command Line Interface (CLI)
 
-  ```shell
-  #generic: use a bash installer
-  curl -s https://ocm.software/install.sh | sudo bash
+The CLI is used to interact with component versions and registries. Install it like described [here](../cli/installation.md).
 
-  #macos: use homebrew
-  brew install open-component-model/tap/ocm
-  ```
+### Access to an OCM repository
 
-- Access to an OCM repository. This can be any OCI registry for which you have write permission (e.g. GitHub Packages). An OCM repository based on an OCI registry is identified by a leading OCI repository prefix. For example: `ghcr.io/<YOUR-ORG>/ocm`.
-- Credentials for the CLI to access the OCM repository. The easiest way to do this is to reuse the Docker configuration.
+This can be any OCI registry for which you have write permission (e.g. GitHub Packages). An OCM repository based on an OCI registry is identified by a leading OCI repository prefix. For example: `ghcr.io/<YOUR-ORG>/ocm`.
+
+### Credentials for the CLI to access the OCM repository
+
+The easiest way to do this is to reuse your Docker configuration `json` file.
 
   To do this, create a file named `.ocmconfig` in your home directory with the following content:
 
@@ -63,6 +39,7 @@ To follow the steps described in this section, you will need:
     repositories:
       - repository:
           type: DockerConfig/v1
+          # The path to the Docker configuration file
           dockerConfigFile: "~/.docker/config.json"
           propagateConsumerIdentity: true
   - type: attributes.config.ocm.software
