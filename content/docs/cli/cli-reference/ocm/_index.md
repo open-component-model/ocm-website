@@ -1,6 +1,6 @@
 ---
-title: ocm subcommands
-name: ocm subcommands
+title: ocm
+name: ocm
 date: 2024-04-16T15:24:23+02:00
 draft: false
 images: []
