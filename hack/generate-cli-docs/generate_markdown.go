@@ -41,7 +41,11 @@ func genMarkdownTreeCustom(cmd *cobra.Command, dir, urlPrefix, parentCmd string)
 	}
 
 	var basename string
-	if cmd.HasAvailableSubCommands() && !cmd.HasParent() {
+
+	if cmd.IsAdditionalHelpTopicCommand() {
+		basename = commandToID(cmd.CommandPath()) + ".md"
+		dir = path.Join(dir, "help")
+	} else if cmd.HasAvailableSubCommands() && !cmd.HasParent() {
 		basename = "_index.md"
 	} else if cmd.HasAvailableSubCommands() && cmd.HasParent() {
 		basename = "_index.md"
@@ -77,7 +81,7 @@ func genMarkdownTreeCustom(cmd *cobra.Command, dir, urlPrefix, parentCmd string)
 
 	linkHandler := func(path string) string {
 		link := strings.Replace(path, " ", "/", -1)
-		link = strings.Replace(link, "ocm", "cli/cli-reference/ocm", 1)
+		link = strings.Replace(link, "ocm", "cli/cli-reference", 1)
 		return "/docs/" + link
 	}
 
@@ -86,10 +90,12 @@ func genMarkdownTreeCustom(cmd *cobra.Command, dir, urlPrefix, parentCmd string)
 		cmdName := commandToID(cmd.Name())
 		title := strings.TrimSuffix(cmdName, path.Ext(cmdName))
 		var url, name string
-		if cmdName == "cli-reference" {
+		if cmd.IsAdditionalHelpTopicCommand() {
+			url = urlPrefix + "help/" + strings.ToLower(title) + "/"
+			name = title
+		} else if cmdName == "cli-reference" {
 			url = urlPrefix
-			name = "ocm"
-			title = "ocm"
+			name = title
 		} else if parentCmd == "cli-reference" {
 			url = urlPrefix + strings.ToLower(title) + "/"
 			name = title
@@ -194,7 +200,7 @@ func genMarkdownCustom(cmd *cobra.Command, w io.Writer, linkHandler func(string)
 				subheader = true
 			}
 			cname := name + " " + "<b>" + child.Name() + "</b>"
-			buf.WriteString(fmt.Sprintf("* [%s](%s)\t &mdash; %s\n", cname, linkHandler(child.CommandPath()), child.Short))
+			buf.WriteString(fmt.Sprintf("* [%s](%s)\t &mdash; %s\n", cname, "/docs/cli/cli-reference/help/"+child.Name(), child.Short))
 		}
 		if subheader {
 			buf.WriteString("\n")

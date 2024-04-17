@@ -35,7 +35,7 @@ func genIndexForRootHelpTopics(dir string, urlBase string) (err error) {
 	}()
 	now := time.Now().Format(time.RFC3339)
 
-	f.WriteString(fmt.Sprintf(fmTmpl, "ocm", "ocm", urlBase+"ocm", now))
+	f.WriteString(fmt.Sprintf(fmTmpl, "help", "help", urlBase+"help", now))
 	f.WriteString("### Additional Topics\n")
 
 	for _, topic := range topics {
