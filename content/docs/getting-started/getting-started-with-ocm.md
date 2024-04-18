@@ -68,7 +68,7 @@ configurations:
               password: <YOUR-PASSWORD>
 ```
 
-More information on the topic can be seen using the OCM CLI command `ocm credential-handling`.
+More information on the topic can be seen using the OCM CLI help topic command `ocm credential-handling`.
 
 ## Create a component version
 
