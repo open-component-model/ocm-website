@@ -1,7 +1,7 @@
 ---
 title: cli
 name: download cli
-url: /docs/cli/cli-reference/download/cli/
+url: /docs/cli-reference/download/cli/
 date: 2024-04-17T18:02:57+02:00
 draft: false
 images: []
@@ -96,5 +96,5 @@ option. Otherwise the resource as returned by the access method is stored.
 
 ### See Also
 
-* [ocm download](/docs/cli/cli-reference/download)	 &mdash; Download oci artifacts, resources or complete components
+* [ocm download](/docs/cli-reference/download)	 &mdash; Download oci artifacts, resources or complete components
 

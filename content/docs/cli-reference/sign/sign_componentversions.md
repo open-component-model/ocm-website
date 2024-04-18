@@ -1,7 +1,7 @@
 ---
 title: componentversions
 name: sign componentversions
-url: /docs/cli/cli-reference/sign/componentversions/
+url: /docs/cli-reference/sign/componentversions/
 date: 2024-04-17T18:02:57+02:00
 draft: false
 images: []
@@ -146,5 +146,5 @@ $ ocm sign componentversion --signature mandelsoft --private-key=mandelsoft.key 
 
 ### See Also
 
-* [ocm sign](/docs/cli/cli-reference/sign)	 &mdash; Sign components or hashes
+* [ocm sign](/docs/cli-reference/sign)	 &mdash; Sign components or hashes
 

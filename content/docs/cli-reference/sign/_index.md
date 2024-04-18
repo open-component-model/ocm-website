@@ -1,7 +1,7 @@
 ---
 title: sign
 name: sign
-url: /docs/cli/cli-reference/sign/
+url: /docs/cli-reference/sign/
 date: 2024-04-17T18:02:57+02:00
 draft: false
 images: []
@@ -27,6 +27,6 @@ ocm sign [<options>] <sub command> ...
 
 ##### Sub Commands
 
-* [ocm sign <b>componentversions</b>](/docs/cli/cli-reference/sign/componentversions)	 &mdash; Sign component version
-* [ocm sign <b>hash</b>](/docs/cli/cli-reference/sign/hash)	 &mdash; sign hash
+* [ocm sign <b>componentversions</b>](/docs/cli-reference/sign/componentversions)	 &mdash; Sign component version
+* [ocm sign <b>hash</b>](/docs/cli-reference/sign/hash)	 &mdash; sign hash
 

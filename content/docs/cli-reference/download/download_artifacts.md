@@ -1,7 +1,7 @@
 ---
 title: artifacts
 name: download artifacts
-url: /docs/cli/cli-reference/download/artifacts/
+url: /docs/cli-reference/download/artifacts/
 date: 2024-04-17T18:02:57+02:00
 draft: false
 images: []
@@ -87,5 +87,5 @@ The default format is <code>directory</code>.
 
 ### See Also
 
-* [ocm download](/docs/cli/cli-reference/download)	 &mdash; Download oci artifacts, resources or complete components
+* [ocm download](/docs/cli-reference/download)	 &mdash; Download oci artifacts, resources or complete components
 

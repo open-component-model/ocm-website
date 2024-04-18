@@ -1,7 +1,7 @@
 ---
 title: credential-handling
 name: credential-handling
-url: /docs/cli/cli-reference/help/credential-handling/
+url: /docs/cli-reference/help/credential-handling/
 date: 2024-04-17T18:02:57+02:00
 draft: false
 images: []

@@ -1,7 +1,7 @@
 ---
 title: ocm-references
 name: ocm-references
-url: /docs/cli/cli-reference/help/ocm-references/
+url: /docs/cli-reference/help/ocm-references/
 date: 2024-04-17T18:02:57+02:00
 draft: false
 images: []
