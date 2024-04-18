@@ -11,41 +11,18 @@ toc: true
 
 ## What is the Open Component Model?
 
- OCM is an open standard that's streamlining software lifecycle processes, like delivery and deployment as well as compliance.
- It's a reliable tool for secure, adaptable, and efficient software delivery.
+OCM is an open standard for describing software artifacts and lifecycle metadata. It is a technology-agnostic and machine-readable format and focuses on software artifacts that need to be delivered securely across boundaries. At the same time, it maintains integrity and provenance along the complete supply chain.
 
-- **Describe:** Define artefacts of software products in code. Sign them for uncompromised integrity.
-- **Transport:** Unleash flexibility. From public cloud to on-prem or air-gapped, OCM ensures secure transport across boundaries.
-- **Deploy:** Experience seamless automation. With built-in Flux integration, OCM makes GitOps deployment a breeze.
-- **Beyond SBoM:** OCM is more than just another SBOM. It focuses on the parts necessary for delivery and deployment, introducing a new perspective on software delivery. We call it SBoD, Service Bill of Delivery.
+With the unique identifier of OCM components acting as correlation ID, it enables the alignment of different processes and tools across all stages of the software lifecycle.
 
-**OCM - Your practical approach to the future of software delivery**
+Although OCM may seem similar to both package management tools and SBOM, it is actually neither. An SBOM describes the constituent parts of a software product required during the development process. In contrast, OCM describes those parts necessary for delivery and deployment.
 
-&nbsp;&nbsp;
+We think of this as a **Software Bill of Delivery (SBOD)**.
 
-<div style="display: grid; grid-template-columns: repeat(3, 1fr); grid-gap: 20px; margin-bottom: 40px;">
-  <div style="text-align: center;">
-    <img src="/images/describe-test.png" alt="Describe" style="max-width: 120px;">
-  </div>
-  <div style="text-align: center;">
-    <img src="/images/transport-test.png" alt="Transport" style="max-width: 180px;">
-  </div>
-  <div style="text-align: center;">
-    <img src="/images/deploy-test.png" alt="Deploy" style="max-width: 120px;">
-  </div>
-  <div style="text-align: center;">
-    <h3 style="font-size: 20px; font-weight: bold; margin: 0;">Describe</h3>
-  </div>
-  <div style="text-align: center;">
-    <h3 style="font-size: 20px; font-weight: bold; margin: 0;">Transport</h3>
-  </div>
-  <div style="text-align: center;">
-    <h3 style="font-size: 20px; font-weight: bold; margin: 0;">Deploy</h3>
-  </div>
-</div>
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;
+- **Describe** resources and source repositories of a software product in code. Sign them for uncompromised integrity.
+- **Transport** content to any environment, be it public cloud, on-prem, or air-gapped. OCM ensures secure transport across boundaries.
+- Leverage built-in Flux integration to seamlessly **automate the deployment** of components via GitOps.
+- OCM is more than just another SBOM. It focuses on the parts necessary for delivery and deployment, introducing a new perspective on software delivery. It's an **SBoD, Service Bill of Delivery**.
 
 ## Why use OCM?
 
