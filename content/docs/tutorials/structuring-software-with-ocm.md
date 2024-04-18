@@ -1,5 +1,5 @@
 ---
-title: "Structuring Software with OCM"
+title: "Structuring Software Products with OCM"
 description: ""
 lead: ""
 date: 2022-08-12T10:36:48+01:00

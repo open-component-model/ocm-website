@@ -23,7 +23,6 @@ This chapter contains guidelines for common scenarios how to work with the Open 
 - [Self-contained transport archives](#self-contained-transport-archives)
 - [CICD integration](#cicd-integration)
 
-
 ## Separate between Build and Publish
 
 Typical automated builds have access to the complete internet ecosystem. This involves
@@ -31,6 +30,7 @@ downloading of content required for a build (e.g. `go mod tidy`), but also the u
 of build results to repositories (e.g. OCI image registries).
 
 For enterprise build this approach has several disadvantages:
+
 - there is no control what kind of artifacts are downloaded from the internet.
 - there is no guarantee that these artifacts are still available tomorrow, or they might
   be temporarily not accessible.
@@ -69,6 +69,7 @@ its build system certificate to enable followup-processes to verify that involve
 versions are provided by accepted and well-known processes.
 
 ## Building multi-arch images
+
 At the time of writing this guide Docker is not able to build multi-architecture (multi-arch)
 images natively. Instead, the `buildx` plugin is used. However, this implies building and pushing
 images in one step to a remote container registry as the local docker image store does not

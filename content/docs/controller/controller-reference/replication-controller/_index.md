@@ -8,6 +8,8 @@ draft: false
 images: []
 type: docs
 weight: 28
+sidebar:
+  collapsed: true
 ---
 
 <h1>OCM Controller API reference v1alpha1</h1>

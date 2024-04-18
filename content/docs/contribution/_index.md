@@ -1,5 +1,5 @@
 ---
-title : "Contribute to OCM"
+title : "Contribute"
 description: "Contribute to OCM."
 weight: 120
 lead: ""
