@@ -1,7 +1,18 @@
 [[main]]
-  name = "Docs"
-  url = "/docs/overview/overview"
+  name = "Project"
+  url = "/docs/overview/about"
   weight = 10
+
+[[main]]
+  name = "Spec"
+  weight = 20
+  identifier = "specification"
+  url = "/docs/overview/specification"
+
+[[main]]
+  name = "Community"
+  url = "/docs/support/community"
+  weight = 30
 
 [[social]]
   name = "GitHub"
