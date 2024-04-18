@@ -1,29 +1,22 @@
 ---
-title : "Security"
-description: ""
+title: "Security Guideline"
+description: "Security Guideline"
 lead: ""
-date: 2020-10-06T08:48:23+00:00
-lastmod: 2020-10-06T08:48:23+00:00
+date: 2022-08-12T10:38:22+01:00
+lastmod: 2022-08-12T10:38:22+01:00
 draft: false
 images: []
-menu:
-    project:
-        parent: ""
+weight: 82
+toc: true
 ---
 
-## OCM Security
-This document defines security reporting, handling and disclosure information for the Open Component Model project.
+## Report a Vulnerability
 
-## Security Process
-
-### Report a Vulnerability
-
-
-Please do not report security vulnerabilities through public GitHub issues.
+{{<callout context="note">}}Please do not report security vulnerabilities through public GitHub issues!{{</callout>}}
 
 Instead, please report them via the SAP Trust Center at [https://www.sap.com/about/trust-center/security/incident-management.html](https://www.sap.com/about/trust-center/security/incident-management.html).
 
-If you prefer to submit via email, please send an email to secure@sap.com. If possible, encrypt your message with our PGP key; please download it from the SAP Trust Center.
+If you prefer to submit via email, please send an email to secure@sap.com. If possible, encrypt your message with the SAP PGP key; please download it from the SAP Trust Center.
 
 Please include the requested information listed below (as much as you can provide) to help us better understand the nature and scope of the possible issue:
 
@@ -40,7 +33,7 @@ This information will help us triage your report more quickly
 
 Further details may be found here: [https://github.com/open-component-model/ocm/security/policy](https://github.com/open-component-model/ocm/security/policy)
 
-### Advisories
+## Advisories
 
 Advisories will be published directly on the affected repositories, e.g:
 

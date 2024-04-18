@@ -8,4 +8,6 @@ draft: false
 images: []
 type: docs
 weight: 23
+sidebar:
+  collapsed: true
 ---
