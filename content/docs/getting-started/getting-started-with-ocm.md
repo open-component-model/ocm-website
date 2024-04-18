@@ -68,6 +68,8 @@ configurations:
               password: <YOUR-PASSWORD>
 ```
 
+More information on the topic can be seen using the OCM CLI command `ocm credential-handling`.
+
 ## Create a component version
 
 The first step when creating a new component version is to create a component archive. A component archive contains references, resources and sources. The `ocm` CLI tool can help with this.
