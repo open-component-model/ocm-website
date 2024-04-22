@@ -1,6 +1,6 @@
 ---
-title: "OCM Controller Overview"
-description: "OCM Controller Overview"
+title: "Architecture"
+description: "OCM Controller Architecture"
 date: 2023-10-20T11:24:41+01:00
 lastmod: 2023-10-20T11:24:41+01:00
 draft: false
@@ -8,8 +8,6 @@ images: []
 weight: 41
 toc: true
 ---
-
-## Architecture
 
 This document explains the architecture of the OCM Kubernetes Controller Set (KCS). The purpose of the KCS is to enable the automated deployment of components using Kubernetes and Flux.
 
