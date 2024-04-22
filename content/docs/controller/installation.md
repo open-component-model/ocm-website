@@ -1,5 +1,5 @@
 ---
-title: "OCM Controller Installation"
+title: "Installation"
 description: "OCM Controller Installation"
 date: 2023-06-27T16:16:48+01:00
 lastmod: 2023-06-27T16:16:48+01:00
