@@ -286,7 +286,7 @@ Refers to an npm package located in a Javascript package registry.
 
 ```yaml
   - name: prime-npm
-    type: helmChart
+    type: ocm/npmPackage
     version: ${VERSION}
     access:
       type: npm
