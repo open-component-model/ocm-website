@@ -13,7 +13,7 @@ toc: true
 ## Introduction
 
 Let's illustrate a very simple "Hello World" example application and show how to leverage OCM to build an application component containing a Helm Chart and an OCI Image and deploy it to a local `kind` k8s cluster.
-The topics `ocm` [`localization`](https://ocm.software/docs/guides/complex-component-structure-deployment/#localization) and [`configuration`](https://ocm.software/docs/guides/complex-component-structure-deployment/#configuration) are NOT part of this very simple example and is part of other deep-dive guides.
+The topics `ocm` [`localization`](https://ocm.software/docs/tutorials/deployment-scenario-using-an-aggregated-component/#localization) and [`configuration`](https://ocm.software/docs/tutorials/deployment-scenario-using-an-aggregated-component/#configuration) are NOT part of this very simple example and is part of other deep-dive guides.
 
 As base we use the `podinfo` application from Stefan Prodan's [Github repo](https://github.com/stefanprodan/podinfo).
 All files can be found [here](https://github.com/open-component-model/ocm-examples).
@@ -217,15 +217,11 @@ transport the archive using offline mechanisms (file transfer, USB-stick) and pu
 location in an OCI registry.
 
 To actually deploy the application we need to get access to the Helm charts contained in the archive.
-We can use the OCM CLI to retrieve their location. See the [example](#example-1) below.
+We can use the OCM CLI to retrieve their location. See the [example](#inspect-component-descriptor) below.
 
 ### Setup Local Kind Cluster
 
 Create local `kind` cluster on your local machine:
-
-```shell
-kind create cluster -n ocm-hello-world
-```
 
 ```shell
 kind create cluster -n ocm-hello-world
@@ -247,7 +243,8 @@ Have a question, bug, or feature request? Let us know! https://kind.sigs.k8s.io/
 Make sure that your current kubectl context is set to "kind-ocm-hello-world":
 
 ```shell
-kubectl context to "kind-ocm-hello-world"
+kind export kubeconfig -n ocm-hello-world
+Set kubectl context to "kind-ocm-hello-world"
 kubectl cluster-info
 Kubernetes control plane is running at https://127.0.0.1:52112
 CoreDNS is running at https://127.0.0.1:52112/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
