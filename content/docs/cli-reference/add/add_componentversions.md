@@ -1,8 +1,8 @@
 ---
 title: componentversions
 name: add componentversions
-url: /docs/cli-reference/add/componentversions/
-date: 2024-04-17T18:02:57+02:00
+url: /docs/cli/cli-reference/add/componentversions/
+date: 2024-04-26T14:39:01Z
 draft: false
 images: []
 toc: true
@@ -54,7 +54,7 @@ additionally the <code>-V</code> is given, the resources of those additional
 components will be added by value.
 
 The source, resource and reference list can be composed according to the commands
-[ocm add sources](/docs/cli-reference/add/sources), [ocm add resources](/docs/cli-reference/add/resources), [ocm add references](/docs/cli-reference/add/references),
+[ocm add sources](/docs/cli/cli-reference/add/sources), [ocm add resources](/docs/cli/cli-reference/add/resources), [ocm add references](/docs/cli/cli-reference/add/references),
 respectively.
 
 The description file might contain:
@@ -68,7 +68,7 @@ component descriptor. If given it overrides the <code>--schema</code> option
 of the command. By default, v2 is used.
 
 Various elements support to add arbirary information by using labels
-(see [ocm ocm-labels](/docs/cli-reference/ocm-labels)).
+(see [ocm ocm-labels](/docs/cli/cli-reference/ocm-labels)).
 
 
 The <code>--type</code> option accepts a file format for the
@@ -185,11 +185,11 @@ next to the description file.
 
 ### See Also
 
-* [ocm add](/docs/cli-reference/add)	 &mdash; Add elements to a component repository or component version
+* [ocm add](/docs/cli/cli-reference/add)	 &mdash; Add elements to a component repository or component version
 
 
 
 ##### Additional Help Topics
 
-* [ocm add componentversions <b>ocm-labels</b>](/docs/cli-reference/help/ocm-labels)	 &mdash; Labels and Label Merging
+* [ocm add componentversions <b>ocm-labels</b>](/docs/cli/cli-reference/help/ocm-labels)	 &mdash; Labels and Label Merging
 

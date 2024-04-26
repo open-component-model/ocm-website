@@ -1,8 +1,8 @@
 ---
 title: configfile
 name: configfile
-url: /docs/cli-reference/help/configfile/
-date: 2024-04-17T18:02:57+02:00
+url: /docs/cli/cli-reference/help/configfile/
+date: 2024-04-26T14:39:01Z
 draft: false
 images: []
 toc: true
@@ -61,7 +61,7 @@ The following configuration types are supported:
   </pre>
 - <code>downloader.ocm.config.ocm.software</code>
   The config type <code>downloader.ocm.config.ocm.software</code> can be used to define a list
-  of pre-configured download handler registrations (see [ocm ocm-downloadhandlers](/docs/cli-reference/ocm-downloadhandlers)):
+  of pre-configured download handler registrations (see [ocm ocm-downloadhandlers](/docs/cli/cli-reference/ocm-downloadhandlers)):
   
   <pre>
       type: downloader.ocm.config.ocm.software
@@ -312,7 +312,7 @@ The following configuration types are supported:
   </pre>
 - <code>uploader.ocm.config.ocm.software</code>
   The config type <code>uploader.ocm.config.ocm.software</code> can be used to define a list
-  of pre-configured download handler registrations (see [ocm ocm-downloadhandlers](/docs/cli-reference/ocm-downloadhandlers)):
+  of pre-configured download handler registrations (see [ocm ocm-downloadhandlers](/docs/cli/cli-reference/ocm-downloadhandlers)):
   
   <pre>
       type: uploader.ocm.config.ocm.software

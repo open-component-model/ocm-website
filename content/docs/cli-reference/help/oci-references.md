@@ -1,8 +1,8 @@
 ---
 title: oci-references
 name: oci-references
-url: /docs/cli-reference/help/oci-references/
-date: 2024-04-17T18:02:57+02:00
+url: /docs/cli/cli-reference/help/oci-references/
+date: 2024-04-26T14:39:01Z
 draft: false
 images: []
 toc: true

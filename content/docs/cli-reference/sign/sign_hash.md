@@ -1,8 +1,8 @@
 ---
 title: hash
 name: sign hash
-url: /docs/cli-reference/sign/hash/
-date: 2024-04-17T18:02:57+02:00
+url: /docs/cli/cli-reference/sign/hash/
+date: 2024-04-26T14:39:01Z
 draft: false
 images: []
 toc: true
@@ -40,5 +40,5 @@ $ ocm sign hash key.priv SHA-256:810ff2fb242a5dee4220f2cb0e6a519891fb67f2f828a6c
 
 ### See Also
 
-* [ocm sign](/docs/cli-reference/sign)	 &mdash; Sign components or hashes
+* [ocm sign](/docs/cli/cli-reference/sign)	 &mdash; Sign components or hashes
 

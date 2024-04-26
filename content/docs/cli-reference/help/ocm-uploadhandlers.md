@@ -1,8 +1,8 @@
 ---
 title: ocm-uploadhandlers
 name: ocm-uploadhandlers
-url: /docs/cli-reference/help/ocm-uploadhandlers/
-date: 2024-04-17T18:02:57+02:00
+url: /docs/cli/cli-reference/help/ocm-uploadhandlers/
+date: 2024-04-26T14:39:01Z
 draft: false
 images: []
 toc: true
@@ -38,7 +38,7 @@ New handlers can be provided by plugins. In general available handlers,
 plugin-based or as part of the CLI coding are nameable using an hierarchical
 namespace. Those names can be used by a <code>--uploader</code> option
 to register handlers for various conditions for CLI commands like
-[ocm transfer componentversions](/docs/cli-reference/transfer/componentversions) or [ocm transfer commontransportarchive](/docs/cli-reference/transfer/commontransportarchive).
+[ocm transfer componentversions](/docs/cli/cli-reference/transfer/componentversions) or [ocm transfer commontransportarchive](/docs/cli/cli-reference/transfer/commontransportarchive).
 
 Besides the activation constraints (resource type and media type of the
 resource blob), it is possible to pass a target configuration controlling the
@@ -84,7 +84,7 @@ The following handler names are possible:
 
 
 
-See [ocm ocm-uploadhandlers](/docs/cli-reference/ocm-uploadhandlers) for further details on using
+See [ocm ocm-uploadhandlers](/docs/cli/cli-reference/ocm-uploadhandlers) for further details on using
 upload handlers.
 
 

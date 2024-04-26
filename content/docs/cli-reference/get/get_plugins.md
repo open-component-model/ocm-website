@@ -1,8 +1,8 @@
 ---
 title: plugins
 name: get plugins
-url: /docs/cli-reference/get/plugins/
-date: 2024-04-17T18:02:57+02:00
+url: /docs/cli/cli-reference/get/plugins/
+date: 2024-04-26T14:39:01Z
 draft: false
 images: []
 toc: true
@@ -50,5 +50,5 @@ $ ocm get plugins demo -o yaml
 
 ### See Also
 
-* [ocm get](/docs/cli-reference/get)	 &mdash; Get information about artifacts and components
+* [ocm get](/docs/cli/cli-reference/get)	 &mdash; Get information about artifacts and components
 

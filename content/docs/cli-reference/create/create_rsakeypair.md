@@ -1,8 +1,8 @@
 ---
 title: rsakeypair
 name: create rsakeypair
-url: /docs/cli-reference/create/rsakeypair/
-date: 2024-04-17T18:02:57+02:00
+url: /docs/cli/cli-reference/create/rsakeypair/
+date: 2024-04-26T14:39:01Z
 draft: false
 images: []
 toc: true
@@ -69,5 +69,5 @@ $ ocm create rsakeypair mandelsoft.priv mandelsoft.cert issuer=mandelsoft
 
 ### See Also
 
-* [ocm create](/docs/cli-reference/create)	 &mdash; Create transport or component archive
+* [ocm create](/docs/cli/cli-reference/create)	 &mdash; Create transport or component archive
 

@@ -1,8 +1,8 @@
 ---
 title: plugins
 name: describe plugins
-url: /docs/cli-reference/describe/plugins/
-date: 2024-04-17T18:02:57+02:00
+url: /docs/cli/cli-reference/describe/plugins/
+date: 2024-04-26T14:39:01Z
 draft: false
 images: []
 toc: true
@@ -39,5 +39,5 @@ $ ocm describe plugins demo
 
 ### See Also
 
-* [ocm describe](/docs/cli-reference/describe)	 &mdash; Describe various elements by using appropriate sub commands.
+* [ocm describe](/docs/cli/cli-reference/describe)	 &mdash; Describe various elements by using appropriate sub commands.
 
