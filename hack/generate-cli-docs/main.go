@@ -32,8 +32,8 @@ var commandDenyList = []string{
 func main() {
 	var outputDir, urlPrefix string
 
-	flag.StringVar(&outputDir, "output-dir", "./content/docs/cli/cli-reference", "output directory for generated docs")
-	flag.StringVar(&urlPrefix, "url-prefix", "/docs/cli/cli-reference", "prefix for cli docs urls")
+	flag.StringVar(&outputDir, "output-dir", "./content/docs/cli-reference", "output directory for generated docs")
+	flag.StringVar(&urlPrefix, "url-prefix", "/docs/cli-reference", "prefix for cli docs urls")
 
 	flag.Parse()
 

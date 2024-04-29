@@ -15,7 +15,7 @@ sidebar:
 The OCM library supports a set of attributes, which can be used to influence
 the behaviour of various functions. The CLI also supports setting of those
 attributes using the config file (see [ocm configfile](/docs/cli-reference/configfile)) or by
-command line options of the main command (see [ocm](/docs/cli/cli-reference)).
+command line options of the main command (see [ocm](/docs/cli-reference)).
 
 The following options are available in the currently used version of the
 OCM library:

@@ -12,7 +12,7 @@ sidebar:
 ### Usage
 
 ```
-ocm add componentversions [<options>] [--version <version>] [<ctf archive>] {<components.yaml>}
+ocm add componentversions [<options>] [--version <version>] [<ctf archive>] {<component-constructor.yaml>}
 ```
 
 ### Options
@@ -39,8 +39,8 @@ ocm add componentversions [<options>] [--version <version>] [<ctf archive>] {<co
 ### Description
 
 
-Add component versions specified by a description file to a Common Transport
-Archive. This might be either a directory prepared to host component version
+Add component versions specified by a constructor file to a Common Transport
+Archive. The archive might be either a directory prepared to host component version
 content or a tar/tgz file (see option --type).
 
 If option <code>--create</code> is given, the archive is created first. An
@@ -150,9 +150,9 @@ script with the <code>script</code> option family.
 
 ```
 
-$ ocm add componentversions --file ctf --version 1.0 components.yaml
+$ ocm add componentversions --file ctf --version 1.0 component-constructor.yaml
 
-and a file <code>components.yaml</code>:
+and a file <code>component-constructor.yaml</code>:
 
 name: ocm.software/demo/test
 version: 1.0.0

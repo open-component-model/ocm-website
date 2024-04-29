@@ -1,12 +1,11 @@
 ---
-title: CLI Reference
-description: "OCM Command Line Interface Reference"
+title: cli-reference
+name: cli-reference
 url: /docs/cli-reference/
 date: 2024-04-17T18:02:57+02:00
 draft: false
 images: []
 toc: true
-weight: 30
 sidebar:
   collapsed: true
 ---
@@ -14,7 +13,7 @@ sidebar:
 
 ```
   -X, --attribute stringArray     attribute setting
-      --ca-cert stringArray       additional root certificate authorities
+      --ca-cert stringArray       additional root certificate authorities (for signing certificates)
       --config stringArray        configuration file
       --config-set strings        apply configuration set
   -C, --cred stringArray          credential setting
@@ -33,9 +32,9 @@ sidebar:
 ### Introduction
 
 
-The Open Component Model command line client support the work with OCM
+The Open Component Model command line client supports the work with OCM
 artifacts, like Component Archives, Common Transport Archive,
-Component Repositories, and component versions.
+Component Repositories, and Component Versions.
 
 Additionally it provides some limited support for the docker daemon, OCI artifacts and
 registries.
@@ -366,6 +365,7 @@ by a certificate delivered with the signature.
 * [ocm <b>describe</b>](/docs/cli-reference/describe)	 &mdash; Describe various elements by using appropriate sub commands.
 * [ocm <b>download</b>](/docs/cli-reference/download)	 &mdash; Download oci artifacts, resources or complete components
 * [ocm <b>get</b>](/docs/cli-reference/get)	 &mdash; Get information about artifacts and components
+* [ocm <b>list</b>](/docs/cli-reference/list)	 &mdash; List information about components
 * [ocm <b>show</b>](/docs/cli-reference/show)	 &mdash; Show tags or versions
 * [ocm <b>sign</b>](/docs/cli-reference/sign)	 &mdash; Sign components or hashes
 * [ocm <b>transfer</b>](/docs/cli-reference/transfer)	 &mdash; Transfer artifacts or components
