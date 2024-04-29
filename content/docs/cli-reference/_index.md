@@ -1,9 +1,10 @@
 ---
-title: cli-reference
+title: CLI Reference
 name: cli-reference
 url: /docs/cli-reference/
 date: 2024-04-17T18:02:57+02:00
 draft: false
+weight: 30
 images: []
 toc: true
 sidebar:
