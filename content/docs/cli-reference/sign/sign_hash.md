@@ -1,8 +1,8 @@
 ---
 title: hash
 name: sign hash
-url: /docs/cli/cli-reference/sign/hash/
-date: 2024-04-26T14:39:01Z
+url: /docs/cli-reference/sign/hash/
+date: 2024-04-17T18:02:57+02:00
 draft: false
 images: []
 toc: true
@@ -18,10 +18,11 @@ ocm sign hash <private key file> <hash> [<issuer>]
 ### Options
 
 ```
-  -S, --algorithm string   signature algorithm (default "RSASSA-PKCS1-V1_5")
-  -h, --help               help for hash
-      --publicKey string   public key certificate file
-      --rootCerts string   root certificates file
+  -S, --algorithm string      signature algorithm (default "RSASSA-PKCS1-V1_5")
+      --ca-cert stringArray   additional root certificate authorities (for signing certificates)
+  -h, --help                  help for hash
+      --publicKey string      public key certificate file
+      --rootCerts string      root certificates file (deprecated)
 ```
 
 ### Description
@@ -40,5 +41,5 @@ $ ocm sign hash key.priv SHA-256:810ff2fb242a5dee4220f2cb0e6a519891fb67f2f828a6c
 
 ### See Also
 
-* [ocm sign](/docs/cli/cli-reference/sign)	 &mdash; Sign components or hashes
+* [ocm sign](/docs/cli-reference/sign)	 &mdash; Sign components or hashes
 

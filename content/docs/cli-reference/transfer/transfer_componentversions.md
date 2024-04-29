@@ -1,8 +1,8 @@
 ---
 title: componentversions
 name: transfer componentversions
-url: /docs/cli/cli-reference/transfer/componentversions/
-date: 2024-04-26T14:39:01Z
+url: /docs/cli-reference/transfer/componentversions/
+date: 2024-04-17T18:02:57+02:00
 draft: false
 images: []
 toc: true
@@ -209,7 +209,7 @@ The uploader name may be a path expression with the following possibilities:
 
 
 
-See [ocm ocm-uploadhandlers](/docs/cli/cli-reference/ocm-uploadhandlers) for further details on using
+See [ocm ocm-uploadhandlers](/docs/cli-reference/ocm-uploadhandlers) for further details on using
 upload handlers.
 
 
@@ -244,5 +244,5 @@ $ ocm transfer components -t tgz --repo OCIRegistry::ghcr.io mandelsoft/kubelink
 
 ### See Also
 
-* [ocm transfer](/docs/cli/cli-reference/transfer)	 &mdash; Transfer artifacts or components
+* [ocm transfer](/docs/cli-reference/transfer)	 &mdash; Transfer artifacts or components
 

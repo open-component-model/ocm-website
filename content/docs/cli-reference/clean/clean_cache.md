@@ -1,8 +1,8 @@
 ---
 title: cache
 name: clean cache
-url: /docs/cli/cli-reference/clean/cache/
-date: 2024-04-26T14:39:01Z
+url: /docs/cli-reference/clean/cache/
+date: 2024-04-17T18:02:57+02:00
 draft: false
 images: []
 toc: true
@@ -39,5 +39,5 @@ $ ocm clean cache
 
 ### See Also
 
-* [ocm clean](/docs/cli/cli-reference/clean)	 &mdash; Cleanup/re-organize elements
+* [ocm clean](/docs/cli-reference/clean)	 &mdash; Cleanup/re-organize elements
 

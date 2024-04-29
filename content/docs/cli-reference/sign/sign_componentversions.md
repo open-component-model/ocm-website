@@ -1,8 +1,8 @@
 ---
 title: componentversions
 name: sign componentversions
-url: /docs/cli/cli-reference/sign/componentversions/
-date: 2024-04-26T14:39:01Z
+url: /docs/cli-reference/sign/componentversions/
+date: 2024-04-17T18:02:57+02:00
 draft: false
 images: []
 toc: true
@@ -19,7 +19,7 @@ ocm sign componentversions [<options>] {<component-reference>}
 
 ```
   -S, --algorithm string          signature handler (default "RSASSA-PKCS1-V1_5")
-      --ca-cert stringArray       additional root certificate authorities
+      --ca-cert stringArray       additional root certificate authorities (for signing certificates)
   -c, --constraints constraints   version constraint
   -H, --hash string               hash algorithm (default "SHA-256")
   -h, --help                      help for componentversions
@@ -146,5 +146,5 @@ $ ocm sign componentversion --signature mandelsoft --private-key=mandelsoft.key 
 
 ### See Also
 
-* [ocm sign](/docs/cli/cli-reference/sign)	 &mdash; Sign components or hashes
+* [ocm sign](/docs/cli-reference/sign)	 &mdash; Sign components or hashes
 

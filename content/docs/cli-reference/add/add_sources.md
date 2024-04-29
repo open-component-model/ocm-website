@@ -1,8 +1,8 @@
 ---
 title: sources
 name: add sources
-url: /docs/cli/cli-reference/add/sources/
-date: 2024-04-26T14:39:01Z
+url: /docs/cli-reference/add/sources/
+date: 2024-04-17T18:02:57+02:00
 draft: false
 images: []
 toc: true
@@ -76,7 +76,8 @@ ocm add sources [<options>] [<target>] {<resourcefile> | <var>=<value>}
 ### Description
 
 
-Add source information specified in a resource file to a component version.
+Add information about the sources, e.g. commits in a Github repository,
+that have been used to create the resources specified in a resource file to a component version.
 So far only component archives are supported as target.
 
 This command accepts source specification files describing the sources
@@ -463,7 +464,7 @@ with the field <code>type</code> in the <code>input</code> field:
     This REQUIRED property describes the url from which the resource is to be
     downloaded.
   
-  - **<code>mediaType</code> *string*
+  - **<code>mediaType</code>** *string*
   
     This OPTIONAL property describes the media type of the resource to be 
     downloaded. If omitted, ocm tries to read the mediaType from the Content-Type header
@@ -484,7 +485,7 @@ with the field <code>type</code> in the <code>input</code> field:
     
     This OPTIONAL property describes the http body to be included in the request.
   
-  - **<code>noredirect<code>** *bool*
+  - **<code>noredirect</code>** *bool*
   
     This OPTIONAL property describes whether http redirects should be disabled. If omitted,
     it is defaulted to false (so, per default, redirects are enabled).
@@ -606,7 +607,7 @@ shown below.
       An optional keyring used to verify the chart.
     
     It uses the consumer identity type HelmChartRepository with the fields
-    for a hostpath identity matcher (see [ocm get credentials](/docs/cli/cli-reference/get/credentials)).
+    for a hostpath identity matcher (see [ocm get credentials](/docs/cli-reference/get/credentials)).
   
   Options used to configure fields: <code>--accessPackage</code>, <code>--accessRepository</code>, <code>--accessVersion</code>
   
@@ -792,6 +793,51 @@ shown below.
   
   Options used to configure fields: <code>--accessVersion</code>, <code>--bucket</code>, <code>--mediaType</code>, <code>--reference</code>, <code>--region</code>
   
+- Access type <code>wget</code>
+
+  This method implements access to resources stored on an http server.
+
+  The following versions are supported:
+  - Version <code>v1</code>
+  
+    The <code>url</code> is the url pointing to the http endpoint from which a resource is
+    downloaded. The <code>mimeType</code> can be used to specify the MIME type of the
+    resource.
+    
+    This blob type specification supports the following fields:
+    - **<code>url</code>** *string*
+    
+    This REQUIRED property describes the url from which the resource is to be
+    downloaded.
+    
+    - **<code>mediaType</code>** *string*
+    
+    This OPTIONAL property describes the media type of the resource to be
+    downloaded. If omitted, ocm tries to read the mediaType from the Content-Type header
+    of the http response. If the mediaType cannot be set from the Content-Type header as well,
+    ocm tries to deduct the mediaType from the URL. If that is not possible either, the default
+    media type is defaulted to application/octet-stream.
+    
+    - **<code>header</code>** *map[string][]string*
+    
+    This OPTIONAL property describes the http headers to be set in the http request to the server.
+    
+    - **<code>verb</code>** *string*
+    
+    This OPTIONAL property describes the http verb (also known as http request method) for the http
+    request. If omitted, the http verb is defaulted to GET.
+    
+    - **<code>body</code>** *[]byte*
+    
+    This OPTIONAL property describes the http body to be included in the request.
+    
+    - **<code>noredirect</code>** *bool*
+    
+    This OPTIONAL property describes whether http redirects should be disabled. If omitted,
+    it is defaulted to false (so, per default, redirects are enabled).
+  
+  Options used to configure fields: <code>--body</code>, <code>--header</code>, <code>--mediaType</code>, <code>--noredirect</code>, <code>--url</code>, <code>--verb</code>
+  
 
 All yaml/json defined resources can be templated.
 Variables are specified as regular arguments following the syntax <code>&lt;name>=&lt;value></code>.
@@ -844,5 +890,5 @@ $ ocm add sources --file path/to/cafile sources.yaml
 
 ### See Also
 
-* [ocm add](/docs/cli/cli-reference/add)	 &mdash; Add elements to a component repository or component version
+* [ocm add](/docs/cli-reference/add)	 &mdash; Add elements to a component repository or component version
 

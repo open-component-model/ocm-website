@@ -1,8 +1,8 @@
 ---
 title: credential-handling
 name: credential-handling
-url: /docs/cli/cli-reference/help/credential-handling/
-date: 2024-04-26T14:39:01Z
+url: /docs/cli-reference/help/credential-handling/
+date: 2024-04-17T18:02:57+02:00
 draft: false
 images: []
 toc: true
@@ -257,6 +257,16 @@ behaviours are described in the following list:
 
 ### Credential Providers
 
+Credential providers offer sets of named credentials from variuos sources,
+which might be directly mapped to consumer identities (if supported
+by the provider type).
+
+The type <code>Credentials</code> can be used to inline
+credentials in credential configuration objects
+to configure mappings of consumer identities to a credential
+set (see [ocm configfile](/docs/cli-reference/configfile)).
+
+The following types are currently available:
 
 - Credential provider <code>Credentials</code>
 

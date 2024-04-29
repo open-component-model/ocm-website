@@ -7,7 +7,6 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
-	"time"
 )
 
 func genIndexForRootHelpTopics(dir string, urlBase string) (err error) {
@@ -33,9 +32,8 @@ func genIndexForRootHelpTopics(dir string, urlBase string) (err error) {
 			err = errors.Join(err, cerr)
 		}
 	}()
-	now := time.Now().Format(time.RFC3339)
 
-	f.WriteString(fmt.Sprintf(fmTmpl, "help", "help", urlBase+"help", now))
+	f.WriteString(fmt.Sprintf(fmTmpl, "help", "help", urlBase+"help"))
 	f.WriteString("### Additional Topics\n")
 
 	for _, topic := range topics {

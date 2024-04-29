@@ -1,8 +1,8 @@
 ---
 title: verify
 name: verify
-url: /docs/cli/cli-reference/verify/
-date: 2024-04-26T14:39:01Z
+url: /docs/cli-reference/verify/
+date: 2024-04-17T18:02:57+02:00
 draft: false
 images: []
 toc: true
@@ -27,5 +27,5 @@ ocm verify [<options>] <sub command> ...
 
 ##### Sub Commands
 
-* [ocm verify <b>componentversions</b>](/docs/cli/cli-reference/verify/componentversions)	 &mdash; Verify signature of component version
+* [ocm verify <b>componentversions</b>](/docs/cli-reference/verify/componentversions)	 &mdash; Verify signature of component version
 

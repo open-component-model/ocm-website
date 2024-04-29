@@ -1,7 +1,7 @@
 ---
-title: sources
-name: get sources
-url: /docs/cli-reference/get/sources/
+title: componentversions
+name: list componentversions
+url: /docs/cli-reference/list/componentversions/
 date: 2024-04-17T18:02:57+02:00
 draft: false
 images: []
@@ -12,29 +12,27 @@ sidebar:
 ### Usage
 
 ```
-ocm get sources [<options>]  <component> {<name> { <key>=<value> }}
+ocm list componentversions [<options>] {<component-reference>}
 ```
 
 ### Options
 
 ```
   -c, --constraints constraints   version constraint
-  -h, --help                      help for sources
+  -h, --help                      help for componentversions
       --latest                    restrict component versions to latest
       --lookup stringArray        repository name or spec for closure lookup fallback
-  -o, --output string             output mode (JSON, json, tree, wide, yaml)
-  -r, --recursive                 follow component reference nesting
+  -o, --output string             output mode (JSON, json, yaml)
       --repo string               repository name or spec
+  -S, --scheme string             schema version
   -s, --sort stringArray          sort fields
 ```
 
 ### Description
 
 
-Get sources of a component version. Sources are specified
-by identities. An identity consists of 
-a name argument followed by optional <code>&lt;key>=&lt;value></code>
-arguments.
+List lists the version names of the specified objects, if only a component is specified
+all versions according to the given versuin constraints are listed.
 
 
 If the option <code>--constraints</code> is given, and no version is specified
@@ -87,9 +85,6 @@ OCI Repository types (using standard component repository to OCI mapping):
   - <code>ociRegistry</code>
 
 
-
-With the option <code>--recursive</code> the complete reference tree of a component reference is traversed.
-
 \
 If a component lookup for building a reference closure is required
 the <code>--lookup</code>  option can be used to specify a fallback
@@ -100,17 +95,34 @@ it only contains a single component version. Therefore, in this scenario
 this option must always be specified to be able to follow component
 references.
 
+
+If the option <code>--scheme</code> is given, the component descriptor
+is converted to the specified format for output. If no format is given
+the storage format of the actual descriptor is used or, for new ones v2
+is used.
+With <code>internal</code> the internal representation is shown.
+The following schema versions are supported for explicit conversions:
+  - <code>ocm.software/v3alpha1</code>
+  - <code>v2</code>
+
 With the option <code>--output</code> the output mode can be selected.
 The following modes are supported:
   - <code></code> (default)
   - <code>JSON</code>
   - <code>json</code>
-  - <code>tree</code>
-  - <code>wide</code>
   - <code>yaml</code>
 
 
+### Examples
+
+```
+
+$ ocm list componentversion ghcr.io/mandelsoft/kubelink
+$ ocm list componentversion --repo OCIRegistry::ghcr.io mandelsoft/kubelink
+
+```
+
 ### See Also
 
-* [ocm get](/docs/cli-reference/get)	 &mdash; Get information about artifacts and components
+* [ocm list](/docs/cli-reference/list)	 &mdash; List information about components
 

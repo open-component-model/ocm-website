@@ -1,8 +1,8 @@
 ---
 title: attributes
 name: attributes
-url: /docs/cli/cli-reference/help/attributes/
-date: 2024-04-26T14:39:01Z
+url: /docs/cli-reference/help/attributes/
+date: 2024-04-17T18:02:57+02:00
 draft: false
 images: []
 toc: true
@@ -14,8 +14,8 @@ sidebar:
 
 The OCM library supports a set of attributes, which can be used to influence
 the behaviour of various functions. The CLI also supports setting of those
-attributes using the config file (see [ocm configfile](/docs/cli/cli-reference/configfile)) or by
-command line options of the main command (see [ocm](/docs/cli/cli-reference)).
+attributes using the config file (see [ocm configfile](/docs/cli-reference/configfile)) or by
+command line options of the main command (see [ocm](/docs/cli-reference)).
 
 The following options are available in the currently used version of the
 OCM library:

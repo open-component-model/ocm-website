@@ -1,8 +1,8 @@
 ---
 title: cli-reference
 name: cli-reference
-url: /docs/cli/cli-reference/
-date: 2024-04-26T14:39:01Z
+url: /docs/cli-reference/
+date: 2024-04-17T18:02:57+02:00
 draft: false
 images: []
 toc: true
@@ -13,7 +13,7 @@ sidebar:
 
 ```
   -X, --attribute stringArray     attribute setting
-      --ca-cert stringArray       additional root certificate authorities
+      --ca-cert stringArray       additional root certificate authorities (for signing certificates)
       --config stringArray        configuration file
       --config-set strings        apply configuration set
   -C, --cred stringArray          credential setting
@@ -32,9 +32,9 @@ sidebar:
 ### Introduction
 
 
-The Open Component Model command line client support the work with OCM
+The Open Component Model command line client supports the work with OCM
 artifacts, like Component Archives, Common Transport Archive,
-Component Repositories, and component versions.
+Component Repositories, and Component Versions.
 
 Additionally it provides some limited support for the docker daemon, OCI artifacts and
 registries.
@@ -46,7 +46,7 @@ It can be used in two ways:
 
 The command accepts some top level options, they can only be given before the sub commands.
 
-A configuration according to [ocm configfile](/docs/cli/cli-reference/configfile) is read from a <code>.ocmconfig</code> file
+A configuration according to [ocm configfile](/docs/cli-reference/configfile) is read from a <code>.ocmconfig</code> file
 located in the <code>HOME</code> directory. With the option <code>--config</code> other
 file locations can be specified. If nothing is specified and no file is found at the default
 location a default configuration is composed according to known type specific
@@ -97,7 +97,7 @@ form
 </center>
 
 The <code>--log*</code> options can be used to configure the logging behaviour.
-For details see [ocm logging](/docs/cli/cli-reference/logging).
+For details see [ocm logging](/docs/cli-reference/logging).
 
 There is a quick config option <code>--logkeys</code> to configure simple
 tag/realm based condition rules. The comma-separated names build an AND rule.
@@ -109,7 +109,7 @@ realm is affected. For example <code>/+ocm=trace</code> will enable all log outp
 OCM library.
 
 A tag directly matches the logging tags. Used tags and realms can be found under
-topic [ocm logging](/docs/cli/cli-reference/logging). The ocm coding basically uses the realm <code>ocm</code>.
+topic [ocm logging](/docs/cli-reference/logging). The ocm coding basically uses the realm <code>ocm</code>.
 The default level to enable is <code>info</code>. Separated by an equal sign (<code>=</code>)
 optionally a dedicated level can be specified. Log levels can be (<code>error</code>,
 <code>warn</code>, <code>info</code>, <code>debug</code> and <code>trace</code>.
@@ -119,7 +119,7 @@ logging configuration (yaml/json) via command line. If the argument starts with
 an <code>@</code>, the logging configuration is taken from a file.
 
 The value can be a simple type or a JSON/YAML string for complex values
-(see [ocm attributes](/docs/cli/cli-reference/attributes). The following attributes are supported:
+(see [ocm attributes](/docs/cli-reference/attributes). The following attributes are supported:
 - <code>github.com/mandelsoft/logforward</code>: *logconfig* Logging config structure used for config forwarding
 
   This attribute is used to specify a logging configuration intended
@@ -358,31 +358,32 @@ by a certificate delivered with the signature.
 
 ##### Sub Commands
 
-* [ocm <b>add</b>](/docs/cli/cli-reference/add)	 &mdash; Add elements to a component repository or component version
-* [ocm <b>check</b>](/docs/cli/cli-reference/check)	 &mdash; check components in OCM repository
-* [ocm <b>clean</b>](/docs/cli/cli-reference/clean)	 &mdash; Cleanup/re-organize elements
-* [ocm <b>create</b>](/docs/cli/cli-reference/create)	 &mdash; Create transport or component archive
-* [ocm <b>describe</b>](/docs/cli/cli-reference/describe)	 &mdash; Describe various elements by using appropriate sub commands.
-* [ocm <b>download</b>](/docs/cli/cli-reference/download)	 &mdash; Download oci artifacts, resources or complete components
-* [ocm <b>get</b>](/docs/cli/cli-reference/get)	 &mdash; Get information about artifacts and components
-* [ocm <b>show</b>](/docs/cli/cli-reference/show)	 &mdash; Show tags or versions
-* [ocm <b>sign</b>](/docs/cli/cli-reference/sign)	 &mdash; Sign components or hashes
-* [ocm <b>transfer</b>](/docs/cli/cli-reference/transfer)	 &mdash; Transfer artifacts or components
-* [ocm <b>verify</b>](/docs/cli/cli-reference/verify)	 &mdash; Verify component version signatures
+* [ocm <b>add</b>](/docs/cli-reference/add)	 &mdash; Add elements to a component repository or component version
+* [ocm <b>check</b>](/docs/cli-reference/check)	 &mdash; check components in OCM repository
+* [ocm <b>clean</b>](/docs/cli-reference/clean)	 &mdash; Cleanup/re-organize elements
+* [ocm <b>create</b>](/docs/cli-reference/create)	 &mdash; Create transport or component archive
+* [ocm <b>describe</b>](/docs/cli-reference/describe)	 &mdash; Describe various elements by using appropriate sub commands.
+* [ocm <b>download</b>](/docs/cli-reference/download)	 &mdash; Download oci artifacts, resources or complete components
+* [ocm <b>get</b>](/docs/cli-reference/get)	 &mdash; Get information about artifacts and components
+* [ocm <b>list</b>](/docs/cli-reference/list)	 &mdash; List information about components
+* [ocm <b>show</b>](/docs/cli-reference/show)	 &mdash; Show tags or versions
+* [ocm <b>sign</b>](/docs/cli-reference/sign)	 &mdash; Sign components or hashes
+* [ocm <b>transfer</b>](/docs/cli-reference/transfer)	 &mdash; Transfer artifacts or components
+* [ocm <b>verify</b>](/docs/cli-reference/verify)	 &mdash; Verify component version signatures
 
 
 
 ##### Additional Help Topics
 
-* [ocm <b>attributes</b>](/docs/cli/cli-reference/help/attributes)	 &mdash; configuration attributes used to control the behaviour
-* [ocm <b>configfile</b>](/docs/cli/cli-reference/help/configfile)	 &mdash; configuration file
-* [ocm <b>credential-handling</b>](/docs/cli/cli-reference/help/credential-handling)	 &mdash; Provisioning of credentials for credential consumers
-* [ocm <b>logging</b>](/docs/cli/cli-reference/help/logging)	 &mdash; Configured logging keys
-* [ocm <b>oci-references</b>](/docs/cli/cli-reference/help/oci-references)	 &mdash; notation for OCI references
-* [ocm <b>ocm-accessmethods</b>](/docs/cli/cli-reference/help/ocm-accessmethods)	 &mdash; List of all supported access methods
-* [ocm <b>ocm-downloadhandlers</b>](/docs/cli/cli-reference/help/ocm-downloadhandlers)	 &mdash; List of all available download handlers
-* [ocm <b>ocm-labels</b>](/docs/cli/cli-reference/help/ocm-labels)	 &mdash; Labels and Label Merging
-* [ocm <b>ocm-references</b>](/docs/cli/cli-reference/help/ocm-references)	 &mdash; notation for OCM references
-* [ocm <b>ocm-uploadhandlers</b>](/docs/cli/cli-reference/help/ocm-uploadhandlers)	 &mdash; List of all available upload handlers
-* [ocm <b>toi-bootstrapping</b>](/docs/cli/cli-reference/help/toi-bootstrapping)	 &mdash; Tiny OCM Installer based on component versions
+* [ocm <b>attributes</b>](/docs/cli-reference/help/attributes)	 &mdash; configuration attributes used to control the behaviour
+* [ocm <b>configfile</b>](/docs/cli-reference/help/configfile)	 &mdash; configuration file
+* [ocm <b>credential-handling</b>](/docs/cli-reference/help/credential-handling)	 &mdash; Provisioning of credentials for credential consumers
+* [ocm <b>logging</b>](/docs/cli-reference/help/logging)	 &mdash; Configured logging keys
+* [ocm <b>oci-references</b>](/docs/cli-reference/help/oci-references)	 &mdash; notation for OCI references
+* [ocm <b>ocm-accessmethods</b>](/docs/cli-reference/help/ocm-accessmethods)	 &mdash; List of all supported access methods
+* [ocm <b>ocm-downloadhandlers</b>](/docs/cli-reference/help/ocm-downloadhandlers)	 &mdash; List of all available download handlers
+* [ocm <b>ocm-labels</b>](/docs/cli-reference/help/ocm-labels)	 &mdash; Labels and Label Merging
+* [ocm <b>ocm-references</b>](/docs/cli-reference/help/ocm-references)	 &mdash; notation for OCM references
+* [ocm <b>ocm-uploadhandlers</b>](/docs/cli-reference/help/ocm-uploadhandlers)	 &mdash; List of all available upload handlers
+* [ocm <b>toi-bootstrapping</b>](/docs/cli-reference/help/toi-bootstrapping)	 &mdash; Tiny OCM Installer based on component versions
 

@@ -1,8 +1,8 @@
 ---
 title: ocm-labels
 name: ocm-labels
-url: /docs/cli/cli-reference/help/ocm-labels/
-date: 2024-04-26T14:39:01Z
+url: /docs/cli-reference/help/ocm-labels/
+date: 2024-04-17T18:02:57+02:00
 draft: false
 images: []
 toc: true
@@ -25,7 +25,7 @@ which is a list of label definitions. Every label definition has several fields:
 
 - *<code>name</code>* *string* 
 
-  The name of the label also determines the interpretaion of its value. All labels
+  The name of the label also determines the interpretation of its value. All labels
   with a dedicated name must have the same globally unique meaning, enabling a
   common understanding of label content for tools working of such properties of an
   element.
@@ -49,7 +49,7 @@ which is a list of label definitions. Every label definition has several fields:
 
 - *<code>value</code>* *any*
 
-  The value of the label accoding to the specified format version of the
+  The value of the label according to the specified format version of the
   label in the context of its name.
 
 - *<code>signing</code>* *bool* (optional)
@@ -58,7 +58,7 @@ which is a list of label definitions. Every label definition has several fields:
   digest of the component version. This allows adding, deleting or modifying
   labels as part of a process chain during the lifecycle of a component version.
 
-  Labels which should describe relevant and unmodifyable content can be marked
+  Labels which should describe relevant and unmodifiable content can be marked
   to be signing relevant by setting this label field to <code>true</code>.
 
 - *<code>merge</code>* *merge spec* (optional)
@@ -183,6 +183,6 @@ The following label assignments are configured:
 
 ### See Also
 
-* [ocm add componentversions](/docs/cli/cli-reference/add/componentversions)	 &mdash; add component version(s) to a (new) transport archive
-* [ocm add](/docs/cli/cli-reference/add)	 &mdash; Add elements to a component repository or component version
+* [ocm add componentversions](/docs/cli-reference/add/componentversions)	 &mdash; add component version(s) to a (new) transport archive
+* [ocm add](/docs/cli-reference/add)	 &mdash; Add elements to a component repository or component version
 

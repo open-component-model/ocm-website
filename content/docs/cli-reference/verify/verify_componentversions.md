@@ -1,8 +1,8 @@
 ---
 title: componentversions
 name: verify componentversions
-url: /docs/cli/cli-reference/verify/componentversions/
-date: 2024-04-26T14:39:01Z
+url: /docs/cli-reference/verify/componentversions/
+date: 2024-04-17T18:02:57+02:00
 draft: false
 images: []
 toc: true
@@ -18,7 +18,7 @@ ocm verify componentversions [<options>] {<component-reference>}
 ### Options
 
 ```
-      --ca-cert stringArray       additional root certificate authorities
+      --ca-cert stringArray       additional root certificate authorities (for signing certificates)
   -c, --constraints constraints   version constraint
   -h, --help                      help for componentversions
   -I, --issuer stringArray        issuer name or distinguished name (DN) (optionally for dedicated signature) ([<name>:=]<dn>
@@ -121,5 +121,5 @@ $ ocm verify componentversion --signature mandelsoft --public-key=mandelsoft.key
 
 ### See Also
 
-* [ocm verify](/docs/cli/cli-reference/verify)	 &mdash; Verify component version signatures
+* [ocm verify](/docs/cli-reference/verify)	 &mdash; Verify component version signatures
 

@@ -1,8 +1,8 @@
 ---
 title: versions
 name: show versions
-url: /docs/cli/cli-reference/show/versions/
-date: 2024-04-26T14:39:01Z
+url: /docs/cli-reference/show/versions/
+date: 2024-04-17T18:02:57+02:00
 draft: false
 images: []
 toc: true
@@ -83,5 +83,5 @@ $ ocm show versions ghcr.io/mandelsoft/cnudie//github.com/mandelsoft/playground
 
 ### See Also
 
-* [ocm show](/docs/cli/cli-reference/show)	 &mdash; Show tags or versions
+* [ocm show](/docs/cli-reference/show)	 &mdash; Show tags or versions
 

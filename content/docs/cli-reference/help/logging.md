@@ -1,8 +1,8 @@
 ---
 title: logging
 name: logging
-url: /docs/cli/cli-reference/help/logging/
-date: 2024-04-26T14:39:01Z
+url: /docs/cli-reference/help/logging/
+date: 2024-04-17T18:02:57+02:00
 draft: false
 images: []
 toc: true
@@ -12,8 +12,8 @@ sidebar:
 ### Description
 
 
-Logging can be configured as part of the ocm config file ([ocm configfile](/docs/cli/cli-reference/configfile))
-or by command line options of the [ocm](/docs/cli/cli-reference) command. Details about
+Logging can be configured as part of the ocm config file ([ocm configfile](/docs/cli-reference/configfile))
+or by command line options of the [ocm](/docs/cli-reference) command. Details about
 the YAML structure of a logging settings can be found on https://github.com/mandelsoft/logging.
 
 The command line also supports some quick-config options for enabling log levels
@@ -21,6 +21,7 @@ for dedicated tags and realms or realm prefixes (logging keys).
 
 The following *tags* are used by the command line tool:
   - <code>blobhandler</code>: execution of blob handler used to upload resource blobs to an ocm repository.
+  - <code>cd-diff</code>: component descriptor modification
 
 
 

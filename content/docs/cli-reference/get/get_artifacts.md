@@ -1,8 +1,8 @@
 ---
 title: artifacts
 name: get artifacts
-url: /docs/cli/cli-reference/get/artifacts/
-date: 2024-04-26T14:39:01Z
+url: /docs/cli-reference/get/artifacts/
+date: 2024-04-17T18:02:57+02:00
 draft: false
 images: []
 toc: true
@@ -91,5 +91,5 @@ $ ocm get artifact --repo OCIRegistry::ghcr.io mandelsoft/kubelink
 
 ### See Also
 
-* [ocm get](/docs/cli/cli-reference/get)	 &mdash; Get information about artifacts and components
+* [ocm get](/docs/cli-reference/get)	 &mdash; Get information about artifacts and components
 

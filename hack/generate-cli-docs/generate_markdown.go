@@ -19,7 +19,7 @@ const fmTmpl = `---
 title: %s
 name: %s
 url: %s
-date: %s
+date: 2024-04-17T18:02:57+02:00
 draft: false
 images: []
 toc: true
@@ -81,12 +81,11 @@ func genMarkdownTreeCustom(cmd *cobra.Command, dir, urlPrefix, parentCmd string)
 
 	linkHandler := func(path string) string {
 		link := strings.Replace(path, " ", "/", -1)
-		link = strings.Replace(link, "ocm", "cli/cli-reference", 1)
+		link = strings.Replace(link, "ocm", "cli-reference", 1)
 		return "/docs/" + link
 	}
 
 	frontmatter := func() string {
-		now := time.Now().Format(time.RFC3339)
 		cmdName := commandToID(cmd.Name())
 		title := strings.TrimSuffix(cmdName, path.Ext(cmdName))
 		var url, name string
@@ -103,7 +102,7 @@ func genMarkdownTreeCustom(cmd *cobra.Command, dir, urlPrefix, parentCmd string)
 			url = urlPrefix + parentCmd + "/" + strings.ToLower(title) + "/"
 			name = fmt.Sprintf("%s %s", parentCmd, title)
 		}
-		return fmt.Sprintf(fmTmpl, title, name, url, now)
+		return fmt.Sprintf(fmTmpl, title, name, url)
 	}
 
 	if _, err := io.WriteString(f, frontmatter()); err != nil {
@@ -200,7 +199,7 @@ func genMarkdownCustom(cmd *cobra.Command, w io.Writer, linkHandler func(string)
 				subheader = true
 			}
 			cname := name + " " + "<b>" + child.Name() + "</b>"
-			buf.WriteString(fmt.Sprintf("* [%s](%s)\t &mdash; %s\n", cname, "/docs/cli/cli-reference/help/"+child.Name(), child.Short))
+			buf.WriteString(fmt.Sprintf("* [%s](%s)\t &mdash; %s\n", cname, "/docs/cli-reference/help/"+child.Name(), child.Short))
 		}
 		if subheader {
 			buf.WriteString("\n")
