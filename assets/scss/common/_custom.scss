@@ -12,3 +12,9 @@
     background: #233545;
     background-color: #233545 !important; // important is added so the dark CSS template doesn't overwrite this value.
 }
+
+// forces the single page look like a list page
+.list.section.docs .content {
+    padding-top: 0;
+    padding-bottom: 0;
+}
