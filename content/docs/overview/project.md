@@ -15,7 +15,7 @@ The Open Component Model project provides an open standard for describing softwa
 
 Below are the main projects, but please also check out the others in our [Github org](https://github.com/open-component-model).
 
-- [OCM Specification](https://github.com/open-component-model/ocm-spec/blob/main/README.md) - The `ocm-spec` repository contains semantics, formatting, and other types of specifications for OCM.
+- [OCM Specification](https://github.com/open-component-model/ocm-spec/blob/main/README.md) - The `ocm-spec` repository contains the OCM specification, which provides a formal description of OCM and its format to describe software artifacts and a storage layer to persist those and make them accessible from remote.
 - [OCM Core Library](https://github.com/open-component-model/ocm#ocm-library) - The `ocm` core library is written in Golang and contains an API for interacting with OCM elements. A guided tour how to work with the library can be found [here](https://github.com/open-component-model/ocm/tree/main/examples/lib/tour#readme).
 - [OCM CLI](https://github.com/open-component-model/ocm#ocm-cli) - With the `ocm` command line interface end users can interact with OCM elements. It makes it easy to create component versions and embed them in CI and CD processes. Examples can be found in [this Makefile](https://github.com/open-component-model/ocm/blob/main/examples/make/Makefile).
 - [OCM Controller](https://github.com/open-component-model/ocm-controller) - The `ocm-controllers` are designed to enable the automated deployment of software using the [Open Component Model](https://ocm.software) and Flux.
