@@ -12,7 +12,7 @@ images: []
 
 As the open component model revolves around components, it is essential to establish a common understanding of the fundamental terminology employed throughout this website. The following section provides concise definitions of key terms, laying the groundwork for the tutorials and documentation that follow.
 
-If you right away want to deep-dive into the topic, you can have a look at the [OCM Specification](https://github.com/open-component-model/ocm-spec/blob/main/README.md) and its [Glossary](https://github.com/open-component-model/ocm-spec/blob/main/doc/glossary.md)
+If you right away want to deep-dive into the topic, you can have a look at the [OCM Specification](https://github.com/open-component-model/ocm-spec/blob/main/README.md) and its [Glossary](https://github.com/open-component-model/ocm-spec/blob/main/doc/glossary.md).
 
 ## What’s a Component?
 
@@ -22,9 +22,9 @@ If you right away want to deep-dive into the topic, you can have a look at the [
 
 ## What’s a Component Version?
 
-- Has an identity (name + version)
+- Has a globally unique `Component Identity` (name + version)
 - Can have component references to other components (to build a component graph)
-- Has artifacts (`sources` and `resources`)
+- Can have artifacts of kind (`sources` and `resources`)
 
 ## What's a Component Descriptor?
 
@@ -36,8 +36,38 @@ If you right away want to deep-dive into the topic, you can have a look at the [
 
 ## What are Artifacts?
 
-- `Sources`: input for creating resources e.g. source code
-- `Resources`: contain the code to “do” something, e.g. OCI Images, binaries, etc.
-- Have a component-local identity (name and version)
-- Have a `Type` (similar to a MIME-Type)
+- Can be either of kind
+  - `sources`: input for creating resources e.g. source code or 
+  - `resources`: contain the code to “do” something, e.g. OCI Images, binaries, etc.
+- Have a component-local `Artifact Identity` (name and version)
+- Have a `type` (similar to a MIME-Type, current list is [here](https://github.com/open-component-model/ocm-spec/blob/main/doc/04-extensions/01-artifact-types/README.md))
 - Have an exchangeable `Access` (formal description how to retrieve an artifact, e.g. a download URL)
+
+## What are OCM Coordinates?
+
+OCM Coordinates are used to reference OCM Component Versions and artifacts within OCM Component Versions. Coordinates referring to an OCM Component Version are also called `Component Identity`, whereas relative coordinates referring to an artifact are called `Artifact Identity`. `Component Identities` are globally unique and may be used to refer to full Component Versions. `Artifact Identities` are always relative to an OCM Component Version and may only be used in conjunction with a Component Identity.
+
+In detail:
+
+### Component Identity
+
+- Component Name: Identifies a component. Should follow conventions like DNS (start with URL-prefix controlled by the owner of the component)
+- Component Version: If used with a Component name, identifies a specific Component Version.  Must adhere to "relaxed Semver" (major, minor (+optional patchlevel) - optional v-prefix).
+
+### Artifact Identity
+
+Within a Component Version, all artifacts *must* have a unique identity. The identity always includes:
+
+- Kind: Artifacts are either `sources` or `resources`
+- Name: A name, typically used to express the intended purpose
+- Version: Identifies a specific artifact version. Must adhere to "relaxed Semver" (major, minor (+optional patchlevel) - optional v-prefix).
+
+Artifacts may also have additional attributes (called `extraIdentity`) that contribute to their identities. ExtraIdentity attributes are string-to-string maps.
+
+### Examples
+
+Assuming there is a component named `example.org/my-component`, with two versions `1.2.3` and `1.3.0`, declaring a resource with name `my-resource` and version `1.0.0`, then the following OCM Coordinates can be used to reference different things:
+
+- `example.org/my-component`: all versions of the component (1.2.3 + 1.3.0)
+- `example.org/my-component:1.2.3`: version 1.2.3 of the component
+- `example.org/my-component:1.2.3:resource/my-resource:1.0.0`: version 1.0.0 of `my-resource` as declared by the component version
