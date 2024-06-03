@@ -60,14 +60,13 @@ Within a Component Version, all artifacts *must* have a unique identity. The ide
 
 - Kind: Artifacts are either `sources` or `resources`
 - Name: A name, typically used to express the intended purpose
-- Version: Identifies a specific artifact version. Must adhere to "relaxed Semver" (major, minor (+optional patchlevel) - optional v-prefix).
 
-Artifacts may also have additional attributes (called `extraIdentity`) that contribute to their identities. ExtraIdentity attributes are string-to-string maps.
+Artifacts may also have additional `extraIdentity` attributes, that contribute to their identities. ExtraIdentity attributes are string-to-string maps.
 
 ### Examples
 
-Assuming there is a component named `example.org/my-component`, with two versions `1.2.3` and `1.3.0`, declaring a resource with name `my-resource` and version `1.0.0`, then the following OCM Coordinates can be used to reference different things:
+Assuming there is a component named `example.org/my-component`, with two versions `1.2.3` and `1.3.0`, declaring a resource with name `my-resource`, then the following OCM Coordinates can be used to reference different things:
 
 - `example.org/my-component`: all versions of the component (1.2.3 + 1.3.0)
 - `example.org/my-component:1.2.3`: version 1.2.3 of the component
-- `example.org/my-component:1.2.3:resource/my-resource:1.0.0`: version 1.0.0 of `my-resource` as declared by the component version
+- `example.org/my-component:1.2.3:resource/my-resource`: `my-resource` as declared by the component version
