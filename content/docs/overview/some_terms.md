@@ -22,9 +22,9 @@ If you right away want to deep-dive into the topic, you can have a look at the [
 
 ## What’s a Component Version?
 
-- Has a globally unique `Component Identity` (name + version)
+- Has a globally unique `Component Identity` (identity attributes `name` + `version`)
 - Can have component references to other components (to build a component graph)
-- Can have artifacts of kind (`sources` and `resources`)
+- Can have artifacts of kind `sources` and `resources`
 
 ## What's a Component Descriptor?
 
@@ -39,9 +39,9 @@ If you right away want to deep-dive into the topic, you can have a look at the [
 - Can be either of kind
   - `sources`: input for creating resources e.g. source code or 
   - `resources`: contain the code to “do” something, e.g. OCI Images, binaries, etc.
-- Have a component-local `Artifact Identity` (name and version)
+- Have a component-local `Artifact Identity` (identity attribute set consists of `name`, optional `extraIdentity` and optional `version`)
 - Have a `type` (similar to a MIME-Type, current list is [here](https://github.com/open-component-model/ocm-spec/blob/main/doc/04-extensions/01-artifact-types/README.md))
-- Have an exchangeable `Access` (formal description how to retrieve an artifact, e.g. a download URL)
+- Have an exchangeable `access` (formal description how to retrieve an artifact, e.g. a download URL)
 
 ## What are OCM Coordinates?
 
