@@ -1,5 +1,5 @@
 ---
-title: "Version 2 (legacy)"
+title: "Version 2"
 description: ""
 lead: ""
 date: 2023-01-17T10:22:20Z
@@ -10,7 +10,7 @@ weight: 1
 toc: true
 ---
 
-The following is an example of a signed component descriptor containing a resource, source and one component reference. It uses the `v2` schema.
+The following is an example of a signed component descriptor containing a resource, source and one component reference. It uses the `v2` schema (which is the default). There are no differences in the semantics between version v2 and v3. "version" is used as kind of moniker for different serializing/deserializing formats (`v3` has the format of Kubernetes resources).
 
 This component is publicly available and can be inspected using the following command:
 
