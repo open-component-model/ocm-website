@@ -10,7 +10,7 @@ weight: 1
 toc: true
 ---
 
-The following is an example of a public-key-based signed component descriptor containing a resource, source and one component reference. It uses the `v2` schema (which is the default). There are no differences in the semantics between version v2 and v3. "version" is used as kind of moniker for different serializing/deserializing formats (`v3` has the format of Kubernetes resources).
+The following is an example of a public-key-based signed component descriptor containing a resource, source and one component reference. It uses the `v2` schema (which is the default). There are no differences in the semantics between version v2 and v3. `meta.schemaVersion` is used as kind of moniker for different serializing/deserializing formats (`v3` has the format of Kubernetes resources).
 
 This component is publicly available and can be inspected using the following command:
 
