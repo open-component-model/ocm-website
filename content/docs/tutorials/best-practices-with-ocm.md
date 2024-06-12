@@ -14,6 +14,7 @@ This chapter contains guidelines for common scenarios how to work with the Open 
 
 - [Separate between Build and Publish](#separate-between-build-and-publish)
 - [Building multi-arch images](#building-multi-arch-images)
+- [Referencing multi-arch images](#referencing-multi-arch-images)
 - [Using Makefiles](#using-makefiles)
   - [Prerequisites](#prerequisites)
   - [Templating the resources](#templating-the-resources)
@@ -75,9 +76,9 @@ images natively. Instead, the `buildx` plugin is used. However, this implies bui
 images in one step to a remote container registry as the local docker image store does not
 support multi-arch images.
 
-The OCM CLI has therefore some built-in support for dealing with multi-arch images during the
-component version composition ([`ocm add resources`](https://github.com/open-component-model/ocm/docs/reference/ocm_add_resources.md)). This allows
-building all artifacts locally and push them in a separate step to a container registry. This
+The OCM CLI has some built-in support for dealing with multi-arch images during the
+component version composition ([`ocm add resources`](https://github.com/open-component-model/ocm/blob/main/docs/reference/ocm_add_resources.md).
+This allows building all artifacts locally and push them in a separate step to a container registry. This
 is done by building single-arch images in a first step (still using `buildx` for cross-platform
 building). In a second step all images are bundled into a multi-arch image, which is stored as
 local artifact in a component (CA) or common transport (CTF)
@@ -417,7 +418,11 @@ GitHub packages you can see under `OS/Arch` that there are two platforms `linux/
 
 For better automation and reuse you may consider templating resource files and makefiles (see below)
 
+## Referencing multi-arch images
+
+
 ## Using Makefiles
+
 Developing with the Open Component Model usually is an iterative process of building artifacts,
 generating component descriptors, analyzing them and publishing them. To simplify and speedup this
 process it should be automated using a build tool. One option is to use a `makefile`.
@@ -428,6 +433,7 @@ In this example we will automated the example shown in the sections before:
 * Create a multi arch image from Go sources from a Git repository with docker
 * Packaging the image and a helm chart into a common transport archive
 * Signing and publishing the build result
+
 ### Prerequisites
 
 * The ocm CLI must be installed and in the PATH
@@ -599,11 +605,12 @@ declared in the makefile. Use either an environment variable or an argument when
 
 Example:
 
-```
+```shell
 $ PROVIDER=foo make ca
 ```
 
 ### Templating the resources
+
 The makefile uses a dynamic list of generated platforms for the images. You can just set the
 `PLATFORMS` variable:
 
@@ -616,7 +623,6 @@ If `MULTI` is set to `true` the variable `PLATFORMS` will be evaluated to decide
 will be built. This has to be reflected in the `resources.yaml`. It has to use the input type
 `dockermulti` and list all the variants which should be aggregated into a multiarch image. This list
 depends on the content of the make variable.
-
 
 The ocm CLI supports this by enabling templating mechanisms for the content by selecting a templater
 using the option `--templater ...` . The example uses the [Spiff templater](https://github.com/mandelsoft/spiff).
@@ -659,7 +665,6 @@ $(GEN)/image.$(NAME).multi: $(GEN)/.exists Dockerfile $(GO_SRCS)
 	@touch $(GEN)/image.$(NAME).multi
 ```
 
-
 ## Pipeline integration
 
 Pipeline infrastructures are heterogenous so that there is no universal answer how to integrate.
@@ -691,13 +696,13 @@ jobs:
           version: github.com/jensh007
       ...
 ```
+
 This creates a component version for the current build. Additionally a transport archive
 may be created or the component version along with the built container images may be uploaded to an
 OCI registry, etc.
 
 The documentation is available [here](https://github.com/open-component-model/ocm-action). A full
 example can be found in the sample Github repository.
-
 
 ## Static and Dynamic Variable Substitution
 
@@ -738,7 +743,7 @@ ocm add componentversions --create --file ../gen/ctf --settings ../gen/dynamic_s
 
 For analysing and debugging the transport archive some commands can help to find what is contained in the archive and what is stored in which blob:
 
-```
+```shell
 tree ../gen/ctf
 ../gen/ctf
 ├── artifact-index.json
@@ -764,9 +769,10 @@ ACCESSSPEC   : {"localReference":"sha256:59ff88331c53a2a94cdd98df58bc6952f056e4b
 ```
 
 ## Self-contained transport archives
+
 The transport archive created from as components file by using the command `ocm add  componentversions --create ...` does not automatically resolve image references to external registries. If you want create a transport archive with all images contained as local artifact you need to convert it in a second step:
 
-```
+```shell
 ocm transfer ctf --copy-resources <ctf-dir> <new-ctf-dir-or-oci-repo-url>
 ```
 
