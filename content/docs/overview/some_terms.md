@@ -56,10 +56,7 @@ In detail:
 
 ### Artifact Identity
 
-Within a Component Version, all artifacts *must* have a unique identity. The identity always includes:
-
-- Kind: Artifacts are either `sources` or `resources`
-- Name: A name, typically used to express the intended purpose
+Within a Component Version, all artifacts *MUST* have a unique identity. Every Source Identity or Resource Identity always includes a `name` that is typically used to express the intended purpose.
 
 Artifacts may also have additional `extraIdentity` attributes, that contribute to their identities. ExtraIdentity attributes are string-to-string maps.
 
