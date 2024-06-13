@@ -41,7 +41,7 @@ If you right away want to deep-dive into the topic, you can have a look at the [
   - `resources`: contain the payload, e.g. OCI images, binaries, etc.
 - Have a component-local `Artifact Identity`
 - Have a `type` (similar to a MIME-Type, current list is [here](https://github.com/open-component-model/ocm-spec/blob/main/doc/04-extensions/01-artifact-types/README.md))
-- Have an exchangeable `access` (formal description how to retrieve an artifact, e.g. a download URL)
+- Have an exchangeable `access`, a formal description how to retrieve an artifact, e.g. a download URL
 
 ## What are OCM Coordinates?
 
