@@ -771,7 +771,7 @@ ACCESSSPEC   : {"localReference":"sha256:59ff88331c53a2a94cdd98df58bc6952f056e4b
 
 ## Self-contained transport archives
 
-The transport archive created from a component-constructor file, using the command `ocm add  componentversions --create ...` does not automatically resolve image references to external OCI registries and stores them in the archive. If you want to create a self-contained transport archive with all images stored as local artifacts, you need to use the `--copy-resources` option of the `ocm transfer ctf` command. This will copy all external images to the blobs directory of the archive.
+The transport archive created from a component-constructor file, using the command `ocm add  componentversions --create ...`, does not automatically resolve image references to external OCI registries and stores them in the archive. If you want to create a self-contained transport archive with all images stored as local artifacts, you need to use the `--copy-resources` option of the `ocm transfer ctf` command. This will copy all external images to the blobs directory of the archive.
 
 ```shell
 ocm transfer ctf --copy-resources <ctf-dir> <new-ctf-dir-or-oci-repo-url>
