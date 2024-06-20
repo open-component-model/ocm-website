@@ -741,7 +741,7 @@ ocm add componentversions --create --file ../gen/ctf --settings ../gen/dynamic_s
 
 ## Debugging: Explain the blobs directory
 
-For analysing and debugging the content of a transport archive, there are some supportive some commands
+For analysing and debugging the content of a transport archive, there are some supportive commands
 to analyze what is contained in the archive and what is stored in which blob:
 
 ```shell
