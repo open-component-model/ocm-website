@@ -10,7 +10,7 @@ weight: 63
 toc: true
 ---
 
-This chapter contains guidelines for common scenarios how to work with the Open Component Model.
+This chapter contains guidelines for common scenarios how to work with the Open Component Model, focusing on using CI/CD, building, and publishing.
 
 - [Separate between Build and Publish](#separate-between-build-and-publish)
 - [Building multi-arch images](#building-multi-arch-images)
@@ -71,13 +71,15 @@ versions are provided by accepted and well-known processes.
 
 ## Building multi-arch images
 
+> **Note:** This section provides information only on on building multi-arch images. If you are instead interested in referencing a multi-arch image, see the [Referencing multi-arch images](#referencing-multi-arch-images) section.
+
 At the time of writing this guide Docker is not able to build multi-architecture (multi-arch)
 images natively. Instead, the `buildx` plugin is used. However, this implies building and pushing
 images in one step to a remote container registry as the local docker image store does not
 support multi-arch images.
 
 The OCM CLI has some built-in support for dealing with multi-arch images during the
-component version composition ([`ocm add resources`](https://github.com/open-component-model/ocm/blob/main/docs/reference/ocm_add_resources.md).
+component version composition ([`ocm add resources`](https://github.com/open-component-model/ocm/blob/main/docs/reference/ocm_add_resources.md)).
 This allows building all artifacts locally and push them in a separate step to a container registry. This
 is done by building single-arch images in a first step (still using `buildx` for cross-platform
 building). In a second step all images are bundled into a multi-arch image, which is stored as
@@ -420,6 +422,7 @@ For better automation and reuse you may consider templating resource files and m
 
 ## Referencing multi-arch images
 
+> **Note:** This section provides information only on on referencing multi-arch images. If you are instead interested in building a multi-arch image, see the [Building multi-arch images](#building-multi-arch-images) section.
 
 ## Using Makefiles
 
