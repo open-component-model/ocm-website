@@ -708,7 +708,7 @@ example can be found in the sample Github repository.
 
 Looking at the [settings file](../structuring-software-with-ocm#building-the-common-transport-archive) shows that
 some variables like the `version` or the `commit` change with every build
-or release. In many cases these varioables will be auto-generated during the build.
+or release. In many cases these variables will be auto-generated during the build.
 
 Other variables like the version of 3rd-party components will just change from time to
 time and are often set manually by an engineer or release manager. It is useful to separate
