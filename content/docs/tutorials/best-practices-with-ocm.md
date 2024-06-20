@@ -782,4 +782,4 @@ Note that this archive can become huge if there an many external images involved
 ## CICD integration
 
 Configure rarely changing variables in a static file and generate dynamic variables
-during the build from environment. See [explanation above](#static-and-dynamic-variable-substitution).
+during the build from environment. See the [explanation above](#static-and-dynamic-variable-substitution).
