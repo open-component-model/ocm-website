@@ -136,8 +136,8 @@ $ VERSION=0.1.0
 
 $ docker buildx build --load -t ${TAG_PREFIX}/simpleserver:0.1.0-linux-amd64 --platform linux/amd64 .
 [+] Building 54.4s (14/14) FINISHED
- => [internal] load build definition from Dockerfile                                                                          0.0s
- => => transferring Dockerfile: 660B                                                                                          0.0s
+ => [internal] load build definition from dockerfile                                                                          0.0s
+ => => transferring dockerfile: 660B                                                                                          0.0s
  => [internal] load .dockerignore                                                                                             0.0s
  => => transferring context: 2B                                                                                               0.0s
  => [internal] load metadata for gcr.io/distroless/base-debian10:latest                                                       1.6s
@@ -187,8 +187,8 @@ docker buildx build --load -t ${TAG_PREFIX}/simpleserver:0.1.0-linux-arm64 --pla
 [+] Building 40.1s (14/14) FINISHED
  => [internal] load .dockerignore                                                                                             0.0s
  => => transferring context: 2B                                                                                               0.0s
- => [internal] load build definition from Dockerfile                                                                          0.0s
- => => transferring Dockerfile: 660B                                                                                          0.0s
+ => [internal] load build definition from dockerfile                                                                          0.0s
+ => => transferring dockerfile: 660B                                                                                          0.0s
  => [internal] load metadata for gcr.io/distroless/base-debian10:latest                                                       1.0s
  => [internal] load metadata for docker.io/library/golang:1.19                                                                1.1s
  => [builder 1/5] FROM docker.io/library/golang:1.19@sha256:dc76ef03e54c34a00dcdca81e55c242d24b34d231637776c4bb5c1a8e851425  37.7s
