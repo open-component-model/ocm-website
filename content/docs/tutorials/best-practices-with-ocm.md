@@ -708,7 +708,7 @@ example can be found in the sample Github repository.
 
 Looking at the [settings file](../structuring-software-with-ocm#building-the-common-transport-archive) shows that
 some variables like the `version` or the `commit` change with every build
-or release. In many cases these varioables will be auto-generated during the build.
+or release. In many cases these variables will be auto-generated during the build.
 
 Other variables like the version of 3rd-party components will just change from time to
 time and are often set manually by an engineer or release manager. It is useful to separate
@@ -741,7 +741,7 @@ ocm add componentversions --create --file ../gen/ctf --settings ../gen/dynamic_s
 
 ## Debugging: Explain the blobs directory
 
-For analysing and debugging the content of a transport archive, there are some supportive some commands
+For analysing and debugging the content of a transport archive, there are some supportive commands
 to analyze what is contained in the archive and what is stored in which blob:
 
 ```shell
@@ -771,7 +771,7 @@ ACCESSSPEC   : {"localReference":"sha256:59ff88331c53a2a94cdd98df58bc6952f056e4b
 
 ## Self-contained transport archives
 
-The transport archive created from a component-constructor file, using the command `ocm add  componentversions --create ...` does not automatically resolve image references to external OCI registries and stores them in the archive. If you want to create a self-contained transport archive with all images stored as local artifacts, you need to use the `--copy-resources` option of the `ocm transfer ctf` command. This will copy all external images to the blobs directory of the archive.
+The transport archive created from a component-constructor file, using the command `ocm add  componentversions --create ...`, does not automatically resolve image references to external OCI registries and stores them in the archive. If you want to create a self-contained transport archive with all images stored as local artifacts, you need to use the `--copy-resources` option of the `ocm transfer ctf` command. This will copy all external images to the blobs directory of the archive.
 
 ```shell
 ocm transfer ctf --copy-resources <ctf-dir> <new-ctf-dir-or-oci-repo-url>
@@ -782,4 +782,4 @@ Note that this archive can become huge if there an many external images involved
 ## CICD integration
 
 Configure rarely changing variables in a static file and generate dynamic variables
-during the build from environment. See [explanation above](#static-and-dynamic-variable-substitution).
+during the build from environment. See the [explanation above](#static-and-dynamic-variable-substitution).
