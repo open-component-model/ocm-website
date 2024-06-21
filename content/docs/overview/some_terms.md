@@ -14,7 +14,7 @@ As the Open Component Model revolves around components, it is essential to estab
 
 If you want to deep-dive into every detailed aspect of the topic, check out the [OCM Specification](https://github.com/open-component-model/ocm-spec/blob/main/README.md) and its [Glossary](https://github.com/open-component-model/ocm-spec/blob/main/doc/glossary.md).
 
-## OCM's Notion of a Component
+## Components in OCM
 
 The concept of a `Component` can vary widely, often defined with very specific views on granularity or other technical attributes. OCM takes a different approach, focusing on the intended purpose and overall meaning of components.
 
