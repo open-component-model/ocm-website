@@ -10,42 +10,19 @@ toc: true
 images: []
 ---
 
-As the open component model revolves around components, it is essential to establish a common understanding of the fundamental terminology employed throughout this website. The following section provides concise definitions of key terms, laying the groundwork for the tutorials and documentation that follow.
+As the Open Component Model revolves around components, it is essential to establish a common understanding of the fundamental terminology employed throughout this website. The following section provides concise definitions of key terms, laying the groundwork for the tutorials and documentation that follow.
 
-If you right away want to deep-dive into the topic, you can have a look at the [OCM Specification](https://github.com/open-component-model/ocm-spec/blob/main/README.md) and its [Glossary](https://github.com/open-component-model/ocm-spec/blob/main/doc/glossary.md).
+If you want to deep-dive into every detailed aspect of the topic, check out the [OCM Specification](https://github.com/open-component-model/ocm-spec/blob/main/README.md) and its [Glossary](https://github.com/open-component-model/ocm-spec/blob/main/doc/glossary.md).
 
-## What’s a Component?
+## OCM's Notion of a Component
 
-- Represents a conceptual entity that defines a specific usage context or semantic meaning for a particular software artifact or set of artifacts. The software artifacts are intended for a purpose and could be as small as a "hello world", or as complex as a business suite
-- Is identified by a (globally) unique name
-- Evolves over versions
+The concept of a `Component` can vary widely, often defined with very specific views on granularity or other technical attributes. OCM takes a different approach, focusing on the intended purpose and overall meaning of components.
 
-## What’s a Component Version?
+In OCM, *Components* group a set of semantically related `Component Versions`. Each *Component Version* is uniquely and globally identified by a `Component Identity` and can reference other *Components*. A *Component Version* can also contain `Artifacts` and a formal description on how to access them. These *Artifacts* come in two categories: `Resources`, which describe the payload (e.g., OCI images), and `Sources`, which describe the input for creating *Resources* (e.g., source code).
 
-- Has a globally unique `Component Identity` (identity attributes `name` + `version`)
-- Can have component references to other components (to build a component graph)
-- Can have artifacts of kind `sources` and `resources`
+## OCM Coordinates
 
-## What's a Component Descriptor?
-
-- Serialized form of a Component Version
-
-## What's a Component Constructor
-
-- A file that acts as input for the OCM CLI to construct one or multiple component version(s)
-
-## What are Artifacts?
-
-- Can be either of kind
-  - `sources`: input for creating resources e.g. source code or
-  - `resources`: contain the payload, e.g. OCI images, binaries, etc.
-- Have a component-local `Artifact Identity`
-- Have a `type` (similar to a MIME-Type, current list is [here](https://github.com/open-component-model/ocm-spec/blob/main/doc/04-extensions/01-artifact-types/README.md))
-- Have an exchangeable `access`, a formal description how to retrieve an artifact, e.g. a download URL
-
-## What are OCM Coordinates?
-
-OCM Coordinates are used to reference OCM Component Versions and artifacts within OCM Component Versions. Coordinates referring to an OCM Component Version are also called `Component Identity`, whereas relative coordinates referring to an artifact are called `Artifact Identity`. `Component Identities` are globally unique and may be used to refer to full Component Versions. `Artifact Identities` are always relative to an OCM Component Version and may only be used in conjunction with a Component Identity.
+`OCM Coordinates` are used to reference *OCM Component Versions* and Artifacts within *OCM Component Versions*. Coordinates referring to an *OCM Component Version* are also called `Component Identity`, whereas relative coordinates referring to an artifact are called `Artifact Identity`. *Component Identities* are globally unique and may be used to refer to full Component Versions. *Artifact Identities* are always relative to an *Component Version* and may only be used in conjunction with a *Component Identity*.
 
 In detail:
 
