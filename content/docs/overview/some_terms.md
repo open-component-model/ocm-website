@@ -22,20 +22,20 @@ In OCM, Components group a set of semantically related *Component Versions*. Eac
 
 ## OCM Coordinates
 
-*OCM Coordinates* are used to reference OCM Component Versions and Artifacts within OCM Component Versions. Coordinates referring to an OCM Component Version are also called Component Identity, whereas relative Coordinates referring to an artifact are called *Artifact Identity*. Component Identities are globally unique and MAY be used to refer to full Component Versions. Artifact Identities are always relative to a Component Version and MAY only be used in conjunction with a Component Identity.
+*OCM Coordinates* are used to reference OCM Component Versions and Artifacts within OCM Component Versions. Coordinates referring to an OCM Component Version are also called Component Identity, whereas relative Coordinates referring to an artifact are called *Artifact Identity*. Component Identities are globally unique and may be used to refer to full Component Versions. Artifact Identities are always relative to a Component Version and may only be used in conjunction with a Component Identity.
 
 In detail:
 
 ### Component Identity
 
-- Component Name: Identifies a component. MUST start with URL-prefix, that SHOULD be controlled by the owner of the component to avoid collisions.
-- Component Version: If used with a Component name, identifies a specific Component Version. MUST adhere to "relaxed SemVer" (major, minor (+optional patchlevel) - optional v-prefix).
+- Component Name: Identifies a component. must start with URL-prefix, that should be controlled by the owner of the component to avoid collisions.
+- Component Version: If used with a Component name, identifies a specific Component Version. must adhere to "relaxed SemVer" (major, minor (+optional patchlevel) - optional v-prefix).
 
 ### Artifact Identity
 
-Within a Component Version, all artifacts MUST have a unique identity. Every Source Identity or Resource Identity always includes a `name` that is typically used to express the intended purpose.
+Within a Component Version, all artifacts must have a unique identity. Every Source Identity or Resource Identity always includes a `name` that is typically used to express the intended purpose.
 
-Artifacts MAY also have additional `extraIdentity` attributes, that contribute to their identities. `extraIdentity` attributes are string-to-string maps.
+Artifacts may also have additional `extraIdentity` attributes, that contribute to their identities. `extraIdentity` attributes are string-to-string maps.
 
 ### Examples
 
