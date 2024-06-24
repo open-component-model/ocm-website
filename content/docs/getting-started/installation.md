@@ -12,7 +12,7 @@ toc: true
 
 ## Using Binaries
 
-To install the OCM CLI you can download binaries for the major platforms from the GitHub [releases page](https://github.com/open-component-model/ocm/releases).
+To install the OCM CLI, you can download binaries for the major platforms from the GitHub [releases page](https://github.com/open-component-model/ocm/releases).
 
 ## Homebrew
 
@@ -26,12 +26,13 @@ To install with `bash` for macOS or Linux execute the following command:
 
 `curl -s https://ocm.software/install.sh | sudo bash`
 
-## Building from source
+## Building from Source
+
 ### Prerequisites
 
-- git
+- [git](https://www.git-scm.com/)
+- [golang](https://go.dev/)
 - make
-- golang
 
 ### Installation Process
 
@@ -41,7 +42,7 @@ Clone the `open-component-model/ocm` repo:
 git clone https://github.com/open-component-model/ocm
 ```
 
-Enter the repository directory (`cd ocm/`) and install the cli using make:
+Enter the repository directory (`cd ocm/`) and install the cli using `make`:
 
 ```bash
 make install
