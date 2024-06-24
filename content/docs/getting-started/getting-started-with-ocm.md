@@ -12,23 +12,23 @@ toc: true
 <!-- omit in toc -->
 
 This chapter walks you through some basic steps to get started with OCM concepts and the OCM CLI.
-You will learn how to create a component version, display and examine the component and how to transport and sign it.
+You will learn how to create a component version, display and examine the component, and how to transport and sign it.
 
 ## Prerequisites
 
-To follow the steps described in this section, you will need:
+To follow the steps described in this section, you will need to:
 
 ### Install the OCM Command Line Interface (CLI)
 
 The CLI is used to interact with component versions and registries. Install it like described [here](../cli/installation.md).
 
-### Access to an OCM repository
+### Obtain Access to an OCM Repository
 
-This can be any OCI registry for which you have write permission (e.g. GitHub Packages). An OCM repository based on an OCI registry is identified by a leading OCI repository prefix. For example: `ghcr.io/<YOUR-ORG>/ocm`.
+This can be any OCI registry for which you have write permission (e.g., GitHub Packages). An OCM repository based on an OCI registry is identified by a leading OCI repository prefix. For example: `ghcr.io/<YOUR-ORG>/ocm`.
 
-### Credentials for the CLI to access the OCM repository
+### Obtain Credentials for the CLI to Access the OCM Repository
 
-#### Using the Docker configuration file
+#### Using the Docker Configuration File
 
 The easiest way to do this is to reuse your Docker configuration `json` file.
 
@@ -49,7 +49,7 @@ The easiest way to do this is to reuse your Docker configuration `json` file.
       cache: ~/.ocm/cache
   ```
 
-#### Using basic authentication
+#### Using Basic Authentication
 
 Alternatively, you can use basic authentication. Create a file named `.ocmconfig` in your home directory with the following content:
 
@@ -68,11 +68,11 @@ configurations:
               password: <YOUR-PASSWORD>
 ```
 
-More information on the topic can be seen using the OCM CLI help topic command `ocm credential-handling`.
+More information on the topic can be seen by running the OCM CLI help topic command `ocm credential-handling`.
 
-## Create a component version
+## Create a Component Version
 
-The first step when creating a new component version is to create a component archive. A component archive contains references, resources and sources. The `ocm` CLI tool can help with this.
+The first step when creating a new component version is to create a component archive. A component archive contains references, resources, and sources. The `ocm` CLI tool can help with this.
 
 For convenience, we define the following environment variables:
 
@@ -87,15 +87,15 @@ OCM_REPO="ghcr.io/<github-org>/ocm"
 
 If you specify values for your setup, you can directly use the commands shown in the next steps.
 The variable `OCM_REPO` is set to a location of an OCI registry where artifacts and component
-descriptors are stored (omitting the `https://` prefix). For example
+descriptors are stored (omitting the `https://` prefix). For example,
 [GitHub Packages](https://github.com/features/packages) can be used as an OCI registry. Many other
 options exist.
 
-Let's asssume that we create a component based on a GitHub source repository.
+Let's assume that we create a component based on a GitHub source repository.
 
-### Create a component archive
+### Create a Component Archive
 
-First we create an empty component archive using the command [`ocm create componentarchive`](https://github.com/open-component-model/ocm/blob/main/docs/reference/ocm_create_componentarchive.md)
+First we create an empty component archive using the command [`ocm create componentarchive`](https://github.com/open-component-model/ocm/blob/main/docs/reference/ocm_create_componentarchive.md):
 
 ```shell
 ocm create componentarchive ${COMPONENT} ${VERSION}  --provider ${PROVIDER} --file $CA_ARCHIVE
@@ -133,7 +133,7 @@ By default, the command creates a directory structure. The option `--type` can b
 
 </details>
 
-### Add a local resource
+### Add a Local Resource
 
 The next step is <a href="https://github.com/open-component-model/ocm/blob/main/docs/reference/ocm_add_resources.md">
 `ocm add resources`</a>. First, we want to add a Helm Chart stored in a local folder named `helmchart`.
@@ -194,9 +194,13 @@ using the [access method](https://github.com/open-component-model/ocm-spec/blob/
 [`localBlob`](https://github.com/open-component-model/ocm-spec/blob/main/doc/04-extensions/02-access-types/localblob.md).
 </details>
 
-### Add an image reference
+### Add an Image
 
-Next, we will add an image. The image is already stored in an image registry (e.g. by a previous Docker build/push).
+Next, we will add an image. This can be done in one of two ways:
+
+#### Add an Image Reference (Option 1)
+
+If the image is already stored in an image registry (e.g., by a previous Docker build/push), you can simply add a reference to it.
 
 ```shell
 ocm add resource $CA_ARCHIVE --type ociImage --name image --version ${VERSION} --accessType ociArtifact --reference gcr.io/google_containers/echoserver:1.10
@@ -211,6 +215,7 @@ adding resource ociImage: "name"="image","version"="1.0.0"...
 ```
 
 <details><summary>What happened?</summary>
+
 The component descriptor now has the following content, with an additional `access` under
 `component.resources`, where `access` is of type `external`:
 
@@ -245,9 +250,9 @@ component:
 
 </details>
 
-### Add an image resource
+#### Add an Image Resource (Option 2)
 
-Alternatively you can add an image as a resource built locally using Docker before. It will be picked up from the local Docker file system and added to the component archive.
+Alternatively, you can add an image as a resource built locally using Docker before. It will be picked up from the local Docker file system and added to the component archive.
 
 ```shell
 docker image ls
@@ -273,6 +278,7 @@ locator: echoserverimage, repo: , version 1.10.0
 ```
 
 <details><summary>What happened?</summary>
+
 The Docker image is downloaded from the Docker daemon, converted to an OCI artifact,
 and added as local artifact to the component version.
 The component descriptor now has the content:
@@ -308,12 +314,12 @@ meta:
   schemaVersion: v2
 ```
 
-The generated blob sha256.65cf... is an archive describing the image according to the
+The generated blob `sha256.65cf...` is an archive describing the image according to the
 [OCI Image Layout Specification](https://github.com/opencontainers/image-spec/blob/v1.0.1/image-layout.md).
 
 </details>
 
-### Using a resources file
+### (Optional) Using a Resources File
 
 You could simplify the previous two steps (adding helm chart and image as resources) by using a text file as input. For that, you could create a file `resources.yaml`, which looks like this:
 
@@ -333,16 +339,17 @@ access:
   imageReference: gcr.io/google_containers/echoserver:1.10
 ```
 
-A resource is described either by its accesss information to a remote repository or by locally
-provided resources. For remote access the field `access` is used to describe the
+A resource is described either by its access information to a remote repository or by locally
+provided resources. For remote access, the field `access` is used to describe the
 [access method](https://github.com/open-component-model/ocm-spec/blob/main/doc/04-extensions/02-access-types/README.md). The type field is used to specify the kind of access.
-If the resource content should be taken from local resources with the field `input` is used to specify
-the access to local resources. In this case the resource content is directly put into the component
-archive. Like for the `access` attribute the kind of the input source is described by the field `type`.
-The input types are not part of the input specification but are provided locally by the OCM command
-line client. For available input types see [`ocm add resources`](https://github.com/open-component-model/ocm/blob/main/docs/reference/ocm_add_resources.md).
 
-For more complex scenarios the description files might use variable substitution (templating), see [Best practices](../best-practices-with-ocm#templating-the-resources)
+If the resource content should be taken from local resources, the field `input` is used to specify
+the access to local resources. In this case, the resource content is directly put into the component
+archive. Similarly to the `access` attribute, the kind of the input source is described by the field `type`.
+The input types are not part of the input specification but are provided locally by the OCM command
+line client. For available input types, see [`ocm add resources`](https://github.com/open-component-model/ocm/blob/main/docs/reference/ocm_add_resources.md).
+
+For more complex scenarios, the description files might use variable substitution (templating), see [Best Practices](../best-practices-with-ocm#templating-the-resources).
 
 Add the resources using the following command:
 
@@ -380,7 +387,7 @@ input:
   path: echoserverimage:1.10.0
 ```
 
-### Uploading component versions
+### Upload the Component Versions
 
 To upload the component version to an OCI registry, you can transfer the component archive using the command <a href="https://github.com/open-component-model/ocm/blob/main/docs/reference/ocm_transfer_componentarchive.md">`ocm transfer componentarchive`</a>:
 
@@ -395,7 +402,7 @@ transferring version "github.com/acme/helloworld:1.0.0"...
 ...adding component version...
 ```
 
-### Bundle composed components
+### Bundle Composed Components
 
 If you have created multiple components according to the instructions above, you can bundle
 them into a single archive entity. This can be done by creating a transport archive.
@@ -406,7 +413,7 @@ locations.
 
 A transport archive may contain any number of component versions. It may also be pushed to an OCM repository.
 
-Note that a transport achive is also an OCM repository, so it can also be used as source or as a target
+Note that a transport archive is also an OCM repository, so it can also be used as source or as a target
 for transport operations.
 
 ```shell
@@ -491,7 +498,7 @@ jq . ${CTF_ARCHIVE}/blobs/sha256.63dc40246a604ef503f0361e14216ab7e002912697d09da
 }
 ```
 
-Notice that the output of the component version above contains the component descriptor as one of the `layers`. It can be identified by its content type, which is `application/vnd.ocm.software.component-descriptor.v2+yaml+tar`. In ths case, the component descriptor can be displayed with the following command:
+Notice that the output of the component version above contains the component descriptor as one of the `layers`. It can be identified by its content type, which is `application/vnd.ocm.software.component-descriptor.v2+yaml+tar`. In this case, the component descriptor can be displayed with the following command:
 
 ```shell
 tar xvf ctf-hello-world/blobs/sha256.4f2080d8d41d2b52182f325f4f42d91e2581e3f2299f4f8631196801773ba869 -O - component-descriptor.yaml
@@ -536,13 +543,13 @@ The previous steps can be combined into a single operation working on a single d
 
 - Creating a Common Transport Archive
 - Adding one or more components
-- With resources, sources and references
+- With resources, sources, and references
 
 The command [ocm add componentversions](https://github.com/open-component-model/ocm/blob/main/docs/reference/ocm_add_componentversions.md)
-directly creates or extends a common transport archive without the need for creating dedicated component archives
+directly creates or extends a common transport archive without the need for creating dedicated component archives.
 
 Create a yaml configuration file `component-constructor.yaml`, which contains information about the components
-to create and the elements addded to those components
+to create and the elements added to those components:
 
 ```yaml
 components:
@@ -579,7 +586,8 @@ adding component github.com/acme.org/helloworld:1.0.0...
 ```
 
 <details><summary>What happened?</summary>
-The command creates the common-transport-archive (option `--create`), and adds the listed components
+
+The command creates the common-transport-archive (option `--create`) and adds the listed components
 with the described resources.
 
 ```shell
@@ -598,9 +606,9 @@ ctf-hello-world
 
 </details>
 
-## Display and Examine component versions
+## Display and Examine Component Versions
 
-### List component versions
+### List Component Versions
 
 To show the component stored in a component archive (without looking at the file system structure), the <a href="https://github.com/open-component-model/ocm/blob/main/docs/reference/ocm_get_componentversions.md">`ocm get componentversion`</a> command can be used:
 
@@ -677,7 +685,7 @@ NESTING    COMPONENT                              VERSION   PROVIDER   IDENTITY
    └─      github.com/mandelsoft/ocmhelminstaller 0.1.0-dev mandelsoft "name"="installer"
 ```
 
-### List the resources of a component version
+### List the Resources of a Component Version
 
 To list the resources found in a component version tree, the command <a href="https://github.com/open-component-model/ocm/blob/main/docs/reference/ocm_get_resources.md">`ocm get resources`</a> can be used:
 
@@ -696,7 +704,7 @@ COMPONENT                                    NAME        VERSION   IDENTITY TYPE
       └─                                     toiimage    0.1.0-dev          ociImage    local
 ```
 
-### Download the resources of a component version
+### Download the Resources of a Component Version
 
 Use the <a href="https://github.com/open-component-model/ocm/blob/main/docs/reference/ocm_download_resources.md">`ocm download`</a> command to download resources such as component versions, individual resources or artifacts:
 
@@ -711,7 +719,8 @@ helmchart.tgz: 4747 byte(s) written
 Because it is stored as OCI artifact in an OCI registry, the filesystem format used for OCI artifacts is the blob format.
 
 <details><summary>What happened?</summary>
-The file helmchart.tgz was downloaded.
+
+The file `helmchart.tgz` was downloaded.
 
 ```shell
 tar xvf helmchart.tgz
@@ -753,7 +762,7 @@ $ jq . index.json
 
 </details>
 
-#### Download with download handlers
+#### Download with Download Handlers
 
 To use a format more suitable for the content technology, enable the usage
 of download handlers.
@@ -771,6 +780,7 @@ helmchart.tgz: 4747 byte(s) written
 ```
 
 <details><summary>What happened?</summary>
+
 The downloaded archive is now a regular Helm Chart archive:
 
 ```shell
@@ -793,7 +803,7 @@ tar tvf echoserver-0.1.0.tgz
 
 </details>
 
-#### Download an image
+#### Download an Image
 
 For example, for OCI images, the OCI format is more suitable:
 
@@ -806,6 +816,7 @@ echoserver.tgz: 46148828 byte(s) written
 ```
 
 <details><summary>What happened?</summary>
+
 The file `echoserver.tgz` was downloaded.
 
 ```shell
@@ -857,7 +868,7 @@ jq . index.json
 
 </details>
 
-#### Download an executable
+#### Download an Executable
 
 The Open Component Model allows to publish platform-specific executables. In this case, the platform
 specification is used by convention as extra identity for the artifacts that are contained in the component
@@ -897,7 +908,7 @@ ocm get componentversion ghcr.io/open-component-model/ocm//ocm.software/ocmcli:0
 ...
 ```
 
-Note, the resources shown above have the same name and type `executable` but a different extra-identity. If a
+Note that the resources shown above have the same name and type `executable` but a different extra-identity. If a
 component version complies to this convention, executables can directly be downloaded for the specified
 platform with the use of the `-x` option. If only one executable is contained in the component version, the
 resource name can be omitted. Example:
@@ -929,17 +940,17 @@ file ocm
 ocm: Mach-O 64-bit executable arm64
 ```
 
-With the option `--latest`, the latest mathching component version is used for download. With the
-option `--constraints` version constraints can be configured. For example: `--constraints 0.1.x`
-will select all patch versions of `0.1`. Together with `--latest` the latest patch version is
+With the option `--latest`, the latest matching component version is used for download. With the
+option `--constraints`, version constraints can be configured. For example: `--constraints 0.1.x`
+will select all patch versions of `0.1`. Together with `--latest`, the latest patch version is
 selected.
 
 The option `-x` enables the executable download handler, which provides the x-bit of the downloaded
-files. Additionally it filters all matching resources for executables and the correct platform.
+files. Additionally, it filters all matching resources for executables and the correct platform.
 
 </details>
 
-#### Download a full component version
+#### Download a Full Component Version
 
 Download entire component versions using the <a href="https://github.com/open-component-model/ocm/blob/main/docs/reference/ocm_download_componentversions.md">`ocm download componentversion`</a> command:
 
@@ -954,6 +965,7 @@ helloworld: downloaded
 The result is a component archive. This can then be modified using the `ocm add ...` commands shown earlier.
 
 <details><summary>What happened?</summary>
+
 The component version was downloaded.
 
 ```shell
@@ -965,7 +977,7 @@ tree helloworld2
 └── component-descriptor.yaml
 ```
 
-The `blobs` directory is empty because, during the upload to the OCI registry, the local helmchart blob was transformed to a regular OCI artifact. The access method in the component descriptor has been modified to ociArtifact.
+The `blobs` directory is empty because, during the upload to the OCI registry, the local helmchart blob was transformed to a regular OCI artifact. The access method in the component descriptor has been modified to `ociArtifact`.
 
 </details>
 
@@ -982,6 +994,7 @@ echoserver: downloaded
 ```
 
 <details><summary>What happened?</summary>
+
 The OCI image `echoserver` was downloaded.
 
 ```shell
@@ -1000,10 +1013,9 @@ echoserver
 
 </details>
 
-## Transport OCM component versions
+## Transport OCM Component Versions
 
-The section [Bundle composed components](#bundle-composed-components) explained how to bundle multiple component version into a transport
-archive.
+The section [Bundle Composed Components](#bundle-composed-components) explained how to bundle multiple component version into a transport archive.
 
 During the transfer, it is possible to include component references as local blobs. It is also possible to include references in a recursive way.
 
@@ -1020,21 +1032,21 @@ transferring version "github.com/acme/helloworld:1.0.0"...
 1 versions transferred
 ```
 
-The OCM CLI's `transfer` command can be used to transfer component versions, component archives, transport archives and artifacts. See `ocm transfer -h` for more information.
+The OCM CLI's `transfer` command can be used to transfer component versions, component archives, transport archives, and artifacts. See `ocm transfer -h` for more information.
 
 More examples on the transport archive can be found in [appendix A](https://github.com/open-component-model/ocm-spec/blob/main/doc/appendix/A/CTF/README.md).
 
-## Sign component versions
+## Sign Component Versions
 
 Sign component versions to ensure integrity along a transport chain.
 
-Signing requires a key pair, a signature, and optionally an issuer as well as an algorithm and a
+Signing requires a key pair, a signature, and, optionally, an issuer, as well as an algorithm and a
 name for the signature.
 
 A component version can have multiple signatures with different names. A normalization of the
 component version is used for signing. See [appendix C](https://github.com/open-component-model/ocm-spec/blob/main/doc/appendix/C/README.md) for more details.
-Currently only signing according
-[RSA PKCS #1 v1.5 signature algorithm](https://datatracker.ietf.org/doc/html/rfc3447) supported.
+Currently, only signing according to the
+[RSA PKCS #1 v1.5 signature algorithm](https://datatracker.ietf.org/doc/html/rfc3447) is supported.
 
 Create a key pair using the OCM CLI:
 
@@ -1066,7 +1078,7 @@ successfully signed github.com/acme/helloworld:1.0.0 (digest sha256:46615253117b
 <details><summary>What happened?</summary>
 
 Digests will be created for all described artifacts and referenced component versions. Then for the
-top-level component versions the component-version digests are signed. Signature and digests are
+top-level component versions, the component-version digests are signed. The signature and digests are
 stored in the component descriptor(s):
 
 ```shell
@@ -1084,9 +1096,11 @@ jq . ${CTF_ARCHIVE}/artifact-index.json
     }
   ]
 }
+```
 
-Beside the digests of the component descriptor layer nothing has changed:
+Beside the digests of the component descriptor layer, nothing has changed:
 
+```shell
 jq . ${CTF_ARCHIVE}/blobs/sha256.8c6b8c5a63a09d96d2a60b50adbd47f06b31be6e9d3e8618177c60fb47ec4bb2
 ```
 
@@ -1167,23 +1181,23 @@ signatures:
 
 </details>
 
-### Signing with certificates
+### Signing with Certificates
 
 The public key from the last example cannot be validated. This can be changed by using a certificate
 instead of a pure public key. The certificate is signed by a CA. This ensures the authenticity of the
-described public key. Additionally the common name of the certificate is validated against the issuer
+described public key. Additionally, the common name of the certificate is validated against the issuer
 attribute of the signature stored in the component descriptor.
 
-To create a certificate use the command:
+To create a certificate, use the command:
 
 ```shell
 ocm create rsakeypair --cacert ca.cert --cakey ca.priv CN=acme.org acme.priv
 ```
 
 You can use additional attributes of the certificate like `O`, `OU` or `C`. See usage for details.
-The certificate can be requested by any offical certificate authority instead. It requires the usage types x509.KeyUsageDigitalSignature and x509.ExtKeyUsageCodeSigning.
+The certificate can be requested by any official certificate authority instead. It requires the usage types `x509.KeyUsageDigitalSignature` and `x509.ExtKeyUsageCodeSigning`.
 
-For signing the component version you need to provide the issuer then:
+For signing the component version you need to provide the issuer, then run:
 
 ```shell
 ocm sign componentversion --signature acme-sig --private-key=acme.priv --issuer acme.org ${OCM_REPO}//${COMPONENT}:${VERSION}
@@ -1194,11 +1208,11 @@ instead of the public key.
 
 ### Signature Verification
 
-You can verify a signed component version. Therefore a public or a certificate provided by the
-signer is required. If a certificate is provided it is validated according its certificate chain.
-If not an official CA is used you need the certificate of the used root CA.
+You can verify a signed component version. Therefore, a public or a certificate provided by the
+signer is required. If a certificate is provided, it is validated according to its certificate chain.
+If an official CA is used instead, you need the certificate of the used root CA.
 
-To verify the signature of a component version use
+To verify the signature of a component version, use:
 
 ```shell
 ocm verify componentversions --signature acme-sig --public-key=acme.pub ctf-hello-world
