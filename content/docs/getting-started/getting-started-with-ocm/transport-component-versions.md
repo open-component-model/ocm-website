@@ -10,8 +10,6 @@ weight: 26
 toc: true
 ---
 
-## Transport OCM Component Versions
-
 The section [Bundle Composed Components](./create-component-version.md#bundle-composed-components) explained how to bundle multiple component version into a transport archive.
 
 During the transfer, it is possible to include component references as local blobs. It is also possible to include references in a recursive way.

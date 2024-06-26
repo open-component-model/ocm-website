@@ -10,9 +10,7 @@ weight: 24
 toc: true
 ---
 
-## Create a Component Version
-
-### Setting Up Environment Variables (Optional)
+## Setting Up Environment Variables (Optional)
 
 For convenience, we will define the following environment variables:
 
@@ -33,7 +31,7 @@ options exist.
 
 Let's assume that we are creating a component based on a GitHub source repository.
 
-### Create a Component Archive
+## Create a Component Archive
 
 The first step when creating a new component version is to create a component archive. A component archive contains references, resources, and sources. The `ocm` CLI tool can help with this.
 
@@ -75,7 +73,7 @@ By default, the command creates a directory structure. The option `--type` can b
 
 </details>
 
-### Add a Local Resource
+## Add a Local Resource
 
 The next step is [`ocm add resources`](https://github.com/open-component-model/ocm/blob/main/docs/reference/ocm_add_resources.md). First, we want to add a Helm Chart stored in a local folder named `helmchart`.
 
@@ -135,11 +133,11 @@ using the [access method](https://github.com/open-component-model/ocm-spec/blob/
 [`localBlob`](https://github.com/open-component-model/ocm-spec/blob/main/doc/04-extensions/02-access-types/localblob.md).
 </details>
 
-### Add an Image
+## Add an Image
 
 Next, we will add an image. This can be done in one of two ways:
 
-#### Add an Image Reference (Option 1)
+### Add an Image Reference (Option 1)
 
 If the image is already stored in an image registry (e.g., by a previous Docker build/push), you can simply add a reference to it.
 
@@ -191,7 +189,7 @@ component:
 
 </details>
 
-#### Add an Image Resource (Option 2)
+### Add an Image Resource (Option 2)
 
 Alternatively, you can add an image as a resource built locally using Docker before. It will be picked up from the local Docker file system and added to the component archive.
 
@@ -260,7 +258,7 @@ The generated blob `sha256.65cf...` is an archive describing the image according
 
 </details>
 
-### Using a Resources File (Optional)
+## Using a Resources File (Optional)
 
 You could simplify the previous two steps (adding helm chart and image as resources) by using a text file as input. For that, you could create a file `resources.yaml`, which looks like this:
 
@@ -328,7 +326,7 @@ input:
   path: echoserverimage:1.10.0
 ```
 
-### Upload the Component Versions
+## Upload the Component Versions
 
 To upload the component version to an OCI registry, you can transfer the component archive using the command [`ocm transfer componentarchive`](https://github.com/open-component-model/ocm/blob/main/docs/reference/ocm_transfer_componentarchive.md):
 
@@ -343,7 +341,7 @@ transferring version "github.com/acme/helloworld:1.0.0"...
 ...adding component version...
 ```
 
-### Bundle Composed Components
+## Bundle Composed Components
 
 If you have created multiple components according to the instructions above, you can bundle
 them into a single archive entity. This can be done by creating a transport archive.
@@ -478,7 +476,7 @@ The other elements listed as `layers` describe the blobs for the local resources
 
 </details>
 
-### All in One
+## All in One
 
 The previous steps can be combined into a single operation working on a single description file:
 

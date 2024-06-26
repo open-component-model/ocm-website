@@ -13,21 +13,19 @@ toc: true
 This and the following chapters walk you through some basic steps to get started with OCM concepts and the OCM CLI.
 You will learn how to create a component version, display and examine the component, and how to transport and sign it.
 
-## Prerequisites
-
 To follow the steps described in this section, you will need to:
 
-### Install the OCM Command Line Interface (CLI)
+## Install the OCM Command Line Interface (CLI)
 
 The CLI is used to interact with component versions and registries. Install it like described in [Installing the OCM CLI](../installation.md).
 
-### Obtain Access to an OCM Repository
+## Obtain Access to an OCM Repository
 
 This can be any OCI registry for which you have write permission (e.g., GitHub Packages). An OCM repository based on an OCI registry is identified by a leading OCI repository prefix. For example: `ghcr.io/<YOUR-ORG>/ocm`.
 
-### Obtain Credentials for the CLI to Access the OCM Repository
+## Obtain Credentials for the CLI to Access the OCM Repository
 
-#### Using the Docker Configuration File
+### Using the Docker Configuration File
 
 The easiest way to do this is to reuse your Docker configuration `json` file.
 
@@ -48,7 +46,7 @@ The easiest way to do this is to reuse your Docker configuration `json` file.
       cache: ~/.ocm/cache
   ```
 
-#### Using Basic Authentication
+### Using Basic Authentication
 
 Alternatively, you can use basic authentication. Create a file named `.ocmconfig` in your home directory with the following content:
 
