@@ -10,8 +10,6 @@ weight: 27
 toc: true
 ---
 
-## Sign Component Versions
-
 Sign component versions to ensure integrity along a transport chain.
 
 Signing requires a key pair, a signature, and, optionally, an issuer, as well as an algorithm and a
@@ -155,7 +153,7 @@ signatures:
 
 </details>
 
-### Signing with Certificates
+## Signing with Certificates
 
 The public key from the last example cannot be validated. This can be changed by using a certificate
 instead of a pure public key. The certificate is signed by a CA. This ensures the authenticity of the
@@ -180,7 +178,7 @@ ocm sign componentversion --signature acme-sig --private-key=acme.priv --issuer 
 Now the issuer will be stored along the signature and will be checked when verifying with the certificate
 instead of the public key.
 
-### Signature Verification
+## Signature Verification
 
 You can verify a signed component version. Therefore, a public or a certificate provided by the
 signer is required. If a certificate is provided, it is validated according to its certificate chain.

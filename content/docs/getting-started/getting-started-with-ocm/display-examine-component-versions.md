@@ -10,9 +10,7 @@ weight: 25
 toc: true
 ---
 
-## Display and Examine Component Versions
-
-### List Component Versions
+## List Component Versions
 
 To show the component stored in a component archive (without looking at the file system structure), the [`ocm get componentversion`](https://github.com/open-component-model/ocm/blob/main/docs/reference/ocm_get_componentversions.md) command can be used:
 
@@ -89,7 +87,7 @@ NESTING    COMPONENT                              VERSION   PROVIDER   IDENTITY
    └─      github.com/mandelsoft/ocmhelminstaller 0.1.0-dev mandelsoft "name"="installer"
 ```
 
-### List the Resources of a Component Version
+## List the Resources of a Component Version
 
 To list the resources found in a component version tree, the command [`ocm get resources`](https://github.com/open-component-model/ocm/blob/main/docs/reference/ocm_get_resources.md) can be used:
 
@@ -108,7 +106,7 @@ COMPONENT                                    NAME        VERSION   IDENTITY TYPE
       └─                                     toiimage    0.1.0-dev          ociImage    local
 ```
 
-### Download the Resources of a Component Version
+## Download the Resources of a Component Version
 
 Use the [`ocm download`](https://github.com/open-component-model/ocm/blob/main/docs/reference/ocm_download_resources.md) command to download resources such as component versions, individual resources or artifacts:
 
@@ -166,7 +164,7 @@ $ jq . index.json
 
 </details>
 
-#### Download with Download Handlers
+### Download with Download Handlers
 
 To use a format more suitable for the content technology, enable the usage
 of download handlers.
@@ -207,7 +205,7 @@ tar tvf echoserver-0.1.0.tgz
 
 </details>
 
-#### Download an Image
+### Download an Image
 
 For example, for OCI images, the OCI format is more suitable:
 
@@ -272,7 +270,7 @@ jq . index.json
 
 </details>
 
-#### Download an Executable
+### Download an Executable
 
 The Open Component Model allows to publish platform-specific executables. In this case, the platform
 specification is used by convention as extra identity for the artifacts that are contained in the component
@@ -354,7 +352,7 @@ files. Additionally, it filters all matching resources for executables and the c
 
 </details>
 
-#### Download a Full Component Version
+### Download a Full Component Version
 
 Download entire component versions using the [`ocm download componentversion`](https://github.com/open-component-model/ocm/blob/main/docs/reference/ocm_download_componentversions.md) command:
 
@@ -385,7 +383,7 @@ The `blobs` directory is empty because, during the upload to the OCI registry, t
 
 </details>
 
-### Download OCI Artifacts
+## Download OCI Artifacts
 
 Download OCI artifacts from an OCI registry, such as OCI images, with the [`ocm download artifacts`](https://github.com/open-component-model/ocm/blob/main/docs/reference/ocm_download_artifacts.md) command:
 
