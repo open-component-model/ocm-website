@@ -17,11 +17,11 @@ Overly complex, bespoke CI/CD pipelines and the lack of automation across the wh
 
 ### Immutable and Unique Component Identity
 
-A crucial requirement is the ability to assign an immutable and globally unique Component Identity to each software component. This identifier acts as a "correlation ID", allowing all lifecycle management processes, such as compliance scanning, to correlate their outputs to a single, identifiable software component.
+A crucial requirement is the ability to assign an immutable and globally unique Component Identity to each software component. This identifier acts as a "correlation ID," allowing all lifecycle management processes, such as security compliance and vulnerability scanning, to correlate their outputs to a single, identifiable software component.
 
 ### Artifact Descriptions with Location Information
 
-The model should facilitate the description of all technical artifacts (or resources) necessary for deploying a specific software component. This list, termed a "Software Bill of Delivery" (SBoD), outlines only the artifacts required for successful deployment. Additionally, the description must encompass the specific technical access locations from which each artifact can be retrieved.
+The model should facilitate the description of all technical artifacts required for deploying a specific version of a software component. This list, termed a "Software Bill of Delivery" (SBoD), outlines only the artifacts needed for successful deployment. Additionally, the description must encompass the technical access location from which each artifact can be retrieved.
 
 ### Separation of Component Identity and Artifact Location
 
