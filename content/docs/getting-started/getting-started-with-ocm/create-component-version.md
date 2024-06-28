@@ -52,7 +52,7 @@ ca-hello-world
 └── component-descriptor.yaml
 ```
 
-The [component descriptor]([../../specification/elements/README.md#component-descriptor](https://github.com/open-component-model/ocm-spec/blob/main/doc/01-model/01-model.md#components-and-component-versions))
+The [component descriptor](https://github.com/open-component-model/ocm-spec/blob/main/doc/01-model/01-model.md#components-and-component-versions)
 is stored as a yaml file named `component-descriptor.yaml`. It describes the content of a component version.
 
 It contains the following configuration:
@@ -288,7 +288,7 @@ archive. Similarly to the `access` attribute, the kind of the input source is de
 The input types are not part of the input specification but are provided locally by the OCM command
 line client. For available input types, see [`ocm add resources`](https://github.com/open-component-model/ocm/blob/main/docs/reference/ocm_add_resources.md).
 
-For more complex scenarios, the description files might use variable substitution (templating), see [Best Practices](../../tutorials/best-practices-with-ocm#templating-the-resources).
+For more complex scenarios, the description files might use variable substitution (templating), see [Best Practices](../../tutorials/best-practices-with-ocm.md#templating-the-resources).
 
 Add the resources using the following command:
 
