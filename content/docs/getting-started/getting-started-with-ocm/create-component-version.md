@@ -288,7 +288,7 @@ archive. Similarly to the `access` attribute, the kind of the input source is de
 The input types are not part of the input specification but are provided locally by the OCM command
 line client. For available input types, see [`ocm add resources`](https://github.com/open-component-model/ocm/blob/main/docs/reference/ocm_add_resources.md).
 
-For more complex scenarios, the description files might use variable substitution (templating), see [Best Practices](https://ocm.software/docs/tutorials/best-practices/#templating-the-resources).
+For more complex scenarios, the description files might use variable substitution (templating), see [Best Practices](https://github.com/open-component-model/ocm-website/blob/main/content/docs/tutorials/best-practices-with-ocm.md#templating-the-resources).
 
 Add the resources using the following command:
 
