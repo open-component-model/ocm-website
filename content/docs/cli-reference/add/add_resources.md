@@ -258,7 +258,7 @@ with the field <code>type</code> in the <code>input</code> field:
 
   This input type describes the composition of a multi-platform OCI image.
   The various variants are taken from the local docker daemon. They should be 
-  [built with the `buildx` command](../../tutorials/best-practices-with-ocm.md#building-multi-arch-images) for cross platform docker builds.
+  [built with the `buildx` command](https://github.com/open-component-model/ocm-website/blob/main/content/docs/tutorials/best-practices-with-ocm.md#building-multi-arch-images) for cross platform docker builds.
 
   The denoted images, as well as the wrapping image index is packed as OCI
   artifact set.
