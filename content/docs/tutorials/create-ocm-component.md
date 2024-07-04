@@ -15,7 +15,7 @@ toc: true
 Let's build an OCM component for a simple application, containing a Helm Chart and an OCI Image.
 We use the chart and image from Stefan Prodan's [podinfo](https://github.com/stefanprodan/podinfo) as example.
 
-All steps can also be found in the Getting Started ["all-in-one"](../getting-started-with-ocm#all-in-one)
+All steps can also be found in the Getting Started ["all-in-one"](https://github.com/open-component-model/ocm-website/blob/main/content/docs/getting-started/getting-started-with-ocm/create-component-version.md#all-in-one)
 section.
 
 ### Requirements
