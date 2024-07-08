@@ -71,7 +71,7 @@ More information on the topic can be seen by running the OCM CLI help topic comm
 
 After completing your setup of OCM, the next steps to follow are:
 
-1. [Create a Component Version](./create-component-version.md)
-2. [Display and Examine Component Versions](./display-examine-component-versions.md)
-3. [Transport OCM Component Versions](./transport-component-versions.md)
-4. [Sign Component Versions](./sign-component-versions.md)
+1. [Create a Component Version](../create-a-component-version/)
+2. [Display and Examine Component Versions](../display-and-examine-component-versions/)
+3. [Transport OCM Component Versions](../transport-ocm-component-versions/)
+4. [Sign Component Versions](../sign-component-versions/)
