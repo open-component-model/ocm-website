@@ -28,7 +28,7 @@ In detail:
 
 ### Component Identity
 
-- Component Name: Identifies a component. must start with URL-prefix, that should be controlled by the owner of the component to avoid collisions.
+- Component Name: Identifies a component. Must start with URL-prefix, that should be controlled by the owner of the component to avoid collisions.
 - Component Version: If used with a Component name, identifies a specific Component Version. must adhere to "relaxed SemVer" (major, minor (+optional patchlevel) - optional v-prefix).
 
 ### Artifact Identity
