@@ -18,7 +18,7 @@ If you want to deep-dive into every detailed aspect of the topic, check out the 
 
 The concept of a *Component* can vary widely, often defined with very specific views on granularity or other technical attributes. OCM takes a different approach, focusing on the intended purpose and overall meaning of components.
 
-In OCM, Components group a set of semantically related *Component Versions*. Each Component Version is uniquely and globally identified by a *Component Identity* and can reference other Components. A Component Version can also contain *Artifacts* and a formal description on how to access them. These Artifacts come in two categories: `resources`, which describe the payload (e.g., OCI images), and `sources`, which describe the input for creating `resources` (e.g., source code).
+In OCM, Components group a set of semantically related *Component Versions*. Each Component Version is uniquely and globally identified by a *Component Identity* and can reference other Components. A Component Version can also contain *Artifacts* and a formal description on how to access them. These Artifacts come in two categories: `resources`, which describe the payload (e.g. OCI images), and `sources`, which describe the input for creating `resources` (e.g. source code).
 
 ## OCM Coordinates
 
