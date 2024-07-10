@@ -29,11 +29,11 @@ In detail:
 ### Component Identity
 
 - Component Name: Identifies a component. Must start with URL-prefix, that should be controlled by the owner of the component to avoid collisions.
-- Component Version: If used with a Component name, identifies a specific Component Version. must adhere to "relaxed SemVer" (major, minor (+optional patchlevel) - optional v-prefix).
+- Component Version: If used with a Component name, identifies a specific Component Version. Must adhere to "relaxed SemVer" (major, minor (+optional patchlevel) - optional v-prefix).
 
 ### Artifact Identity
 
-Within a Component Version, all artifacts must have a unique identity. Every Source Identity or Resource Identity always includes a `name` that is typically used to express the intended purpose.
+Within a Component Version, all Artifacts must have a unique identity. Every Source Identity or Resource Identity always includes a `name` that is typically used to express the intended purpose.
 
 Artifacts may also have additional `extraIdentity` attributes, that contribute to their identities. `extraIdentity` attributes are string-to-string maps.
 
