@@ -85,7 +85,7 @@ deployment and referencing all the sub-components. Looking closer at the compone
 * The main application component consisting of source code and  to a container image.
 * Third party components consumed as binaries located in a public repository.
 
-For building composed components the ["All-in-one"](../getting-started-with-ocm#all-in-one)
+For building composed components the ["All-in-one"](https://github.com/open-component-model/ocm-website/blob/main/content/docs/getting-started/getting-started-with-ocm/create-component-version.md#all-in-one)
 mechanism becomes handy.
 
 ### Helm Charts
@@ -235,7 +235,7 @@ components:
 
 Some frequently changing parameters have been extracted as variables. The OCM CLI uses
 templating to fill them with values. The templating mechanism is described
-[here](../best-practices-with-ocm#templating-the-resources). For this example
+[here](https://github.com/open-component-model/ocm-website/blob/main/content/docs/tutorials/best-practices-with-ocm.md#templating-the-resources). For this example
 we use the simple (default) template engine type `subst`.
 
 Note the differences between the various components:
@@ -313,7 +313,7 @@ for a helm based installation. The actual value for the current deployment has t
 the component-descriptor and inserted into a helm values file for a helm based installation. In the
 example below we will do the necessary steps. For real deplyoments you will usually use tools to
 automate this. The [toi installation toolkit](https://github.com/open-component-model/ocm/blob/main/docs/reference/ocm_toi-bootstrapping.md)
-is one tool supporting this. The [Flux OCM controllers](../controller-reference/overview.md)
+is one tool supporting this. The [Flux OCM controllers](https://github.com/open-component-model/ocm-website/blob/main/content/docs/controller/overview.md)
 offer this functionality too.
 
 ### Example

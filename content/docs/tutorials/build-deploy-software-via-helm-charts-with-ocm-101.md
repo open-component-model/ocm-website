@@ -13,7 +13,7 @@ toc: true
 ## Introduction
 
 Let's illustrate a very simple "Hello World" example application and show how to leverage OCM to build an application component containing a Helm Chart and an OCI Image and deploy it to a local `kind` k8s cluster.
-The topics `ocm` [`localization`](https://ocm.software/docs/tutorials/deployment-scenario-using-an-aggregated-component/#localization) and [`configuration`](https://ocm.software/docs/tutorials/deployment-scenario-using-an-aggregated-component/#configuration) are NOT part of this very simple example and is part of other deep-dive guides.
+The topics `ocm` [`localization`](https://github.com/open-component-model/ocm-website/blob/main/content/docs/tutorials/complex-component-structure-deployment.md#localization) and [`configuration`](https://github.com/open-component-model/ocm-website/blob/main/content/docs/tutorials/complex-component-structure-deployment.md#configuration) are NOT part of this very simple example and is part of other deep-dive guides.
 
 As base we use the `podinfo` application from Stefan Prodan's [Github repo](https://github.com/stefanprodan/podinfo).
 All files can be found [here](https://github.com/open-component-model/ocm-examples).
@@ -21,7 +21,7 @@ All files can be found [here](https://github.com/open-component-model/ocm-exampl
 At the end of the tutorial you will have created one OCM component for your business application `podinfo`.
 This component will be composed using the OCM guidelines and consist of several resources, here an OCI image and a Helm chart.
 
-For building multiple components in one shot the ["all-in-one"](../getting-started-with-ocm#all-in-one)
+For building multiple components in one shot the ["all-in-one"](https://github.com/open-component-model/ocm-website/blob/main/content/docs/getting-started/getting-started-with-ocm/create-component-version.md#all-in-one)
 mechanism becomes handy.
 
 ### Requirements
@@ -121,7 +121,7 @@ components:
 
 Some frequently changing parameters have been extracted as variables. The OCM CLI uses
 templating to fill them with values. The templating mechanism is described
-[here](../best-practices-with-ocm#templating-the-resources). For this example
+[here](https://github.com/open-component-model/ocm-website/blob/main/content/docs/tutorials/best-practices-with-ocm.md#templating-the-resources). For this example
 we use the simple (default) template engine type `subst`.
 
 Note the differences between the various components:

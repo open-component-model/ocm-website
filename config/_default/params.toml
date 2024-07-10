@@ -2,8 +2,8 @@
 title = "Open Component Model"
 description = ""
 leader = "An open standard to describe software artifact delivery."
-leader_open_source_text = "Open-source Apache-2.0 Licensed."
-latest_version = "v0.9.0"
+leader_open_source_text = "Open-Source Apache-2.0 licensed."
+latest_version = "v0.11.0"
 images = ["logo-image.png"]
 
 # mainSections
