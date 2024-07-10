@@ -22,14 +22,17 @@ Here's a diagram showing what we'll be building:
 
 As you can see we'll add some manifests to a git repository that will be deployed by Flux. These will, in turn, deploy a resource from an OCM repository, in this case, a `Deployment` of the `podinfo` microservice.
 
-If you'd like to learn how to build a component then checkout our getting started guide [here](/docs/guides/getting-started-with-ocm)
+If you'd like to learn how to build a component then checkout our getting started guide [here](https://github.com/open-component-model/ocm-website/blob/main/content/docs/getting-started/getting-started-with-ocm/)
 
 ## Table of contents
-- [Requirements](#requirements)
-- [Setup the Environment](#setup-the-environment)
-- [Deploy the OCM Controller](#deploy-the-ocm-controller)
-- [Deploy the Component](#deploy-the-component)
-- [Wrapping Up](#wrapping-up)
+
+- [Introduction](#introduction)
+- [Table of contents](#table-of-contents)
+  - [Requirements](#requirements)
+  - [Setup the environment](#setup-the-environment)
+  - [Deploy the OCM Controller](#deploy-the-ocm-controller)
+  - [Deploy the Component](#deploy-the-component)
+  - [Wrapping Up](#wrapping-up)
 
 ### Requirements
 
@@ -209,5 +212,5 @@ That's it! That's how easy it is to get started using the Open Component Model a
 
 Want to know more about working with OCM and GitOps, checkout these guides:
 
-- [Air-gapped GitOps with OCM & Flux](/docs/guides/air-gapped-gitops-with-ocm-and-flux)
-- [GitOps Driven Configuration of OCM Applications](/docs/guides/gitops-driven-configuration-of-ocm-applications)
+- [Air-gapped GitOps with OCM & Flux](https://github.com/open-component-model/ocm-website/blob/main/content/docs/tutorials/air-gapped-gitops-with-ocm-and-flux.md)
+- [GitOps Driven Configuration of OCM Applications](https://github.com/open-component-model/ocm-website/blob/main/content/docs/tutorials/gitops-driven-configuration-of-ocm-applications.md)
