@@ -1,25 +1,60 @@
 ---
-title: "Deployment scenario using an aggregate(d) component"
+title: "Structuring and Deploying Software Products with OCM"
 description: "Deploying a microservice architecture with components."
 date: 2023-06-20T10:00:00+00:00
-lastmod: 2023-06-20:00:00+00:00
+lastmod: 2024-07-10:00:00+00:00
 draft: false
 images: []
 weight: 65
 toc: true
 ---
 
-## Prerequisite
+## Introduction
 
-We assume that the reader has already read all the previous guides in the component area. This guide discusses a more
+In this specification software products are comprised of logical units called [**components**](https://github.com/open-component-model/ocm-spec/blob/main/doc/01-model/02-elements-toplevel.md#components-and-component-versions). A component version consists of a set of technical [artifacts](https://github.com/open-component-model/ocm-spec/blob/main/doc/04-extensions/01-artifact-types/README.md) (e.g., Docker images, Helm charts, binaries, configuration data, etc.). Such artifacts are called **resources** in this specification. Resources are usually built from something, e.g., code in a git repo. Those are named **sources** in this specification.
+
+OCM introduces a **Component Descriptor** for every component version that
+describes the resources, sources, and other component versions belonging to a particular
+component version and how to access them.
+
+Usually, however, real-life applications are composed of multiple components. For
+example, an application might consist of a frontend, a backend, a database, and a web server.
+During the software development process new
+[**component versions**](https://github.com/open-component-model/ocm-spec/blob/main/doc/01-model/02-elements-toplevel.md#components-and-component-versions)
+are created and third-party components might be consumed from a public registry and
+updated from time to time.
+
+Not all component version combinations of frontend, backend, database, etc. are
+compatible and form a valid product version. In order to define reasonable
+version combinations for the software product, we could use another feature of
+the *Component Descriptor*, called a *Component Reference* (or reference in short), which allows
+the aggregation of component versions.
+
+For each component and each version in use, there is a *Component Descriptor*. For the
+entire application, we introduce a new component that describes the overall software
+product referencing all components. This describes the entire application.
+
+A particular version of this application is again described by a *Component Descriptor*,
+which contains references to the *Component Descriptors* of its components in their version in
+use. You are not restricted to this approach. It is, e.g., possible to create multi-level
+hierarchies or you could just maintain a list of component version combinations which build
+a valid product release.
+
+In a nutshell, OCM provides a simple approach to specify what belongs to a product version.
+Starting with the *Component Descriptor* for a product version and following the component
+references, you could collect all artifacts belonging to this product version.
+
+## Prerequisites
+
+We assume that you have already read the guides in the [Getting Started](https://ocm.software/docs/getting-started/getting-started-with-ocm/prerequisites/) section, as this guide discusses a more
 complex scenario using plain Localizations and Configurations without the use of [Unpacker](https://github.com/open-component-model/unpacker-controller).
 
 ## Constructing the Component
 
-We are going to use [podinfo](https://github.com/stefanprodan/podinfo) in microservices mode. This enables us to deploy several components and configure them
-individually.
+We are going to use [`podinfo`](https://github.com/stefanprodan/podinfo) in microservices mode. This enables us to deploy several components and configure them individually.
 
-Podinfo has three services which we are going to model using individual component descriptors.
+`podinfo` has three services which we are going to model using individual component descriptors:
+
 - backend
 - frontend
 - cache (redis)
@@ -30,7 +65,7 @@ This repository contains the following items:
 
 ### Component File
 
-The following component file describes four components: three components that represent the podinfo microservices and one  _aggregate_ component that brings together the podinfo components using _references_.  We refer to the aggregate component as the _product component_.
+The following component file describes four components: three components that represent the `podinfo` microservices and one  *aggregate* component that brings together the `podinfo` components using *references*.  We refer to the aggregate component as the *product component*.
 
 ```yaml
 components:
@@ -182,7 +217,7 @@ components:
 
 With the components modeled we can start to build a component archive using the `ocm`  cli:
 
-```
+```sh
 ocm add componentversions --create --file component-archive component-constructor.yaml
 processing component-constructor.yaml...
   processing document 1...
@@ -210,7 +245,8 @@ adding component ocm.software/redis:1.0.0...
 ```
 
 This will create a folder called `component-archive`. The structure of that should look something like this:
-```
+
+```sh
 tree .
 .
 ├── artifact-index.json
@@ -239,14 +275,15 @@ tree .
 
 These blobs contain the resources we described when modelling our podinfo application. If we `cat `a random blob we get
 something like this:
-```
+
+```sh
 cat sha256.3c9c902ce013ca070a29634e4603c90063c96df632ef2c8e6b4447aaeb70b67e
 {"componentDescriptorLayer":{"mediaType":"application/vnd.ocm.software.component-descriptor.v2+yaml+tar","digest":"sha256:699ea8628e39256048cd1687c496fe64999a41f16f200ef5ce938ee9f19c37f0","size":2560}}%
 ```
 
 Next, we transfer this component to a location of your choice. Here `<your-location>` for me was `ghcr.io/skarlso/demo-component`.
 
-```
+```sh
 ocm transfer component ./component-archive <your-location>
 transferring version "ocm.software/podinfo:1.0.2"...
 ...adding component version...
@@ -308,7 +345,7 @@ The cache contains the same resources as backend. The only differences are the v
 We start by creating an image pull secret since the component that we just transferred was placed in a private OCI registry. The pull secret will be
 used by the OCM client or OCM controller to access this package in ghcr. To create the secret, run:
 
-```
+```sh
 kubectl create secret docker-registry pull-secret -n ocm-system \
     --docker-server=ghcr.io \
     --docker-username=$GITHUB_USER \
@@ -340,7 +377,7 @@ spec:
 This will reconcile the `ComponentDescriptor` for the specific version, making the component metadata available for
 other Kubernetes resources to consume. If everything was successful, we can inspect the created component version:
 
-```
+```sh
 kubectl describe componentversion -n ocm-system podinfocomponent-version
 ```
 
@@ -400,7 +437,10 @@ The important bits here are the `references`. These are all the components that 
 ### ComponentDescriptor
 
 We can also examine the component descriptors using the following command:
-```kubectl get componentdescriptors```
+
+```sh
+kubectl get componentdescriptors
+```
 
 ```yaml
 apiVersion: delivery.ocm.software/v1alpha1
@@ -552,7 +592,7 @@ The components can be found under [podinfo/backend/components](https://github.co
 
 To apply them, simply run this command from the podinfo root:
 
-```
+```sh
 kubectl apply -f backend/components
 ```
 
@@ -631,7 +671,7 @@ spec:
 
 To apply them, simply run this command from the podinfo root:
 
-```
+```sh
 kubectl apply -f frontend/components
 ```
 
@@ -643,7 +683,7 @@ these yourself to see if you understood the structure. If you get stuck, you can
 
 To apply them, simply run this command from the podinfo root:
 
-```
+```sh
 kubectl apply -f redis/components
 ```
 
@@ -862,7 +902,7 @@ for which we would like to apply the results.
 
 Once all objects are applied, we should see `podinfo` deployed in the `default` namespace:
 
-```
+```sh
 kubectl get pods
 NAME                        READY   STATUS    RESTARTS   AGE
 backend-6dd8f5fbf8-xfdmq    1/1     Running   0          54m
@@ -870,7 +910,7 @@ frontend-56ff5b9864-h8fgh   1/1     Running   0          54m
 redis-7475dd84c4-hzp2b      1/1     Running   0          54m
 ```
 
-__Note__: pod count might vary based on the default settings in the configuration data.
+**Note**: The pod count might vary based on the default settings in the configuration data.
 
 If the deployment isn't appearing, there are several places to check for errors:
 
@@ -878,7 +918,7 @@ If the deployment isn't appearing, there are several places to check for errors:
 
 Maybe Flux didn't kick in yet. Try to force a reconcile by running:
 
-```
+```sh
 flux reconcile source git flux-system -n flux-system
 ```
 
@@ -886,7 +926,7 @@ flux reconcile source git flux-system -n flux-system
 
 Kubernetes Events could hold some extra information. List the most recent ones with:
 
-```
+```sh
 kubectl events -A
 ```
 
@@ -900,7 +940,7 @@ doesn't understand something. We'll go into getting logs in [Controller Logs](#c
 Many of the objects have a status with the most recent error on them. The relevant objects in this case are the
 `FluxDeployer` and the `OCIRepository` objects. Make sure they have successful statuses.
 
-```
+```sh
 kubectl get ocirepositories -A
 NAMESPACE    NAME                     URL                                                                        READY   STATUS                                                                                                      AGE
 ocm-system   backend-kustomization    oci://registry.ocm-system.svc.cluster.local:5000/sha-3644589785534619751   True    stored artifact for digest '2234@sha256:12100267c60d3eb5acfc564b56eb94288e33fa875c7f2191ec0a662594283ad0'   5m17s
@@ -908,7 +948,7 @@ ocm-system   cache-kustomization      oci://registry.ocm-system.svc.cluster.loca
 ocm-system   frontend-kustomization   oci://registry.ocm-system.svc.cluster.local:5000/sha-3644589785534619751   True    stored artifact for digest '2539@sha256:1a37fdfbf0f109498b813bbd784a81c8b1a818d4770a49a319cc2562621dcf40'   4m47s
 ```
 
-```
+```sh
 kubectl get fluxdeployer -A
 NAMESPACE    NAME                     READY   AGE
 ocm-system   backend-kustomization    True    8m13s
@@ -924,7 +964,7 @@ There are several controllers to sift through in case something doesn't happen t
 
 To get the `ocm-controller` logs run:
 
-```
+```sh
 kubectl logs `k get pods --template '{{range .items}}{{.metadata.name}}{{end}}' --selector=app=ocm-controller -n ocm-system` -n ocm-system
 ```
 
@@ -933,7 +973,7 @@ If everything goes according to plan, there should be no errors in the logs.
 #### Flux controllers
 
 Flux has a couple of controllers we can check if things don't start up (especially if we don't see any resources in the
-cluster, or if we don't see the podinfo deployment being started).
+cluster, or if we don't see the `podinfo` deployment being started).
 
 **source-controller**:
   This controller will contain information about the latest applied code from the repository. If there is an error here
@@ -1050,17 +1090,21 @@ the resource wasn't a `Directory` or if the fetching of the data somehow failed.
 To verify, we can use [crane](https://github.com/google/go-containerregistry/blob/main/cmd/crane/doc/crane.md) to check the content.
 
 To run crane, first, expose the internal registry using `port-forward` like this:
-```
+
+```sh
 kubectl port-forward service/registry -n ocm-system 5000:5000
 ```
 
 Then, verify that the connection is working by running a `catalog` command:
-```
+
+
+```sh
 crane catalog http://127.0.0.1:5000
 ```
 
 This should list something like this:
-```
+
+```sh
 crane catalog 127.0.0.1:5000
 sha-10883673987458280187
 sha-16809550111814969680
@@ -1073,7 +1117,7 @@ sha-9139473762086563639
 
 To identify which of these contains our failed resource, check the failing OCIRepository object.
 
-```
+```sh
 kubectl get ocirepository -A
 NAMESPACE    NAME      URL                                                                         READY   STATUS                                                                                       AGE
 ocm-system   podinfo   oci://registry.ocm-system.svc.cluster.local:5000/sha-10883673987458280187   False   failed to extract layer contents from artifact: tar error: archive/tar: invalid tar header   21h
@@ -1082,7 +1126,7 @@ ocm-system   podinfo   oci://registry.ocm-system.svc.cluster.local:5000/sha-1088
 Now we know which of these contains the invalid resource. We can further identify which blob it is by either, describing the
 relevant snapshot, or by running a `manifest` command with crane.
 
-```
+```sh
 crane manifest 127.0.0.1:5000/sha-10883673987458280187:1.0.0|jq
 {
   "schemaVersion": 2,
@@ -1104,7 +1148,7 @@ crane manifest 127.0.0.1:5000/sha-10883673987458280187:1.0.0|jq
 
 One of these will not be what they seem. To fetch a blob run:
 
-```
+```sh
 crane blob 127.0.0.1:5000/sha-10883673987458280187@sha256:eae39564a446ee92d1fec8728ef0c27077995d01bbedc25e0688a1cbb7582adc > temp.tar
 ```
 
@@ -1113,4 +1157,4 @@ the `component descriptor` file, you can skip that. That's not what you are look
 
 ## Conclusion
 
-We saw how to deploy a complex, multi-service architecture using the podinfo application.
+We saw how to deploy a complex, multi-service architecture using the `podinfo` application.

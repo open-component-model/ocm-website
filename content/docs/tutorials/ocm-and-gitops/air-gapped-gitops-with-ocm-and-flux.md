@@ -12,21 +12,22 @@ toc: true
 
 ## Introduction
 
-In this guide, we will show how the tools provided by OCM make it possible to automate your air-gapped deployments.
+In this guide, we will show you how the tools provided by OCM make it possible to automate your air-gapped deployments.
 
 Air-gapped can mean different things depending on the context. For this guide, we'll assume it means your deployment artifacts are stored in a private registry protected by the security controls at your organization. Your applications only have access to this private registry and little to no public internet access.
 
-We'll take the same `podinfo` component that we deployed in the [Deploy Applications with OCM & GitOps](/docs/guides/deploying-applications-with-ocm-and-gitops) guide but this time we shall use the OCM CLI to transfer the component to our own registry. The application will then be deployed from this "private" registry. This, of course, mimics a real-world air-gap scenario. In practice there could be many layers of security between the two registries; however, the mechanics are ultimately the same.
+We'll take the same `podinfo` component that we deployed in the [Deploy Applications with OCM & GitOps](https://ocm.software/docs/tutorials/ocm-and-gitops/deploying-applications-with-ocm-gitops/) guide but this time we will use the OCM CLI to transfer the component to our own registry. The application will then be deployed from this "private" registry. This, of course, mimics a real-world air-gap scenario. In practice, there could be many layers of security between the two registries; however, the mechanics are ultimately the same.
 
-## Table of contents
+## Table of Contents
+
 - [Introduction](#introduction)
-- [Table of contents](#table-of-contents)
+- [Table of Contents](#table-of-contents)
 - [Requirements](#requirements)
   - [Component Content](#component-content)
   - [Component Transfer](#component-transfer)
   - [GitOps \& Localization](#gitops--localization)
   - [Verification](#verification)
-  - [To be continued](#to-be-continued)
+  - [To Be Continued](#to-be-continued)
   - [Conclusion](#conclusion)
 
 ## Requirements
@@ -41,6 +42,7 @@ We'll take the same `podinfo` component that we deployed in the [Deploy Applicat
 ### Component Content
 
 The `podinfo` component contains three resources:
+
 - a container image for podinfo
 - a kubernetes deployment manifest for podinfo
 - a configuration file read by the ocm-controller
@@ -56,7 +58,7 @@ deployment 6.3.5            Directory local
 image      6.3.5            ociImage  external
 ```
 
-If we examine the `config` file we see a section named `localization`:
+If we examine the `config` file, we will see a section named `localization`:
 
 ```bash
 ocm download resource ghcr.io/phoban01//phoban.io/podinfo -c v6.3.5 config -O -
@@ -74,7 +76,7 @@ localization:
     name: image
 ```
 
-Localization contains a list of rules that describe the substitutions the `ocm-controller` needs to perform to ensure that the **Local** copy of our image is deployed. OCM provides an identifier for each resource which can always be resolved to a specific storage location at which the resource can be accessed. This secret sauce makes it possible to automate air-gapped deployments using OCM.
+The `localization` section contains a list of rules that describe the substitutions the `ocm-controller` needs to perform to ensure that the **Local** copy of our image is deployed. OCM provides an identifier for each resource which can always be resolved to a specific storage location at which the resource can be accessed. This secret sauce makes it possible to automate air-gapped deployments using OCM.
 
 We can examine the image resource to see precisely where the image can be accessed:
 
@@ -120,11 +122,11 @@ We can see that the image reference now points to an image stored in our air-gap
 
 Now that our component has been successfully transferred, let's deploy it using GitOps.
 
-We assume you have completed the [Deploy Applications with OCM & GitOps](/docs/guides/deploying-applications-with-ocm-and-gitops) guide and shall use that repository as the starting point for our air-gapped deployment.
+We assume you have completed the [Deploy Applications with OCM & GitOps](https://ocm.software/docs/tutorials/ocm-and-gitops/deploying-applications-with-ocm-gitops/) guide and will use that repository as the starting point for our air-gapped deployment.
 
 Because our air-gapped OCM repository is private, we need to provide credentials. This will enable the `ocm-controller` to retrieve components from the repository.
 
-We can do this using a `ServiceAccount`. First create an Kubernetes `Secret` to hold the credentials:
+We can do this using a `ServiceAccount`. First, create an Kubernetes `Secret` to hold the credentials:
 
 ```bash
 kubectl create secret docker-registry -n ocm-system ghcr-cred \
@@ -133,7 +135,7 @@ kubectl create secret docker-registry -n ocm-system ghcr-cred \
   --docker-password=$GITHUB_TOKEN
 ```
 
-Then create the `ServiceAccount`:
+Then, create the `ServiceAccount`:
 
 ```yaml
 cat > ./components/service_account.yaml <<EOF
@@ -165,7 +167,7 @@ spec:
   serviceAccountName: air-gapped-ops
 ```
 
-Now we need to tell the `ocm-controller` to use the **Localization** rules we discussed earlier. To do this we create a `Localization` Custom Resource:
+Now we need to tell the `ocm-controller` to use the **Localization** rules we discussed earlier. To do this, we create a `Localization` Custom Resource:
 
 ```yaml
 cat > ./components/localization.yaml >>EOF
@@ -189,7 +191,7 @@ EOF
 
 You can see that we have used the existing `Resource` as the source for the `Localization` and have provided the localization rules using the `spec.configRef` field. The `ocm-controller` enables us to freely chain resources together in order to perform a sequence of transformations upon an OCM resource.
 
-Because the output we want to deploy is now generated by the `Localization` CR rather than the `Resource` CR we need to update our `FluxDeployer`:
+Because the output we want to deploy is now generated by the `Localization` CR rather than the `Resource` CR, we need to update our `FluxDeployer`:
 
 ```yaml
 apiVersion: delivery.ocm.software/v1alpha1
@@ -208,7 +210,7 @@ spec:
     targetNamespace: default
 ```
 
-Let's commit, push and reconcile these changes:
+Let's commit, push, and reconcile these changes:
 
 ```bash
 git add ./components
@@ -232,11 +234,11 @@ kubectl get deployment -n default podinfo -oyaml | grep image | xargs
 image: ghcr.io/phoban01/air-gapped/stefanprodan/podinfo:6.3.5
 ```
 
-### To be continued
+### To Be Continued
 
-If we look closer however we will see that our application has not successfully rolled out:
+If we look closer, however, we will see that our application has not successfully rolled out:
 
-```
+```sh
 kubectl get po -n default
 
 NAME                       READY   STATUS             RESTARTS   AGE
@@ -257,11 +259,10 @@ LAST SEEN   TYPE      REASON      OBJECT                         MESSAGE
 5m44s       Warning   Failed      pod/podinfo-7b7d874bf8-xv75x   Error: ImagePullBackOff
 ```
 
-Checkout our guide [GitOps Driven Configuration of OCM Applications](/docs/guides/gitops-driven-configuration-of-ocm-applications) to see how we can use the `ocm-controller` to configure our application at runtime and solve exactly this kind of problem!
+Check out our [GitOps Driven Configuration of OCM Applications](https://ocm.software/docs/tutorials/ocm-and-gitops/gitops-driven-configuration-of-ocm-applications) guide to see how we can use the `ocm-controller` to configure our application at runtime and solve exactly this kind of problem!
 
 ### Conclusion
 
 In this tutorial we have shown how we can automate the process of delivering software to air-gapped environments using the Open Component Model and Flux.
 
 We have shown how the process of **Localization** is enabled via OCM and combined with GitOps delivers a seamless application deployment model suitable for any environment.
-

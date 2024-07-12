@@ -12,22 +12,23 @@ toc: true
 
 ## Introduction
 
-This guide is the final part of our series exploring OCM, the `ocm-controller` and how to drive GitOps processes using OCM as the source of truth.
+This guide is the final part of our series exploring OCM, the `ocm-controller`, and how to drive GitOps processes using OCM as the source of truth.
 
-Checkout the previous guides if you haven't already:
+Check out the previous guides if you haven't already:
 
-- [Deploy Applications with OCM & GitOps](/docs/guides/deploying-applications-with-ocm-and-gitops)
-- [Air-gapped GitOps with OCM & Flux](/docs/guides/air-gapped-gitops-with-ocm-and-flux)
+- [Deploy Applications with OCM & GitOps](https://ocm.software/docs/tutorials/ocm-and-gitops/deploying-applications-with-ocm-and-gitops)
+- [Air-gapped GitOps with OCM & Flux](https://ocm.software/docs/tutorials/ocm-and-gitops/air-gapped-gitops-with-ocm-and-flux)
 
 In this guide we will pick-up where we left off in the air-gapped example.
 
-We have successfully transferred a component to our private environment and deployed it using the `ocm-controller`. However the Kubernetes `Deployment` for `podinfo` is failing because it does not have permission to access our private container images.
+We have successfully transferred a component to our private environment and deployed it using the `ocm-controller`. However, the Kubernetes `Deployment` for `podinfo` is failing because it does not have permission to access our private container images.
 
 Let's fix that.
 
-## Table of contents
+## Table of Contents
+
 - [Introduction](#introduction)
-- [Table of contents](#table-of-contents)
+- [Table of Contents](#table-of-contents)
 - [Requirements](#requirements)
   - [Component Content Recap](#component-content-recap)
   - [GitOps \& Configuration](#gitops--configuration)
@@ -45,9 +46,10 @@ Let's fix that.
 
 ### Component Content Recap
 
-We saw previously that `podinfo` component contains three resources:
-- podinfo container image
-- kubernetes deployment manifest for podinfo
+We saw previously that the `podinfo` component contains three resources:
+
+- `podinfo` container image
+- kubernetes deployment manifest for `podinfo`
 - configuration file read by the ocm-controller
 
 We can list these resources using the `ocm` CLI:
@@ -86,9 +88,9 @@ configuration:
 ...
 ```
 
-The `configuration` section contains a set of rules, some default values and a schema.
+The `configuration` section contains a set of rules, some default values, and a schema.
 
-These can be used to provide configuration values which will be inserted into our resources at runtime by the `ocm-controller`
+These can be used to provide configuration values, which will be inserted into our resources at runtime by the `ocm-controller`.
 
 In the above resource we can see that there is a variable named `serviceAccountName` and a rule which specifies that this variable should be inserted into the path `spec.template.spec.serviceAccountName` in the `deployment.yaml` file.
 
@@ -118,7 +120,7 @@ spec:
 EOF
 ```
 
-You can see that this time we have used the `Localization` resource the input for the `Configuration` and have provided the configuration rules using the `spec.configRef` field. Finally we specify our service account name in the `spec.values.serviceAccountName` field.
+You can see that this time we have used the `Localization` resource as the input for the `Configuration` and have provided the configuration rules using the `spec.configRef` field. Finally, we specify our service account name in the `spec.values.serviceAccountName` field.
 
 Once again we need to update the `FluxDeployer` so that it consumes the `Configuration` rather than the `Localization`:
 
@@ -139,9 +141,9 @@ spec:
     targetNamespace: default
 ```
 
-Before we push these changes we need to actually create the `ServiceAccount` and image-pull `Secret` in the target namespace.
+Before we push these changes, we need to actually create the `ServiceAccount` and image-pull `Secret` in the target namespace.
 
-Let's create the secret as we did previously (note in a real world scenario there are a number of ways to [manage secrets](https://fluxcd.io/flux/security/secrets-management/) when doing Gitops):
+Let's create the secret as we did previously (Note that in a real world scenario there are a number of ways to [manage secrets](https://fluxcd.io/flux/security/secrets-management/) when doing Gitops):
 
 ```bash
 kubectl create secret docker-registry -n default ghcr-cred \
@@ -164,7 +166,7 @@ imagePullSecrets:
 - name: ghcr-cred
 ```
 
-Finally we are ready commit, push and reconcile these changes:
+Finally we are ready commit, push, and reconcile these changes:
 
 ```bash
 git add ./components ./clusters
@@ -200,4 +202,4 @@ Kubernetes can now retrieve the image and all pods should be happily running.
 
 We have shown how OCM and Flux can be combined to configure applications at runtime.
 
-GitOps driven configuration in tandem with the powerful **Localization** functionality provided by OCM offers tremendous flexibility, reliability and scalability when deploying your applications to any kind of compute environment be it public, private or edge.
+GitOps driven configuration in tandem with the powerful **Localization** functionality provided by OCM offers tremendous flexibility, reliability, and scalability when deploying your applications to any kind of compute environment, be it public, private or edge.
