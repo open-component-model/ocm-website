@@ -12,40 +12,52 @@ toc: true
 
 This chapter contains guidelines for common scenarios how to work with the Open Component Model, focusing on using CI/CD, build and publishing processes.
 
-- [Separate between Build and Publish](#separate-between-build-and-publish)
-- [Building multi-arch images](#building-multi-arch-images)
+- [Separate Build and Publish Processes](#separate-build-and-publish-processes)
+- [Separation Between Build and Publish](#separation-between-build-and-publish)
+- [Building Multi-Architecture Images](#building-multi-architecture-images)
 - [Using Makefiles](#using-makefiles)
   - [Prerequisites](#prerequisites)
-  - [Templating the resources](#templating-the-resources)
-- [Pipeline integration](#pipeline-integration)
+  - [Templating the Resources](#templating-the-resources)
+- [Pipeline Integration](#pipeline-integration)
 - [Static and Dynamic Variable Substitution](#static-and-dynamic-variable-substitution)
-- [Debugging: Explain the blobs directory](#debugging-explain-the-blobs-directory)
-- [Self-contained transport archives](#self-contained-transport-archives)
-- [CICD integration](#cicd-integration)
+- [Debugging: Explain the Blobs Directory](#debugging-explain-the-blobs-directory)
+- [Self-Contained Transport Archives](#self-contained-transport-archives)
+- [CICD Integration](#cicd-integration)
 
-## Separate between Build and Publish
+
+## Separate Build and Publish Processes
+
+Traditional automated builds often have unrestricted internet access, which can lead to several challenges in enterprise environments:
+
+- Limited control over downloaded artifacts
+- Potential unavailability of required resources
+- Security risks associated with write permissions to external repositories
+
+Best practice: Implement a two-step process:
+a) Build: Create artifacts in a controlled environment, using local mirrors when possible.
+b) Publish: Use a separate, secured process to distribute build results.
+
+OCM supports this approach through filesystem-based OCM repositories, allowing you to generate Common Transport Format (CTF) archives for component versions. These archives can then be securely processed and distributed.
+
+## Separation Between Build and Publish
 
 Typical automated builds have access to the complete internet ecosystem. This involves
-downloading of content required for a build (e.g. `go mod tidy`), but also the upload
-of build results to repositories (e.g. OCI image registries).
+downloading of content required for a build (e.g., `go mod tidy`), but also the upload
+of build results to repositories (e.g., OCI image registries).
 
-For enterprise build this approach has several disadvantages:
+For builds in enterprise environments this can lead to several challenges:
 
-- there is no control what kind of artifacts are downloaded from the internet.
-- there is no guarantee that these artifacts are still available tomorrow, or they might
-  be temporarily not accessible.
-- the build procedure needs write permissions to external repositories.
+- Limited control over downloaded artifacts
+- Potential unavailability of required resources
+- Security risks associated with write permissions to external repositories
 
 The first problem might be acceptable, because the build results may be analyzed by scanners
-later to figure out what has been packaged, and triage the results in an asynchronous
-step later on.
+later to figure out what has been packaged. Triaging the results could be done in an asynchronous
+step later.
 
-The second problem is more severe, which could be solved by mirroring the required
-artifacts  and instrument the build somehow (technology dependent) to use the local mirror.
-Such a mirror could also give back to control the possible input vector of a build by
-restricting  the access to the use of the mirror.
+The second problem could be solved by mirroring the required artifacts and instrument the build to use the artifacts from the local mirror. Such a mirror would also offer a solution for the first problem and act as target for various scanning tools.
 
-This third problems might provide severe security risks, because the build procedure
+The third problem might pose severe security risks, because the build procedure
 as well as the downloaded artifacts may be used to catch registry credentials or at least
 corrupt the content of those repositories.
 
@@ -68,7 +80,7 @@ To secure further processes, a *certified build-system* could even sign the cont
 its build system certificate to enable followup-processes to verify that involved component
 versions are provided by accepted and well-known processes.
 
-## Building multi-arch images
+## Building Multi-Architecture Images
 
 > **Note:** This section provides information only on on building multi-arch images. Referencing a multi-arch image does not differ from images for just one platform, see the [`ocm add resources`](https://github.com/open-component-model/ocm/blob/main/docs/reference/ocm_add_resources.md) command for the OCM CLI
 
@@ -83,8 +95,8 @@ This allows building all artifacts locally and push them in a separate step to a
 is done by building single-arch images in a first step (still using `buildx` for cross-platform
 building). In a second step all images are bundled into a multi-arch image, which is stored as
 local artifact in a component (CA) or common transport (CTF)
-archive. This archive can be processed as usual (e.g. for signing or transfer to other locations).
-When pushed to an image registry multi-arch images are generated with a multi-arch-image manifest.
+archive. This archive can be processed as usual (e.g., for signing or transfer to other locations).
+When pushed to an image registry, multi-arch images are generated with a multi-arch-image manifest.
 
 The following steps illustrate this procedure. For a simple project with a Go binary and a
 helm-chart assume the following file structure:
@@ -590,7 +602,7 @@ The Makefile supports the following targets:
 * `build` (default) simple Go build
 * `version` show current VERSION of Github repository
 * `image` build a local Docker image
-* `multi` build multiarch images with Docker
+* `multi` build multi-arch images with Docker
 * `ca` execute build and create a component archive
 * `ctf` create a common transport format archive
 * `push` push the common transport archive to an OCI registry
@@ -609,23 +621,22 @@ Example:
 $ PROVIDER=foo make ca
 ```
 
-### Templating the resources
+### Templating the Resources
 
-The Makefile uses a dynamic list of generated platforms for the images. You can just set the
-`PLATFORMS` variable:
+The Makefile uses a dynamic list of generated platforms for the images. You can just set the `PLATFORMS` variable:
 
 ```Makefile
 MULTI     ?= true
 PLATFORMS ?= linux/amd64 linux/arm64
 ```
 
-If `MULTI` is set to `true` the variable `PLATFORMS` will be evaluated to decide which image variants
+If `MULTI` is set to `true`, the variable `PLATFORMS` will be evaluated to decide which image variants
 will be built. This has to be reflected in the `resources.yaml`. It has to use the input type
 `dockermulti` and list all the variants which should be packaged into a multi-arch image. This list
 depends on the content of the Make variable.
 
 The OCM CLI supports this by enabling templating mechanisms for the content by selecting a templater
-using the option `--templater ...` . The example uses the [Spiff templater](https://github.com/mandelsoft/spiff).
+using the option `--templater ...`. The example uses the [Spiff templater](https://github.com/mandelsoft/spiff).
 
 ```Makefile
 $(GEN)/ca: $(GEN)/.exists $(GEN)/image.$(NAME)$(FLAGSUF) resources.yaml $(CHART_SRCS)
@@ -649,8 +660,8 @@ input:
   path: (( bool(values.MULTI) ? ~~ :values.IMAGE ))
 ```
 
-By using a variable `values.MULTI` the command distinguishes between a single Docker image and a multi-arch image.
-With `map[]` the platform list from the Makefile is mapped to a list of tags created by the
+By using a variable `values.MULTI`, the command distinguishes between a single Docker image and a multi-arch image.
+With `map[]`, the platform list from the Makefile is mapped to a list of tags created by the
 `docker buildx` command used in the Makefile. The value `~~` is used to undefine the yaml fields not
 required for the selected case (the template can be used for multi- and single-arch builds).
 
@@ -665,11 +676,11 @@ $(GEN)/image.$(NAME).multi: $(GEN)/.exists Dockerfile $(GO_SRCS)
 	@touch $(GEN)/image.$(NAME).multi
 ```
 
-## Pipeline integration
+## Pipeline Integration
 
 Pipeline infrastructures are heterogenous, so there is no universal answer how to
-integrate a build pipeline with OCM. Usually the simplest way is using the OCM command line interface.
-Following you will find an example using GitHub actions
+integrate a build pipeline with OCM. Usually, the simplest way is using the OCM command line interface.
+Following you will find an example using GitHub actions.
 
 There are two repositories dealing with GitHub actions:
 The [first one](https://github.com/open-component-model/ocm-action) provides various actions that can be
@@ -697,7 +708,7 @@ jobs:
       ...
 ```
 
-This creates a component version for the current build. Additionally a transport archive
+This creates a component version for the current build. Additionally, a transport archive
 may be created or the component version along with the built container images may be uploaded to an
 OCI registry, etc.
 
@@ -708,7 +719,7 @@ example can be found in the sample Github repository.
 
 Looking at the [settings file](https://github.com/open-component-model/ocm-website/blob/main/content/docs/tutorials/structuring-software-with-ocm.md#building-the-common-transport-archive) shows that
 some variables like the `version` or the `commit` change with every build
-or release. In many cases these variables will be auto-generated during the build.
+or release. In many cases, these variables will be auto-generated during the build.
 
 Other variables like the version of 3rd-party components will just change from time to
 time and are often set manually by an engineer or release manager. It is useful to separate
@@ -739,9 +750,9 @@ COMMIT: 5f03021059c7dbe760ac820a014a8a84166ef8b4
 ocm add componentversions --create --file ../gen/ctf --settings ../gen/dynamic_settings.yaml --settings static_settings.yaml component-constructor.yaml
 ```
 
-## Debugging: Explain the blobs directory
+## Debugging: Explain the Blobs Directory
 
-For analysing and debugging the content of a transport archive, there are some supportive commands
+For analyzing and debugging the content of a transport archive, there are some supportive commands
 to analyze what is contained in the archive and what is stored in which blob:
 
 ```shell
@@ -769,7 +780,7 @@ ACCESSSPEC   : {"localReference":"sha256:59ff88331c53a2a94cdd98df58bc6952f056e4b
 ...
 ```
 
-## Self-contained transport archives
+## Self-Contained Transport Archives
 
 The transport archive created from a component-constructor file, using the command `ocm add  componentversions --create ...`, does not automatically resolve image references to external OCI registries and stores them in the archive. If you want to create a self-contained transport archive with all images stored as local artifacts, you need to use the `--copy-resources` option of the `ocm transfer ctf` command. This will copy all external images to the blobs directory of the archive.
 
@@ -779,7 +790,7 @@ ocm transfer ctf --copy-resources <ctf-dir> <new-ctf-dir-or-oci-repo-url>
 
 Note that this archive can become huge if there an many external images involved!
 
-## CICD integration
+## CICD Integration
 
 Configure rarely changing variables in a static file and generate dynamic variables
-during the build from environment. See the [explanation above](#static-and-dynamic-variable-substitution).
+during the build from the environment. See the [Static and Dynamic Variable Substitution](#static-and-dynamic-variable-substitution) section above.
