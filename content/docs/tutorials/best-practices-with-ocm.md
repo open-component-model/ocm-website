@@ -52,8 +52,8 @@ For builds in enterprise environments this can lead to several challenges:
 - Security risks associated with write permissions to external repositories
 
 The first problem might be acceptable, because the build results may be analyzed by scanners
-later to figure out what has been packaged, and triage the results in an asynchronous
-step later on.
+later to figure out what has been packaged. Triaging the results could be done in an asynchronous
+step later.
 
 The second problem could be solved by mirroring the required artifacts and instrument the build to use the artifacts from the local mirror. Such a mirror would also offer a solution for the first problem and act as target for various scanning tools.
 
