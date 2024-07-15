@@ -18,8 +18,8 @@ The topics `ocm` [`localization`](https://ocm.software/docs/tutorials/deployment
 As base we use the `podinfo` application from Stefan Prodan's [Github repo](https://github.com/stefanprodan/podinfo).
 All files can be found [here](https://github.com/open-component-model/ocm-examples/tree/main/components).
 
-At the end of the tutorial you have created one OCM component for your business application `podinfo`.
-This component will be composed using the OCM guidelines and consist of multiple resources, here an OCI image and a Helm chart.
+At the end of the tutorial you will have created one OCM component for your business application `podinfo`.
+This component will be composed using the OCM guidelines and consist of multiple resources, alongside an OCI image and a Helm chart.
 
 For building multiple components in one shot the ["all-in-one"](https://github.com/open-component-model/ocm-website/blob/main/content/docs/getting-started/getting-started-with-ocm/create-component-version.md#all-in-one)
 mechanism becomes handy.
@@ -32,9 +32,9 @@ mechanism becomes handy.
 * [kind](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
 * [flux](https://fluxcd.io/flux/installation/#install-the-flux-cli)
 
-## Building the Application Component using OCM
+## Building the Application Component Using OCM
 
-First we build an OCM component which contains Helm Charts in different kind of formats. For illustrative purposes this 101 guide explains all possible formats a HelmChart resource can have in OCM. In reality you will just pick the one most appropiate for your scenario.
+First we build an OCM component which contains Helm Charts in different kind of formats. This 101 guide explains all possible formats a HelmChart resource can have in OCM, but in reality you'll just pick the one most appropriate to you.
 
 ### Prepare Helm Charts
 
@@ -67,7 +67,7 @@ helm pull --destination . podinfo/podinfo
 
 The Helm chart is then stored in the current working directory as `podinfo-6.7.0.tgz` and can be referenced as path from there in the `component-constructor.yaml` file (see below).
 
-Unpack `podinfo-6.7.0.tgz` to simulate the process as if this helm chart is our own and is not downloaded from a public repository:
+Unpack `podinfo-6.7.0.tgz` to simulate the process as if this helm chart is our own and not downloaded from a public repository:
 
 ```shell
 tar -xzf podinfo-6.7.0.tgz
@@ -136,9 +136,9 @@ Note the differences between the various components:
 
 ### Building the Common Transport Archive (CTF)
 
-With the OCM CLI the common transport archive can be created from the input file `component-constructor.yaml`.
-For all variables values need to be provided. Variable values can be passed via the
-command line or stored in a file. If you have many variables a values file is more convenient.
+From the input file `component-constructor.yaml` the common transport archive can be created with the
+OCM CLI. We need to provide values for all variables, which can be passed in the
+command line or stored in a file. For many variables, having a values file is more convenient.
 The corresponding file [`settings.yaml`](https://github.com/open-component-model/ocm-examples/tree/main/components/guide-walkthrough-helm-chart/settings.yaml) may look like this:
 
 ```yaml
@@ -150,7 +150,11 @@ PODINFO_VERSION: 6.7.0
 PODINFO_CHART_VERSION: 6.7.0
 ```
 
-Create the common transport archive in folder "ocm-hello-world":
+Create the transport archive with the following commands:
+
+```shell
+ocm add componentversions --create --file <ctf-target-dir> --settings settings.yaml component-constructor.yaml
+```
 
 ```shell
 ocm add componentversions --create --file ocm-hello-world --settings settings.yaml component-constructor.yaml
@@ -199,25 +203,26 @@ transferring component "ocm.software/podinfo"...
   ...adding component version...
 ```
 
-Note: Be careful with the `-f` or `--overwrite` flag. This will replace existing component
-versions in the OCI registry. During development it is useful to overwrite
-existing component versions until something is ready for release. **For released versions
-you should never use this flag**! Released component versions should be immutable and
-should never be overwritten. They act as operational source of truth for the release 
-and therefore should never be changed.
+> **Note:** Be careful with the `-f` or `--overwrite` flag. This will replace existing component
+versions in the OCI registry. During development it is useful being able to overwrite
+existing component versions until something is ready for release.
+**For released versions you should never use this flag!**
+Released component versions should be immutable and
+should never be overwritten. They serve as source of truth for what the release is made of
+and should never be changed.
 
 ### Package
 
-Navigate to the overview of your OCI repository, which should list following items:
+Navigate to the overview of your OCI repository, which should list the following items:
 
-![alt text](images/github-packages-ocm-hello-world.png)
+![alt text](../../../assets/images/github-packages-ocm-hello-world.png)
 
 ## Deploying the OCM Software Artifact
 
-Up to now we have created a transport archive containing all required parts (images and Helm charts) for
+By this step we have created a transport archive containing all required parts (images and Helm charts) for
 installing the application. This archive is self-contained and can be transferred to an OCI registry with a single
 command from the OCM tooling. After pushing this archive to an OCI registry we have a shared location
-that can be used as a source of deployment without any external references. As an alternative you can
+that can be used as a source of deployment without any external references. As an alternative, you can
 transport the archive using offline mechanisms (file transfer, USB-stick) and push it on a target
 location in an OCI registry.
 
@@ -324,7 +329,7 @@ ocm controller install
 ✔ ocm-controller successfully installed
 ```
 
-### Inspect component descriptor
+### Inspect Component Descriptor
 
 Let's assume that we have pushed the transport archive to an OCI registry. We need the identity of the
 component version and the location of the component-descriptors in the OCI registry:
@@ -438,9 +443,9 @@ helm-chart-local-tgz    6.7.0            helmChart local    ociArtifact {"imageR
 image                   6.7.0            ociImage  external ociArtifact {"imageReference":"ghcr.io/stb1337/ocm-hello-world-v1/stefanprodan/podinfo:6.7.0"}
 ```
 
-### Apply k8s manifest
+### Apply Kubernetes Manifest
 
-Create file [`k8s-component-version/01-pod-info-kind.yaml`](https://github.com/open-component-model/ocm-examples/tree/main/kubernetes/guide-walkthrough-helm-chart/01-pod-info-kind.yaml) with following content:
+Create file [`k8s-component-version/01-pod-info-kind.yaml`](https://github.com/open-component-model/ocm-examples/tree/main/kubernetes/guide-walkthrough-helm-chart/01-pod-info-kind.yaml) with the following content:
 
 ```yaml
 #k8s-component-version/01-pod-info-kind.yaml
@@ -578,7 +583,7 @@ spec:
       version: "6.7.0"
 ```
 
-Create two k8s secrets in order for OCM and k8s to pull from your private OCI registry:
+Create two Kubernetes secrets in order for OCM and Kubernetes to pull from your private OCI registry:
 
 ```shell
 export GITHUB_USER=.. && export GITHUB_TOKEN=ghp_.... && export GITHUB_USER_EMAIL=steffen....
@@ -613,7 +618,7 @@ Forwarding from [::1]:9898 -> 9898
 Handling connection for 9898
 ```
 
-![alt text](images/guide-helm-charts-hello-world.png)
+![alt text](../../../assets/images/guide-helm-charts-hello-world.png)
 
 ```shell
 kubectl port-forward service/podinfo-helm-chart-local-tgz -n default 9898:9898
@@ -622,4 +627,4 @@ Forwarding from [::1]:9898 -> 9898
 Handling connection for 9898
 ```
 
-![alt text](images/guide-helm-charts-hello-world-2.png)
+![alt text](../../../assets/images/guide-helm-charts-hello-world-2.png)
