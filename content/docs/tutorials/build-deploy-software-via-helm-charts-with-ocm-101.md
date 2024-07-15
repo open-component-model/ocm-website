@@ -13,13 +13,13 @@ toc: true
 ## Introduction
 
 Let's illustrate a very simple "Hello World" example application and show how to leverage OCM to build an application component containing a Helm Chart and an OCI Image and deploy it to a local `kind` k8s cluster.
-The topics `ocm` [`localization`](https://github.com/open-component-model/ocm-website/blob/main/content/docs/tutorials/complex-component-structure-deployment.md#localization) and [`configuration`](https://github.com/open-component-model/ocm-website/blob/main/content/docs/tutorials/complex-component-structure-deployment.md#configuration) are NOT part of this very simple example and is part of other deep-dive guides.
+The topics `ocm` [`localization`](https://ocm.software/docs/tutorials/deployment-scenario-using-an-aggregated-component/#localization) and [`configuration`](https://ocm.software/docs/tutorials/deployment-scenario-using-an-aggregated-component/#configuration) are NOT part of this very simple example, but is covered in other tutorials.
 
 As base we use the `podinfo` application from Stefan Prodan's [Github repo](https://github.com/stefanprodan/podinfo).
-All files can be found [here](https://github.com/open-component-model/ocm-examples).
+All files can be found [here](https://github.com/open-component-model/ocm-examples/tree/main/components).
 
 At the end of the tutorial you will have created one OCM component for your business application `podinfo`.
-This component will be composed using the OCM guidelines and consist of several resources, alongside an OCI image and a Helm chart.
+This component will be composed using the OCM guidelines and consist of multiple resources, alongside an OCI image and a Helm chart.
 
 For building multiple components in one shot the ["all-in-one"](https://github.com/open-component-model/ocm-website/blob/main/content/docs/getting-started/getting-started-with-ocm/create-component-version.md#all-in-one)
 mechanism becomes handy.
@@ -34,26 +34,24 @@ mechanism becomes handy.
 
 ## Building the Application Component Using OCM
 
-First we build an OCM component which contains Helm Charts in different kind of formats. This 101 guide explains all possible formats, but in reality you'll just pick the one most appropriate to you.
+First we build an OCM component which contains Helm Charts in different kind of formats. This 101 guide explains all possible formats a HelmChart resource can have in OCM, but in reality you'll just pick the one most appropriate to you.
 
 ### Prepare Helm Charts
 
-We are leveraging Kubernetes deployments which often use Helm charts. The OCM specification supports Helm charts as
-an artifact type. For this simple example, we will re-use already existing open source community Helm charts.
+We are leveraging Kubernetes deployments which often use Helm charts. The OCM specification supports Helm charts as artifact type. For this simple example, we will re-use existing open source community Helm charts.
 
-The OCM CLI supports referencing Helm charts being stored in an OCI registry. However, most
-publicly available helm charts currently are available from helm chart repositories and
-not from OCI registries. Therefore, Helm charts can be embedded in the `component archive` in three different ways.
+The OCM CLI supports referencing Helm charts stored in an OCI registry or Helm chart repositories, as well as local archives or folders. The preferred option is to store Helm charts in an OCI registry or Helm repository, as this allows for easy sharing and versioning of the Helm charts.
 
-Reference a Helm Chart from a:
+Helm charts can be embedded in the `component archive` in four different ways:
 
-1. public Helm Chart repository
-2. local `*.tgz` file
-3. local folder containing a Helm Chart file
+1. referenced in OCI registry
+2. referenced in Helm repository
+3. as local `*.tgz` file
+4. as local folder containing a Helm Chart file
 
-To demonstrate No. 2. and 3. we need a Helm chart on our local machine. For the sake of the this simplified guide, we will download and unpack an already existing open source Helm chart for `podinfo`. In a real world application, this would be your own Helm chart. You will most likely have already stored your own Helm charts within a `git` repository and leverage a CI/CD pipeline to build `*.tgz` Helm chart files in order to push to your Helm chart repository.
+To demonstrate No. 3. and 4. we need a Helm chart on our local machine. For the sake of the this simplified guide, we download and unpack an already existing open source Helm chart for `podinfo`. In a real world application, this would be your own Helm chart. You will most likely store your own Helm charts within a `git` repository and leverage a CI/CD pipeline to build `*.tgz` Helm chart files in order to push them to your OCI registry or Helm repository.
 
-This can easily be achieved with the Helm CLI:
+Downloading Helm charts can easily be achieved using the Helm CLI:
 
 ```shell
 helm repo add <repo-name> <helm-chart-repo-url>
@@ -67,17 +65,17 @@ helm repo add podinfo https://stefanprodan.github.io/podinfo
 helm pull --destination . podinfo/podinfo
 ```
 
-The Helm chart is then stored in the current working directory as `podinfo-6.6.0.tgz` and can be referenced as path from there in the `component-constructor.yaml` file (see below).
+The Helm chart is then stored in the current working directory as `podinfo-6.7.0.tgz` and can be referenced as path from there in the `component-constructor.yaml` file (see below).
 
-Unpack `podinfo-6.6.0.tgz` to simulate the process as if this helm chart is our own and not downloaded from a public repository:
+Unpack `podinfo-6.7.0.tgz` to simulate the process as if this helm chart is our own and not downloaded from a public repository:
 
 ```shell
-tar -czf podinfo-6.6.0.tgz podinfo
+tar -xzf podinfo-6.7.0.tgz
 ```
 
 ### Input Specification
 
-The corresponding input file for building the component version ([`component-constructor.yaml`](https://github.com/open-component-model/ocm-examples/tree/main/components/guide-walkthrough-helm-chart/component-constructor.yaml)) looks like:
+The corresponding input file for building our component version ([`component-constructor.yaml`](https://github.com/open-component-model/ocm-examples/tree/main/components/guide-walkthrough-helm-chart/component-constructor.yaml)) looks like:
 
 ```yaml
 components:
@@ -90,24 +88,35 @@ components:
   provider:
     name: ${PROVIDER}
   resources:
-  - name: helm-chart-external
+  # Helm chart in OCI registry
+  - name: helm-chart-external-oci
+    type: helmChart
+    version: ${PODINFO_VERSION}
+    access:
+      type: ociArtifact
+      imageReference: ghcr.io/stefanprodan/charts/podinfo:${PODINFO_VERSION}
+  # Helm Chart in Helm repository  
+  - name: helm-chart-external-helm-repo
     type: helmChart
     version: ${PODINFO_VERSION}
     access:
       type: helm
       helmChart: podinfo:${PODINFO_CHART_VERSION}
       helmRepository: https://stefanprodan.github.io/podinfo
+  # Helm chart as local tgz file
   - name: helm-chart-local-tgz
     type: helmChart
     input:
       type: helm
       path: podinfo-${PODINFO_CHART_VERSION}.tgz
+  # Helm chart as local folder
   - name: helm-chart-local-folder
     type: helmChart
     version: ${PODINFO_VERSION}
     input:
       type: dir
       path: ./podinfo/
+  # Image referenced in the Helm chart
   - name: image
     type: ociImage
     version: ${PODINFO_VERSION}
@@ -120,8 +129,8 @@ components:
 
 Some frequently changing parameters have been extracted as variables. The OCM CLI uses
 templating to fill them with values. The templating mechanism is described
-[here](https://github.com/open-component-model/ocm-website/blob/main/content/docs/tutorials/best-practices-with-ocm.md#templating-the-resources). For this example
-we use the simple (default) template engine type `subst`.
+[here](https://ocm.software/docs/tutorials/best-practices/#templating-the-resources). For this example
+we use the default template engine type `subst`.
 
 Note the differences between the various components:
 
@@ -137,8 +146,8 @@ VERSION: 0.0.1
 NAME: ocm-hello-world-v1
 COMPONENT_NAME_PREFIX: ocm.software
 PROVIDER: stb1337
-PODINFO_VERSION: 6.6.0
-PODINFO_CHART_VERSION: 6.6.0
+PODINFO_VERSION: 6.7.0
+PODINFO_CHART_VERSION: 6.7.0
 ```
 
 Create the transport archive with the following commands:
@@ -153,23 +162,24 @@ processing component-constructor.yaml...
   processing document 1...
     processing index 1
 found 1 component
-adding component ocm.software/podinfo:6.6.0...
-  adding resource helmChart: "name"="helm-chart-external","version"="6.6.0"...
+adding component ocm.software/podinfo:6.7.0...
+  adding resource helmChart: "name"="helm-chart-external-oci","version"="6.7.0"...
+  adding resource helmChart: "name"="helm-chart-external-helm-repo","version"="6.7.0"...
   adding resource helmChart: "name"="helm-chart-local-tgz","version"="<componentversion>"...
-  adding resource helmChart: "name"="helm-chart-local-folder","version"="6.6.0"...
-  adding resource ociImage: "name"="image","version"="6.6.0"...
+  adding resource helmChart: "name"="helm-chart-local-folder","version"="6.7.0"...
+  adding resource ociImage: "name"="image","version"="6.7.0"...
 ```
 
-You can view the generated component descriptor using the command:
+You can view all component versions in a transport archive using the command:
 
 ```shell
-ocm get component -o yaml <ctf-target-dir>
+ocm get componentversion -o yaml <ctf-target-dir>
 ```
 
 ```shell
-ocm get component ./ocm-hello-world
+ocm get componentversion ./ocm-hello-world
 COMPONENT            VERSION PROVIDER
-ocm.software/podinfo 6.6.0   stb1337
+ocm.software/podinfo 6.7.0   stb1337
 ```
 
 You can store the transport archive in an OCI registry (this step needs a proper
@@ -179,18 +189,18 @@ configuration of credentials for the OCM CLI):
 ocm transfer ctf -f <ctf-target-dir> <oci-repo-url>
 ```
 
-```shell
-ocm transfer commontransportarchive --copy-resources --enforce --overwrite ./ocm-hello-world OCIRegistry::ghcr.io/stb1337/ocm-hello-world-v1
-transferring component "ocm.software/podinfo"...
-  transferring version "ocm.software/podinfo:6.6.0"...
-INFO[0000] trying next host - response was http.StatusNotFound  host=ghcr.io
-INFO[0001] trying next host - response was http.StatusNotFound  host=ghcr.io
-  ...resource 0 helm-chart-external[helmChart]...
-  ...resource 1 helm-chart-local-tgz[helmChart](ocm.software/podinfo/podinfo:6.6.0)...
-  ...resource 2 helm-chart-local-folder[helmChart]...
-  ...resource 3 image[ociImage](stefanprodan/podinfo:6.6.0)...
-  ...adding component version...
+Using the `--copy-resources` flag the OCM CLI will copy also copy all referenced resourcres to the OCI registry, making the resources part of the OCM component version, creating a self-contained component version.
 
+```shell
+ocm transfer ctf --copy-resources --enforce --overwrite ./ocm-hello-world OCIRegistry::ghcr.io/stb1337/ocm-hello-world-v1
+transferring component "ocm.software/podinfo"...
+  transferring version "ocm.software/podinfo:6.7.0"...
+  ...resource 0 helm-chart-external-oci[helmChart](stefanprodan/charts/podinfo:6.7.0)...
+  ...resource 1 helm-chart-external-helm-repo[helmChart]...
+  ...resource 2 helm-chart-local-tgz[helmChart](ocm.software/podinfo/podinfo:6.7.0)...
+  ...resource 3 helm-chart-local-folder[helmChart]...
+  ...resource 4 image[ociImage](stefanprodan/podinfo:6.7.0)...
+  ...adding component version...
 ```
 
 > **Note:** Be careful with the `-f` or `--overwrite` flag. This will replace existing component
@@ -326,7 +336,7 @@ component version and the location of the component-descriptors in the OCI regis
 
 ComponentVersion:
 name: `ocm.software/podinfo`
-version: `6.6.0`
+version: `6.7.0`
 
 URL of OCI registry: `ghcr.io/stb1337/ocm-hello-world-v1`
 
@@ -336,10 +346,10 @@ It is convenient to put this into an environment variable:
 export OCM_REPO=ghcr.io/stb1337/ocm-hello-world-v1
 ```
 
-Getting the component version `6.6.0` of the application with the OCM CLI:
+Getting the component version 6.7.0 of the application with the OCM CLI:
 
 ```shell
-ocm get componentversion --repo OCIRegistry::${OCM_REPO} ocm.software/podinfo:6.6.0 -o yaml
+ocm get componentversion --repo OCIRegistry::${OCM_REPO} ocm.software/podinfo:6.7.0 -o yaml
 ```
 
 ```yaml
@@ -369,9 +379,9 @@ component:
     name: helm-chart-external
     relation: external
     type: helmChart
-    version: 6.6.0
+    version: 6.7.0
   - access:
-      imageReference: ghcr.io/stb1337/ocm-hello-world-v1/ocm.software/podinfo/podinfo:6.6.0
+      imageReference: ghcr.io/stb1337/ocm-hello-world-v1/ocm.software/podinfo/podinfo:6.7.0
       type: ociArtifact
     digest:
       hashAlgorithm: SHA-256
@@ -380,7 +390,7 @@ component:
     name: helm-chart-local-tgz
     relation: local
     type: helmChart
-    version: 6.6.0
+    version: 6.7.0
   - access:
       localReference: sha256:8ff0604bfaebe6791ac4285c38a9f02771452497530367eeae49f1cf8594ca4c
       mediaType: application/x-tar
@@ -392,7 +402,7 @@ component:
     name: helm-chart-local-folder
     relation: local
     type: helmChart
-    version: 6.6.0
+    version: 6.7.0
   - access:
       localReference: sha256:4a05cbc915a171301efdaad863d7d1bb0bc9193730767eca9385c49361956863
       mediaType: application/x-tgz
@@ -404,9 +414,9 @@ component:
     name: manifests
     relation: local
     type: dir
-    version: 6.6.0
+    version: 6.7.0
   - access:
-      imageReference: ghcr.io/stb1337/ocm-hello-world-v1/stefanprodan/podinfo:6.6.0
+      imageReference: ghcr.io/stb1337/ocm-hello-world-v1/stefanprodan/podinfo:6.7.0
       type: ociArtifact
     digest:
       hashAlgorithm: SHA-256
@@ -415,9 +425,9 @@ component:
     name: image
     relation: external
     type: ociImage
-    version: 6.6.0
+    version: 6.7.0
   sources: []
-  version: 6.6.0
+  version: 6.7.0
 meta:
   schemaVersion: v2
 ```
@@ -425,12 +435,12 @@ meta:
 With this we can drill down to the installable Helm charts and the container images:
 
 ```shell
-ocm get resource --repo OCIRegistry::${OCM_REPO} ocm.software/podinfo:6.6.0 -o wide
+ocm get resource --repo OCIRegistry::${OCM_REPO} ocm.software/podinfo:6.7.0 -o wide
 NAME                    VERSION IDENTITY TYPE      RELATION ACCESSTYPE  ACCESSSPEC
-helm-chart-external     6.6.0            helmChart external localBlob   {"localReference":"sha256:cf9318c4944f733f8ce925ca0b818cdae638dce4107a13c3395984bb86306c4b","mediaType":"application/vnd.cncf.helm.chart.content.v1.tar+gzip"}
-helm-chart-local-folder 6.6.0            helmChart local    localBlob   {"localReference":"sha256:8ff0604bfaebe6791ac4285c38a9f02771452497530367eeae49f1cf8594ca4c","mediaType":"application/x-tar"}
-helm-chart-local-tgz    6.6.0            helmChart local    ociArtifact {"imageReference":"ghcr.io/stb1337/ocm-hello-world-v1/ocm.software/podinfo/podinfo:6.6.0"}
-image                   6.6.0            ociImage  external ociArtifact {"imageReference":"ghcr.io/stb1337/ocm-hello-world-v1/stefanprodan/podinfo:6.6.0"}
+helm-chart-external     6.7.0            helmChart external localBlob   {"localReference":"sha256:cf9318c4944f733f8ce925ca0b818cdae638dce4107a13c3395984bb86306c4b","mediaType":"application/vnd.cncf.helm.chart.content.v1.tar+gzip"}
+helm-chart-local-folder 6.7.0            helmChart local    localBlob   {"localReference":"sha256:8ff0604bfaebe6791ac4285c38a9f02771452497530367eeae49f1cf8594ca4c","mediaType":"application/x-tar"}
+helm-chart-local-tgz    6.7.0            helmChart local    ociArtifact {"imageReference":"ghcr.io/stb1337/ocm-hello-world-v1/ocm.software/podinfo/podinfo:6.7.0"}
+image                   6.7.0            ociImage  external ociArtifact {"imageReference":"ghcr.io/stb1337/ocm-hello-world-v1/stefanprodan/podinfo:6.7.0"}
 ```
 
 ### Apply Kubernetes Manifest
@@ -454,7 +464,7 @@ spec:
     secretRef:
       name: ghcr-pull-secret
   version:
-    semver: "6.6.0"
+    semver: "6.7.0"
 ---
 apiVersion: delivery.ocm.software/v1alpha1
 kind: Resource
@@ -470,7 +480,7 @@ spec:
     namespace: ocm-system
     resourceRef:
       name: helm-chart-external
-      version: "6.6.0"
+      version: "6.7.0"
       extraIdentity:
         helmChart: podinfo
 ---
@@ -520,7 +530,7 @@ spec:
     namespace: ocm-system
     resourceRef:
       name: helm-chart-local-tgz
-      version: "6.6.0"
+      version: "6.7.0"
       extraIdentity:
         helmChart: podinfo # name of the chart
 ---
@@ -570,7 +580,7 @@ spec:
     namespace: ocm-system
     resourceRef:
       name: image
-      version: "6.6.0"
+      version: "6.7.0"
 ```
 
 Create two Kubernetes secrets in order for OCM and Kubernetes to pull from your private OCI registry:
