@@ -45,7 +45,7 @@ Typical automated builds have access to the complete internet ecosystem. This in
 downloading of content required for a build (e.g., `go mod tidy`), but also the upload
 of build results to repositories (e.g., OCI image registries).
 
-For builds in enterprise environments can lead to several challenges:
+For builds in enterprise environments this can lead to several challenges:
 
 - Limited control over downloaded artifacts
 - Potential unavailability of required resources
