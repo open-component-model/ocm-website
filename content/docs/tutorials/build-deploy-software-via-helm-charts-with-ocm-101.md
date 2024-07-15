@@ -215,7 +215,9 @@ and should never be changed.
 
 Navigate to the overview of your OCI repository, which should list the following items:
 
-![alt text](images/github-packages-ocm-hello-world.png)
+<!--->
+image
+-->
 
 ## Deploying the OCM Software Artifact
 
@@ -618,7 +620,9 @@ Forwarding from [::1]:9898 -> 9898
 Handling connection for 9898
 ```
 
-![alt text](images/guide-helm-charts-hello-world.png)
+<!--->
+image
+-->
 
 ```shell
 kubectl port-forward service/podinfo-helm-chart-local-tgz -n default 9898:9898
@@ -627,4 +631,6 @@ Forwarding from [::1]:9898 -> 9898
 Handling connection for 9898
 ```
 
-![alt text](images/guide-helm-charts-hello-world-2.png)
+<!---
+image
+-->
