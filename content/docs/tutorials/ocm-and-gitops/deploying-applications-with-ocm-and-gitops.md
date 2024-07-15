@@ -18,7 +18,7 @@ In this guide, we will leverage Flux and the `ocm-controller` to deploy an exist
 
 Here's a diagram showing what we'll be building:
 
-![deploy-applications-with-gitops](../../../../assets/images/deploy-applications-diagram.png)
+![deploy-applications-with-gitops](images/deploy-applications-diagram.png)
 
 As you can see, we'll add some manifests to a git repository that will be deployed by Flux. These will, in turn, deploy a resource from an OCM repository, in this case, a `Deployment` of the `podinfo` microservice.
 
