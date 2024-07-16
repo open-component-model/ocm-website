@@ -67,6 +67,10 @@ configurations:
 
 More information on the topic can be seen by running the OCM CLI help topic command `ocm credential-handling`.
 
+## Additional resources
+
+Some of the following examples require additional resources to make them work. These can be found in the repository [open-component-model/getting-started](https://github.com/open-component-model/getting-started).
+
 ## Next Steps
 
 After completing your setup of OCM, the next steps to follow are:
