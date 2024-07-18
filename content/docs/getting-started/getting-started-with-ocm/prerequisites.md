@@ -17,7 +17,7 @@ To follow the steps described in this section, you will need to:
 
 ## Install the OCM Command Line Interface (CLI)
 
-The CLI is used to interact with component versions and registries. Install it like described in [Installing the OCM CLI](https://github.com/open-component-model/ocm-website/blob/main/content/docs/getting-started/installation.md).
+The CLI is used to interact with component versions and registries. Install it like described in [Installing the OCM CLI](/docs/getting-started/installing-the-ocm-cli).
 
 ## Obtain Access to an OCM Repository
 
@@ -66,12 +66,3 @@ configurations:
 ```
 
 More information on the topic can be seen by running the OCM CLI help topic command `ocm credential-handling`.
-
-## Next Steps
-
-After completing your setup of OCM, the next steps to follow are:
-
-1. [Create a Component Version](../create-a-component-version/)
-2. [Display and Examine Component Versions](../display-and-examine-component-versions/)
-3. [Transport OCM Component Versions](../transport-ocm-component-versions/)
-4. [Sign Component Versions](../sign-component-versions/)

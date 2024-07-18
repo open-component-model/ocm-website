@@ -70,7 +70,7 @@ The following list of access types is supported:
 
 Not all access and input types can be combined in useful ways with all artifact types. But the OCM specification does not define any restrictions on possible combinations.
 
-The following sections give an overview and typical usage examples for access and input types. It does not describe the full list of possible fields and their meaning. For a complete list of attributes, please see the [command reference](https://github.com/open-component-model/ocm-website/blob/main/content/docs/cli-reference/add/add_resources.md). The examples below are meant to be used in a component that looks like this:
+The following sections give an overview and typical usage examples for access and input types. It does not describe the full list of possible fields and their meaning. For a complete list of attributes, please see the [command reference](/docs/cli-reference/add/resources/). The examples below are meant to be used in a component that looks like this:
 
 ```yaml
 - name: github.com/open-component-model/megacomponent

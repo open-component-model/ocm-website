@@ -288,7 +288,7 @@ archive. Similarly to the `access` attribute, the kind of the input source is de
 The input types are not part of the input specification but are provided locally by the OCM command
 line client. For available input types, see [`ocm add resources`](https://github.com/open-component-model/ocm/blob/main/docs/reference/ocm_add_resources.md).
 
-For more complex scenarios, the description files might use variable substitution (templating), see [Best Practices](https://github.com/open-component-model/ocm-website/blob/main/content/docs/tutorials/best-practices-with-ocm.md#templating-the-resources).
+For more complex scenarios, the description files might use variable substitution (templating), see [Best Practices](/docs/tutorials/best-practices#templating-the-resources).
 
 Add the resources using the following command:
 
@@ -344,7 +344,7 @@ transferring version "github.com/acme/helloworld:1.0.0"...
 ## Bundle Composed Components
 
 If you have created multiple components according to the instructions above, you can bundle
-them into a single archive entity. This can be done by creating a transport archive.
+them into a single archive entity. This can be done by creating a transport archive using the common transfer format ([CTF](https://github.com/open-component-model/ocm-spec/blob/main/doc/04-extensions/03-storage-backends/ctf.md)).
 
 The transport archive is the entity that does the transfer between
 component repositories. It is used to transfer entire deployments between

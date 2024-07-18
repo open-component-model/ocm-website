@@ -10,7 +10,7 @@ weight: 26
 toc: true
 ---
 
-The section [Bundle Composed Components](./create-component-version.md#bundle-composed-components) explained how to bundle multiple component version into a transport archive.
+The section [Bundle Composed Components](/docs/getting-started/getting-started-with-ocm/create-a-component-version#bundle-composed-components) explained how to bundle multiple component version into a transport archive.
 
 During the transfer, it is possible to include component references as local blobs. It is also possible to include references in a recursive way.
 
@@ -29,4 +29,4 @@ transferring version "github.com/acme/helloworld:1.0.0"...
 
 The OCM CLI's `transfer` command can be used to transfer component versions, component archives, transport archives, and artifacts. See `ocm transfer -h` for more information.
 
-More examples on the transport archive can be found in [appendix A](https://github.com/open-component-model/ocm-spec/blob/main/doc/appendix/A/CTF/README.md).
+More examples on the transport archive and the common transfer format (CTF) can be found in the [ocm-spec](https://github.com/open-component-model/ocm-spec/blob/main/doc/04-extensions/03-storage-backends/ctf.md).
