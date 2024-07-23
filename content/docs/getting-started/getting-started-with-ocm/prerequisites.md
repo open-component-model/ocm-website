@@ -29,22 +29,22 @@ This can be any OCI registry for which you have write permission (e.g., GitHub P
 
 The easiest way to do this is to reuse your Docker configuration `json` file.
 
-  To do this, create a file named `.ocmconfig` in your home directory with the following content:
+To do this, create a file named `.ocmconfig` in your home directory with the following content:
 
-  ```yaml
-  type: generic.config.ocm.software/v1
-  configurations:
-  - type: credentials.config.ocm.software
-    repositories:
-      - repository:
-          type: DockerConfig/v1
-          # The path to the Docker configuration file
-          dockerConfigFile: "~/.docker/config.json"
-          propagateConsumerIdentity: true
-  - type: attributes.config.ocm.software
-    attributes:
-      cache: ~/.ocm/cache
-  ```
+```yaml
+type: generic.config.ocm.software/v1
+configurations:
+- type: credentials.config.ocm.software
+  repositories:
+    - repository:
+        type: DockerConfig/v1
+        # The path to the Docker configuration file
+        dockerConfigFile: "~/.docker/config.json"
+        propagateConsumerIdentity: true
+- type: attributes.config.ocm.software
+  attributes:
+    cache: ~/.ocm/cache
+```
 
 ### Using Basic Authentication
 
