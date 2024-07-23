@@ -478,7 +478,7 @@ The other elements listed as `layers` describe the blobs for the local resources
 
 ## All in One
 
-The previous steps can be combined into a single operation working on a single description file:
+The previous steps can be combined into a single operation working on a single description file that can contain multiple components:
 
 - Creating a Common Transport Archive
 - Adding one or more components
@@ -488,9 +488,11 @@ The command [`ocm add componentversions`](https://github.com/open-component-mode
 directly creates or extends a common transport archive without the need for creating dedicated component archives.
 
 Create a yaml configuration file `component-constructor.yaml`, which contains information about the components
-to create and the elements added to those components:
+to create and the elements added to those components. You can use our public configuration schema to validate the configuration. The schema is available at `https://ocm.software/schemas/configuration-schema.yaml` and can be used in your editor to validate the configuration (e.g., in Visual Studio Code).
 
 ```yaml
+# specify a schema to validate the configuration and get auto-completion in your editor
+# yaml-language-server: $schema=https://ocm.software/schemas/configuration-schema.yaml
 components:
 - name: github.com/acme.org/helloworld
   version: "1.0.0"
