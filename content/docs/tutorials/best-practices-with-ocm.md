@@ -12,6 +12,7 @@ toc: true
 
 This chapter contains guidelines for common scenarios how to work with the Open Component Model, focusing on using CI/CD, build and publishing processes.
 
+- [Use Public Schema for Validation and Auto-Completion of Component Descriptors](#use-public-schema-for-validation-and-auto-completion-of-component-descriptors)
 - [Separate Build and Publish Processes](#separate-build-and-publish-processes)
 - [Separation Between Build and Publish](#separation-between-build-and-publish)
 - [Building Multi-Architecture Images](#building-multi-architecture-images)
@@ -24,6 +25,19 @@ This chapter contains guidelines for common scenarios how to work with the Open 
 - [Self-Contained Transport Archives](#self-contained-transport-archives)
 - [CICD Integration](#cicd-integration)
 
+## Use Public Schema for Validation and Auto-Completion of Component Descriptors
+
+The Open Component Model (OCM) provides a public schema to validate and offer auto-completion of component constructor files
+used to create component descriptors.
+This schema is available at [https://ocm.software/schemas/configuration-schema.yaml](https://ocm.software/schemas/configuration-schema.yaml).
+
+To use this schema in your IDE, you can add the following line to your component constructor file:
+
+```yaml
+# yaml-language-server: $schema=https://ocm.software/schemas/configuration-schema.yaml
+```
+
+This line tells the YAML language server to use the OCM schema for validation and auto-completion.
 
 ## Separate Build and Publish Processes
 

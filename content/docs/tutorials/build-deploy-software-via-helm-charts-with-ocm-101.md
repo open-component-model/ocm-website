@@ -78,6 +78,8 @@ tar -xzf podinfo-6.7.0.tgz
 The corresponding input file for building our component version ([`component-constructor.yaml`](https://github.com/open-component-model/ocm-examples/tree/main/components/guide-walkthrough-helm-chart/component-constructor.yaml)) looks like:
 
 ```yaml
+# specify a schema to validate the configuration and get auto-completion in your editor
+# yaml-language-server: $schema=https://ocm.software/schemas/configuration-schema.yaml
 components:
 # podinfo component
 - name: ${COMPONENT_NAME_PREFIX}/podinfo

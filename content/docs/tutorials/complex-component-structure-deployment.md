@@ -68,6 +68,8 @@ This repository contains the following items:
 The following component file describes four components: three components that represent the `podinfo` microservices and one  *aggregate* component that brings together the `podinfo` components using *references*.  We refer to the aggregate component as the *product component*.
 
 ```yaml
+# specify a schema to validate the configuration and get auto-completion in your editor
+# yaml-language-server: $schema=https://ocm.software/schemas/configuration-schema.yaml
 components:
 # -- product component
 - name: ocm.software/podinfo
