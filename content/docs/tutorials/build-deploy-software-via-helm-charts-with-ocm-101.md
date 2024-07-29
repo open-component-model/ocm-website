@@ -21,8 +21,7 @@ All files can be found [here](https://github.com/open-component-model/ocm-exampl
 At the end of the tutorial you will have created one OCM component for your business application `podinfo`.
 This component will be composed using the OCM guidelines and consist of multiple resources, alongside an OCI image and a Helm chart.
 
-For building multiple components in one shot the ["all-in-one"](https://github.com/open-component-model/ocm-website/blob/main/content/docs/getting-started/getting-started-with-ocm/create-component-version.md#all-in-one)
-mechanism becomes handy.
+For building multiple components in one shot the ["all-in-one"](/docs/getting-started/getting-started-with-ocm/create-a-component-version/#all-in-one) mechanism becomes handy.
 
 ### Requirements
 
