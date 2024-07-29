@@ -4,3 +4,4 @@ resources/_gen/
 ocm-cli/
 ocm-spec/
 public/
+.idea/
