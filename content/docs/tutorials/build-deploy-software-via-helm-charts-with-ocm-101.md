@@ -478,7 +478,7 @@ spec:
     name: ocm-hello-world-podinfo
     namespace: ocm-system
     resourceRef:
-      name: helm-chart-external
+      name: helm-chart-external-helm-repo
       version: "6.7.0"
 ---
 apiVersion: delivery.ocm.software/v1alpha1
