@@ -249,14 +249,6 @@ data:
   security: <BASE64>
 ```
 
-### References
-
-`.spec.references` is an optional field that can be used to configure parameters for the handling of component references. Component references are employed when creating aggregated components.
-
-### Expand
-
-`.spec.references.expand` is an optional boolean field that indicates whether the component descriptor for all component references that are present in the "root" component descriptor should also be retrieved and stored in the cluster.
-
 ### Suspend
 
 `.spec.suspend` is an optional field to suspend the reconciliation of a ComponentVersion. When set to true, the controller will stop reconciling the ComponentVersion. When the field is set to false or removed, it will resume.

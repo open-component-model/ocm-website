@@ -364,8 +364,6 @@ metadata:
 spec:
   component: ocm.software/podinfo
   interval: 10m0s
-  references:
-    expand: true
   repository:
     url: <your-location> # this is where you transferred the component to
     secretRef:
@@ -390,8 +388,6 @@ metadata:
 spec:
   component: ocm.software/podinfo
   interval: 10m0s
-  references:
-    expand: true
   repository:
     url: <your-location>
   serviceAccountName: admin-account
@@ -992,8 +988,7 @@ The **helm-controller** and **notification-controller** aren't relevant.
 
 The `ComponentVersion` object contains information about what components have been reconciled. We talked about that
 earlier at [Component Version](#componentversion). The `Status` section contains any errors that could have
-occurred when reconciling information. If you find that the references section is empty, your component version is missing
-`expand: true` setting.
+occurred when reconciling information. 
 
 **ComponentDescriptor**:
 

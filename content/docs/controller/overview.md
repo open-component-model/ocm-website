@@ -80,8 +80,6 @@ spec:
       publicKey:
         secretRef:
           name: signing-key
-  references:
-    expand: true
 ```
 
 #### Resource Controller

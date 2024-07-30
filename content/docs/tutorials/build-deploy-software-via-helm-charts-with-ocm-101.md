@@ -457,8 +457,6 @@ metadata:
 spec:
   component: ocm.software/podinfo
   interval: 10s
-  references:
-    expand: true
   repository:
     url: ghcr.io/stb1337/ocm-hello-world-v1
     secretRef:
@@ -481,8 +479,6 @@ spec:
     resourceRef:
       name: helm-chart-external
       version: "6.7.0"
-      extraIdentity:
-        helmChart: podinfo
 ---
 apiVersion: delivery.ocm.software/v1alpha1
 kind: FluxDeployer
@@ -496,10 +492,6 @@ spec:
     kind: Resource
     name: ocm-hello-world-podinfo-helm-chart-external
   helmReleaseTemplate:
-    chart:
-      spec:
-        chart: "podinfo"
-        interval: 10s
     values:
       replicaCount: 3
       image:
@@ -531,8 +523,6 @@ spec:
     resourceRef:
       name: helm-chart-local-tgz
       version: "6.7.0"
-      extraIdentity:
-        helmChart: podinfo # name of the chart
 ---
 apiVersion: delivery.ocm.software/v1alpha1
 kind: FluxDeployer
@@ -546,10 +536,6 @@ spec:
     kind: Resource
     name: ocm-hello-world-podinfo-helm-chart-local-tgz
   helmReleaseTemplate:
-    chart:
-      spec:
-        chart: "podinfo"
-        interval: 10s
     values:
       replicaCount: 2
       image:
