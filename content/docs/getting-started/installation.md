@@ -10,7 +10,9 @@ weight: 21
 toc: true
 ---
 
-Install the latest release from any of
+## Overview 
+
+You can install the latest release of the OCM CLI from any of of the following sources (more details below):
 
 - [Homebrew](https://brew.sh)
 - [Nix](https://nixos.org)
