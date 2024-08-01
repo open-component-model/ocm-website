@@ -23,7 +23,7 @@ You can install the latest release of the OCM CLI from any of of the following s
 
 ## Bash
 
-To install with `bash` for macOS or Linux execute the following command:
+To install with `bash` for macOS or Linux, execute the following command:
 
 ```sh
 curl -s https://ocm.software/install.sh | sudo bash
