@@ -74,7 +74,7 @@ makepkg -i
 podman run -t ghcr.io/open-component-model/ocm:latest --help
 ```
 
-## Build and run it yourself
+## Build and Run It Yourself
 
 ```sh
 podman build -t ocm .
