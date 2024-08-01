@@ -17,7 +17,7 @@ To follow the steps described in this section, you will need to:
 
 ## Install the OCM Command Line Interface (CLI)
 
-The CLI is used to interact with component versions and registries. Install it like described in [Installing the OCM CLI](https://github.com/open-component-model/ocm-website/blob/main/content/docs/getting-started/installation.md).
+The CLI is used to interact with component versions and registries. Install it like described in [Installing the OCM CLI](/docs/getting-started/installing-the-ocm-cli).
 
 ## Obtain Access to an OCM Repository
 
@@ -29,22 +29,22 @@ This can be any OCI registry for which you have write permission (e.g., GitHub P
 
 The easiest way to do this is to reuse your Docker configuration `json` file.
 
-  To do this, create a file named `.ocmconfig` in your home directory with the following content:
+To do this, create a file named `.ocmconfig` in your home directory with the following content:
 
-  ```yaml
-  type: generic.config.ocm.software/v1
-  configurations:
-  - type: credentials.config.ocm.software
-    repositories:
-      - repository:
-          type: DockerConfig/v1
-          # The path to the Docker configuration file
-          dockerConfigFile: "~/.docker/config.json"
-          propagateConsumerIdentity: true
-  - type: attributes.config.ocm.software
-    attributes:
-      cache: ~/.ocm/cache
-  ```
+```yaml
+type: generic.config.ocm.software/v1
+configurations:
+- type: credentials.config.ocm.software
+  repositories:
+    - repository:
+        type: DockerConfig/v1
+        # The path to the Docker configuration file
+        dockerConfigFile: "~/.docker/config.json"
+        propagateConsumerIdentity: true
+- type: attributes.config.ocm.software
+  attributes:
+    cache: ~/.ocm/cache
+```
 
 ### Using Basic Authentication
 
@@ -66,12 +66,3 @@ configurations:
 ```
 
 More information on the topic can be seen by running the OCM CLI help topic command `ocm credential-handling`.
-
-## Next Steps
-
-After completing your setup of OCM, the next steps to follow are:
-
-1. [Create a Component Version](../create-a-component-version/)
-2. [Display and Examine Component Versions](../display-and-examine-component-versions/)
-3. [Transport OCM Component Versions](../transport-ocm-component-versions/)
-4. [Sign Component Versions](../sign-component-versions/)
