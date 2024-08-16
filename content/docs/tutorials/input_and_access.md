@@ -10,40 +10,39 @@ weight: 68
 toc: true
 ---
 
-* [Input and Access Types](#input-and-access-types)
-    * [Input Types](#input-types)
-      * [binary](#binary)
-      * [dir](#dir)
-      * [docker](#docker)
-      * [dockermulti](#dockermulti)
-      * [file](#file)
-      * [helm](#helm)
-      * [ociImage](#ociimage)
-      * [spiff](#spiff)
-      * [utf-8](#utf-8)
-    * [Access Types](#access-types)
-      * [gitHub](#github)
-      * [helm](#helm-1)
-      * [npm](#npm)
-      * [ociArtifact](#ociartifact)
-      * [s3](#s3)
+- [Overview](#overview)
+  - [Input Types](#input-types)
+    - [binary](#binary)
+    - [dir](#dir)
+    - [docker](#docker)
+    - [dockermulti](#dockermulti)
+    - [file](#file)
+    - [helm](#helm)
+    - [ociImage](#ociimage)
+    - [spiff](#spiff)
+    - [utf-8](#utf-8)
+  - [Access Types](#access-types)
+    - [gitHub](#github)
+    - [helm](#helm-1)
+    - [npm](#npm)
+    - [ociArtifact](#ociartifact)
+    - [s3](#s3)
 
+## Overview
 
-# Input and Access Types
-
-The Open Component Model spec supports multiple methods how to add resources to a component version. There are two different ways how to add content: Input Type and Access Type
+The Open Component Model spec supports multiple methods how to add resources to a component version. There are two different ways to add content: Input Type and Access Type
 
 An **Input type** adds content along with the component descriptor and stores it in the same target repository where the component is stored. After pushing the content to the target registry this always resolves to the attribute
 
-```
+```yaml
 relation: local
 ```
 
 in a component descriptor.
 
-An **Access Type** just adds content as reference to an external location, e.g. an OCI registry. It is a kind of pointer in a component descriptor. It resolves to the attribute
+An **Access Type** just adds content as reference to an external location, e.g., an OCI registry. It is a kind of pointer in a component descriptor. It resolves to the attribute
 
-```
+```yaml
 relation: external
 ```
 
@@ -71,7 +70,7 @@ The following list of access types is supported:
 
 Not all access and input types can be combined in useful ways with all artifact types. But the OCM specification does not define any restrictions on possible combinations.
 
-The following sections give an overview and typical usage examples for access and input types. It does not describes the full list of possible fields and their meaning. For a complete list of attributes please see the [command reference](https://ocm.software/docs/cli/add/resources/). The examples below are meant to be used in a component that looks like this:
+The following sections give an overview and typical usage examples for access and input types. It does not describe the full list of possible fields and their meaning. For a complete list of attributes, please see the [command reference](/docs/cli-reference/add/resources/). The examples below are meant to be used in a component that looks like this:
 
 ```yaml
 - name: github.com/open-component-model/megacomponent
@@ -121,9 +120,10 @@ Takes an image from the local docker registry and adds it as a resource. Require
       repository: images/mega
       path: megacomp:${VERSION}
 ```
+
 if VERSION is set to 0.1.0 the following image is imported:
 
-```
+```sh
 docker image ls
 REPOSITORY                         TAG                       IMAGE ID       CREATED         SIZE
 megacomp                           0.1.0                     9aab9cbca56e   5 days ago      7.46MB
@@ -133,7 +133,7 @@ The target location of the image can be set with the `repository` field. Here th
 
 #### dockermulti
 
-Takes multiple images from the local docker registry and adds them as single multiarch image. Requires a running docker daemon. The images have to be built for different architectures/os and need a unique tag identifying them. As docker does not support multiarch images at the time of writing this is a workaround.
+Takes multiple images from the local docker registry and adds them as single multi-arch image. Requires a running docker daemon. The images have to be built for different architectures/os and need a unique tag identifying them. As docker does not support multi-arch images at the time of writing this is a workaround.
 
 ```yaml
   resources:
@@ -146,9 +146,10 @@ Takes multiple images from the local docker registry and adds them as single mul
         - megacomp:${VERSION}-linux-amd64
         - megacomp:${VERSION}-linux-arm64
 ```
+
 if VERSION is set to 0.1.0 the following image is imported:
 
-```
+```sh
 docker image ls
 REPOSITORY                         TAG                       IMAGE ID       CREATED         SIZE
 megacomp                           0.1.0-linux-amd64         96659c4f7a35   5 days ago      7.05MB
@@ -184,7 +185,7 @@ Imports a helm chart from the local file system and adds it as a resource.
       repository: charts/mega
 ```
 
-After transporting the corresponding component version to an OCI registry the helm chart will be made available under `charts/mega` prefixed by the name of the component version. This auto-prefix can be disabled by using a leading slash `/charts/mega`. If the `repository` tag is omitted the name of the helm chart from `Chart.yaml` will be used.
+After transporting the corresponding component version to an OCI registry, the helm chart will be made available under `charts/mega` prefixed by the name of the component version. This auto-prefix can be disabled by using a leading slash `/charts/mega`. If the `repository` tag is omitted, the name of the helm chart from `Chart.yaml` will be used.
 
 It is also possible to import a helm chart from a helm chart repository:
 
@@ -200,7 +201,7 @@ It is also possible to import a helm chart from a helm chart repository:
       repository: charts/mariadb
 ```
 
-Here the helm chart version `12.2.7` is copied from the path `mariadb` in helm chart repository `https://charts.bitnami.com/bitnami`. After transporting the corresponding component version to an OCI registry the helm chart will be made available under `charts/mariadb` prefixed by the name of the component version. This auto-prefix can be disabled by using a leading slash `/charts/mariadb`. If the `repository` tag is omitted the name of the helm chart from `Chart.yaml` will be used. There are additional optional fields `caCert` and `caCertFile` to specify a TLS certificate for the helm chart repository.
+Here the helm chart version `12.2.7` is copied from the path `mariadb` in helm chart repository `https://charts.bitnami.com/bitnami`. After transporting the corresponding component version to an OCI registry, the helm chart will be made available under `charts/mariadb` prefixed by the name of the component version. This auto-prefix can be disabled by using a leading slash `/charts/mariadb`. If the `repository` tag is omitted, the name of the helm chart from `Chart.yaml` will be used. There are additional optional fields `caCert` and `caCertFile` to specify a TLS certificate for the helm chart repository.
 
 #### ociImage
 
@@ -216,7 +217,7 @@ Takes an image that is located in an OCI registry and adds it as a resource.
       repository: images/echo
 ```
 
-The target location of the image after transporting to an OCI registry can be set with the `repository` field. Here the resulting image will be prefixed with the name of the component version, e.g. `github.com/open-component-model/megacomponent/images/echo:1.10`. This auto-prefix can be disabled by using a leading slash `/images/echo`.
+The target location of the image after transporting to an OCI registry can be set with the `repository` field. Here the resulting image will be prefixed with the name of the component version, e.g., `github.com/open-component-model/megacomponent/images/echo:1.10`. This auto-prefix can be disabled by using a leading slash `/images/echo`.
 
 #### spiff
 

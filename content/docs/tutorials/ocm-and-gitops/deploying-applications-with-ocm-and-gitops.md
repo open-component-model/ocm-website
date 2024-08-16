@@ -14,22 +14,25 @@ toc: true
 
 This tutorial will demonstrate how to get started deploying applications using the Open Component Model & Flux.
 
-In this guide we will leverage Flux and the `ocm-controller` to deploy an existing component to a Kubernetes cluster. Specifically, we will deploy the `phoban.io/podinfo` component that contains the resources needed to launch the [podinfo](https://github.com/stefanprodan/podinfo) application.
+In this guide, we will leverage Flux and the `ocm-controller` to deploy an existing component to a Kubernetes cluster. Specifically, we will deploy the `phoban.io/podinfo` component that contains the resources needed to launch the [podinfo](https://github.com/stefanprodan/podinfo) application.
 
 Here's a diagram showing what we'll be building:
 
-![deploy-applications-with-gitops](/images/deploy-applications-diagram.png)
+![deploy-app-with-gitops](images/deploy-app-diagram.png)
 
-As you can see we'll add some manifests to a git repository that will be deployed by Flux. These will, in turn, deploy a resource from an OCM repository, in this case, a `Deployment` of the `podinfo` microservice.
+As you can see, we'll add some manifests to a git repository that will be deployed by Flux. These will, in turn, deploy a resource from an OCM repository, in this case, a `Deployment` of the `podinfo` microservice.
 
-If you'd like to learn how to build a component then checkout our getting started guide [here](/docs/guides/getting-started-with-ocm)
+If you'd like to learn how to build a component, then check out our [Getting Started guide](https://ocm.software/docs/getting-started/getting-started-with-ocm/prerequisites).
 
-## Table of contents
-- [Requirements](#requirements)
-- [Setup the Environment](#setup-the-environment)
-- [Deploy the OCM Controller](#deploy-the-ocm-controller)
-- [Deploy the Component](#deploy-the-component)
-- [Wrapping Up](#wrapping-up)
+## Table of Contents
+
+- [Introduction](#introduction)
+- [Table of Contents](#table-of-contents)
+  - [Requirements](#requirements)
+  - [Environment Setup](#environment-setup)
+  - [Deploy the OCM Controller](#deploy-the-ocm-controller)
+  - [Deploy the Component](#deploy-the-component)
+  - [Wrapping Up](#wrapping-up)
 
 ### Requirements
 
@@ -40,8 +43,7 @@ If you'd like to learn how to build a component then checkout our getting starte
 - [kind](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
 - [flux](https://fluxcd.io/flux/installation/#install-the-flux-cli)
 
-
-### Setup the environment
+### Environment Setup
 
 First of all, let's create a cluster using `kind`:
 
@@ -61,7 +63,7 @@ flux bootstrap github \
   --personal
 ```
 
-This command will create a GitHub repository named `podinfo-flux-repo`, configure Flux to use it, and deploy the resources in the ./clusters/kind directory to our Kubernetes cluster.
+This command will create a GitHub repository named `podinfo-flux-repo`, configure Flux to use it, and deploy the resources in the `./clusters/kind` directory to our Kubernetes cluster.
 
 Let's now clone the repository flux has created and put in place the manifests required to deploy components:
 
@@ -89,7 +91,7 @@ spec:
 EOF
 ```
 
-Commit this file, push and then ensure Flux has reconciled the resource:
+Commit this file, push, and then ensure Flux has reconciled the resource:
 
 ```bash
 git add ./clusters/kind/components_kustomization.yaml
@@ -113,7 +115,7 @@ ocm controller install
 
 ### Deploy the Component
 
-Now that we have flux configured and the `ocm-controller` installed we can started deploying components.
+Now that we have flux configured and the `ocm-controller` installed, we can started deploying components.
 
 We told flux that our component manifests will live in `./components`, so let's create that directory:
 
@@ -121,7 +123,7 @@ We told flux that our component manifests will live in `./components`, so let's 
 mkdir -p ./components
 ```
 
-To make the component accessible within the cluster create the following `ComponentVersion`:
+To make the component accessible within the cluster, create the following `ComponentVersion`:
 
 ```yaml
 cat > ./components/component_version.yaml <<EOF
@@ -160,7 +162,7 @@ spec:
 EOF
 ```
 
-Finally create a `FluxDeployer` to deploy the `Resource` contents using Flux:
+Finally, create a `FluxDeployer` to deploy the `Resource` contents using Flux:
 
 ```yaml
 cat > ./components/deployer.yaml <<EOF
@@ -181,7 +183,7 @@ spec:
 EOF
 ```
 
-At this point we can commit these files, push to the remote repository and tell flux to reconcile the changes:
+At this point we can commit these files, push to the remote repository, and tell flux to reconcile the changes:
 
 ```bash
 git add ./components
@@ -207,7 +209,7 @@ podinfo-84cb98c9b6-k4lk8   1/1     Running   0          1m
 
 That's it! That's how easy it is to get started using the Open Component Model and Flux.
 
-Want to know more about working with OCM and GitOps, checkout these guides:
+If you want to know more about working with OCM and GitOps, check out these guides:
 
-- [Air-gapped GitOps with OCM & Flux](/docs/guides/air-gapped-gitops-with-ocm-and-flux)
-- [GitOps Driven Configuration of OCM Applications](/docs/guides/gitops-driven-configuration-of-ocm-applications)
+- [Air-gapped GitOps with OCM & Flux](https://ocm.software/docs/tutorials/ocm-and-gitops/air-gapped-gitops-with-ocm-flux/)
+- [GitOps Driven Configuration of OCM Applications](https://ocm.software/docs/tutorials/ocm-and-gitops/gitops-driven-configuration-of-ocm-applications/)

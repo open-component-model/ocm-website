@@ -15,13 +15,13 @@ Overly complex, bespoke CI/CD pipelines and the lack of automation across the wh
 
 ## Requirements Towards a Modern Software Component Model
 
-### Immutable and unique Component Identity
+### Immutable and Unique Component Identity
 
-A crucial requirement is the ability to assign an immutable and globally unique Component Identity to each software component. This identifier acts as a "correlation ID," allowing all lifecycle management processes, such as compliance scanning, to correlate their outputs to a single, identifiable software component.
+A crucial requirement is the ability to assign an immutable and globally unique Component Identity to each software component. This identifier acts as a "correlation ID," allowing all lifecycle management processes, such as security compliance and vulnerability scanning, to correlate their outputs to a single, identifiable software component.
 
 ### Artifact Descriptions with Location Information
 
-The model should facilitate the description of all technical artifacts (or resources) necessary for deploying a specific software component. This list, termed a "Software Bill of Delivery" (SBoD), outlines only the artifacts required for successful deployment. Additionally, the description must encompass the specific technical access locations from which each artifact can be retrieved.
+The model should facilitate the description of all technical artifacts required for deploying a specific version of a software component. This list, termed a "Software Bill of Delivery" (SBoD), outlines only the artifacts needed for successful deployment. Additionally, the description must encompass the technical access location from which each artifact can be retrieved.
 
 ### Separation of Component Identity and Artifact Location
 
@@ -39,7 +39,7 @@ The model should be designed with extensibility in mind, enabling straightforwar
 
 The model should provide out-of-the-box support for signing and verification processes. This capability allows consumers of software components to verify that the delivered components have not been tampered with. Importantly, the signing and verification support must account for the possibility that the technical artifact locations may change over time, implying that these specific locations should not be part of the signing process.
 
-### Network effects
+### Network Effects
 
 Components described using OCM are primed for secure consumption and immediate integration into higher-level components (or products). The ability to link to trusted and already attested components can facilitate adoption across different teams within an organization, directly improving efficiency (akin to the proficiency of package models like Maven or npm). Moreover, with other parties also describing components using OCM, commercial contracts can cover the necessary technical trust outside the organization, simplifying the secure import and compliant re-use of these components. OCM envisions fostering a network effect across the industry.
 
@@ -52,18 +52,18 @@ The Open Component Model (OCM) is the much-needed life-raft for organizations dr
 
 - **Unique Component Identities:** OCM assigns an immutable, globally unique ID to each component, enabling seamless correlation across all lifecycle tools and processes like a "compliance dashboard".
   
-- **Software Bill of Delivery:** OCM enables the precise specification of all technical artifacts required for delivering a software component. This compilation, termed a 'Software Bill of Delivery (SBoD),' comprehensively lists the necessary artifacts along with their corresponding location information to facilitate seamless access.
+- **Software Bill of Delivery:** OCM enables the precise specification of all technical artifacts required for delivering a software component. This compilation, termed a "Software Bill of Delivery" (SBoD), comprehensively lists the necessary artifacts along with their corresponding location information to facilitate seamless access.
 
 - **Stable IDs, Changing Artifact Locations:** OCM cleanly separates the immutable component ID from the changeable artifact locations, essential for hybrid/private environments.
 
-- **Technology Agnosticism:** Being agnostic to implementation technologies like container images, NPM packages, or binaries, OCM effortlessly handles both cloud-native and legacy apps.
+- **Technology Agnosticism:** Being agnostic to implementation technologies like container images, NPM packages or binaries, OCM effortlessly handles both cloud-native and legacy apps.
 
 - **Future-Proof Extensibility:** OCM's extensible design allows simple adaptation to emerging trends without disrupting existing tooling.
 
 - **Trusted Signatures:** Built-in signing and verification ensure artifact integrity even as artifact locations change over time.
   
-With OCM, a "single source of truth" is established for all software artifacts across the lifecycle. Compliance checks, security scans, deployments and more become streamlined operations anchored to OCM's standardized component definitions.
+With OCM, a "single source of truth" is established for all software artifacts across the lifecycle. Compliance checks, security scans, deployments, and more become streamlined operations anchored to OCM's standardized component definitions.
 
-Moreover, by fostering component reuse within and across organizations, OCM unlocks powerful network effects akin to package managers, boosting productivity and simplifying commercial software consumption.
+Moreover, by fostering component reuse within and across organizations, OCM unlocks powerful network effects akin to package managers, boosting productivity, and simplifying commercial software consumption.
 
 In essence, OCM is the missing link that finally empowers organizations to tame the software lifecycle beast through a consistent, location-agnostic way to identify, access, exchange and verify software artifacts at scale.

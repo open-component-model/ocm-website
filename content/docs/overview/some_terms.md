@@ -10,34 +10,37 @@ toc: true
 images: []
 ---
 
-As the open component model revolves around components, it is essential to establish a common understanding of the fundamental terminology employed throughout this website. The following section provides concise definitions of key terms, laying the groundwork for the tutorials and documentation that follow.
+As the Open Component Model (OCM) revolves around components, it is essential to establish a common understanding of the fundamental terminology employed throughout this website. The following section provides concise definitions of key terms, laying the groundwork for the documentation and tutorials that follow.
 
-If you right away want to deep-dive into the topic, you can have a look at the [OCM Specification](https://github.com/open-component-model/ocm-spec/blob/main/README.md) and its [Glossary](https://github.com/open-component-model/ocm-spec/blob/main/doc/glossary.md)
+For a comprehensive exploration of every aspect of this topic, please refer to the OCM Specification [OCM Specification](https://github.com/open-component-model/ocm-spec/blob/main/README.md) and its [Glossary](https://github.com/open-component-model/ocm-spec/blob/main/doc/glossary.md).
 
-## What’s a Component?
+## Components in OCM
 
-- Represents a conceptual entity that defines a specific usage context or semantic meaning for a particular software artifact or set of artifacts. The software artifacts are intended for a purpose and could be as small as a "hello world", or as complex as a business suite
-- Is identified by a (globally) unique name
-- Evolves over versions
+The concept of a *Component* can vary widely, often defined with very specific views on granularity or other technical attributes. OCM takes a different approach, focusing on the intended purpose and overall meaning of components.
 
-## What’s a Component Version?
+In OCM, Components group a set of semantically related *Component Versions*. Each Component Version is uniquely and globally identified by a *Component Identity* and can reference other Components. A Component Version can also contain *Artifacts* and a formal description on how to access them. These Artifacts come in two categories: `resources`, which describe the payload (e.g.,OCI images), and `sources`, which describe the input for creating `resources` (e.g., source code).
 
-- Has an identity (name + version)
-- Can have component references to other components (to build a component graph)
-- Has artifacts (`sources` and `resources`)
+## OCM Coordinates
 
-## What's a Component Descriptor?
+*OCM Coordinates* are used to reference OCM Component Versions and Artifacts within OCM Component Versions. Coordinates referring to an OCM Component Version are also called *Component Identity*, whereas relative Coordinates referring to an artifact are called *Artifact Identity*. Component Identities are globally unique and may be used to refer to full Component Versions. Artifact Identities are always relative to a Component Version and may only be used in conjunction with a Component Identity.
 
-- Serialized form of a Component Version
+In detail:
 
-## What's a Component Constructor
+### Component Identity
 
-- A file that acts as input for the OCM CLI to construct one or multiple component version(s)
+- Component Name: Identifies a component. Must start with URL-prefix that should be controlled by the owner of the component to avoid collisions.
+- Component Version: If used with a Component name, identifies a specific Component Version. Must adhere to "relaxed SemVer" (major, minor (+ optional patch level) - optional v-prefix).
 
-## What are Artifacts?
+### Artifact Identity
 
-- `Sources`: input for creating resources e.g. source code
-- `Resources`: contain the code to “do” something, e.g. OCI Images, binaries, etc.
-- Have a component-local identity (name and version)
-- Have a `Type` (similar to a MIME-Type)
-- Have an exchangeable `Access` (formal description how to retrieve an artifact, e.g. a download URL)
+Within a Component Version, all Artifacts must have a unique identity. Every Source Identity or Resource Identity always includes a `name` that typically expresses the intended purpose.
+
+Artifacts may also have additional `extraIdentity` attributes that contribute to their identities. `extraIdentity` attributes are string-to-string maps.
+
+### Examples
+
+Assuming there is a component named `example.org/my-component` with two versions, `1.2.3` and `1.3.0`, declaring a resource with the name `my-resource`, the following OCM Coordinates can be used to reference different elements:
+
+- `example.org/my-component`: all versions of the component (1.2.3 + 1.3.0)
+- `example.org/my-component:1.2.3`: version 1.2.3 of the component
+- `example.org/my-component:1.2.3:resource/my-resource`: `my-resource` as declared by the component version
