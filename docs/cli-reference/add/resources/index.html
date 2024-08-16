@@ -117,7 +117,7 @@ included as links.</p></li><li><p><strong><code>excludeFiles</code></strong> <em
 that should NOT be included in the tar file. It takes precedence over
 the include match.</p></li><li><p><strong><code>includeFiles</code></strong> <em>list of regex</em></p><p>This OPTIONAL property describes regular expressions used to match files
 that should be included in the tar file. If this option is not given
-all files not explicitly excluded are used.</p></li></ul><p>Options used to configure fields: <code>&ndash;inputCompress</code>, <code>&ndash;inputExcludes</code>, <code>&ndash;inputFollowSymlinks</code>, <code>&ndash;inputIncludes</code>, <code>&ndash;inputPath</code>, <code>&ndash;inputPreserveDir</code>, <code>&ndash;mediaType</code></p></li><li><p>Input type <code>docker</code></p><p>The path must denote an image tag (can reference a multi-arch image) that can be found in the local
+all files not explicitly excluded are used.</p></li></ul><p>Options used to configure fields: <code>&ndash;inputCompress</code>, <code>&ndash;inputExcludes</code>, <code>&ndash;inputFollowSymlinks</code>, <code>&ndash;inputIncludes</code>, <code>&ndash;inputPath</code>, <code>&ndash;inputPreserveDir</code>, <code>&ndash;mediaType</code></p></li><li><p>Input type <code>docker</code></p><p>The path must denote an image tag that can be found in the local
 docker daemon. The denoted image is packed as OCI artifact set.
 The OCI image will contain an informational back link to the component version
 using the manifest annotation <code>software.ocm/component-version</code>.</p><p>This blob type specification supports the following fields:</p><ul><li><p><strong><code>path</code></strong> <em>string</em></p><p>This REQUIRED property describes the image name to import from the
@@ -125,8 +125,7 @@ local docker daemon.</p></li><li><p><strong><code>repository</code></strong> <em
 generated local artifact access. It is prefixed by the component name if
 it does not start with slash &ldquo;/&rdquo;.</p></li></ul><p>Options used to configure fields: <code>&ndash;hint</code>, <code>&ndash;inputPath</code></p></li><li><p>Input type <code>dockermulti</code></p><p>This input type describes the composition of a multi-platform OCI image.
 The various variants are taken from the local docker daemon. They should be
-<a href=https://github.com/open-component-model/ocm-website/blob/main/content/docs/tutorials/best-practices-with-ocm.md#building-multi-arch-images>built with the <code>buildx</code> command</a>
-for cross platform docker builds.
+built with the buildx command for cross platform docker builds.
 The denoted images, as well as the wrapping image index is packed as OCI
 artifact set.
 They will contain an informational back link to the component version
