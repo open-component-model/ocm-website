@@ -46,7 +46,7 @@ references, you could collect all artifacts belonging to this product version.
 
 ## Prerequisites
 
-We assume that you have already read the guides in the [Getting Started](https://ocm.software/docs/getting-started/getting-started-with-ocm/prerequisites/) section, as this guide discusses a more
+We assume that you have already read the guides in the [Getting Started](/docs/getting-started/getting-started-with-ocm/prerequisites/) section, as this guide discusses a more
 complex scenario using plain Localizations and Configurations without the use of [Unpacker](https://github.com/open-component-model/unpacker-controller).
 
 ## Constructing the Component

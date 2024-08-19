@@ -19,7 +19,7 @@ see [Architecture](https://github.com/open-component-model/MPAS/tree/main/docs/c
 A Product is a package of software that can be deployed to target environments such as Kubernetes clusters,
 virtual machines or bare-metal devices.
 
-Products are made available to the `MPAS` system as [OCM Components](https://github.com/open-component-model/ocm-spec/blob/main/doc/introduction/component_versions.md#component-versions) via a `Subscription`.
+Products are made available to the `MPAS` system as [OCM Components](https://github.com/open-component-model/ocm-spec/blob/main/doc/01-model/01-model.md#components-and-component-versions) via a `Subscription`.
 Multiple instances of a Product may be installed that refer to the same Subscription.
 
 A `ProductDeployment` is a Kubernetes Custom Resource that represents a product to

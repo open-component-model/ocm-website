@@ -35,7 +35,7 @@ To install the MPAS CLI using `brew`:
 brew install open-component-model/tap/mpas
 ```
 
-For other installation methods, see the [installation guide](/mpas/overview/installation/).
+For other installation methods, see the [installation guide](/mpas/installation/).
 
 ## Bootstrap MPAS
 
@@ -118,7 +118,7 @@ cd mpas-bootstrap
 ### Deploy podinfo application
 
 The [podinfo application](https://github.com/stefanprodan/podinfo) has been packaged
-as an OCM component and can be retrieved from [Github](ghcr.io/open-component-model/podinfo).
+as an OCM component and can be retrieved from [Github](https://ghcr.io/open-component-model/podinfo).
 
 1. Create a secret containing your GitHub credentials that will be used by MPAS to
 create your project repository.

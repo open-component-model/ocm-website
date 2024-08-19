@@ -16,8 +16,8 @@ This guide is the final part of our series exploring OCM, the `ocm-controller`, 
 
 Check out the previous guides if you haven't already:
 
-- [Deploy Applications with OCM & GitOps](https://ocm.software/docs/tutorials/ocm-and-gitops/deploying-applications-with-ocm-and-gitops)
-- [Air-gapped GitOps with OCM & Flux](https://ocm.software/docs/tutorials/ocm-and-gitops/air-gapped-gitops-with-ocm-and-flux)
+- [Deploy Applications with OCM & GitOps](/docs/tutorials/ocm-and-gitops/deploying-applications-with-ocm-gitops/)
+- [Air-gapped GitOps with OCM & Flux](/docs/tutorials/ocm-and-gitops/air-gapped-gitops-with-ocm-flux/)
 
 In this guide we will pick-up where we left off in the air-gapped example.
 

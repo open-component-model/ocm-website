@@ -22,7 +22,7 @@ Here's a diagram showing what we'll be building:
 
 As you can see, we'll add some manifests to a git repository that will be deployed by Flux. These will, in turn, deploy a resource from an OCM repository, in this case, a `Deployment` of the `podinfo` microservice.
 
-If you'd like to learn how to build a component, then check out our [Getting Started guide](https://ocm.software/docs/getting-started/getting-started-with-ocm/prerequisites).
+If you'd like to learn how to build a component, then check out our [Getting Started guide](/docs/getting-started/getting-started-with-ocm/prerequisites).
 
 ## Table of Contents
 
@@ -211,5 +211,5 @@ That's it! That's how easy it is to get started using the Open Component Model a
 
 If you want to know more about working with OCM and GitOps, check out these guides:
 
-- [Air-gapped GitOps with OCM & Flux](https://ocm.software/docs/tutorials/ocm-and-gitops/air-gapped-gitops-with-ocm-flux/)
-- [GitOps Driven Configuration of OCM Applications](https://ocm.software/docs/tutorials/ocm-and-gitops/gitops-driven-configuration-of-ocm-applications/)
+- [Air-gapped GitOps with OCM & Flux](/docs/tutorials/ocm-and-gitops/air-gapped-gitops-with-ocm-flux/)
+- [GitOps Driven Configuration of OCM Applications](/docs/tutorials/ocm-and-gitops/gitops-driven-configuration-of-ocm-applications/)
