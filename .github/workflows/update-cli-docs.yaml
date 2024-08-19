@@ -30,11 +30,11 @@ jobs:
         sed -i "s/latest_version = .*/latest_version = \"$TAG\"/" ./config/_default/params.toml
 
     - name: Setup Go
-      uses: actions/setup-go@v4
+      uses: actions/setup-go@v5
       with:
         go-version-file: '${{ github.workspace }}/go.mod'
 
-    - uses: actions/cache@v3
+    - uses: actions/cache@v4
       with:
         path: |
           ~/.cache/go-build
@@ -49,7 +49,7 @@ jobs:
         go run ./hack/generate-cli-docs --output-dir=${{ env.OUTPUT_DIR }}
 
     - name: Create Pull Request
-      uses: peter-evans/create-pull-request@v4
+      uses: peter-evans/create-pull-request@v6
       with:
         title: "Update CLI docs"
         commit-message: "[github-actions] automated change"
