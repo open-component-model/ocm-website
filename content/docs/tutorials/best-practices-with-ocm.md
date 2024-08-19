@@ -266,11 +266,11 @@ eu.gcr.io/acme/simpleserver   0.1.0-linux-amd64   08641d64f612   About a minute 
 In the next step we create a component archive and a transport archive
 
 ```shell
-$ PROVIDER=acme
-$ COMPONENT=github.com/$(PROVIDER)/simpleserver
-$ VERSION=0.1.0
-$ mkdir gen
-$ ocm create ca ${COMPONENT} ${VERSION} --provider ${PROVIDER} --file gen/ca
+PROVIDER=acme
+COMPONENT=github.com/$(PROVIDER)/simpleserver
+VERSION=0.1.0
+mkdir gen
+ocm create ca ${COMPONENT} ${VERSION} --provider ${PROVIDER} --file gen/ca
 ```
 
 Create the file `resources.yaml`. Note the variants in the image input and the type `dockermulti`:
@@ -417,6 +417,7 @@ x index.json
   }
 }
 ```
+
 </details>
 
 You can create a common transport archive from the component archive.
@@ -632,7 +633,7 @@ declared in the Makefile. Use either an environment variable or an argument when
 Example:
 
 ```shell
-$ PROVIDER=foo make ca
+PROVIDER=foo make ca
 ```
 
 ### Templating the Resources
@@ -755,6 +756,7 @@ NGINX_CHART_VERSION: 4.4.2
 ```
 
 auto-generated from a build script:
+
 ```yaml
 VERSION: 0.23.1
 COMMIT: 5f03021059c7dbe760ac820a014a8a84166ef8b4

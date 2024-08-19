@@ -50,7 +50,7 @@ export GITHUB_USER=<your-username>
 export MY_EMAIL=<your-email-address>
 ```
 
-### Bootstrap MPAS
+### Bootstrap
 
 To bootstrap MPAS to your Kubernetes cluster, run the following command. If nothing is specified it will use the KUBECONFIG specified in the user's environment. It is also possible to specify a dedicated config using the --kubeconfig option.
 

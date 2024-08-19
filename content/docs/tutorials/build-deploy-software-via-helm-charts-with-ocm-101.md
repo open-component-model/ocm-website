@@ -96,7 +96,7 @@ components:
     access:
       type: ociArtifact
       imageReference: ghcr.io/stefanprodan/charts/podinfo:${PODINFO_VERSION}
-  # Helm Chart in Helm repository  
+  # Helm Chart in Helm repository
   - name: helm-chart-external-helm-repo
     type: helmChart
     version: ${PODINFO_VERSION}

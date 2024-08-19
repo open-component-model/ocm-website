@@ -38,7 +38,6 @@ A `ProductDeploymentPipeline` is a Kubernetes Custom Resource that defines a res
 that needs to be deployed as part of the `ProductDeployment`. The `ProductDeploymentPipeline` is
 reconciled by the `MPAS Product Controller` as part of the `ProductDeployment` deployment.
 
-
 ## Project
 
 A `Project` is a Kubernetes Custom Resource that is used to manage the lifecycle of

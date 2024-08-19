@@ -990,7 +990,7 @@ The **helm-controller** and **notification-controller** aren't relevant.
 
 The `ComponentVersion` object contains information about what components have been reconciled. We talked about that
 earlier at [Component Version](#componentversion). The `Status` section contains any errors that could have
-occurred when reconciling information. 
+occurred when reconciling information.
 
 **ComponentDescriptor**:
 
@@ -1093,7 +1093,6 @@ kubectl port-forward service/registry -n ocm-system 5000:5000
 ```
 
 Then, verify that the connection is working by running a `catalog` command:
-
 
 ```sh
 crane catalog http://127.0.0.1:5000
