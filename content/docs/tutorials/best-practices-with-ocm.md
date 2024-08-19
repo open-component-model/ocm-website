@@ -101,7 +101,7 @@ versions are provided by accepted and well-known processes.
 At the time of writing this guide Docker is not able to build multi-architecture (multi-arch / multi-platform)
 images natively. Instead, the `buildx` plugin is used. However, this implies building and pushing
 images in one step to a remote container registry as the local Docker image store does not
-support multi-arch images (for additional information, see the [Multi-arch build and images, the simple way](https://www.docker.com/blog/multi-arch-build-and-images-the-simple-way) blogpost)
+support multi-arch images (for additional information, see the [Multi-arch build and images, the simple way](https://www.docker.com/blog/multi-arch-build-and-images-the-simple-way) blog post)
 
 The OCM CLI has some built-in support for dealing with multi-arch images during the
 component version composition ([`ocm add resources`](https://github.com/open-component-model/ocm/blob/main/docs/reference/ocm_add_resources.md)).

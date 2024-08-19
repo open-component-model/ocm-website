@@ -190,7 +190,7 @@ configuration of credentials for the OCM CLI):
 ocm transfer ctf -f <ctf-target-dir> <oci-repo-url>
 ```
 
-Using the `--copy-resources` flag the OCM CLI will copy also copy all referenced resourcres to the OCI registry, making the resources part of the OCM component version, creating a self-contained component version.
+Using the `--copy-resources` flag the OCM CLI will copy also copy all referenced resources to the OCI registry, making the resources part of the OCM component version, creating a self-contained component version.
 
 ```shell
 ocm transfer ctf --copy-resources --enforce --overwrite ./ocm-hello-world OCIRegistry::ghcr.io/stb1337/ocm-hello-world-v1

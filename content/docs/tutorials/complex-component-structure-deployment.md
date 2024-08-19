@@ -275,7 +275,7 @@ tree .
 2 directories, 19 files
 ```
 
-These blobs contain the resources we described when modelling our podinfo application. If we `cat `a random blob we get
+These blobs contain the resources we described when modelling our podinfo application. If we `cat` a random blob we get
 something like this:
 
 ```sh
