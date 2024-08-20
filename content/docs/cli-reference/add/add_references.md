@@ -28,6 +28,7 @@ ocm add references [<options>] [<target>] {<referencefile> | <var>=<value>}
       --name string            reference name
   -O, --output string          output file for dry-run
       --reference YAML         reference meta data (yaml)
+  -R, --replace                replace existing elements
   -s, --settings stringArray   settings file with variable settings (yaml)
       --templater string       templater to use (go, none, spiff, subst) (default "subst")
       --version string         reference version
@@ -104,6 +105,12 @@ There are several templaters that can be selected by the <code>--templater</code
       subkey: "abc ${MY_VAL}"
   </pre>
   
+
+
+
+The <code>--replace</code> option allows users to specify whether adding an
+element with the same name and extra identity but different version as an 
+existing element append (false) or replace (true) the existing element.
 
 
 All yaml/json defined resources can be templated.
