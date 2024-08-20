@@ -26,14 +26,18 @@ ocm add sources [<options>] [<target>] {<resourcefile> | <var>=<value>}
       --accessType string                   type of blob access specification
       --accessVersion string                version for access specification
       --addenv                              access environment for templating
+      --artifactId string                   maven artifact id
       --body string                         body of a http request
       --bucket string                       bucket name
+      --classifier string                   maven classifier
       --commit string                       git commit id
       --digest string                       blob digest
       --dry-run                             evaluate and print source specifications
+      --extension string                    maven extension name
       --extra <name>=<value>                source extra identity (default [])
   -F, --file string                         target file/directory (default "component-archive")
       --globalAccess YAML                   access specification for global access
+      --groupId string                      maven group id
       --header <name>:<value>,<value>,...   http headers (default {})
   -h, --help                                help for sources
       --hint string                         (repository) hint for local artifacts
@@ -63,6 +67,7 @@ ocm add sources [<options>] [<target>] {<resourcefile> | <var>=<value>}
   -O, --output string                       output file for dry-run
       --reference string                    reference name
       --region string                       region name
+  -R, --replace                             replace existing elements
   -s, --settings stringArray                settings file with variable settings (yaml)
       --size int                            blob size
       --source YAML                         source meta data (yaml)
@@ -233,8 +238,8 @@ with the field <code>type</code> in the <code>input</code> field:
 
 - Input type <code>docker</code>
 
-  The path must denote an image tag that can be found in the local
-  docker daemon. The denoted image is packed as OCI artifact set.
+  The path must denote an image tag that can be found in the local docker daemon.
+  The denoted image is packed as OCI artifact set.
   The OCI image will contain an informational back link to the component version
   using the manifest annotation <code>software.ocm/component-version</code>.
   
@@ -256,8 +261,8 @@ with the field <code>type</code> in the <code>input</code> field:
 
   This input type describes the composition of a multi-platform OCI image.
   The various variants are taken from the local docker daemon. They should be 
-  built with the buildx command for cross platform docker builds.
-  The denoted images, as well as the wrapping image index is packed as OCI
+  built with the "buildx" command for cross platform docker builds (see https://ocm.software/docs/tutorials/best-practices/#building-multi-architecture-images).
+  The denoted images, as well as the wrapping image index, are packed as OCI
   artifact set.
   They will contain an informational back link to the component version
   using the manifest annotation <code>software.ocm/component-version</code>.
@@ -351,14 +356,50 @@ with the field <code>type</code> in the <code>input</code> field:
   
   Options used to configure fields: <code>--hint</code>, <code>--inputCompress</code>, <code>--inputHelmRepository</code>, <code>--inputPath</code>, <code>--inputVersion</code>, <code>--mediaType</code>
 
+- Input type <code>maven</code>
+
+  The <code>repoUrl<code> is the url pointing either to the http endpoint of a maven
+  repository (e.g. https://repo.maven.apache.org/maven2/) or to a file system based
+  maven repository (e.g. file://local/directory).
+  
+  This blob type specification supports the following fields:
+  - **<code>repoUrl</code>** *string*
+  
+    This REQUIRED property describes the url from which the resource is to be
+    accessed.
+  
+  - **<code>groupId</code>** *string*
+  
+    This REQUIRED property describes the groupId of a maven artifact.
+  
+  - **<code>artifactId</code>** *string*
+  	
+    This REQUIRED property describes artifactId of a maven artifact.
+  
+  - **<code>version</code>** *string*
+  
+    This REQUIRED property describes the version of a maven artifact.
+  
+  - **<code>classifier</code>** *string*
+    
+    This OPTIONAL property describes the classifier of a maven artifact.
+  
+  - **<code>extension</code>** *string*
+  
+    This OPTIONAL property describes the extension of a maven artifact.
+  
+  Options used to configure fields: <code>--artifactId</code>, <code>--classifier</code>, <code>--extension</code>, <code>--groupId</code>, <code>--inputPath</code>, <code>--inputVersion</code>, <code>--url</code>
+
 - Input type <code>ociArtifact</code>
 
-  The path must denote an OCI image reference.
+  This input type is used to import an OCI image from an OCI registry.
+  If it is a multi-arch image the set of platforms to be imported can be filtered using the "platforms"
+  attribute. The path must denote an OCI image reference. 
   
   This blob type specification supports the following fields: 
   - **<code>path</code>** *string*
   
-    This REQUIRED property describes the OVI image reference of the image to
+    This REQUIRED property describes the OCI image reference of the image to
     import.
   
   - **<code>repository</code>** *string*
@@ -666,6 +707,41 @@ shown below.
   
   Options used to configure fields: <code>--globalAccess</code>, <code>--hint</code>, <code>--mediaType</code>, <code>--reference</code>
   
+- Access type <code>maven</code>
+
+  This method implements the access of a Maven artifact in a Maven repository.
+
+  The following versions are supported:
+  - Version <code>v1</code>
+  
+    The type specific specification fields are:
+    
+    - **<code>repoUrl</code>** *string*
+    
+      URL of the Maven repository
+    
+    - **<code>groupId</code>** *string*
+    
+      The groupId of the Maven artifact
+    
+    - **<code>artifactId</code>** *string*
+    
+      The artifactId of the Maven artifact
+    
+    - **<code>version</code>** *string*
+    
+      The version name of the Maven artifact
+    
+    - **<code>classifier</code>** *string*
+    
+      The optional classifier of the Maven artifact
+    
+    - **<code>extension</code>** *string*
+    
+      The optional extension of the Maven artifact
+  
+  Options used to configure fields: <code>--accessRepository</code>, <code>--accessVersion</code>, <code>--artifactId</code>, <code>--classifier</code>, <code>--extension</code>, <code>--groupId</code>
+  
 - Access type <code>none</code>
 
   dummy resource with no access
@@ -838,6 +914,12 @@ shown below.
   
   Options used to configure fields: <code>--body</code>, <code>--header</code>, <code>--mediaType</code>, <code>--noredirect</code>, <code>--url</code>, <code>--verb</code>
   
+
+
+The <code>--replace</code> option allows users to specify whether adding an
+element with the same name and extra identity but different version as an 
+existing element append (false) or replace (true) the existing element.
+
 
 All yaml/json defined resources can be templated.
 Variables are specified as regular arguments following the syntax <code>&lt;name>=&lt;value></code>.

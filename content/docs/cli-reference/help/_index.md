@@ -20,6 +20,7 @@ sidebar:
 * [ocm-accessmethods](/docs/cli-reference/ocm-accessmethods)	 &mdash; ocm-accessmethods
 * [ocm-downloadhandlers](/docs/cli-reference/ocm-downloadhandlers)	 &mdash; ocm-downloadhandlers
 * [ocm-labels](/docs/cli-reference/ocm-labels)	 &mdash; ocm-labels
+* [ocm-pubsub](/docs/cli-reference/ocm-pubsub)	 &mdash; ocm-pubsub
 * [ocm-references](/docs/cli-reference/ocm-references)	 &mdash; ocm-references
 * [ocm-uploadhandlers](/docs/cli-reference/ocm-uploadhandlers)	 &mdash; ocm-uploadhandlers
 * [toi-bootstrapping](/docs/cli-reference/toi-bootstrapping)	 &mdash; toi-bootstrapping
