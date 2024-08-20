@@ -19,6 +19,7 @@ sidebar:
   -C, --cred stringArray          credential setting
   -h, --help                      help for ocm
   -I, --issuer stringArray        issuer name or distinguished name (DN) (optionally for dedicated signature) ([<name>:=]<dn>
+      --logJson                   log as json instead of human readable logs
       --logconfig string          log config
   -L, --logfile string            set log file
       --logkeys stringArray       log tags/realms(with leading /) to be enabled ([/[+]]name{,[/[+]]name}[=level])
@@ -120,7 +121,7 @@ an <code>@</code>, the logging configuration is taken from a file.
 
 The value can be a simple type or a JSON/YAML string for complex values
 (see [ocm attributes](/docs/cli-reference/attributes). The following attributes are supported:
-- <code>github.com/mandelsoft/logforward</code>: *logconfig* Logging config structure used for config forwarding
+- <code>github.com/mandelsoft/logforward</code> [<code>logfwd</code>]: *logconfig* Logging config structure used for config forwarding
 
   This attribute is used to specify a logging configuration intended
   to be forwarded to other tools.
@@ -243,7 +244,7 @@ The value can be a simple type or a JSON/YAML string for complex values
 
   Directory to look for OCM plugin executables.
 
-- <code>github.com/mandelsoft/ocm/rootcerts</code>: *JSON*
+- <code>github.com/mandelsoft/ocm/rootcerts</code> [<code>rootcerts</code>]: *JSON*
 
   General root certificate settings given as JSON document with the following
   format:
@@ -294,6 +295,10 @@ The value can be a simple type or a JSON/YAML string for complex values
   The temporary blob cache is used to accessing large blobs from remote sytems.
   The are temporarily stored in the filesystem, instead of the memory, to avoid
   blowing up the memory consumption.
+
+- <code>ocm.software/cliconfig</code> [<code>cliconfig</code>]: *cliconfigr* Configuration Object passed to command line pluging.
+
+  
 
 - <code>ocm.software/compositionmode</code> [<code>compositionmode</code>]: *bool* (default: false
 
@@ -366,6 +371,7 @@ by a certificate delivered with the signature.
 * [ocm <b>download</b>](/docs/cli-reference/download)	 &mdash; Download oci artifacts, resources or complete components
 * [ocm <b>get</b>](/docs/cli-reference/get)	 &mdash; Get information about artifacts and components
 * [ocm <b>list</b>](/docs/cli-reference/list)	 &mdash; List information about components
+* [ocm <b>set</b>](/docs/cli-reference/set)	 &mdash; Set information about OCM repositories
 * [ocm <b>show</b>](/docs/cli-reference/show)	 &mdash; Show tags or versions
 * [ocm <b>sign</b>](/docs/cli-reference/sign)	 &mdash; Sign components or hashes
 * [ocm <b>transfer</b>](/docs/cli-reference/transfer)	 &mdash; Transfer artifacts or components
@@ -383,6 +389,7 @@ by a certificate delivered with the signature.
 * [ocm <b>ocm-accessmethods</b>](/docs/cli-reference/help/ocm-accessmethods)	 &mdash; List of all supported access methods
 * [ocm <b>ocm-downloadhandlers</b>](/docs/cli-reference/help/ocm-downloadhandlers)	 &mdash; List of all available download handlers
 * [ocm <b>ocm-labels</b>](/docs/cli-reference/help/ocm-labels)	 &mdash; Labels and Label Merging
+* [ocm <b>ocm-pubsub</b>](/docs/cli-reference/help/ocm-pubsub)	 &mdash; List of all supported publish/subscribe implementations
 * [ocm <b>ocm-references</b>](/docs/cli-reference/help/ocm-references)	 &mdash; notation for OCM references
 * [ocm <b>ocm-uploadhandlers</b>](/docs/cli-reference/help/ocm-uploadhandlers)	 &mdash; List of all available upload handlers
 * [ocm <b>toi-bootstrapping</b>](/docs/cli-reference/help/toi-bootstrapping)	 &mdash; Tiny OCM Installer based on component versions
