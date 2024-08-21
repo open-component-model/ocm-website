@@ -48,7 +48,7 @@ We welcome all types of contributions, including:
 
 For more involved feature or enhancement requests, please see the section on how to submit an [ADR](#adrs).
 
-You may find it helpful to start a new thread in the [`ocm` Discussion Board](https://github.com/open-component-model/ocm/discussions) for questions, help requests, feature requests, or any other type of discussion about OCM. A maintaine will reach out to you as soon as possible.
+You may find it helpful to start a new thread in the [`ocm` Discussion Board](https://github.com/open-component-model/ocm/discussions) for questions, help requests, feature requests, or any other type of discussion about OCM. A maintainer will reach out to you as soon as possible.
 
 ### Find an Issue
 
