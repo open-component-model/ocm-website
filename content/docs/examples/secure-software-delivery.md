@@ -21,6 +21,7 @@ This walkthrough deploys a full end-to-end pipeline demonstrating how OCM and Fl
 The demo environment consists of Gitea, Tekton, Flux and the OCM controller.
 
 Two Gitea organizations are created:
+
 - [software-provider](https://gitea.ocm.dev/software-provider)
 - [software-consumer](https://gitea.ocm.dev/software-consumer)
 
@@ -154,5 +155,5 @@ OCM follows the [CNCF Code of Conduct](https://github.com/cncf/foundation/blob/m
 ## Licensing
 
 Copyright 2024 SE or an SAP affiliate company and Open Component Model contributors.
-Please see our [LICENSE](LICENSE) for copyright and license information.
+Please see our [LICENSE](https://raw.githubusercontent.com/open-component-model/.github/main/LICENSE) for copyright and license information.
 Detailed information including third-party components and their licensing/copyright information is available [via the REUSE tool](https://api.reuse.software/info/github.com/open-component-model/demo-secure-delivery).
