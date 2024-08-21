@@ -35,6 +35,7 @@ If you wish to propose or discuss a more involved feature or change to any of th
 ## Ways to Contribute
 
 We welcome all types of contributions, including:
+
 - New features
 - Bug reports/fixes
 - Reviewing/updating documentation
@@ -78,6 +79,7 @@ Ready to contribute? Read and follow the sections below to get your contribution
 - [Bonus] Backfill tests/documentation to make the world a better place.
 
 ### Pull Request Process
+
 1. **Create PR.** Please refer to the [Pull Request Checklist](#pull-request-checklist) before marking a PR as ready to be reviewed.
 2. **Triage.** A maintainer will triage the Pull Request by adding the appropriate label for the issue.
 3. **Assign reviews.** A maintainer will be assigned to review the changes in the Pull Request.
