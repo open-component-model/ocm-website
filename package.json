@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "description": "OCM website",
   "author": "open-component-model",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "scripts": {
     "dev": "exec-bin node_modules/.bin/hugo/hugo server --bind=0.0.0.0 --disableFastRender --baseURL=http://localhost --noHTTPCache",
     "dev:drafts": "exec-bin node_modules/.bin/hugo/hugo server --bind=0.0.0.0 --disableFastRender --baseURL=http://localhost --noHTTPCache --buildDrafts",
