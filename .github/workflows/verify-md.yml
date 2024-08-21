@@ -39,7 +39,7 @@ jobs:
       - name: Build Site
         run: npm run build
       - name: Verify HTML links
-        uses: untitaker/hyperlink@v0
+        uses: untitaker/hyperlink@0.1.32
         with:
           args: public/ --sources content/
   spellcheck:
