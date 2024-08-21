@@ -16,9 +16,9 @@ Thank you for taking the time to contribute to OCM.
 
 ## DCO
 
-By contributing to this project you agree to the Developer Certificate of Origin ([DCO](DCO)). This document was created by the Linux Kernel community and is a simple statement that you, as a contributor, have the legal right to make the contribution.
+By contributing to this project you agree to the Developer Certificate of Origin ([DCO](https://raw.githubusercontent.com/open-component-model/.github/HEAD/DCO)). This document was created by the Linux Kernel community and is a simple statement that you, as a contributor, have the legal right to make the contribution.
 
-We require all commits to be [signed](https://docs.github.com/en/authentication/managing-commit-signature-verification/signing-commits). By signing off with your signature, you certify that you wrote the patch or otherwise have the right to contribute the material by the rules of the [DCO](DCO):
+We require all commits to be [signed](https://docs.github.com/en/authentication/managing-commit-signature-verification/signing-commits). By signing off with your signature, you certify that you wrote the patch or otherwise have the right to contribute the material by the rules of the [DCO](https://raw.githubusercontent.com/open-component-model/.github/HEAD/DCO):
 
 `Signed-off-by: Jane Doe <jane.doe@example.com>`
 
