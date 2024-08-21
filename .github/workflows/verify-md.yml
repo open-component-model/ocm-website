@@ -21,16 +21,27 @@ jobs:
           config_file: .github/config/markdownlint.yml
           ignore_path: .github/config/markdownignore
   verify-links:
-    name: Verify links
+    name: Verify HTML links
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Markdown verify links
-        uses: gaurav-nelson/github-action-markdown-link-check@v1
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          use-quiet-mode: yes
-          use-verbose-mode: no
-          config-file: .github/config/markdown-link-check.json
+          cache: 'npm'
+          node-version: 20
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: 'latest'
+      - name: Install Dependencies
+        run: npm install
+      - name: Build Site
+        run: npm run build
+      - name: Verify HTML links
+        uses: untitaker/hyperlink@v0
+        with:
+          args: public/ --sources content/
   spellcheck:
     name: Spellcheck
     runs-on: ubuntu-latest
@@ -41,4 +52,3 @@ jobs:
         with:
           config_path: .github/config/spellcheck.yml
           task_name: Markdown
-
