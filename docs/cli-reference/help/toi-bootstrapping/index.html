@@ -45,7 +45,7 @@ requites the specification of a credentials file providing the information
 how to satisfy those credential requests.</p></li><li><p><strong><code>additionalResources</code></strong> (optional) <em>map[string]AdditionalResource)</em></p><p>A set of additional resources specified by an OCM resource reference or
 direct data as byte, string or yaml.
 The key describes the meaning of the resource. The following keys have
-a special meaning:</p><ul><li><strong><code>configFile</code></strong>: an example template for a parameter file</li><li><strong><code>credentialsFile</code></strong>: an example template for a credentials file</li></ul><p>Those templates can be downloaded with <a href=/docs/cli-reference/bootstrap/config>ocm bootstrap config</a>.</p></li></ul><h4 id=executorspecification><em>ExecutorSpecification</em><a href=#executorspecification class=anchor aria-hidden=true>#</a></h4><p>The executor specification describes the available actions and their mapping
+a special meaning:</p><ul><li><strong><code>configFile</code></strong>: an example template for a parameter file</li><li><strong><code>credentialsFile</code></strong>: an example template for a credentials file</li></ul><p>Those templates can be downloaded with <a href=/docs/cli-reference/bootstrap/configuration>ocm bootstrap configuration</a>.</p></li></ul><h4 id=executorspecification><em>ExecutorSpecification</em><a href=#executorspecification class=anchor aria-hidden=true>#</a></h4><p>The executor specification describes the available actions and their mapping
 to executors. It uses the following fields:</p><ul><li><p><strong><code>actions</code></strong> <em>[]string</em></p><p>The list of actions this executor can be used for. If nothings is specified
 the executor will be used for all actions. The first matching executor entry
 will be used to execute an action by the bootstrap command</p></li><li><p><strong><code>resourceRef</code></strong> <em>[]ResourceReference</em></p><p>An OCM resource reference describing a component version resource relative to
@@ -76,7 +76,7 @@ It always has at least one identity attribute <code>name</code>, which
 is the resource name field of the desired resource. If this resource
 defines additional identity attributes, the complete set must be specified.</p><h4 id=input-mapping-for-executors>Input Mapping for Executors<a href=#input-mapping-for-executors class=anchor aria-hidden=true>#</a></h4><p>An optional <code>parameterMapping</code> in the executor section
 can be used to process the global package user-specified parameters
-to provide specifc values expected by the executor.</p><p>This is done by a <em>spiff</em> template. Here special functions
+to provide specific values expected by the executor.</p><p>This is done by a <em>spiff</em> template. Here special functions
 are provided to access specific content:</p><ul><li><p><code>hasCredentials(string[,string]) bool</code></p><p>This function can be used to check whether dedicated credentials
 are effectively provided for the actual installation.</p><p>The name is the name of the credentials as described in the credentials
 request section optionally mapped to the name used for the executor
@@ -87,13 +87,13 @@ is expected, whose value is returned.</p></li></ul><h4 id=user-config-vs-executo
 It describes a dedicated installation mechanism, but not a dedicated
 installation source. Although, there might be specialized images
 for dedicated installation sources, in general the idea is to provide
-more general executors, for example an helmexecutor, which is able to
+more general executors, for example an helm executor, which is able to
 handle any helm chart, not just a dedicated helm deployment.</p><p>Because of this, there is a clear separation between an installation specific
 configuration, which is provided by the user calling the TOI commands, and
 the parameterization of the executor, which is completely specified in the
 package.</p><p>The task of the package is to represent a dedicated deployment source. As such
 it has to provide information to tell the executor what to install, while
-the user configuration is used to describe the instance specific settings.</p><p>Back to the example of a helminstaller executor, the executor config contained
+the user configuration is used to describe the instance specific settings.</p><p>Back to the example of a helm installer executor, the executor config contained
 in the package resource describes the helm chart, which should be installed
 and the way how the user input is mapped to chart values. Here, also the
 localizations are described in an executor specific way.</p><p>Therefore, an executor expects a dedicated configuration format, which can be

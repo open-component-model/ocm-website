@@ -30,7 +30,7 @@ location a default configuration is composed according to known type specific
 configuration files.</p><p>The following configuration sources are used:</p><ul><li><p>The docker configuration file at <code>~/.docker/config.json</code> is
 read to feed in the configured credentials for OCI registries.</p></li><li><p>The npm configuration file at <code>~/.npmrc</code> is
 read to feed in the configured credentials for NPM registries.</p></li></ul><p>With the option <code>&ndash;cred</code> it is possible to specify arbitrary credentials
-for various environments on the command line. Nevertheless it is always preferrable
+for various environments on the command line. Nevertheless it is always preferable
 to use the cli config file.
 Every credential setting is related to a dedicated consumer and provides a set of
 credential attributes. All this can be specified by a sequence of <code>&ndash;cred</code>
@@ -134,11 +134,11 @@ format:</p><pre>
        "path": ""&lt;file path>"
      }
   ]
-</pre><p>One of following data fields are possible:</p><ul><li><code>data</code>: base64 encoded binary data</li><li><code>stringdata</code>: plain text data</li><li><code>path</code>: a file path to read the data from</li></ul></li><li><p><code>github.com/mandelsoft/tempblobcache</code> [<code>blobcache</code>]: <em>string</em> Foldername for temporary blob cache</p><p>The temporary blob cache is used to accessing large blobs from remote sytems.
+</pre><p>One of following data fields are possible:</p><ul><li><code>data</code>: base64 encoded binary data</li><li><code>stringdata</code>: plain text data</li><li><code>path</code>: a file path to read the data from</li></ul></li><li><p><code>github.com/mandelsoft/tempblobcache</code> [<code>blobcache</code>]: <em>string</em> Foldername for temporary blob cache</p><p>The temporary blob cache is used to accessing large blobs from remote systems.
 The are temporarily stored in the filesystem, instead of the memory, to avoid
-blowing up the memory consumption.</p></li><li><p><code>ocm.software/cliconfig</code> [<code>cliconfig</code>]: <em>cliconfigr</em> Configuration Object passed to command line pluging.</p></li><li><p><code>ocm.software/compositionmode</code> [<code>compositionmode</code>]: <em>bool</em> (default: false</p><p>Composition mode decouples a component version provided by a repository
-implemention from the backened persistence. Added local blobs will
-and other changes witll not be forwarded to the backend repository until
+blowing up the memory consumption.</p></li><li><p><code>ocm.software/cliconfig</code> [<code>cliconfig</code>]: <em>cliconfig</em> Configuration Object passed to command line plugin.</p></li><li><p><code>ocm.software/compositionmode</code> [<code>compositionmode</code>]: <em>bool</em> (default: false</p><p>Composition mode decouples a component version provided by a repository
+implementation from the backend persistence. Added local blobs will
+and other changes will not be forwarded to the backend repository until
 an AddVersion is called on the component.
 If composition mode is disabled blobs will directly be forwarded to
 the backend and descriptor updated will be persisted on AddVersion
