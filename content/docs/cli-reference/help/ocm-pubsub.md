@@ -40,7 +40,7 @@ specification versions, and formats:
 
 - PubSub type <code>redis</code>
 
-  a redis pubsub sytsem.
+  a redis pubsub system.
 
   The following versions are supported:
   - Version <code>v1</code>

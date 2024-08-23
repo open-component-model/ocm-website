@@ -32,7 +32,7 @@ ocm list componentversions [<options>] {<component-reference>}
 
 
 List lists the version names of the specified objects, if only a component is specified
-all versions according to the given versuin constraints are listed.
+all versions according to the given version constraints are listed.
 
 
 If the option <code>--constraints</code> is given, and no version is specified
