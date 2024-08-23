@@ -75,7 +75,7 @@ entry can be used to specify a dedicated serialization format to use for the
 component descriptor. If given it overrides the <code>--schema</code> option
 of the command. By default, v2 is used.
 
-Various elements support to add arbirary information by using labels
+Various elements support to add arbitrary information by using labels
 (see [ocm ocm-labels](/docs/cli-reference/ocm-labels)).
 
 
@@ -188,19 +188,6 @@ The uploader name may be a path expression with the following possibilities:
     Alternatively, a single string value can be given representing an OCI repository
     reference.
 
-  - <code>ocm/npmPackage</code>: uploading npm artifacts
-    
-    The <code>ocm/npmPackage</code> uploader is able to upload npm artifacts
-    as artifact archive according to the npm package spec.
-    If registered the default mime type is: application/x-tgz
-    
-    It accepts a plain string for the URL or a config with the following field:
-    'url': the URL of the npm repository.
-
-  - <code>plugin</code>: [downloaders provided by plugins]
-    
-    sub namespace of the form <code>&lt;plugin name>/&lt;handler></code>
-
   - <code>ocm/mavenPackage</code>: uploading maven artifacts
     
     The <code>ocm/mavenPackage</code> uploader is able to upload maven artifacts (whole GAV only!)
@@ -209,6 +196,19 @@ The uploader name may be a path expression with the following possibilities:
     
     It accepts a plain string for the URL or a config with the following field:
     'url': the URL of the maven repository.
+
+  - <code>plugin</code>: [downloaders provided by plugins]
+    
+    sub namespace of the form <code>&lt;plugin name>/&lt;handler></code>
+
+  - <code>ocm/npmPackage</code>: uploading npm artifacts
+    
+    The <code>ocm/npmPackage</code> uploader is able to upload npm artifacts
+    as artifact archive according to the npm package spec.
+    If registered the default mime type is: application/x-tgz
+    
+    It accepts a plain string for the URL or a config with the following field:
+    'url': the URL of the npm repository.
 
 
 

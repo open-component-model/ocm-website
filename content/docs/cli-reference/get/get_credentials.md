@@ -70,8 +70,8 @@ Matchers exist for the following usage contexts or consumer types:
     
       - <code>authmeth</code>: auth method
       - <code>token</code>: vault token
-      - <code>roleid</code>: applrole role id
-      - <code>secretid</code>: applrole secret id
+      - <code>roleid</code>: app-role role id
+      - <code>secretid</code>: app-role secret id
     
     The only supported auth methods, so far, are <code>token</code> and <code>approle</code>.
     
@@ -121,7 +121,7 @@ Matchers exist for the following usage contexts or consumer types:
     
     Credential consumers of the consumer type OCIRegistry evaluate the following credential properties:
     
-      - <code>username</code>: the basic auth user name
+      - <code>username</code>: the basic auth username
       - <code>password</code>: the basic auth password
       - <code>identityToken</code>: the bearer token used for non-basic auth authorization
       - <code>certificateAuthority</code>: the certificate authority certificate used to verify certificates

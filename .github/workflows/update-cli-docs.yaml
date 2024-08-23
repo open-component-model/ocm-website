@@ -9,45 +9,30 @@ env:
   OUTPUT_DIR: ./content/docs/cli-reference
 
 jobs:
-  setup-build-pull:
-    name: Setup, Build and Create PR
+  generate-cli-reference:
+    name: Update content/docs/cli-reference
     runs-on: ubuntu-latest
-
     permissions:
       contents: 'write'
       id-token: 'write'
       pull-requests: 'write'
-
     steps:
     - uses: actions/checkout@v4
       with:
         persist-credentials: false
-
     - name: Update Version Parameter
       if: github.event.client_payload != ''
       run: |
         TAG=${{ github.event.client_payload.tag }}
         sed -i "s/latest_version = .*/latest_version = \"$TAG\"/" ./config/_default/params.toml
-
     - name: Setup Go
       uses: actions/setup-go@v5
       with:
         go-version-file: '${{ github.workspace }}/go.mod'
-
-    - uses: actions/cache@v4
-      with:
-        path: |
-          ~/.cache/go-build
-          ~/go/pkg/mod
-        key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
-        restore-keys: |
-          ${{ runner.os }}-go-
-
     - name: Regenerate CLI docs
       run: |
         go mod tidy
         go run ./hack/generate-cli-docs --output-dir=${{ env.OUTPUT_DIR }}
-
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v6
       with:
