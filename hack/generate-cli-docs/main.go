@@ -9,8 +9,8 @@ import (
 	"slices"
 	"strings"
 
-	"github.com/open-component-model/ocm/cmds/ocm/app"
-	"github.com/open-component-model/ocm/pkg/contexts/clictx"
+	clictx "ocm.software/ocm/api/cli"
+	"ocm.software/ocm/cmds/ocm/app"
 )
 
 var commandDenyList = []string{
