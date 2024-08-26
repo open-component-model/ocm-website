@@ -8,18 +8,13 @@ on:
       - '**/*.md'
 
 jobs:
-  markdown-lint:
-    runs-on: ubuntu-latest
-    name: Lint Markdown
-    steps:
-      - uses: actions/checkout@v4
-      - name: Markdown Linting
-        uses: nosborn/github-action-markdown-cli@v3
-        with:
-          files: .
-          dot: true
-          config_file: .github/config/markdownlint.yml
-          ignore_path: .github/config/markdownignore
+  markdown-lint: # call reusable workflow from central '.github' repo
+    uses: open-component-model/.github/.github/workflows/markdown.yml
+    secrets: inherit
+    with:
+      config_file: .github/config/markdownlint.yml
+      ignore_path: .github/config/markdownignore
+      config_path: .github/config/spellcheck.yml
   verify-links:
     name: Verify HTML links
     runs-on: ubuntu-latest
@@ -42,13 +37,3 @@ jobs:
         uses: untitaker/hyperlink@0.1.32
         with:
           args: public/ --sources content/
-  spellcheck:
-    name: Spellcheck
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Spellcheck
-        uses: rojopolis/spellcheck-github-actions@v0
-        with:
-          config_path: .github/config/spellcheck.yml
-          task_name: Markdown
