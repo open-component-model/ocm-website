@@ -9,7 +9,7 @@ on:
 
 jobs:
   markdown-lint: # call reusable workflow from central '.github' repo
-    uses: open-component-model/.github/.github/workflows/markdown.yml
+    uses: open-component-model/.github/.github/workflows/markdown.yml@main
     secrets: inherit
     with:
       config_file: .github/config/markdownlint.yml
