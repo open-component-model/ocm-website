@@ -11,8 +11,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/open-component-model/ocm/pkg/cobrautils"
 	"github.com/spf13/cobra"
+	"ocm.software/ocm/api/utils/cobrautils"
 )
 
 const fmTmpl = `---

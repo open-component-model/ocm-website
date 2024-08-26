@@ -132,7 +132,7 @@ versions are re-transported).
 With the option <code>--no-update</code> existing versions in the target
 repository will not be touched at all. An additional specification of the
 option <code>--overwrite</code> is ignored. By default, updates of
-volative (non-signature-relevant) information is enabled, but the
+volatile (non-signature-relevant) information is enabled, but the
 modification of non-volatile data is prohibited unless the overwrite
 option is given.
 
@@ -195,19 +195,6 @@ The uploader name may be a path expression with the following possibilities:
     Alternatively, a single string value can be given representing an OCI repository
     reference.
 
-  - <code>ocm/npmPackage</code>: uploading npm artifacts
-    
-    The <code>ocm/npmPackage</code> uploader is able to upload npm artifacts
-    as artifact archive according to the npm package spec.
-    If registered the default mime type is: application/x-tgz
-    
-    It accepts a plain string for the URL or a config with the following field:
-    'url': the URL of the npm repository.
-
-  - <code>plugin</code>: [downloaders provided by plugins]
-    
-    sub namespace of the form <code>&lt;plugin name>/&lt;handler></code>
-
   - <code>ocm/mavenPackage</code>: uploading maven artifacts
     
     The <code>ocm/mavenPackage</code> uploader is able to upload maven artifacts (whole GAV only!)
@@ -216,6 +203,19 @@ The uploader name may be a path expression with the following possibilities:
     
     It accepts a plain string for the URL or a config with the following field:
     'url': the URL of the maven repository.
+
+  - <code>plugin</code>: [downloaders provided by plugins]
+    
+    sub namespace of the form <code>&lt;plugin name>/&lt;handler></code>
+
+  - <code>ocm/npmPackage</code>: uploading npm artifacts
+    
+    The <code>ocm/npmPackage</code> uploader is able to upload npm artifacts
+    as artifact archive according to the npm package spec.
+    If registered the default mime type is: application/x-tgz
+    
+    It accepts a plain string for the URL or a config with the following field:
+    'url': the URL of the npm repository.
 
 
 
