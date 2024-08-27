@@ -34,7 +34,7 @@ To install the MPAS CLI using `brew`:
 brew install open-component-model/tap/mpas
 ```
 
-For other installation methods, see the [installation guide](installation.md).
+For other installation methods, see the [installation guide](/mpas/installation/).
 
 ## Bootstrap MPAS
 
