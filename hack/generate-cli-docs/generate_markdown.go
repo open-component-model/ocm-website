@@ -3,15 +3,14 @@ package main
 import (
 	"bytes"
 	"fmt"
+	"github.com/spf13/cobra"
 	"io"
+	"ocm.software/ocm/api/utils/cobrautils"
 	"os"
 	"path"
 	"path/filepath"
 	"sort"
 	"strings"
-
-	"github.com/spf13/cobra"
-	"ocm.software/ocm/api/utils/cobrautils"
 )
 
 const fmTmpl = `---

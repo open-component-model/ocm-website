@@ -4,13 +4,12 @@ import (
 	"flag"
 	"fmt"
 	"log"
+	clictx "ocm.software/ocm/api/cli"
+	"ocm.software/ocm/cmds/ocm/app"
 	"os"
 	"path/filepath"
 	"slices"
 	"strings"
-
-	clictx "ocm.software/ocm/api/cli"
-	"ocm.software/ocm/cmds/ocm/app"
 )
 
 var commandDenyList = []string{
