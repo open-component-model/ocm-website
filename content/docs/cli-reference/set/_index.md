@@ -26,5 +26,5 @@ ocm set [<options>] <sub command> ...
 
 ##### Sub Commands
 
-* [ocm set <b>pubsub</b>](/docs/cli-reference/set/set_pubsub/)	 &mdash; Set the pubsub spec for an ocm repository
+* [ocm set <b>pubsub</b>](/docs/cli-reference/set/pubsub/)	 &mdash; Set the pubsub spec for an ocm repository
 

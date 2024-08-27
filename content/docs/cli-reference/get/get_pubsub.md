@@ -29,7 +29,7 @@ A repository may be able to store a publish/subscribe specification
 to propagate the creation or update of component versions.
 If such an implementation is available and a specification is
 assigned to the repository, it is shown. The specification
-can be set with the [ocm set pubsub](/docs/cli-reference/set/set_pubsub/).
+can be set with the [ocm set pubsub](/docs/cli-reference/set/pubsub/).
 
 
 With the option <code>--output</code> the output mode can be selected.
