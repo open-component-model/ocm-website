@@ -62,7 +62,6 @@ func run(dir, urlPrefix string) error {
 	}
 
 	cmd := app.NewCliCommand(clictx.DefaultContext())
-	cmd.DisableAutoGenTag = true
 
 	for _, subCmd := range cmd.Commands() {
 		if slices.Contains(commandDenyList, subCmd.Name()) {
