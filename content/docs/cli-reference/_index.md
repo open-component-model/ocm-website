@@ -2,7 +2,6 @@
 title: cli-reference
 name: cli-reference
 url: /docs/cli-reference/
-date: 2024-04-17T18:02:57+02:00
 draft: false
 images: []
 toc: true
@@ -47,7 +46,7 @@ It can be used in two ways:
 
 The command accepts some top level options, they can only be given before the sub commands.
 
-A configuration according to [ocm configfile](/docs/cli-reference/configfile) is read from a <code>.ocmconfig</code> file
+A configuration according to [ocm configfile](/docs/cli-reference/help/configfile/) is read from a <code>.ocmconfig</code> file
 located in the <code>HOME</code> directory. With the option <code>--config</code> other
 file locations can be specified. If nothing is specified and no file is found at the default
 location a default configuration is composed according to known type specific
@@ -98,7 +97,7 @@ form
 </center>
 
 The <code>--log*</code> options can be used to configure the logging behaviour.
-For details see [ocm logging](/docs/cli-reference/logging).
+For details see [ocm logging](/docs/cli-reference/help/logging/).
 
 There is a quick config option <code>--logkeys</code> to configure simple
 tag/realm based condition rules. The comma-separated names build an AND rule.
@@ -110,7 +109,7 @@ realm is affected. For example <code>/+ocm=trace</code> will enable all log outp
 OCM library.
 
 A tag directly matches the logging tags. Used tags and realms can be found under
-topic [ocm logging](/docs/cli-reference/logging). The ocm coding basically uses the realm <code>ocm</code>.
+topic [ocm logging](/docs/cli-reference/help/logging/). The ocm coding basically uses the realm <code>ocm</code>.
 The default level to enable is <code>info</code>. Separated by an equal sign (<code>=</code>)
 optionally a dedicated level can be specified. Log levels can be (<code>error</code>,
 <code>warn</code>, <code>info</code>, <code>debug</code> and <code>trace</code>.
@@ -120,7 +119,7 @@ logging configuration (yaml/json) via command line. If the argument starts with
 an <code>@</code>, the logging configuration is taken from a file.
 
 The value can be a simple type or a JSON/YAML string for complex values
-(see [ocm attributes](/docs/cli-reference/attributes). The following attributes are supported:
+(see [ocm attributes](/docs/cli-reference/help/attributes/). The following attributes are supported:
 - <code>github.com/mandelsoft/logforward</code> [<code>logfwd</code>]: *logconfig* Logging config structure used for config forwarding
 
   This attribute is used to specify a logging configuration intended
@@ -363,19 +362,19 @@ by a certificate delivered with the signature.
 
 ##### Sub Commands
 
-* [ocm <b>add</b>](/docs/cli-reference/add)	 &mdash; Add elements to a component repository or component version
-* [ocm <b>check</b>](/docs/cli-reference/check)	 &mdash; check components in OCM repository
-* [ocm <b>clean</b>](/docs/cli-reference/clean)	 &mdash; Cleanup/re-organize elements
-* [ocm <b>create</b>](/docs/cli-reference/create)	 &mdash; Create transport or component archive
-* [ocm <b>describe</b>](/docs/cli-reference/describe)	 &mdash; Describe various elements by using appropriate sub commands.
-* [ocm <b>download</b>](/docs/cli-reference/download)	 &mdash; Download oci artifacts, resources or complete components
-* [ocm <b>get</b>](/docs/cli-reference/get)	 &mdash; Get information about artifacts and components
-* [ocm <b>list</b>](/docs/cli-reference/list)	 &mdash; List information about components
-* [ocm <b>set</b>](/docs/cli-reference/set)	 &mdash; Set information about OCM repositories
-* [ocm <b>show</b>](/docs/cli-reference/show)	 &mdash; Show tags or versions
-* [ocm <b>sign</b>](/docs/cli-reference/sign)	 &mdash; Sign components or hashes
-* [ocm <b>transfer</b>](/docs/cli-reference/transfer)	 &mdash; Transfer artifacts or components
-* [ocm <b>verify</b>](/docs/cli-reference/verify)	 &mdash; Verify component version signatures
+* [ocm <b>add</b>](/docs/cli-reference/add/)	 &mdash; Add elements to a component repository or component version
+* [ocm <b>check</b>](/docs/cli-reference/check/)	 &mdash; check components in OCM repository
+* [ocm <b>clean</b>](/docs/cli-reference/clean/)	 &mdash; Cleanup/re-organize elements
+* [ocm <b>create</b>](/docs/cli-reference/create/)	 &mdash; Create transport or component archive
+* [ocm <b>describe</b>](/docs/cli-reference/describe/)	 &mdash; Describe various elements by using appropriate sub commands.
+* [ocm <b>download</b>](/docs/cli-reference/download/)	 &mdash; Download oci artifacts, resources or complete components
+* [ocm <b>get</b>](/docs/cli-reference/get/)	 &mdash; Get information about artifacts and components
+* [ocm <b>list</b>](/docs/cli-reference/list/)	 &mdash; List information about components
+* [ocm <b>set</b>](/docs/cli-reference/set/)	 &mdash; Set information about OCM repositories
+* [ocm <b>show</b>](/docs/cli-reference/show/)	 &mdash; Show tags or versions
+* [ocm <b>sign</b>](/docs/cli-reference/sign/)	 &mdash; Sign components or hashes
+* [ocm <b>transfer</b>](/docs/cli-reference/transfer/)	 &mdash; Transfer artifacts or components
+* [ocm <b>verify</b>](/docs/cli-reference/verify/)	 &mdash; Verify component version signatures
 
 
 

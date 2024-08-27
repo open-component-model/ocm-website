@@ -2,7 +2,6 @@
 title: resources
 name: download resources
 url: /docs/cli-reference/download/resources/
-date: 2024-04-17T18:02:57+02:00
 draft: false
 images: []
 toc: true
@@ -203,7 +202,7 @@ The downloader name may be a path expression with the following possibilities:
 
 
 
-See [ocm ocm-downloadhandlers](/docs/cli-reference/ocm-downloadhandlers) for further details on using
+See [ocm ocm-downloadhandlers](/docs/cli-reference/help/ocm-downloadhandlers/) for further details on using
 download handlers.
 
 
@@ -229,5 +228,5 @@ references.
 
 ### See Also
 
-* [ocm download](/docs/cli-reference/download)	 &mdash; Download oci artifacts, resources or complete components
+* [ocm download](/docs/cli-reference/download/)	 &mdash; Download oci artifacts, resources or complete components
 

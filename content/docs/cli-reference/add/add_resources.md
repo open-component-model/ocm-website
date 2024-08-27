@@ -2,7 +2,6 @@
 title: resources
 name: add resources
 url: /docs/cli-reference/add/resources/
-date: 2024-04-17T18:02:57+02:00
 draft: false
 images: []
 toc: true
@@ -650,7 +649,7 @@ shown below.
       An optional keyring used to verify the chart.
     
     It uses the consumer identity type HelmChartRepository with the fields
-    for a hostpath identity matcher (see [ocm get credentials](/docs/cli-reference/get/credentials)).
+    for a hostpath identity matcher (see [ocm get credentials](/docs/cli-reference/get/credentials/)).
   
   Options used to configure fields: <code>--accessPackage</code>, <code>--accessRepository</code>, <code>--accessVersion</code>
   
@@ -988,5 +987,5 @@ $ ocm add resources --file path/to/ca  resources.yaml VERSION=1.0.0
 
 ### See Also
 
-* [ocm add](/docs/cli-reference/add)	 &mdash; Add elements to a component repository or component version
+* [ocm add](/docs/cli-reference/add/)	 &mdash; Add elements to a component repository or component version
 

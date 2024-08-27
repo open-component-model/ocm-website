@@ -2,7 +2,6 @@
 title: toi-bootstrapping
 name: toi-bootstrapping
 url: /docs/cli-reference/help/toi-bootstrapping/
-date: 2024-04-17T18:02:57+02:00
 draft: false
 images: []
 toc: true
@@ -17,11 +16,11 @@ a possibility to run images taken from a component version with user
 configuration and feed them with the content of this component version.
 It is some basic mechanism, which can be used to execute simple installation
 steps based on content described by the Open Component Model
-(see [ocm bootstrap package](/docs/cli-reference/bootstrap/package)).
+(see [ocm bootstrap package](https://github.com/open-component-model/ocm/blob/main/docs/reference/ocm_bootstrap_package/)).
 
 Therefore, a dedicated resource type <code>toiPackage</code> is defined,
 which describes an installation package to be handled by TOI.
-When calling the [ocm bootstrap package](/docs/cli-reference/bootstrap/package) command it is selected by a resource
+When calling the [ocm bootstrap package](https://github.com/open-component-model/ocm/blob/main/docs/reference/ocm_bootstrap_package/) command it is selected by a resource
 identity pattern. The first resource in given component version matching the
 pattern is used. A possible use case could be to provide different packages for
 different environments. The resource can use an identity attribute
@@ -110,7 +109,7 @@ It has the following format:
   - **<code>configFile</code>**: an example template for a parameter file
   - **<code>credentialsFile</code>**: an example template for a credentials file
 
-  Those templates can be downloaded with [ocm bootstrap configuration](/docs/cli-reference/bootstrap/configuration).
+  Those templates can be downloaded with [ocm bootstrap configuration](https://github.com/open-component-model/ocm/blob/main/docs/reference/ocm_bootstrap_configuration/).
 
 #### *ExecutorSpecification*
 
@@ -359,7 +358,7 @@ It uses the following fields:
   in the OCM support library, if used by the executor. At least the field
   <code>type</code> and one additional field must be set.
 
-Credentials are provided in an ocm config file (see [ocm configfile](/docs/cli-reference/configfile)).
+Credentials are provided in an ocm config file (see [ocm configfile](/docs/cli-reference/help/configfile/)).
 It uses a memory credential repository with the name <code>default</code>
 to store the credentials under the given name. Additionally appropriate
 consumer ids will be propagated, if requested in the credentials request config.

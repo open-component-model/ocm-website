@@ -2,7 +2,6 @@
 title: pubsub
 name: get pubsub
 url: /docs/cli-reference/get/pubsub/
-date: 2024-04-17T18:02:57+02:00
 draft: false
 images: []
 toc: true
@@ -30,7 +29,7 @@ A repository may be able to store a publish/subscribe specification
 to propagate the creation or update of component versions.
 If such an implementation is available and a specification is
 assigned to the repository, it is shown. The specification
-can be set with the [ocm set pubsub](/docs/cli-reference/set/pubsub).
+can be set with the [ocm set pubsub](/docs/cli-reference/set/set_pubsub/).
 
 
 With the option <code>--output</code> the output mode can be selected.
@@ -43,5 +42,5 @@ The following modes are supported:
 
 ### See Also
 
-* [ocm get](/docs/cli-reference/get)	 &mdash; Get information about artifacts and components
+* [ocm get](/docs/cli-reference/get/)	 &mdash; Get information about artifacts and components
 

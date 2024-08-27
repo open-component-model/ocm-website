@@ -2,7 +2,6 @@
 title: list
 name: list
 url: /docs/cli-reference/list/
-date: 2024-04-17T18:02:57+02:00
 draft: false
 images: []
 toc: true
@@ -27,5 +26,5 @@ ocm list [<options>] <sub command> ...
 
 ##### Sub Commands
 
-* [ocm list <b>componentversions</b>](/docs/cli-reference/list/componentversions)	 &mdash; list component version names
+* [ocm list <b>componentversions</b>](/docs/cli-reference/list/componentversions/)	 &mdash; list component version names
 

@@ -13,6 +13,7 @@
       "center",
       "circle",
       "code",
+      "component",
       "component-name",
       "component-version",
       "details",
@@ -67,7 +68,8 @@
       "time",
       "title",
       "tr",
-      "ul"
+      "ul",
+      "version"
     ],
     "classes": [
       "DocSearch-Label",
@@ -75,7 +77,6 @@
       "admonition",
       "anchor",
       "bg-dots",
-      "blog-header",
       "btn",
       "btn-close",
       "btn-link",
@@ -227,7 +228,6 @@
       "pb-2",
       "pb-3",
       "pe-4",
-      "privacy",
       "ps-3",
       "pt-4",
       "px-0",

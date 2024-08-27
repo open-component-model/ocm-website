@@ -2,7 +2,6 @@
 title: ocm-labels
 name: ocm-labels
 url: /docs/cli-reference/help/ocm-labels/
-date: 2024-04-17T18:02:57+02:00
 draft: false
 images: []
 toc: true
@@ -183,6 +182,6 @@ The following label assignments are configured:
 
 ### See Also
 
-* [ocm add componentversions](/docs/cli-reference/add/componentversions)	 &mdash; add component version(s) to a (new) transport archive
-* [ocm add](/docs/cli-reference/add)	 &mdash; Add elements to a component repository or component version
+* [ocm add componentversions](/docs/cli-reference/add/componentversions/)	 &mdash; add component version(s) to a (new) transport archive
+* [ocm add](/docs/cli-reference/add/)	 &mdash; Add elements to a component repository or component version
 
