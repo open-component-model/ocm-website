@@ -9,7 +9,6 @@ import (
 	"path/filepath"
 	"sort"
 	"strings"
-	"time"
 
 	"github.com/spf13/cobra"
 	"ocm.software/ocm/api/utils/cobrautils"
@@ -19,7 +18,6 @@ const fmTmpl = `---
 title: %s
 name: %s
 url: %s
-date: 2024-04-17T18:02:57+02:00
 draft: false
 images: []
 toc: true
