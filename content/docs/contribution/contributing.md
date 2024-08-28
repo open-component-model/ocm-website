@@ -2,8 +2,6 @@
 title: "Contributing Guideline"
 description: "Contributing Guideline"
 lead: ""
-date: 2022-08-12T10:38:22+01:00
-lastmod: 2022-08-12T10:38:22+01:00
 draft: false
 images: []
 weight: 101
@@ -47,8 +45,6 @@ We welcome all types of contributions, including:
 - Reviews
 - [Board discussions](https://github.com/open-component-model/ocm/discussions)
 
-For more involved feature or enhancement requests, please see the section on how to submit an [ADR](#adrs).
-
 You may find it helpful to start a new thread in the [`ocm` Discussion Board](https://github.com/open-component-model/ocm/discussions) for questions, help requests, feature requests, or any other type of discussion about OCM. A maintainer will reach out to you as soon as possible.
 
 ### Find an Issue
@@ -76,14 +72,14 @@ Ready to contribute? Read and follow the sections below to get your contribution
 - Update documentation (either in the [docs](https://github.com/open-component-model/ocm-spec) or README) that cover your changes.
 - Add unit tests and integration tests to cover your changes.
 - Ensure that the linter and all unit and integration tests are successful.
-- [Bonus] Backfill tests/documentation to make the world a better place.
+- **Bonus:** Backfill tests/documentation to make the world a better place.
 
 ### Pull Request Process
 
 1. **Create PR.** Please refer to the [Pull Request Checklist](#pull-request-checklist) before marking a PR as ready to be reviewed.
 2. **Triage.** A maintainer will triage the Pull Request by adding the appropriate label for the issue.
 3. **Assign reviews.** A maintainer will be assigned to review the changes in the Pull Request.
-4. **Review/Discussion.** One or more maintainer will review the Pull Request. Checkout the [style guidelines](#styyle-guidelines) section for some things reviewers will look for.
+4. **Review/Discussion.** One or more maintainer will review the Pull Request. Checkout the [style guidelines](#style-guidelines) section for some things reviewers will look for.
 5. **Address comments by answering questions or changing code.**
 6. **Approve/Merge.** A review should be approved by at least two other maintainers. If the PR was opened by a community contributor, they should wait for a maintainer to merge the Pull Request.
 
