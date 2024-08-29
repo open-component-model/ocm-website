@@ -27,12 +27,3 @@
   url = "https://kubernetes.slack.com/archives/C05UWBE8R1D"
   weight = 20
 
-[[footer]]
-  name = "Privacy Policy"
-  url = "/privacy/"
-  weight = 10
-
-# [[footer]]
-#   name = "Terms of Service"
-#   url = "/terms/"
-#   weight = 20
