@@ -17,7 +17,7 @@ The configuration file can be used in particular to specify the credentials, whi
 
 ## Examples
 
-This page contains basic examples of configuration for a few most common artifact repository types. The examples below are complete `.ocmconfig` files, not snippets.
+This page contains basic examples of credentials configuration for a few most common artifact repository types. The examples below are complete `.ocmconfig` files, not snippets.
 
 For comprehensive documentation on the credentials topic, including usage of certificates or HashiCorp Vault, execute the command `ocm credential-handling`.
 
