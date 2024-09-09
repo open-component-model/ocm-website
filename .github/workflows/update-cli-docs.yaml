@@ -34,7 +34,7 @@ jobs:
         go mod tidy
         go run ./hack/generate-cli-docs --output-dir=${{ env.OUTPUT_DIR }}
     - name: Create Pull Request
-      uses: peter-evans/create-pull-request@v6
+      uses: peter-evans/create-pull-request@v7
       with:
         title: "Update CLI docs"
         commit-message: "[github-actions] automated change"
