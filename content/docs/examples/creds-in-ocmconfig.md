@@ -132,3 +132,38 @@ configurations:
             properties:
               token: ghp_my_personal_access_token
 ```
+
+### Accessing several systems
+
+It is, of course, possible to configure credentials for several systems in the same `.ocmconfig` file. To do that, you can combine as many repositories and consumers as you need.
+
+The example below instructs OCM CLI to look for credentials in Docker's `config.json`, and in addition specifies dedicated credentials for an OCI registry and a GitHub repository.
+
+```yaml
+type: generic.config.ocm.software/v1
+configurations:
+  - type: credentials.config.ocm.software
+    repositories:
+      - repository:
+          type: DockerConfig/v1
+          dockerConfigFile: "~/.docker/config.json"
+          propagateConsumerIdentity: true
+    consumers:
+      - identity:
+          type: OCIRegistry
+          hostname: ghcr.io
+          pathprefix: mandelsoft
+        credentials:
+          - type: Credentials
+            properties:
+              username: some-user
+              password: some-token
+      - identity:
+          type: Github
+          hostname: my.github.enterprise
+          pathprefix: my-org/my-repo
+        credentials:
+          - type: Credentials
+            properties:
+              token: ghp_my_personal_access_token
+```
