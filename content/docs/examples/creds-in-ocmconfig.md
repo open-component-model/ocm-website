@@ -60,7 +60,7 @@ configurations:
       - identity:
           type: OCIRegistry
           hostname: ghcr.io
-          pathprefix: mandelsoft
+          pathprefix: open-component-model
         credentials:
           - type: Credentials
             properties:
