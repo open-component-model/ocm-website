@@ -48,7 +48,7 @@ configurations:
 
 #### HTTPS and path
 
-To access artifacts in `https://ghcr.io/mandelsoft`:
+To access artifacts in `https://ghcr.io/open-component-model`:
 * Omit the protocol
 * The path behind the top-level domain hast to be specified in a separate `pathprefix` field
 
