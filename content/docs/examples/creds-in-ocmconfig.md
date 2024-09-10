@@ -102,7 +102,7 @@ configurations:
       - identity:
           type: HelmChartRepository
           hostname: ghcr.io
-          pathprefix: mandelsoft
+          pathprefix: open-component-model
         credentials:
           - type: Credentials
             properties:
