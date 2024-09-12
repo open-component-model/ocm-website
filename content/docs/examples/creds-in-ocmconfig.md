@@ -31,7 +31,7 @@ A `consumer` is something the credentials are required for. For example, if you 
 
 ### Re-use credentials configured for Docker
 
-This `.ocmconfig` file will tell OCM CLI to use configuration from Docker's `config.json`.
+This `.ocmconfig` file will tell OCM CLI to use credentials configuration from Docker's `config.json` file.
 
 ```yaml
 type: generic.config.ocm.software/v1
@@ -42,6 +42,20 @@ configurations:
           type: DockerConfig/v1
           dockerConfigFile: "~/.docker/config.json"
           propagateConsumerIdentity: true
+```
+
+### Re-use credentials configured for npm
+
+This `.ocmconfig` file will tell OCM CLI to use credentials configuration from npm's `.npmrc` file.
+
+```yaml
+type: generic.config.ocm.software/v1
+configurations:
+  - type: credentials.config.ocm.software
+    repositories:
+      - repository:
+          type: NPMConfig/v1
+          npmrcFile: '~/.npmrc'
 ```
 
 ### Accessing OCI registries
@@ -111,12 +125,53 @@ configurations:
               password: some-token
 ```
 
+### Accessing Maven repositories
+
+Similar to OCI registries, but use `MavenRepository` as identity type.
+
+```yaml
+type: generic.config.ocm.software/v1
+configurations:
+  - type: credentials.config.ocm.software
+    consumers:
+      - identity:
+          type: MavenRepository
+          hostname: maven.repo.host
+          pathprefix: path/to/repo
+        credentials:
+          - type: Credentials
+            properties:
+              username: some-user
+              password: some-password
+```
+
+### Accessing npm registries
+
+Similar to OCI registries, but use `NpmRegistry` as identity type. In addition, it is required to specify the `email` address matching with the one in the user record in the npm registry.
+
+```yaml
+type: generic.config.ocm.software/v1
+configurations:
+  - type: credentials.config.ocm.software
+    consumers:
+      - identity:
+          type: NpmRegistry
+          hostname: npm.registry.host
+          pathprefix: path/to/registry
+        credentials:
+          - type: Credentials
+            properties:
+              username: some-user
+              password: some-password
+              email: foo.bar@acme.org
+```
+
 ### Accessing GitHub repositories
 
 To access code in `https://my.github.enterprise/my-org/my-repo`:
 * Use `Github` as identity type
 * `hostname` is the domain name of the GitHub instance
-* `pathname` is a combination of organization and repository names
+* `pathprefix` is a combination of organization and repository names
 * `token` is a personal access token generated in GitHub Developer Settings
 
 ```yaml
