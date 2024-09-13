@@ -65,7 +65,7 @@ configurations:
 
 To access artifacts in `https://ghcr.io/open-component-model`:
 * Omit the protocol
-* The path behind the top-level domain hast to be specified in a separate `pathprefix` field
+* The path behind the top-level domain has to be specified in a separate `pathprefix` field
 * The `password` is the user's basic authentication password. Some OCI registries allow to generate user access tokens, which can also be used for basic authentication.
 
 ```yaml
