@@ -63,8 +63,8 @@ configurations:
 #### HTTPS and path
 
 To access artifacts in `https://ghcr.io/open-component-model`:
-* Omit the protocol
-* The path behind the top-level domain has to be specified in a separate `pathprefix` field
+* The different parts of the URL have to be specified in separate fields: `scheme`, `hostname` and `pathprefix`
+* The fields `scheme` and `pathprefix` are optional. If not specified, the OCM CLI will use the credentials for all schemes and paths on that host
 * The `password` is the user's basic authentication password. Some OCI registries allow to generate user access tokens, which can also be used for basic authentication.
 
 ```yaml
@@ -74,6 +74,7 @@ configurations:
     consumers:
       - identity:
           type: OCIRegistry
+          scheme: https
           hostname: ghcr.io
           pathprefix: open-component-model
         credentials:
@@ -86,9 +87,9 @@ configurations:
 #### HTTP, port number, empty path
 
 To access artifacts in `http://127.0.0.1:5001`:
-* Omit the protocol
-* Omit the port number
-* As the URL has no path behind the port number, `pathprefix` element can be removed or left empty
+* Note the quotes around the `port` number
+* The fields `scheme` and  `port` are optional. If not specified, the OCM CLI will use the credentials for all schemes and ports on that host
+* As the URL has no path behind the port number, `pathprefix` element can be removed
 
 ```yaml
 type: generic.config.ocm.software/v1
@@ -97,7 +98,9 @@ configurations:
     consumers:
       - identity:
           type: OCIRegistry
+          scheme: http
           hostname: 127.0.0.1
+          port: "5001"
         credentials:
           - type: Credentials
             properties:
