@@ -10,7 +10,8 @@ weight: 71
 toc: true
 ---
 
-**The source code for the demo can be found at [https://github.com/open-component-model/demo-secure-delivery](https://github.com/open-component-model/demo-secure-delivery)**
+The source code for the demo can be found at [https://github.com/open-component-model/demo-secure-delivery](https://github.com/open-component-model/demo-secure-delivery).
+A video guide can be found [here](https://share.vidyard.com/watch/NjNrZF2926RUTSUvkU4MdR).
 
 ## Overview
 
