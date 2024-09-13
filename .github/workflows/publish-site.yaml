@@ -44,11 +44,11 @@ jobs:
         with:
           python-version: '3.11'
 
-      - run: |
+      - name: Generate Schema
+        run: |
           python3 -m pip install json-schema-for-humans
           generate-schema-doc --config-file generate-schema.yaml static/schemas/component-descriptor-v2 schema-v2.html
           generate-schema-doc --config-file generate-schema.yaml static/schemas/component-descriptor-v3alpha1 schema-v3alpha1.html
-        name: Generate Schema
 
       - name: Copy Schema
         run: |
