@@ -42,7 +42,6 @@ configurations:
       - repository:
           type: DockerConfig/v1
           dockerConfigFile: "~/.docker/config.json"
-          propagateConsumerIdentity: true
 ```
 
 ### Re-use credentials configured for npm
