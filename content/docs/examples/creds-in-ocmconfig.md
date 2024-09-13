@@ -32,7 +32,7 @@ A `consumer` is something the credentials are required for. For example, if you 
 
 ### Re-use credentials configured for Docker
 
-This `.ocmconfig` file will tell OCM CLI to use credentials configuration from Docker's `config.json` file.
+This `.ocmconfig` file will tell the OCM CLI to use credentials configuration from Docker's `config.json` file.
 
 ```yaml
 type: generic.config.ocm.software/v1
