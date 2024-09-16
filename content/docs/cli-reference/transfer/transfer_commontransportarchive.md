@@ -2,7 +2,6 @@
 title: commontransportarchive
 name: transfer commontransportarchive
 url: /docs/cli-reference/transfer/commontransportarchive/
-date: 2024-04-17T18:02:57+02:00
 draft: false
 images: []
 toc: true
@@ -114,6 +113,28 @@ are configured for the operation. It has the following format
 </center>
 
 The uploader name may be a path expression with the following possibilities:
+  - <code>ocm/npmPackage</code>: uploading npm artifacts
+    
+    The <code>ocm/npmPackage</code> uploader is able to upload npm artifacts
+    as artifact archive according to the npm package spec.
+    If registered the default mime type is: application/x-tgz
+    
+    It accepts a plain string for the URL or a config with the following field:
+    'url': the URL of the npm repository.
+
+  - <code>ocm/mavenPackage</code>: uploading maven artifacts
+    
+    The <code>ocm/mavenPackage</code> uploader is able to upload maven artifacts (whole GAV only!)
+    as artifact archive according to the maven artifact spec.
+    If registered the default mime type is: application/x-tgz
+    
+    It accepts a plain string for the URL or a config with the following field:
+    'url': the URL of the maven repository.
+
+  - <code>plugin</code>: [downloaders provided by plugins]
+    
+    sub namespace of the form <code>&lt;plugin name>/&lt;handler></code>
+
   - <code>ocm/ociArtifacts</code>: downloading OCI artifacts
     
     The <code>ociArtifacts</code> downloader is able to download OCI artifacts
@@ -138,31 +159,9 @@ The uploader name may be a path expression with the following possibilities:
     Alternatively, a single string value can be given representing an OCI repository
     reference.
 
-  - <code>ocm/mavenPackage</code>: uploading maven artifacts
-    
-    The <code>ocm/mavenPackage</code> uploader is able to upload maven artifacts (whole GAV only!)
-    as artifact archive according to the maven artifact spec.
-    If registered the default mime type is: application/x-tgz
-    
-    It accepts a plain string for the URL or a config with the following field:
-    'url': the URL of the maven repository.
-
-  - <code>plugin</code>: [downloaders provided by plugins]
-    
-    sub namespace of the form <code>&lt;plugin name>/&lt;handler></code>
-
-  - <code>ocm/npmPackage</code>: uploading npm artifacts
-    
-    The <code>ocm/npmPackage</code> uploader is able to upload npm artifacts
-    as artifact archive according to the npm package spec.
-    If registered the default mime type is: application/x-tgz
-    
-    It accepts a plain string for the URL or a config with the following field:
-    'url': the URL of the npm repository.
 
 
-
-See [ocm ocm-uploadhandlers](/docs/cli-reference/ocm-uploadhandlers) for further details on using
+See [ocm ocm-uploadhandlers](/docs/cli-reference/help/ocm-uploadhandlers/) for further details on using
 upload handlers.
 
 
@@ -196,5 +195,5 @@ $ ocm transfer ctf ctf.tgz ghcr.io/mandelsoft/components
 
 ### See Also
 
-* [ocm transfer](/docs/cli-reference/transfer)	 &mdash; Transfer artifacts or components
+* [ocm transfer](/docs/cli-reference/transfer/)	 &mdash; Transfer artifacts or components
 

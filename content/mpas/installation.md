@@ -18,10 +18,14 @@ To install the MPAS CLI, you can download the binaries for major platforms from 
 
 You can also install via [homebrew](https://brew.sh/) for macOS and Linux:
 
-`brew install open-component-model/tap/mpas`
+```bash
+brew install open-component-model/tap/mpas
+```
 
 ## Bash
 
 To install with `bash` for macOS or Linux execute the following command:
 
-`curl -sfL https://raw.githubusercontent.com/open-component-model/mpas/main/install.sh | sh -`
+```bash
+curl -sfL https://raw.githubusercontent.com/open-component-model/mpas/main/install.sh | sh -
+```

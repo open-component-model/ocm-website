@@ -2,7 +2,6 @@
 title: artifacts
 name: describe artifacts
 url: /docs/cli-reference/describe/artifacts/
-date: 2024-04-17T18:02:57+02:00
 draft: false
 images: []
 toc: true
@@ -86,5 +85,5 @@ $ ocm describe artifact --repo OCIRegistry::ghcr.io mandelsoft/kubelink
 
 ### See Also
 
-* [ocm describe](/docs/cli-reference/describe)	 &mdash; Describe various elements by using appropriate sub commands.
+* [ocm describe](/docs/cli-reference/describe/)	 &mdash; Describe various elements by using appropriate sub commands.
 

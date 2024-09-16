@@ -4,13 +4,12 @@ import (
 	"flag"
 	"fmt"
 	"log"
+	clictx "ocm.software/ocm/api/cli"
+	"ocm.software/ocm/cmds/ocm/app"
 	"os"
 	"path/filepath"
 	"slices"
 	"strings"
-
-	clictx "ocm.software/ocm/api/cli"
-	"ocm.software/ocm/cmds/ocm/app"
 )
 
 var commandDenyList = []string{
@@ -62,7 +61,6 @@ func run(dir, urlPrefix string) error {
 	}
 
 	cmd := app.NewCliCommand(clictx.DefaultContext())
-	cmd.DisableAutoGenTag = true
 
 	for _, subCmd := range cmd.Commands() {
 		if slices.Contains(commandDenyList, subCmd.Name()) {

@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "description": "OCM website",
   "author": "open-component-model",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "scripts": {
     "dev": "exec-bin node_modules/.bin/hugo/hugo server --bind=0.0.0.0 --disableFastRender --baseURL=http://localhost --noHTTPCache",
     "dev:drafts": "exec-bin node_modules/.bin/hugo/hugo server --bind=0.0.0.0 --disableFastRender --baseURL=http://localhost --noHTTPCache --buildDrafts",
@@ -44,8 +44,8 @@
     "semver": "^7.5.4"
   },
   "engines": {
-    "node": ">=18.14.1",
-    "pnpm": ">=8.10.0"
+    "node": ">=20.16.0",
+    "pnpm": ">=9.7.1"
   },
-  "packageManager": "pnpm@8.12.0"
+  "packageManager": "pnpm@9.7.1"
 }

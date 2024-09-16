@@ -2,7 +2,6 @@
 title: logging
 name: logging
 url: /docs/cli-reference/help/logging/
-date: 2024-04-17T18:02:57+02:00
 draft: false
 images: []
 toc: true
@@ -12,8 +11,8 @@ sidebar:
 ### Description
 
 
-Logging can be configured as part of the ocm config file ([ocm configfile](/docs/cli-reference/configfile))
-or by command line options of the [ocm](/docs/cli-reference) command. Details about
+Logging can be configured as part of the ocm config file ([ocm configfile](/docs/cli-reference/help/configfile/))
+or by command line options of the [ocm](/docs/cli-reference/) command. Details about
 the YAML structure of a logging settings can be found on https://github.com/mandelsoft/logging.
 
 The command line also supports some quick-config options for enabling log levels

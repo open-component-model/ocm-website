@@ -2,8 +2,6 @@
 title: "Contributing Guideline"
 description: "Contributing Guideline"
 lead: ""
-date: 2022-08-12T10:38:22+01:00
-lastmod: 2022-08-12T10:38:22+01:00
 draft: false
 images: []
 weight: 101
@@ -29,9 +27,9 @@ Thank you for taking the time to contribute to OCM.
 
 ## DCO
 
-By contributing to this project you agree to the Developer Certificate of Origin ([DCO](DCO)). This document was created by the Linux Kernel community and is a simple statement that you, as a contributor, have the legal right to make the contribution.
+By contributing to this project you agree to the Developer Certificate of Origin ([DCO](https://raw.githubusercontent.com/open-component-model/.github/main/DCO)). This document was created by the Linux Kernel community and is a simple statement that you, as a contributor, have the legal right to make the contribution.
 
-We require all commits to be [signed](https://docs.github.com/en/authentication/managing-commit-signature-verification/signing-commits). By signing off with your signature, you certify that you wrote the patch or otherwise have the right to contribute the material by the rules of the [DCO](DCO):
+We require all commits to be [signed](https://docs.github.com/en/authentication/managing-commit-signature-verification/signing-commits). By signing off with your signature, you certify that you wrote the patch or otherwise have the right to contribute the material by the rules of the [DCO](https://raw.githubusercontent.com/open-component-model/.github/main/DCO):
 
 `Signed-off-by: Jane Doe <jane.doe@example.com>`
 
@@ -60,7 +58,7 @@ We welcome all types of contributions, including:
 - Reviews
 - [Board discussions](https://github.com/open-component-model/ocm/discussions)
 
-You may find it helpful to start a new thread in the [`ocm` Discussion Board](https://github.com/open-component-model/ocm/discussions) for questions, help requests, feature requests, or any other type of discussion about OCM. A maintaine will reach out to you as soon as possible.
+You may find it helpful to start a new thread in the [`ocm` Discussion Board](https://github.com/open-component-model/ocm/discussions) for questions, help requests, feature requests, or any other type of discussion about OCM. A maintainer will reach out to you as soon as possible.
 
 ### Find an Issue
 

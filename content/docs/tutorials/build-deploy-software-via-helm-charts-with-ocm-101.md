@@ -13,7 +13,7 @@ toc: true
 ## Introduction
 
 Let's illustrate a very simple "Hello World" example application and show how to leverage OCM to build an application component containing a Helm Chart and an OCI Image and deploy it to a local `kind` k8s cluster.
-The topics `ocm` [`localization`](https://ocm.software/docs/tutorials/deployment-scenario-using-an-aggregated-component/#localization) and [`configuration`](https://ocm.software/docs/tutorials/deployment-scenario-using-an-aggregated-component/#configuration) are NOT part of this very simple example, but is covered in other tutorials.
+The topics `ocm` [`localization`](/docs/tutorials/structuring-and-deploying-software-products-with-ocm/#localization) and [`configuration`](/docs/tutorials/structuring-and-deploying-software-products-with-ocm/#configuration) are NOT part of this very simple example, but is covered in other tutorials.
 
 As base we use the `podinfo` application from Stefan Prodan's [Github repo](https://github.com/stefanprodan/podinfo).
 All files can be found [here](https://github.com/open-component-model/ocm-examples/tree/main/components).
@@ -96,7 +96,7 @@ components:
     access:
       type: ociArtifact
       imageReference: ghcr.io/stefanprodan/charts/podinfo:${PODINFO_VERSION}
-  # Helm Chart in Helm repository  
+  # Helm Chart in Helm repository
   - name: helm-chart-external-helm-repo
     type: helmChart
     version: ${PODINFO_VERSION}
@@ -130,7 +130,7 @@ components:
 
 Some frequently changing parameters have been extracted as variables. The OCM CLI uses
 templating to fill them with values. The templating mechanism is described
-[here](https://ocm.software/docs/tutorials/best-practices/#templating-the-resources). For this example
+[here](/docs/tutorials/best-practices/#templating-the-resources). For this example
 we use the default template engine type `subst`.
 
 Note the differences between the various components:
@@ -190,7 +190,7 @@ configuration of credentials for the OCM CLI):
 ocm transfer ctf -f <ctf-target-dir> <oci-repo-url>
 ```
 
-Using the `--copy-resources` flag the OCM CLI will copy also copy all referenced resourcres to the OCI registry, making the resources part of the OCM component version, creating a self-contained component version.
+Using the `--copy-resources` flag the OCM CLI will copy also copy all referenced resources to the OCI registry, making the resources part of the OCM component version, creating a self-contained component version.
 
 ```shell
 ocm transfer ctf --copy-resources --enforce --overwrite ./ocm-hello-world OCIRegistry::ghcr.io/stb1337/ocm-hello-world-v1
@@ -216,7 +216,7 @@ and should never be changed.
 
 Navigate to the overview of your OCI repository, which should list the following items:
 
-![alt text](images/github-packages-ocm-hello-world.png)
+![alt text](/images/github-packages-ocm-hello-world.png)
 
 ## Deploying the OCM Software Artifact
 
@@ -605,7 +605,7 @@ Forwarding from [::1]:9898 -> 9898
 Handling connection for 9898
 ```
 
-![alt text](images/guide-helm-charts-hello-world.png)
+![alt text](/images/guide-helm-charts-hello-world.png)
 
 ```shell
 kubectl port-forward service/podinfo-helm-chart-local-tgz -n default 9898:9898
@@ -614,4 +614,4 @@ Forwarding from [::1]:9898 -> 9898
 Handling connection for 9898
 ```
 
-![alt text](images/guide-helm-charts-hello-world-2.png)
+![alt text](/images/guide-helm-charts-hello-world-2.png)

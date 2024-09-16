@@ -2,7 +2,6 @@
 title: componentversions
 name: verify componentversions
 url: /docs/cli-reference/verify/componentversions/
-date: 2024-04-17T18:02:57+02:00
 draft: false
 images: []
 toc: true
@@ -18,10 +17,11 @@ ocm verify componentversions [<options>] {<component-reference>}
 ### Options
 
 ```
+      --                          enable verification store
       --ca-cert stringArray       additional root certificate authorities (for signing certificates)
   -c, --constraints constraints   version constraint
   -h, --help                      help for componentversions
-  -I, --issuer stringArray        issuer name or distinguished name (DN) (optionally for dedicated signature) ([<name>:=]<dn>
+  -I, --issuer stringArray        issuer name or distinguished name (DN) (optionally for dedicated signature) ([<name>:=]<dn>)
       --keyless                   use keyless signing
       --latest                    restrict component versions to latest
   -L, --local                     verification based on information found in component versions, only
@@ -30,6 +30,7 @@ ocm verify componentversions [<options>] {<component-reference>}
   -k, --public-key stringArray    public key setting
       --repo string               repository name or spec
   -s, --signature stringArray     signature name
+      --verified string           file used to remember verifications for downloads (default "~/.ocm/verified")
   -V, --verify                    verify existing digests
 ```
 
@@ -102,6 +103,14 @@ Alternatively a key can be specified as base64 encoded string if the argument
 start with the prefix <code>!</code> or as direct string with the prefix
 <code>=</code>.
 
+If the verification store is enabled, resources downloaded from
+signed or verified component versions are verified against their digests
+provided by the component version.(not supported for using downloaders for the
+resource download).
+
+The usage of the verification store is enabled by <code>--</code> or by
+specifying a verification file with <code>--verified</code>.
+
 \
 If a component lookup for building a reference closure is required
 the <code>--lookup</code>  option can be used to specify a fallback
@@ -121,5 +130,5 @@ $ ocm verify componentversion --signature mandelsoft --public-key=mandelsoft.key
 
 ### See Also
 
-* [ocm verify](/docs/cli-reference/verify)	 &mdash; Verify component version signatures
+* [ocm verify](/docs/cli-reference/verify/)	 &mdash; Verify component version signatures
 
