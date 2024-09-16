@@ -32,7 +32,8 @@ In this context, `repository` is a place where credentials can be stored, i.e., 
 A `consumer` is something the credentials are required for. For example, if you need to configure credentials that are required to log in to an OCI registry, one could say that the registry will be consuming these credentials, i.e., the registry is a credentials consumer. That is why it is configured under `consumers`.
 
 
-### Re-use credentials configured for Docker
+### Reuse Credentials Configured for Docker
+
 
 This `.ocmconfig` file will tell the OCM CLI to use credentials configuration from Docker's `config.json` file.
 
