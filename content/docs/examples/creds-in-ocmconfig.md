@@ -62,6 +62,7 @@ configurations:
 #### HTTPS and Path
 
 To access artifacts in `https://ghcr.io/open-component-model`:
+
 * The different parts of the URL have to be specified in separate fields: `scheme`, `hostname`, and `pathprefix`
 * The fields `scheme` and `pathprefix` are optional. If not specified, the OCM CLI will use the credentials for all schemes and paths on that host
 * The `password` is the user's basic authentication password. Some OCI registries allow to generate user access tokens, which can also be used for basic authentication
@@ -86,6 +87,7 @@ configurations:
 #### HTTP, Port Number, Empty Path
 
 To access artifacts in `http://127.0.0.1:5001`:
+
 * Note the quotes around the `port` number
 * The fields `scheme` and  `port` are optional. If not specified, the OCM CLI will use the credentials for all schemes and ports on that host
 * As the URL has no path behind the port number, the `pathprefix` element can be removed
@@ -171,6 +173,7 @@ configurations:
 ### Accessing GitHub Repositories
 
 To access code in `https://my.github.enterprise/my-org/my-repo`:
+
 * Use `Github` as identity type
 * `hostname` is the domain name of the GitHub instance
 * `pathprefix` is a combination of organization and repository names
