@@ -13,7 +13,8 @@ toc: true
 
 The [OCM command line client](https://github.com/open-component-model/ocm/blob/main/docs/reference/ocm.md) can be configured by supplying it with a [configuration file](https://github.com/open-component-model/ocm/blob/main/docs/reference/ocm_configfile.md). By default, the CLI looks for configuration in `$HOME/.ocmconfig`, if it exists.
 
-The configuration file can be used in particular to specify the credentials, which are required for the CLI to be able to access the artifact repositories, referenced in CLI commands.
+The configuration file can be used in particular to specify the credentials, which are required for the CLI to be able to access the artifact repositories referenced in CLI commands.
+
 
 ## Examples
 
