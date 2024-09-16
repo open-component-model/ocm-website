@@ -29,7 +29,8 @@ In the examples below, some configuration is located under `configurations[0]`.`
 In this context, `repository` is a place where credentials can be stored, i.e., it is a credentials repository. For example, Docker's `config.json` can store multiple credentials, and in that sense the file serves as a repository that can store and provide credentials. That is why its location is configured under `repositories`. Other examples of credentials repositories can be the NPM's `.npmrc` file or a HashiCorp Vault instance.
 
 
-A `consumer` is something the credentials are required for. For example, if you need to configure credentials that are required to log in to an OCI registry, one could say that the registry will be consuming these credentials, i.e. the registry is a credentials consumer. That is why it is configured under `consumers`.
+A `consumer` is something the credentials are required for. For example, if you need to configure credentials that are required to log in to an OCI registry, one could say that the registry will be consuming these credentials, i.e., the registry is a credentials consumer. That is why it is configured under `consumers`.
+
 
 ### Re-use credentials configured for Docker
 
