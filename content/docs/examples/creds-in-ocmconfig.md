@@ -118,7 +118,8 @@ configurations:
               password: admin
 ```
 
-### Accessing Helm chart repositories
+### Accessing Helm Chart Repositories
+
 
 Similar to OCI registries, but use `HelmChartRepository` as identity type.
 
