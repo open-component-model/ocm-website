@@ -3,14 +3,14 @@ name: Publish Site
 on:
   workflow_dispatch:
   push:
-    branches: [ main ]
+    branches: [main]
 
 env:
   OUTPUT_DIR: site-docs/
 
 jobs:
-  setup-clone:
-    name: Setup, Build, Publish, and Deploy
+  publish-site:
+    name: Publish Site
     runs-on: ubuntu-latest
 
     permissions:
@@ -19,38 +19,43 @@ jobs:
       pull-requests: 'write'
 
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        name: Checkout
 
-    - uses: actions/setup-node@v4
-      with:
-        cache: 'npm'
-        node-version: 20
+      - uses: actions/setup-node@v4
+        name: Setup Node.js
+        with:
+          cache: 'npm'
+          node-version: 20
 
-    - name: Setup Hugo
-      uses: peaceiris/actions-hugo@v3
-      with:
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
           hugo-version: 'latest'
 
-    - run: npm install
+      - run: npm install
+        name: Install Dependencies
 
-    - run: npm run build
+      - run: npm run build
+        name: Build Site
 
-    - name: Generate Schema
-      uses: actions/setup-python@v5
-      with:
-       python-version: '3.11'
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
 
-    - run: |
-        python3 -m pip install json-schema-for-humans
-        generate-schema-doc --config-file generate-schema.yaml static/schemas/component-descriptor-v2 schema-v2.html
-        generate-schema-doc --config-file generate-schema.yaml static/schemas/component-descriptor-v3alpha1 schema-v3alpha1.html
+      - name: Generate Schema
+        run: |
+          python3 -m pip install json-schema-for-humans
+          generate-schema-doc --config-file generate-schema.yaml static/schemas/component-descriptor-v2 schema-v2.html
+          generate-schema-doc --config-file generate-schema.yaml static/schemas/component-descriptor-v3alpha1 schema-v3alpha1.html
 
-    - name: Copy Schema
-      run: |
-        cp schema-v2.html schema-v3alpha1.html schema_doc.css schema_doc.min.js public/docs/overview/specification
+      - name: Copy Schema
+        run: |
+          cp schema-v2.html schema-v3alpha1.html schema_doc.css schema_doc.min.js public/docs/overview/specification
 
-    - name: Deploy
-      uses: peaceiris/actions-gh-pages@v4
-      with:
+      - name: Publish as GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public

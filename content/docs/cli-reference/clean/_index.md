@@ -2,7 +2,6 @@
 title: clean
 name: clean
 url: /docs/cli-reference/clean/
-date: 2024-04-17T18:02:57+02:00
 draft: false
 images: []
 toc: true
@@ -27,5 +26,5 @@ ocm clean [<options>] <sub command> ...
 
 ##### Sub Commands
 
-* [ocm clean <b>cache</b>](/docs/cli-reference/clean/cache)	 &mdash; cleanup oci blob cache
+* [ocm clean <b>cache</b>](/docs/cli-reference/clean/cache/)	 &mdash; cleanup oci blob cache
 

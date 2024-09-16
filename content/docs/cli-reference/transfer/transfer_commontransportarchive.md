@@ -2,7 +2,6 @@
 title: commontransportarchive
 name: transfer commontransportarchive
 url: /docs/cli-reference/transfer/commontransportarchive/
-date: 2024-04-17T18:02:57+02:00
 draft: false
 images: []
 toc: true
@@ -162,7 +161,7 @@ The uploader name may be a path expression with the following possibilities:
 
 
 
-See [ocm ocm-uploadhandlers](/docs/cli-reference/ocm-uploadhandlers) for further details on using
+See [ocm ocm-uploadhandlers](/docs/cli-reference/help/ocm-uploadhandlers/) for further details on using
 upload handlers.
 
 
@@ -196,5 +195,5 @@ $ ocm transfer ctf ctf.tgz ghcr.io/mandelsoft/components
 
 ### See Also
 
-* [ocm transfer](/docs/cli-reference/transfer)	 &mdash; Transfer artifacts or components
+* [ocm transfer](/docs/cli-reference/transfer/)	 &mdash; Transfer artifacts or components
 

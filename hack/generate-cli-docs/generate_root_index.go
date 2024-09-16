@@ -34,10 +34,10 @@ func genIndexForRootHelpTopics(dir string, urlBase string) (err error) {
 	}()
 
 	f.WriteString(fmt.Sprintf(fmTmpl, "help", "help", urlBase+"help"))
-	f.WriteString("### Additional Topics\n")
+	f.WriteString("### Additional Topics\n\n")
 
 	for _, topic := range topics {
-		f.WriteString(fmt.Sprintf("* [%s](%s)\t &mdash; %s\n", topic, urlBase+topic, topic))
+		f.WriteString(fmt.Sprintf("* [%s](%shelp/%s/) &mdash; %s\n", topic, urlBase, topic, topic))
 	}
 
 	return nil

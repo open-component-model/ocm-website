@@ -2,7 +2,6 @@
 title: tags
 name: show tags
 url: /docs/cli-reference/show/tags/
-date: 2024-04-17T18:02:57+02:00
 draft: false
 images: []
 toc: true
@@ -75,5 +74,5 @@ $ oci show tags ghcr.io/mandelsoft/kubelink
 
 ### See Also
 
-* [ocm show](/docs/cli-reference/show)	 &mdash; Show tags or versions
+* [ocm show](/docs/cli-reference/show/)	 &mdash; Show tags or versions
 

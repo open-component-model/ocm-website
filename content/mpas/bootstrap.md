@@ -145,7 +145,6 @@ mpas bootstrap gitea \
   --dev
 ```
 
-
 ## Bootstrap for an air-gapped environment
 
 If you want to bootstrap `MPAS` for a repository in an air-gapped environment, only Gitea

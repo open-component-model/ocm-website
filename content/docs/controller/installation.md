@@ -11,7 +11,7 @@ toc: true
 
 ## ocm-controller
 
-The `ocm-controller` can be installed using the [OCM CLI](/docs/overview/installation):
+The `ocm-controller` can be installed using the [OCM CLI](/docs/getting-started/installing-the-ocm-cli):
 
 ```bash
 ocm controller install
