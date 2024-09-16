@@ -18,7 +18,7 @@ sidebar:
       --config-set strings        apply configuration set
   -C, --cred stringArray          credential setting
   -h, --help                      help for ocm
-  -I, --issuer stringArray        issuer name or distinguished name (DN) (optionally for dedicated signature) ([<name>:=]<dn>
+  -I, --issuer stringArray        issuer name or distinguished name (DN) (optionally for dedicated signature) ([<name>:=]<dn>)
       --logJson                   log as json instead of human readable logs
       --logconfig string          log config
   -L, --logfile string            set log file
@@ -75,7 +75,7 @@ Every option value has the format
     <pre>--cred [:]&lt;attr>=&lt;value></pre>
 </center>
 
-Consumer identity attributes are prefixed with the colon (:). A credential settings
+Consumer identity attributes are prefixed with the colon ':'. A credential settings
 always start with a sequence of at least one identity attributes, followed by a
 sequence of credential attributes.
 If a credential attribute is followed by an identity attribute a new credential setting
@@ -120,7 +120,7 @@ logging configuration (yaml/json) via command line. If the argument starts with
 an <code>@</code>, the logging configuration is taken from a file.
 
 The value can be a simple type or a JSON/YAML string for complex values
-(see [ocm attributes](/docs/cli-reference/attributes). The following attributes are supported:
+(see [ocm attributes](/docs/cli-reference/attributes)). The following attributes are supported:
 - <code>github.com/mandelsoft/logforward</code> [<code>logfwd</code>]: *logconfig* Logging config structure used for config forwarding
 
   This attribute is used to specify a logging configuration intended
@@ -251,14 +251,15 @@ The value can be a simple type or a JSON/YAML string for complex values
   
   <pre>
   {
-    "rootCertificates"": [
+    "rootCertificates": [
        {
          "data": ""&lt;base64>"
        },
        {
          "path": ""&lt;file path>"
        }
-    ],
+    ]
+  }
   </pre>
   
   One of following data fields are possible:
@@ -273,7 +274,7 @@ The value can be a simple type or a JSON/YAML string for complex values
   
   <pre>
   {
-    "publicKeys"": [
+    "publicKeys": [
        "&lt;provider>": {
          "data": ""&lt;base64>"
        }
@@ -283,6 +284,7 @@ The value can be a simple type or a JSON/YAML string for complex values
          "path": ""&lt;file path>"
        }
     ]
+  }
   </pre>
   
   One of following data fields are possible:
@@ -300,7 +302,7 @@ The value can be a simple type or a JSON/YAML string for complex values
 
   
 
-- <code>ocm.software/compositionmode</code> [<code>compositionmode</code>]: *bool* (default: false
+- <code>ocm.software/compositionmode</code> [<code>compositionmode</code>]: *bool* (default: false)
 
   Composition mode decouples a component version provided by a repository
   implementation from the backend persistence. Added local blobs will

@@ -149,14 +149,15 @@ OCM library:
   
   <pre>
   {
-    "rootCertificates"": [
+    "rootCertificates": [
        {
          "data": ""&lt;base64>"
        },
        {
          "path": ""&lt;file path>"
        }
-    ],
+    ]
+  }
   </pre>
   
   One of following data fields are possible:
@@ -171,7 +172,7 @@ OCM library:
   
   <pre>
   {
-    "publicKeys"": [
+    "publicKeys": [
        "&lt;provider>": {
          "data": ""&lt;base64>"
        }
@@ -181,6 +182,7 @@ OCM library:
          "path": ""&lt;file path>"
        }
     ]
+  }
   </pre>
   
   One of following data fields are possible:
@@ -198,7 +200,7 @@ OCM library:
 
   
 
-- <code>ocm.software/compositionmode</code> [<code>compositionmode</code>]: *bool* (default: false
+- <code>ocm.software/compositionmode</code> [<code>compositionmode</code>]: *bool* (default: false)
 
   Composition mode decouples a component version provided by a repository
   implementation from the backend persistence. Added local blobs will
