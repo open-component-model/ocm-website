@@ -2,7 +2,6 @@
 title: routingslips
 name: add routingslips
 url: /docs/cli-reference/add/routingslips/
-date: 2024-04-17T18:02:57+02:00
 draft: false
 images: []
 toc: true
@@ -122,5 +121,5 @@ $ ocm add routingslip ghcr.io/mandelsoft/ocm//ocmdemoinstaller:0.0.1-dev mandels
 
 ### See Also
 
-* [ocm add](/docs/cli-reference/add)	 &mdash; Add elements to a component repository or component version
+* [ocm add](/docs/cli-reference/add/)	 &mdash; Add elements to a component repository or component version
 
