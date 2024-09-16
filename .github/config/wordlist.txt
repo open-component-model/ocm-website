@@ -70,6 +70,7 @@ digesters
 directorytree
 dirtree
 dns
+docker's
 dockerconfig
 downloadconstraint
 downloader
@@ -148,6 +149,7 @@ kubebuilder
 kubeconfig
 kubernetes
 labelmergespecification
+lastmod
 lifecycle
 linter
 linters
@@ -181,6 +183,7 @@ newcomponentversionaccess
 newrepository
 newrepositoryspec
 npm
+npm's
 npmjs
 npmrc
 npmregistry
@@ -257,6 +260,7 @@ templaters
 templating
 tgz
 tls
+toc
 todo
 toi
 toiexecutor
