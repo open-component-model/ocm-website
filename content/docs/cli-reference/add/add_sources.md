@@ -2,6 +2,7 @@
 title: sources
 name: add sources
 url: /docs/cli-reference/add/sources/
+date: 2024-04-17T18:02:57+02:00
 draft: false
 images: []
 toc: true
@@ -18,10 +19,9 @@ ocm add sources [<options>] [<target>] {<resourcefile> | <var>=<value>}
 
 ```
       --access YAML                         blob access specification (YAML)
+      --accessComponent string              component for access specification
       --accessHostname string               hostname used for access
-      --accessPackage string                package or object name
-      --accessRegistry string               registry base URL
-      --accessRepository string             repository URL
+      --accessRepository string             repository or registry URL
       --accessType string                   type of blob access specification
       --accessVersion string                version for access specification
       --addenv                              access environment for templating
@@ -40,7 +40,9 @@ ocm add sources [<options>] [<target>] {<resourcefile> | <var>=<value>}
       --header <name>:<value>,<value>,...   http headers (default {})
   -h, --help                                help for sources
       --hint string                         (repository) hint for local artifacts
+      --identityPath {<name>=<value>}       identity path for specification
       --input YAML                          blob input specification (YAML)
+      --inputComponent string               component name
       --inputCompress                       compress option for input
       --inputData !bytesBase64              data (string, !!string or !<base64>
       --inputExcludes stringArray           excludes (path) for inputs
@@ -53,6 +55,7 @@ ocm add sources [<options>] [<target>] {<resourcefile> | <var>=<value>}
       --inputPath filepath                  path field for input
       --inputPlatforms stringArray          input filter for image platforms ([os]/[architecture])
       --inputPreserveDir                    preserve directory in archive for inputs
+      --inputRepository string              repository or registry for inputs
       --inputText string                    utf8 text
       --inputType string                    type of blob input specification
       --inputValues YAML                    YAML based generic values for inputs
@@ -64,6 +67,7 @@ ocm add sources [<options>] [<target>] {<resourcefile> | <var>=<value>}
       --name string                         source name
       --noredirect                          http redirect behavior
   -O, --output string                       output file for dry-run
+      --package string                      package or object name
       --reference string                    reference name
       --region string                       region name
   -R, --replace                             replace existing elements
@@ -357,7 +361,7 @@ with the field <code>type</code> in the <code>input</code> field:
 
 - Input type <code>maven</code>
 
-  The <code>repoUrl<code> is the url pointing either to the http endpoint of a maven
+  The <code>repoUrl</code> is the url pointing either to the http endpoint of a maven
   repository (e.g. https://repo.maven.apache.org/maven2/) or to a file system based
   maven repository (e.g. file://local/directory).
   
@@ -388,6 +392,28 @@ with the field <code>type</code> in the <code>input</code> field:
     This OPTIONAL property describes the extension of a maven artifact.
   
   Options used to configure fields: <code>--artifactId</code>, <code>--classifier</code>, <code>--extension</code>, <code>--groupId</code>, <code>--inputPath</code>, <code>--inputVersion</code>, <code>--url</code>
+
+- Input type <code>npm</code>
+
+  The <code>registry</code> is the url pointing to the npm registry from which a resource is 
+  downloaded. 
+  
+  This blob type specification supports the following fields:
+  - **<code>registry</code>** *string*
+  
+    This REQUIRED property describes the url from which the resource is to be
+    downloaded.
+  
+  - **<code>package</code>** *string*
+  	
+    This REQUIRED property describes the name of the package to download.
+  
+  - **<code>version</code>** *string*
+  
+    This is an OPTIONAL property describing the version of the package to download. If
+    not defined, latest will be used automatically.
+  
+  Options used to configure fields: <code>--inputRepository</code>, <code>--inputVersion</code>, <code>--package</code>
 
 - Input type <code>ociArtifact</code>
 
@@ -420,6 +446,30 @@ with the field <code>type</code> in the <code>input</code> field:
   DEPRECATED: This type is deprecated, please use ociArtifact instead.
   
   Options used to configure fields: <code>--hint</code>, <code>--inputCompress</code>, <code>--inputPath</code>, <code>--inputPlatforms</code>, <code>--mediaType</code>
+
+- Input type <code>ocm</code>
+
+  This input type allows to get a resource artifact from an OCM repository.
+  
+  This blob type specification supports the following fields:
+  - **<code>ocmRepository</code>** *repository specification*
+  
+    This REQUIRED property describes the OCM repository specification
+  
+  - **<code>component</code>** *string*
+  
+    This REQUIRED property describes the component na,e
+  
+  - **<code>version</code>** *string*
+  
+    This REQUIRED property describes the version of a maven artifact.
+  
+  - **<code>resourceRef</code>** *relative resource reference*
+    
+    This REQUIRED property describes the  resource reference for the desired
+    resource relative to the given component version .
+  
+  Options used to configure fields: <code>--identityPath</code>, <code>--inputComponent</code>, <code>--inputRepository</code>, <code>--inputVersion</code>
 
 - Input type <code>spiff</code>
 
@@ -647,9 +697,9 @@ shown below.
       An optional keyring used to verify the chart.
     
     It uses the consumer identity type HelmChartRepository with the fields
-    for a hostpath identity matcher (see [ocm get credentials](/docs/cli-reference/get/credentials/)).
+    for a hostpath identity matcher (see [ocm get credentials](/docs/cli-reference/get/credentials)).
   
-  Options used to configure fields: <code>--accessPackage</code>, <code>--accessRepository</code>, <code>--accessVersion</code>
+  Options used to configure fields: <code>--accessRepository</code>, <code>--accessVersion</code>, <code>--package</code>
   
 - Access type <code>localBlob</code>
 
@@ -767,7 +817,7 @@ shown below.
     
       The version name of the NPM package
   
-  Options used to configure fields: <code>--accessPackage</code>, <code>--accessRegistry</code>, <code>--accessVersion</code>
+  Options used to configure fields: <code>--accessRepository</code>, <code>--accessVersion</code>, <code>--package</code>
   
 - Access type <code>ociArtifact</code>
 
@@ -812,6 +862,40 @@ shown below.
       The size of the blob
   
   Options used to configure fields: <code>--digest</code>, <code>--mediaType</code>, <code>--reference</code>, <code>--size</code>
+  
+- Access type <code>ocm</code>
+
+  This method implements the access of any resource artifact stored in an OCM
+  repository. Only repository types supporting remote access should be used.
+
+  The following versions are supported:
+  - Version <code>v1</code>
+  
+    The type specific specification fields are:
+    
+    - **<code>ocmRepository</code>** *json*
+    
+      The repository spec for the OCM repository
+    
+    - **<code>component</code>** *string*
+    
+      *(Optional)* The name of the component. The default is the
+      own component.
+    
+    - **<code>version</code>** *string*
+    
+      *(Optional)* The version of the component. The default is the
+      own component version.
+    
+    - **<code>resourceRef</code>** *relative resource ref*
+    
+      The resource reference of the denoted resource relative to the
+      given component version.
+    
+    It uses the consumer identity and credentials for the intermediate repositories
+    and the final resource access.
+  
+  Options used to configure fields: <code>--accessComponent</code>, <code>--accessRepository</code>, <code>--accessVersion</code>, <code>--identityPath</code>
   
 - Access type <code>s3</code>
 
@@ -971,5 +1055,5 @@ $ ocm add sources --file path/to/cafile sources.yaml
 
 ### See Also
 
-* [ocm add](/docs/cli-reference/add/)	 &mdash; Add elements to a component repository or component version
+* [ocm add](/docs/cli-reference/add)	 &mdash; Add elements to a component repository or component version
 

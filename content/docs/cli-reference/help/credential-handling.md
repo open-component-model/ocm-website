@@ -2,6 +2,7 @@
 title: credential-handling
 name: credential-handling
 url: /docs/cli-reference/help/credential-handling/
+date: 2024-04-17T18:02:57+02:00
 draft: false
 images: []
 toc: true
@@ -119,18 +120,13 @@ The following credential consumer types are used/supported:
       - <code>key</code>: secret key use to access the credential server
     
 
-  - <code>Github</code>: Redis PubSub credential matcher
+  - <code>Github</code>: GitHub credential matcher
     
-    This matcher is a hostpath matcher with additional attributes:
-    
-    - *<code>channel</code>* (required if set in pattern): the channel name 
-    - *<code>database</code>* the database number
-    
+    This matcher is a hostpath matcher.
     
     Credential consumers of the consumer type Github evaluate the following credential properties:
     
-      - <code>username</code>: Redis username
-      - <code>password</code>: Redis password
+      - <code>token</code>: GitHub personal access token
     
 
   - <code>HashiCorpVault</code>: HashiCorp Vault credential matcher
@@ -278,7 +274,7 @@ by the provider type).
 The type <code>Credentials</code> can be used to inline
 credentials in credential configuration objects
 to configure mappings of consumer identities to a credential
-set (see [ocm configfile](/docs/cli-reference/help/configfile/)).
+set (see [ocm configfile](/docs/cli-reference/configfile)).
 
 The following types are currently available:
 

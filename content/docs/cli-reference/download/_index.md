@@ -2,6 +2,7 @@
 title: download
 name: download
 url: /docs/cli-reference/download/
+date: 2024-04-17T18:02:57+02:00
 draft: false
 images: []
 toc: true
@@ -26,8 +27,8 @@ ocm download [<options>] <sub command> ...
 
 ##### Sub Commands
 
-* [ocm download <b>artifacts</b>](/docs/cli-reference/download/artifacts/)	 &mdash; download oci artifacts
-* [ocm download <b>cli</b>](/docs/cli-reference/download/cli/)	 &mdash; download OCM CLI from an OCM repository
-* [ocm download <b>componentversions</b>](/docs/cli-reference/download/componentversions/)	 &mdash; download ocm component versions
-* [ocm download <b>resources</b>](/docs/cli-reference/download/resources/)	 &mdash; download resources of a component version
+* [ocm download <b>artifacts</b>](/docs/cli-reference/download/artifacts)	 &mdash; download oci artifacts
+* [ocm download <b>cli</b>](/docs/cli-reference/download/cli)	 &mdash; download OCM CLI from an OCM repository
+* [ocm download <b>componentversions</b>](/docs/cli-reference/download/componentversions)	 &mdash; download ocm component versions
+* [ocm download <b>resources</b>](/docs/cli-reference/download/resources)	 &mdash; download resources of a component version
 

@@ -2,6 +2,7 @@
 title: componentarchive
 name: transfer componentarchive
 url: /docs/cli-reference/transfer/componentarchive/
+date: 2024-04-17T18:02:57+02:00
 draft: false
 images: []
 toc: true
@@ -93,5 +94,5 @@ with the <code>script</code> option family.
 
 ### See Also
 
-* [ocm transfer](/docs/cli-reference/transfer/)	 &mdash; Transfer artifacts or components
+* [ocm transfer](/docs/cli-reference/transfer)	 &mdash; Transfer artifacts or components
 

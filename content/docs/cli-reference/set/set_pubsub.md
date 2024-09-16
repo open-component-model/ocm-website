@@ -2,6 +2,7 @@
 title: pubsub
 name: set pubsub
 url: /docs/cli-reference/set/pubsub/
+date: 2024-04-17T18:02:57+02:00
 draft: false
 images: []
 toc: true
@@ -31,12 +32,12 @@ to set the pub/sub specification for a repository.
 If no specification is given an existing specification
 will be removed for the given repository.
 The specification
-can be queried with the [ocm get pubsub](/docs/cli-reference/get/pubsub/).
+can be queried with the [ocm get pubsub](/docs/cli-reference/get/pubsub).
 Types and specification formats are shown for the topic
-[ocm ocm-pubsub](/docs/cli-reference/help/ocm-pubsub/).
+[ocm ocm-pubsub](/docs/cli-reference/ocm-pubsub).
 
 
 ### See Also
 
-* [ocm set](/docs/cli-reference/set/)	 &mdash; Set information about OCM repositories
+* [ocm set](/docs/cli-reference/set)	 &mdash; Set information about OCM repositories
 

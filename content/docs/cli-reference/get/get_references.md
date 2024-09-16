@@ -2,6 +2,7 @@
 title: references
 name: get references
 url: /docs/cli-reference/get/references/
+date: 2024-04-17T18:02:57+02:00
 draft: false
 images: []
 toc: true
@@ -111,5 +112,5 @@ The following modes are supported:
 
 ### See Also
 
-* [ocm get](/docs/cli-reference/get/)	 &mdash; Get information about artifacts and components
+* [ocm get](/docs/cli-reference/get)	 &mdash; Get information about artifacts and components
 

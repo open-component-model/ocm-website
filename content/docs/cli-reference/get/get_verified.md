@@ -1,7 +1,7 @@
 ---
-title: plugins
-name: get plugins
-url: /docs/cli-reference/get/plugins/
+title: verified
+name: get verified
+url: /docs/cli-reference/get/verified/
 date: 2024-04-17T18:02:57+02:00
 draft: false
 images: []
@@ -12,22 +12,22 @@ sidebar:
 ### Usage
 
 ```
-ocm get plugins [<options>] {<plugin name>}
+ocm get verified [<options>] {<component / version}
 ```
 
 ### Options
 
 ```
-  -h, --help               help for plugins
+  -h, --help               help for verified
   -o, --output string      output mode (JSON, json, wide, yaml)
   -s, --sort stringArray   sort fields
+      --verified string    verified file (default "~/.ocm/verified")
 ```
 
 ### Description
 
 
-Get lists information for all plugins specified, if no plugin is specified
-all registered ones are listed.
+Get lists remembered verified component versions.
 
 
 With the option <code>--output</code> the output mode can be selected.
@@ -43,8 +43,8 @@ The following modes are supported:
 
 ```
 
-$ ocm get plugins
-$ ocm get plugins demo -o yaml
+$ ocm get verified
+$ ocm get verified -f verified.yaml acme.org/component -o yaml
 
 ```
 

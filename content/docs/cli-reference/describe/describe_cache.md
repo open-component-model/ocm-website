@@ -2,6 +2,7 @@
 title: cache
 name: describe cache
 url: /docs/cli-reference/describe/cache/
+date: 2024-04-17T18:02:57+02:00
 draft: false
 images: []
 toc: true
@@ -36,5 +37,5 @@ $ ocm cache info
 
 ### See Also
 
-* [ocm describe](/docs/cli-reference/describe/)	 &mdash; Describe various elements by using appropriate sub commands.
+* [ocm describe](/docs/cli-reference/describe)	 &mdash; Describe various elements by using appropriate sub commands.
 

@@ -2,6 +2,7 @@
 title: ocm-uploadhandlers
 name: ocm-uploadhandlers
 url: /docs/cli-reference/help/ocm-uploadhandlers/
+date: 2024-04-17T18:02:57+02:00
 draft: false
 images: []
 toc: true
@@ -37,13 +38,35 @@ New handlers can be provided by plugins. In general available handlers,
 plugin-based or as part of the CLI coding are nameable using an hierarchical
 namespace. Those names can be used by a <code>--uploader</code> option
 to register handlers for various conditions for CLI commands like
-[ocm transfer componentversions](/docs/cli-reference/transfer/componentversions/) or [ocm transfer commontransportarchive](/docs/cli-reference/transfer/commontransportarchive/).
+[ocm transfer componentversions](/docs/cli-reference/transfer/componentversions) or [ocm transfer commontransportarchive](/docs/cli-reference/transfer/commontransportarchive).
 
 Besides the activation constraints (resource type and media type of the
 resource blob), it is possible to pass a target configuration controlling the
 exact behaviour of the handler for selected artifacts.
 
 The following handler names are possible:
+  - <code>ocm/npmPackage</code>: uploading npm artifacts
+    
+    The <code>ocm/npmPackage</code> uploader is able to upload npm artifacts
+    as artifact archive according to the npm package spec.
+    If registered the default mime type is: application/x-tgz
+    
+    It accepts a plain string for the URL or a config with the following field:
+    'url': the URL of the npm repository.
+
+  - <code>ocm/mavenPackage</code>: uploading maven artifacts
+    
+    The <code>ocm/mavenPackage</code> uploader is able to upload maven artifacts (whole GAV only!)
+    as artifact archive according to the maven artifact spec.
+    If registered the default mime type is: application/x-tgz
+    
+    It accepts a plain string for the URL or a config with the following field:
+    'url': the URL of the maven repository.
+
+  - <code>plugin</code>: [downloaders provided by plugins]
+    
+    sub namespace of the form <code>&lt;plugin name>/&lt;handler></code>
+
   - <code>ocm/ociArtifacts</code>: downloading OCI artifacts
     
     The <code>ociArtifacts</code> downloader is able to download OCI artifacts
@@ -68,31 +91,9 @@ The following handler names are possible:
     Alternatively, a single string value can be given representing an OCI repository
     reference.
 
-  - <code>ocm/mavenPackage</code>: uploading maven artifacts
-    
-    The <code>ocm/mavenPackage</code> uploader is able to upload maven artifacts (whole GAV only!)
-    as artifact archive according to the maven artifact spec.
-    If registered the default mime type is: application/x-tgz
-    
-    It accepts a plain string for the URL or a config with the following field:
-    'url': the URL of the maven repository.
-
-  - <code>plugin</code>: [downloaders provided by plugins]
-    
-    sub namespace of the form <code>&lt;plugin name>/&lt;handler></code>
-
-  - <code>ocm/npmPackage</code>: uploading npm artifacts
-    
-    The <code>ocm/npmPackage</code> uploader is able to upload npm artifacts
-    as artifact archive according to the npm package spec.
-    If registered the default mime type is: application/x-tgz
-    
-    It accepts a plain string for the URL or a config with the following field:
-    'url': the URL of the npm repository.
 
 
-
-See [ocm ocm-uploadhandlers](/docs/cli-reference/help/ocm-uploadhandlers/) for further details on using
+See [ocm ocm-uploadhandlers](/docs/cli-reference/ocm-uploadhandlers) for further details on using
 upload handlers.
 
 
