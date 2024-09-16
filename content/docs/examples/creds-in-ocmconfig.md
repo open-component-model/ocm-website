@@ -48,7 +48,8 @@ configurations:
           dockerConfigFile: "~/.docker/config.json"
 ```
 
-### Re-use credentials configured for npm
+### Reuse Credentials Configured for npm
+
 
 This `.ocmconfig` file will tell OCM CLI to use credentials configuration from npm's `.npmrc` file.
 
