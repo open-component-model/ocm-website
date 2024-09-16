@@ -62,7 +62,8 @@ configurations:
           npmrcFile: '~/.npmrc'
 ```
 
-### Accessing OCI registries
+### Accessing OCI Registries
+
 
 #### HTTPS and path
 
