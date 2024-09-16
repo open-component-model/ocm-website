@@ -174,7 +174,8 @@ configurations:
               email: foo.bar@acme.org
 ```
 
-### Accessing GitHub repositories
+### Accessing GitHub Repositories
+
 
 To access code in `https://my.github.enterprise/my-org/my-repo`:
 * Use `Github` as identity type
