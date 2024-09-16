@@ -131,7 +131,8 @@ configurations:
               password: some-token
 ```
 
-### Accessing Maven repositories
+### Accessing Maven Repositories
+
 
 Similar to OCI registries, but use `MavenRepository` as identity type.
 
