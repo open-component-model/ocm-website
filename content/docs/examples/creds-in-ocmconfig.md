@@ -92,7 +92,8 @@ configurations:
               password: some-token
 ```
 
-#### HTTP, port number, empty path
+#### HTTP, Port Number, Empty Path
+
 
 To access artifacts in `http://127.0.0.1:5001`:
 * Note the quotes around the `port` number
