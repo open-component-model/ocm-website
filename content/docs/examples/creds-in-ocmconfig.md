@@ -199,7 +199,8 @@ configurations:
               token: ghp_my_personal_access_token
 ```
 
-### Accessing several systems
+### Accessing Several Systems
+
 
 It is, of course, possible to configure credentials for several systems in the same `.ocmconfig` file. To do that, you can combine as many repositories and consumers as you need.
 
