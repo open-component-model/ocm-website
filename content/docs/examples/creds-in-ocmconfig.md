@@ -66,7 +66,8 @@ configurations:
 ### Accessing OCI Registries
 
 
-#### HTTPS and path
+#### HTTPS and Path
+
 
 To access artifacts in `https://ghcr.io/open-component-model`:
 * The different parts of the URL have to be specified in separate fields: `scheme`, `hostname` and `pathprefix`
