@@ -98,7 +98,8 @@ configurations:
 To access artifacts in `http://127.0.0.1:5001`:
 * Note the quotes around the `port` number
 * The fields `scheme` and  `port` are optional. If not specified, the OCM CLI will use the credentials for all schemes and ports on that host
-* As the URL has no path behind the port number, `pathprefix` element can be removed
+* As the URL has no path behind the port number, the `pathprefix` element can be removed
+
 
 ```yaml
 type: generic.config.ocm.software/v1
