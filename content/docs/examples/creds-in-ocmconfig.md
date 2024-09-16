@@ -16,7 +16,6 @@ The [OCM command line client](https://github.com/open-component-model/ocm/blob/m
 
 The configuration file can be used in particular to specify the credentials, which are required for the CLI to be able to access the artifact repositories referenced in CLI commands.
 
-
 ## Examples
 
 This page contains basic examples of credentials configuration for a few most common artifact repository types. The examples below are complete `.ocmconfig` files, not snippets.
@@ -29,12 +28,9 @@ In the examples below, some configuration is located under `configurations[0]`.`
 
 In this context, `repository` is a place where credentials can be stored, i.e., it is a credentials repository. For example, Docker's `config.json` can store multiple credentials, and in that sense the file serves as a repository that can store and provide credentials. That is why its location is configured under `repositories`. Other examples of credentials repositories can be the NPM's `.npmrc` file or a HashiCorp Vault instance.
 
-
 A `consumer` is something the credentials are required for. For example, if you need to configure credentials that are required to log in to an OCI registry, one could say that the registry will be consuming these credentials, i.e., the registry is a credentials consumer. That is why it is configured under `consumers`.
 
-
 ### Reuse Credentials Configured for Docker
-
 
 This `.ocmconfig` file will tell the OCM CLI to use credentials configuration from Docker's `config.json` file.
 
@@ -50,7 +46,6 @@ configurations:
 
 ### Reuse Credentials Configured for npm
 
-
 This `.ocmconfig` file will tell OCM CLI to use credentials configuration from npm's `.npmrc` file.
 
 ```yaml
@@ -65,15 +60,12 @@ configurations:
 
 ### Accessing OCI Registries
 
-
 #### HTTPS and Path
-
 
 To access artifacts in `https://ghcr.io/open-component-model`:
 * The different parts of the URL have to be specified in separate fields: `scheme`, `hostname`, and `pathprefix`
 * The fields `scheme` and `pathprefix` are optional. If not specified, the OCM CLI will use the credentials for all schemes and paths on that host
 * The `password` is the user's basic authentication password. Some OCI registries allow to generate user access tokens, which can also be used for basic authentication
-
 
 ```yaml
 type: generic.config.ocm.software/v1
@@ -94,12 +86,10 @@ configurations:
 
 #### HTTP, Port Number, Empty Path
 
-
 To access artifacts in `http://127.0.0.1:5001`:
 * Note the quotes around the `port` number
 * The fields `scheme` and  `port` are optional. If not specified, the OCM CLI will use the credentials for all schemes and ports on that host
 * As the URL has no path behind the port number, the `pathprefix` element can be removed
-
 
 ```yaml
 type: generic.config.ocm.software/v1
@@ -119,7 +109,6 @@ configurations:
 ```
 
 ### Accessing Helm Chart Repositories
-
 
 Similar to OCI registries, but use `HelmChartRepository` as identity type.
 
@@ -141,7 +130,6 @@ configurations:
 
 ### Accessing Maven Repositories
 
-
 Similar to OCI registries, but use `MavenRepository` as identity type.
 
 ```yaml
@@ -161,7 +149,6 @@ configurations:
 ```
 
 ### Accessing npm Registries
-
 
 Similar to OCI registries, but use `NpmRegistry` as identity type. In addition, it is required to specify the `email` address matching with the one in the user record in the npm registry.
 
@@ -183,7 +170,6 @@ configurations:
 ```
 
 ### Accessing GitHub Repositories
-
 
 To access code in `https://my.github.enterprise/my-org/my-repo`:
 * Use `Github` as identity type
@@ -207,7 +193,6 @@ configurations:
 ```
 
 ### Accessing Several Systems
-
 
 It is, of course, possible to configure credentials for several systems in the same `.ocmconfig` file. To do that, you can combine as many repositories and consumers as you need.
 
