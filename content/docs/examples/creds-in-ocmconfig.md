@@ -70,9 +70,10 @@ configurations:
 
 
 To access artifacts in `https://ghcr.io/open-component-model`:
-* The different parts of the URL have to be specified in separate fields: `scheme`, `hostname` and `pathprefix`
+* The different parts of the URL have to be specified in separate fields: `scheme`, `hostname`, and `pathprefix`
 * The fields `scheme` and `pathprefix` are optional. If not specified, the OCM CLI will use the credentials for all schemes and paths on that host
-* The `password` is the user's basic authentication password. Some OCI registries allow to generate user access tokens, which can also be used for basic authentication.
+* The `password` is the user's basic authentication password. Some OCI registries allow to generate user access tokens, which can also be used for basic authentication
+
 
 ```yaml
 type: generic.config.ocm.software/v1
