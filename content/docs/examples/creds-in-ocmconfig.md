@@ -152,7 +152,8 @@ configurations:
               password: some-password
 ```
 
-### Accessing npm registries
+### Accessing npm Registries
+
 
 Similar to OCI registries, but use `NpmRegistry` as identity type. In addition, it is required to specify the `email` address matching with the one in the user record in the npm registry.
 
