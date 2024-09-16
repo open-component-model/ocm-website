@@ -37,4 +37,5 @@ ocm get [<options>] <sub command> ...
 * [ocm get <b>resources</b>](/docs/cli-reference/get/resources)	 &mdash; get resources of a component version
 * [ocm get <b>routingslips</b>](/docs/cli-reference/get/routingslips)	 &mdash; get routings slips for a component version
 * [ocm get <b>sources</b>](/docs/cli-reference/get/sources)	 &mdash; get sources of a component version
+* [ocm get <b>verified</b>](/docs/cli-reference/get/verified)	 &mdash; get verified component versions
 

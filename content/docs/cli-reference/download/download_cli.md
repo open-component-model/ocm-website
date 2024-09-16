@@ -23,6 +23,9 @@ ocm download cli [<options>]  [<component> {<name> { <key>=<value> }}]
   -O, --outfile string            output file or directory
   -p, --path                      lookup executable in PATH
       --repo string               repository name or spec
+      --use-verified              enable verification store
+      --verified string           file used to remember verifications for downloads (default "~/.ocm/verified")
+      --verify                    verify downloads
 ```
 
 ### Description
@@ -92,6 +95,15 @@ The library supports some downloads with semantics based on resource types. For 
 can be download directly as helm chart archive, even if stored as OCI artifact.
 This is handled by download handler. Their usage can be enabled with the <code>--download-handlers</code>
 option. Otherwise the resource as returned by the access method is stored.
+
+
+If the verification store is enabled, resources downloaded from
+signed or verified component versions are verified against their digests
+provided by the component version.(not supported for using downloaders for the
+resource download).
+
+The usage of the verification store is enabled by <code>--use-verified</code> or by
+specifying a verification file with <code>--verified</code>.
 
 
 ### See Also
