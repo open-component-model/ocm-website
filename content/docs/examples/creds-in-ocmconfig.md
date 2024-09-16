@@ -24,7 +24,7 @@ For comprehensive documentation on the credentials topic, including usage of cer
 
 ### Repositories and Consumers
 
-In the examples below some configuration is located under `configurations[0]`.`repositories`, and some other under `configurations[0]`.`consumers`. This chapter explains the difference between `repositories` and `consumers`, which is potentially not as obvious as one could think.
+In the examples below, some configuration is located under `configurations[0]`.`repositories`, and some other under `configurations[0]`.`consumers`. This chapter explains the difference between `repositories` and `consumers`, which is potentially not as obvious as one could think.
 
 
 In this context, `repository` is a place, where credentials can be stored, i.e. it is a credentials repository. For example, Docker's `config.json` can store multiple credentials, and in that sense the file serves as a repository that can store and provide credentials. That is why its location is configured under `repositories`. Other examples of credentials repositories can be the NPM's `.npmrc` file or a HashiCorp Vault instance.
