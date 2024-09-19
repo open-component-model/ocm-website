@@ -16,7 +16,7 @@ In this guide, we will show you how the tools provided by OCM make it possible t
 
 Air-gapped can mean different things depending on the context. For this guide, we'll assume it means your deployment artifacts are stored in a private registry protected by the security controls at your organization. Your applications only have access to this private registry and little to no public internet access.
 
-We'll take the same `podinfo` component that we deployed in the [Deploy Applications with OCM & GitOps](https://ocm.software/docs/tutorials/ocm-and-gitops/deploying-applications-with-ocm-gitops/) guide but this time we will use the OCM CLI to transfer the component to our own registry. The application will then be deployed from this "private" registry. This, of course, mimics a real-world air-gap scenario. In practice, there could be many layers of security between the two registries; however, the mechanics are ultimately the same.
+We'll take the same `podinfo` component that we deployed in the [Deploy Applications with OCM & GitOps](/docs/tutorials/ocm-and-gitops/deploying-applications-with-ocm-gitops/) guide but this time we will use the OCM CLI to transfer the component to our own registry. The application will then be deployed from this "private" registry. This, of course, mimics a real-world air-gap scenario. In practice, there could be many layers of security between the two registries; however, the mechanics are ultimately the same.
 
 ## Table of Contents
 
@@ -122,7 +122,7 @@ We can see that the image reference now points to an image stored in our air-gap
 
 Now that our component has been successfully transferred, let's deploy it using GitOps.
 
-We assume you have completed the [Deploy Applications with OCM & GitOps](https://ocm.software/docs/tutorials/ocm-and-gitops/deploying-applications-with-ocm-gitops/) guide and will use that repository as the starting point for our air-gapped deployment.
+We assume you have completed the [Deploy Applications with OCM & GitOps](/docs/tutorials/ocm-and-gitops/deploying-applications-with-ocm-gitops/) guide and will use that repository as the starting point for our air-gapped deployment.
 
 Because our air-gapped OCM repository is private, we need to provide credentials. This will enable the `ocm-controller` to retrieve components from the repository.
 
@@ -259,7 +259,7 @@ LAST SEEN   TYPE      REASON      OBJECT                         MESSAGE
 5m44s       Warning   Failed      pod/podinfo-7b7d874bf8-xv75x   Error: ImagePullBackOff
 ```
 
-Check out our [GitOps Driven Configuration of OCM Applications](https://ocm.software/docs/tutorials/ocm-and-gitops/gitops-driven-configuration-of-ocm-applications) guide to see how we can use the `ocm-controller` to configure our application at runtime and solve exactly this kind of problem!
+Check out our [GitOps Driven Configuration of OCM Applications](/docs/tutorials/ocm-and-gitops/gitops-driven-configuration-of-ocm-applications) guide to see how we can use the `ocm-controller` to configure our application at runtime and solve exactly this kind of problem!
 
 ### Conclusion
 

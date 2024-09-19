@@ -1,0 +1,39 @@
+name: Markdown
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - '**/*.md'
+
+jobs:
+  markdown-lint: # call reusable workflow from central '.github' repo
+    uses: open-component-model/.github/.github/workflows/markdown.yml@main
+    secrets: inherit
+    with:
+      md-lint: .github/config/markdownlint.yml
+      md-ignore: .github/config/markdownignore
+      spellcheck: .github/config/spellcheck.yml
+  verify-links:
+    name: Verify HTML links
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          cache: 'npm'
+          node-version: 20
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: 'latest'
+      - name: Install Dependencies
+        run: npm install
+      - name: Build Site
+        run: npm run build
+      - name: Verify HTML links
+        uses: untitaker/hyperlink@0.1.32
+        with:
+          args: public/ --sources content/

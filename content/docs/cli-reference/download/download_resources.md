@@ -2,7 +2,6 @@
 title: resources
 name: download resources
 url: /docs/cli-reference/download/resources/
-date: 2024-04-17T18:02:57+02:00
 draft: false
 images: []
 toc: true
@@ -18,6 +17,7 @@ ocm download resources [<options>]  <component> {<name> { <key>=<value> }}
 ### Options
 
 ```
+      --check-verified              enable verification store
   -c, --constraints constraints     version constraint
   -d, --download-handlers           use download handler if possible
       --downloader <name>=<value>   artifact downloader (<name>[:<artifact type>[:<media type>]]=<JSON target config) (default [])
@@ -29,6 +29,8 @@ ocm download resources [<options>]  <component> {<name> { <key>=<value> }}
   -r, --recursive                   follow component reference nesting
       --repo string                 repository name or spec
   -t, --type stringArray            resource type filter
+      --verified string             file used to remember verifications for downloads (default "~/.ocm/verified")
+      --verify                      verify downloads
 ```
 
 ### Description
@@ -203,7 +205,7 @@ The downloader name may be a path expression with the following possibilities:
 
 
 
-See [ocm ocm-downloadhandlers](/docs/cli-reference/ocm-downloadhandlers) for further details on using
+See [ocm ocm-downloadhandlers](/docs/cli-reference/help/ocm-downloadhandlers/) for further details on using
 download handlers.
 
 
@@ -227,7 +229,16 @@ this option must always be specified to be able to follow component
 references.
 
 
+If the verification store is enabled, resources downloaded from
+signed or verified component versions are verified against their digests
+provided by the component version.(not supported for using downloaders for the
+resource download).
+
+The usage of the verification store is enabled by <code>--check-verified</code> or by
+specifying a verification file with <code>--verified</code>.
+
+
 ### See Also
 
-* [ocm download](/docs/cli-reference/download)	 &mdash; Download oci artifacts, resources or complete components
+* [ocm download](/docs/cli-reference/download/)	 &mdash; Download oci artifacts, resources or complete components
 

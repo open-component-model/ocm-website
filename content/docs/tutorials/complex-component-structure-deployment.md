@@ -46,7 +46,7 @@ references, you could collect all artifacts belonging to this product version.
 
 ## Prerequisites
 
-We assume that you have already read the guides in the [Getting Started](https://ocm.software/docs/getting-started/getting-started-with-ocm/prerequisites/) section, as this guide discusses a more
+We assume that you have already read the guides in the [Getting Started](/docs/getting-started/getting-started-with-ocm/prerequisites/) section, as this guide discusses a more
 complex scenario using plain Localizations and Configurations without the use of [Unpacker](https://github.com/open-component-model/unpacker-controller).
 
 ## Constructing the Component
@@ -275,7 +275,7 @@ tree .
 2 directories, 19 files
 ```
 
-These blobs contain the resources we described when modelling our podinfo application. If we `cat `a random blob we get
+These blobs contain the resources we described when modelling our podinfo application. If we `cat` a random blob we get
 something like this:
 
 ```sh
@@ -990,7 +990,7 @@ The **helm-controller** and **notification-controller** aren't relevant.
 
 The `ComponentVersion` object contains information about what components have been reconciled. We talked about that
 earlier at [Component Version](#componentversion). The `Status` section contains any errors that could have
-occurred when reconciling information. 
+occurred when reconciling information.
 
 **ComponentDescriptor**:
 
@@ -1093,7 +1093,6 @@ kubectl port-forward service/registry -n ocm-system 5000:5000
 ```
 
 Then, verify that the connection is working by running a `catalog` command:
-
 
 ```sh
 crane catalog http://127.0.0.1:5000

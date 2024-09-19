@@ -2,7 +2,6 @@
 title: componentversions
 name: sign componentversions
 url: /docs/cli-reference/sign/componentversions/
-date: 2024-04-17T18:02:57+02:00
 draft: false
 images: []
 toc: true
@@ -18,12 +17,13 @@ ocm sign componentversions [<options>] {<component-reference>}
 ### Options
 
 ```
+      --                          enable verification store
   -S, --algorithm string          signature handler (default "RSASSA-PKCS1-V1_5")
       --ca-cert stringArray       additional root certificate authorities (for signing certificates)
   -c, --constraints constraints   version constraint
   -H, --hash string               hash algorithm (default "SHA-256")
   -h, --help                      help for componentversions
-  -I, --issuer stringArray        issuer name or distinguished name (DN) (optionally for dedicated signature) ([<name>:=]<dn>
+  -I, --issuer stringArray        issuer name or distinguished name (DN) (optionally for dedicated signature) ([<name>:=]<dn>)
       --keyless                   use keyless signing
       --latest                    restrict component versions to latest
       --lookup stringArray        repository name or spec for closure lookup fallback
@@ -36,6 +36,7 @@ ocm sign componentversions [<options>] {<component-reference>}
       --tsa                       use timestamp authority (default server: http://timestamp.digicert.com)
       --tsa-url string            TSA server URL
       --update                    update digest in component versions (default true)
+      --verified string           file used to remember verifications for downloads (default "~/.ocm/verified")
   -V, --verify                    verify existing digests (default true)
 ```
 
@@ -105,6 +106,14 @@ Alternatively a key can be specified as base64 encoded string if the argument
 start with the prefix <code>!</code> or as direct string with the prefix
 <code>=</code>.
 
+If the verification store is enabled, resources downloaded from
+signed or verified component versions are verified against their digests
+provided by the component version.(not supported for using downloaders for the
+resource download).
+
+The usage of the verification store is enabled by <code>--</code> or by
+specifying a verification file with <code>--verified</code>.
+
 If in signing mode a public key is specified, existing signatures for the
 given signature name will be verified, instead of recreated.
 
@@ -146,5 +155,5 @@ $ ocm sign componentversion --signature mandelsoft --private-key=mandelsoft.key 
 
 ### See Also
 
-* [ocm sign](/docs/cli-reference/sign)	 &mdash; Sign components or hashes
+* [ocm sign](/docs/cli-reference/sign/)	 &mdash; Sign components or hashes
 

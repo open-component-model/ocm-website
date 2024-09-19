@@ -50,23 +50,23 @@ in a component descriptor.
 
 The following input types are supported:
 
-* binary
-* dir
-* docker
-* dockermulti
-* file
-* helm
-* ociImage
-* spiff
-* utf-8
+- binary
+- dir
+- docker
+- dockermulti
+- file
+- helm
+- ociImage
+- spiff
+- utf-8
 
 The following list of access types is supported:
 
-* gitHub
-* localBlob
-* ociArtifact
-* ociBlob
-* s3
+- gitHub
+- localBlob
+- ociArtifact
+- ociBlob
+- s3
 
 Not all access and input types can be combined in useful ways with all artifact types. But the OCM specification does not define any restrictions on possible combinations.
 
