@@ -65,4 +65,5 @@ configurations:
               password: <YOUR-PASSWORD>
 ```
 
-More information on the topic can be seen by running the OCM CLI help topic command `ocm credential-handling`.
+More information on the credentials topic can be seen by running the OCM CLI help topic command `ocm credential-handling`
+and [in this guide](https://ocm.software/docs/examples/credentials-in-an-ocmconfig-file/) with many examples for different repository types.
