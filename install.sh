@@ -162,11 +162,11 @@ vercomp () {
 
 # Download hash from Github URL
 download_hash() {
-    HASH_URL="https://github.com/${GITHUB_REPO}/releases/download/v${VERSION_OCM}/ocm_${VERSION_OCM}_checksums.txt"
+    HASH_URL="https://github.com/${GITHUB_REPO}/releases/download/v${VERSION_OCM}/ocm-${VERSION_OCM}-${OS}-${ARCH}.tar.gz.sha256"
     info "Downloading hash ${HASH_URL}"
     download "${TMP_HASH}" "${HASH_URL}"
     info "ocm-${OS}-${ARCH}.tar.gz"
-    HASH_EXPECTED=$(grep " ocm-${VERSION_OCM}-${OS}-${ARCH}.tar.gz$" "${TMP_HASH}")
+    HASH_EXPECTED=$(cat "${TMP_HASH}")
     HASH_EXPECTED=${HASH_EXPECTED%%[[:blank:]]*}
 }
 
