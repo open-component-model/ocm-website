@@ -162,12 +162,22 @@ vercomp () {
 
 # Download hash from Github URL
 download_hash() {
-    HASH_URL="https://github.com/${GITHUB_REPO}/releases/download/v${VERSION_OCM}/ocm-${VERSION_OCM}-${OS}-${ARCH}.tar.gz.sha256"
-    info "Downloading hash ${HASH_URL}"
-    download "${TMP_HASH}" "${HASH_URL}"
-    info "ocm-${OS}-${ARCH}.tar.gz"
-    HASH_EXPECTED=$(cat "${TMP_HASH}")
-    HASH_EXPECTED=${HASH_EXPECTED%%[[:blank:]]*}
+    # check for versions < 0.15.0
+    if [ "$(printf '%s\n' "0.15.0" "$VERSION_OCM" | sort -V | head -n1)" = "$VERSION_OCM" ] && [ "$VERSION_OCM" != "0.15.0" ]; then
+        HASH_URL="https://github.com/${GITHUB_REPO}/releases/download/v${VERSION_OCM}/ocm_${VERSION_OCM}_checksums.txt"
+        info "Downloading hash ${HASH_URL}"
+        download "${TMP_HASH}" "${HASH_URL}"
+        info "ocm-${OS}-${ARCH}.tar.gz"
+        HASH_EXPECTED=$(grep " ocm-${VERSION_OCM}-${OS}-${ARCH}.tar.gz$" "${TMP_HASH}")
+        HASH_EXPECTED=${HASH_EXPECTED%%[[:blank:]]*}
+    else
+        HASH_URL="https://github.com/${GITHUB_REPO}/releases/download/v${VERSION_OCM}/ocm-${VERSION_OCM}-${OS}-${ARCH}.tar.gz.sha256"
+        info "Downloading hash ${HASH_URL}"
+        download "${TMP_HASH}" "${HASH_URL}"
+        info "ocm-${OS}-${ARCH}.tar.gz"
+        HASH_EXPECTED=$(cat "${TMP_HASH}")
+        HASH_EXPECTED=${HASH_EXPECTED%%[[:blank:]]*}
+    fi
 }
 
 # Download binary from Github URL
