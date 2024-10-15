@@ -10,7 +10,7 @@ weight: 21
 toc: true
 ---
 
-## Overview 
+## Overview
 
 You can install the latest release of the OCM CLI from any of the following sources (more details below):
 
@@ -78,7 +78,7 @@ makepkg -i
 podman run -t ghcr.io/open-component-model/ocm:latest --help
 ```
 
-## Build and Run It Yourself
+### Build and Run It Yourself
 
 ```sh
 podman build -t ocm .
