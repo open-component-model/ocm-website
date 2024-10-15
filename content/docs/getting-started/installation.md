@@ -36,7 +36,7 @@ curl -s https://ocm.software/install.sh | sudo bash
 brew install open-component-model/tap/ocm
 ```
 
-### Install using Nix (with [Flakes](https://nixos.wiki/wiki/Flakes))
+## Install using Nix (with Flakes)
 
 ```sh
 # Nix (macOS, Linux, and Windows)
@@ -55,6 +55,8 @@ nix profile list | grep ocm
 # optionally, open a new shell and verify that cmd completion works
 ocm --help
 ```
+
+see: [Flakes](https://nixos.wiki/wiki/Flakes)
 
 ## Install from AUR (Arch Linux User Repository)
 
