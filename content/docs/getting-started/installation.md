@@ -103,6 +103,24 @@ Please check [hub.docker.com](https://hub.docker.com/_/golang/tags?page=1&name=a
 podman build -t ocm --build-arg GO_VERSION=1.22 --build-arg ALPINE_VERSION=3.19 --build-arg GO_PROXY=https://proxy.golang.org .
 ```
 
+## on MS Windows
+
+### using Chocolatey
+
+```powershell
+choco install ocm-cli
+```
+
+see: [chocolatey community package: ocm-cli](https://community.chocolatey.org/packages/ocm-cli)
+
+### using winget
+
+```powershell
+winget install ocm-cli
+```
+
+see: [microsoft/winget-pkgs: Open-Component-Model](https://github.com/microsoft/winget-pkgs/tree/master/manifests/o/Open-Component-Model)
+
 ## Building from Source
 
 ### Prerequisites
