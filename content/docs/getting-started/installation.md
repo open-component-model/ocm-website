@@ -2,15 +2,13 @@
 title: "Installing the OCM CLI"
 description: ""
 lead: ""
-date: 2022-08-12T10:37:58+01:00
-lastmod: 2022-08-12T10:37:58+01:00
 draft: false
 images: []
 weight: 21
 toc: true
 ---
 
-## Overview 
+## Overview
 
 You can install the latest release of the OCM CLI from any of the following sources (more details below):
 
@@ -36,7 +34,7 @@ curl -s https://ocm.software/install.sh | sudo bash
 brew install open-component-model/tap/ocm
 ```
 
-### Install using Nix (with [Flakes](https://nixos.wiki/wiki/Flakes))
+## Install using Nix (with Flakes)
 
 ```sh
 # Nix (macOS, Linux, and Windows)
@@ -55,6 +53,8 @@ nix profile list | grep ocm
 # optionally, open a new shell and verify that cmd completion works
 ocm --help
 ```
+
+see: [Flakes](https://nixos.wiki/wiki/Flakes)
 
 ## Install from AUR (Arch Linux User Repository)
 
@@ -76,7 +76,7 @@ makepkg -i
 podman run -t ghcr.io/open-component-model/ocm:latest --help
 ```
 
-## Build and Run It Yourself
+### Build and Run It Yourself
 
 ```sh
 podman build -t ocm .
@@ -100,6 +100,24 @@ Please check [hub.docker.com](https://hub.docker.com/_/golang/tags?page=1&name=a
 ```sh
 podman build -t ocm --build-arg GO_VERSION=1.22 --build-arg ALPINE_VERSION=3.19 --build-arg GO_PROXY=https://proxy.golang.org .
 ```
+
+## on MS Windows
+
+### using Chocolatey
+
+```powershell
+choco install ocm-cli
+```
+
+see: [chocolatey community package: ocm-cli](https://community.chocolatey.org/packages/ocm-cli)
+
+### using winget
+
+```powershell
+winget install ocm-cli
+```
+
+see: [microsoft/winget-pkgs: Open-Component-Model](https://github.com/microsoft/winget-pkgs/tree/master/manifests/o/Open-Component-Model)
 
 ## Building from Source
 
