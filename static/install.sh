@@ -163,8 +163,7 @@ vercomp () {
 # Download hash from Github URL
 download_hash() {
     # check for versions < 0.15.0
-    vercomp "$VERSION_OCM" "0.15.0"
-    if [[ $? -eq 2 ]]; then
+    if vercomp "$VERSION_OCM" "0.15.0"; [[ $? -eq 2 ]]; then
         HASH_URL="https://github.com/${GITHUB_REPO}/releases/download/v${VERSION_OCM}/ocm_${VERSION_OCM}_checksums.txt"
         info "Downloading hash ${HASH_URL}"
         download "${TMP_HASH}" "${HASH_URL}"
