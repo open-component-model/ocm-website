@@ -10,6 +10,7 @@ env:
 jobs:
   generate-cli-reference:
     name: Update content/docs/cli-reference
+    if: github.event.client_payload != ''
     runs-on: ubuntu-latest
     permissions:
       contents: 'write'
@@ -20,7 +21,6 @@ jobs:
       with:
         persist-credentials: false
     - name: Update Version Parameter
-      if: github.event.client_payload != ''
       run: |
         TAG=${{ github.event.client_payload.tag }}
         sed -i "s/latest_version = .*/latest_version = \"$TAG\"/" ./config/_default/params.toml
