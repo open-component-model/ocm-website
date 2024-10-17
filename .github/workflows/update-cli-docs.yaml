@@ -1,7 +1,6 @@
 name: Update OCM CLI Docs
 
 on:
-  workflow_dispatch:
   repository_dispatch:
     types: [ocm-cli-release]
 
