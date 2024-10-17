@@ -146,9 +146,9 @@ this option must always be specified to be able to follow component
 references.
 
 
-It the option <code>--copy-resources</code> is given, all referential 
+If the option <code>--copy-resources</code> is given, all referential 
 resources will potentially be localized, mapped to component version local
-resources in the target repository. It the option <code>--copy-local-resources</code> 
+resources in the target repository. If the option <code>--copy-local-resources</code> 
 is given, instead, only resources with the relation <code>local</code> will be
 transferred. This behaviour can be further influenced by specifying a transfer
 script with the <code>script</code> option family.
@@ -163,15 +163,6 @@ are configured for the operation. It has the following format
 </center>
 
 The uploader name may be a path expression with the following possibilities:
-  - <code>ocm/npmPackage</code>: uploading npm artifacts
-    
-    The <code>ocm/npmPackage</code> uploader is able to upload npm artifacts
-    as artifact archive according to the npm package spec.
-    If registered the default mime type is: application/x-tgz
-    
-    It accepts a plain string for the URL or a config with the following field:
-    'url': the URL of the npm repository.
-
   - <code>ocm/mavenPackage</code>: uploading maven artifacts
     
     The <code>ocm/mavenPackage</code> uploader is able to upload maven artifacts (whole GAV only!)
@@ -181,9 +172,14 @@ The uploader name may be a path expression with the following possibilities:
     It accepts a plain string for the URL or a config with the following field:
     'url': the URL of the maven repository.
 
-  - <code>plugin</code>: [downloaders provided by plugins]
+  - <code>ocm/npmPackage</code>: uploading npm artifacts
     
-    sub namespace of the form <code>&lt;plugin name>/&lt;handler></code>
+    The <code>ocm/npmPackage</code> uploader is able to upload npm artifacts
+    as artifact archive according to the npm package spec.
+    If registered the default mime type is: application/x-tgz
+    
+    It accepts a plain string for the URL or a config with the following field:
+    'url': the URL of the npm repository.
 
   - <code>ocm/ociArtifacts</code>: downloading OCI artifacts
     
@@ -208,6 +204,10 @@ The uploader name may be a path expression with the following possibilities:
     
     Alternatively, a single string value can be given representing an OCI repository
     reference.
+
+  - <code>plugin</code>: [downloaders provided by plugins]
+    
+    sub namespace of the form <code>&lt;plugin name>/&lt;handler></code>
 
 
 
