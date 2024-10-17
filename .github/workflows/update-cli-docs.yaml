@@ -43,5 +43,6 @@ jobs:
         branch: update-cli-docs/auto
         branch-suffix: timestamp
         delete-branch: true
+        sign-commits: true
         body: |
           Update OCM CLI documentation for new release
