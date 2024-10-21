@@ -30,17 +30,17 @@ repository will not be touched at all. An additional specification of the
 option <code>&ndash;overwrite</code> is ignored. By default, updates of
 volatile (non-signature-relevant) information is enabled, but the
 modification of non-volatile data is prohibited unless the overwrite
-option is given.</p><p>It the option <code>&ndash;overwrite</code> is given, component versions in the
+option is given.</p><p>If the option <code>&ndash;overwrite</code> is given, component versions in the
 target repository will be overwritten, if they already exist, but with different digest.
-It the option <code>&ndash;enforce</code> is given, component versions in the
+If the option <code>&ndash;enforce</code> is given, component versions in the
 target repository will be transported as if they were not present on the target side,
 regardless of their state (this is independent on their actual state, even identical
-versions are re-transported).</p><p>It the option <code>&ndash;copy-resources</code> is given, all referential
+versions are re-transported).</p><p>If the option <code>&ndash;copy-resources</code> is given, all referential
 resources will potentially be localized, mapped to component version local
-resources in the target repository. It the option <code>&ndash;copy-local-resources</code>
+resources in the target repository. If the option <code>&ndash;copy-local-resources</code>
 is given, instead, only resources with the relation <code>local</code> will be
 transferred. This behaviour can be further influenced by specifying a transfer
-script with the <code>script</code> option family.</p><p>It the option <code>&ndash;copy-sources</code> is given, all referential
+script with the <code>script</code> option family.</p><p>If the option <code>&ndash;copy-sources</code> is given, all referential
 sources will potentially be localized, mapped to component version local
 resources in the target repository.
 This behaviour can be further influenced by specifying a transfer script
