@@ -1,11 +1,6 @@
 ---
 title: "Input and Access Types"
-description: ""
-lead: ""
-date: 2023-04-05T08:24:35+02:00
-lastmod: 2023-04-05T08:24:35+02:00
 draft: false
-images: []
 weight: 68
 toc: true
 ---
@@ -30,9 +25,9 @@ toc: true
 
 ## Overview
 
-The Open Component Model spec supports multiple methods how to add resources to a component version. There are two different ways to add content: Input Type and Access Type
+The Open Component Model spec supports multiple methods how to add resources to a component version. There are two different ways to add content: Input Type and Access Type.
 
-An **Input type** adds content along with the component descriptor and stores it in the same target repository where the component is stored. After pushing the content to the target registry this always resolves to the attribute
+An **Input type** adds content *by value*, along with the component descriptor and stores it in the same target repository where the component is stored. After pushing the content to the target registry this always resolves to the attribute
 
 ```yaml
 relation: local
@@ -40,7 +35,7 @@ relation: local
 
 in a component descriptor.
 
-An **Access Type** just adds content as reference to an external location, e.g., an OCI registry. It is a kind of pointer in a component descriptor. It resolves to the attribute
+An **Access Type** just adds content *by reference* to an external location, e.g., an OCI registry. It is a kind of pointer in a component descriptor. It resolves to the attribute
 
 ```yaml
 relation: external
@@ -60,6 +55,12 @@ The following input types are supported:
 - spiff
 - utf-8
 
+Please use the latest ocm-cli to check available input types:
+
+```bash
+ocm add resources --help | grep ' - Input type' | sort -f
+```
+
 The following list of access types is supported:
 
 - gitHub
@@ -67,6 +68,12 @@ The following list of access types is supported:
 - ociArtifact
 - ociBlob
 - s3
+
+Please use the latest ocm-cli to check available access types:
+
+```bash
+ocm ocm-accessmethods | grep '  - Access type' | sort -f
+```
 
 Not all access and input types can be combined in useful ways with all artifact types. But the OCM specification does not define any restrictions on possible combinations.
 
