@@ -25,9 +25,9 @@ toc: true
 
 ## Overview
 
-The Open Component Model spec supports multiple methods how to add resources to a component version. There are two different ways to add content: Input Type and Access Type
+The Open Component Model spec supports multiple methods how to add resources to a component version. There are two different ways to add content: Input Type and Access Type.
 
-An **Input type** adds content along with the component descriptor and stores it in the same target repository where the component is stored. After pushing the content to the target registry this always resolves to the attribute
+An **Input type** adds content *by value*, along with the component descriptor and stores it in the same target repository where the component is stored. After pushing the content to the target registry this always resolves to the attribute
 
 ```yaml
 relation: local
@@ -35,7 +35,7 @@ relation: local
 
 in a component descriptor.
 
-An **Access Type** just adds content as reference to an external location, e.g., an OCI registry. It is a kind of pointer in a component descriptor. It resolves to the attribute
+An **Access Type** just adds content *by reference* to an external location, e.g., an OCI registry. It is a kind of pointer in a component descriptor. It resolves to the attribute
 
 ```yaml
 relation: external
