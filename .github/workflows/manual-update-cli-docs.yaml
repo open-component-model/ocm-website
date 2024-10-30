@@ -33,6 +33,6 @@ jobs:
       uses: peter-evans/repository-dispatch@v3
       with:
         token: ${{ steps.generate_token.outputs.token }}
-        repository: open-component-model/ocm-website
+        repository: hilmarf/ocm-website
         event-type: ocm-cli-release
         client-payload: '{"tag": "${{ env.RELEASE_VERSION }}"}'
