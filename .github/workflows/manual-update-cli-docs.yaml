@@ -45,6 +45,6 @@ jobs:
       uses: peter-evans/repository-dispatch@v3
       with:
         token: ${{ steps.generate_token.outputs.token }}
-        repository: hilmarf/ocm-website
+        repository: ${{ github.repository_owner }}/ocm-website
         event-type: ocm-cli-release
         client-payload: '{"tag": "${{ env.RELEASE_VERSION }}"}'
