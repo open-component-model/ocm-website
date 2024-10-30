@@ -321,16 +321,16 @@ The following configuration types are supported:
   </pre>
 - <code>uploader.ocm.config.ocm.software</code>
   The config type <code>uploader.ocm.config.ocm.software</code> can be used to define a list
-  of preconfigured download handler registrations (see [ocm ocm-downloadhandlers](/docs/cli-reference/help/ocm-downloadhandlers/)):
+  of preconfigured upload handler registrations (see [ocm ocm-uploadhandlers](/docs/cli-reference/help/ocm-uploadhandlers/)):
   
   <pre>
       type: uploader.ocm.config.ocm.software
-      description: "my standard download handler configuration"
+      description: "my standard upload handler configuration"
       handlers:
         - name: oci/artifact
           artifactType: ociImage
-          mimeType:
-          config: ...
+          config:
+            ociRef: ghcr.io/open-component-model/...
         ...
   </pre>
 
