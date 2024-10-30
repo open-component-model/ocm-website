@@ -1,0 +1,41 @@
+name: Manually retrigger the update of the OCM CLI Docs
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        type: string
+        description: 'Version of the release (e.g. v0.42.0)'
+        required: true
+        default: ''
+
+jobs:
+  retrigger:
+    name: Update content/docs/cli-reference
+    if: github.event.client_payload != ''
+    runs-on: ubuntu-latest
+    permissions:
+      contents: 'write'
+      id-token: 'write'
+      pull-requests: 'write'
+    steps:
+    - name: Ensure proper version
+      run: |
+        if ![ -n "${{ github.event.inputs.version }}" ]; then
+          echo "Version not provided"
+          exit 1
+        fi
+        echo "RELEASE_VERSION=$(echo ${{ github.event.inputs.version }} | tr -d ['v'])" >> $GITHUB_ENV
+    - name: Generate token
+      id: generate_token
+      uses: tibdex/github-app-token@v2
+      with:
+        app_id: ${{ secrets.OCMBOT_APP_ID }}
+        private_key: ${{ secrets.OCMBOT_PRIV_KEY }}
+    - name: Publish Event
+      uses: peter-evans/repository-dispatch@v3
+      with:
+        token: ${{ steps.generate_token.outputs.token }}
+        repository: open-component-model/ocm-website
+        event-type: ocm-cli-release
+        client-payload: '{"tag": "${{ env.RELEASE_VERSION }}"}'
