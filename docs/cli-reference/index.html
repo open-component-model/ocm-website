@@ -71,8 +71,7 @@ some prefix based name mappings.</p><p>If a boolean is given the short hash or n
 The YAML flavor uses the following fields:</p><ul><li><em><code>mode</code></em> <em>string</em>: <code>hash</code>, <code>shortHash</code>, <code>prefixMapping</code>
 or <code>none</code>. If unset, no mapping is done.</li><li><em><code>prefixMappings</code></em>: <em>map[string]string</em> repository path prefix mapping.</li><li><em><code>prefix</code></em>: <em>string</em> repository prefix to use (replaces potential sub path of OCM repo).
 or <code>none</code>.</li><li><em><code>prefixMapping</code></em>: <em>map[string]string</em> repository path prefix mapping.</li></ul><p>Notes:</p><ul><li>The mapping only occurs in transfer commands and only when transferring to OCI registries (e.g.
-when transferring to a CTF archive this option will be ignored).</li><li>The mapping only happens for local resources. When external image references are transferred (with
-option &ndash;copy-resources) the mapping will be ignored.</li><li>The mapping in mode <code>prefixMapping</code> requires a full prefix of the composed final name.
+when transferring to a CTF archive this option will be ignored).</li><li>The mapping in mode <code>prefixMapping</code> requires a full prefix of the composed final name.
 Partial matches are not supported. The host name of the target will be skipped.</li><li>The artifact name of the component-descriptor is not mapped.</li><li>If the mapping is provided on the command line it must be JSON format and needs to be properly
 escaped (see example below).</li></ul><p>Example:</p><p>Assume a component named <code>github.com/my_org/myexamplewithalongname</code> and a chart name
 <code>echo</code> in the <code>Charts.yaml</code> of the chart archive. The following input to a

@@ -20,16 +20,22 @@ to register handlers for various conditions for CLI commands like
 <a href=/docs/cli-reference/download/resources/>ocm download resources</a> (implicitly registered download handlers
 can be enabled using the option <code>-d</code>).</p><p>Besides the activation constraints (resource type and media type of the
 resource blob), it is possible to pass handler configuration controlling the
-exact behaviour of the handler for selected artifacts.</p><p>The following handler names are possible:</p><ul><li><p><code>landscaper/blueprint</code>: uploading an OCI artifact to an OCI registry</p><p>The <code>artifact</code> downloader is able to transfer OCI artifact-like resources
+exact behaviour of the handler for selected artifacts.</p><p>The following handler names are possible:</p><ul><li><p><code>helm/artifact</code>: download helm chart
+resources</p><p>The <code>helm</code> downloader is able to download helm chart resources as
+helm chart packages. Thus, the downloader may perform transformations.
+For example, if the helm chart is currently stored as an oci artifact, the
+downloader performs the necessary extraction to provide the helm chart package
+from within that oci artifact.</p><p>The following artifact media types are supported:</p><ul><li><code>application/vnd.oci.image.manifest.v1+tar+gzip</code></li><li><code>application/vnd.cncf.helm.chart.content.v1.tar+gzip</code></li></ul><p>It accepts no config.</p></li><li><p><code>landscaper/blueprint</code>: uploading an OCI artifact to an OCI registry</p><p>The <code>artifact</code> downloader is able to transfer OCI artifact-like resources
 into an OCI registry given by the combination of the download target and the
 registration config.</p><p>If no config is given, the target must be an OCI reference with a potentially
 omitted repository. The repo part is derived from the reference hint provided
 by the resource&rsquo;s access specification.</p><p>If the config is given, the target is used as repository name prefixed with an
 optional repository prefix given by the configuration.</p><p>The following artifact media types are supported:</p><ul><li><code>application/vnd.docker.distribution.manifest.v2+tar</code></li><li><code>application/vnd.docker.distribution.manifest.v2+tar+gzip</code></li><li><code>application/vnd.gardener.landscaper.blueprint.layer.v1.tar</code></li><li><code>application/vnd.gardener.landscaper.blueprint.layer.v1.tar+gzip</code></li><li><code>application/vnd.gardener.landscaper.blueprint.v1+tar</code></li><li><code>application/vnd.gardener.landscaper.blueprint.v1+tar+gzip</code></li><li><code>application/vnd.oci.image.manifest.v1+tar</code></li><li><code>application/vnd.oci.image.manifest.v1+tar+gzip</code></li><li><code>application/x-tar</code></li><li><code>application/x-tar+gzip</code></li><li><code>application/x-tgz</code></li></ul><p>It accepts a config with the following fields:</p><ul><li><code>ociConfigTypes</code>: a list of accepted OCI config archive mime types
 defaulted by <code>application/vnd.gardener.landscaper.blueprint.config.v1</code>.</li></ul><p>This handler is by default registered for the following artifact types:
-landscaper.gardener.cloud/blueprint,blueprint</p></li><li><p><code>oci/artifact</code>: uploading an OCI artifact to an OCI registry</p><p>The <code>artifact</code> downloader is able to transfer OCI artifact-like resources
-into an OCI registry given by the combination of the download target and the
-registration config.</p><p>If no config is given, the target must be an OCI reference with a potentially
+landscaper.gardener.cloud/blueprint,blueprint</p></li><li><p><code>oci/artifact</code>: downloading an OCI artifact
+and optionally re-uploading to an OCI registry</p><p>The <code>artifact</code> download resources stored as oci artifact.
+Furthermore, it allows to specify another OCI registry as download destination,
+thereby, providing a kind of transfer functionality.</p><p>If no config is given, the target must be an OCI reference with a potentially
 omitted repository. The repo part is derived from the reference hint provided
 by the resource&rsquo;s access specification.</p><p>If the config is given, the target is used as repository name prefixed with an
 optional repository prefix given by the configuration.</p><p>The following artifact media types are supported:</p><ul><li><code>application/vnd.oci.image.manifest.v1+tar+gzip</code></li><li><code>application/vnd.oci.image.index.v1+tar+gzip</code></li></ul><p>It accepts a config with the following fields:</p><ul><li><code>namespacePrefix</code>: a namespace prefix used for the uploaded artifacts</li><li><code>ociRef</code>: an OCI repository reference</li><li><code>repository</code>: an OCI repository specification for the target OCI registry</li></ul></li><li><p><code>ocm/dirtree</code>: downloading directory tree-like resources</p><p>The <code>dirtree</code> downloader is able to download directory-tree like

@@ -222,14 +222,14 @@ The config type <code>transport.ocm.config.ocm.software</code> can be used to de
     - s3
 </pre></li><li><p><code>uploader.ocm.config.ocm.software</code>
 The config type <code>uploader.ocm.config.ocm.software</code> can be used to define a list
-of preconfigured download handler registrations (see <a href=/docs/cli-reference/help/ocm-downloadhandlers/>ocm ocm-downloadhandlers</a>):</p><pre>
+of preconfigured upload handler registrations (see <a href=/docs/cli-reference/help/ocm-uploadhandlers/>ocm ocm-uploadhandlers</a>):</p><pre>
     type: uploader.ocm.config.ocm.software
-    description: "my standard download handler configuration"
+    description: "my standard upload handler configuration"
     handlers:
       - name: oci/artifact
         artifactType: ociImage
-        mimeType:
-        config: ...
+        config:
+          ociRef: ghcr.io/open-component-model/...
       ...
 </pre></li></ul><h3 id=examples>Examples<a href=#examples class=anchor aria-hidden=true>#</a></h3><div class=expressive-code><figure class="frame not-content"><figcaption class=header><span class=title></span></figcaption><pre tabindex=0><code>
 type: generic.config.ocm.software/v1
