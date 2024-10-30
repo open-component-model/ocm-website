@@ -41,6 +41,8 @@ jobs:
         add-paths: |
           config/
           content/
+          go.mod
+          go.sum
         branch: update-cli-docs/auto
         branch-suffix: timestamp
         delete-branch: true
