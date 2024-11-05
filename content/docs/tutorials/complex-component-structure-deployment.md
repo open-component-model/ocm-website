@@ -382,7 +382,7 @@ kubectl describe componentversion -n ocm-system podinfocomponent-version
 ```
 
 ```yaml
-apiVersion: delivery.ocm.software/v1alpha1
+apiVersion: delivery.ocm.software/v3alpha1
 kind: ComponentVersion
 metadata:
   name: podinfocomponent-version
@@ -588,7 +588,7 @@ And that's it.
 
 The components can be found under [podinfo/backend/components](https://github.com/open-component-model/podinfo/tree/f6fd27a94a5cf39784754858bd2a139bd90e0ad9/backend/components).
 
-To apply them, simply run this command from the podinfo root:
+To apply them, simply run the following command from the podinfo root:
 
 ```sh
 kubectl apply -f backend/components
