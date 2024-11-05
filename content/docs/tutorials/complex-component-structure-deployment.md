@@ -382,7 +382,7 @@ kubectl describe componentversion -n ocm-system podinfocomponent-version
 ```
 
 ```yaml
-apiVersion: delivery.ocm.software/v1alpha1
+apiVersion: delivery.ocm.software/v3alpha1
 kind: ComponentVersion
 metadata:
   name: podinfocomponent-version
