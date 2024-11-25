@@ -70,15 +70,18 @@ The following configuration types are supported:
   </pre>
 - <code>downloader.ocm.config.ocm.software</code>
   The config type <code>downloader.ocm.config.ocm.software</code> can be used to define a list
-  of preconfigured download handler registrations (see [ocm ocm-downloadhandlers](/docs/cli-reference/help/ocm-downloadhandlers/)):
+  of preconfigured download handler registrations (see [ocm ocm-downloadhandlers](/docs/cli-reference/help/ocm-downloadhandlers/)),
+  the default priority is 200:
   
   <pre>
       type: downloader.ocm.config.ocm.software
       description: "my standard download handler configuration"
-      handlers:
+      registrations:
         - name: oci/artifact
           artifactType: ociImage
-          mimeType:
+          mimeType: ...
+          description: ...
+          priority: ...
           config: ...
         ...
   </pre>
@@ -321,12 +324,13 @@ The following configuration types are supported:
   </pre>
 - <code>uploader.ocm.config.ocm.software</code>
   The config type <code>uploader.ocm.config.ocm.software</code> can be used to define a list
-  of preconfigured upload handler registrations (see [ocm ocm-uploadhandlers](/docs/cli-reference/help/ocm-uploadhandlers/)):
+  of preconfigured upload handler registrations (see [ocm ocm-uploadhandlers](/docs/cli-reference/help/ocm-uploadhandlers/)),
+  the default priority is 200:
   
   <pre>
       type: uploader.ocm.config.ocm.software
       description: "my standard upload handler configuration"
-      handlers:
+      registrations:
         - name: oci/artifact
           artifactType: ociImage
           config:
