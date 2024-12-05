@@ -2,8 +2,6 @@
 title: "Deploying Applications with OCM & GitOps"
 description: "Deploying Applications with OCM & GitOps"
 lead: ""
-date: 2022-11-23T10:00:00+00:00
-lastmod: 2022-11-23:00:00+00:00
 draft: false
 images: []
 weight: 66

@@ -2,8 +2,6 @@
 title: "GitOps Driven Configuration of OCM Applications"
 description: "GitOps Driven Configuration of OCM Applications"
 lead: ""
-date: 2022-11-23T10:00:00+00:00
-lastmod: 2022-11-23:00:00+00:00
 draft: false
 images: []
 weight: 67

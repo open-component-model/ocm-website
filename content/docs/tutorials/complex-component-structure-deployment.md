@@ -1,8 +1,6 @@
 ---
 title: "Structuring and Deploying Software Products with OCM"
 description: "Deploying a microservice architecture with components."
-date: 2023-06-20T10:00:00+00:00
-lastmod: 2024-07-10:00:00+00:00
 draft: false
 images: []
 weight: 65
@@ -313,24 +311,26 @@ With the transfer completed, we now have a component version that we can use and
 The backend files contain the following relevant data:
 
 - manifests
-    - `configmap.yaml`
-        - contains configuration options such as `PODINFO_UI_COLOR`
-    - `deploy.yaml`
-        - the deployment configuration. __Note__ that this deployment yaml contains an attribute `image` that will be configured using the config.yaml explained below.
+  - `configmap.yaml`
+    - contains configuration options such as `PODINFO_UI_COLOR`
+  - `deploy.yaml`
+    - the deployment configuration. **Note** that this deployment yaml contains an attribute `image` that will be configured using the config.yaml explained below.
+
         ```yaml
             spec:
             containers:
             - name: backend
                 image: not-an-image
         ```
-    - `kustomization.yaml` makes sure only the relevant files are applied
-    - `service.yaml` to expose the service endpoint and make discoverable
+
+  - `kustomization.yaml` makes sure only the relevant files are applied
+  - `service.yaml` to expose the service endpoint and make discoverable
 - `config.yaml`
-    - contains the configuration and localization rules which will be applied to the deployment file.
-        - Localization
-            - will use an `image` resource to replace the above value for the atribute `image` with the correct one
-        - Configuration
-            - will use the config information to configure some default values for those values such as color and message.
+  - contains the configuration and localization rules which will be applied to the deployment file.
+    - Localization
+      - will use an `image` resource to replace the above value for the atribute `image` with the correct one
+    - Configuration
+      - will use the config information to configure some default values for those values such as color and message.
 
 #### Frontend
 
