@@ -1,0 +1,25 @@
+name: Update security.txt
+
+on:
+  schedule:
+    - cron: '0 0 * * 1'
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v4
+
+    - name: Fetch security.txt
+      run: |
+        curl https://github.tools.sap/sgsc-engineering-and-automation/securitytxt/raw/main/security.txt -o static/.well-known/security.txt
+
+    - name: Commit and push if it has been changed
+      run: |
+        git config --global user.email "action@github.com"
+        git config --global user.name "GitHub Action"
+        git add -A
+        git diff --quiet && git diff --staged --quiet || git commit -m "Update security.txt"
+        git push
