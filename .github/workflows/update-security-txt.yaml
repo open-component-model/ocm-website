@@ -4,6 +4,7 @@ on:
   schedule:
     # Job runs every day in December at 00:00 UTC
     - cron: '0 0 * 12 *'
+  workflow_dispatch:
 
 jobs:
   update:
