@@ -15,7 +15,7 @@ A video guide can be found [here](https://share.vidyard.com/watch/NjNrZF2926RUTS
 
 ## Overview
 
-![workflow](https://github.com/open-component-model/demo-secure-delivery/raw/main/docs/images/diagram.png)
+![workflow](https://raw.githubusercontent.com/open-component-model/demo-secure-delivery/main/docs/images/diagram.png)
 
 This walkthrough deploys a full end-to-end pipeline demonstrating how OCM and Flux can be employed to deploy applications in air-gapped environments.
 
