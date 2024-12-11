@@ -15,7 +15,7 @@ A video guide can be found [here](https://share.vidyard.com/watch/NjNrZF2926RUTS
 
 ## Overview
 
-![workflow](https://github.com/open-component-model/demo-secure-delivery/raw/main/docs/images/diagram.png)
+![workflow](https://raw.githubusercontent.com/open-component-model/demo-secure-delivery/main/docs/images/diagram.png)
 
 This walkthrough deploys a full end-to-end pipeline demonstrating how OCM and Flux can be employed to deploy applications in air-gapped environments.
 
@@ -44,14 +44,14 @@ Instructions are provided to guide you through the process of deploying the demo
 
 **The source code for the demo can be found at [https://github.com/open-component-model/demo-secure-delivery](https://github.com/open-component-model/demo-secure-delivery)**
 
-#### 0. Checkout the source repository
+### 0. Checkout the source repository
 
 ```bash
 git clone https://github.com/open-component-model/demo-secure-delivery && \
 cd demo-secure-delivery
 ```
 
-#### 1. Setup demo environment
+### 1. Setup demo environment
 
 To deploy the demo environment execute the following:
 
@@ -59,12 +59,12 @@ To deploy the demo environment execute the following:
 
 Once the environment has been created, login to Gitea using the following credentials:
 
-```
+```bash
 username: ocm-admin
 password: password
 ```
 
-#### 2. Cut a release for `podinfo`
+### 2. Cut a release for `podinfo`
 
 ![release](https://github.com/open-component-model/demo-secure-delivery/raw/main/docs/images/publish.png)
 
@@ -72,25 +72,25 @@ Next navigate to: https://gitea.ocm.dev/software-provider/podinfo-component/rele
 
 Enter "v1.0.0" for both the tag name and release name, and then click "Publish Release".
 
-#### 3. Verify the release
+### 3. Verify the release
 
 ![ci](https://github.com/open-component-model/demo-secure-delivery/raw/main/docs/images/release_automation.png)
 
 Once the release is published, navigate to https://ci.ocm.dev/#/namespaces/tekton-pipelines/pipelineruns and follow the progress of the release automation.
 
-#### 4. Install the Component
+### 4. Install the Component
 
 ![install](https://github.com/open-component-model/demo-secure-delivery/raw/main/docs/images/install.png)
 
 When the release pipeline has been completed we can install the component. Navigate to https://gitea.ocm.dev/software-consumer/ocm-applications/pulls/1 and merge the pull request.
 
-#### 5. View the Weave GitOps Dashboard
+### 5. View the Weave GitOps Dashboard
 
 ![weave-gitops](https://github.com/open-component-model/demo-secure-delivery/raw/main/docs/images/weave-gitops.png)
 
 With a minute or so Flux will reconcile the Weave GitOps component and the dashboard will be accessible at https://weave-gitops.ocm.dev. You can login with username: `admin` and password `password`.
 
-#### 5. View the application
+### 5. View the application
 
 ![podinfo](https://github.com/open-component-model/demo-secure-delivery/raw/main/docs/images/application.png)
 
@@ -98,7 +98,7 @@ We can view the `podinfo` Helm release that's been deployed in the default names
 
 We can also view the running application at https://podinfo.ocm.dev
 
-#### 6. Apply configuration
+### 6. Apply configuration
 
 ![configure](https://github.com/open-component-model/demo-secure-delivery/raw/main/docs/images/configure.png)
 
@@ -115,21 +115,21 @@ weave-gitops:
   serviceAccountName: ocm-ops
 ```
 
-#### 7. View the configured application
+### 7. View the configured application
 
 ![update](https://github.com/open-component-model/demo-secure-delivery/raw/main/docs/images/update.png)
 
 The changes will soon be reconciled by Flux and visible at https://podinfo.ocm.dev. Note how the pod id changes now that we have 2 replicas of our application running.
 
-#### 8. Cut a new release
+### 8. Cut a new release
 
 Let's jump back to the provider repository and cut another release. This release will contain a new feature that changes the image displayed by the podinfo application. Follow the same process as before to create a release, bumping the version to `v1.1.0`.
 
-#### 9. Verify the release
+### 9. Verify the release
 
 Once the release is published, navigate to https://ci.ocm.dev/#/namespaces/tekton-pipelines/pipelineruns and follow the progress of the release automation.
 
-#### 10. Monitor the application update
+### 10. Monitor the application update
 
 ![update-wego](https://github.com/open-component-model/demo-secure-delivery/raw/main/docs/images/update-wego.png)
 
