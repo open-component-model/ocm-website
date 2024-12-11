@@ -2,8 +2,8 @@ name: Update security.txt
 
 on:
   schedule:
-    # Job runs on eversy Monday in December at 00:00 UTC
-    - cron: '0 0 * 12 1'
+    # Job runs every day in December at 00:00 UTC
+    - cron: '0 0 * 12 *'
 
 jobs:
   update:
