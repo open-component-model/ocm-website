@@ -1,0 +1,40 @@
+name: Update security.txt
+
+on:
+  schedule:
+    # Job runs every day in December at 00:00 UTC
+    - cron: '0 0 * 12 *'
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Generate token
+      id: generate_token
+      uses: tibdex/github-app-token@v2
+      with:
+            app_id: ${{ secrets.OCMBOT_APP_ID }}
+            private_key: ${{ secrets.OCMBOT_PRIV_KEY }}
+            
+    - name: Checkout repo
+      uses: actions/checkout@v4
+
+    - name: Fetch security.txt
+      run: |
+        curl -H "Authorization: token ${{ secrets.SECURITY_TXT_READ }}" https://github.tools.sap/sgsc-engineering-and-automation/securitytxt/raw/main/security.txt -o static/.well-known/security.txt
+
+    - name: Create Pull Request
+      uses: peter-evans/create-pull-request@v7
+      with:
+        token: ${{ steps.generate_token.outputs.token }}
+        title: "chore: update '.well-known/security.text'"
+        commit-message: "[github-actions] auto update security.txt"
+        branch: security/update-security-txt
+        delete-branch: true
+        sign-commits: true
+        labels: |
+          kind/chore
+        body: |
+          Update .well-known/security.txt with the latest content from the security.txt repository.
