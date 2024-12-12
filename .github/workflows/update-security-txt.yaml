@@ -23,16 +23,10 @@ jobs:
 
     - name: Fetch security.txt
       run: |
-        curl -H "Authorization: token ${{ secrets.SECURITY_TXT_READ }}" https://github.tools.sap/sgsc-engineering-and-automation/securitytxt/raw/main/security.txt -o static/.well-known/security.txt
-
-    - name: Commit changes to PR branch in case there have been changes
-      run: |
-        git config --global user.email "action@github.com"
-        git config --global user.name "GitHub Action"
-        git checkout -b security/update-security-txt
-        git add -A
-        git diff --quiet && git diff --staged --quiet || git commit -m "Update security.txt"
-        git push origin security/update-security-txt
+        curl -L -vvv \
+          -H "Accept: application/vnd.github+json" \
+          -H "Authorization: Bearer ${{ secrets.SECURITY_TXT_READ }}" \
+          https://raw.github.tools.sap/sgsc-engineering-and-automation/securitytxt/main/security.txt -o static/.well-known/security.txt
 
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v7
