@@ -23,7 +23,10 @@ jobs:
 
     - name: Fetch security.txt
       run: |
-        curl -H "Authorization: token ${{ secrets.SECURITY_TXT_READ }}" https://github.tools.sap/sgsc-engineering-and-automation/securitytxt/raw/main/security.txt -o static/.well-known/security.txt
+        curl -sSL \
+          -H "Accept: application/vnd.github+json" \
+          -H "Authorization: Bearer ${{ secrets.SECURITY_TXT_READ }}" \
+          https://raw.github.tools.sap/sgsc-engineering-and-automation/securitytxt/main/security.txt -o static/.well-known/security.txt
 
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v7

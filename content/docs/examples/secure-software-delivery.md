@@ -1,5 +1,5 @@
 ---
-title: "Secure software delivery with Flux and Open Component Model"
+title: "Secure software delivery with Flux and OCM"
 description: ""
 lead: ""
 date: 2023-11-07T11:45:27Z
@@ -13,45 +13,36 @@ toc: true
 The source code for the demo can be found at [https://github.com/open-component-model/demo-secure-delivery](https://github.com/open-component-model/demo-secure-delivery).
 A video guide can be found [here](https://share.vidyard.com/watch/NjNrZF2926RUTSUvkU4MdR).
 
-## Overview
+## Fully guided walkthrough
 
-{{< figure src="https://raw.githubusercontent.com/open-component-model/demo-secure-delivery/main/docs/images/diagram.png" title="Workflow Diagram" >}}
+![workflow](https://raw.githubusercontent.com/open-component-model/demo-secure-delivery/refs/heads/main/docs/images/new_diagram.png)
 
-This walkthrough deploys a full end-to-end pipeline demonstrating how OCM and Flux can be employed to deploy applications in air-gapped environments.
+This walkthrough deploys a full end-to-end scenario demonstrating how OCM and Flux can be employed to continuously deploy applications in air-gapped environments.
 
 The demo environment consists of Gitea, Tekton, Flux and the OCM controller.
 
-Two Gitea organizations are created:
+To be able to show that provider and consumer are really disconnected, two distinct Gitea organizations are created:
 
 - [software-provider](https://gitea.ocm.dev/software-provider)
 - [software-consumer](https://gitea.ocm.dev/software-consumer)
 
-### Provider
+## Software Provider
 
-The provider organization contains a repository which models the `podinfo` application. When a new release is created a Tekton pipeline will be triggered that builds the component and pushes it to the [software provider's OCI registry](https://gitea.ocm.dev/software-provider/-/packages).
+The provider organization contains a repository which models the `podinfo` application. When a new release is created a Tekton pipeline will be triggered that builds the OCM component and pushes it to the [software provider's OCI registry](https://gitea.ocm.dev/software-provider/-/packages).
 
-### Consumer
+## Software Consumer
 
-The software consumer organization models an air-gapped scenario where applications are deployed from a secure OCI registry rather than directly from an arbitrary upstream source.
+The software consumer organization models an air-gapped scenario where applications are deployed from a secure OCI registry rather than directly from an arbitrary public upstream source.
 
-The software consumer organization contains a repository named [ocm-applications](https://gitea.ocm.dev/software-consumer/ocm-applications). During the setup of the demo a PR is created which contains the Kubernetes manifests required to deploy the component published by the software provider.
+The software consumer organization contains a repository named [ocm-applications](https://gitea.ocm.dev/software-consumer/ocm-applications). During the setup of the demo a PR is created which contains a set of Kubernetes manifests required to deploy the OCM component published by the software provider.
 
-Once this pull request is merged the Flux machinery will deploy the dependency `weave-gitops` and subsequently the `podinfo` component. The [weave-gitops dashboard](https://weave-gitops.ocm.dev) can be used to understand the state of the cluster.
+Once this pull request is merged the Flux machinery will deploy `podinfo` component. [Capacitor](https://capacitor.ocm.dev) can be used to understand the state of the cluster.
 
-## Walkthrough
+### Walkthrough
 
-Instructions are provided to guide you through the process of deploying the demo environment, cutting a release for "podinfo," verifying the release automation, installing the component, viewing the Weave GitOps dashboard, accessing the deployed application, applying configuration changes, monitoring the application update, and cutting a new release with updated features.
+Instructions are provided to guide you through the process of deploying the demo environment, cutting a release for "podinfo," verifying the release automation, installing the component, viewing the Capacitor GitOps dashboard, accessing the deployed application, applying configuration changes, monitoring the application update, and cutting a new release with updated features.
 
-**The source code for the demo can be found at [https://github.com/open-component-model/demo-secure-delivery](https://github.com/open-component-model/demo-secure-delivery)**
-
-### 0. Checkout the source repository
-
-```bash
-git clone https://github.com/open-component-model/demo-secure-delivery && \
-cd demo-secure-delivery
-```
-
-### 1. Setup demo environment
+#### 1. Setup demo environment
 
 To deploy the demo environment execute the following:
 
@@ -64,46 +55,47 @@ username: ocm-admin
 password: password
 ```
 
-### 2. Cut a release for `podinfo`
-
-![release](https://github.com/open-component-model/demo-secure-delivery/raw/main/docs/images/publish.png)
+#### 2. Cut a release for `podinfo`
 
 Next navigate to: https://gitea.ocm.dev/software-provider/podinfo-component/releases and click "New Release".
 
 Enter "v1.0.0" for both the tag name and release name, and then click "Publish Release".
 
-### 3. Verify the release
+![release](https://raw.githubusercontent.com/open-component-model/demo-secure-delivery/refs/heads/main/docs/images/publish.png)
 
-![ci](https://github.com/open-component-model/demo-secure-delivery/raw/main/docs/images/release_automation.png)
+#### 3. Verify the release
 
 Once the release is published, navigate to https://ci.ocm.dev/#/namespaces/tekton-pipelines/pipelineruns and follow the progress of the release automation.
 
-### 4. Install the Component
+![ci](https://raw.githubusercontent.com/open-component-model/demo-secure-delivery/refs/heads/main/docs/images/release_automation.png)
 
-![install](https://github.com/open-component-model/demo-secure-delivery/raw/main/docs/images/install.png)
+#### 4. Install the Component
 
 When the release pipeline has been completed we can install the component. Navigate to https://gitea.ocm.dev/software-consumer/ocm-applications/pulls/1 and merge the pull request.
 
-### 5. View the Weave GitOps Dashboard
+![install](https://raw.githubusercontent.com/open-component-model/demo-secure-delivery/refs/heads/main/docs/images/install.png)
 
-![weave-gitops](https://github.com/open-component-model/demo-secure-delivery/raw/main/docs/images/weave-gitops.png)
+#### 5. View the Capacitor Dashboard
 
-With a minute or so Flux will reconcile the Weave GitOps component and the dashboard will be accessible at https://weave-gitops.ocm.dev. You can login with username: `admin` and password `password`.
+After certificates are created the Capacitor component and the dashboard will be accessible at https://capacitor.ocm.dev. Give it a minute to spin up...
 
-### 5. View the application
+![capacitor](https://raw.githubusercontent.com/open-component-model/demo-secure-delivery/refs/heads/main/docs/images/capacitor.png)
 
-![podinfo](https://github.com/open-component-model/demo-secure-delivery/raw/main/docs/images/application.png)
+#### 5. View the application
 
-We can view the `podinfo` Helm release that's been deployed in the default namespace: https://weave-gitops.ocm.dev/helm_release/graph?clusterName=Default&name=podinfo&namespace=default
+We can view the `podinfo` Helm release that's been deployed in the default namespace: https://capacitor.ocm.dev/
 
 We can also view the running application at https://podinfo.ocm.dev
 
-### 6. Apply configuration
+![podinfo](https://raw.githubusercontent.com/open-component-model/demo-secure-delivery/refs/heads/main/docs/images/application.png)
 
-![configure](https://github.com/open-component-model/demo-secure-delivery/raw/main/docs/images/configure.png)
+#### 6. Apply configuration
 
-The application can be configured using the parameters exposed in `values.yaml`. Now that podinfo is deployed we can tweak a few parameters, navigate to
-https://gitea.ocm.dev/software-consumer/ocm-applications/_edit/main/values.yaml
+The application can be configured using the parameters exposed in `values.yaml`. Now that podinfo is deployed we can tweak a few parameters.
+Navigate to https://gitea.ocm.dev/software-consumer/ocm-applications/_edit/main/values.yaml
+
+![configure](https://raw.githubusercontent.com/open-component-model/demo-secure-delivery/refs/heads/main/docs/images/configure.png)
+
 and add the following:
 
 ```yaml
@@ -111,41 +103,39 @@ podinfo:
   replicas: 2
   message: "Hello Open Component Model!"
   serviceAccountName: ocm-ops
-weave-gitops:
-  serviceAccountName: ocm-ops
 ```
 
-### 7. View the configured application
-
-![update](https://github.com/open-component-model/demo-secure-delivery/raw/main/docs/images/update.png)
+#### 7. View the configured application
 
 The changes will soon be reconciled by Flux and visible at https://podinfo.ocm.dev. Note how the pod id changes now that we have 2 replicas of our application running.
 
-### 8. Cut a new release
+![update](https://raw.githubusercontent.com/open-component-model/demo-secure-delivery/refs/heads/main/docs/images/update.png)
+
+#### 8. Cut a new release
 
 Let's jump back to the provider repository and cut another release. This release will contain a new feature that changes the image displayed by the podinfo application. Follow the same process as before to create a release, bumping the version to `v1.1.0`.
 
-### 9. Verify the release
+#### 9. Verify the release
 
 Once the release is published, navigate to https://ci.ocm.dev/#/namespaces/tekton-pipelines/pipelineruns and follow the progress of the release automation.
 
-### 10. Monitor the application update
+#### 10. Monitor the application update
 
-![update-wego](https://github.com/open-component-model/demo-secure-delivery/raw/main/docs/images/update-wego.png)
+Jump back to https://capacitor.ocm.dev to view the rollout of the new release.
 
-Jump back to https://weave-gitops.ocm.dev to view the rollout of the new release.
+![update-wego](https://raw.githubusercontent.com/open-component-model/demo-secure-delivery/refs/heads/main/docs/images/update-wego.png)
 
 #### 11. View the updated application
 
-![update-ocm](https://github.com/open-component-model/demo-secure-delivery/raw/main/docs/images/update-ocm.png)
-
 Finally, navigate to https://podinfo.ocm.dev which now displays the OCM logo in place of the cuttlefish and the updated application version of 6.3.6
 
-## Conclusion
+![update-ocm](https://raw.githubusercontent.com/open-component-model/demo-secure-delivery/refs/heads/main/docs/images/update-ocm.png)
+
+### Conclusion
 
 By leveraging the capabilities of Gitea, Tekton, Flux, and the OCM controller, this demo showcases the seamless deployment of components and dependencies in a secure manner. The use of secure OCI registries and automated release pipelines ensures the integrity and reliability of the deployment process.
 
-Users can easily set up the demo environment, cut releases, monitor release automation, view the Weave GitOps dashboard and observe the deployment and update of applications. We have presented a practical illustration of how OCM and Flux can be employed to facilitate the deployment and management of applications in air-gapped environments, offering a robust and efficient solution for secure software delivery.
+Users can easily set up the demo environment, cut releases, monitor release automation, view the Capacitor GitOps dashboard and observe the deployment and update of applications. We have presented a practical illustration of how OCM and Flux can be employed to facilitate the deployment and management of applications in air-gapped environments, offering a robust and efficient solution for secure software delivery.
 
 ## Contributing
 
@@ -155,6 +145,6 @@ OCM follows the [CNCF Code of Conduct](https://github.com/cncf/foundation/blob/m
 
 ## Licensing
 
-Copyright 2024 SE or an SAP affiliate company and Open Component Model contributors.
-Please see our [LICENSE](https://raw.githubusercontent.com/open-component-model/.github/main/LICENSE) for copyright and license information.
+Copyright 2024-2025 SAP SE or an SAP affiliate company and Open Component Model contributors.
+Please see our [LICENSE](https://github.com/open-component-model/.github/blob/main/LICENSE) for copyright and license information.
 Detailed information including third-party components and their licensing/copyright information is available [via the REUSE tool](https://api.reuse.software/info/github.com/open-component-model/demo-secure-delivery).
