@@ -14,9 +14,9 @@ jobs:
     runs-on: ubuntu-latest
 
     permissions:
-      contents: "write"
-      id-token: "write"
-      pull-requests: "write"
+      contents: write
+      id-token: write
+      pull-requests: write
 
     steps:
       - name: Checkout
@@ -36,7 +36,7 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
+          python-version: '3.11'
 
       - name: Generate Schema
         run: |
