@@ -15,8 +15,6 @@ A video guide can be found [here](https://share.vidyard.com/watch/NjNrZF2926RUTS
 
 ## Overview
 
-[!worklflow](images/diagram.png)
-
 This walkthrough deploys a full end-to-end pipeline demonstrating how OCM and Flux can be employed to deploy applications in air-gapped environments.
 
 The demo environment consists of Gitea, Tekton, Flux and the OCM controller.
