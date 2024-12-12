@@ -14,42 +14,42 @@ jobs:
     runs-on: ubuntu-latest
 
     permissions:
-      contents: 'write'
-      id-token: 'write'
-      pull-requests: 'write'
+      contents: "write"
+      id-token: "write"
+      pull-requests: "write"
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: 22.12.0 # keep in sync with 'engines'@package.json
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.12.0 # keep in sync with 'engines'@package.json
 
-    - name: Install Dependencies
-      run: npm install
+      - name: Install Dependencies
+        run: npm install
 
-    - name: Build Site
-      run: npm run build
+      - name: Build Site
+        run: npm run build
 
-    - name: Setup Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.11'
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
 
-    - name: Generate Schema
-      run: |
-        python3 -m pip install json-schema-for-humans
-        generate-schema-doc --config-file generate-schema.yaml static/schemas/component-descriptor-v2 schema-v2.html
-        generate-schema-doc --config-file generate-schema.yaml static/schemas/component-descriptor-v3alpha1 schema-v3alpha1.html
+      - name: Generate Schema
+        run: |
+          python3 -m pip install json-schema-for-humans
+          generate-schema-doc --config-file generate-schema.yaml static/schemas/component-descriptor-v2 schema-v2.html
+          generate-schema-doc --config-file generate-schema.yaml static/schemas/component-descriptor-v3alpha1 schema-v3alpha1.html
 
-    - name: Copy Schema
-      run: |
-        cp schema-v2.html schema-v3alpha1.html schema_doc.css schema_doc.min.js public/docs/overview/specification
+      - name: Copy Schema
+        run: |
+          cp schema-v2.html schema-v3alpha1.html schema_doc.css schema_doc.min.js public/docs/overview/specification
 
-    - name: Publish as GitHub Pages
-      uses: peaceiris/actions-gh-pages@v4
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./public
+      - name: Publish as GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
