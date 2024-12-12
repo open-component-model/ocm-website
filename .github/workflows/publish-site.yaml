@@ -19,19 +19,19 @@ jobs:
       pull-requests: 'write'
 
     steps:
-    - uses: actions/checkout@v4
-      name: Checkout
+    - name: Checkout
+      uses: actions/checkout@v4
 
-    - uses: actions/setup-node@v4
-      name: Setup Node.js
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
       with:
-        node-version: 22.12.0
+        node-version: 22.12.0 # keep in sync with 'engines'@package.json
 
-    - run: npm install
-      name: Install Dependencies
+    - name: Install Dependencies
+      run: npm install
 
-    - run: npm run build
-      name: Build Site
+    - name: Build Site
+      run: npm run build
 
     - name: Setup Python
       uses: actions/setup-python@v5

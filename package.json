@@ -1,6 +1,6 @@
 {
   "name": "ocm-website",
-  "version": "0.0.0",
+  "version": "0.18.0",
   "description": "OCM website",
   "author": "open-component-model",
   "license": "Apache-2.0",
@@ -38,14 +38,14 @@
     "shx": "^0.3.4"
   },
   "otherDependencies": {
-    "hugo": "0.128.0"
+    "hugo": "0.139.4"
   },
   "overrides": {
     "semver": "^7.5.4"
   },
   "engines": {
-    "node": ">=20.18.1",
-    "npm": ">=10.8.2"
+    "node": ">=22.12.0",
+    "npm": ">=10.9.0"
   },
-  "packageManager": "npm@10.8.2"
+  "packageManager": "npm@10.9.0"
 }
