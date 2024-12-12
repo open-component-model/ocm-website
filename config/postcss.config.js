@@ -6,7 +6,7 @@ module.exports = {
   plugins: [
     autoprefixer(),
     purgecss({
-      content: ['./hugo_stats.json'],
+      content: [ './hugo_stats.json' ],
       extractors: [
         {
           extractor: (content) => {
@@ -23,22 +23,22 @@ module.exports = {
         'data-bs-theme',
         'data-dark-mode',
         'data-global-alert',
-        'data-pane', // tabs.js
+        'data-pane',             // tabs.js
         'data-popper-placement',
         'data-sizes',
-        'data-toggle-tab', // tabs.js
+        'data-toggle-tab',       // tabs.js
         'id',
         'size',
         'type'
       ],
       safelist: [
         'active',
-        'btn-clipboard', // clipboards.js
-        'clipboard', // clipboards.js
+        'btn-clipboard',         // clipboards.js
+        'clipboard',             // clipboards.js
         'disabled',
         'hidden',
-        'modal-backdrop', // search-modal.js
-        'selected', // search-modal.js
+        'modal-backdrop',        // search-modal.js
+        'selected',              // search-modal.js
         'show',
         'img-fluid',
         'blur-up',
