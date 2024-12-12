@@ -23,7 +23,7 @@ jobs:
 
     - name: Fetch security.txt
       run: |
-        curl -L -vvv \
+        curl -sSL \
           -H "Accept: application/vnd.github+json" \
           -H "Authorization: Bearer ${{ secrets.SECURITY_TXT_READ }}" \
           https://raw.github.tools.sap/sgsc-engineering-and-automation/securitytxt/main/security.txt -o static/.well-known/security.txt
