@@ -1,6 +1,7 @@
 # ocm.software
 
 [![REUSE status](https://api.reuse.software/badge/github.com/open-component-model/ocm-website)](https://api.reuse.software/info/github.com/open-component-model/ocm-website)
+[![publish site status](https://github.com/open-component-model/ocm-website/actions/workflows/publish-site.yaml/badge.svg)](https://github.com/open-component-model/ocm-website/actions/workflows/publish-site.yaml)
 
 This repository houses the assets used to build [Open Component Model website](https://ocm.software).
 
