@@ -212,7 +212,7 @@ If the `.metadata.generation` of a resource changes (due to e.g. a change to the
 
 For example, the following ComponentVersion verifies two signatures:
 
-```
+```yaml
 apiVersion: delivery.ocm.software/v1alpha1
 kind: ComponentVersion
 metadata:
@@ -346,4 +346,3 @@ The following fields make up the reference:
 The reconciled version status field holds the specific version that was reconciled by the ocm-controller.
 
 ### Verified
-

@@ -14,30 +14,24 @@ jobs:
     runs-on: ubuntu-latest
 
     permissions:
-      contents: 'write'
-      id-token: 'write'
-      pull-requests: 'write'
+      contents: write
+      id-token: write
+      pull-requests: write
 
     steps:
-      - uses: actions/checkout@v4
-        name: Checkout
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
-        name: Setup Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          cache: 'npm'
-          node-version: 23
+          node-version: 22.12.0 # keep in sync with 'engines'@package.json
 
-      - name: Setup Hugo
-        uses: peaceiris/actions-hugo@v3
-        with:
-          hugo-version: 'latest'
+      - name: Install Dependencies
+        run: npm install
 
-      - run: npm install
-        name: Install Dependencies
-
-      - run: npm run build
-        name: Build Site
+      - name: Build Site
+        run: npm run build
 
       - name: Setup Python
         uses: actions/setup-python@v5
