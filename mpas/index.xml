@@ -1,3 +1,39 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Mpas on Open Component Model</title><link>https://ocm.software/mpas/</link><description>Recent content in Mpas on Open Component Model</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>© Copyright 2024, SAP SE and Open Component Model Contributors</copyright><lastBuildDate>Tue, 02 Apr 2024 12:45:27 +0000</lastBuildDate><atom:link href="https://ocm.software/mpas/index.xml" rel="self" type="application/rss+xml"/><item><title>Get Started with MPAS</title><link>https://ocm.software/mpas/getting_started/</link><pubDate>Tue, 12 Sep 2023 10:37:58 +0100</pubDate><guid>https://ocm.software/mpas/getting_started/</guid><description>This tutorial shows you how to bootstrap MPAS to a Kubernetes cluster and deploy a simple application.
-Prerequisites A Kubernetes cluster A GitHub access token with repo scope kubectl Objectives Bootstrap MPAS to a Kubernetes cluster Deploy a simple application Install the MPAS CLI The MPAS CLI is the primary tool for interacting with MPAS.</description></item><item><title>Installation</title><link>https://ocm.software/mpas/installation/</link><pubDate>Tue, 12 Sep 2023 10:37:58 +0100</pubDate><guid>https://ocm.software/mpas/installation/</guid><description>Install using Binaries To install the MPAS CLI, you can download the binaries for major platforms from the GitHub releases page.</description></item><item><title>Core Concepts</title><link>https://ocm.software/mpas/core_concepts/</link><pubDate>Tue, 12 Sep 2023 10:37:58 +0100</pubDate><guid>https://ocm.software/mpas/core_concepts/</guid><description>This section describes the core concepts of MPAS and what Kubernetes controllers and custom resources are contained. To learn more about the MPAS architecture, see Architecture.</description></item><item><title>Bootstrap</title><link>https://ocm.software/mpas/bootstrap/</link><pubDate>Tue, 12 Sep 2023 10:37:58 +0100</pubDate><guid>https://ocm.software/mpas/bootstrap/</guid><description>The mpas bootstrap command deploys the following components to your cluster:
-Flux: A Kubernetes operator that will install and manage the other components.</description></item><item><title>MPAS Demo Video</title><link>https://ocm.software/mpas/demo_of_mpas/</link><pubDate>Tue, 02 Apr 2024 12:45:27 +0000</pubDate><guid>https://ocm.software/mpas/demo_of_mpas/</guid><description>Demo of MPAS</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Mpas on Open Component Model</title><link>https://ocm.software/mpas/</link><description>Recent content in Mpas on Open Component Model</description><generator>Hugo</generator><language>en</language><copyright>© Copyright 2024, SAP SE and Open Component Model Contributors</copyright><lastBuildDate>Tue, 02 Apr 2024 12:45:27 +0000</lastBuildDate><atom:link href="https://ocm.software/mpas/index.xml" rel="self" type="application/rss+xml"/><item><title>Get Started with MPAS</title><link>https://ocm.software/mpas/getting_started/</link><pubDate>Tue, 12 Sep 2023 10:37:58 +0100</pubDate><guid>https://ocm.software/mpas/getting_started/</guid><description>&lt;p>This tutorial shows you how to bootstrap MPAS to a Kubernetes cluster and deploy
+a simple application.&lt;/p>
+&lt;h2 id="prerequisites">Prerequisites&lt;/h2>
+&lt;ul>
+&lt;li>A Kubernetes cluster&lt;/li>
+&lt;li>A GitHub access token with &lt;code>repo&lt;/code> scope&lt;/li>
+&lt;li>kubectl&lt;/li>
+&lt;/ul>
+&lt;h2 id="objectives">Objectives&lt;/h2>
+&lt;ul>
+&lt;li>Bootstrap MPAS to a Kubernetes cluster&lt;/li>
+&lt;li>Deploy a simple application&lt;/li>
+&lt;/ul>
+&lt;h2 id="install-the-mpas-cli">Install the MPAS CLI&lt;/h2>
+&lt;p>The MPAS CLI is the primary tool for interacting with MPAS. It can be used to
+bootstrap MPAS to a Kubernetes cluster.&lt;/p></description></item><item><title>Installation</title><link>https://ocm.software/mpas/installation/</link><pubDate>Tue, 12 Sep 2023 10:37:58 +0100</pubDate><guid>https://ocm.software/mpas/installation/</guid><description>&lt;h2 id="install-using-binaries">Install using Binaries&lt;/h2>
+&lt;p>To install the MPAS CLI, you can download the binaries for major platforms from the GitHub &lt;a href="https://github.com/open-component-model/mpas/releases">releases page&lt;/a>.&lt;/p></description></item><item><title>Core Concepts</title><link>https://ocm.software/mpas/core_concepts/</link><pubDate>Tue, 12 Sep 2023 10:37:58 +0100</pubDate><guid>https://ocm.software/mpas/core_concepts/</guid><description>&lt;p>This section describes the core concepts of &lt;code>MPAS&lt;/code> and what Kubernetes controllers and custom resources are contained.
+To learn more about the &lt;code>MPAS&lt;/code> architecture,
+see &lt;a href="https://github.com/open-component-model/MPAS/tree/main/docs/concepts">Architecture&lt;/a>.&lt;/p></description></item><item><title>Bootstrap</title><link>https://ocm.software/mpas/bootstrap/</link><pubDate>Tue, 12 Sep 2023 10:37:58 +0100</pubDate><guid>https://ocm.software/mpas/bootstrap/</guid><description>&lt;p>The &lt;code>mpas bootstrap&lt;/code> command deploys the following components to your cluster:&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://fluxcd.io/docs/components/">Flux&lt;/a>: A Kubernetes operator that will
+install and manage the other components.&lt;/li>
+&lt;li>&lt;a href="https://github.com/open-component-model/ocm-controller">ocm-controller&lt;/a>: A Kubernetes controller
+that enables the automated deployment of software using the Open Component Model and &lt;code>Flux&lt;/code>.&lt;/li>
+&lt;li>&lt;a href="https://github.com/open-component-model/git-controller">git-controller&lt;/a>: A
+Kubernetes controller that will create pull requests in the target Github repository
+when changes are made to the cluster.&lt;/li>
+&lt;li>&lt;a href="https://github.com/open-component-model/git-controller">replication-controller&lt;/a>: A Kubernetes controller that replicates
+everything defined and bundled in an OCM component version (and that the consumer subscribed to)
+into the local OCI registry of the cluster.&lt;/li>
+&lt;li>&lt;a href="https://github.com/open-component-model/mpas-product-controller">mpas-product-controller&lt;/a>: A Kubernetes controller responsible
+for creating the custom resource &lt;code>Product&lt;/code>.&lt;/li>
+&lt;li>&lt;a href="https://github.com/open-component-model/mpas-project-controller">mpas-project-controller&lt;/a>: A Kubernetes controller responsible
+for bootstrapping a whole project and creating relevant access credentials, service accounts, roles and the main repository.
+It reconciles the &lt;code>Project&lt;/code> resource.&lt;/li>
+&lt;/ul>
+&lt;p>Besides the above components, the &lt;code>mpas bootstrap&lt;/code> command will also push the corresponding
+component manifests to the target Git repository and configure &lt;code>Flux&lt;/code> to continuously update
+the installed components from the target Git repository.&lt;/p></description></item><item><title>MPAS Demo Video</title><link>https://ocm.software/mpas/demo_of_mpas/</link><pubDate>Tue, 02 Apr 2024 12:45:27 +0000</pubDate><guid>https://ocm.software/mpas/demo_of_mpas/</guid><description>&lt;p>&lt;a href="https://sapvideoa35699dc5.hana.ondemand.com/?entry_id=1_2u4p4u7z">Demo of MPAS&lt;/a>&lt;/p></description></item></channel></rss>

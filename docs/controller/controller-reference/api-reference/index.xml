@@ -1,5 +1,25 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>API Reference on Open Component Model</title><link>https://ocm.software/docs/controller/controller-reference/api-reference/</link><description>Recent content in API Reference on Open Component Model</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>© Copyright 2024, SAP SE and Open Component Model Contributors</copyright><lastBuildDate>Tue, 12 Mar 2024 11:20:59 +0100</lastBuildDate><atom:link href="https://ocm.software/docs/controller/controller-reference/api-reference/index.xml" rel="self" type="application/rss+xml"/><item><title>OCM Controller API v1</title><link>https://ocm.software/docs/controller/controller-reference/api-reference/ocm-controller-api-v1/</link><pubDate>Tue, 27 Jun 2023 13:54:59 +0100</pubDate><guid>https://ocm.software/docs/controller/controller-reference/api-reference/ocm-controller-api-v1/</guid><description>Packages:
-delivery.ocm.software/v1alpha1 delivery.ocm.software/v1alpha1 Package v1alpha1 contains API Schema definitions for the delivery v1alpha1 API group
-Resource Types: ComponentVersion ComponentVersion is the Schema for the ComponentVersions API.</description></item><item><title>Replication Controller API v1</title><link>https://ocm.software/docs/controller/controller-reference/api-reference/replication-controller-api-v1/</link><pubDate>Mon, 10 Jul 2023 11:34:56 +0100</pubDate><guid>https://ocm.software/docs/controller/controller-reference/api-reference/replication-controller-api-v1/</guid><description>Packages:
-delivery.ocm.software/v1alpha1 delivery.ocm.software/v1alpha1 Package v1alpha1 contains API Schema definitions for the delivery v1alpha1 API group
-Resource Types: ComponentSubscription ComponentSubscription is the Schema for the componentsubscriptions API</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>API Reference on Open Component Model</title><link>https://ocm.software/docs/controller/controller-reference/api-reference/</link><description>Recent content in API Reference on Open Component Model</description><generator>Hugo</generator><language>en</language><copyright>© Copyright 2024, SAP SE and Open Component Model Contributors</copyright><lastBuildDate>Tue, 12 Mar 2024 11:20:59 +0100</lastBuildDate><atom:link href="https://ocm.software/docs/controller/controller-reference/api-reference/index.xml" rel="self" type="application/rss+xml"/><item><title>OCM Controller API v1</title><link>https://ocm.software/docs/controller/controller-reference/api-reference/ocm-controller-api-v1/</link><pubDate>Tue, 27 Jun 2023 13:54:59 +0100</pubDate><guid>https://ocm.software/docs/controller/controller-reference/api-reference/ocm-controller-api-v1/</guid><description>&lt;p>Packages:&lt;/p>
+&lt;ul class="simple">
+&lt;li>
+&lt;a href="#delivery.ocm.software%2fv1alpha1">delivery.ocm.software/v1alpha1&lt;/a>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="delivery.ocm.software/v1alpha1">delivery.ocm.software/v1alpha1&lt;/h2>
+&lt;p>Package v1alpha1 contains API Schema definitions for the delivery v1alpha1 API group&lt;/p>
+Resource Types:
+&lt;ul class="simple">&lt;/ul>
+&lt;h3 id="delivery.ocm.software/v1alpha1.ComponentVersion">ComponentVersion
+&lt;/h3>
+&lt;p>ComponentVersion is the Schema for the ComponentVersions API.&lt;/p></description></item><item><title>Replication Controller API v1</title><link>https://ocm.software/docs/controller/controller-reference/api-reference/replication-controller-api-v1/</link><pubDate>Mon, 10 Jul 2023 11:34:56 +0100</pubDate><guid>https://ocm.software/docs/controller/controller-reference/api-reference/replication-controller-api-v1/</guid><description>&lt;p>Packages:&lt;/p>
+&lt;ul class="simple">
+&lt;li>
+&lt;a href="#delivery.ocm.software%2fv1alpha1">delivery.ocm.software/v1alpha1&lt;/a>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="delivery.ocm.software/v1alpha1">delivery.ocm.software/v1alpha1&lt;/h2>
+&lt;p>Package v1alpha1 contains API Schema definitions for the delivery v1alpha1 API group&lt;/p>
+Resource Types:
+&lt;ul class="simple">&lt;/ul>
+&lt;h3 id="delivery.ocm.software/v1alpha1.ComponentSubscription">ComponentSubscription
+&lt;/h3>
+&lt;p>ComponentSubscription is the Schema for the componentsubscriptions API&lt;/p></description></item></channel></rss>

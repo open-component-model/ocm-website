@@ -1,4 +1,30 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Contribute on Open Component Model</title><link>https://ocm.software/docs/contribution/</link><description>Recent content in Contribute on Open Component Model</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>© Copyright 2024, SAP SE and Open Component Model Contributors</copyright><lastBuildDate>Fri, 12 Aug 2022 10:38:22 +0100</lastBuildDate><atom:link href="https://ocm.software/docs/contribution/index.xml" rel="self" type="application/rss+xml"/><item><title>Contributing Guideline</title><link>https://ocm.software/docs/contribution/contributing-guideline/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/contribution/contributing-guideline/</guid><description>Welcome to the OCM community!
-Thank you for taking the time to contribute to OCM.
-DCO Support Channels Ways to Contribute Find an Issue Local Development Submitting Pull Requests Licensing and Copyright information on file level Pull Request Checklist Pull Request Process Style Guidelines Release Process Guideline for AI-generated code contributions to SAP Open Source Software Projects DCO By contributing to this project you agree to the Developer Certificate of Origin (DCO).</description></item><item><title>Security Guideline</title><link>https://ocm.software/docs/contribution/security-guideline/</link><pubDate>Fri, 12 Aug 2022 10:38:22 +0100</pubDate><guid>https://ocm.software/docs/contribution/security-guideline/</guid><description>Report a Vulnerability Please do not report security vulnerabilities through public GitHub issues!
-Instead, please report them via the SAP Trust Center at https://www.</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Contribute on Open Component Model</title><link>https://ocm.software/docs/contribution/</link><description>Recent content in Contribute on Open Component Model</description><generator>Hugo</generator><language>en</language><copyright>© Copyright 2024, SAP SE and Open Component Model Contributors</copyright><lastBuildDate>Fri, 12 Aug 2022 10:38:22 +0100</lastBuildDate><atom:link href="https://ocm.software/docs/contribution/index.xml" rel="self" type="application/rss+xml"/><item><title>Contributing Guideline</title><link>https://ocm.software/docs/contribution/contributing-guideline/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/contribution/contributing-guideline/</guid><description>&lt;p>Welcome to the OCM community!&lt;/p>
+&lt;p>Thank you for taking the time to contribute to OCM.&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="#dco">DCO&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#support-channels">Support Channels&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#ways-to-contribute">Ways to Contribute&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#find-an-issue">Find an Issue&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#local-development">Local Development&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#submitting-pull-requests">Submitting Pull Requests&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#licensing-and-copyright-information-on-file-level">Licensing and Copyright information on file level&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#pull-request-checklist">Pull Request Checklist&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#pull-request-process">Pull Request Process&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#style-guidelines">Style Guidelines&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#release-process">Release Process&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#guideline-for-ai-generated-code-contributions-to-sap-open-source-software-projects">Guideline for AI-generated code contributions to SAP Open Source Software Projects&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="dco">DCO&lt;/h2>
+&lt;p>By contributing to this project you agree to the Developer Certificate of Origin (&lt;a href="https://raw.githubusercontent.com/open-component-model/.github/main/DCO">DCO&lt;/a>). This document was created by the Linux Kernel community and is a simple statement that you, as a contributor, have the legal right to make the contribution.&lt;/p></description></item><item><title>Security Guideline</title><link>https://ocm.software/docs/contribution/security-guideline/</link><pubDate>Fri, 12 Aug 2022 10:38:22 +0100</pubDate><guid>https://ocm.software/docs/contribution/security-guideline/</guid><description>&lt;h2 id="report-a-vulnerability">Report a Vulnerability&lt;/h2>
+&lt;div class="callout callout-note d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
+ 
+ &lt;div class="callout-content">
+ 
+ &lt;div class="callout-body">
+ &lt;p>Please do not report security vulnerabilities through public GitHub issues!&lt;/p></description></item></channel></rss>
