@@ -83,8 +83,8 @@ The following modes are supported:
 
 ```
 
-$ ocm get artifact ghcr.io/mandelsoft/kubelink
-$ ocm get artifact --repo OCIRegistry::ghcr.io mandelsoft/kubelink
+$ ocm get artifact ghcr.io/open-component-model/ocm/component-descriptors/ocm.software/ocmcli
+$ ocm get artifact ghcr.io/open-component-model/ocm/ocm.software/ocmcli/ocmcli-image:0.17.0
 
 ```
 

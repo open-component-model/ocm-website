@@ -150,7 +150,7 @@ references.
 ### Examples
 
 ```
-$ ocm sign componentversion --signature mandelsoft --private-key=mandelsoft.key ghcr.io/mandelsoft/kubelink
+$ ocm sign componentversion --signature mysignature --private-key=my.key ghcr.io/open-component-model/ocm//ocm.software/ocmcli:0.17.0
 ```
 
 ### See Also

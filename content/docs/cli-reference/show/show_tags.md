@@ -68,7 +68,8 @@ linked library can be used:
 
 ```
 
-$ oci show tags ghcr.io/mandelsoft/kubelink
+$ ocm show tags ghcr.io/open-component-model/ocm/ocm.software/ocmcli/ocmcli-image
+$ ocm oci show tags ghcr.io/open-component-model/ocm/ocm.software/ocmcli/ocmcli-image
 
 ```
 
