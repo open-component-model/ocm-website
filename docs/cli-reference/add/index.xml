@@ -30,9 +30,11 @@
  -h, --help help for componentversions
  --lookup stringArray repository name or spec for closure lookup fallback
  -O, --output string output file for dry-run
+ -P, --preserve-signature preserve existing signatures
  -R, --replace replace existing elements
  -S, --scheme string schema version (default &amp;#34;v2&amp;#34;)
  -s, --settings stringArray settings file with variable settings (yaml)
+ --skip-digest-generation skip digest creation
  --templater string templater to use (go, none, spiff, subst) (default &amp;#34;subst&amp;#34;)
  -t, --type string archive format (directory, tar, tgz) (default &amp;#34;directory&amp;#34;)
  --uploader &amp;lt;name&amp;gt;=&amp;lt;value&amp;gt; repository uploader (&amp;lt;name&amp;gt;[:&amp;lt;artifact type&amp;gt;[:&amp;lt;media type&amp;gt;[:&amp;lt;priority&amp;gt;]]]=&amp;lt;JSON target config&amp;gt;) (default [])
@@ -72,6 +74,7 @@ content or a tar/tgz file (see option &amp;ndash;type).&lt;/p></description></it
  --label &amp;lt;name&amp;gt;=&amp;lt;YAML&amp;gt; reference label (leading * indicates signature relevant, optional version separated by @)
  --name string reference name
  -O, --output string output file for dry-run
+ -P, --preserve-signature preserve existing signatures
  --reference YAML reference meta data (yaml)
  -R, --replace replace existing elements
  -s, --settings stringArray settings file with variable settings (yaml)
@@ -233,6 +236,7 @@ So far only component archives are supported as target.&lt;/p></description></it
  --noredirect http redirect behavior
  -O, --output string output file for dry-run
  --package string package or object name
+ -P, --preserve-signature preserve existing signatures
  --reference string reference name
  --region string region name
  -R, --replace replace existing elements
@@ -436,6 +440,7 @@ entry for unknown types.&lt;/p></description></item><item><title>source-configur
  --noredirect http redirect behavior
  -O, --output string output file for dry-run
  --package string package or object name
+ -P, --preserve-signature preserve existing signatures
  --reference string reference name
  --region string region name
  -R, --replace replace existing elements
