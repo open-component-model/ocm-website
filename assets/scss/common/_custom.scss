@@ -2,9 +2,19 @@
 .container-fw {
     // max-width: 1200px;
     max-width: 100%;
+    padding-left: 1rem;
 
+    .docs-content {
+        margin-left: 0rem !important;
+        margin-right: 0rem !important;
+        padding-right: 0rem !important;
+        padding-left: 0rem !important;
+    }
     .docs-toc {
-        margin-left: 15rem;
+        margin-left: 3rem !important;
+        margin-right: 0rem !important;
+        padding-right: 0rem !important;
+        padding-left: 0rem !important;
     }
 }
 
@@ -18,3 +28,4 @@
     padding-top: 0;
     padding-bottom: 0;
 }
+
