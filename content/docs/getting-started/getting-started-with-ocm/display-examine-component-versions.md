@@ -12,7 +12,7 @@ toc: true
 
 ## List Component Versions
 
-To show the component stored in a component archive (without looking at the file system structure), the [`ocm get componentversion`](https://github.com/open-component-model/ocm/blob/main/docs/reference/ocm_get_componentversions.md) command can be used:
+To show a component stored in an OCM repository or CTF archive (which itself is an OCM repository), the [`ocm get componentversion`](https://github.com/open-component-model/ocm/blob/main/docs/reference/ocm_get_componentversions.md) command can be used:
 
 ```bash
 ocm get componentversion ghcr.io/open-component-model/ocm//ocm.software/toi/demo/helmdemo:0.12.0
@@ -367,7 +367,7 @@ ocm download componentversions ghcr.io/open-component-model/ocm//ocm.software/to
   helloworld: downloaded
 ```
 
-The result is a component archive. This can then be modified using the `ocm add ...` commands shown earlier.
+The result is a CTF archive. This can then be modified using the `ocm add ...` commands shown earlier.
 
 <details><summary>What happened?</summary>
 
