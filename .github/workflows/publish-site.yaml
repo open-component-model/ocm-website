@@ -42,11 +42,10 @@ jobs:
         run: |
           python3 -m pip install json-schema-for-humans
           generate-schema-doc --config-file generate-schema.yaml static/schemas/component-descriptor-v2 schema-v2.html
-          generate-schema-doc --config-file generate-schema.yaml static/schemas/component-descriptor-v3alpha1 schema-v3alpha1.html
 
       - name: Copy Schema
         run: |
-          cp schema-v2.html schema-v3alpha1.html schema_doc.css schema_doc.min.js public/docs/overview/specification
+          cp schema-v2.html schema_doc.css schema_doc.min.js public/docs/overview/specification
 
       - name: Publish as GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
