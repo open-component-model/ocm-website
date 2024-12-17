@@ -14,18 +14,18 @@ toc: true
 
 To show a component stored in an OCM repository or CTF archive (which itself is an OCM repository), the [`ocm get componentversion`](https://github.com/open-component-model/ocm/blob/main/docs/reference/ocm_get_componentversions.md) command can be used:
 
-```bash
+```shell
 ocm get componentversion ghcr.io/open-component-model/ocm//ocm.software/toi/demo/helmdemo:0.12.0
 ```
 
-```bash
+```shell
   COMPONENT                      VERSION PROVIDER
   ocm.software/toi/demo/helmdemo 0.12.0  ocm.software
 ```
 
 To see the component descriptor of the displayed component version, use the output format option `-o yaml`:
 
-```bash
+```shell
 ocm get cv ghcr.io/open-component-model/ocm//ocm.software/toi/demo/helmdemo:0.12.0 -o yaml
 ```
 
@@ -77,11 +77,11 @@ Optionally, a specific version can be appended, separated by a colon (`:`). If n
 
 With the option `--recursive`, it is possible to show the complete component version, including the component versions it references.
 
-```bash
+```shell
 ocm get cv ghcr.io/open-component-model/ocm//ocm.software/toi/demo/helmdemo:0.12.0 --recursive
 ```
 
-```bash
+```shell
   REFERENCEPATH                         COMPONENT                                 VERSION PROVIDER     IDENTITY
                                         ocm.software/toi/demo/helmdemo            0.12.0  ocm.software
   ocm.software/toi/demo/helmdemo:0.12.0 ocm.software/toi/installers/helminstaller 0.12.0  ocm.software "name"="installer"
@@ -89,11 +89,11 @@ ocm get cv ghcr.io/open-component-model/ocm//ocm.software/toi/demo/helmdemo:0.12
 
 To get a tree view, add the option `-o tree`:
 
-```bash
+```shell
 ocm get cv ghcr.io/open-component-model/ocm//ocm.software/toi/demo/helmdemo:0.12.0 --recursive -o tree
 ```
 
-```bash
+```shell
   NESTING COMPONENT                                 VERSION PROVIDER     IDENTITY
   └─ ⊗    ocm.software/toi/demo/helmdemo            0.12.0  ocm.software
      └─   ocm.software/toi/installers/helminstaller 0.12.0  ocm.software "name"="installer"
@@ -101,11 +101,11 @@ ocm get cv ghcr.io/open-component-model/ocm//ocm.software/toi/demo/helmdemo:0.12
 
 As mentioned before a CTF archive itself is an OCM repository, so we can execute the same commands on a CTF archive. So, let's get the information about the component `github.com/acme.org/helloworld` we created in the previous step and that we stored in the CTF archive `/tmp/helloworld/ctf-hello-world`:
 
-```bash
+```shell
 ocm get cv /tmp/helloworld/ctf-hello-world//github.com/acme.org/helloworld:1.0.0
 ```
 
-```bash
+```shell
   COMPONENT                       VERSION  PROVIDER
   github.com/acme.org/helloworld  0.1.0    ocm.software
 ```
@@ -114,7 +114,7 @@ ocm get cv /tmp/helloworld/ctf-hello-world//github.com/acme.org/helloworld:1.0.0
 
 To list the resources found in a component version tree, the command [`ocm get resources`](https://github.com/open-component-model/ocm/blob/main/docs/reference/ocm_get_resources.md) can be used:
 
-```bash
+```shell
 ocm get resources ghcr.io/open-component-model/ocm//ocm.software/toi/demo/helmdemo:0.12.0 --recursive -o tree
 ```
 ```
@@ -134,7 +134,7 @@ ocm get resources ghcr.io/open-component-model/ocm//ocm.software/toi/demo/helmde
 
 Use the [`ocm download`](https://github.com/open-component-model/ocm/blob/main/docs/reference/ocm_download_resources.md) command to download resources such as component versions, individual resources or artifacts:
 
-```bash
+```shell
 ocm download resource ghcr.io/open-component-model/ocm//ocm.software/toi/demo/helmdemo:0.12.0 chart -O helmchart.tgz
 ```
 ```
@@ -147,7 +147,7 @@ Because it is stored as OCI artifact in an OCI registry, the filesystem format u
 
 The file `helmchart.tgz` was downloaded.
 
-```bash
+```shell
 tar xvf helmchart.tgz
 ```
 ```
@@ -159,7 +159,7 @@ tar xvf helmchart.tgz
   x blobs/sha256.ea8e5b44cd1aff1f3d9377d169ad795be20fbfcd58475a62341ed8fb74d4788c
 ```
 
-```bash
+```shell
 $ jq . index.json
 ```
 ```json
@@ -194,7 +194,7 @@ If a download handler is available for the artifact type and the
 blob media type used to store the blob in the OCM repository, it will convert the blob format
 into a more suitable format:
 
-```bash
+```shell
 ocm download resource -d ghcr.io/open-component-model/ocm//ocm.software/toi/demo/helmdemo:0.12.0 chart -O helmchart.tgz
 ```
 ```
@@ -205,7 +205,7 @@ ocm download resource -d ghcr.io/open-component-model/ocm//ocm.software/toi/demo
 
 The downloaded archive is now a regular Helm Chart archive:
 
-```bash
+```shell
 tar tvf helmchart.tgz
 ```
 ```
@@ -228,7 +228,7 @@ tar tvf helmchart.tgz
 
 For example, for OCI images, the OCI format is more suitable:
 
-```bash
+```shell
 ocm download resource ghcr.io/open-component-model/ocm//ocm.software/toi/demo/helmdemo:0.12.0 image -O image.tgz
 ```
 ```
@@ -239,7 +239,7 @@ ocm download resource ghcr.io/open-component-model/ocm//ocm.software/toi/demo/he
 
 The file `image.tgz` was downloaded.
 
-```bash
+```shell
 tar xvf image.tgz
 ```
 ```
@@ -260,7 +260,7 @@ tar xvf image.tgz
   x blobs/sha256.e0962580d8254d0b1ef35006d7e2319eb4870e63dc1f9573d2406c7c47d442d2
 ```
 
-```bash
+```shell
 jq . index.json
 ```
 ```json
@@ -294,7 +294,7 @@ version.
 
 Example:
 
-```bash
+```shell
 ocm get componentversion ghcr.io/open-component-model/ocm//ocm.software/ocmcli:0.1.0-dev -o yaml
 ```
 ```yaml
@@ -330,7 +330,7 @@ component version complies to this convention, executables can directly be downl
 platform with the use of the `-x` option. If only one executable is contained in the component version, the
 resource name can be omitted. Example:
 
-```bash
+```shell
 ocm download resource -x --latest ghcr.io/open-component-model/ocm//ocm.software/ocmcli
 ```
 ```
@@ -339,7 +339,7 @@ ocm download resource -x --latest ghcr.io/open-component-model/ocm//ocm.software
 
 <details><summary>What happened?</summary>
 
-```bash
+```shell
 file ocm
 ```
 ```
@@ -360,7 +360,7 @@ files. Additionally, it filters all matching resources for executables and the c
 
 Download entire component versions using the [`ocm download componentversion`](https://github.com/open-component-model/ocm/blob/main/docs/reference/ocm_download_componentversions.md) command:
 
-```bash
+```shell
 ocm download componentversions ghcr.io/open-component-model/ocm//ocm.software/toi/demo/helmdemo:0.12.0 -O helloworld
 ```
 ```
@@ -373,7 +373,7 @@ The result is a CTF archive. This can then be modified using the `ocm add ...` c
 
 The component version was downloaded.
 
-```bash
+```shell
 tree helloworld
 ```
 ```
@@ -390,7 +390,7 @@ tree helloworld
 
 Download OCI artifacts from an OCI registry, such as OCI images, with the [`ocm download artifacts`](https://github.com/open-component-model/ocm/blob/main/docs/reference/ocm_download_artifacts.md) command:
 
-```bash
+```shell
 ocm download artifact ghcr.io/open-component-model/ocm-controller:v0.24.0 -O ocm-controller
 ```
 ```
@@ -401,7 +401,7 @@ ocm download artifact ghcr.io/open-component-model/ocm-controller:v0.24.0 -O ocm
 
 The OCI image `echoserver` was downloaded.
 
-```bash
+```shell
 tree echoserver
 ```
 ```
