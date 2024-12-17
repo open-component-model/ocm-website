@@ -25,9 +25,12 @@ meta:
 component:
   # name of the component. Must start with URL-prefix that should be controlled
   # by the owner of the component to avoid collisions
+  # regex: ^[a-z][-a-z0-9]*([.][a-z][-a-z0-9]*)*[.][a-z]{2,}(/[a-z][-a-z0-9_]*([.][a-z][-a-z0-9_]*)*)+$
   name: github.com/weaveworks/weave-gitops 
   # version of the component. Must adhere to “relaxed SemVer”
   # major, minor (+ optional patch level) - optional v-prefix
+  # regex: ^[v]?(0|[1-9]\\d*)(?:\\.(0|[1-9]\\d*))?(?:\\.(0|[1-9]\\d*))?(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$
+
   version: v1.0.0 
   # component provider
   provider: weaveworks 
@@ -51,7 +54,7 @@ component:
     relation: external 
     # resource type
     type: ociImage 
-    # resource version. Must also adhere to “relaxed SemVer”
+    # resource version. Must also adhere to “relaxed SemVer” (see `component.versio` above`)
     version: v0.14.1
     # metadata describing how to access the resource
     access:
@@ -69,7 +72,7 @@ component:
   - name: weave-gitops
     # source type
     type: git 
-    # source version. Must also adhere to “relaxed SemVer”
+    # source version. Must also adhere to “relaxed SemVer” (see `component.versio` above`)
     version: v0.14.1 
     # metadata describing how to access the source
     access: 
