@@ -125,7 +125,7 @@ references.
 ### Examples
 
 ```
-$ ocm verify componentversion --signature mandelsoft --public-key=mandelsoft.key ghcr.io/mandelsoft/kubelink
+$ ocm verify componentversion --signature mysig --public-key=pub.key ghcr.io/open-component-model/ocm//ocm.software/ocm:0.17.0
 ```
 
 ### See Also
