@@ -96,7 +96,7 @@ versions are provided by accepted and well-known processes.
 
 ## Building Multi-Architecture Images
 
-> **Note:** This section provides information only on on building multi-arch images. Referencing a multi-arch image does not differ from images for just one platform, see the [`ocm add resources`](https://github.com/open-component-model/ocm/blob/main/docs/reference/ocm_add_resources.md) command for the OCM CLI
+> **Note:** This section provides information only on on building multi-arch images. Referencing a multi-arch image does not differ from images for just one platform.
 
 At the time of writing this guide Docker is not able to build multi-architecture (multi-arch / multi-platform)
 images natively. Instead, the `buildx` plugin is used. However, this implies building and pushing
@@ -108,12 +108,11 @@ component version composition ([`ocm add resources`](https://github.com/open-com
 This allows building all artifacts locally and push them in a separate step to a container registry. This
 is done by building single-arch images in a first step (still using `buildx` for cross-platform
 building). In a second step all images are bundled into a multi-arch image, which is stored as
-local artifact in a component (CA) or common transport (CTF)
-archive. This archive can be processed as usual (e.g., for signing or transfer to other locations).
+local artifact in a CTF archive. This archive can be processed as usual (e.g., for signing or transfer to other locations).
 When pushed to an image registry, multi-arch images are generated with a multi-arch-image manifest.
 
 The following steps illustrate this procedure. For a simple project with a Go binary and a
-helm-chart assume the following file structure:
+Helm chart assume the following folder structure. The example is built using content from [here for Golang code](https://github.com/GoogleContainerTools/distroless/blob/main/examples/go) and [here for the Helm chart](https://github.com/helm/examples/tree/main/charts/hello-world)
 
 ```shell
  tree .
@@ -131,188 +130,159 @@ helm-chart assume the following file structure:
 The Dockerfile has the following content:
 
 ```Dockerfile
-FROM golang:1.19 AS builder
+FROM golang:1.22 as build
 
-WORKDIR /app
-COPY go.mod ./
-COPY main.go ./
-# RUN go mod download
-RUN go build -o /helloserver main.go
+WORKDIR /go/src/app
+COPY . .
 
-# Create a new release build stage
-FROM gcr.io/distroless/base-debian10
+RUN go mod download
+RUN go vet -v
+RUN go test -v
 
-# Set the working directory to the root directory path
-WORKDIR /
-# Copy over the binary built from the previous stage
-COPY --from=builder /helloserver /helloserver
+RUN CGO_ENABLED=0 go build -o /go/bin/app
 
-ENTRYPOINT ["/helloserver"]
+FROM gcr.io/distroless/static-debian12
+
+COPY --from=build /go/bin/app /
+CMD ["/app"]
 ```
 
 Now we want to build images for two platforms using Docker and buildx. Note the `--load` option for
-`buildx` to store the image in the local Docker store. Note the architecture suffix in the tag to be
+`buildx` to store the image in the local Docker registry. Note the architecture suffix in the tag to be
 able to distinguish the images for the different platforms. Also note that the tag has a different
 syntax than the `--platform` argument for `buildx` as slashes are not allowed in tags.
 
 ```shell
-$ TAG_PREFIX=eu.gcr.io/my-project/acme # path to you OCI registry
-$ PLATFORM=linux/amd64
-$ VERSION=0.1.0
+$ TAG_PREFIX=eu.gcr.io/acme # path to you OCI registry
 
 $ docker buildx build --load -t ${TAG_PREFIX}/simpleserver:0.1.0-linux-amd64 --platform linux/amd64 .
-[+] Building 54.4s (14/14) FINISHED
- => [internal] load build definition from dockerfile                                                                          0.0s
- => => transferring dockerfile: 660B                                                                                          0.0s
- => [internal] load .dockerignore                                                                                             0.0s
- => => transferring context: 2B                                                                                               0.0s
- => [internal] load metadata for gcr.io/distroless/base-debian10:latest                                                       1.6s
- => [internal] load metadata for docker.io/library/golang:1.19                                                                1.2s
- => [builder 1/5] FROM docker.io/library/golang:1.19@sha256:dc76ef03e54c34a00dcdca81e55c242d24b34d231637776c4bb5c1a8e851425  49.2s
- => => resolve docker.io/library/golang:1.19@sha256:dc76ef03e54c34a00dcdca81e55c242d24b34d231637776c4bb5c1a8e8514253          0.0s
- => => sha256:14a70245b07c7f5056bdd90a3d93e37417ec26542def5a37ac8f19e437562533 156B / 156B                                    0.2s
- => => sha256:a2b47720d601b6c6c6e7763b4851e25475118d80a76be466ef3aa388abf2defd 148.91MB / 148.91MB                           46.3s
- => => sha256:52908dc1c386fab0271a2b84b6ef4d96205a98a8c8801169554767172e45d8c7 85.97MB / 85.97MB                             42.9s
- => => sha256:195ea6a58ca87a18477965a6e6a8623112bde82c5b568a29c56ce4581b6e6695 54.59MB / 54.59MB                             33.8s
- => => sha256:c85a0be79bfba309d1f05dc40b447aa82b604593531fed1e7e12e4bef63483a5 10.88MB / 10.88MB                              3.4s
- => => sha256:e4e46864aba2e62ba7c75965e4aa33ec856ee1b1074dda6b478101c577b63abd 5.16MB / 5.16MB                                1.5s
- => => sha256:a8ca11554fce00d9177da2d76307bdc06df7faeb84529755c648ac4886192ed1 55.04MB / 55.04MB                             19.3s
- => => extracting sha256:a8ca11554fce00d9177da2d76307bdc06df7faeb84529755c648ac4886192ed1                                     1.1s
- => => extracting sha256:e4e46864aba2e62ba7c75965e4aa33ec856ee1b1074dda6b478101c577b63abd                                     0.1s
- => => extracting sha256:c85a0be79bfba309d1f05dc40b447aa82b604593531fed1e7e12e4bef63483a5                                     0.1s
- => => extracting sha256:195ea6a58ca87a18477965a6e6a8623112bde82c5b568a29c56ce4581b6e6695                                     1.1s
- => => extracting sha256:52908dc1c386fab0271a2b84b6ef4d96205a98a8c8801169554767172e45d8c7                                     1.5s
- => => extracting sha256:a2b47720d601b6c6c6e7763b4851e25475118d80a76be466ef3aa388abf2defd                                     2.8s
- => => extracting sha256:14a70245b07c7f5056bdd90a3d93e37417ec26542def5a37ac8f19e437562533                                     0.0s
- => [stage-1 1/3] FROM gcr.io/distroless/base-debian10@sha256:101798a3b76599762d3528635113f0466dc9655ecba82e8e33d410e2bf5cd  30.7s
- => => resolve gcr.io/distroless/base-debian10@sha256:101798a3b76599762d3528635113f0466dc9655ecba82e8e33d410e2bf5cd319        0.0s
- => => sha256:f291067d32d8d06c3b996ba726b9aa93a71f6f573098880e05d16660cfc44491 8.12MB / 8.12MB                               30.6s
- => => sha256:2445dbf7678f5ec17f5654ac2b7ad14d7b1ea3af638423fc68f5b38721f25fa4 657.02kB / 657.02kB                            1.3s
- => => extracting sha256:2445dbf7678f5ec17f5654ac2b7ad14d7b1ea3af638423fc68f5b38721f25fa4                                     0.1s
- => => extracting sha256:f291067d32d8d06c3b996ba726b9aa93a71f6f573098880e05d16660cfc44491                                     0.1s
- => [internal] load build context                                                                                             0.1s
- => => transferring context: 575B                                                                                             0.0s
- => [builder 2/5] WORKDIR /app                                                                                                0.1s
- => [builder 3/5] COPY go.mod ./                                                                                              0.0s
- => [builder 4/5] COPY main.go ./                                                                                             0.0s
- => [builder 5/5] RUN go build -o /helloserver main.go                                                                        2.4s
- => [stage-1 2/3] COPY --from=builder /helloserver /helloserver                                                               0.0s
- => exporting to oci image format                                                                                             0.8s
- => => exporting layers                                                                                                       0.2s
- => => exporting manifest sha256:04d69fc3245757d327d96b1a83b7a64543d970953c61d1014ae6980ed8b3ba2a                             0.0s
- => => exporting config sha256:08641d64f612661a711587b07cfeeb6d2804b97998cfad85864a392c1aabcd06                               0.0s
- => => sending tarball                                                                                                        0.6s
- => importing to docker
+[+] Building 61.1s (15/15) FINISHED                                                                            docker:colima
+ => [internal] load build definition from Dockerfile                                                                    0.0s
+ => => transferring dockerfile: 311B                                                                                    0.0s
+ => [internal] load .dockerignore                                                                                       0.0s
+ => => transferring context: 2B                                                                                         0.0s
+ => [internal] load metadata for gcr.io/distroless/static-debian12:latest                                               1.4s
+ => [internal] load metadata for docker.io/library/golang:1.22                                                          1.6s
+ => [build 1/7] FROM docker.io/library/golang:1.22@sha256:9855006ddcf40a79e9a2d90df11870331d24bcf2354232482ae132a7ba7  18.9s
+ => => resolve docker.io/library/golang:1.22@sha256:9855006ddcf40a79e9a2d90df11870331d24bcf2354232482ae132a7ba7b624f    0.0s
+ => => sha256:728e37151a360a5d8d6d390df48e16ee02692bc260c236ae747c056d1323f89e 2.32kB / 2.32kB                          0.0s
+...
+ => => extracting sha256:4f4fb700ef54461cfa02571ae0db9a0dc1e0cdb5577484a6d75e68dc38e8acc1                               0.0s
+ => [internal] load build context                                                                                       0.0s
+ => => transferring context: 10.35kB                                                                                    0.0s
+ => [stage-1 1/2] FROM gcr.io/distroless/static-debian12@sha256:5c7e2b465ac6a2a4e5f4f7f722ce43b147dabe87cb21ac6c4007ae  2.0s
+ => => resolve gcr.io/distroless/static-debian12@sha256:5c7e2b465ac6a2a4e5f4f7f722ce43b147dabe87cb21ac6c4007ae5178a1fa  0.0s
+ => => sha256:5c7e2b465ac6a2a4e5f4f7f722ce43b147dabe87cb21ac6c4007ae5178a1fa58 1.51kB / 1.51kB                          0.0s
+ ...
+ => => extracting sha256:9aee425378d2c16cd44177dc54a274b312897f5860a8e78fdfda555a0d79dd71                               0.0s
+ => [build 2/7] WORKDIR /go/src/app                                                                                     0.1s
+ => [build 3/7] COPY . .                                                                                                0.0s
+ => [build 4/7] RUN go mod download                                                                                     0.3s
+ => [build 5/7] RUN go vet -v                                                                                          26.6s
+ => [build 6/7] RUN go test -v                                                                                         12.2s
+ => [build 7/7] RUN CGO_ENABLED=0 go build -o /go/bin/app                                                               1.3s
+ => [stage-1 2/2] COPY --from=build /go/bin/app /                                                                       0.0s
+ => exporting to image                                                                                                  0.0s
+ => => exporting layers                                                                                                 0.0s
+ => => writing image sha256:ee9a5db4628777265eed1d7a2ac479ec6e0ad88e682dc2e53797473c460f19cb                            0.0s
+ => => naming to eu.gcr.io/acme/simpleserver:0.1.0-linux-amd64                                               0.0s
 ```
 
 Repeat this command for the second platform:
 
 ```shell
 $ docker buildx build --load -t ${TAG_PREFIX}/simpleserver:0.1.0-linux-arm64 --platform linux/arm64 .
-docker buildx build --load -t ${TAG_PREFIX}/simpleserver:0.1.0-linux-arm64 --platform linux/arm64 .
-[+] Building 40.1s (14/14) FINISHED
- => [internal] load .dockerignore                                                                                             0.0s
- => => transferring context: 2B                                                                                               0.0s
- => [internal] load build definition from dockerfile                                                                          0.0s
- => => transferring dockerfile: 660B                                                                                          0.0s
- => [internal] load metadata for gcr.io/distroless/base-debian10:latest                                                       1.0s
- => [internal] load metadata for docker.io/library/golang:1.19                                                                1.1s
- => [builder 1/5] FROM docker.io/library/golang:1.19@sha256:dc76ef03e54c34a00dcdca81e55c242d24b34d231637776c4bb5c1a8e851425  37.7s
- => => resolve docker.io/library/golang:1.19@sha256:dc76ef03e54c34a00dcdca81e55c242d24b34d231637776c4bb5c1a8e8514253          0.0s
- => => sha256:cd807e8b483974845eabbdbbaa4bb3a66f74facd8c061e01e923e9f1da608271 157B / 157B                                    0.2s
- => => sha256:fecd6ba4b3f93b6c90f4058b512f1b0a44223ccb3244f0049b16fe2c1b41cf45 115.13MB / 115.13MB                           35.6s
- => => sha256:4fb255e3f99867ec7a2286dfbbef990491cde0a5d226d92be30bad4f9e917fa4 81.37MB / 81.37MB                             31.8s
- => => sha256:426e8acfed2a5373bd99b22b5a968d55a148e14bc0e0f51c5cf0d779afefe291 54.68MB / 54.68MB                             26.7s
- => => sha256:3d7b1480fa4dae5cbbb7d091c46ae0ae52f501418d4cfeb849b87023364e2564 10.87MB / 10.87MB                              3.0s
- => => sha256:a3e29af4daf3531efcc63588162e8bdcf3434aa5d72df4eabeb5e20c6695e303 5.15MB / 5.15MB                                1.3s
- => => sha256:077c13527d405646e2f6bb426e04716ae4f8dd2fdd8966dcb0194564a2b57896 53.70MB / 53.70MB                             13.3s
- => => extracting sha256:077c13527d405646e2f6bb426e04716ae4f8dd2fdd8966dcb0194564a2b57896                                     0.9s
- => => extracting sha256:a3e29af4daf3531efcc63588162e8bdcf3434aa5d72df4eabeb5e20c6695e303                                     0.3s
- => => extracting sha256:3d7b1480fa4dae5cbbb7d091c46ae0ae52f501418d4cfeb849b87023364e2564                                     0.1s
- => => extracting sha256:426e8acfed2a5373bd99b22b5a968d55a148e14bc0e0f51c5cf0d779afefe291                                     1.2s
- => => extracting sha256:4fb255e3f99867ec7a2286dfbbef990491cde0a5d226d92be30bad4f9e917fa4                                     1.4s
- => => extracting sha256:fecd6ba4b3f93b6c90f4058b512f1b0a44223ccb3244f0049b16fe2c1b41cf45                                     2.0s
- => => extracting sha256:cd807e8b483974845eabbdbbaa4bb3a66f74facd8c061e01e923e9f1da608271                                     0.0s
- => [stage-1 1/3] FROM gcr.io/distroless/base-debian10@sha256:101798a3b76599762d3528635113f0466dc9655ecba82e8e33d410e2bf5cd  25.7s
- => => resolve gcr.io/distroless/base-debian10@sha256:101798a3b76599762d3528635113f0466dc9655ecba82e8e33d410e2bf5cd319        0.0s
- => => sha256:21d6a6c3921f47fb0a96eb028b4c3441944a6e5a44b30cd058425ccc66279760 7.13MB / 7.13MB                               25.5s
- => => sha256:7d441aeb75fe3c941ee4477191c6b19edf2ad8310bac7356a799c20df198265c 657.02kB / 657.02kB                            1.3s
- => => extracting sha256:7d441aeb75fe3c941ee4477191c6b19edf2ad8310bac7356a799c20df198265c                                     0.1s
- => => extracting sha256:21d6a6c3921f47fb0a96eb028b4c3441944a6e5a44b30cd058425ccc66279760                                     0.1s
- => [internal] load build context                                                                                             0.0s
- => => transferring context: 54B                                                                                              0.0s
- => [builder 2/5] WORKDIR /app                                                                                                0.2s
- => [builder 3/5] COPY go.mod ./                                                                                              0.0s
- => [builder 4/5] COPY main.go ./                                                                                             0.0s
- => [builder 5/5] RUN go build -o /helloserver main.go                                                                        0.3s
- => [stage-1 2/3] COPY --from=builder /helloserver /helloserver                                                               0.0s
- => exporting to oci image format                                                                                             0.5s
- => => exporting layers                                                                                                       0.2s
- => => exporting manifest sha256:267ed1266b2b0ed74966e72d4ae8a2dfcf77777425d32a9a46f0938c962d9600                             0.0s
- => => exporting config sha256:67102364e254bf5a8e58fa21ea56eb40645851d844f5c4d9651b4af7a40be780                               0.0s
- => => sending tarball                                                                                                        0.3s
- => importing to docker
+[+] Building 25.0s (15/15) FINISHED                                                                            docker:colima
+ => [internal] load .dockerignore                                                                                       0.0s
+ => => transferring context: 2B                                                                                         0.0s
+ => [internal] load build definition from Dockerfile                                                                    0.0s
+ => => transferring dockerfile: 311B                                                                                    0.0s
+ => [internal] load metadata for gcr.io/distroless/static-debian12:latest                                               1.3s
+ => [internal] load metadata for docker.io/library/golang:1.22                                                          1.0s
+ => [build 1/7] FROM docker.io/library/golang:1.22@sha256:9855006ddcf40a79e9a2d90df11870331d24bcf2354232482ae132a7ba7  18.6s
+ => => resolve docker.io/library/golang:1.22@sha256:9855006ddcf40a79e9a2d90df11870331d24bcf2354232482ae132a7ba7b624f    0.0s
+ => => sha256:7b893bb34fbafdf786885eb0850d43ea7f4532c2e785364460598aed3d6fb7ce 2.33kB / 2.33kB                          0.0s
+ ...
+ => => extracting sha256:4f4fb700ef54461cfa02571ae0db9a0dc1e0cdb5577484a6d75e68dc38e8acc1                               0.0s
+ => [stage-1 1/2] FROM gcr.io/distroless/static-debian12@sha256:5c7e2b465ac6a2a4e5f4f7f722ce43b147dabe87cb21ac6c4007ae  1.9s
+ => => resolve gcr.io/distroless/static-debian12@sha256:5c7e2b465ac6a2a4e5f4f7f722ce43b147dabe87cb21ac6c4007ae5178a1fa  0.0s
+ => => sha256:50f827f875a7a4fc95ebbfcb309f20268065152926ff24672ec0eec70c162f21 1.95kB / 1.95kB                          0.0s
+ ...
+ => => extracting sha256:9aee425378d2c16cd44177dc54a274b312897f5860a8e78fdfda555a0d79dd71                               0.0s
+ => [internal] load build context                                                                                       0.0s
+ => => transferring context: 1.23kB                                                                                     0.0s
+ => [build 2/7] WORKDIR /go/src/app                                                                                     0.1s
+ => [build 3/7] COPY . .                                                                                                0.0s
+ => [build 4/7] RUN go mod download                                                                                     0.2s
+ => [build 5/7] RUN go vet -v                                                                                           2.9s
+ => [build 6/7] RUN go test -v                                                                                          1.4s
+ => [build 7/7] RUN CGO_ENABLED=0 go build -o /go/bin/app                                                               0.4s
+ => [stage-1 2/2] COPY --from=build /go/bin/app /                                                                       0.0s
+ => exporting to image                                                                                                  0.0s
+ => => exporting layers                                                                                                 0.0s
+ => => writing image sha256:3109827fa2f6f419e88d059eb7adff001e552a975ef49279d0049c52c2841034                            0.0s
+ => => naming to eu.gcr.io/acme/simpleserver:0.1.0-linux-arm64                                               0.0s
 ```
 
-Check that the images were created correctly:
+Check that the images have beens created correctly:
 
 ```shell
-$ docker image ls
-REPOSITORY                                              TAG                 IMAGE ID       CREATED              SIZE
-eu.gcr.io/acme/simpleserver   0.1.0-linux-arm64   67102364e254   6 seconds ago        22.4MB
-eu.gcr.io/acme/simpleserver   0.1.0-linux-amd64   08641d64f612   About a minute ago   25.7MB
+$ docker image ls | grep simpleserver
+eu.gcr.io/acme/simpleserver     0.1.0-linux-arm64    3109827fa2f6   5 minutes ago   3.93MB
+eu.gcr.io/acme/simpleserver     0.1.0-linux-amd64    ee9a5db46287   8 minutes ago   3.88MB
 ```
 
-In the next step we create a component archive and a transport archive
+In the next step we create a component version and store it in a local CTF archive:
 
-```shell
-PROVIDER=acme
-COMPONENT=github.com/$(PROVIDER)/simpleserver
-VERSION=0.1.0
-mkdir gen
-ocm create ca ${COMPONENT} ${VERSION} --provider ${PROVIDER} --file gen/ca
-```
-
-Create the file `resources.yaml`. Note the variants in the image input and the type `dockermulti`:
+In the same folder where the example app is present, create a file `component-constructor.yaml`
+that contains the description of the component version and its resources.
+Note the variants in the image `input` attribute and the `type` *dockermulti*:
 
 ```yaml
----
-name: chart
-type: helmChart
-input:
-  type: helm
-  path: helmchart
----
-name: image
-type: ociImage
-version: 0.1.0
-input:
-  type: dockermulti
-  repository: eu.gcr.io/acme/simpleserver
-  variants:
-  - "eu.gcr.io/acme/simpleserver:0.1.0-linux-amd64"
-  - "eu.gcr.io/acme/simpleserver:0.1.0-linux-arm64"
+# specify a schema to validate the configuration and get auto-completion in your editor
+# yaml-language-server: $schema=https://ocm.software/schemas/configuration-schema.yaml
+components:
+- name: github.com/acme/simpleserver
+  # version needs to follow "relaxed" SemVer
+  version: 0.1.0
+  provider:
+    name: acme
+  resources:
+    # local Helm chart resource
+    - name: chart
+      type: helmChart
+      input:
+        type: helm
+        path: helmchart
+    # local image resource with two different variants for OS architecture
+    - name: image
+      type: ociImage
+      version: 0.1.0
+      input:
+        type: dockermulti
+        repository: eu.gcr.io/acme/simpleserver
+        variants:
+        - "eu.gcr.io/acme/simpleserver:0.1.0-linux-amd64"
+        - "eu.gcr.io/acme/simpleserver:0.1.0-linux-arm64"
 ```
 
 The input type `dockermulti` adds a multi-arch image composed by the given dedicated images from the local Docker
-image store as local artifact to the component archive.
+image registry as local artifact to the CTF archive.
 
-Add the described resources to your component archive:
+Add the described resources to a CTF archive (the):
 
 ```shell
-$ ocm add resources ./gen/ca resources.yaml
-processing resources.yaml...
+$ ocm add cv -c --file ./ctf component-constructor.yaml
+processing component-constructor.yaml...
   processing document 1...
     processing index 1
-  processing document 2...
-    processing index 1
-found 2 resources
-adding resource helmChart: "name"="chart","version"="<componentversion>"...
-adding resource ociImage: "name"="image","version"="0.1.0"...
-  image 0: eu.gcr.io/acme/simpleserver:0.1.0-linux-amd64
-  image 1: eu.gcr.io/acme/simpleserver:0.1.0-linux-arm64
-  image 2: INDEX
-locator: github.com/acme/simpleserver, repo: eu.gcr.io/acme/simpleserver, version 0.1.0
+found 1 component
+adding component github.com/acme/simpleserver:0.1.0...
+  adding resource helmChart: "name"="chart","version"="<componentversion>"...
+  adding resource ociImage: "name"="image","version"="0.1.0"...
+    image 0: eu.gcr.io/acme/simpleserver:0.1.0-linux-amd64
+    image 1: eu.gcr.io/acme/simpleserver:0.1.0-linux-arm64
+    image 2: INDEX
 ```
 
 <details><summary>What happened?</summary>
@@ -324,29 +294,40 @@ an OCI index manifest is created to describe a multi-arch image. The complete se
 of blobs is then packaged as artifact set archive and put as single resource into
 the component version.
 
-The resulting `component-descriptor.yaml` in `gen/ca` is:
+The resulting component descriptor of the component version in the ctf archive is:
 
 ```shell
+$ ocm get cv ctf//github.com/acme/simpleserver:0.1.0 -o yaml
+---
 component:
   componentReferences: []
+  creationTime: "2024-12-20T15:05:53Z"
   name: github.com/acme/simpleserver
   provider: acme
   repositoryContexts: []
   resources:
   - access:
-      localReference: sha256.9dd0f2cbae3b8e6eb07fa947c05666d544c0419a6e44bd607e9071723186333b
+      localReference: sha256:0bdc2c06017a5906534163e965f1fe2594fbb3d524eb3425e5636f4c8fa6d256
       mediaType: application/vnd.oci.image.manifest.v1+tar+gzip
-      referenceName: github.com/acme/simpleserver/helloserver:0.1.0
+      referenceName: github.com/acme/simpleserver/hello-world:0.1.0
       type: localBlob
+    digest:
+      hashAlgorithm: SHA-256
+      normalisationAlgorithm: ociArtifactDigest/v1
+      value: 6bccb4d53f03bf6980785b0b2ae80369f768461bf50183fcd194d50ba5edce54
     name: chart
     relation: local
     type: helmChart
     version: 0.1.0
   - access:
-      localReference: sha256.4e26c7dd46e13c9b1672e4b28a138bdcb086e9b9857b96c21e12839827b48c0c
+      localReference: sha256:345815e6bda8bc0688fecae102250a170974739761ad18763276b92481522dc6
       mediaType: application/vnd.oci.image.index.v1+tar+gzip
       referenceName: github.com/acme/simpleserver/eu.gcr.io/acme/simpleserver:0.1.0
       type: localBlob
+    digest:
+      hashAlgorithm: SHA-256
+      normalisationAlgorithm: ociArtifactDigest/v1
+      value: e140bef7c38a505a5f5f76437a6948fe1b98ea6efde654d803b6cbf2019861a3
     name: image
     relation: local
     type: ociImage
@@ -361,11 +342,65 @@ Note that there is only one resource of type `image` with media-type `applicatio
 which is the standard media type for multi-arch images.
 
 ```shell
-$ ls -l gen/ca/blobs
-total 24M
--rw-r--r-- 1 d058463 staff  24M Dec  1 09:50 sha256.4e26c7dd46e13c9b1672e4b28a138bdcb086e9b9857b96c21e12839827b48c0c
--rw-r--r-- 1 d058463 staff 4.7K Dec  1 09:50 sha256.9dd0f2cbae3b8e6eb07fa947c05666d544c0419a6e44bd607e9071723186333b
+$ ls -l ctf/blobs
+total 3048
+-rw-r----- 1 D032990    3313 Dez 20 16:05 sha256.0bdc2c06017a5906534163e965f1fe2594fbb3d524eb3425e5636f4c8fa6d256
+-rw-r----- 1 D032990 3103600 Dez 20 16:05 sha256.345815e6bda8bc0688fecae102250a170974739761ad18763276b92481522dc6
+-rw-r----- 1 D032990     201 Dez 20 16:05 sha256.4d685a2e53c4255452a44b47fea4bc94f859af740e102817db8925865093aac4
+-rw-r----- 1 D032990    1085 Dez 20 16:05 sha256.b5168610761d5f95281b8eb90e67afe1ceedb602f65e8e2b9f9171d9997ef459
+-rw-r----- 1 D032990    3072 Dez 20 16:05 sha256.c1a1dd0a12b2188627af22e83e5719f4895ab24a2fbd3740573c45aa9bffc604
 ```
+
+The file sha256.c1a1... contains the component-descriptor.yaml, the serialized form of a component version
+(the same result you would get using `ocm get ctf//github.com/acme/simpleserver:0.1.0 -o yaml`):
+
+```shell
+$ tar xvf ctf/blobs/sha256.c1a1dd0a12b2188627af22e83e5719f4895ab24a2fbd3740573c45aa9bffc604
+component-descriptor.yaml
+
+$ tar xvf ctf/blobs/sha256.c1a1dd0a12b2188627af22e83e5719f4895ab24a2fbd3740573c45aa9bffc604 -O component-descriptor.yaml
+component-descriptor.yaml
+component:
+  componentReferences: []
+  creationTime: "2024-12-20T15:05:53Z"
+  name: github.com/acme/simpleserver
+  provider: acme
+  repositoryContexts: []
+  resources:
+  - access:
+      localReference: sha256:0bdc2c06017a5906534163e965f1fe2594fbb3d524eb3425e5636f4c8fa6d256
+      mediaType: application/vnd.oci.image.manifest.v1+tar+gzip
+      referenceName: github.com/acme/simpleserver/hello-world:0.1.0
+      type: localBlob
+    digest:
+      hashAlgorithm: SHA-256
+      normalisationAlgorithm: ociArtifactDigest/v1
+      value: 6bccb4d53f03bf6980785b0b2ae80369f768461bf50183fcd194d50ba5edce54
+    name: chart
+    relation: local
+    type: helmChart
+    version: 0.1.0
+  - access:
+      localReference: sha256:345815e6bda8bc0688fecae102250a170974739761ad18763276b92481522dc6
+      mediaType: application/vnd.oci.image.index.v1+tar+gzip
+      referenceName: github.com/acme/simpleserver/eu.gcr.io/acme/simpleserver:0.1.0
+      type: localBlob
+    digest:
+      hashAlgorithm: SHA-256
+      normalisationAlgorithm: ociArtifactDigest/v1
+      value: e140bef7c38a505a5f5f76437a6948fe1b98ea6efde654d803b6cbf2019861a3
+    name: image
+    relation: local
+    type: ociImage
+    version: 0.1.0
+  sources: []
+  version: 0.1.0
+meta:
+  schemaVersion: v2
+```
+
+Note that there is only one resource of type `image` with media-type `application/vnd.oci.image.index.v1+tar+gzip`
+which is the standard media type for multi-arch images.
 
 The file sha256.4e26... contains the multi-arch image packaged as OCI artifact set:
 
@@ -386,26 +421,26 @@ drwxr-xr-x  0 0      0           0 Jan  1  2022 blobs
 -rw-r--r--  0 0      0    14755840 Jan  1  2022 blobs/sha256.a83c9b56bbe0f6c26c4b1d86e6de3a4862755d208c9dfae764f64b210eafa58c
 -rw-r--r--  0 0      0         723 Jan  1  2022 blobs/sha256.e624040295fb78a81f4b4b08b43b4de419f31f21074007df8feafc10dfb654e6
 
-$ tar xvf gen/ca/blobs/sha256.4e26c7dd46e13c9b1672e4b28a138bdcb086e9b9857b96c21e12839827b48c0c -O - index.json | jq .
-x index.json
+$ tar xvf ctf/blobs/sha256.345815e6bda8bc0688fecae102250a170974739761ad18763276b92481522dc6 -O index.json | jq .
+index.json
 {
   "schemaVersion": 2,
   "mediaType": "application/vnd.oci.image.index.v1+json",
   "manifests": [
     {
       "mediaType": "application/vnd.oci.image.manifest.v1+json",
-      "digest": "sha256:e624040295fb78a81f4b4b08b43b4de419f31f21074007df8feafc10dfb654e6",
-      "size": 723
+      "digest": "sha256:4a6732e78b2392fc101b7eb268a61b100e1b67f213b07e0d383903dc4b776d02",
+      "size": 2206
     },
     {
       "mediaType": "application/vnd.oci.image.manifest.v1+json",
-      "digest": "sha256:117f12f0012875471168250f265af9872d7de23e19f0d4ef05fbe99a1c9a6eb3",
-      "size": 723
+      "digest": "sha256:11b507758759da7a3b1ee1daf8679c126422e9c92ab2d3dbeae43edf2efedfe5",
+      "size": 2206
     },
     {
       "mediaType": "application/vnd.oci.image.index.v1+json",
-      "digest": "sha256:75a096351fe96e8be1847a8321bd66535769c16b2cf47ac03191338323349355",
-      "size": 491,
+      "digest": "sha256:e140bef7c38a505a5f5f76437a6948fe1b98ea6efde654d803b6cbf2019861a3",
+      "size": 579,
       "annotations": {
         "org.opencontainers.image.ref.name": "0.1.0",
         "software.ocm/tags": "0.1.0"
@@ -413,32 +448,25 @@ x index.json
     }
   ],
   "annotations": {
-    "software.ocm/main": "sha256:75a096351fe96e8be1847a8321bd66535769c16b2cf47ac03191338323349355"
+    "software.ocm/main": "sha256:e140bef7c38a505a5f5f76437a6948fe1b98ea6efde654d803b6cbf2019861a3"
   }
 }
 ```
 
 </details>
 
-You can create a common transport archive from the component archive.
+Now you can push the component version (located inside the CTF archive) to an OCM repository.
+Replace the `OCM_REPO` with a target OCM repository you have write access to (and which you configured
+in the [.ocmconfig file](https://ocm.software/docs/examples/credentials-in-an-.ocmconfig-file/).
 
 ```shell
-cm transfer ca gen/ca gen/ctf
-transferring version "github.com/acme/simpleserver:0.1.0"...
-...resource 0(github.com/acme/simpleserver/helloserver:0.1.0)...
-...resource 1(github.com/acme/simpleserver/eu.gcr.io/acme/simpleserver:0.1.0)...
-...adding component version...
-```
-
-Or you can push it directly to the OCM repository:
-
-```shell
-$ OCMREPO=ghcr.io/${PROVIDER}
-$ ocm transfer ca gen/ca $OCMREPO
-transferring version "github.com/acme/simpleserver:0.1.0"...
-...resource 0(github.com/acme/simpleserver/helloserver:0.1.0)...
-...resource 1(github.com/acme/simpleserver/eu.gcr.io/acme/simpleserver:0.1.0)...
-...adding component version...
+$ OCMREPO=...
+$ ocm transfer ctf ./ctf $OCM_REPO
+transferring component "github.com/acme/simpleserver"...
+  transferring version "github.com/acme/simpleserver:0.1.0"...
+  ...resource 0 chart[helmChart](github.com/acme/simpleserver/hello-world:0.1.0)...
+  ...resource 1 image[ociImage](github.com/acme/simpleserver/eu.gcr.io/acme/simpleserver:0.1.0)...
+  ...adding component version...
 ```
 
 The repository now should contain three additional artifacts. Depending on the OCI registry and
