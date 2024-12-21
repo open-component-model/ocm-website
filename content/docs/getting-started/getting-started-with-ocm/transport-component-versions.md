@@ -34,6 +34,6 @@ ocm transfer componentversion --recursive --copy-resources ghcr.io/open-componen
   2 versions transferred
 ```
 
-The OCM CLI's `transfer` command can be used to transfer component versions, component archives, transport archives, and artifacts. See `ocm transfer -h` for more information.
+The OCM CLI's `transfer` command can be used to transfer component versions, CTF archives, and artifacts. See `ocm transfer -h` for more information.
 
 More examples on the transport archive and the common transfer format (CTF) can be found in the [ocm-spec](https://github.com/open-component-model/ocm-spec/blob/main/doc/04-extensions/03-storage-backends/ctf.md).

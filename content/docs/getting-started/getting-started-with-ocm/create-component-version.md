@@ -63,7 +63,7 @@ components:
         path: ./podinfo
     # remote image resource
     - name: image
-      type: ociArtifact
+      type: ociImage
       version: 1.0.0
       access:
         type: ociArtifact
