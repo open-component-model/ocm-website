@@ -224,7 +224,7 @@ $ docker buildx build --load -t ${TAG_PREFIX}/simpleserver:0.1.0-linux-arm64 --p
  => => naming to eu.gcr.io/acme/simpleserver:0.1.0-linux-arm64                                               0.0s
 ```
 
-Check that the images have beens created correctly:
+Check that the images have been created correctly:
 
 ```shell
 $ docker image ls | grep simpleserver
