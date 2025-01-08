@@ -23,6 +23,7 @@ One of the central design decisions underpinning KCS is that resources should be
 ## Controllers
 
 The KCS consists of the following controllers:
+
 - OCM controller
 - Replication controller
 - Git sync controller
