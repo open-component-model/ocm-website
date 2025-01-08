@@ -2,8 +2,6 @@
 title : "Benefits of OCM"
 description: "The Software Lifecycle Management Challenge"
 weight: 12
-date: 2020-10-06T08:48:23+00:00
-lastmod: 2020-10-06T08:48:23+00:00
 draft: false
 images: []
 toc: true
@@ -51,7 +49,7 @@ The Open Component Model (OCM) is the much-needed life-raft for organizations dr
 <br>
 
 - **Unique Component Identities:** OCM assigns an immutable, globally unique ID to each component, enabling seamless correlation across all lifecycle tools and processes like a "compliance dashboard".
-  
+
 - **Software Bill of Delivery:** OCM enables the precise specification of all technical artifacts required for delivering a software component. This compilation, termed a "Software Bill of Delivery" (SBoD), comprehensively lists the necessary artifacts along with their corresponding location information to facilitate seamless access.
 
 - **Stable IDs, Changing Artifact Locations:** OCM cleanly separates the immutable component ID from the changeable artifact locations, essential for hybrid/private environments.
@@ -61,7 +59,7 @@ The Open Component Model (OCM) is the much-needed life-raft for organizations dr
 - **Future-Proof Extensibility:** OCM's extensible design allows simple adaptation to emerging trends without disrupting existing tooling.
 
 - **Trusted Signatures:** Built-in signing and verification ensure artifact integrity even as artifact locations change over time.
-  
+
 With OCM, a "single source of truth" is established for all software artifacts across the lifecycle. Compliance checks, security scans, deployments, and more become streamlined operations anchored to OCM's standardized component definitions.
 
 Moreover, by fostering component reuse within and across organizations, OCM unlocks powerful network effects akin to package managers, boosting productivity, and simplifying commercial software consumption.

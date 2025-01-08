@@ -1,8 +1,6 @@
 ---
 title: "Architecture"
 description: "OCM Controller Architecture"
-date: 2023-10-20T11:24:41+01:00
-lastmod: 2023-10-20T11:24:41+01:00
 draft: false
 images: []
 weight: 41
@@ -25,6 +23,7 @@ One of the central design decisions underpinning KCS is that resources should be
 ## Controllers
 
 The KCS consists of the following controllers:
+
 - OCM controller
 - Replication controller
 - Git sync controller
@@ -36,6 +35,7 @@ The `ocm-controller` is responsible for the core work necessary to utilise resou
 Snapshots are used to pass resources between controllers and are stored in an in-cluster registry.
 
 The `ocm-controller` consists of 5 sub-controllers:
+
 - [Component Version Controller](#component-version-controller)
 - [Resource Controller](#resource-controller)
 - [Snapshot Controller](#snapshot-controller)
@@ -51,7 +51,7 @@ The Component Version controller reconciles component versions from an OCI repos
 sequenceDiagram
     User->>Kubernetes API: submit ComponentVersion CR
     Kubernetes API-->>Component Version Controller: Component Version Created Event
-    Component Version Controller->>OCM Repository: Find latest component matching semver 
+    Component Version Controller->>OCM Repository: Find latest component matching semver
     Component Version Controller->>OCM Repository: Validate signatures
     Component Version Controller->>OCM Repository: Download Component Descriptor
     Component Version Controller->>Kubernetes API: Submit Component Descriptor CR
@@ -299,7 +299,7 @@ sequenceDiagram
     User->>Kubernetes API: submit Component Subscription CR
     Kubernetes API-->>Replication Controller: Component Subscription Created Event
     Replication Controller->>Replication Controller: Determine new component is available in source repository based on semver
-    Replication Controller->>Source OCM Repository: Verify signatures 
+    Replication Controller->>Source OCM Repository: Verify signatures
     Source OCM Repository->>Destination OCM Repository: Transfer component by value
     Replication Controller->>Kubernetes API: Update Component Subscription status
 ```

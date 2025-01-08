@@ -2,8 +2,6 @@
 title: "Best Practices"
 description: ""
 lead: ""
-date: 2023-03-13T12:00:26+01:00
-lastmod: 2023-03-13T12:00:26+01:00
 draft: false
 images: []
 weight: 63
@@ -485,18 +483,18 @@ The following example can be used as a starting point and can be modified accord
 
 In this example we will automate the same example as in the sections before:
 
-* Creating a multi-arch image from Go sources from a Git repository using the Docker CLI
-* Packaging the image and a Helm chart into a common transport archive
-* Signing and publishing the build result
+- Creating a multi-arch image from Go sources from a Git repository using the Docker CLI
+- Packaging the image and a Helm chart into a common transport archive
+- Signing and publishing the build result
 
 ### Prerequisites
 
-* The OCM CLI must be installed and be available in your PATH
-* The Makefile is located in the top-level folder of a Git project
-* Operating system is Unix/Linux
-* A sub-directory `local` can be used for local settings e.g. environment varibles, RSA keys, ...
-* A sub-directory `gen` will be used for generated artifacts from the `make build`command
-* It is recommended to add `local/` and `gen/` to the `.gitignore` file
+- The OCM CLI must be installed and be available in your PATH
+- The Makefile is located in the top-level folder of a Git project
+- Operating system is Unix/Linux
+- A sub-directory `local` can be used for local settings e.g. environment varibles, RSA keys, ...
+- A sub-directory `gen` will be used for generated artifacts from the `make build`command
+- It is recommended to add `local/` and `gen/` to the `.gitignore` file
 
 We use the following file system layout for the example:
 
@@ -638,22 +636,23 @@ descriptor: $(GEN)/ctf
 clean:
 	rm -rf $(GEN)
 ```
+
 </details>
 
 The Makefile supports the following targets:
 
-* `build` (default) simple Go build
-* `version` show current VERSION of Github repository
-* `image` build a local Docker image
-* `multi` build multi-arch images with Docker
-* `ca` execute build and create a component archive
-* `ctf` create a common transport format archive
-* `push` push the common transport archive to an OCI registry
-* `info` show variables used in Makefile (version, commit, etc.)
-* `describe` display the component version in a tree-form
-* `descriptor` show the component descriptor of the component version
-* `transport` transport the component from the upload repository into another OCM repository
-* `clean` delete all generated files (but does not delete Docker images)
+- `build` (default) simple Go build
+- `version` show current VERSION of Github repository
+- `image` build a local Docker image
+- `multi` build multi-arch images with Docker
+- `ca` execute build and create a component archive
+- `ctf` create a common transport format archive
+- `push` push the common transport archive to an OCI registry
+- `info` show variables used in Makefile (version, commit, etc.)
+- `describe` display the component version in a tree-form
+- `descriptor` show the component descriptor of the component version
+- `transport` transport the component from the upload repository into another OCM repository
+- `clean` delete all generated files (but does not delete Docker images)
 
 The variables assigned with `?=` at the beginning can be set from outside and override the default
 declared in the Makefile. Use either an environment variable or an argument when calling `make`.

@@ -3,8 +3,6 @@ title: "The OCM Community"
 description: "The OCM Community"
 url: /docs/support/community/
 lead: true
-date: 2022-08-12T10:38:22+01:00
-lastmod: 2022-08-12T10:38:22+01:00
 draft: false
 images: []
 weight: 93

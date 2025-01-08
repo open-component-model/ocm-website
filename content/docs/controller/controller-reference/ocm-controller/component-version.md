@@ -2,8 +2,6 @@
 title: "Component Version"
 description: ""
 lead: ""
-date: 2023-06-28T09:30:27+01:00
-lastmod: 2023-06-28T09:30:27+01:00
 draft: false
 images: []
 weight: 55

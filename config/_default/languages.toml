@@ -5,4 +5,4 @@
   [en.params]
     languageISO = "EN"
     languageTag = "en-US"
-    footer = '<small>© Copyright 2024, <a href="https://www.sap.com/corporate/en/legal/copyright.html">SAP SE </a> and Open Component Model Contributors | <a href="https://www.sap.com/about/legal/trademark.html">Trademark </a> | <a href="https://www.sap.com/about/legal/privacy.html">Privacy Policy</a> | <a href="https://www.sap.com/corporate/en/legal/terms-of-use.html">Terms of Use</a> | <a href="https://www.sap.com/corporate/en/legal/impressum.html">Legal Disclosure</a></small>'
+    footer = '<small>© Copyright 2025, <a href="https://www.sap.com/corporate/en/legal/copyright.html">SAP SE </a> and Open Component Model Contributors | <a href="https://www.sap.com/about/legal/trademark.html">Trademark </a> | <a href="https://www.sap.com/about/legal/privacy.html">Privacy Policy</a> | <a href="https://www.sap.com/corporate/en/legal/terms-of-use.html">Terms of Use</a> | <a href="https://www.sap.com/corporate/en/legal/impressum.html">Legal Disclosure</a></small>'

@@ -2,8 +2,6 @@
 title: "Replication Controller API v1"
 description: ""
 lead: ""
-date: 2023-07-10T11:34:56+01:00
-lastmod: 2023-07-10T11:34:56+01:00
 draft: false
 images: []
 weight: 53

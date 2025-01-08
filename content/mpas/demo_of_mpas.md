@@ -2,8 +2,6 @@
 title: "MPAS Demo Video"
 description: ""
 lead: ""
-date: 2024-04-02T12:45:27Z
-lastmod: 2024-04-02T12:45:27Z
 draft: false
 images: []
 weight: 135
