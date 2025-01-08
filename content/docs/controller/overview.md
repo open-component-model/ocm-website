@@ -34,6 +34,7 @@ The `ocm-controller` is responsible for the core work necessary to utilise resou
 Snapshots are used to pass resources between controllers and are stored in an in-cluster registry.
 
 The `ocm-controller` consists of 5 sub-controllers:
+
 - [Component Version Controller](#component-version-controller)
 - [Resource Controller](#resource-controller)
 - [Snapshot Controller](#snapshot-controller)
