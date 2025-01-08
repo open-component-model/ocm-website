@@ -77,9 +77,9 @@ Ready to contribute? Read and follow the sections below to get your contribution
 
 ### Licensing and Copyright information on file level
 
-In general all files of the project are created under Apache 2.0 license. The project uses the [REUSE process and tooling](https://reuse.software) that supports maintaining licensing information centrally in a `.reuse/dep5 config` file on repository level. This means that in general there SHOULD NOT be any license and copyright specifiy SPDX headers on file level. Only in cases where content is copied from sources that use a different license and already use headers like
+In general all files of the project are created under Apache 2.0 license. The project uses the [REUSE process and tooling](https://reuse.software) that supports maintaining licensing information centrally in a `REUSE.toml` configuration file on repository level. This means that in general there SHOULD NOT be any license and copyright specify SPDX headers on file level. Only in cases where content is copied from sources that use a different license and already use headers like
 
-```
+```go
 // SPDX-FileCopyrightText: Copyright 2010 The Go Authors. All rights reserved.
 //
 // SPDX-License-Identifier: BSD-3-Clause
@@ -87,13 +87,13 @@ In general all files of the project are created under Apache 2.0 license. The pr
 
 the headers of the source file should be kept and eventually aggregated with the Apache 2.0 license. Please check the [REUSE FAQ](https://reuse.software/faq/#multi-licensing) for details.
 
-Such files should be explicitly added as deviating from the `.reuse/dep5` config file using the `Files-Excluded` field. Excluding the file `/pkg/foo.go` and `pkg/bar.go` from the general rule to add the Apache 2.0 license to all files, would look like this:
+Such files should be explicitly added as deviating from the `REUSE.toml` configuration file using the `Files-Excluded` field. Excluding the file `/pkg/foo.go` and `pkg/bar.go` from the general rule to add the Apache 2.0 license to all files, would look like this:
 
 ```bash
 Files: **
-Copyright: 2022 SAP SE or an SAP affiliate company and Open Component Model contributors
+Copyright: 2025 SAP SE or an SAP affiliate company and Open Component Model contributors
 License: Apache-2.0
-Files-Excluded: /pkg/foo.go pkg/bar.go 
+Files-Excluded: /pkg/foo.go pkg/bar.go
 ```
 
 ### Pull Request Checklist

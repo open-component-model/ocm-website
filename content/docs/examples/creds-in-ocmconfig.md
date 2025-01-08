@@ -2,8 +2,7 @@
 title: "Credentials in an .ocmconfig file"
 description: ""
 summary: ""
-date: 2024-09-04T13:54:01+02:00
-lastmod: 2024-09-04T13:54:01+02:00
+
 draft: false
 weight: 999
 toc: true

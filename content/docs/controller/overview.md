@@ -1,8 +1,6 @@
 ---
 title: "Architecture"
 description: "OCM Controller Architecture"
-date: 2023-10-20T11:24:41+01:00
-lastmod: 2023-10-20T11:24:41+01:00
 draft: false
 images: []
 weight: 41
@@ -36,12 +34,16 @@ The `ocm-controller` is responsible for the core work necessary to utilise resou
 Snapshots are used to pass resources between controllers and are stored in an in-cluster registry.
 
 The `ocm-controller` consists of 5 sub-controllers:
-- [Component Version Controller](#component-version-controller)
-- [Resource Controller](#resource-controller)
-- [Snapshot Controller](#snapshot-controller)
-- [Localization Controller](#localization-controller)
-- [Configuration Controller](#configuration-controller)
-- [FluxDeployer Controller](#fluxdeployer-controller)
+- [Controllers](#controllers)
+  - [OCM controller](#ocm-controller)
+    - [Component Version Controller](#component-version-controller)
+    - [Resource Controller](#resource-controller)
+    - [Snapshot Controller](#snapshot-controller)
+    - [Localization Controller](#localization-controller)
+    - [Configuration Controller](#configuration-controller)
+  - [FluxDeployer controller](#fluxdeployer-controller)
+  - [Replication controller](#replication-controller)
+- [In-cluster Docker Registry](#in-cluster-docker-registry)
 
 #### Component Version Controller
 
@@ -51,7 +53,7 @@ The Component Version controller reconciles component versions from an OCI repos
 sequenceDiagram
     User->>Kubernetes API: submit ComponentVersion CR
     Kubernetes API-->>Component Version Controller: Component Version Created Event
-    Component Version Controller->>OCM Repository: Find latest component matching semver 
+    Component Version Controller->>OCM Repository: Find latest component matching semver
     Component Version Controller->>OCM Repository: Validate signatures
     Component Version Controller->>OCM Repository: Download Component Descriptor
     Component Version Controller->>Kubernetes API: Submit Component Descriptor CR
@@ -299,7 +301,7 @@ sequenceDiagram
     User->>Kubernetes API: submit Component Subscription CR
     Kubernetes API-->>Replication Controller: Component Subscription Created Event
     Replication Controller->>Replication Controller: Determine new component is available in source repository based on semver
-    Replication Controller->>Source OCM Repository: Verify signatures 
+    Replication Controller->>Source OCM Repository: Verify signatures
     Source OCM Repository->>Destination OCM Repository: Transfer component by value
     Replication Controller->>Kubernetes API: Update Component Subscription status
 ```

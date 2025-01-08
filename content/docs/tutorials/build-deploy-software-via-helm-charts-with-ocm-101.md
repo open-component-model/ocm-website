@@ -2,8 +2,6 @@
 title: "Build & Deploy Infrastructure via Helm Charts with OCM"
 description: ""
 lead: ""
-date: 2024-03-19T10:36:48+01:00
-lastmod: 2024-03-19T10:36:48+01:00
 draft: false
 images: []
 weight: 64

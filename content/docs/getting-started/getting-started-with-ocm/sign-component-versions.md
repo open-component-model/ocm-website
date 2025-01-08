@@ -2,8 +2,6 @@
 title: "Sign Component Versions"
 description: ""
 lead: ""
-date: 2023-03-13T09:38:41+01:00
-lastmod: 2023-03-13T09:38:41+01:00
 draft: false
 images: []
 weight: 27
@@ -27,6 +25,7 @@ Create a key pair using the OCM CLI:
 ```shell
 ocm create rsakeypair acme.priv
 ```
+
 ```
   created rsa key pair acme.priv[acme.pub]
 ```
@@ -39,6 +38,7 @@ Use the `sign componentversion` command to sign a component version:
 ```shell
 ocm sign componentversion --signature acme-sig --private-key=acme.priv ${OCM_REPO}//${COMPONENT}:${VERSION}
 ```
+
 ```
   applying to version "github.com/acme/helloworld:1.0.0"[github.com/acme/helloworld:1.0.0]...
     resource 0:  "name"="mychart": digest SHA-256:...[ociArtifactDigest/v1]
@@ -52,6 +52,7 @@ repository:
 ```shell
 ocm sign componentversion --signature acme-sig --private-key=acme.priv ${CTF_ARCHIVE}
 ```
+
 ```
   applying to version "github.com/acme.org/helloworld:1.0.0"[github.com/acme.org/helloworld:1.0.0]...
     resource 0:  "name"="mychart": digest SHA-256:...[ociArtifactDigest/v1]
@@ -68,6 +69,7 @@ stored in the component descriptor(s):
 ```shell
 jq . ${CTF_ARCHIVE}/artifact-index.json
 ```
+
 ```json
 {
   "schemaVersion": 1,
@@ -86,6 +88,7 @@ Beside the digests of the component descriptor layer, nothing has changed:
 ```shell
 jq . ${CTF_ARCHIVE}/blobs/sha256.02b12782d66fc6504f0003bb11a8e2610ac8f3d616bc1a4545df17a6e9aca5c6
 ```
+
 ```json
 {
   "schemaVersion": 2,
@@ -113,6 +116,7 @@ jq . ${CTF_ARCHIVE}/blobs/sha256.02b12782d66fc6504f0003bb11a8e2610ac8f3d616bc1a4
 ```shell
 tar xvf ${CTF_ARCHIVE}/blobs/sha256.c9705f0045f91c2cba49ce922dd65da27e66796e3a1fdc7a6fc01058357f2cd4 -O - component-descriptor.yaml
 ```
+
 ```yaml
 meta:
   schemaVersion: v2
@@ -166,25 +170,31 @@ attribute of the signature stored in the component descriptor.
 The following example creates a CA and signing certificates that are used to sign a component version.
 
 Create the root CA:
+
 ```shell
 ocm create rsakeypair --ca CN=certificate-authority root.priv
 ```
+
 ```
   created rsa key pair root.priv[root.cert]
 ```
 
 Create the CA that is used to create signing certificates:
+
 ```shell
 ocm create rsakeypair --ca CN=acme.org --ca-key root.priv --ca-cert root.cert ca.priv
 ```
+
 ```
   created rsa key pair ca.priv[ca.cert]
 ```
 
 Create signing certificates from the CA:
+
 ```shell
 ocm create rsakeypair CN=acme.org C=DE --ca-key ca.priv --ca-cert ca.cert --root-certs root.cert key.priv
 ```
+
 ```
   created rsa key pair key.priv[key.cert]
 ```
@@ -197,6 +207,7 @@ For signing the component version you need to provide the issuer, then run:
 ```shell
 ocm sign componentversion ${CTF_ARCHIVE} --private-key key.priv --public-key key.cert --ca-cert root.cert --signature acme.org --issuer CN=acme.org
 ```
+
 ```
   applying to version "github.com/acme.org/helloworld:1.0.0"[github.com/acme.org/helloworld:1.0.0]...
     resource 0:  "name"="mychart": digest SHA-256:...[ociArtifactDigest/v1]
@@ -218,6 +229,7 @@ If you followed the previous examples, you can verify the signature of a compone
 ```shell
 ocm verify componentversions --signature acme-sig --public-key=acme.pub ${OCM_REPO}//${COMPONENT}:${VERSION}
 ```
+
 ```
   applying to version "github.com/acme/helloworld:1.0.0"[github.com/acme/helloworld:1.0.0]...
     resource 0:  "name"="mychart": digest SHA-256:...[ociArtifactDigest/v1]
@@ -228,6 +240,7 @@ ocm verify componentversions --signature acme-sig --public-key=acme.pub ${OCM_RE
 ```shell
 ocm verify component ${CTF_ARCHIVE} --ca-cert root.cert --issuer CN=acme.org
 ```
+
 ```
   applying to version "github.com/acme.org/helloworld:1.0.0"[github.com/acme.org/helloworld:1.0.0]...
     resource 0:  "name"="mychart": digest SHA-256:...[ociArtifactDigest/v1]
