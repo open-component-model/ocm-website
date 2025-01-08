@@ -34,16 +34,12 @@ The `ocm-controller` is responsible for the core work necessary to utilise resou
 Snapshots are used to pass resources between controllers and are stored in an in-cluster registry.
 
 The `ocm-controller` consists of 5 sub-controllers:
-- [Controllers](#controllers)
-  - [OCM controller](#ocm-controller)
-    - [Component Version Controller](#component-version-controller)
-    - [Resource Controller](#resource-controller)
-    - [Snapshot Controller](#snapshot-controller)
-    - [Localization Controller](#localization-controller)
-    - [Configuration Controller](#configuration-controller)
-  - [FluxDeployer controller](#fluxdeployer-controller)
-  - [Replication controller](#replication-controller)
-- [In-cluster Docker Registry](#in-cluster-docker-registry)
+- [Component Version Controller](#component-version-controller)
+- [Resource Controller](#resource-controller)
+- [Snapshot Controller](#snapshot-controller)
+- [Localization Controller](#localization-controller)
+- [Configuration Controller](#configuration-controller)
+- [FluxDeployer Controller](#fluxdeployer-controller)
 
 #### Component Version Controller
 
