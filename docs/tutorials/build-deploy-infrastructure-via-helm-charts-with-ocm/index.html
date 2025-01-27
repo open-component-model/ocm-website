@@ -55,7 +55,6 @@ This component will be composed using the OCM guidelines and consist of multiple
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>version</span><span class=p>:</span><span class=w> </span><span class=l>${PODINFO_VERSION}</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>access</span><span class=p>:</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>ociArtifact</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>repository</span><span class=p>:</span><span class=w> </span><span class=l>ocm/ocm.software/podinfo/image</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>imageReference</span><span class=p>:</span><span class=w> </span><span class=l>ghcr.io/stefanprodan/podinfo:${PODINFO_VERSION}</span></span></span></code></pre></div></figure></div><p>Some frequently changing parameters have been extracted as variables. The OCM CLI uses
 templating to fill them with values. The templating mechanism is described
 <a href=/docs/tutorials/best-practices/#templating-the-resources>here</a>. For this example
