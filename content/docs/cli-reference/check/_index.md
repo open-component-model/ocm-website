@@ -4,6 +4,7 @@ name: check
 url: /docs/cli-reference/check/
 draft: false
 images: []
+weight: 55
 toc: true
 sidebar:
   collapsed: true

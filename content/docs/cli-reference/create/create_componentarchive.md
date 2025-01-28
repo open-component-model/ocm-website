@@ -4,6 +4,7 @@ name: create componentarchive
 url: /docs/cli-reference/create/componentarchive/
 draft: false
 images: []
+weight: 55
 toc: true
 sidebar:
   collapsed: true

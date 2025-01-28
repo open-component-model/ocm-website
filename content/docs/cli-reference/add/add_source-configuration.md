@@ -4,6 +4,7 @@ name: add source-configuration
 url: /docs/cli-reference/add/source-configuration/
 draft: false
 images: []
+weight: 55
 toc: true
 sidebar:
   collapsed: true

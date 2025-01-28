@@ -4,6 +4,7 @@ name: get pubsub
 url: /docs/cli-reference/get/pubsub/
 draft: false
 images: []
+weight: 55
 toc: true
 sidebar:
   collapsed: true

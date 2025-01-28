@@ -4,6 +4,7 @@ name: logging
 url: /docs/cli-reference/help/logging/
 draft: false
 images: []
+weight: 55
 toc: true
 sidebar:
   collapsed: true
@@ -30,6 +31,7 @@ The following *realms* are used by the command line tool:
   - <code>ocm/accessmethod/wget</code>: access method for wget
   - <code>ocm/blobaccess/wget</code>: blob access for wget
   - <code>ocm/compdesc</code>: component descriptor handling
+  - <code>ocm/compdesc/normalizations/legacy</code>: component descriptor legacy normalization defaulting
   - <code>ocm/config</code>: configuration management
   - <code>ocm/context</code>: context lifecycle
   - <code>ocm/credentials</code>: Credentials

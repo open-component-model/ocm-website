@@ -4,6 +4,7 @@ name: transfer componentversions
 url: /docs/cli-reference/transfer/componentversions/
 draft: false
 images: []
+weight: 55
 toc: true
 sidebar:
   collapsed: true

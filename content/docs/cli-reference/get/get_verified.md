@@ -4,6 +4,7 @@ name: get verified
 url: /docs/cli-reference/get/verified/
 draft: false
 images: []
+weight: 55
 toc: true
 sidebar:
   collapsed: true

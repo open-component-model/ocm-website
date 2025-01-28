@@ -4,6 +4,7 @@ name: show tags
 url: /docs/cli-reference/show/tags/
 draft: false
 images: []
+weight: 55
 toc: true
 sidebar:
   collapsed: true

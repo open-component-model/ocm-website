@@ -4,6 +4,7 @@ name: add resources
 url: /docs/cli-reference/add/resources/
 draft: false
 images: []
+weight: 55
 toc: true
 sidebar:
   collapsed: true

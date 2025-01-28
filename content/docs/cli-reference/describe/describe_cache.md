@@ -4,6 +4,7 @@ name: describe cache
 url: /docs/cli-reference/describe/cache/
 draft: false
 images: []
+weight: 55
 toc: true
 sidebar:
   collapsed: true

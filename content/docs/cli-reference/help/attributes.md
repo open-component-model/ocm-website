@@ -4,6 +4,7 @@ name: attributes
 url: /docs/cli-reference/help/attributes/
 draft: false
 images: []
+weight: 55
 toc: true
 sidebar:
   collapsed: true

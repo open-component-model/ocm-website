@@ -4,6 +4,7 @@ name: sign componentversions
 url: /docs/cli-reference/sign/componentversions/
 draft: false
 images: []
+weight: 55
 toc: true
 sidebar:
   collapsed: true
@@ -27,7 +28,7 @@ ocm sign componentversions [<options>] {<component-reference>}
       --keyless                   use keyless signing
       --latest                    restrict component versions to latest
       --lookup stringArray        repository name or spec for closure lookup fallback
-  -N, --normalization string      normalization algorithm (default "jsonNormalisation/v1")
+  -N, --normalization string      normalization algorithm (default "jsonNormalisation/v3")
   -K, --private-key stringArray   private key setting
   -k, --public-key stringArray    public key setting
   -R, --recursive                 recursively sign component versions
@@ -127,8 +128,9 @@ The following signing types are supported with option <code>--algorithm</code>:
 
 
 The following normalization modes are supported with option <code>--normalization</code>:
-  - <code>jsonNormalisation/v1</code> (default)
+  - <code>jsonNormalisation/v1</code>
   - <code>jsonNormalisation/v2</code>
+  - <code>jsonNormalisation/v3</code> (default)
 
 
 The following hash modes are supported with option <code>--hash</code>:

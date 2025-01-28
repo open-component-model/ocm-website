@@ -4,6 +4,7 @@ name: download cli
 url: /docs/cli-reference/download/cli/
 draft: false
 images: []
+weight: 55
 toc: true
 sidebar:
   collapsed: true

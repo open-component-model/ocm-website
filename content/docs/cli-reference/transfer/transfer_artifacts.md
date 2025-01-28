@@ -4,6 +4,7 @@ name: transfer artifacts
 url: /docs/cli-reference/transfer/artifacts/
 draft: false
 images: []
+weight: 55
 toc: true
 sidebar:
   collapsed: true

@@ -4,6 +4,7 @@ name: get credentials
 url: /docs/cli-reference/get/credentials/
 draft: false
 images: []
+weight: 55
 toc: true
 sidebar:
   collapsed: true

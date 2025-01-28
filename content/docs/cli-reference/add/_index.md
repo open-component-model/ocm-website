@@ -4,6 +4,7 @@ name: add
 url: /docs/cli-reference/add/
 draft: false
 images: []
+weight: 55
 toc: true
 sidebar:
   collapsed: true

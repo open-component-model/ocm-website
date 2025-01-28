@@ -4,6 +4,7 @@ name: download resources
 url: /docs/cli-reference/download/resources/
 draft: false
 images: []
+weight: 55
 toc: true
 sidebar:
   collapsed: true
