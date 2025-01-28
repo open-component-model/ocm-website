@@ -4,6 +4,7 @@ name: toi-bootstrapping
 url: /docs/cli-reference/help/toi-bootstrapping/
 draft: false
 images: []
+weight: 55
 toc: true
 sidebar:
   collapsed: true

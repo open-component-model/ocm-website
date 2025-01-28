@@ -4,6 +4,7 @@ name: download artifacts
 url: /docs/cli-reference/download/artifacts/
 draft: false
 images: []
+weight: 55
 toc: true
 sidebar:
   collapsed: true

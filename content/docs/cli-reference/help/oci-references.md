@@ -4,6 +4,7 @@ name: oci-references
 url: /docs/cli-reference/help/oci-references/
 draft: false
 images: []
+weight: 55
 toc: true
 sidebar:
   collapsed: true

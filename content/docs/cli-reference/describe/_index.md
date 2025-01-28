@@ -4,6 +4,7 @@ name: describe
 url: /docs/cli-reference/describe/
 draft: false
 images: []
+weight: 55
 toc: true
 sidebar:
   collapsed: true

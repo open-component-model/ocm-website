@@ -4,6 +4,7 @@ name: describe plugins
 url: /docs/cli-reference/describe/plugins/
 draft: false
 images: []
+weight: 55
 toc: true
 sidebar:
   collapsed: true

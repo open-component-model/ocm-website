@@ -4,6 +4,7 @@ name: ocm-pubsub
 url: /docs/cli-reference/help/ocm-pubsub/
 draft: false
 images: []
+weight: 55
 toc: true
 sidebar:
   collapsed: true

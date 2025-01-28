@@ -4,6 +4,7 @@ name: transfer componentarchive
 url: /docs/cli-reference/transfer/componentarchive/
 draft: false
 images: []
+weight: 55
 toc: true
 sidebar:
   collapsed: true

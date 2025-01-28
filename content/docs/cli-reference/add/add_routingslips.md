@@ -4,6 +4,7 @@ name: add routingslips
 url: /docs/cli-reference/add/routingslips/
 draft: false
 images: []
+weight: 55
 toc: true
 sidebar:
   collapsed: true

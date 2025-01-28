@@ -4,6 +4,7 @@ name: add resource-configuration
 url: /docs/cli-reference/add/resource-configuration/
 draft: false
 images: []
+weight: 55
 toc: true
 sidebar:
   collapsed: true

@@ -4,6 +4,7 @@ name: transfer commontransportarchive
 url: /docs/cli-reference/transfer/commontransportarchive/
 draft: false
 images: []
+weight: 55
 toc: true
 sidebar:
   collapsed: true

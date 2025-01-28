@@ -4,6 +4,7 @@ name: set
 url: /docs/cli-reference/set/
 draft: false
 images: []
+weight: 55
 toc: true
 sidebar:
   collapsed: true

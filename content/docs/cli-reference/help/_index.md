@@ -4,6 +4,7 @@ name: help
 url: /docs/cli-reference/help
 draft: false
 images: []
+weight: 55
 toc: true
 sidebar:
   collapsed: true

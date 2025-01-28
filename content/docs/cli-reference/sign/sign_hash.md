@@ -4,6 +4,7 @@ name: sign hash
 url: /docs/cli-reference/sign/hash/
 draft: false
 images: []
+weight: 55
 toc: true
 sidebar:
   collapsed: true

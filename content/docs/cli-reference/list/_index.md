@@ -4,6 +4,7 @@ name: list
 url: /docs/cli-reference/list/
 draft: false
 images: []
+weight: 55
 toc: true
 sidebar:
   collapsed: true

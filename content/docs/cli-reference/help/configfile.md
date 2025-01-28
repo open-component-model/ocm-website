@@ -4,6 +4,7 @@ name: configfile
 url: /docs/cli-reference/help/configfile/
 draft: false
 images: []
+weight: 55
 toc: true
 sidebar:
   collapsed: true

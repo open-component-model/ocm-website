@@ -4,6 +4,7 @@ name: describe package
 url: /docs/cli-reference/describe/package/
 draft: false
 images: []
+weight: 55
 toc: true
 sidebar:
   collapsed: true

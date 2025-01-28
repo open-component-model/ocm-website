@@ -4,6 +4,7 @@ name: get sources
 url: /docs/cli-reference/get/sources/
 draft: false
 images: []
+weight: 55
 toc: true
 sidebar:
   collapsed: true

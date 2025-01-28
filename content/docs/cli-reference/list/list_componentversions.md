@@ -4,6 +4,7 @@ name: list componentversions
 url: /docs/cli-reference/list/componentversions/
 draft: false
 images: []
+weight: 55
 toc: true
 sidebar:
   collapsed: true
