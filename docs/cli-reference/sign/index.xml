@@ -29,7 +29,7 @@
  --keyless use keyless signing
  --latest restrict component versions to latest
  --lookup stringArray repository name or spec for closure lookup fallback
- -N, --normalization string normalization algorithm (default &amp;#34;jsonNormalisation/v1&amp;#34;)
+ -N, --normalization string normalization algorithm (default &amp;#34;jsonNormalisation/v3&amp;#34;)
  -K, --private-key stringArray private key setting
  -k, --public-key stringArray public key setting
  -R, --recursive recursively sign component versions
