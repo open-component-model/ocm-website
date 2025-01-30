@@ -44,7 +44,7 @@ Helm chart assume the following folder structure. The example is built using con
 </span></span><span class=line><span class=cl>│   ├── templates
 </span></span><span class=line><span class=cl>│   │   ├── ...
 </span></span><span class=line><span class=cl>│   └── values.yaml
-</span></span><span class=line><span class=cl>└── main.go</span></span></code></pre></div></figure></div><p>The Dockerfile has the following content:</p><div class=expressive-code><figure class="frame not-content"><figcaption class=header><span class=title></span></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-Dockerfile data-lang=Dockerfile><span class=line><span class=cl><span class=k>FROM</span><span class=s> golang:1.22 as build</span><span class=err>
+</span></span><span class=line><span class=cl>└── main.go</span></span></code></pre></div></figure></div><p>The Dockerfile has the following content:</p><div class=expressive-code><figure class="frame not-content"><figcaption class=header><span class=title></span></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-Dockerfile data-lang=Dockerfile><span class=line><span class=cl><span class=k>FROM</span><span class=s> golang:1.23.5 as build</span><span class=err>
 </span></span></span><span class=line><span class=cl><span class=err>
 </span></span></span><span class=line><span class=cl><span class=err></span><span class=k>WORKDIR</span><span class=s> /go/src/app</span><span class=err>
 </span></span></span><span class=line><span class=cl><span class=err></span><span class=k>COPY</span> . .<span class=err>
