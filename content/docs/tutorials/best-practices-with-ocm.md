@@ -128,7 +128,7 @@ Helm chart assume the following folder structure. The example is built using con
 The Dockerfile has the following content:
 
 ```Dockerfile
-FROM golang:1.22 as build
+FROM golang:1.23.5 as build
 
 WORKDIR /go/src/app
 COPY . .
