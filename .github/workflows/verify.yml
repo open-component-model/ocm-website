@@ -29,6 +29,6 @@ jobs:
       - name: Build Site
         run: npm run build
       - name: Verify HTML links
-        uses: untitaker/hyperlink@0.1.43
+        uses: untitaker/hyperlink@0.1.44
         with:
           args: public/ --sources content/
