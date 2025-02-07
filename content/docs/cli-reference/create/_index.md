@@ -4,6 +4,7 @@ name: create
 url: /docs/cli-reference/create/
 draft: false
 images: []
+weight: 55
 toc: true
 sidebar:
   collapsed: true

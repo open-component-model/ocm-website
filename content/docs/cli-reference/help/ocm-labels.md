@@ -4,6 +4,7 @@ name: ocm-labels
 url: /docs/cli-reference/help/ocm-labels/
 draft: false
 images: []
+weight: 55
 toc: true
 sidebar:
   collapsed: true

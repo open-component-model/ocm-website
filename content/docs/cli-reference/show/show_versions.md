@@ -4,6 +4,7 @@ name: show versions
 url: /docs/cli-reference/show/versions/
 draft: false
 images: []
+weight: 55
 toc: true
 sidebar:
   collapsed: true

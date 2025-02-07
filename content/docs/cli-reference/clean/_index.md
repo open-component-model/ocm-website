@@ -4,6 +4,7 @@ name: clean
 url: /docs/cli-reference/clean/
 draft: false
 images: []
+weight: 55
 toc: true
 sidebar:
   collapsed: true

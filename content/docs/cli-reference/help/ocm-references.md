@@ -4,6 +4,7 @@ name: ocm-references
 url: /docs/cli-reference/help/ocm-references/
 draft: false
 images: []
+weight: 55
 toc: true
 sidebar:
   collapsed: true

@@ -4,6 +4,7 @@ name: credential-handling
 url: /docs/cli-reference/help/credential-handling/
 draft: false
 images: []
+weight: 55
 toc: true
 sidebar:
   collapsed: true

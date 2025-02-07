@@ -4,6 +4,7 @@ name: get
 url: /docs/cli-reference/get/
 draft: false
 images: []
+weight: 55
 toc: true
 sidebar:
   collapsed: true

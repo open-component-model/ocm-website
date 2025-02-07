@@ -4,6 +4,7 @@ name: add references
 url: /docs/cli-reference/add/references/
 draft: false
 images: []
+weight: 55
 toc: true
 sidebar:
   collapsed: true

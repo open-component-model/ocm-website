@@ -4,6 +4,7 @@ name: get routingslips
 url: /docs/cli-reference/get/routingslips/
 draft: false
 images: []
+weight: 55
 toc: true
 sidebar:
   collapsed: true

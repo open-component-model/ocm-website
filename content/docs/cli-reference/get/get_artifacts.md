@@ -4,6 +4,7 @@ name: get artifacts
 url: /docs/cli-reference/get/artifacts/
 draft: false
 images: []
+weight: 55
 toc: true
 sidebar:
   collapsed: true

@@ -4,6 +4,7 @@ name: sign
 url: /docs/cli-reference/sign/
 draft: false
 images: []
+weight: 55
 toc: true
 sidebar:
   collapsed: true

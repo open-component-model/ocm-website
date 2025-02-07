@@ -4,6 +4,7 @@ name: clean cache
 url: /docs/cli-reference/clean/cache/
 draft: false
 images: []
+weight: 55
 toc: true
 sidebar:
   collapsed: true

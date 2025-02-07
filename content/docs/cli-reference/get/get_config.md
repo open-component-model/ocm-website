@@ -4,6 +4,7 @@ name: get config
 url: /docs/cli-reference/get/config/
 draft: false
 images: []
+weight: 55
 toc: true
 sidebar:
   collapsed: true

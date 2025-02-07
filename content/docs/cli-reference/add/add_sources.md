@@ -4,6 +4,7 @@ name: add sources
 url: /docs/cli-reference/add/sources/
 draft: false
 images: []
+weight: 55
 toc: true
 sidebar:
   collapsed: true

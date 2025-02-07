@@ -4,6 +4,7 @@ name: ocm-uploadhandlers
 url: /docs/cli-reference/help/ocm-uploadhandlers/
 draft: false
 images: []
+weight: 55
 toc: true
 sidebar:
   collapsed: true

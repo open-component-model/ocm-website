@@ -121,7 +121,6 @@ components:
     version: ${PODINFO_VERSION}
     access:
       type: ociArtifact
-      repository: ocm/ocm.software/podinfo/image
       imageReference: ghcr.io/stefanprodan/podinfo:${PODINFO_VERSION}
 
 ```

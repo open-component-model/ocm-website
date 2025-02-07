@@ -4,6 +4,7 @@ name: get plugins
 url: /docs/cli-reference/get/plugins/
 draft: false
 images: []
+weight: 55
 toc: true
 sidebar:
   collapsed: true

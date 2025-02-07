@@ -4,6 +4,7 @@ name: download componentversions
 url: /docs/cli-reference/download/componentversions/
 draft: false
 images: []
+weight: 55
 toc: true
 sidebar:
   collapsed: true

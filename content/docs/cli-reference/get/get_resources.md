@@ -4,6 +4,7 @@ name: get resources
 url: /docs/cli-reference/get/resources/
 draft: false
 images: []
+weight: 55
 toc: true
 sidebar:
   collapsed: true

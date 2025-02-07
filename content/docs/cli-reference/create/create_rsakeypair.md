@@ -4,6 +4,7 @@ name: create rsakeypair
 url: /docs/cli-reference/create/rsakeypair/
 draft: false
 images: []
+weight: 55
 toc: true
 sidebar:
   collapsed: true

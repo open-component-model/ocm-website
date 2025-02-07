@@ -4,6 +4,7 @@ name: get componentversions
 url: /docs/cli-reference/get/componentversions/
 draft: false
 images: []
+weight: 55
 toc: true
 sidebar:
   collapsed: true

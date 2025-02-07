@@ -4,6 +4,7 @@ name: show
 url: /docs/cli-reference/show/
 draft: false
 images: []
+weight: 55
 toc: true
 sidebar:
   collapsed: true
