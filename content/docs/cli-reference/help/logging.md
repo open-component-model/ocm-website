@@ -38,6 +38,7 @@ The following *realms* are used by the command line tool:
   - <code>ocm/credentials/dockerconfig</code>: docker config handling as credential repository
   - <code>ocm/credentials/vault</code>: HashiCorp Vault Access
   - <code>ocm/downloader</code>: Downloaders
+  - <code>ocm/git</code>: git repository
   - <code>ocm/maven</code>: Maven repository
   - <code>ocm/npm</code>: NPM registry
   - <code>ocm/oci/docker</code>: Docker repository handling
@@ -48,7 +49,7 @@ The following *realms* are used by the command line tool:
   - <code>ocm/refcnt</code>: reference counting
   - <code>ocm/toi</code>: TOI logging
   - <code>ocm/transfer</code>: OCM transfer handling
-  - <code>ocm/valuemerge</code>: value marge handling
+  - <code>ocm/valuemerge</code>: value merge handling
 
 
 
