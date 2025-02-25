@@ -30,6 +30,7 @@ spec:
 ```
 
 In the above example:
+
 - A ComponentVersion named `podinfo` is created, indicated by the `.metadata.name` field.
 - The ocm-controller checks the OCM repository every 10m0s, indicated by the `.spec.interval` field.
 - It retrieves the version matching the semver constraint specified by `.spec.version.semver` field.
@@ -37,16 +38,22 @@ In the above example:
 - Whenever a new version is available that satisfies `.spec.version.semver` and is greater than `.status.reconciledVersion` then the ocm-controller will fetch the new component version.
 
 You can run this example by saving the manifest into `componentversion.yaml`.
+
 - 1. Apply the resource to the cluster:
+  
 ```bash
  kubectl apply -f componentversion.yaml
 ```
+
 - 2. Run `kubectl get componentversion` to see the ComponentVersion
+  
 ```bash
 NAME      READY   VERSION   AGE   STATUS
 podinfo   True    6.3.6     8s    Applied version: 6.3.6
 ```
+
 - 3. Run `kubectl describe componentversion podinfo` to see the ComponentVersion Status:
+  
 ```bash
 Name:         podinfo
 Namespace:    default
@@ -88,12 +95,14 @@ Events:
   Normal  Progressing  46s   ocm-controller  Version check succeeded, found latest version: 6.3.6
   Normal  Succeeded    43s   ocm-controller  Reconciliation finished, next run in 10m0s
 ```
+
 - 4. View the ComponentDescriptor for this ComponentVersion by running
 
 ```bash
 kubectl get componentdescriptor -oyaml \
   $(kubectl get cv podinfo -ojsonpath="{.status.componentDescriptor.componentDescriptorRef.name}")
 ```
+
 ```yaml
 apiVersion: delivery.ocm.software/v1alpha1
 kind: ComponentDescriptor

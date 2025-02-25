@@ -7,26 +7,16 @@ weight: 41
 toc: true
 ---
 
-This document explains the architecture of the OCM Kubernetes Controller Set (KCS). The purpose of the KCS is to enable the automated deployment of components using Kubernetes and Flux.
+This document explains the architecture of the OCM Kubernetes Controllers . The purpose of the controllers is to enable the automated deployment of components using Kubernetes and Flux.
 
-The following functions are provided as part of the KCS:
+The following functions are provided:
 
 - Replication: replication of components from one OCM repository to another
 - Signature Verification: verification of component signatures before resources are reconciled
 - Resource Reconciliation: individual resources can be extracted from a component and reconciled to machines internal or external to the cluster
 - Resource transformation: resource localization & configuration can be performed out of the box, with any other kind of modification supported via an extensible architecture
-- Component unpacking: multiple resources can be extracted from a component and transformed with a common set of user definable operations
-- Git synchronization: resources extracted from a component can be pushed to a git repository
 
-One of the central design decisions underpinning KCS is that resources should be composable. To this end we have introduced the concept of **Snapshots**; snapshots are immutable, Flux-compatible, single layer OCI images containing a single OCM resource. Snapshots are stored in an in-cluster registry and in addition to making component resources accessible for transformation, they also can be used as a caching mechanism to reduce unnecessary calls to the source OCM registry.
-
-## Controllers
-
-The KCS consists of the following controllers:
-
-- OCM controller
-- Replication controller
-- Git sync controller
+One of the central design decisions underpinning the OCM controllers is that resources should be composable. To this end we have introduced the concept of **Snapshots**; snapshots are immutable, Flux-compatible, single layer OCI images containing a single OCM resource. Snapshots are stored in an in-cluster registry and in addition to making component resources accessible for transformation, they also can be used as a caching mechanism to reduce unnecessary calls to the source OCM registry.
 
 ### OCM controller
 
@@ -42,6 +32,7 @@ The `ocm-controller` consists of 5 sub-controllers:
 - [Localization Controller](#localization-controller)
 - [Configuration Controller](#configuration-controller)
 - [FluxDeployer Controller](#fluxdeployer-controller)
+- [Replication Controller](#replication-controller)
 
 #### Component Version Controller
 
@@ -232,7 +223,7 @@ spec:
       subPath: component-x-configs
 ```
 
-### FluxDeployer controller
+#### FluxDeployer controller
 
 The final piece in this puzzle is the deployment object. _Note_ this might change in the future to provide more deployment
 options.
@@ -262,7 +253,7 @@ spec:
 
 This will deploy any manifest files at path `./` in the result of the above configuration.
 
-### Replication controller
+#### Replication controller
 
 The Replication Controller handles the replication of components between OCI repositories. It consists of a single reconciler which manages subscriptions to a source OCI repository. A semver constraint is used to specify a target component version. Component versions satisfying the semver constraint will be copied to the destination OCI repository. The replication controller will verify signatures before performing replication.
 

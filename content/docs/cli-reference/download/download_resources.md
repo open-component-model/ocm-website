@@ -38,7 +38,7 @@ ocm download resources [<options>]  <component> {<name> { <key>=<value> }}
 
 
 Download resources of a component version. Resources are specified
-by identities. An identity consists of 
+by identities. An identity consists of
 a name argument followed by optional <code>&lt;key>=&lt;value></code>
 arguments.
 
