@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - '**/*.md'
+      - package.json
 
 jobs:
   markdown-lint: # call reusable workflow from central '.github' repo
