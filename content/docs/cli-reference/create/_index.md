@@ -27,7 +27,7 @@ ocm create [<options>] <sub command> ...
 
 ##### Sub Commands
 
-* [ocm create <b>componentarchive</b>](/docs/cli-reference/create/componentarchive/)	 &mdash; create new component archive
+* [ocm create <b>componentarchive</b>](/docs/cli-reference/create/componentarchive/)	 &mdash; (DEPRECATED) create new component archive
 * [ocm create <b>rsakeypair</b>](/docs/cli-reference/create/rsakeypair/)	 &mdash; create RSA public key pair
 * [ocm create <b>transportarchive</b>](/docs/cli-reference/create/transportarchive/)	 &mdash; create new OCI/OCM transport  archive
 
