@@ -12,7 +12,7 @@ sidebar:
 ### Usage
 
 ```
-ocm transfer componentarchive [<options>]  <source> <target>
+ocm transfer componentarchive [<options>] <source> <target>
 ```
 
 ### Options
