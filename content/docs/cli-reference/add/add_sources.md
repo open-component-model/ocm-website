@@ -111,7 +111,7 @@ it is possible to add extra identity attributes. Explicitly specified options
 override values specified by the <code>--source</code> option.
 (Note: Go templates are not supported for YAML-based option values. Besides
 this restriction, the finally composed element description is still processed
-by the selected template engine.) 
+by the selected template engine.)
 
 The source type can be specified with the option <code>--type</code>. Therefore, the
 minimal required meta data for elements can be completely specified by dedicated

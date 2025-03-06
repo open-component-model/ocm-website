@@ -60,7 +60,7 @@ it is possible to add extra identity attributes. Explicitly specified options
 override values specified by the <code>--reference</code> option.
 (Note: Go templates are not supported for YAML-based option values. Besides
 this restriction, the finally composed element description is still processed
-by the selected template engine.) 
+by the selected template engine.)
 
 The component name can be specified with the option <code>--component</code>. 
 Therefore, basic references not requiring any additional labels or extra
