@@ -6,5 +6,5 @@
         content="ocm.software/open-component-model
                  https://github.com/open-component-model/open-component-model
                  https://github.com/open-component-model/open-component-model/tree/master{/dir}
-                 https://github.com/mopen-component-model/open-component-model/blob/master{/dir}/{file}#L{line}">
+                 https://github.com/open-component-model/open-component-model/blob/main{/dir}/{file}#L{line}">
 </head></html>
