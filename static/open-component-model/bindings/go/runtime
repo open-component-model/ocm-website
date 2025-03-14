@@ -1,7 +1,7 @@
 <html><head>
   <meta name="go-import"
         content="ocm.software/open-component-model/bindings/go/runtime
-                 git https://github.com/open-component-model/open-component-model/bindings/go/runtime">
+                 git https://github.com/open-component-model/open-component-model">
   <meta name="go-source"
         content="ocm.software/open-component-model/bindings/go/runtime
                  https://github.com/open-component-model/open-component-model
