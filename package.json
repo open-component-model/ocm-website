@@ -35,7 +35,7 @@
     "thulite": "^2.5.0"
   },
   "devDependencies": {
-    "shx": "^0.3.4"
+    "shx": "^0.4.0"
   },
   "otherDependencies": {
     "hugo": "0.144.2"
