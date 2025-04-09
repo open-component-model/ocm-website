@@ -60,7 +60,7 @@ You can bring anything, including:
 #### How to Join
 
 Meeting details and calendar invites will be shared via our [Slack channel](https://kubernetes.slack.com/archives/C05UWBE8R1D) one week before each call.
-You can also subscribe to our `OCM Community Calls` Google calendar like described below to receive updates directly in your calendar app.
+You can also check and subscribe to our [`OCM Community Calls` Google calendar](https://calendar.google.com/calendar/embed?src=ocm.community@group.calendar.google.com) like described below to receive updates directly in your calendar app.
 
 #### Subscribe to Community Calls
 
