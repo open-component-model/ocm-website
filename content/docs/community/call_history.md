@@ -8,7 +8,7 @@ weight: 93
 toc: true
 ---
 
-## Agendas & presentations
+## Previous Community Calls
 
 ### 2025-XX-YY
 
@@ -20,3 +20,9 @@ toc: true
 - Open discussion
 
 ### Slides
+
+...
+
+### Recording
+
+https://www.youtube.com/watch?v=PAuSh0MOD7k
