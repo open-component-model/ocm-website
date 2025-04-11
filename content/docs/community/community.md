@@ -62,21 +62,21 @@ You can bring anything, including:
 Meeting details and calendar invites will be shared via our [Slack channel](https://kubernetes.slack.com/archives/C05UWBE8R1D) one week before each call.
 You can also check and subscribe to our [`OCM Community Calls` Google calendar](https://calendar.google.com/calendar/embed?src=ocm.community@group.calendar.google.com) like described below to receive updates directly in your calendar app.
 
-#### Subscribe to Community Calls
-
-Choose your preferred method:
+#### Calendar events and mailing list for Community Calls
 
 ##### Google Calendar
 
-1. Open [Google Calendar](https://calendar.google.com/).
-2. Click **+** next to "Other calendars" → **Subscribe to calendar**.
-3. Paste this address: `9cbbd4297400d3412002448717c8b9485cc045c9b2102f9e946aaf0e8a8aabb8@group.calendar.google.com`
+Use this [link](https://calendar.google.com/calendar/event?action=TEMPLATE&tmeid=MnJnaW5kcTI1YXUwZzh1bzF1aHUyc2xrbHVfMjAyNTA2MTFUMTUwMDAwWiA5Y2JiZDQyOTc0MDBkMzQxMjAwMjQ0ODcxN2M4Yjk0ODVjYzA0NWM5YjIxMDJmOWU5NDZhYWYwZThhOGFhYmI4QGc&tmsrc=9cbbd4297400d3412002448717c8b9485cc045c9b2102f9e946aaf0e8a8aabb8%40group.calendar.google.com&scp=ALL) to add the community call to your Google calendar.
 
-##### iCal Feed (Apple/Outlook)
+##### iCal (Apple/Outlook)
 
-1. Use this link:  
-   `https://calendar.google.com/calendar/ical/9cbbd4297400d3412002448717c8b9485cc045c9b2102f9e946aaf0e8a8aabb8%40group.calendar.google.com/public/basic.ics`
-2. Follow your client's "Subscribe" instructions.
+Download the [.ics file](../../../assets/OCM%20Community.ics) to add the community call to your non-Google calendar.
+
+##### Mailing List
+
+We use Google Groups as mailing list for announcements. All announcements are public. To join the group and get notifications, you need to sign in with a Google account.
+
+To see all announcements and join the group, please visit the [OCM Announcements](https://groups.google.com/g/ocm-community-announce) group.
 
 #### Recordings and Public Access
 
