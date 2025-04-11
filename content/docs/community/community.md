@@ -27,7 +27,7 @@ Our team is passionate about delving into diverse deployment processes, explorin
 
 ### Community Calls
 
-We're excited to announce our regular community calls starting mid of this year!
+We're excited to announce our regular community calls starting in the second half of this year!
 
 #### Schedule
 
