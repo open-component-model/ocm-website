@@ -66,17 +66,17 @@ You can also check and subscribe to our [`OCM Community Calls` Google calendar](
 
 ##### Google Calendar
 
-Use this [link](https://calendar.google.com/calendar/event?action=TEMPLATE&tmeid=MnJnaW5kcTI1YXUwZzh1bzF1aHUyc2xrbHVfMjAyNTA2MTFUMTUwMDAwWiA5Y2JiZDQyOTc0MDBkMzQxMjAwMjQ0ODcxN2M4Yjk0ODVjYzA0NWM5YjIxMDJmOWU5NDZhYWYwZThhOGFhYmI4QGc&tmsrc=9cbbd4297400d3412002448717c8b9485cc045c9b2102f9e946aaf0e8a8aabb8%40group.calendar.google.com&scp=ALL) to add the community call to your Google calendar.
+Use this [link](https://calendar.google.com/calendar/event?action=TEMPLATE&tmeid=MnJnaW5kcTI1YXUwZzh1bzF1aHUyc2xrbHVfMjAyNTA2MTFUMTUwMDAwWiA5Y2JiZDQyOTc0MDBkMzQxMjAwMjQ0ODcxN2M4Yjk0ODVjYzA0NWM5YjIxMDJmOWU5NDZhYWYwZThhOGFhYmI4QGc&tmsrc=9cbbd4297400d3412002448717c8b9485cc045c9b2102f9e946aaf0e8a8aabb8%40group.calendar.google.com&scp=ALL) to add the community call meeting series to your Google calendar.
 
 ##### iCal (Apple/Outlook)
 
-Download the [.ics file](../../../assets/OCM%20Community.ics) to add the community call to your non-Google calendar.
+Download the [.ics file](../../../assets/OCM%20Community.ics) to add the community call meeting series to your non-Google calendar.
 
 ##### Mailing List
 
-We use Google Groups as mailing list for announcements. All announcements are public. To join the group and get notifications, you need to sign in with a Google account.
+We use Google Groups as mailing list for public announcements. To join the group and get notifications, you need to sign in with a Google account.
 
-To see all announcements and join the group, please visit the [OCM Announcements](https://groups.google.com/g/ocm-community-announce) group.
+To see all announcements and join the group, please visit the [OCM Announcements](https://groups.google.com/g/ocm-community-announce) group, no Google account is needed to read the posts.
 
 #### Recordings and Public Access
 
