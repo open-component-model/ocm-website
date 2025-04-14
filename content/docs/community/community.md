@@ -60,17 +60,17 @@ You can bring anything, including:
 #### How to Join
 
 Meeting details and calendar invites will be shared via our [Slack channel](https://kubernetes.slack.com/archives/C05UWBE8R1D) one week before each call.
-You can also check and subscribe to our [`OCM Community Calls` Google calendar](https://calendar.google.com/calendar/embed?src=ocm.community@group.calendar.google.com) like described below to receive updates directly in your calendar app.
+You can also check and subscribe to our [OCM Community Calls Google calendar](https://calendar.google.com/calendar/embed?src=ocm.community@group.calendar.google.com) like described below to receive updates directly in your calendar app.
 
 #### Calendar events and mailing list for Community Calls
 
 ##### Google Calendar
 
-Use this [link](https://calendar.google.com/calendar/event?action=TEMPLATE&tmeid=MnJnaW5kcTI1YXUwZzh1bzF1aHUyc2xrbHVfMjAyNTA2MTFUMTUwMDAwWiA5Y2JiZDQyOTc0MDBkMzQxMjAwMjQ0ODcxN2M4Yjk0ODVjYzA0NWM5YjIxMDJmOWU5NDZhYWYwZThhOGFhYmI4QGc&tmsrc=9cbbd4297400d3412002448717c8b9485cc045c9b2102f9e946aaf0e8a8aabb8%40group.calendar.google.com&scp=ALL) to add the community call meeting series to your Google calendar.
+Use this [link](https://calendar.google.com/calendar/event?action=TEMPLATE&tmeid=MnJnaW5kcTI1YXUwZzh1bzF1aHUyc2xrbHVfMjAyNTA2MThUMTUwMDAwWiA5Y2JiZDQyOTc0MDBkMzQxMjAwMjQ0ODcxN2M4Yjk0ODVjYzA0NWM5YjIxMDJmOWU5NDZhYWYwZThhOGFhYmI4QGc&tmsrc=9cbbd4297400d3412002448717c8b9485cc045c9b2102f9e946aaf0e8a8aabb8%40group.calendar.google.com&scp=ALL) to add the community call meeting series to your Google calendar.
 
 ##### iCal (Apple/Outlook)
 
-Download the [.ics file](../../../assets/OCM%20Community.ics) to add the community call meeting series to your non-Google calendar.
+Download the [.ics file](https://ocm.software/docs/community/ocm-community.ics) to add the community call meeting series to your non-Google calendar.
 
 ##### Mailing List
 
