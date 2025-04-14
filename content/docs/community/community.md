@@ -72,7 +72,7 @@ Use this [link](https://calendar.google.com/calendar/event?action=TEMPLATE&tmeid
 
 Download the [.ics file](https://ocm.software/docs/community/ocm-community.ics) to add the community call meeting series to your non-Google calendar.
 
-##### Mailing List
+##### Mailing List (Google Groups)
 
 We use Google Groups as mailing list for public announcements. To join the group and get notifications, you need to sign in with a Google account.
 
