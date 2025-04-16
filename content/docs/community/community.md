@@ -78,10 +78,10 @@ We use Google Groups as mailing list for public announcements. To join the group
 
 To see all announcements and join the group, please visit the [OCM Announcements](https://groups.google.com/g/ocm-community-announce) group, no Google account is needed to read the posts.
 
-#### Recordings and Public Access
+#### Recordings and Slides
 
 All calls will be recorded and uploaded publicly to the [OCM YouTube channel](https://www.youtube.com/@OpenComponentModel).
-The history of previous calls with agenda and slides for those unable to attend can be found [here](https://ocm.software/docs/community/community-calls-history/)
+Slides and additionally material used in the calls are stored [here](https://drive.google.com/drive/folders/1RjEQSfM1bM1rssbA6bw048A84xtIuFH3?usp=sharing)
 
 {{<callout context="note" title="Meeting Recordings">}}If you do not consent to being recorded, please do not enable your microphone or camera, or do not join the meetings.{{</callout>}}
 
