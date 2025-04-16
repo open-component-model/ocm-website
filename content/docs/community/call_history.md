@@ -21,8 +21,8 @@ toc: true
 
 ### Slides
 
-...
+[Slides on Google Drive](https://drive.google.com/drive/folders/1RjEQSfM1bM1rssbA6bw048A84xtIuFH3?usp=sharing)
 
 ### Recording
 
-https://www.youtube.com/watch?v=PAuSh0MOD7k
+[Recording on Youtube](https://www.youtube.com/watch?v=PAuSh0MOD7k)
