@@ -7,3 +7,5 @@ public/
 .idea/
 /.project
 hugo_stats.json
+static/images/.DS_Store
+.DS_Store

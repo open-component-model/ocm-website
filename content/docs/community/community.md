@@ -81,7 +81,7 @@ To see all announcements and join the group, please visit the [OCM Announcements
 #### Recordings and Slides
 
 All calls will be recorded and uploaded publicly to the [OCM YouTube channel](https://www.youtube.com/@OpenComponentModel).
-Slides and additionally material used in the calls are stored [here](https://drive.google.com/drive/folders/1RjEQSfM1bM1rssbA6bw048A84xtIuFH3?usp=sharing)
+Slides and agenda from prior community calls are stored [here](https://ocm.software/docs/community/community-calls-history/).
 
 {{<callout context="note" title="Meeting Recordings">}}If you do not consent to being recorded, please do not enable your microphone or camera, or do not join the meetings.{{</callout>}}
 
