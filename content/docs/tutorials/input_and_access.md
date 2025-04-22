@@ -1,7 +1,7 @@
 ---
 title: "Input and Access Types"
 draft: false
-weight: 68
+weight: 64
 toc: true
 ---
 

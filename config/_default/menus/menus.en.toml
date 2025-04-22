@@ -5,7 +5,12 @@
 
 [[main]]
   name = "Community"
-  url = "/docs/community/community"
+  url = "/community/community"
+  weight = 20
+
+  [[main]]
+  name = "Roadmap"
+  url = "/roadmap/roadmap"
   weight = 30
 
 [[social]]
