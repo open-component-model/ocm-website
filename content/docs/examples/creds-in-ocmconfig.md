@@ -3,7 +3,7 @@ title: "Credentials in an .ocmconfig file"
 description: ""
 summary: ""
 draft: false
-weight: 999
+weight: 72
 toc: true
 ---
 
