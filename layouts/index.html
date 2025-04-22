@@ -1,98 +1,112 @@
 {{ define "main" }}
-<section class="section container-fluid mt-n3 pb-3">
-  <div class="row justify-content-center">
-    <div class="col-lg-12 text-center">
-      <img src="images/logo-image.png" height="auto" width="150px" alt="Open Component Model Logo"/>
-      <img src="images/ocm-text.png" height="auto" width="200px" alt="Open Component Model Logo"/>
-      </p>
-    </div>
-    <div class="col-lg-9 col-xl-8 text-center">
-      <p class="text-white leader-open-source-text">{{.Site.Params.leader_open_source_text}} <a href="https://github.com/open-component-model/ocm/releases/tag/{{ .Site.Params.latest_version }}">GitHub {{ .Site.Params.latest_version }}</a>
-      <p class="mb-1">
-        <a href="https://bestpractices.coreinfrastructure.org/projects/7156"><img src="https://bestpractices.coreinfrastructure.org/projects/7156/badge"></a>
-      </p>
-      {{ .Content }}
-      <!-- <p class="sub-leader mt-2">{{ .Site.Params.leader }}</p> -->
+
+<!-- Hero -->
+<section class="section bg-dark text-white">
+  <div class="container-fluid py-8">
+    <div class="row justify-content-center">
+      <div class="col-lg-11 text-center">
+        <img src="images/logo-image.png" width="150" alt="Open Component Model Logo" class="mb-4" />
+        <img src="images/ocm-text.png" width="200" alt="Open Component Model Text Logo" class="mb-8" style="margin-bottom: 0rem;" />
+        <h1 class="display-4 font-weight-bold mb-4"></h1>
+        <h1 class="display-4 font-weight-bold mb-4">Deliver and deploy your software components securely —</h1>
+        <h1 class="display-4 font-weight-bold mb-4"> anywhere, at any scale.</h1>
+        <p class="lead mb-6">The Open Component Model (OCM) is the open-source, technology-agnostic </p>
+        <p class="lead mb-6"><strong>Software Bill of Delivery (SBoD)</strong></p>
+        <p class="lead mb-6">for packaging, signing, transporting and deploying your artifacts across clouds, on-premises,
+          and air-gapped environments — while preserving end-to-end integrity and provenance.</p>
+        <a class="btn btn-primary btn-lg rounded-pill px-5" href="/docs/quickstart/" role="button">Get Started</a>
+      </div>
     </div>
   </div>
 </section>
+
 {{ end }}
 
 {{ define "sidebar-prefooter" }}
-  {{ if site.Params.doks.backgroundDots -}}
-  <div class="d-flex justify-content-start">
-    <div class="bg-dots"></div>
-  </div>
-  {{ end -}}
-  {{ if eq $.Site.Language.LanguageName "English" }}
 
-  <section class="section section-md section-features">
-    <div class="container">
-      <div class="row justify-content-center text-center">
-        <section class="section container-fluid mt-n3 pb-3">
-            <h1>What is the Open Component Model?</h1>
-            </br>
-            <p>OCM is an open standard for describing software artifacts and lifecycle metadata.
-              It is a technology-agnostic and machine-readable format and focuses on software artifacts
-              that need to be delivered securely across boundaries.
-              At the same time, it maintains integrity and provenance along the complete supply chain.
-            </p>
-            </br>
-            <p>With the unique identifier of OCM components acting as correlation ID,
-            it enables the alignment of different, possibly asynchronous processes and tools across all stages of the software lifecycle.
-            </p>
-            </br>
-            <p>
-              Although OCM may seem similar to both package management tools and SBOM, it is actually neither.
-              An SBOM describes the constituent parts of a software product required during the development process.
-              In contrast, OCM describes those parts necessary for delivery and deployment.
-            </p>
-            </br>
-            <p>
-              We think of it as a <strong>Software Bill of Delivery (SBOD)</strong>.
-            </p>
-        </section>
+<!-- Benefits -->
+<section id="benefits" class="section bg-dark text-white">
+  <div class="container">
+    <h2 class="h1 text-center mb-5">Why Choose OCM?</h2>
+    <div class="row justify-content-center text-center mb-4">
+      <div class="col-lg-4 col-md-6 mb-4">
+        <h3 class="h4 mb-2">📦 One Model for All Artifacts</h3>
+        <p>A single, machine-readable format for containers, Helm charts, binaries, and data—everything you deliver.</p>
+      </div>
+      <div class="col-lg-4 col-md-6 mb-4">
+        <h3 class="h4 mb-2">🔒 Security & Integrity</h3>
+        <p>Components including their artifacts are signed. Verify provenance at every step.</p>
+      </div>
+      <div class="col-lg-4 col-md-6 mb-4">
+        <h3 class="h4 mb-2">🌐 Universal Delivery</h3>
+        <p>Transfer and deploy components to any environment, public and private clouds, on-premises
+          and even air-gapped environments.</p>
       </div>
     </div>
-  </section>
-
-  <section class="section section-md section-features">
-    <div class="container">
-      <div class="row justify-content-center text-center">
-        <div class="col-lg-5">
-          <img src="images/describe-test.png"/>
-          <h2 class="h4">Describe</h2>
-          <p>Describe resources and source repositories of a software product in code.
-            Sign them for uncompromised integrity.</p>
-        </div>
-        <div class="col-lg-5">
-          <img src="images/transport-test.png" class="bump-left"/>
-          <h2 class="h4">Transport</h2>
-          <p>Transport content to any environment, be it public cloud, on-prem, or air-gapped.
-            OCM ensures secure transport across boundaries.</p>
-          </p>
-        </div>
-        <div class="col-lg-5">
-          <img src="images/deploy-test.png"/>
-          <h2 class="h4">Deploy</h2>
-          <p>Leverage built-in Flux integration to seamlessly automate the deployment of components via GitOps.</p>
-        </div>
+    <div class="row justify-content-center text-center">
+      <div class="col-lg-4 col-md-6 mb-4">
+        <h3 class="h4 mb-2">🔗 End-to-End Traceability</h3>
+        <p>OCM Coordinates stitch together all lifecycle phases. Correlate build, test,
+          deploy and security metadata into one global view.</p>
       </div>
-    </div>
-  </section>
-
-  {{ end }}
-{{ end }}
-
-{{ define "sidebar-footer" }}
-{{ if site.Params.doks.sectionFooter -}}
-<section class="section section-md container-fluid bg-light">
-  <div class="row justify-content-center text-center">
-    <div class="col-lg-7">
-      <h2 class="mt-2">Start building with Doks today</h2>
-      <a class="btn btn-primary rounded-pill px-4 my-2" href="/docs/{{ if site.Params.doks.docsVersioning }}{{ site.Params.doks.docsVersion }}/{{ end }}prologue/introduction/" role="button">{{ i18n "get-started" }}</a>
+      <div class="col-lg-4 col-md-6 mb-4">
+        <h3 class="h4 mb-2">⚙️ GitOps-Ready Automation</h3>
+        <p>OCM Controllers and OCM CLI plug straight into your CI/CD pipelines — no custom glue code needed.</p>
+      </div>
     </div>
   </div>
 </section>
-{{ end -}}
+
+<!-- How It Works -->
+<section class="section section-md bg-dark text-white">
+  <div class="container">
+    <h2 class="h1 text-center mb-5">How OCM Works</h2>
+    <div class="row justify-content-center text-center">
+
+      <div class="col-lg-4 mb-5">
+        <img src="images/describe-test.png" alt="Describe Icon" class="mb-3" />
+        <h3 class="h4">Describe</h3>
+        <p>Define component versions in code. Attach labels, access-methods, and cryptographic signatures.</p>
+      </div>
+
+      <div class="col-lg-4 mb-5">
+        <img src="images/transport-test.png" alt="Transport Icon" class="mb-3" />
+        <h3 class="h4">Transport</h3>
+        <p>Push/Pull across any boundary — public cloud, on-prem, or air-gapped. Immutable metadata ensures tamper-proof delivery.</p>
+      </div>
+
+      <div class="col-lg-4 mb-5">
+        <img src="images/deploy-test.png" alt="Deploy Icon" class="mb-3" />
+        <h3 class="h4">Deploy</h3>
+        <p>Automate Deployments of whole products with OCM Controllers and Flux for seamless GitOps deployments.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Deep Dive Benefits -->
+<section class="section section-md">
+  <div class="container">
+    <h2 class="h1 text-center mb-5">Benefits of OCM</h2>
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <ul class="list-unstyled mb-4">
+          <li class="mb-3"><strong>End-to-End Provenance:</strong> Correlate build, test, deploy and security metadata in one global graph using OCM Coordinates.</li>
+          <li class="mb-3"><strong>Security & Compliance:</strong> Built-in signing, verification and policy hooks to enforce SBoD integrity and audit trails.</li>
+          <li class="mb-3"><strong>Extensible & Pluggable:</strong> Add custom access methods, labels, repository-types or storage backends without changing your pipelines.</li>
+          <li class="mb-3"><strong>Ecosystem Integration:</strong> Official Go library, OCM Controllers, CLI, Open Delivery Gear and Flux integration — and growing community of implementers.</li>
+        </ul>
+        <p class="text-center"><a href="/docs/overview/benefits-of-ocm/" class="btn btn-outline-primary rounded-pill px-4">View all benefits →</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+{{ end }}
+
+{{ define "sidebar-footer" }}
+  {{ if site.Params.doks.sectionFooter -}}
+    {{ template "sidebar-footer" . }}
+  {{ end -}}
 {{ end }}
