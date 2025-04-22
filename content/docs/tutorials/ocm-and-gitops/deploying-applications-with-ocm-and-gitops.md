@@ -4,7 +4,7 @@ description: "Deploying Applications with OCM & GitOps"
 lead: ""
 draft: false
 images: []
-weight: 66
+weight: 12
 toc: true
 ---
 
@@ -28,7 +28,7 @@ If you'd like to learn how to build a component, then check out our [Getting Sta
 - [Table of Contents](#table-of-contents)
   - [Requirements](#requirements)
   - [Environment Setup](#environment-setup)
-  - [Deploy the OCM Controller](#deploy-the-ocm-controller)
+  - [Install the OCM Controller](#install-the-ocm-controller)
   - [Deploy the Component](#deploy-the-component)
   - [Wrapping Up](#wrapping-up)
 
@@ -103,12 +103,19 @@ flux reconcile source git flux-system
 flux get kustomizations
 ```
 
-### Deploy the OCM Controller
+### Install the OCM Controller
 
-We can use the OCM CLI to install the controller:
+There are two ways to install the `ocm-controller`. One, is by using `ocm controller install` command from the [OCM](https://github.com/open-component-model/ocm) project.
+
+This CLI will install prerequisites as well and check the cluster state during installation to make sure that all elements
+are correctly installed and up and running.
+
+The other way is using the provided Helm chart for the `ocm-controller` GitHub project's ./deploy` folder. The Helm chart has also been uploaded to the GH container registry as OCI artifact.
+
+To use it, use the following command:
 
 ```bash
-ocm controller install
+helm install ocm-controller oci://ghcr.io/open-component-model/helm/ocm-controller --version v0.25.3
 ```
 
 ### Deploy the Component
@@ -207,7 +214,7 @@ podinfo-84cb98c9b6-k4lk8   1/1     Running   0          1m
 
 That's it! That's how easy it is to get started using the Open Component Model and Flux.
 
-If you want to know more about working with OCM and GitOps, check out these guides:
+If you want to know more about working with OCM and GitOps, check out our other guides on this topic:
 
 - [Air-gapped GitOps with OCM & Flux](/docs/tutorials/ocm-and-gitops/air-gapped-gitops-with-ocm-flux/)
 - [GitOps Driven Configuration of OCM Applications](/docs/tutorials/ocm-and-gitops/gitops-driven-configuration-of-ocm-applications/)
