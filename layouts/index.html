@@ -1,19 +1,18 @@
 {{ define "main" }}
 
 <!-- Hero -->
-<section class="section bg-dark text-white">
-  <div class="container-fluid py-8">
+<section class="section bg-dark text-white pt-5 pb-8">
+  <div class="container-fluid">
     <div class="row justify-content-center">
       <div class="col-lg-11 text-center">
         <img src="images/logo-image.png" width="150" alt="Open Component Model Logo" class="mb-4" />
-        <img src="images/ocm-text.png" width="200" alt="Open Component Model Text Logo" class="mb-8" style="margin-bottom: 0rem;" />
-        <h1 class="display-4 font-weight-bold mb-4"></h1>
-        <h1 class="display-4 font-weight-bold mb-4">Deliver and deploy your software components securely —</h1>
-        <h1 class="display-4 font-weight-bold mb-4"> anywhere, at any scale.</h1>
-        <p class="lead mb-6">The Open Component Model (OCM) is the open-source, technology-agnostic </p>
-        <p class="lead mb-6"><strong>Software Bill of Delivery (SBoD)</strong></p>
-        <p class="lead mb-6">for packaging, signing, transporting and deploying your artifacts across clouds, on-premises,
-          and air-gapped environments — while preserving end-to-end integrity and provenance.</p>
+        <img src="images/ocm-text.png" width="200" alt="Open Component Model Text Logo" class="mb-4" />
+        <h1 class="display-4 font-weight-bold mb-4">Deliver and deploy</h1>
+        <h1 class="display-4 font-weight-bold mb-4">your software securely.</h1>
+        <h2 class="h2 font-italic mb-5">Anywhere, at any scale.</h2>
+        <p class="lead mb-2">The Open Component Model (OCM) is the open-source, technology-agnostic</p>
+        <p class="lead mb-2"><strong>Software Bill of Delivery (SBoD)</strong></p>
+        <p class="lead mb-5">for packaging, signing, transporting and deploying your artifacts across clouds, on-premises, and air-gapped environments — while preserving end-to-end integrity and provenance.</p>
         <a class="btn btn-primary btn-lg rounded-pill px-5" href="/docs/getting-started/" role="button">Get Started</a>
       </div>
     </div>
@@ -73,6 +72,8 @@
         <img src="images/transport-test.png" alt="Transport Icon" class="mb-3" />
         <h3 class="h4">Transport</h3>
         <p>Push/Pull across any boundary — public cloud, on-prem, or air-gapped. Immutable metadata ensures tamper-proof delivery.</p>
+        <p></p>
+        <a class="btn btn-primary btn-lg rounded-pill px-5" href="docs/tutorials/ocm-and-gitops" role="button">Dive Deeper</a>
       </div>
 
       <div class="col-lg-4 mb-5">
@@ -80,25 +81,7 @@
         <h3 class="h4">Deploy</h3>
         <p>Automate Deployments of whole products with OCM Controllers and Flux for seamless GitOps deployments.</p>
       </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- Deep Dive Benefits -->
-<section class="section section-md">
-  <div class="container">
-    <h2 class="h1 text-center mb-5">Benefits of OCM</h2>
-    <div class="row justify-content-center">
-      <div class="col-lg-8">
-        <ul class="list-unstyled mb-4">
-          <li class="mb-3"><strong>End-to-End Provenance:</strong> Correlate build, test, deploy and security metadata in one global graph using OCM Coordinates.</li>
-          <li class="mb-3"><strong>Security & Compliance:</strong> Built-in signing, verification and policy hooks to enforce SBoD integrity and audit trails.</li>
-          <li class="mb-3"><strong>Extensible & Pluggable:</strong> Add custom access methods, labels, repository-types or storage backends without changing your pipelines.</li>
-          <li class="mb-3"><strong>Ecosystem Integration:</strong> Official Go library, OCM Controllers, CLI, Open Delivery Gear and Flux integration — and growing community of implementers.</li>
-        </ul>
-        <p class="text-center"><a href="/docs/overview/benefits-of-ocm/" class="btn btn-outline-primary rounded-pill px-4">View all benefits →</a></p>
-      </div>
+      
     </div>
   </div>
 </section>
