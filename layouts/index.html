@@ -1,20 +1,36 @@
 {{ define "main" }}
 
-<!-- Hero -->
-<section class="section bg-dark text-white pt-5 pb-8">
+<!-- Hero with dark background, dots, and GitHub/Badge links -->
+<section class="section bg-dark text-white pt-4 pb-8 position-relative">
   <div class="container-fluid">
     <div class="row justify-content-center">
       <div class="col-lg-11 text-center">
-        <img src="images/logo-image.png" width="150" alt="Open Component Model Logo" class="mb-4" />
-        <img src="images/ocm-text.png" width="200" alt="Open Component Model Text Logo" class="mb-4" />
-        <h1 class="display-4 font-weight-bold mb-2">Deliver and deploy</h1>
-        <h1 class="display-4 font-weight-bold mb-4">your software securely.</h1>
-        <h2 class="h2 font-italic mb-5">Anywhere, at any scale.</h2>
+        <img src="images/logo-image.png" width="150" alt="Open Component Model Logo" class="mb-3" />
+        <img src="images/ocm-text.png" width="200" alt="Open Component Model Text Logo" class="mb-3" />
+        <!-- GitHub Release + OpenSSF Badge -->
+        <p class="text-white leader-open-source-text mb-1">
+          {{ .Site.Params.leader_open_source_text }}
+          <a href="https://github.com/open-component-model/ocm/releases/tag/{{ .Site.Params.latest_version }}">
+            GitHub {{ .Site.Params.latest_version }}
+          </a>
+        </p>
+        <p class="mb-5">
+          <a href="https://bestpractices.coreinfrastructure.org/projects/7156">
+            <img src="https://bestpractices.coreinfrastructure.org/projects/7156/badge" alt="OpenSSF Badge">
+          </a>
+        </p>
+        <h1 class="display-3 font-weight-bold mb-2">Deliver and deploy</h1>
+        <h1 class="display-3 font-weight-bold mb-2">your software securely.</h1>
+        <h2 class="h2 font-italic mb-5 mt-0">Anywhere, at any scale.</h2>
         <p class="lead mb-2">The Open Component Model (OCM) is the open-source, technology-agnostic</p>
         <p class="lead mb-2"><strong>Software Bill of Delivery (SBoD)</strong></p>
         <p class="lead mb-5">for packaging, signing, transporting and deploying your artifacts across clouds, on-premises, and air-gapped environments — while preserving end-to-end integrity and provenance.</p>
-        <a class="btn btn-primary btn-lg rounded-pill px-5" href="/docs/getting-started/" role="button">Get Started</a>
+        <a class="btn btn-primary btn-lg rounded-pill px-5 mb-4" href="/docs/getting-started/" role="button">Get Started</a>
       </div>
+    </div>
+    <!-- Optional: Background Dots (positioned absolutely) -->
+    <div class="d-flex justify-content-start position-absolute top-0 start-0 w-100 h-100">
+      <div class="bg-dots w-100 h-100"></div>
     </div>
   </div>
 </section>
