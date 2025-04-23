@@ -3,7 +3,7 @@ title: "Installation"
 description: "OCM Controller Installation"
 draft: false
 images: []
-weight: 42
+weight: 41
 toc: true
 ---
 

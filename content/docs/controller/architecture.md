@@ -1,9 +1,9 @@
 ---
-title: "Architecture"
+title: "Architecture Overview"
 description: "OCM Controller Architecture"
 draft: false
 images: []
-weight: 41
+weight: 42
 toc: true
 ---
 
