@@ -1,10 +1,9 @@
 ---
-title : "Community"
-description: "Community"
-weight: 90
+title : "Contribute"
+description: "Contribute to OCM."
+weight: 100
 lead: ""
 draft: false
-toc: true
 images: []
 sidebar:
   collapsed: true

@@ -100,7 +100,6 @@ getinexpensivecontentversionidentity
 getresourcesbyname
 getter
 ghcr
-gitea
 github
 gitignore
 gitops
@@ -228,8 +227,6 @@ repositoryspec
 resendbuffer
 resolvers
 resourcereference
-roadmap
-rollout
 routings
 routingslips
 rsa
@@ -256,7 +253,6 @@ struct
 subchart
 subcharts
 subst
-tekton
 tempfile
 templated
 templater
