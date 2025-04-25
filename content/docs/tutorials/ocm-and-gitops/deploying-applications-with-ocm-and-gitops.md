@@ -110,7 +110,7 @@ There are two ways to install the `ocm-controller`. One, is by using `ocm contro
 This CLI will install prerequisites as well and check the cluster state during installation to make sure that all elements
 are correctly installed and up and running.
 
-The other way is using the provided Helm chart for the `ocm-controller` GitHub project's ./deploy` folder. The Helm chart has also been uploaded to the GH container registry as OCI artifact.
+The other way is using the provided Helm chart from the `ocm-controller` GitHub project's ./deploy` folder. The Helm chart has also been uploaded to the GH container registry as OCI artifact.
 
 To use it, use the following command:
 
