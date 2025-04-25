@@ -16,23 +16,19 @@ Traditional approaches lead to:
 - Difficulty tracking and securing software components
 - Lack of a standard way to describe software and its artifacts
 
-## What Makes a Modern Software Component Model?
+## Requirements Towards a Modern Software Component Model
 
-### Unique and Immutable Component Identity
+### Community-First Approach
 
-Every software component needs a permanent, globally unique ID. Think of it like a digital fingerprint that:
+A truly modern software component model cannot live in isolation. It needs an active, diverse community to grow, adapt, and remain relevant. Open source projects invite users and maintainers to propose ideas, report issues, and deliver improvements. Lowering entry barriers nurtures diverse perspectives, accelerates innovation, and ensures real-world feedback shapes priorities. Continuous collaboration - through design discussions, reviews, and documentation — builds trust and fosters adoption across industries. In this way, the community itself becomes the guarantor of quality, relevance, and long-term sustainability.
 
-- Tracks the component across its entire lifecycle
-- Helps correlate security scans, compliance checks, and deployments
-- Provides a consistent reference point
+### Immutable and Unique Component Identity
 
-### Comprehensive Artifact Description
+A crucial requirement is the ability to assign an immutable and globally unique Component Identity to each software component. This identifier acts as a "correlation ID," allowing all lifecycle management processes, such as security compliance and vulnerability scanning, to correlate their outputs to a single, identifiable software component.
 
-The model should clearly outline:
+### Artifact Descriptions with Location Information
 
-- All technical artifacts needed to deploy a specific software version
-- Precise access locations where these artifacts can be retrieved
-- A complete "Software Bill of Delivery" (SBoD) that ensures nothing for a successful deployment is missed
+The model should facilitate the description of all technical artifacts required for deploying a specific version of a software component. This list, termed a "Software Bill of Delivery" (SBoD), outlines only the artifacts needed for successful deployment. Additionally, the description must encompass the technical access location from which each artifact can be retrieved.
 
 ### Separation of Component Identity and Artifact Location
 
@@ -83,7 +79,10 @@ Enable teams to:
 
 The Open Component Model (OCM) is designed to tackle these challenges head-on. It provides a standardized approach to describing, managing, and sharing software components that brings order to software lifecycle management. By linking additional metadata using OCM’s identities, it facilitates asynchronous handling of various lifecycle management processes, such as compliance checks, security scans, deployments, and more, in a decoupled and streamlined manner.
 
-Key Benefits:
+![OCM as Enabler for asynchronous Lifecycle Management Processes](/images/ocm-benefits-lm-processes-with-ocm-bluebg.png)
+<br>
+
+- **Community-Driven Governance:** OCM’s open governance and transparent contribution workflow empower anyone to asynchronously propose, review, and merge enhancements — keeping its software lifecycles aligned with evolving community needs.
 
 - **Unique Component Identities:** OCM assigns an immutable, globally unique ID to each component, enabling seamless correlation across all lifecycle tools and processes.
 
