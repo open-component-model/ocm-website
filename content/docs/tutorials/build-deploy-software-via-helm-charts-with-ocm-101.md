@@ -34,7 +34,7 @@ First we build an OCM component which contains Helm Charts in different kind of 
 
 ### Prepare Helm Charts
 
-We are leveraging Kubernetes deployments which often use Helm charts. The OCM specification supports Helm charts as own artifact type. For this simple example, we will re-use existing open source community Helm charts.
+We are leveraging Kubernetes deployments which often use Helm charts. The OCM specification supports Helm charts as an own artifact type. For this simple example, we will re-use existing open source community Helm charts.
 
 The OCM CLI supports referencing Helm charts stored in an OCI registry or Helm chart repositories, as well as local archives or folders. The preferred option is to store Helm charts in an OCI registry, as this allows for easy sharing and versioning of the Helm charts.
 
