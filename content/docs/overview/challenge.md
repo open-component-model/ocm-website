@@ -50,7 +50,7 @@ Real-world software environments are messy. A good component model must:
 
 - Support both modern containerized applications
 - Handle legacy software
-- Work across cloud, on-premises, and hybrid infrastructures
+- Work across clouds, on-premises, and hybrid infrastructures
 
 ### Technology-Agnostic and Forward-Thinking Design
 
