@@ -38,14 +38,13 @@ We are leveraging Kubernetes deployments which often use Helm charts. The OCM sp
 
 The OCM CLI supports referencing Helm charts stored in an OCI registry or Helm chart repositories, as well as local archives or folders. The preferred option is to store Helm charts in an OCI registry, as this allows for easy sharing and versioning of the Helm charts.
 
-Helm charts can be embedded in a `CTF archive` to work with them locally and transfer them later to an OCI registry in four different ways:
+Helm charts can be embedded in a `CTF archive` to work with them locally and transfer them later to an OCI registry in different ways:
 
 1. referenced in OCI registry
 2. referenced in Helm repository
 3. as local `*.tgz` file
-4. as local folder containing a Helm Chart file
 
-To demonstrate No. 3. and 4. we need a Helm chart in our local file system. For the sake of simplicity, we download and unpack an already existing open source Helm chart for `podinfo`. In a real world scenario, this would be a Helm chart describing your own application. You will most likely store your own Helm charts within a `git` repository and leverage a CI/CD pipeline to build `*.tgz` Helm chart files in order to push them to your OCI registry or Helm repository.
+To demonstrate No. 3. we need a Helm chart that has been created using the `helm package` command in our local file system. For the sake of simplicity, we download and unpack an already existing open source Helm chart for `podinfo`. In a real world scenario, this would be a Helm chart describing your own application and that you have packaged using the Helm CLI. You will most likely store your own Helm charts within a `git` repository and leverage a CI/CD pipeline to create `*.tgz` Helm chart files in order to push them to your OCI registry or Helm repository.
 
 Downloading Helm charts can be easily achieved using the Helm CLI:
 
