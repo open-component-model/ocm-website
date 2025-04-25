@@ -65,15 +65,13 @@ Automatic capabilities for:
 - Verifying artifact integrity
 - Protecting against tampering
 - Maintaining trust across changing artifact locations
-- Artifact locations should be changeable without affecting the signature
 
 ### Collaborative Potential
 
 Enable teams to:
 
 - Easily share and reuse trusted components
-- Create a network of verifiable, high-quality software building blocks
-- Simplify commercial software integration
+- Create a network of verifiable, reusable and high-quality software building blocks
 
 ## OCM: Solving Software Lifecycle Complexity
 
