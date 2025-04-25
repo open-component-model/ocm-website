@@ -44,7 +44,7 @@ The Component Identity must remain stable across all boundaries and system envir
 
 Real-world software environments are messy. A good component model must:
 
-- Support both modern containerized applications
+- Support modern containerized applications
 - Handle legacy software
 - Work across clouds, on-premises, and hybrid infrastructures
 
