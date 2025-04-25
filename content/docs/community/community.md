@@ -31,7 +31,7 @@ We're excited to announce our regular community calls starting in the second hal
 
 #### Schedule
 
-- **Frequency**: Every 4-8 weeks
+- **Frequency**: Every 4 weeks
 - **Day**: Wednesdays
 - **First Call**: Mid 2025 (specific date to be announced)
 - **Time**: 15:00-16:00 UTC (17:00-18:00 CEST, 11:00-12:00 EDT, 08:00-09:00 PDT)
