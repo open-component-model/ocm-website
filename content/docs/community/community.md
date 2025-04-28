@@ -36,7 +36,7 @@ We're excited to announce our regular community calls starting in the second hal
 - **First Call**: Mid 2025 (specific date to be announced)
 - **Time**: 15:00-16:00 UTC (17:00-18:00 CEST, 11:00-12:00 EDT, 08:00-09:00 PDT)
 - **Duration**: 1 hour
-- **Location**: MS Teams link will be shared in the calendar invite
+- **Location**: MS Teams link will be shared in the meeting series calendar invite
 
 #### What to Expect
 
