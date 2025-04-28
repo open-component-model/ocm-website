@@ -13,11 +13,12 @@ This chapter contains guidelines for common scenarios how to work with the Open 
 - [Use Public Schema for Validation and Auto-Completion of Component Descriptors](#use-public-schema-for-validation-and-auto-completion-of-component-descriptors)
 - [Separate Build and Publish Processes](#separate-build-and-publish-processes)
 - [Using Makefiles](#using-makefiles)
-	- [Prerequisites](#prerequisites)
-	- [Templating the Resources](#templating-the-resources)
+  - [Prerequisites](#prerequisites)
+  - [Example Makefile](#example-makefile)
+  - [Templating the Resources](#templating-the-resources)
 - [Pipeline Integration](#pipeline-integration)
 - [Static and Dynamic Variable Substitution](#static-and-dynamic-variable-substitution)
-	- [Example](#example)
+  - [Example Substitution File](#example-substitution-file)
 - [Debugging: Explain the Blobs Directory](#debugging-explain-the-blobs-directory)
 - [Self-Contained Transport Archives](#self-contained-transport-archives)
 - [CICD Integration](#cicd-integration)
@@ -104,7 +105,7 @@ $ tree .
 └── VERSION
 ```
 
-<details><summary>Makefile to be used</summary>
+### Example Makefile
 
 ```Makefile
 NAME      ?= simpleserver
@@ -135,87 +136,85 @@ build: $(GEN)/build
 
 .PHONY: version
 version:
-	@echo $(VERSION)
+  @echo $(VERSION)
 
 .PHONY: ca
 ca: $(GEN)/ca
 
 $(GEN)/ca: $(GEN)/.exists $(GEN)/image.$(NAME)$(FLAGSUF) resources.yaml $(CHART_SRCS)
-	$(OCM) create ca -f $(COMPONENT) "$(VERSION)" --provider $(PROVIDER) --file $(GEN)/ca
-	$(OCM) add resources --templater spiff $(GEN)/ca COMMIT="$(COMMIT)" VERSION="$(VERSION)" \
-		IMAGE="$(IMAGE):$(VERSION)" PLATFORMS="$(PLATFORMS)" MULTI=$(MULTI) resources.yaml
-	@touch $(GEN)/ca
+  $(OCM) create ca -f $(COMPONENT) "$(VERSION)" --provider $(PROVIDER) --file $(GEN)/ca
+  $(OCM) add resources --templater spiff $(GEN)/ca COMMIT="$(COMMIT)" VERSION="$(VERSION)" \
+    IMAGE="$(IMAGE):$(VERSION)" PLATFORMS="$(PLATFORMS)" MULTI=$(MULTI) resources.yaml
+  @touch $(GEN)/ca
 
 $(GEN)/build: $(GO_SRCS)
-	go build .
-	@touch $(GEN)/build
+  go build .
+  @touch $(GEN)/build
 
 .PHONY: image
 image: $(GEN)/image.$(NAME)
 
 $(GEN)/image.$(NAME): $(GEN)/.exists Dockerfile $(OCMSRCS)
-	docker build -t $(IMAGE):$(VERSION) --file Dockerfile $(COMPONENT_ROOT) .;
-	@touch $(GEN)/image.$(NAME)
+  docker build -t $(IMAGE):$(VERSION) --file Dockerfile $(COMPONENT_ROOT) .;
+  @touch $(GEN)/image.$(NAME)
 
 .PHONY: multi
 multi: $(GEN)/image.$(NAME).multi
 
 $(GEN)/image.$(NAME).multi: $(GEN)/.exists Dockerfile $(GO_SRCS)
-	echo "Building Multi $(PLATFORMS)"
-	for i in $(PLATFORMS); do \
-	tag=$$(echo $$i | sed -e s:/:-:g); \
-	echo "Building platform $$i with tag: $$tag"; \
-	docker buildx build --load -t $(IMAGE):$(VERSION)-$$tag --platform $$i .; \
-	done
-	@touch $(GEN)/image.$(NAME).multi
+  echo "Building Multi $(PLATFORMS)"
+  for i in $(PLATFORMS); do \
+  tag=$$(echo $$i | sed -e s:/:-:g); \
+  echo "Building platform $$i with tag: $$tag"; \
+  docker buildx build --load -t $(IMAGE):$(VERSION)-$$tag --platform $$i .; \
+  done
+  @touch $(GEN)/image.$(NAME).multi
 
 .PHONY: ctf
 ctf: $(GEN)/ctf
 
 $(GEN)/ctf: $(GEN)/ca
-	@rm -rf $(GEN)/ctf
-	$(OCM) transfer ca $(GEN)/ca $(GEN)/ctf
-	touch $(GEN)/ctf
+  @rm -rf $(GEN)/ctf
+  $(OCM) transfer ca $(GEN)/ca $(GEN)/ctf
+  touch $(GEN)/ctf
 
 .PHONY: push
 push: $(GEN)/ctf $(GEN)/push.$(NAME)
 
 $(GEN)/push.$(NAME): $(GEN)/ctf
-	$(OCM) transfer ctf -f $(GEN)/ctf $(OCMREPO)
-	@touch $(GEN)/push.$(NAME)
+  $(OCM) transfer ctf -f $(GEN)/ctf $(OCMREPO)
+  @touch $(GEN)/push.$(NAME)
 
 .PHONY: transport
 transport:
 ifneq ($(TARGETREPO),)
-	$(OCM) transfer component -Vc  $(OCMREPO)//$(COMPONENT):$(VERSION) $(TARGETREPO)
+  $(OCM) transfer component -Vc  $(OCMREPO)//$(COMPONENT):$(VERSION) $(TARGETREPO)
 else
-	@echo "Cannot transport no TARGETREPO defined as destination" && exit 1
+  @echo "Cannot transport no TARGETREPO defined as destination" && exit 1
 endif
 
 $(GEN)/.exists:
-	@mkdir -p $(GEN)
-	@touch $@
+  @mkdir -p $(GEN)
+  @touch $@
 
 .PHONY: info
 info:
-	@echo "VERSION:  $(VERSION)"
-	@echo "COMMIT:   $(COMMIT)"
-	@echo "TREESTATE:   $(GIT_TREE_STATE)"
+  @echo "VERSION:  $(VERSION)"
+  @echo "COMMIT:   $(COMMIT)"
+  @echo "TREESTATE:   $(GIT_TREE_STATE)"
 
 .PHONY: describe
 describe: $(GEN)/ctf
-	ocm get resources --lookup $(OCMREPO) -r -o treewide $(GEN)/ctf
+  ocm get resources --lookup $(OCMREPO) -r -o treewide $(GEN)/ctf
 
 .PHONY: descriptor
 descriptor: $(GEN)/ctf
-	ocm get component -S v3alpha1 -o yaml $(GEN)/ctf
+  ocm get component -S v3alpha1 -o yaml $(GEN)/ctf
 
 .PHONY: clean
 clean:
-	rm -rf $(GEN)
+  rm -rf $(GEN)
 ```
-
-</details>
 
 The Makefile supports the following targets:
 
@@ -260,10 +259,10 @@ using the option `--templater ...`. The example uses the [Spiff templater](https
 
 ```Makefile
 $(GEN)/ca: $(GEN)/.exists $(GEN)/image.$(NAME)$(FLAGSUF) resources.yaml $(CHART_SRCS)
-	$(OCM) create ca -f $(COMPONENT) "$(VERSION)" --provider $(PROVIDER) --file $(GEN)/ca
-	$(OCM) add resources --templater spiff $(GEN)/ca COMMIT="$(COMMIT)" VERSION="$(VERSION)" \
-		IMAGE="$(IMAGE):$(VERSION)" PLATFORMS="$(PLATFORMS)" MULTI=$(MULTI) resources.yaml
-	@touch $(GEN)/ca
+  $(OCM) create ca -f $(COMPONENT) "$(VERSION)" --provider $(PROVIDER) --file $(GEN)/ca
+  $(OCM) add resources --templater spiff $(GEN)/ca COMMIT="$(COMMIT)" VERSION="$(VERSION)" \
+    IMAGE="$(IMAGE):$(VERSION)" PLATFORMS="$(PLATFORMS)" MULTI=$(MULTI) resources.yaml
+  @touch $(GEN)/ca
 ```
 
 The variables given to the `add resources` command are passed to the templater. The template looks
@@ -287,13 +286,13 @@ required for the selected case (the template can be used for multi- and single-a
 
 ```Makefile
 $(GEN)/image.$(NAME).multi: $(GEN)/.exists Dockerfile $(GO_SRCS)
-	echo "Building Multi $(PLATFORMS)"
-	for i in $(PLATFORMS); do \
-	tag=$$(echo $$i | sed -e s:/:-:g); \
-	echo "Building platform $$i with tag: $$tag"; \
-	docker buildx build --load -t $(IMAGE):$(VERSION)-$$tag --platform $$i .; \
-	done
-	@touch $(GEN)/image.$(NAME).multi
+  echo "Building Multi $(PLATFORMS)"
+  for i in $(PLATFORMS); do \
+  tag=$$(echo $$i | sed -e s:/:-:g); \
+  echo "Building platform $$i with tag: $$tag"; \
+  docker buildx build --load -t $(IMAGE):$(VERSION)-$$tag --platform $$i .; \
+  done
+  @touch $(GEN)/image.$(NAME).multi
 ```
 
 ## Pipeline Integration
@@ -346,7 +345,7 @@ time and are often set manually by an engineer or release manager. It is useful 
 between static and dynamic variables. Static files can be checked-in into the source control system and
 are maintained manually. Dynamic variables can be generated during the build.
 
-### Example
+### Example Substitution File
 
 The following example shows how to separate static and dynamic variables.
 
