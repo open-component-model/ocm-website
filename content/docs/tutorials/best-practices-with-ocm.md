@@ -17,6 +17,7 @@ This chapter contains guidelines for common scenarios how to work with the Open 
   - [Templating the Resources](#templating-the-resources)
 - [Pipeline Integration](#pipeline-integration)
 - [Static and Dynamic Variable Substitution](#static-and-dynamic-variable-substitution)
+  - [Example](#example)
 - [Debugging: Explain the Blobs Directory](#debugging-explain-the-blobs-directory)
 - [Self-Contained Transport Archives](#self-contained-transport-archives)
 - [CICD Integration](#cicd-integration)
@@ -47,19 +48,21 @@ Best practice: Implement a two-step process:
 a) Build: Create artifacts in a controlled environment, using local mirrors when possible.
 b) Publish: Use a separate, secured process to distribute build results.
 
-OCM supports this approach through filesystem-based OCM repositories, allowing you to generate Common Transport Format (CTF) archives for component versions. These archives can then be securely processed and distributed.
+OCM supports this approach through filesystem-based OCM repositories, allowing you to generate Common Transport Format (CTF) archives for component versions.
+These archives can then be securely processed and distributed.
 
 ## Using Makefiles
 
-Developing with the Open Component Model usually is an iterative process of building artifacts,
-generating component descriptors, analyzing and finally publishing them. To simplify and speed up this
-process it should be automated using a build tool. One option is to use a `Makefile`.
-The following example can be used as a starting point and can be modified according to your needs.
+Developing applications and services using the Open Component Model usually is an iterative process
+of building artifacts, generating OCM component versions and finally publishing them.
+To simplify this process it should be automated and integrated into your build process.
+One option is to use a `Makefile`.
 
-In this example we will automate the same example as in the sections before:
+The following example can be used as a starting point and can be modified according to your needs.
+In this example we will use the same example as in the sections before:
 
 - Creating a multi-arch image from Go sources from a Git repository using the Docker CLI
-- Packaging the image and a Helm chart into a common transport archive
+- Packaging the Docker image and a Helm chart into a CTF archive
 - Signing and publishing the build result
 
 ### Prerequisites
@@ -68,7 +71,7 @@ In this example we will automate the same example as in the sections before:
 - The Makefile is located in the top-level folder of a Git project
 - Operating system is Unix/Linux
 - A sub-directory `local` can be used for local settings e.g. environment varibles, RSA keys, ...
-- A sub-directory `gen` will be used for generated artifacts from the `make build`command
+- A sub-directory `gen` will be used for generated artifacts from the `make build` command
 - It is recommended to add `local/` and `gen/` to the `.gitignore` file
 
 We use the following file system layout for the example:
@@ -101,7 +104,7 @@ $ tree .
 └── VERSION
 ```
 
-<details><summary>This Makefile can be used</summary>
+<details><summary>Makefile to be used</summary>
 
 ```Makefile
 NAME      ?= simpleserver
@@ -219,7 +222,7 @@ The Makefile supports the following targets:
 - `build` (default) simple Go build
 - `version` show current VERSION of Github repository
 - `image` build a local Docker image
-- `multi` build multi-arch images with Docker
+- `multi` build multi-arch images with Docker's buildx command
 - `ca` execute build and create a component archive
 - `ctf` create a common transport format archive
 - `push` push the common transport archive to an OCI registry
@@ -302,7 +305,7 @@ Following you will find an example using GitHub actions.
 There are two repositories dealing with GitHub actions:
 The [first one](https://github.com/open-component-model/ocm-action) provides various actions that can be
 called from a workflow. The [second one](https://github.com/open-component-model/ocm-setup-action)
-provides the required installations of the OCM parts into the container.
+provides the required installation of the OCM CLI into the container.
 
 An typical workflow for a build step will create a component version and a transport archive:
 
@@ -325,8 +328,8 @@ jobs:
       ...
 ```
 
-This creates a component version for the current build. Additionally, a transport archive
-may be created or the component version along with the built container images may be uploaded to an
+This creates a component version for the current build. Additionally, a CTF archive
+can be created or the component version along with the built container images can be uploaded to an
 OCI registry, etc.
 
 More documentation is available [here](https://github.com/open-component-model/ocm-action). A full
@@ -341,10 +344,13 @@ or release. In many cases, these variables will be auto-generated during the bui
 Other variables like the version of 3rd-party components will just change from time to
 time and are often set manually by an engineer or release manager. It is useful to separate
 between static and dynamic variables. Static files can be checked-in into the source control system and
-are maintained manually. Dynamic variables can be generated during build.
+are maintained manually. Dynamic variables can be generated during the build.
 
-Example:
-manually maintained:
+### Example
+
+The following example shows how to separate static and dynamic variables.
+
+Static settings, manually maintained:
 
 ```yaml
 NAME: microblog
@@ -370,7 +376,7 @@ ocm add componentversions --create --file ../gen/ctf --settings ../gen/dynamic_s
 
 ## Debugging: Explain the Blobs Directory
 
-For analyzing and debugging the content of a transport archive, there are some supportive commands
+For analyzing and debugging the content of a CTF archive, there are some supportive commands
 to analyze what is contained in the archive and what is stored in which blob:
 
 ```shell
@@ -400,13 +406,13 @@ ACCESSSPEC   : {"localReference":"sha256:59ff88331c53a2a94cdd98df58bc6952f056e4b
 
 ## Self-Contained Transport Archives
 
-The transport archive created from a component-constructor file, using the command `ocm add  componentversions --create ...`, does not automatically resolve image references to external OCI registries and stores them in the archive. If you want to create a self-contained transport archive with all images stored as local artifacts, you need to use the `--copy-resources` option of the `ocm transfer ctf` command. This will copy all external images to the blobs directory of the archive.
+The transport archive created from a component constructor file, using the command `ocm add  componentversions --create ...`, does not automatically resolve image references to external OCI registries and stores them in the archive. If you want to create a self-contained transport archive with all images stored as local artifacts, you need to use the `--copy-resources` option in the `ocm transfer ctf` command. This will copy all external images to the blobs directory of the archive.
 
 ```shell
 ocm transfer ctf --copy-resources <ctf-dir> <new-ctf-dir-or-oci-repo-url>
 ```
 
-Note that this archive can become huge if there an many external images involved!
+Note that this archive can become huge, depending on the size of the external images !
 
 ## CICD Integration
 
