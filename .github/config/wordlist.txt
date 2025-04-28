@@ -63,6 +63,7 @@ composable
 compvers
 config
 configfile
+configmap
 configmapsource
 configs
 consumerid
