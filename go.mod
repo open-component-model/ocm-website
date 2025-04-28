@@ -6,7 +6,7 @@ toolchain go1.24.1
 
 require (
 	github.com/spf13/cobra v1.9.1
-	ocm.software/ocm v0.22.1
+	ocm.software/ocm v0.23.0
 )
 
 require (
@@ -332,7 +332,7 @@ require (
 	gopkg.in/warnings.v0 v0.1.2 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
-	helm.sh/helm/v3 v3.17.2 // indirect
+	helm.sh/helm/v3 v3.17.3 // indirect
 	k8s.io/api v0.32.3 // indirect
 	k8s.io/apiextensions-apiserver v0.32.3 // indirect
 	k8s.io/apimachinery v0.32.3 // indirect
