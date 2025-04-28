@@ -13,12 +13,12 @@ This chapter contains guidelines for common scenarios how to work with the Open 
 - [Use Public Schema for Validation and Auto-Completion of Component Descriptors](#use-public-schema-for-validation-and-auto-completion-of-component-descriptors)
 - [Separate Build and Publish Processes](#separate-build-and-publish-processes)
 - [Using Makefiles](#using-makefiles)
-	- [Prerequisites](#prerequisites)
-	- [Makefile to be used](#makefile-to-be-used)
-	- [Templating the Resources](#templating-the-resources)
+  - [Prerequisites](#prerequisites)
+  - [Example Makefile](#example-makefile)
+  - [Templating the Resources](#templating-the-resources)
 - [Pipeline Integration](#pipeline-integration)
 - [Static and Dynamic Variable Substitution](#static-and-dynamic-variable-substitution)
-	- [Example](#example)
+  - [Example Substitution File](#example-substitution-file)
 - [Debugging: Explain the Blobs Directory](#debugging-explain-the-blobs-directory)
 - [Self-Contained Transport Archives](#self-contained-transport-archives)
 - [CICD Integration](#cicd-integration)
@@ -105,7 +105,7 @@ $ tree .
 └── VERSION
 ```
 
-### Makefile to be used
+### Example Makefile
 
 ```Makefile
 NAME      ?= simpleserver
@@ -345,7 +345,7 @@ time and are often set manually by an engineer or release manager. It is useful 
 between static and dynamic variables. Static files can be checked-in into the source control system and
 are maintained manually. Dynamic variables can be generated during the build.
 
-### Example
+### Example Substitution File
 
 The following example shows how to separate static and dynamic variables.
 
