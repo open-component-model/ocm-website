@@ -13,11 +13,11 @@ This chapter contains guidelines for common scenarios how to work with the Open 
 - [Use Public Schema for Validation and Auto-Completion of Component Descriptors](#use-public-schema-for-validation-and-auto-completion-of-component-descriptors)
 - [Separate Build and Publish Processes](#separate-build-and-publish-processes)
 - [Using Makefiles](#using-makefiles)
-  - [Prerequisites](#prerequisites)
-  - [Templating the Resources](#templating-the-resources)
+	- [Prerequisites](#prerequisites)
+	- [Templating the Resources](#templating-the-resources)
 - [Pipeline Integration](#pipeline-integration)
 - [Static and Dynamic Variable Substitution](#static-and-dynamic-variable-substitution)
-  - [Example](#example)
+	- [Example](#example)
 - [Debugging: Explain the Blobs Directory](#debugging-explain-the-blobs-directory)
 - [Self-Contained Transport Archives](#self-contained-transport-archives)
 - [CICD Integration](#cicd-integration)
@@ -337,7 +337,7 @@ example can be found in the sample Github repository.
 
 ## Static and Dynamic Variable Substitution
 
-Looking at the [settings file](https://ocm.software/docs/tutorials/build-deploy-infrastructure-via-helm-charts-with-ocm/#building-the-common-transport-archive-ctf) shows that
+Looking at the [settings file](https://ocm.software/docs/tutorials/build-deploy-applications-using-helm-charts-and-ocm/#building-the-common-transport-archive-ctf) shows that
 some variables like the `version` or the `commit` change with every build
 or release. In many cases, these variables will be auto-generated during the build.
 
