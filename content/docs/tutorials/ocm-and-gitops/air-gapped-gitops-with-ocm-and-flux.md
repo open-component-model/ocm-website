@@ -4,13 +4,13 @@ description: "Air-gapped GitOps with OCM & Flux"
 lead: ""
 draft: false
 images: []
-weight: 62
+weight: 13
 toc: true
 ---
 
 ## Introduction
 
-In this guide, we will show you how the tools provided by OCM make it possible to automate your air-gapped deployments.
+In this guide, we will show you how the tools provided by OCM make it possible to automate your deployments to air-gapped environments.
 
 Air-gapped can mean different things depending on the context. For this guide, we'll assume it means your deployment artifacts are stored in a private registry protected by the security controls at your organization. Your applications only have access to this private registry and little to no public internet access.
 
@@ -257,7 +257,7 @@ LAST SEEN   TYPE      REASON      OBJECT                         MESSAGE
 5m44s       Warning   Failed      pod/podinfo-7b7d874bf8-xv75x   Error: ImagePullBackOff
 ```
 
-Check out our [GitOps Driven Configuration of OCM Applications](/docs/tutorials/ocm-and-gitops/gitops-driven-configuration-of-ocm-applications) guide to see how we can use the `ocm-controller` to configure our application at runtime and solve exactly this kind of problem!
+Check out our [GitOps Driven Configuration of OCM Applications](/docs/tutorials/ocm-and-gitops/gitops-driven-configuration-of-ocm-applications) guide to see how you can use the `ocm-controller` to configure your application at runtime and solve exactly this kind of problem!
 
 ### Conclusion
 

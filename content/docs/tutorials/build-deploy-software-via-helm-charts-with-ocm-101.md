@@ -1,5 +1,5 @@
 ---
-title: "Build & Deploy Infrastructure via Helm Charts with OCM"
+title: "Build & Deploy Applications using Helm Charts and OCM"
 description: ""
 lead: ""
 draft: false
@@ -10,20 +10,17 @@ toc: true
 
 ## Introduction
 
-Let's illustrate a very simple "Hello World" example application and show how to leverage OCM to build an application component containing a Helm Chart and an OCI Image and deploy it to a local `kind` k8s cluster.
-The topics `ocm` [`localization`](/docs/tutorials/structuring-and-deploying-software-products-with-ocm/#localization) and [`configuration`](/docs/tutorials/structuring-and-deploying-software-products-with-ocm/#configuration) are NOT part of this very simple example, but is covered in other tutorials.
+Let's illustrate a very simple "Hello World" example application and show how to leverage OCM to build an application component containing a Helm Chart and an OCI Image and deploy it to a local `kind` k8s cluster.  
 
 As base we use the `podinfo` application from Stefan Prodan's [Github repo](https://github.com/stefanprodan/podinfo).
 All files can be found [here](https://github.com/open-component-model/ocm-examples/tree/main/components).
 
-At the end of the tutorial you will have created one OCM component for your business application `podinfo`.
-This component will be composed using the OCM guidelines and consist of multiple resources, alongside an OCI image and a Helm chart.
-
-For building multiple components in one shot the ["all-in-one"](/docs/getting-started/getting-started-with-ocm/create-a-component-version/#all-in-one) mechanism becomes handy.
+At the end of the tutorial you have created an OCM component for your business application `podinfo`.
+This component is composed using OCM tooling and consist of multiple resources, alongside an OCI image and a Helm chart.
 
 ### Requirements
 
-* [OCM command line tool](https://github.com/open-component-model/ocm)
+* [OCM CLI](https://github.com/open-component-model/ocm?tab=readme-ov-file#ocm-cli)
 * [kubectl](https://kubernetes.io/docs/reference/kubectl/)
 * [git](https://git-scm.com/downloads)
 * [kind](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
@@ -35,20 +32,19 @@ First we build an OCM component which contains Helm Charts in different kind of 
 
 ### Prepare Helm Charts
 
-We are leveraging Kubernetes deployments which often use Helm charts. The OCM specification supports Helm charts as artifact type. For this simple example, we will re-use existing open source community Helm charts.
+We are leveraging Kubernetes deployments which often use Helm charts. The OCM specification supports Helm charts as an own artifact type. For this simple example, we will re-use existing open source community Helm charts.
 
-The OCM CLI supports referencing Helm charts stored in an OCI registry or Helm chart repositories, as well as local archives or folders. The preferred option is to store Helm charts in an OCI registry or Helm repository, as this allows for easy sharing and versioning of the Helm charts.
+The OCM CLI supports referencing Helm charts stored in an OCI registry or Helm chart repositories, as well as local archives or folders. The preferred option is to store Helm charts in an OCI registry, as this allows for easy sharing and versioning of the Helm charts.
 
-Helm charts can be embedded in the `component archive` in four different ways:
+Helm charts can be embedded in a `CTF archive` to work with them locally and transfer them later to an OCI registry in different ways:
 
 1. referenced in OCI registry
 2. referenced in Helm repository
 3. as local `*.tgz` file
-4. as local folder containing a Helm Chart file
 
-To demonstrate No. 3. and 4. we need a Helm chart on our local machine. For the sake of the this simplified guide, we download and unpack an already existing open source Helm chart for `podinfo`. In a real world application, this would be your own Helm chart. You will most likely store your own Helm charts within a `git` repository and leverage a CI/CD pipeline to build `*.tgz` Helm chart files in order to push them to your OCI registry or Helm repository.
+To demonstrate No. 3. we need a Helm chart that has been created using the `helm package` command in our local file system. For the sake of simplicity, we download and unpack an already existing open source Helm chart for `podinfo`. In a real world scenario, this would be a Helm chart describing your own application and that you have packaged using the Helm CLI. You will most likely store your own Helm charts within a `git` repository and leverage a CI/CD pipeline to create `*.tgz` Helm chart files in order to push them to your OCI registry or Helm repository.
 
-Downloading Helm charts can easily be achieved using the Helm CLI:
+Downloading Helm charts can be easily achieved using the Helm CLI:
 
 ```shell
 helm repo add <repo-name> <helm-chart-repo-url>
@@ -62,7 +58,7 @@ helm repo add podinfo https://stefanprodan.github.io/podinfo
 helm pull --destination . podinfo/podinfo
 ```
 
-The Helm chart is then stored in the current working directory as `podinfo-6.7.0.tgz` and can be referenced as path from there in the `component-constructor.yaml` file (see below).
+The Helm chart is stored in the current working directory as `podinfo-6.7.0.tgz` and can be referenced as path from there in the `component-constructor.yaml` file (see below).
 
 Unpack `podinfo-6.7.0.tgz` to simulate the process as if this helm chart is our own and not downloaded from a public repository:
 
@@ -77,6 +73,7 @@ The corresponding input file for building our component version ([`component-con
 ```yaml
 # specify a schema to validate the configuration and get auto-completion in your editor
 # yaml-language-server: $schema=https://ocm.software/schemas/configuration-schema.yaml
+
 components:
 # podinfo component
 - name: ${COMPONENT_NAME_PREFIX}/podinfo
@@ -122,12 +119,11 @@ components:
     access:
       type: ociArtifact
       imageReference: ghcr.io/stefanprodan/podinfo:${PODINFO_VERSION}
-
 ```
 
 Some frequently changing parameters have been extracted as variables. The OCM CLI uses
 templating to fill them with values. The templating mechanism is described
-[here](/docs/tutorials/best-practices/#templating-the-resources). For this example
+[here](https://ocm.software/docs/tutorials/best-practices/#templating-the-resources). For this example
 we use the default template engine type `subst`.
 
 Note the differences between the various components:
@@ -135,7 +131,7 @@ Note the differences between the various components:
 ### Building the Common Transport Archive (CTF)
 
 From the input file `component-constructor.yaml` the common transport archive can be created with the
-OCM CLI. We need to provide values for all variables, which can be passed in the
+OCM CLI. We need to provide values for all variables, which can be passed on the
 command line or stored in a file. For many variables, having a values file is more convenient.
 The corresponding file [`settings.yaml`](https://github.com/open-component-model/ocm-examples/tree/main/components/guide-walkthrough-helm-chart/settings.yaml) may look like this:
 
@@ -187,7 +183,7 @@ configuration of credentials for the OCM CLI):
 ocm transfer ctf -f <ctf-target-dir> <oci-repo-url>
 ```
 
-Using the `--copy-resources` flag the OCM CLI will copy also copy all referenced resources to the OCI registry, making the resources part of the OCM component version, creating a self-contained component version.
+Using the `--copy-resources` flag the OCM CLI will copy all referenced resources to the OCI registry, making the resources part of the OCM component version, creating a *self-contained* component version.
 
 ```shell
 ocm transfer ctf --copy-resources --enforce --overwrite ./ocm-hello-world OCIRegistry::ghcr.io/stb1337/ocm-hello-world-v1
@@ -219,7 +215,7 @@ Navigate to the overview of your OCI repository, which should list the following
 
 By this step we have created a transport archive containing all required parts (images and Helm charts) for
 installing the application. This archive is self-contained and can be transferred to an OCI registry with a single
-command from the OCM tooling. After pushing this archive to an OCI registry we have a shared location
+OCM CLI command. After pushing this archive to an OCI registry we have a shared location
 that can be used as a source of deployment without any external references. As an alternative, you can
 transport the archive using offline mechanisms (file transfer, USB-stick) and push it on a target
 location in an OCI registry.
@@ -229,12 +225,12 @@ We can use the OCM CLI to retrieve their location. See the [example](#inspect-co
 
 ### Setup Local Kind Cluster
 
-Create local `kind` cluster on your local machine:
+Create a local `kind` cluster:
 
 ```shell
 kind create cluster -n ocm-hello-world
 Creating cluster "ocm-hello-world" ...
- ✓ Ensuring node image (kindest/node:v1.29.2) 🖼
+ ✓ Ensuring node image (kindest/node:v1.34.1) 🖼
  ✓ Preparing nodes 📦
  ✓ Writing configuration 📜
  ✓ Starting control-plane 🕹️
@@ -567,7 +563,7 @@ spec:
       version: "6.7.0"
 ```
 
-Create two Kubernetes secrets in order for OCM and Kubernetes to pull from your private OCI registry:
+Create two Kubernetes secrets to pull from your private OCI registry:
 
 ```shell
 export GITHUB_USER=.. && export GITHUB_TOKEN=ghp_.... && export GITHUB_USER_EMAIL=steffen....

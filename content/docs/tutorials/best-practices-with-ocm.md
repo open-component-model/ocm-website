@@ -11,8 +11,7 @@ toc: true
 This chapter contains guidelines for common scenarios how to work with the Open Component Model, focusing on using CI/CD, build and publishing processes.
 
 - [Use Public Schema for Validation and Auto-Completion of Component Descriptors](#use-public-schema-for-validation-and-auto-completion-of-component-descriptors)
-- [Separation Between Build and Publish Processes](#separation-between-build-and-publish-processes)
-- [DockerMulti Input Type](#dockermulti-input-type)
+- [Separate Build and Publish Processes](#separate-build-and-publish-processes)
 - [Using Makefiles](#using-makefiles)
   - [Prerequisites](#prerequisites)
   - [Templating the Resources](#templating-the-resources)
@@ -37,239 +36,20 @@ To use this schema in your IDE, you can add the following line to your component
 
 This line tells the YAML language server to use the OCM schema for validation and auto-completion.
 
+## Separate Build and Publish Processes
 
-## Separation Between Build and Publish Processes
-
-Automated builds with unrestricted internet access introduce several critical challenges in enterprise environments:
+Traditional automated builds often have unrestricted internet access, which can lead to several challenges in enterprise environments:
 
 - Limited control over downloaded artifacts
 - Potential unavailability of required resources
 - Security risks associated with write permissions to external repositories
 
-These challenges stem from typical build processes that involve both downloading content (e.g., `go mod tidy`) and uploading build results to repositories (e.g., OCI image registries).
+Best practice: Implement a two-step process:
+a) Build: Create artifacts in a controlled environment, using local mirrors when possible.
+b) Publish: Use a separate, secured process to distribute build results.
 
-The first challenge of artifact control may be partially mitigated by subsequent scanning processes. However, the resource availability issue can be addressed by mirroring required artifacts locally, which also provides a target for various scanning tools.
-
-The most severe concern is the security risk associated with repository write permissions. Build procedures and downloaded artifacts could potentially:
-
-- Compromise registry credentials
-- Corrupt repository contents
-- Introduce unexpected security vulnerabilities
-
-Mitigation involves establishing a clear contract between the build procedure and the build system. This approach separates concerns by:
-
-- Generating build results as a local file or file structure
-- Allowing the build system to handle repository interactions separately
-- Preventing the build procedure from requiring direct write permissions to any repository
-
-By decoupling the build and publish processes, organizations can:
-
-- Improve security controls
-- Provide more granular oversight of artifact generation
-- Reduce the attack surface of build infrastructure
-
-To enhance process integrity, a *certified build system* can cryptographically sign build artifacts using a trusted build system certificate, enabling downstream verification that component versions originate from authorized and validated build processes.
-
-## DockerMulti Input Type
-
-The `dockermulti` input type enables on-the-fly composition of multi-architecture images from the local Docker daemon. Unlike the standard `docker` input type, `dockermulti` allows:
-
-- Listing multiple images created for different OS platforms
-- Generating an OCI index manifest to describe the multi-arch image
-- Packaging the complete set of image blobs as a single artifact set archive
-- Adding the multi-arch image as a single resource to the component version
-
-Key differences from the standard `docker` input type:
-
-- Supports multiple platform-specific images in a single operation
-- Creates a comprehensive OCI index manifest
-- Simplifies the process of bundling multi-arch images into a component version
-
-Example workflow:
-
-1. Build platform-specific images using Docker and buildx
-2. Use `dockermulti` to collect and package these images
-3. Create a component version with the multi-arch image as a single resource
-
-The resulting component descriptor of the component version in the CTF archive is:
-
-```shell
-$ ocm get cv ctf//github.com/acme/simpleserver:0.1.0 -o yaml
----
-component:
-  componentReferences: []
-  creationTime: "2024-12-20T15:05:53Z"
-  name: github.com/acme/simpleserver
-  provider: acme
-  repositoryContexts: []
-  resources:
-  - access:
-      localReference: sha256:0bdc2c06017a5906534163e965f1fe2594fbb3d524eb3425e5636f4c8fa6d256
-      mediaType: application/vnd.oci.image.manifest.v1+tar+gzip
-      referenceName: github.com/acme/simpleserver/hello-world:0.1.0
-      type: localBlob
-    digest:
-      hashAlgorithm: SHA-256
-      normalisationAlgorithm: ociArtifactDigest/v1
-      value: 6bccb4d53f03bf6980785b0b2ae80369f768461bf50183fcd194d50ba5edce54
-    name: chart
-    relation: local
-    type: helmChart
-    version: 0.1.0
-  - access:
-      localReference: sha256:345815e6bda8bc0688fecae102250a170974739761ad18763276b92481522dc6
-      mediaType: application/vnd.oci.image.index.v1+tar+gzip
-      referenceName: github.com/acme/simpleserver/eu.gcr.io/acme/simpleserver:0.1.0
-      type: localBlob
-    digest:
-      hashAlgorithm: SHA-256
-      normalisationAlgorithm: ociArtifactDigest/v1
-      value: e140bef7c38a505a5f5f76437a6948fe1b98ea6efde654d803b6cbf2019861a3
-    name: image
-    relation: local
-    type: ociImage
-    version: 0.1.0
-  sources: []
-  version: 0.1.0
-meta:
-  schemaVersion: v2
-```
-
-Note that there is only one resource of type `image` with media-type `application/vnd.oci.image.index.v1+tar+gzip`
-which is the standard media type for multi-arch images.
-
-```shell
-$ ls -l ctf/blobs
-total 3048
--rw-r----- 1 D032990    3313 Dez 20 16:05 sha256.0bdc2c06017a5906534163e965f1fe2594fbb3d524eb3425e5636f4c8fa6d256
--rw-r----- 1 D032990 3103600 Dez 20 16:05 sha256.345815e6bda8bc0688fecae102250a170974739761ad18763276b92481522dc6
--rw-r----- 1 D032990     201 Dez 20 16:05 sha256.4d685a2e53c4255452a44b47fea4bc94f859af740e102817db8925865093aac4
--rw-r----- 1 D032990    1085 Dez 20 16:05 sha256.b5168610761d5f95281b8eb90e67afe1ceedb602f65e8e2b9f9171d9997ef459
--rw-r----- 1 D032990    3072 Dez 20 16:05 sha256.c1a1dd0a12b2188627af22e83e5719f4895ab24a2fbd3740573c45aa9bffc604
-```
-
-The file sha256.c1a1... contains the component-descriptor.yaml, the serialized form of a component version
-(the same result you would get using `ocm get ctf//github.com/acme/simpleserver:0.1.0 -o yaml`):
-
-```shell
-$ tar xvf ctf/blobs/sha256.c1a1dd0a12b2188627af22e83e5719f4895ab24a2fbd3740573c45aa9bffc604
-component-descriptor.yaml
-
-$ tar xvf ctf/blobs/sha256.c1a1dd0a12b2188627af22e83e5719f4895ab24a2fbd3740573c45aa9bffc604 -O component-descriptor.yaml
-component-descriptor.yaml
-component:
-  componentReferences: []
-  creationTime: "2024-12-20T15:05:53Z"
-  name: github.com/acme/simpleserver
-  provider: acme
-  repositoryContexts: []
-  resources:
-  - access:
-      localReference: sha256:0bdc2c06017a5906534163e965f1fe2594fbb3d524eb3425e5636f4c8fa6d256
-      mediaType: application/vnd.oci.image.manifest.v1+tar+gzip
-      referenceName: github.com/acme/simpleserver/hello-world:0.1.0
-      type: localBlob
-    digest:
-      hashAlgorithm: SHA-256
-      normalisationAlgorithm: ociArtifactDigest/v1
-      value: 6bccb4d53f03bf6980785b0b2ae80369f768461bf50183fcd194d50ba5edce54
-    name: chart
-    relation: local
-    type: helmChart
-    version: 0.1.0
-  - access:
-      localReference: sha256:345815e6bda8bc0688fecae102250a170974739761ad18763276b92481522dc6
-      mediaType: application/vnd.oci.image.index.v1+tar+gzip
-      referenceName: github.com/acme/simpleserver/eu.gcr.io/acme/simpleserver:0.1.0
-      type: localBlob
-    digest:
-      hashAlgorithm: SHA-256
-      normalisationAlgorithm: ociArtifactDigest/v1
-      value: e140bef7c38a505a5f5f76437a6948fe1b98ea6efde654d803b6cbf2019861a3
-    name: image
-    relation: local
-    type: ociImage
-    version: 0.1.0
-  sources: []
-  version: 0.1.0
-meta:
-  schemaVersion: v2
-```
-
-The file sha256.4e26... contains the multi-arch image packaged as *OCI artifact set*:
-
-```shell
-$ tar tvf gen/ca/blobs/sha256.4e26c7dd46e13c9b1672e4b28a138bdcb086e9b9857b96c21e12839827b48c0c
--rw-r--r--  0 0      0         741 Jan  1  2022 index.json
--rw-r--r--  0 0      0          38 Jan  1  2022 oci-layout
-drwxr-xr-x  0 0      0           0 Jan  1  2022 blobs
--rw-r--r--  0 0      0     3051520 Jan  1  2022 blobs/sha256.05ef21d763159987b9ec5cfb3377a61c677809552dcac3301c0bde4e9fd41bbb
--rw-r--r--  0 0      0         723 Jan  1  2022 blobs/sha256.117f12f0012875471168250f265af9872d7de23e19f0d4ef05fbe99a1c9a6eb3
--rw-r--r--  0 0      0     6264832 Jan  1  2022 blobs/sha256.1496e46acd50a8a67ce65bac7e7287440071ad8d69caa80bcf144892331a95d3
--rw-r--r--  0 0      0     6507520 Jan  1  2022 blobs/sha256.66817c8096ad97c6039297dc984ebc17c5ac9325200bfa9ddb555821912adbe4
--rw-r--r--  0 0      0         491 Jan  1  2022 blobs/sha256.75a096351fe96e8be1847a8321bd66535769c16b2cf47ac03191338323349355
--rw-r--r--  0 0      0     3051520 Jan  1  2022 blobs/sha256.77192cf194ddc77d69087b86b763c47c7f2b0f215d0e4bf4752565cae5ce728d
--rw-r--r--  0 0      0        1138 Jan  1  2022 blobs/sha256.91018e67a671bbbd7ab875c71ca6917484ce76cde6a656351187c0e0e19fe139
--rw-r--r--  0 0      0    17807360 Jan  1  2022 blobs/sha256.91f7bcfdfda81b6c6e51b8e1da58b48759351fa4fae9e6841dd6031528f63b4a
--rw-r--r--  0 0      0        1138 Jan  1  2022 blobs/sha256.992b3b72df9922293c05f156f0e460a220bf601fa46158269ce6b7d61714a084
--rw-r--r--  0 0      0    14755840 Jan  1  2022 blobs/sha256.a83c9b56bbe0f6c26c4b1d86e6de3a4862755d208c9dfae764f64b210eafa58c
--rw-r--r--  0 0      0         723 Jan  1  2022 blobs/sha256.e624040295fb78a81f4b4b08b43b4de419f31f21074007df8feafc10dfb654e6
-
-$ tar xvf ctf/blobs/sha256.345815e6bda8bc0688fecae102250a170974739761ad18763276b92481522dc6 -O index.json | jq .
-index.json
-{
-  "schemaVersion": 2,
-  "mediaType": "application/vnd.oci.image.index.v1+json",
-  "manifests": [
-    {
-      "mediaType": "application/vnd.oci.image.manifest.v1+json",
-      "digest": "sha256:4a6732e78b2392fc101b7eb268a61b100e1b67f213b07e0d383903dc4b776d02",
-      "size": 2206
-    },
-    {
-      "mediaType": "application/vnd.oci.image.manifest.v1+json",
-      "digest": "sha256:11b507758759da7a3b1ee1daf8679c126422e9c92ab2d3dbeae43edf2efedfe5",
-      "size": 2206
-    },
-    {
-      "mediaType": "application/vnd.oci.image.index.v1+json",
-      "digest": "sha256:e140bef7c38a505a5f5f76437a6948fe1b98ea6efde654d803b6cbf2019861a3",
-      "size": 579,
-      "annotations": {
-        "org.opencontainers.image.ref.name": "0.1.0",
-        "software.ocm/tags": "0.1.0"
-      }
-    }
-  ],
-  "annotations": {
-    "software.ocm/main": "sha256:e140bef7c38a505a5f5f76437a6948fe1b98ea6efde654d803b6cbf2019861a3"
-  }
-}
-```
-
-</details>
-
-Now you can push the component version located inside the CTF archive to an OCM repository.
-Replace the `OCM_REPO` with a target OCM repository you have write access to and which you configured
-in the [.ocmconfig file](https://ocm.software/docs/examples/credentials-in-an-.ocmconfig-file/)
-to enable the OCM CLI to access the repository.
-
-```shell
-$ OCMREPO=...
-$ ocm transfer ctf ./ctf $OCM_REPO
-transferring component "github.com/acme/simpleserver"...
-  transferring version "github.com/acme/simpleserver:0.1.0"...
-  ...resource 0 chart[helmChart](github.com/acme/simpleserver/hello-world:0.1.0)...
-  ...resource 1 image[ociImage](github.com/acme/simpleserver/eu.gcr.io/acme/simpleserver:0.1.0)...
-  ...adding component version...
-```
-
-The repository should contain three additional artifacts. Depending on the OCI registry and
-the corresponding UI you may see that the uploaded OCI image is a multi-arch-image. For example on
-GitHub packages under the attribute `OS/Arch` you can see two platforms, `linux/amd64` and
-`linux/arm64`
-
-For automation and reuse purposes you may consider templating resource files and Makefiles (see below).
+OCM supports this approach through filesystem-based OCM repositories, allowing you to generate Common Transport Format (CTF) archives for component versions.
+These archives can then be securely processed and distributed.
 
 ## Using Makefiles
 
@@ -557,7 +337,7 @@ example can be found in the sample Github repository.
 
 ## Static and Dynamic Variable Substitution
 
-Looking at the [settings file](/docs/tutorials/build-deploy-infrastructure-via-helm-charts-with-ocm/#building-the-common-transport-archive-ctf) shows that
+Looking at the [settings file](https://ocm.software/docs/tutorials/build-deploy-infrastructure-via-helm-charts-with-ocm/#building-the-common-transport-archive-ctf) shows that
 some variables like the `version` or the `commit` change with every build
 or release. In many cases, these variables will be auto-generated during the build.
 
