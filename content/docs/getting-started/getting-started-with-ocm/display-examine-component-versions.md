@@ -67,7 +67,7 @@ component:
 ...
 ```
 
-To refer to the content of a component repository, the component name can be appended to the repository specification separated by `//` (you can also use the `--repo` option to specifiy the repository).
+To refer to the content of a component repository, the component name can be appended to the repository specification separated by `//` (you can also use the `--repo` option to specify the repository).
 
 In the example above, `ghcr.io/open-component-model/ocm` is the OCM repository, whereas `ocm.software/toi/demo/helmdemo` is the component stored in this component repository.
 
