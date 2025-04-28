@@ -47,7 +47,12 @@ componentdescriptorref
 componentreferences
 componentsub
 componentsubscription
+componentsubscription's
+componentsubscriptions
+componentsubscriptionspec
+componentsubscriptionstatus
 componentversion
+componentversion's
 componentversion’s
 componentversionaccess
 componentversionaccessimpl
@@ -114,6 +119,7 @@ finalizer
 finalizers
 fluxdeployer
 fluxdeployers
+fluxdeployerspec
 fluxdeployerstatus
 fluxvaluessource
 foldername
@@ -130,6 +136,7 @@ gitea
 github
 gitignore
 gitops
+gitrepository
 globalaccess
 globals
 gocritic
@@ -187,6 +194,7 @@ lastappliedversion
 lastattemptedversion
 lastmod
 lastsnapshotdigest
+latestsnapshotdigest
 lifecycle
 lifecycles
 linter
@@ -219,6 +227,7 @@ mpas
 multiarch
 mutationobject
 mutationspec
+mutationstatus
 mutex
 mvn
 mvnrepository
@@ -264,6 +273,7 @@ patchstrategicmergetarget
 pem
 pendingdeprecationwarning
 pflag
+pipelinespec
 pkcs
 pkgs
 podinfo
@@ -297,8 +307,14 @@ requeue
 requeues
 resendbuffer
 resolvers
+resourcepipeline
+resourcepipelines
+resourcepipelinesource
 resourcepipelinespec
+resourcepipelinestatus
 resourcereference
+resourcespec
+resourcestatus
 roadmap
 rollout
 routings
@@ -325,6 +341,7 @@ snapshotname
 snapshotted
 socio
 sonatype
+sourceref
 spdx
 srcrefs
 stderr
@@ -384,21 +401,3 @@ yitsushi
 yml
 yy
 yyyy
-componentversion's
-componentsubscriptions
-componentsubscription's
-mutationstatus
-fluxdeployerspec
-resourcespec
-pipelinespec
-resourcestatus
-sourceref
-resourcepipeline
-resourcepipelines
-resourcepipelinestatus
-resourcepipelinesource
-latestsnapshotdigest
-gitrepository
-componentsubscription
-componentsubscriptionspec
-componentsubscriptionstatus
