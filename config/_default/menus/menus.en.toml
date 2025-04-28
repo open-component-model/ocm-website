@@ -5,7 +5,7 @@
 
 [[main]]
   name = "Community"
-  url = "/docs/support/community"
+  url = "/docs/community/community"
   weight = 30
 
 [[social]]
