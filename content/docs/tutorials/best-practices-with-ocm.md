@@ -11,14 +11,14 @@ toc: true
 This chapter contains guidelines for common scenarios how to work with the Open Component Model, focusing on using CI/CD, build and publishing processes.
 
 - [Use Public Schema for Validation and Auto-Completion of Component Descriptors](#use-public-schema-for-validation-and-auto-completion-of-component-descriptors)
-- [Separate Build and Publish Processes](#separate-build-and-publish-processes)
-- [Separation Between Build and Publish](#separation-between-build-and-publish)
-- [Building Multi-Architecture Images](#building-multi-architecture-images)
+- [Separation Between Build and Publish Processes](#separation-between-build-and-publish-processes)
+- [DockerMulti Input Type](#dockermulti-input-type)
 - [Using Makefiles](#using-makefiles)
   - [Prerequisites](#prerequisites)
   - [Templating the Resources](#templating-the-resources)
 - [Pipeline Integration](#pipeline-integration)
 - [Static and Dynamic Variable Substitution](#static-and-dynamic-variable-substitution)
+  - [Example](#example)
 - [Debugging: Explain the Blobs Directory](#debugging-explain-the-blobs-directory)
 - [Self-Contained Transport Archives](#self-contained-transport-archives)
 - [CICD Integration](#cicd-integration)
@@ -37,262 +37,61 @@ To use this schema in your IDE, you can add the following line to your component
 
 This line tells the YAML language server to use the OCM schema for validation and auto-completion.
 
-## Separate Build and Publish Processes
 
-Traditional automated builds often have unrestricted internet access, which can lead to several challenges in enterprise environments:
+## Separation Between Build and Publish Processes
 
-- Limited control over downloaded artifacts
-- Potential unavailability of required resources
-- Security risks associated with write permissions to external repositories
-
-Best practice: Implement a two-step process:
-a) Build: Create artifacts in a controlled environment, using local mirrors when possible.
-b) Publish: Use a separate, secured process to distribute build results.
-
-OCM supports this approach through filesystem-based OCM repositories, allowing you to generate Common Transport Format (CTF) archives for component versions. These archives can then be securely processed and distributed.
-
-## Separation Between Build and Publish
-
-Typical automated builds have access to the complete internet ecosystem. This involves
-downloading of content required for a build (e.g., `go mod tidy`), but also the upload
-of build results to repositories (e.g., OCI image registries).
-
-For builds in enterprise environments this can lead to several challenges:
+Automated builds with unrestricted internet access introduce several critical challenges in enterprise environments:
 
 - Limited control over downloaded artifacts
 - Potential unavailability of required resources
 - Security risks associated with write permissions to external repositories
 
-The first problem might be acceptable, because the build results may be analyzed by scanners
-later to figure out what has been packaged. Triaging the results could be done in an asynchronous
-step later.
+These challenges stem from typical build processes that involve both downloading content (e.g., `go mod tidy`) and uploading build results to repositories (e.g., OCI image registries).
 
-The second problem could be solved by mirroring the required artifacts and instrument the build to use the artifacts from the local mirror. Such a mirror would also offer a solution for the first problem and act as target for various scanning tools.
+The first challenge of artifact control may be partially mitigated by subsequent scanning processes. However, the resource availability issue can be addressed by mirroring required artifacts locally, which also provides a target for various scanning tools.
 
-The third problem might pose severe security risks, because the build procedure
-as well as the downloaded artifacts may be used to catch registry credentials or at least
-corrupt the content of those repositories.
+The most severe concern is the security risk associated with repository write permissions. Build procedures and downloaded artifacts could potentially:
 
-This could be avoided by establishing a contract between the build procedure of a
-component/project and the build system, providing the build result as a local file
-or file-structure. This is then taken by the build system to push content wherever
-it should be pushed to. This way the execution of the build procedure does not need
-write permissions to any repository, because it never pushes build results.
+- Compromise registry credentials
+- Corrupt repository contents
+- Introduce unexpected security vulnerabilities
 
-The Open Component Model supports such processes by supporting filesystem based
-OCM repositories, which are able to host any type of content, regardless of its
-technology. The task of the build then is to provide such a *CTF* archive for the
-OCM component versions generated by the build. This archive can then be
-used by the build-system to do whatever is required to make the content accessible
-by others.
+Mitigation involves establishing a clear contract between the build procedure and the build system. This approach separates concerns by:
 
-The composition of such archives is described in the [Getting Started](/docs/getting-started/getting-started-with-ocm/prerequisites/) section.
+- Generating build results as a local file or file structure
+- Allowing the build system to handle repository interactions separately
+- Preventing the build procedure from requiring direct write permissions to any repository
 
-To secure further processes, a *certified build-system* could even sign the content with
-its build system certificate to enable followup-processes to verify that involved component
-versions are provided by accepted and well-known processes.
+By decoupling the build and publish processes, organizations can:
 
-## Building Multi-Architecture Images
+- Improve security controls
+- Provide more granular oversight of artifact generation
+- Reduce the attack surface of build infrastructure
 
-> **Note:** This section provides information only on on building multi-arch images. Referencing a multi-arch image does not differ from images for just one platform.
+To enhance process integrity, a *certified build system* can cryptographically sign build artifacts using a trusted build system certificate, enabling downstream verification that component versions originate from authorized and validated build processes.
 
-At the time of writing this guide Docker is not able to build multi-architecture (multi-arch / multi-platform)
-images natively. Instead, the `buildx` plugin is used. However, this implies building and pushing
-images in one step to a remote container registry as the local Docker image store does not
-support multi-arch images (for additional information, see the [Multi-arch build and images, the simple way](https://www.docker.com/blog/multi-arch-build-and-images-the-simple-way) blog post)
+## DockerMulti Input Type
 
-The OCM CLI has some built-in support for dealing with multi-arch images during the
-component version composition ([`ocm add resources`](https://github.com/open-component-model/ocm/blob/main/docs/reference/ocm_add_resources.md)).
-This allows building all artifacts locally and push them in a separate step to a container registry. This
-is done by building single-arch images in a first step (still using `buildx` for cross-platform
-building). In a second step all images are bundled into a multi-arch image, which is stored as
-local artifact in a CTF archive. This archive can be processed as usual (e.g., for signing or transfer to other locations).
-When pushed to an image registry, multi-arch images are generated with a multi-arch-image manifest.
+The `dockermulti` input type enables on-the-fly composition of multi-architecture images from the local Docker daemon. Unlike the standard `docker` input type, `dockermulti` allows:
 
-The following steps illustrate this procedure. For a simple project with a Go binary and a
-Helm chart assume the following folder structure. The example is built using content from [here for Golang code](https://github.com/GoogleContainerTools/distroless/blob/main/examples/go) and [here for the Helm chart](https://github.com/helm/examples/tree/main/charts/hello-world)
+- Listing multiple images created for different OS platforms
+- Generating an OCI index manifest to describe the multi-arch image
+- Packaging the complete set of image blobs as a single artifact set archive
+- Adding the multi-arch image as a single resource to the component version
 
-```shell
- tree .
-.
-├── Dockerfile
-├── go.mod
-├── helmchart
-│   ├── Chart.yaml
-│   ├── templates
-│   │   ├── ...
-│   └── values.yaml
-└── main.go
-```
+Key differences from the standard `docker` input type:
 
-The Dockerfile has the following content:
+- Supports multiple platform-specific images in a single operation
+- Creates a comprehensive OCI index manifest
+- Simplifies the process of bundling multi-arch images into a component version
 
-```Dockerfile
-FROM golang:1.23.5 as build
+Example workflow:
 
-WORKDIR /go/src/app
-COPY . .
+1. Build platform-specific images using Docker and buildx
+2. Use `dockermulti` to collect and package these images
+3. Create a component version with the multi-arch image as a single resource
 
-RUN go mod download
-RUN go vet -v
-RUN go test -v
-
-RUN CGO_ENABLED=0 go build -o /go/bin/app
-
-FROM gcr.io/distroless/static-debian12
-
-COPY --from=build /go/bin/app /
-CMD ["/app"]
-```
-
-Now we want to build images for two platforms using Docker and buildx. Note the `--load` option for
-`buildx` to store the image in the local Docker registry. Note the architecture suffix in the tag to be
-able to distinguish the images for the different platforms. Also note that the tag has a different
-syntax than the `--platform` argument for `buildx` as slashes are not allowed in tags.
-
-```shell
-$ TAG_PREFIX=eu.gcr.io/acme # path to you OCI registry
-
-$ docker buildx build --load -t ${TAG_PREFIX}/simpleserver:0.1.0-linux-amd64 --platform linux/amd64 .
-[+] Building 61.1s (15/15) FINISHED                                                                            docker:colima
- => [internal] load build definition from Dockerfile                                                                    0.0s
- => => transferring dockerfile: 311B                                                                                    0.0s
- => [internal] load .dockerignore                                                                                       0.0s
- => => transferring context: 2B                                                                                         0.0s
- => [internal] load metadata for gcr.io/distroless/static-debian12:latest                                               1.4s
- => [internal] load metadata for docker.io/library/golang:1.22                                                          1.6s
- => [build 1/7] FROM docker.io/library/golang:1.22@sha256:9855006ddcf40a79e9a2d90df11870331d24bcf2354232482ae132a7ba7  18.9s
- => => resolve docker.io/library/golang:1.22@sha256:9855006ddcf40a79e9a2d90df11870331d24bcf2354232482ae132a7ba7b624f    0.0s
- => => sha256:728e37151a360a5d8d6d390df48e16ee02692bc260c236ae747c056d1323f89e 2.32kB / 2.32kB                          0.0s
-...
- => => extracting sha256:4f4fb700ef54461cfa02571ae0db9a0dc1e0cdb5577484a6d75e68dc38e8acc1                               0.0s
- => [internal] load build context                                                                                       0.0s
- => => transferring context: 10.35kB                                                                                    0.0s
- => [stage-1 1/2] FROM gcr.io/distroless/static-debian12@sha256:5c7e2b465ac6a2a4e5f4f7f722ce43b147dabe87cb21ac6c4007ae  2.0s
- => => resolve gcr.io/distroless/static-debian12@sha256:5c7e2b465ac6a2a4e5f4f7f722ce43b147dabe87cb21ac6c4007ae5178a1fa  0.0s
- => => sha256:5c7e2b465ac6a2a4e5f4f7f722ce43b147dabe87cb21ac6c4007ae5178a1fa58 1.51kB / 1.51kB                          0.0s
- ...
- => => extracting sha256:9aee425378d2c16cd44177dc54a274b312897f5860a8e78fdfda555a0d79dd71                               0.0s
- => [build 2/7] WORKDIR /go/src/app                                                                                     0.1s
- => [build 3/7] COPY . .                                                                                                0.0s
- => [build 4/7] RUN go mod download                                                                                     0.3s
- => [build 5/7] RUN go vet -v                                                                                          26.6s
- => [build 6/7] RUN go test -v                                                                                         12.2s
- => [build 7/7] RUN CGO_ENABLED=0 go build -o /go/bin/app                                                               1.3s
- => [stage-1 2/2] COPY --from=build /go/bin/app /                                                                       0.0s
- => exporting to image                                                                                                  0.0s
- => => exporting layers                                                                                                 0.0s
- => => writing image sha256:ee9a5db4628777265eed1d7a2ac479ec6e0ad88e682dc2e53797473c460f19cb                            0.0s
- => => naming to eu.gcr.io/acme/simpleserver:0.1.0-linux-amd64                                               0.0s
-```
-
-Repeat this command for the second platform:
-
-```shell
-$ docker buildx build --load -t ${TAG_PREFIX}/simpleserver:0.1.0-linux-arm64 --platform linux/arm64 .
-[+] Building 25.0s (15/15) FINISHED                                                                            docker:colima
- => [internal] load .dockerignore                                                                                       0.0s
- => => transferring context: 2B                                                                                         0.0s
- => [internal] load build definition from Dockerfile                                                                    0.0s
- => => transferring dockerfile: 311B                                                                                    0.0s
- => [internal] load metadata for gcr.io/distroless/static-debian12:latest                                               1.3s
- => [internal] load metadata for docker.io/library/golang:1.22                                                          1.0s
- => [build 1/7] FROM docker.io/library/golang:1.22@sha256:9855006ddcf40a79e9a2d90df11870331d24bcf2354232482ae132a7ba7  18.6s
- => => resolve docker.io/library/golang:1.22@sha256:9855006ddcf40a79e9a2d90df11870331d24bcf2354232482ae132a7ba7b624f    0.0s
- => => sha256:7b893bb34fbafdf786885eb0850d43ea7f4532c2e785364460598aed3d6fb7ce 2.33kB / 2.33kB                          0.0s
- ...
- => => extracting sha256:4f4fb700ef54461cfa02571ae0db9a0dc1e0cdb5577484a6d75e68dc38e8acc1                               0.0s
- => [stage-1 1/2] FROM gcr.io/distroless/static-debian12@sha256:5c7e2b465ac6a2a4e5f4f7f722ce43b147dabe87cb21ac6c4007ae  1.9s
- => => resolve gcr.io/distroless/static-debian12@sha256:5c7e2b465ac6a2a4e5f4f7f722ce43b147dabe87cb21ac6c4007ae5178a1fa  0.0s
- => => sha256:50f827f875a7a4fc95ebbfcb309f20268065152926ff24672ec0eec70c162f21 1.95kB / 1.95kB                          0.0s
- ...
- => => extracting sha256:9aee425378d2c16cd44177dc54a274b312897f5860a8e78fdfda555a0d79dd71                               0.0s
- => [internal] load build context                                                                                       0.0s
- => => transferring context: 1.23kB                                                                                     0.0s
- => [build 2/7] WORKDIR /go/src/app                                                                                     0.1s
- => [build 3/7] COPY . .                                                                                                0.0s
- => [build 4/7] RUN go mod download                                                                                     0.2s
- => [build 5/7] RUN go vet -v                                                                                           2.9s
- => [build 6/7] RUN go test -v                                                                                          1.4s
- => [build 7/7] RUN CGO_ENABLED=0 go build -o /go/bin/app                                                               0.4s
- => [stage-1 2/2] COPY --from=build /go/bin/app /                                                                       0.0s
- => exporting to image                                                                                                  0.0s
- => => exporting layers                                                                                                 0.0s
- => => writing image sha256:3109827fa2f6f419e88d059eb7adff001e552a975ef49279d0049c52c2841034                            0.0s
- => => naming to eu.gcr.io/acme/simpleserver:0.1.0-linux-arm64                                               0.0s
-```
-
-Check that the images have been created correctly:
-
-```shell
-$ docker image ls | grep simpleserver
-eu.gcr.io/acme/simpleserver     0.1.0-linux-arm64    3109827fa2f6   5 minutes ago   3.93MB
-eu.gcr.io/acme/simpleserver     0.1.0-linux-amd64    ee9a5db46287   8 minutes ago   3.88MB
-```
-
-In the next step we create a component version and store it in a local CTF archive:
-
-In the same folder where the example app is present, create a file `component-constructor.yaml`
-that contains the description of the component version and its resources.
-Note the variants in the image `input` attribute and the `type` *dockermulti*:
-
-```yaml
-# specify a schema to validate the configuration and get auto-completion in your editor
-# yaml-language-server: $schema=https://ocm.software/schemas/configuration-schema.yaml
-components:
-- name: github.com/acme/simpleserver
-  # version needs to follow "relaxed" SemVer
-  version: 0.1.0
-  provider:
-    name: acme
-  resources:
-    # local Helm chart resource
-    - name: chart
-      type: helmChart
-      input:
-        type: helm
-        path: helmchart
-    # local image resource with two different variants for OS architecture
-    - name: image
-      type: ociImage
-      version: 0.1.0
-      input:
-        type: dockermulti
-        repository: eu.gcr.io/acme/simpleserver
-        variants:
-        - "eu.gcr.io/acme/simpleserver:0.1.0-linux-amd64"
-        - "eu.gcr.io/acme/simpleserver:0.1.0-linux-arm64"
-```
-
-The input type `dockermulti` adds a multi-arch image composed by the given dedicated images from the local Docker
-image registry as local artifact to the CTF archive.
-
-Add the described resources to a CTF archive (the):
-
-```shell
-$ ocm add cv -c --file ./ctf component-constructor.yaml
-processing component-constructor.yaml...
-  processing document 1...
-    processing index 1
-found 1 component
-adding component github.com/acme/simpleserver:0.1.0...
-  adding resource helmChart: "name"="chart","version"="<componentversion>"...
-  adding resource ociImage: "name"="image","version"="0.1.0"...
-    image 0: eu.gcr.io/acme/simpleserver:0.1.0-linux-amd64
-    image 1: eu.gcr.io/acme/simpleserver:0.1.0-linux-arm64
-    image 2: INDEX
-```
-
-<details><summary>What happened?</summary>
-
-The input type `dockermulti` is used to compose a multi-arch image on-the fly. Like
-the input type `docker` it reads images from the local Docker daemon. In contrast to
-this command you can list multiple images, created for different platforms, for which
-an OCI index manifest is created to describe a multi-arch image. The complete set
-of blobs is then packaged as artifact set archive and put as single resource into
-the component version.
-
-The resulting component descriptor of the component version in the ctf archive is:
+The resulting component descriptor of the component version in the CTF archive is:
 
 ```shell
 $ ocm get cv ctf//github.com/acme/simpleserver:0.1.0 -o yaml
@@ -397,10 +196,7 @@ meta:
   schemaVersion: v2
 ```
 
-Note that there is only one resource of type `image` with media-type `application/vnd.oci.image.index.v1+tar+gzip`
-which is the standard media type for multi-arch images.
-
-The file sha256.4e26... contains the multi-arch image packaged as OCI artifact set:
+The file sha256.4e26... contains the multi-arch image packaged as *OCI artifact set*:
 
 ```shell
 $ tar tvf gen/ca/blobs/sha256.4e26c7dd46e13c9b1672e4b28a138bdcb086e9b9857b96c21e12839827b48c0c
@@ -453,9 +249,10 @@ index.json
 
 </details>
 
-Now you can push the component version (located inside the CTF archive) to an OCM repository.
-Replace the `OCM_REPO` with a target OCM repository you have write access to (and which you configured
-in the [.ocmconfig file](https://ocm.software/docs/examples/credentials-in-an-.ocmconfig-file/).
+Now you can push the component version located inside the CTF archive to an OCM repository.
+Replace the `OCM_REPO` with a target OCM repository you have write access to and which you configured
+in the [.ocmconfig file](https://ocm.software/docs/examples/credentials-in-an-.ocmconfig-file/)
+to enable the OCM CLI to access the repository.
 
 ```shell
 $ OCMREPO=...
@@ -467,7 +264,7 @@ transferring component "github.com/acme/simpleserver"...
   ...adding component version...
 ```
 
-The repository now should contain three additional artifacts. Depending on the OCI registry and
+The repository should contain three additional artifacts. Depending on the OCI registry and
 the corresponding UI you may see that the uploaded OCI image is a multi-arch-image. For example on
 GitHub packages under the attribute `OS/Arch` you can see two platforms, `linux/amd64` and
 `linux/arm64`
@@ -476,15 +273,16 @@ For automation and reuse purposes you may consider templating resource files and
 
 ## Using Makefiles
 
-Developing with the Open Component Model usually is an iterative process of building artifacts,
-generating component descriptors, analyzing and finally publishing them. To simplify and speed up this
-process it should be automated using a build tool. One option is to use a `Makefile`.
-The following example can be used as a starting point and can be modified according to your needs.
+Developing applications and services using the Open Component Model usually is an iterative process
+of building artifacts, generating OCM component versions and finally publishing them.
+To simplify this process it should be automated and integrated into your build process.
+One option is to use a `Makefile`.
 
-In this example we will automate the same example as in the sections before:
+The following example can be used as a starting point and can be modified according to your needs.
+In this example we will use the same example as in the sections before:
 
 - Creating a multi-arch image from Go sources from a Git repository using the Docker CLI
-- Packaging the image and a Helm chart into a common transport archive
+- Packaging the Docker image and a Helm chart into a CTF archive
 - Signing and publishing the build result
 
 ### Prerequisites
@@ -493,7 +291,7 @@ In this example we will automate the same example as in the sections before:
 - The Makefile is located in the top-level folder of a Git project
 - Operating system is Unix/Linux
 - A sub-directory `local` can be used for local settings e.g. environment varibles, RSA keys, ...
-- A sub-directory `gen` will be used for generated artifacts from the `make build`command
+- A sub-directory `gen` will be used for generated artifacts from the `make build` command
 - It is recommended to add `local/` and `gen/` to the `.gitignore` file
 
 We use the following file system layout for the example:
@@ -526,7 +324,7 @@ $ tree .
 └── VERSION
 ```
 
-<details><summary>This Makefile can be used</summary>
+<details><summary>Makefile to be used</summary>
 
 ```Makefile
 NAME      ?= simpleserver
@@ -644,7 +442,7 @@ The Makefile supports the following targets:
 - `build` (default) simple Go build
 - `version` show current VERSION of Github repository
 - `image` build a local Docker image
-- `multi` build multi-arch images with Docker
+- `multi` build multi-arch images with Docker's buildx command
 - `ca` execute build and create a component archive
 - `ctf` create a common transport format archive
 - `push` push the common transport archive to an OCI registry
@@ -727,7 +525,7 @@ Following you will find an example using GitHub actions.
 There are two repositories dealing with GitHub actions:
 The [first one](https://github.com/open-component-model/ocm-action) provides various actions that can be
 called from a workflow. The [second one](https://github.com/open-component-model/ocm-setup-action)
-provides the required installations of the OCM parts into the container.
+provides the required installation of the OCM CLI into the container.
 
 An typical workflow for a build step will create a component version and a transport archive:
 
@@ -750,8 +548,8 @@ jobs:
       ...
 ```
 
-This creates a component version for the current build. Additionally, a transport archive
-may be created or the component version along with the built container images may be uploaded to an
+This creates a component version for the current build. Additionally, a CTF archive
+can be created or the component version along with the built container images can be uploaded to an
 OCI registry, etc.
 
 More documentation is available [here](https://github.com/open-component-model/ocm-action). A full
@@ -766,10 +564,13 @@ or release. In many cases, these variables will be auto-generated during the bui
 Other variables like the version of 3rd-party components will just change from time to
 time and are often set manually by an engineer or release manager. It is useful to separate
 between static and dynamic variables. Static files can be checked-in into the source control system and
-are maintained manually. Dynamic variables can be generated during build.
+are maintained manually. Dynamic variables can be generated during the build.
 
-Example:
-manually maintained:
+### Example
+
+The following example shows how to separate static and dynamic variables.
+
+Static settings, manually maintained:
 
 ```yaml
 NAME: microblog
@@ -795,7 +596,7 @@ ocm add componentversions --create --file ../gen/ctf --settings ../gen/dynamic_s
 
 ## Debugging: Explain the Blobs Directory
 
-For analyzing and debugging the content of a transport archive, there are some supportive commands
+For analyzing and debugging the content of a CTF archive, there are some supportive commands
 to analyze what is contained in the archive and what is stored in which blob:
 
 ```shell
@@ -825,13 +626,13 @@ ACCESSSPEC   : {"localReference":"sha256:59ff88331c53a2a94cdd98df58bc6952f056e4b
 
 ## Self-Contained Transport Archives
 
-The transport archive created from a component-constructor file, using the command `ocm add  componentversions --create ...`, does not automatically resolve image references to external OCI registries and stores them in the archive. If you want to create a self-contained transport archive with all images stored as local artifacts, you need to use the `--copy-resources` option of the `ocm transfer ctf` command. This will copy all external images to the blobs directory of the archive.
+The transport archive created from a component constructor file, using the command `ocm add  componentversions --create ...`, does not automatically resolve image references to external OCI registries and stores them in the archive. If you want to create a self-contained transport archive with all images stored as local artifacts, you need to use the `--copy-resources` option in the `ocm transfer ctf` command. This will copy all external images to the blobs directory of the archive.
 
 ```shell
 ocm transfer ctf --copy-resources <ctf-dir> <new-ctf-dir-or-oci-repo-url>
 ```
 
-Note that this archive can become huge if there an many external images involved!
+Note that this archive can become huge, depending on the size of the external images !
 
 ## CICD Integration
 
