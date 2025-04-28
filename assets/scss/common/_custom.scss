@@ -34,3 +34,20 @@
     max-width: 100%;
     height: auto;
 }
+
+// === footer full-width & inline links ===
+.site-footer .container {
+    max-width: 100% !important;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  .site-footer {
+    /* Optional: left-align text instead of centered */
+    text-align: left !important;
+  }
+  
+  .site-footer small a {
+    display: inline !important;
+    white-space: nowrap !important;
+  }
