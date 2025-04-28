@@ -71,7 +71,7 @@ In this example we will use the same example as in the sections before:
 - The OCM CLI must be installed and be available in your PATH
 - The Makefile is located in the top-level folder of a Git project
 - Operating system is Unix/Linux
-- A sub-directory `local` can be used for local settings e.g. environment varibles, RSA keys, ...
+- A sub-directory `local` can be used for local settings e.g. environment variables, RSA keys, ...
 - A sub-directory `gen` will be used for generated artifacts from the `make build` command
 - It is recommended to add `local/` and `gen/` to the `.gitignore` file
 
@@ -297,7 +297,7 @@ $(GEN)/image.$(NAME).multi: $(GEN)/.exists Dockerfile $(GO_SRCS)
 
 ## Pipeline Integration
 
-Pipeline infrastructures are heterogenous, so there is no universal answer how to
+Pipeline infrastructures are heterogeneous, so there is no universal answer how to
 integrate a build pipeline with OCM. Usually, the simplest way is using the OCM command line interface.
 Following you will find an example using GitHub actions.
 
