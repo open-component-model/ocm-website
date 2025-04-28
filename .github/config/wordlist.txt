@@ -64,6 +64,7 @@ compvers
 config
 configfile
 configmap
+ConfigMap
 configmapsource
 configs
 consumerid
