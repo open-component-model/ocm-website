@@ -4,7 +4,7 @@ description: "GitOps Driven Configuration of OCM Applications"
 lead: ""
 draft: false
 images: []
-weight: 67
+weight: 13
 toc: true
 ---
 
@@ -17,7 +17,7 @@ Check out the previous guides if you haven't already:
 - [Deploy Applications with OCM & GitOps](/docs/tutorials/ocm-and-gitops/deploying-applications-with-ocm-gitops/)
 - [Air-gapped GitOps with OCM & Flux](/docs/tutorials/ocm-and-gitops/air-gapped-gitops-with-ocm-flux/)
 
-In this guide we will pick-up where we left off in the air-gapped example.
+In this guide we will pick up where we left off in the example for deployments to air-gapped environments.
 
 We have successfully transferred a component to our private environment and deployed it using the `ocm-controller`. However, the Kubernetes `Deployment` for `podinfo` is failing because it does not have permission to access our private container images.
 

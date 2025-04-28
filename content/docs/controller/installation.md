@@ -7,29 +7,13 @@ weight: 42
 toc: true
 ---
 
-## ocm-controller
+To install the `ocm-controller` you can use the provided Helm chart from the `ocm-controller` GitHub project's `./deploy` folder. The Helm chart has also been uploaded to the GitHub container registry as [OCI artifact](https://github.com/open-component-model/ocm-controller/pkgs/container/helm%2Focm-controller) and this is also the preferred way to install the `ocm-controller`.
 
-The `ocm-controller` can be installed using the [OCM CLI](/docs/getting-started/installing-the-ocm-cli):
+{{<callout context="note" title="Prerequisites">}}The ocm-controller require certain prerequisites, like the cert manager and certificate secrets for the in-cluster registryare. For details, checkout the `prime-test-cluster.sh` script under this repository's [hack folder](https://github.com/open-component-model/ocm-controller/tree/main/hack){{</callout>}}
 
-```bash
-ocm controller install
-```
-
-This command will install the `ocm-controller` in the kubernetes cluster specified by the current `KUBECONFIG` context.
-
-The following flags are available:
+To install the `ocm-controller` Helm chart use the following command (replace `v0.26.0` with the desired version):
 
 ```bash
-Flags:
-  -u, --base-url string          the base url to the ocm-controller's release page (default "https://github.com/open-component-model/ocm-controller/releases")
-  -c, --controller-name string   name of the controller that's used for status check (default "ocm-controller")
-  -d, --dry-run                  if enabled, prints the downloaded manifest file
-  -h, --help                     help for install
-  -n, --namespace string         the namespace into which the controller is installed (default "ocm-system")
-  -a, --release-api-url string   the base url to the ocm-controller's API release page (default "https://api.github.com/repos/open-component-model/ocm-controller/releases")
-  -t, --timeout duration         maximum time to wait for deployment to be ready (default 1m0s)
-  -v, --version string           the version of the controller to install (default "latest")
-
-Description:
-  Install either a specific or latest version of the ocm-controller.
+helm upgrade -i --wait --create-namespace -n ocm-system ocm-controller \
+  oci://ghcr.io/open-component-model/helm/ocm-controller --version v0.26.0
 ```

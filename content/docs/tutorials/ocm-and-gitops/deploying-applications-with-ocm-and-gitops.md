@@ -4,7 +4,7 @@ description: "Deploying Applications with OCM & GitOps"
 lead: ""
 draft: false
 images: []
-weight: 66
+weight: 12
 toc: true
 ---
 
@@ -20,7 +20,7 @@ Here's a diagram showing what we'll be building:
 
 As you can see, we'll add some manifests to a git repository that will be deployed by Flux. These will, in turn, deploy a resource from an OCM repository, in this case, a `Deployment` of the `podinfo` microservice.
 
-If you'd like to learn how to build a component, then check out our [Getting Started guide](/docs/getting-started/getting-started-with-ocm/prerequisites).
+If you'd like to learn how to build a component, then check out our [Getting Started guide](https://ocm.software/docs/getting-started/getting-started-with-ocm/prerequisites).
 
 ## Table of Contents
 
@@ -28,7 +28,7 @@ If you'd like to learn how to build a component, then check out our [Getting Sta
 - [Table of Contents](#table-of-contents)
   - [Requirements](#requirements)
   - [Environment Setup](#environment-setup)
-  - [Deploy the OCM Controller](#deploy-the-ocm-controller)
+  - [Install the OCM Controller](#install-the-ocm-controller)
   - [Deploy the Component](#deploy-the-component)
   - [Wrapping Up](#wrapping-up)
 
@@ -63,7 +63,7 @@ flux bootstrap github \
 
 This command will create a GitHub repository named `podinfo-flux-repo`, configure Flux to use it, and deploy the resources in the `./clusters/kind` directory to our Kubernetes cluster.
 
-Let's now clone the repository flux has created and put in place the manifests required to deploy components:
+Let's now clone the repository Flux has created and put in place the manifests required to deploy components:
 
 ```bash
 gh repo clone $GITHUB_REPOSITORY && cd $GITHUB_REPOSITORY
@@ -103,19 +103,24 @@ flux reconcile source git flux-system
 flux get kustomizations
 ```
 
-### Deploy the OCM Controller
+### Install the OCM Controller
 
-We can use the OCM CLI to install the controller:
+To install the `ocm-controller` you can use the provided Helm chart from the `ocm-controller` GitHub project's `./deploy` folder. The Helm chart has also been uploaded to the GitHub container registry as [OCI artifact](https://github.com/open-component-model/ocm-controller/pkgs/container/helm%2Focm-controller) and this is also the preferred way to install the `ocm-controller`.
+
+{{<callout context="note" title="Prerequisites">}}The ocm-controller require certain prerequisites, like the cert manager and certificate secrets for the in-cluster registryare. For details, checkout the `prime-test-cluster.sh` script under the `ocm-controller`s repository [hack folder](https://github.com/open-component-model/ocm-controller/tree/main/hack){{</callout>}}
+
+To install the `ocm-controller` Helm chart use the following command (replace `v0.26.0` with the desired version):
 
 ```bash
-ocm controller install
+helm upgrade -i --wait --create-namespace -n ocm-system ocm-controller \
+  oci://ghcr.io/open-component-model/helm/ocm-controller --version v0.26.0
 ```
 
 ### Deploy the Component
 
-Now that we have flux configured and the `ocm-controller` installed, we can started deploying components.
+Now that we have Flux configured and the `ocm-controller` installed, we can started deploying components.
 
-We told flux that our component manifests will live in `./components`, so let's create that directory:
+We told Flux that our component manifests will live in `./components`, so let's create that directory:
 
 ```bash
 mkdir -p ./components
@@ -181,7 +186,7 @@ spec:
 EOF
 ```
 
-At this point we can commit these files, push to the remote repository, and tell flux to reconcile the changes:
+At this point we can commit these files, push to the remote repository, and tell Flux to reconcile the changes:
 
 ```bash
 git add ./components
@@ -207,7 +212,7 @@ podinfo-84cb98c9b6-k4lk8   1/1     Running   0          1m
 
 That's it! That's how easy it is to get started using the Open Component Model and Flux.
 
-If you want to know more about working with OCM and GitOps, check out these guides:
+If you want to know more about working with OCM and GitOps, check out our other guides on this topic:
 
-- [Air-gapped GitOps with OCM & Flux](/docs/tutorials/ocm-and-gitops/air-gapped-gitops-with-ocm-flux/)
-- [GitOps Driven Configuration of OCM Applications](/docs/tutorials/ocm-and-gitops/gitops-driven-configuration-of-ocm-applications/)
+- [Air-gapped GitOps with OCM & Flux](https://ocm.software/docs/tutorials/ocm-and-gitops/air-gapped-gitops-with-ocm-flux/)
+- [GitOps Driven Configuration of OCM Applications](https://ocm.software/docs/tutorials/ocm-and-gitops/gitops-driven-configuration-of-ocm-applications/)
