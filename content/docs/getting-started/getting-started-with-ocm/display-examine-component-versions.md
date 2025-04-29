@@ -67,7 +67,7 @@ component:
 ...
 ```
 
-To refer to the content of a component repository, the component name can be appended to the repository specification separated by `//` (you can also use the `--repo` option to specifiy the repository).
+To refer to the content of a component repository, the component name can be appended to the repository specification separated by `//` (you can also use the `--repo` option to specify the repository).
 
 In the example above, `ghcr.io/open-component-model/ocm` is the OCM repository, whereas `ocm.software/toi/demo/helmdemo` is the component stored in this component repository.
 
@@ -116,7 +116,7 @@ To list the resources found in a component version tree, the command [`ocm get r
 ocm get resources ghcr.io/open-component-model/ocm//ocm.software/toi/demo/helmdemo:0.12.0 --recursive -o tree
 ```
 
-```
+```shell
   COMPONENT                                       NAME           VERSION IDENTITY TYPE        RELATION
   └─ ocm.software/toi/demo/helmdemo                              0.12.0
      ├─                                           chart          0.12.0           helmChart   local
@@ -137,7 +137,7 @@ Use the [`ocm download`](https://github.com/open-component-model/ocm/blob/main/d
 ocm download resource ghcr.io/open-component-model/ocm//ocm.software/toi/demo/helmdemo:0.12.0 chart -O helmchart.tgz
 ```
 
-```
+```shell
   helmchart.tgz: 4707 byte(s) written
 ```
 
@@ -151,7 +151,7 @@ The file `helmchart.tgz` was downloaded.
 tar xvf helmchart.tgz
 ```
 
-```
+```shell
   x index.json
   x oci-layout
   x blobs
@@ -200,7 +200,7 @@ into a more suitable format:
 ocm download resource -d ghcr.io/open-component-model/ocm//ocm.software/toi/demo/helmdemo:0.12.0 chart -O helmchart.tgz
 ```
 
-```
+```shell
   helmchart.tgz: 3763 byte(s) written
 ```
 
@@ -212,7 +212,7 @@ The downloaded archive is now a regular Helm Chart archive:
 tar tvf helmchart.tgz
 ```
 
-```
+```shell
   -rw-r--r--  0 0      0         136 Jul 19 16:32 echoserver/Chart.yaml
   -rw-r--r--  0 0      0        1842 Jul 19 16:32 echoserver/values.yaml
   -rw-r--r--  0 0      0        1755 Jul 19 16:32 echoserver/templates/NOTES.txt
@@ -236,7 +236,7 @@ For example, for OCI images, the OCI format is more suitable:
 ocm download resource ghcr.io/open-component-model/ocm//ocm.software/toi/demo/helmdemo:0.12.0 image -O image.tgz
 ```
 
-```
+```shell
   image.tgz: 46181313 byte(s) written
 ```
 
@@ -248,7 +248,7 @@ The file `image.tgz` was downloaded.
 tar xvf image.tgz
 ```
 
-```
+```shell
   x index.json
   x oci-layout
   x blobs
@@ -342,7 +342,7 @@ resource name can be omitted. Example:
 ocm download resource -x --latest ghcr.io/open-component-model/ocm//ocm.software/ocmcli
 ```
 
-```
+```shell
   ocm: 83369938 byte(s) written
 ```
 
@@ -352,8 +352,7 @@ ocm download resource -x --latest ghcr.io/open-component-model/ocm//ocm.software
 file ocm
 ```
 
-```
-  ocm: Mach-O 64-bit executable arm64
+```shell Mach-O 64-bit executable arm64
 ```
 
 With the option `--latest`, the latest matching component version is used for download. With the
@@ -374,7 +373,7 @@ Download entire component versions using the [`ocm download componentversion`](h
 ocm download componentversions ghcr.io/open-component-model/ocm//ocm.software/toi/demo/helmdemo:0.12.0 -O helloworld
 ```
 
-```
+```shell
   helloworld: downloaded
 ```
 
@@ -388,7 +387,7 @@ The component version was downloaded.
 tree helloworld
 ```
 
-```
+```shell
   helloworld/
   ├── blobs
   │   ├── sha256.87cef1e2233bf5591030ac854e2556fbe6a00a28bb5640e25a9cb69ece519c5a
@@ -407,7 +406,7 @@ Download OCI artifacts from an OCI registry, such as OCI images, with the [`ocm 
 ocm download artifact ghcr.io/open-component-model/ocm-controller:v0.24.0 -O ocm-controller
 ```
 
-```
+```shell
   ocm-controller: downloaded
 ```
 
@@ -419,7 +418,7 @@ The OCI image `echoserver` was downloaded.
 tree echoserver
 ```
 
-```
+```shell
   ocm-controller/
   ├── blobs
   │   ├── sha256.05d57e68048827c243cd477025f96064df9f4d83b8639ed04306f0647c9cfe78

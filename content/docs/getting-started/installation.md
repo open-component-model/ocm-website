@@ -58,10 +58,10 @@ see: [Flakes](https://nixos.wiki/wiki/Flakes)
 
 ## Install from AUR (Arch Linux User Repository)
 
-git-url: https://aur.archlinux.org/ocm-cli.git
-package-url: https://aur.archlinux.org/packages/ocm-cli
+[git-url](https://aur.archlinux.org/ocm-cli.git)  
+[package-url](https://aur.archlinux.org/packages/ocm-cli)
 
-```sh
+```shell
 # if not using a helper util
 git clone https://aur.archlinux.org/ocm-cli.git
 cd ocm-cli

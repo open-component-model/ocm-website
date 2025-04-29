@@ -100,6 +100,6 @@ To make OCM a welcoming and harassment-free experience for everyone, we follow t
 ## Security Guideline
 
 In case you want to report any security vulnerabilities inside the Open Component Model project,
-please do not report them through public GitHub issues. 
+please do not report them through public GitHub issues.
 
 Please visit the [Open Source Security Policy](https://github.com/open-component-model/.github/blob/main/SECURITY.md) for more information.

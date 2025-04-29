@@ -17,7 +17,8 @@ Here is an example of a recursive transfer from one OCI registry to another, whi
 ```shell
 ocm transfer componentversion --recursive --copy-resources ghcr.io/open-component-model/ocm//ocm.software/toi/demo/helmdemo:0.12.0 another-registry/
 ```
-```
+
+```shell
   transferring version "ocm.software/toi/demo/helmdemo:0.12.0"...
     transferring version "ocm.software/toi/installers/helminstaller:0.12.0"...
     ...resource 0 toiimage[ociImage](ocm.software/toi/installers/helminstaller/helminstaller:0.12.0)...

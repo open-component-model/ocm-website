@@ -2716,7 +2716,7 @@ OCMRepository
 <td>
 <em>(Optional)</em>
 <p>Destination holds the destination or target OCM Repository details. The ComponentVersion
-will be transfered into this repository.</p>
+will be transferred into this repository.</p>
 </td>
 </tr>
 <tr>
@@ -2850,7 +2850,7 @@ OCMRepository
 <td>
 <em>(Optional)</em>
 <p>Destination holds the destination or target OCM Repository details. The ComponentVersion
-will be transfered into this repository.</p>
+will be transferred into this repository.</p>
 </td>
 </tr>
 <tr>

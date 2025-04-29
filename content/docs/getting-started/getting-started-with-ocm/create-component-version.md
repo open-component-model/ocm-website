@@ -21,7 +21,7 @@ directly creates a component version from a `component-constructor.yaml` file an
 
 ### Create a Component Version
 
-In this examle we will use the The `ocm` CLI tool to create a very basic component version that contains a local resource and a resource that is accessed from a remote location. The local resource is the `podinfo` Helm Chart and the referenced resource is a Docker image stored in an OCI registry.
+In this example we will use the The `ocm` CLI tool to create a very basic component version that contains a local resource and a resource that is accessed from a remote location. The local resource is the `podinfo` Helm Chart and the referenced resource is a Docker image stored in an OCI registry.
 
 We start by creating a test folder where we execute all required steps for this example and navigating into it:
 
@@ -209,4 +209,3 @@ component:
 The other elements listed as `layers` describe the blobs for the local resources stored along with the component version. The digests can be seen in the `localReference` attributes of the component descriptor.
 
 </details>
-
