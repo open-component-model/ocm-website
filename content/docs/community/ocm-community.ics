@@ -27,20 +27,22 @@ RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU
 END:STANDARD
 END:VTIMEZONE
 BEGIN:VEVENT
-DTSTART;TZID=Europe/Berlin:20250611T170000
-DTEND;TZID=Europe/Berlin:20250611T180000
-RRULE:FREQ=WEEKLY;WKST=SU;INTERVAL=8;BYDAY=WE
-DTSTAMP:20250411T141451Z
+DTSTART;TZID=Europe/Berlin:20250604T170000
+DTEND;TZID=Europe/Berlin:20250604T180000
+RRULE:FREQ=WEEKLY;WKST=SU;INTERVAL=4;BYDAY=WE
+DTSTAMP:20250428T141451Z
 UID:2rgindq25au0g8uo1uhu2slklu@google.com
-CREATED:20250411T140822Z
+CREATED:20250428T140822Z
 DESCRIPTION:Join our regular OCM community calls!\n\nWe are a group of mostly 
- engineers and product enthusiasts. Our talk is open to people from all backgroun
- ds. No skills or knowledge required upfront.\n\nExchange with others in the OCM 
- community and learn more about their cloud challenges\, what best-practices wor
- ked out for them\, and what led to failure.\n\nAccess the call using this MS Teams 
- speaker\! Share your cloud experiences\, projects\, tools\, or best practices w
- ith the community. Reach out to us via Slack: https://kubernetes.slack.com/arch
- ives/C05UWBE8R1D.
+ engineers and product enthusiasts.\nOur talk is open to people from all backgroun
+ ds.\nNo skills or knowledge required upfront.\n\nExchange with others in the OCM 
+ community and learn more about their cloud challenges\,\nwhat best-practices wor
+ ked out for them\, and what led to failure.\n\nGet involved\!\nWe want you as a
+ speaker. Share your cloud experiences\, projects\, tools\, or best practices w
+ ith the community.\nReach out to us via Slack: https://kubernetes.slack.com/arch
+ ives/C05UWBE8R1D. \n\nAccess the call using\nhttps://teams.microsoft.com/l/meetup-join/19%3ameeting_Yjk2NGY4NjAtMTRiYS00ODA0LWFiOWMtNjQwM2Q5MmE5M2M5%40thread.v2/0?context=%7b%22Tid%22%3a%2242f7676c-f455-423c-82f6-dc2d99791af7%22%2c%22Oid%22%3a%227611ca13-cc5f-41ee-a954-b612bc1298db%22%7d
+ \nMeeting ID: 313 031 208 305 3\n
+ Passcode: Su2BC9Wm
 LAST-MODIFIED:20250411T140823Z
 SEQUENCE:0
 STATUS:CONFIRMED
