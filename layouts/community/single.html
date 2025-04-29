@@ -1,14 +1,15 @@
 {{ define "main" }}
-  <div class="wrap container" role="document">    <!-- fixed-width container, centered -->
+  <div class="wrap container" role="document">
     <div class="content">
       <div class="row flex-xl-nowrap justify-content-center">
-        <!-- Main content: 9/12 on XL+, full width below XL -->
-        <div class="col-12 col-xl-9 docs-content order-2 order-xl-1">
+        <!-- change this to 9/12 width, offset 1 -->
+        <div class="col-12 col-xl-9 offset-xl-1 docs-content">
           {{ .Content }}
         </div>
-        <!-- TOC: 3/12 on XL+, hidden below XL -->
-        <aside class="col-xl-3 docs-toc d-none d-xl-block order-1 order-xl-2">
+        <!-- TOC stays at 3/12 -->
+        <aside class="col-xl-3 docs-toc d-none d-xl-block">
           {{ if .TableOfContents }}
+            <h2 class="toc-title">On this page</h2>
             {{ .TableOfContents }}
           {{ end }}
         </aside>
