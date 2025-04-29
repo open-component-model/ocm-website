@@ -1,5 +1,5 @@
 ---
-title: cli-reference
+title: CLI-Reference
 name: cli-reference
 url: /docs/cli-reference/
 draft: false

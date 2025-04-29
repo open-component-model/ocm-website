@@ -6,6 +6,7 @@ draft: false
 images: []
 type: docs
 weight: 20
+url: /docs/getting-started/
 sidebar:
   collapsed: true
 ---

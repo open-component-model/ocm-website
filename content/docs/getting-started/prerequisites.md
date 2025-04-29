@@ -4,7 +4,7 @@ description: ""
 lead: ""
 draft: false
 images: []
-weight: 23
+weight: 21
 toc: true
 ---
 
@@ -15,7 +15,7 @@ To follow the steps described in this section, you will need to:
 
 ## Install the OCM Command Line Interface (CLI)
 
-The CLI is used to interact with component versions and registries. Install it like described in [Installing the OCM CLI](/docs/getting-started/installing-the-ocm-cli).
+The CLI is used to interact with component versions and registries. Install it like described in [Installing the OCM CLI](https://ocm.software/docs/getting-started/installing-the-ocm-cli).
 
 ## Obtain Access to an OCM Repository
 

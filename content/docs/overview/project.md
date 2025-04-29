@@ -9,7 +9,7 @@ toc: true
 images: []
 ---
 
-The Open Component Model (OCM) project provides an open standard for describing software artifacts and lifecycle metadata, with the purpose to securely deliver and deploy software products. It facilitates asynchronous handling of various lifecycle management processes, such as compliance checks, security scans, deployments, and more, in a decoupled and streamlined manner. OCM provides the ability to deliver software securely, consistently, and compliantly across cloud, on-prem, hybrid and air-gapped environments.
+The Open Component Model (OCM) is an open standard that enables teams to describe software artifacts and their lifecycle metadata in a consistent, technology-agnostic way. It’s built to support secure, reliable delivery and deployment of software—across cloud, on-prem, hybrid, and even air-gapped environments. By decoupling and streamlining lifecycle processes like compliance checks, security scans, and deployments, OCM helps teams collaborate more effectively and build trust into every step of the software supply chain.
 
 ![OCM use cases](./ocm-uses-cases.png)
 

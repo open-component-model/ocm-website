@@ -1,16 +1,16 @@
 ---
-title: "Version 2"
+title: "Documented example of component descriptor"
 description: ""
 lead: ""
 draft: false
 images: []
-weight: 1
+weight: 27
 toc: true
 ---
 
-The following is an example of a public-key-based signed component descriptor containing a resource, source and one component reference. It uses the default `v2` schema.
+The following is an example of a public-key-based signed component descriptor containing a resource, source and one component reference.
 
-The component is publicly available in the GitHub package repository and can be inspected using the following command:
+The component is publicly available in the GitHub container registry and can be inspected using the following command:
 
 ```shell
 ocm componentversion get --repo ghcr.io/phoban01/ocm github.com/weaveworks/weave-gitops -oyaml
