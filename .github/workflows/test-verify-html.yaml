@@ -34,6 +34,7 @@ jobs:
         uses: peter-evans/repository-dispatch@ff45666b9427631e3450c54a1bcbee4d9ff4d7c0 # v3.0.0
         with:
           # IMPORTANT: use the App token, not GITHUB_TOKEN
-          token: ${{ steps.app_token.outputs.token }}
+          token: ${{ steps.generate_token.outputs.token }}
+          repository: open-component-model/ocm-website
           event-type: verify-html
           client-payload: '{ "pr_number": "${{ github.event.inputs.pr_number }}" }'
