@@ -58,7 +58,7 @@ jobs:
       # Dispatch required to trigger the HTML verify workflow
       # Only way to trigger it from a PR created by OCMBot using a GITHUB_TOKEN
       if: steps.create_pr.outputs.pull-request-number != ''
-      uses: peter-evans/repository-dispatch@vff45666b9427631e3450c54a1bcbee4d9ff4d7c0 # v3.0.0
+      uses: peter-evans/repository-dispatch@ff45666b9427631e3450c54a1bcbee4d9ff4d7c0 # v3.0.0
       with:
         # built-in GITHUB_TOKEN _can_ fire repository_dispatch
         token: ${{ secrets.GITHUB_TOKEN }}
