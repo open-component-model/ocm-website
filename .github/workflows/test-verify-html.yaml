@@ -24,11 +24,11 @@ jobs:
     steps:
       - name: Get OCMBot installation token
         # The dispatch event needs to be triggered with the OCMBot GitHub App token
+        id: generate_token
         uses: tibdex/github-app-token@v2
-        id: app_token
         with:
           app_id: ${{ secrets.OCMBOT_APP_ID }}
-          private_key: ${{ secrets.OCMBOT_PRIVATE_KEY }}
+          private_key: ${{ secrets.OCMBOT_PRIV_KEY }}
       
       - name: Dispatch verify-html
         uses: peter-evans/repository-dispatch@ff45666b9427631e3450c54a1bcbee4d9ff4d7c0 # v3.0.0

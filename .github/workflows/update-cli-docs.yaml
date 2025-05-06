@@ -61,11 +61,11 @@ jobs:
     
     - name: Get OCMBot installation token
       # The dispatch event needs to be triggered with the OCMBot GitHub App token
+      id: generate_token
       uses: tibdex/github-app-token@v2
-      id: app_token
       with:
         app_id: ${{ secrets.OCMBOT_APP_ID }}
-        private_key: ${{ secrets.OCMBOT_PRIVATE_KEY }}
+        private_key: ${{ secrets.OCMBOT_PRIV_KEY }}
 
     - name: Dispatch to HTML verify workflow
       # Dispatch required to trigger the HTML verify workflow
