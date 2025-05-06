@@ -11,9 +11,6 @@ permissions:
   contents: read      # (default) required by most actions if you add a checkout later
 
 on:
-  pull_request:
-    branches:
-      - main
   workflow_dispatch:
     inputs:
       pr_number:
