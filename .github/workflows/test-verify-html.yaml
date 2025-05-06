@@ -5,6 +5,11 @@ name: Test verify-html dispatch
 # since workflows of kind pull_request are not triggered by the GITHUB_TOKEN
 # we need to dispatch the verify-html workflow in case it is triggered from 
 # workflow "Update OCM CLI Docs" using the GITHUB_TOKEN
+
+permissions:
+  actions: write      # so it can call the /dispatches endpoint
+  contents: read      # (default) required by most actions if you add a checkout later
+  
 on:
   workflow_dispatch:
     inputs:
