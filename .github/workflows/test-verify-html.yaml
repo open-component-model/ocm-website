@@ -9,8 +9,11 @@ name: Test verify-html dispatch
 permissions:
   actions: write      # so it can call the /dispatches endpoint
   contents: read      # (default) required by most actions if you add a checkout later
-  
+
 on:
+  pull_request:
+    branches:
+      - main
   workflow_dispatch:
     inputs:
       pr_number:
