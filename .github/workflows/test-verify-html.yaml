@@ -36,4 +36,4 @@ jobs:
           # IMPORTANT: use the App token, not GITHUB_TOKEN
           token: ${{ steps.app_token.outputs.token }}
           event-type: verify-html
-          client-payload: '{ "pr_number": "${{ github.event.inputs.pr_number }}" }''
+          client-payload: '{ "pr_number": "${{ github.event.inputs.pr_number }}" }'
