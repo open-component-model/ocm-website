@@ -77,7 +77,4 @@ jobs:
         token: ${{ steps.genrate_token.outputs.token }}
         repository: open-component-model/ocm-website
         event-type: verify-html
-        client-payload: |
-          {
-            "pr_number": "${{ steps.create_pr.outputs.pull-request-number }}"
-          }
+        client-payload: '{"pr_number": "${{ steps.create_pr.outputs.pull-request-number }}"}'
