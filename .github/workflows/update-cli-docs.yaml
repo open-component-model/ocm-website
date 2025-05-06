@@ -20,19 +20,23 @@ jobs:
     - uses: actions/checkout@v4
       with:
         persist-credentials: false
+
     - name: Update Version Parameter
       run: |
         TAG=${{ github.event.client_payload.tag }}
         sed -i "s/latest_version = .*/latest_version = \"$TAG\"/" ./config/_default/params.toml
+
     - name: Setup Go
       uses: actions/setup-go@v5
       with:
         go-version-file: '${{ github.workspace }}/go.mod'
+
     - name: Regenerate CLI docs
       run: |
         go get ocm.software/ocm@${{ github.event.client_payload.tag }}
         go mod tidy
         go run ./hack/generate-cli-docs --output-dir=${{ env.OUTPUT_DIR }}
+
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v7
       with:
@@ -49,3 +53,18 @@ jobs:
         sign-commits: true
         body: |
           Update OCM CLI documentation for new release
+    
+    - name: Dispatch to HTML verify workflow
+      # Dispatch required to trigger the HTML verify workflow
+      # Only way to trigger it from a PR created by OCMBot using a GITHUB_TOKEN
+      if: steps.create_pr.outputs.pull-request-number != ''
+      uses: peter-evans/repository-dispatch@vff45666b9427631e3450c54a1bcbee4d9ff4d7c0 # v3.0.0
+      with:
+        # built-in GITHUB_TOKEN _can_ fire repository_dispatch
+        token: ${{ secrets.GITHUB_TOKEN }}
+        repository: open-component-model/ocm-website
+        event-type: verify-html
+        client-payload: |
+          {
+            "pr_number": "${{ steps.create_pr.outputs.pull-request-number }}"
+          }

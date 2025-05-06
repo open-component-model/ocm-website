@@ -1,0 +1,25 @@
+name: Test verify-html dispatch
+# Workflow Update OCM CLI Docs now has two triggers:
+# 1. pull_request: branches: main
+# 2. workflow_dispatch: pr_number
+# since workflows of kind pull_request are not triggered by the GITHUB_TOKEN
+# we need to dispatch the verify-html workflow in case it is triggered from 
+# workflow "Update OCM CLI Docs" using the GITHUB_TOKEN
+on:
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: 'Pull Request number to test'
+        required: true
+
+jobs:
+  fire-dispatch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dispatch verify-html
+        uses: peter-evans/repository-dispatch@vff45666b9427631e3450c54a1bcbee4d9ff4d7c0 # v3.0.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          event-type: verify-html
+          client-payload: |
+            { "pr_number": "${{ github.event.inputs.pr_number }}" }
