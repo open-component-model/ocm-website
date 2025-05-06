@@ -1,5 +1,10 @@
 name: Update OCM CLI Docs
 
+permissions:
+  contents: read          # for checkout, file reads
+  actions: write          # to call repository_dispatch
+  pull-requests: write    # to create or update PRs
+
 on:
   repository_dispatch:
     types: [ocm-cli-release]

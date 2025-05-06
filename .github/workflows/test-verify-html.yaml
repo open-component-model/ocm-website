@@ -7,8 +7,9 @@ name: Test verify-html dispatch
 # workflow "Update OCM CLI Docs" using the GITHUB_TOKEN
 
 permissions:
-  actions: write      # so it can call the /dispatches endpoint
-  contents: read      # (default) required by most actions if you add a checkout later
+  contents: read          # for checkout, file reads
+  actions: write          # to call repository_dispatch
+  pull-requests: write    # to create or update PRs
 
 on:
   workflow_dispatch:
