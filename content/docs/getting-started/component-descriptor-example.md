@@ -1,5 +1,5 @@
 ---
-title: "Documented example of component descriptor"
+title: "Example of a component descriptor"
 description: ""
 lead: ""
 draft: false
