@@ -42,9 +42,19 @@ jobs:
         go mod tidy
         go run ./hack/generate-cli-docs --output-dir=${{ env.OUTPUT_DIR }}
 
+    - name: Get OCMBot installation token
+      # Instead of creating the PR below with GITHUB_TOKEN use a generated
+      # short-lived App installation token with full REST rights
+      id: generate_token
+      uses: tibdex/github-app-token@v2
+      with:
+        app_id: ${{ secrets.OCMBOT_APP_ID }}
+        private_key: ${{ secrets.OCMBOT_PRIV_KEY }}
+
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v7
       with:
+        token: ${{ steps.generate_token.outputs.token }}
         title: "Update CLI docs"
         commit-message: "[github-actions] automated change"
         add-paths: |
@@ -58,25 +68,4 @@ jobs:
         sign-commits: true
         body: |
           Update OCM CLI documentation for new release
-    
-    - name: Get OCMBot installation token
-      # The dispatch event needs to be triggered with the OCMBot GitHub App token
-      id: generate_token
-      uses: tibdex/github-app-token@v2
-      with:
-        app_id: ${{ secrets.OCMBOT_APP_ID }}
-        private_key: ${{ secrets.OCMBOT_PRIV_KEY }}
-
-    - name: Dispatch to HTML verify workflow
-      # Dispatch required to trigger the HTML verify workflow
-      # Only way to trigger it from a PR created by OCMBot using a GITHUB_TOKEN
-      # https://github.blog/changelog/2022-09-08-github-actions-use-github_token-with-workflow_dispatch-and-repository_dispatch/?utm_source=chatgpt.com
-      
-      if: steps.create_pr.outputs.pull-request-number != ''
-      uses: peter-evans/repository-dispatch@ff45666b9427631e3450c54a1bcbee4d9ff4d7c0 # v3.0.0
-      with:
-        # IMPORTANT: use the App token, not GITHUB_TOKEN
-        token: ${{ steps.generate_token.outputs.token }}
-        repository: open-component-model/ocm-website
-        event-type: verify-html
-        client-payload: '{ "pr_number": "${{ steps.create_pr.outputs.pull-request-number }}" }'
+  

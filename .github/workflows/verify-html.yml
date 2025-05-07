@@ -4,8 +4,6 @@ on:
   pull_request:
     branches:
       - main
-  repository_dispatch:
-    types: [verify-html]
 
 jobs:
   check-links:
