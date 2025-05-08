@@ -1,7 +1,7 @@
 ---
 title: "The OCM Community"
 description: "The OCM Community"
-url: /docs/community/community
+url: community/community
 lead: true
 draft: false
 images: []

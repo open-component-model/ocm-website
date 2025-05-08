@@ -119,6 +119,7 @@ filesystem
 filesytem
 finalizer
 finalizers
+fluxcd
 fluxdeployer
 fluxdeployers
 fluxdeployerspec

@@ -1,5 +1,6 @@
 ---
 title : "Community"
+layout: community
 description: "Community"
 weight: 90
 lead: ""

@@ -1,7 +1,6 @@
 ---
 title : "OCM Controllers"
 description: ""
-weight: 40
 lead: ""
 draft: false
 images: []

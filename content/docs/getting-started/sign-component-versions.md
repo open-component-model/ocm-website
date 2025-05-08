@@ -4,7 +4,7 @@ description: ""
 lead: ""
 draft: false
 images: []
-weight: 27
+weight: 25
 toc: true
 ---
 
@@ -18,7 +18,7 @@ component version is used for signing. See [Signing Process and Normalization](h
 Currently, only signing according to the
 [RSA PKCS #1 v1.5 signature algorithm](https://datatracker.ietf.org/doc/html/rfc3447) is supported.
 
-To follow the examples, one must follow the instructions from the section [Create a Component Version](/docs/getting-started/getting-started-with-ocm/create-a-component-version).
+To follow the examples, one must follow the instructions from the section [Create a Component Version](https://ocm.software/docsgetting-started/getting-started-with-ocm/create-a-component-version).
 
 Create a key pair using the OCM CLI:
 
