@@ -7,6 +7,9 @@ on:
     paths:
       - '**/*.md'
 
+permissions:
+  contents: read
+
 jobs:
   check-md: # call reusable workflow from central '.github' repo
     uses: open-component-model/.github/.github/workflows/markdown.yml@main
