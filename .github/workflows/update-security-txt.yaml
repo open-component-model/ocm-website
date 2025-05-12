@@ -6,6 +6,10 @@ on:
     - cron: '0 0 * 12 *'
   workflow_dispatch:
 
+permissions:
+  contents: read
+  pull-requests: write
+
 jobs:
   update:
     runs-on: ubuntu-latest
@@ -15,9 +19,9 @@ jobs:
       id: generate_token
       uses: tibdex/github-app-token@v2
       with:
-            app_id: ${{ secrets.OCMBOT_APP_ID }}
-            private_key: ${{ secrets.OCMBOT_PRIV_KEY }}
-            
+        app_id: ${{ secrets.OCMBOT_APP_ID }}
+        private_key: ${{ secrets.OCMBOT_PRIV_KEY }}
+
     - name: Checkout repo
       uses: actions/checkout@v4
 
