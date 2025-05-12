@@ -12,9 +12,9 @@ mainSections = ["docs"]
 # Doks (@thulite/doks-core)
 [doks]
   # Color mode
-  # For now, all PNG text is White so switching to Light mode will make those texts disappear.
-  colorMode = "dark" # auto (default), light or dark
-  colorModeToggler = false # true (default) or false (this setting is only relevant when colorMode = auto)
+  # For now, all PNG text is White so switching to Light mode will make those texts disappear
+  colorMode = "dark"            # Use "auto", "light", or "dark"
+  colorModeToggler = false       # Enables the color mode toggle button
 
   # Navbar
   navbarSticky = true # true (default) or false

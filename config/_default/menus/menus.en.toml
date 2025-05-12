@@ -5,7 +5,12 @@
 
 [[main]]
   name = "Community"
-  url = "/docs/community/community"
+  url = "/community/community"
+  weight = 20
+
+[[main]]
+  name = "Roadmap"
+  url = "https://github.com/orgs/open-component-model/projects/10/views/5"
   weight = 30
 
 [[social]]

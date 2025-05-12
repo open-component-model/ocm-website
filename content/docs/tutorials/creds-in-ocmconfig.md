@@ -1,5 +1,5 @@
 ---
-title: "Credentials in an .ocmconfig file"
+title: "Credentials in .ocmconfig file"
 description: ""
 summary: ""
 draft: false
