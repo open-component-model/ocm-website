@@ -2,4 +2,17 @@
 &lt;p>This tutorial will demonstrate how to get started deploying applications using the Open Component Model &amp;amp; Flux.&lt;/p>
 &lt;p>In this guide, we will leverage Flux and the &lt;code>ocm-controller&lt;/code> to deploy an existing component to a Kubernetes cluster. Specifically, we will deploy the &lt;code>phoban.io/podinfo&lt;/code> component that contains the resources needed to launch the &lt;a href="https://github.com/stefanprodan/podinfo">podinfo&lt;/a> application.&lt;/p></description></item><item><title>Air-gapped GitOps with OCM &amp; Flux</title><link>https://ocm.software/docs/tutorials/ocm-and-gitops/air-gapped-gitops-with-ocm-flux/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/tutorials/ocm-and-gitops/air-gapped-gitops-with-ocm-flux/</guid><description>&lt;h2 id="introduction">Introduction&lt;/h2>
 &lt;p>In this guide, we will show you how the tools provided by OCM make it possible to automate your deployments to air-gapped environments.&lt;/p></description></item><item><title>GitOps Driven Configuration of OCM Applications</title><link>https://ocm.software/docs/tutorials/ocm-and-gitops/gitops-driven-configuration-of-ocm-applications/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/tutorials/ocm-and-gitops/gitops-driven-configuration-of-ocm-applications/</guid><description>&lt;h2 id="introduction">Introduction&lt;/h2>
-&lt;p>This guide is the final part of our series exploring OCM, the &lt;code>ocm-controller&lt;/code>, and how to drive GitOps processes using OCM as the source of truth.&lt;/p></description></item></channel></rss>
+&lt;p>This guide is the final part of our series exploring OCM, the &lt;code>ocm-controller&lt;/code>, and how to drive GitOps processes using OCM as the source of truth.&lt;/p></description></item><item><title>Secure software delivery with Flux and OCM</title><link>https://ocm.software/docs/tutorials/ocm-and-gitops/secure-software-delivery-with-flux-and-ocm/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/tutorials/ocm-and-gitops/secure-software-delivery-with-flux-and-ocm/</guid><description>&lt;p>The source code for the demo can be found at &lt;a href="https://github.com/open-component-model/demo-secure-delivery">https://github.com/open-component-model/demo-secure-delivery&lt;/a>.
+A video guide can be found &lt;a href="https://share.vidyard.com/watch/NjNrZF2926RUTSUvkU4MdR">here&lt;/a>.&lt;/p>
+&lt;h2 id="fully-guided-walkthrough">Fully guided walkthrough&lt;/h2>
+&lt;p>
+
+&lt;img
+ src="https://ocm.software/new_diagram_7403461049610658471_hu_2cc43917646c1293.webp"
+ width="3036"
+ height="1956"
+ decoding="async"
+ fetchpriority="auto"
+ loading="lazy"
+ alt="workflow"id="h-rh-i-0"
+/>&lt;/p></description></item></channel></rss>
