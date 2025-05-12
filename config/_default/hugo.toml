@@ -17,7 +17,21 @@ disableLanguages = ["de", "nl"]
 defaultContentLanguageInSubdir = false
 
 # Footer
-footer = '<div style="width:100vw; position:relative; left:50%; margin-left:-50vw; padding:0 1rem; box-sizing:border-box;"><small>© Copyright 2025, <a href="https://www.sap.com/corporate/en/legal/copyright.html">SAP SE</a> and Open Component Model Contributors | <a href="https://www.sap.com/about/legal/trademark.html">Trademark</a> | <a href="https://www.sap.com/about/legal/privacy.html">Privacy Policy</a> | <a href="https://www.sap.com/corporate/en/legal/terms-of-use.html">Terms of Use</a> | <a href="https://www.sap.com/corporate/en/legal/impressum.html">Legal Disclosure</a></small></div>'
+footer = '''
+<div style="width:100vw; position:relative; left:50%; margin-left:-50vw; padding:0 1rem; box-sizing:border-box;">
+  <div style="display:flex; justify-content:space-between; flex-wrap:wrap;">
+    <small>Building this site is powered by <a href="https://www.netlify.com/" target="_blank" rel="noopener">Netlify</a></small>
+    <small>
+      © Copyright 2025,
+      <a href="https://www.sap.com/corporate/en/legal/copyright.html">SAP SE</a> and Open Component Model Contributors |
+      <a href="https://www.sap.com/about/legal/trademark.html">Trademark</a> |
+      <a href="https://www.sap.com/about/legal/privacy.html">Privacy Policy</a> |
+      <a href="https://www.sap.com/corporate/en/legal/terms-of-use.html">Terms of Use</a> |
+      <a href="https://www.sap.com/corporate/en/legal/impressum.html">Legal Disclosure</a>
+    </small>
+  </div>
+</div>
+'''
 
 # Feed
 copyRight = "© Copyright 2025, SAP SE and Open Component Model Contributors"
