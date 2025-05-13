@@ -1,12 +1,13 @@
 ---
 title: "The OCM Community"
 description: "The OCM Community"
-url: community/community
+url: /community
 lead: true
 draft: false
 images: []
 weight: 92
 toc: true
+layout: community
 ---
 
 ## How to engage with us
