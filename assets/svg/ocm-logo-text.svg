@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
-<svg width="2979" height="967.18" version="1.1" viewBox="0 0 2979 967.18" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg version="1.1" viewBox="0 0 2979 967.18" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
  <defs>
+  <style type="text/css">
+    text, tspan {
+    font-family: 'Quicksand', sans-serif;
+    }
+  </style>
   <clipPath id="clipPath1">
    <path transform="matrix(1 0 0 -1 -68.258 541.86)" d="m0 0h2234.2v725.38h-2234.2z" clip-rule="evenodd"/>
   </clipPath>
