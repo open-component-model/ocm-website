@@ -1,14 +1,17 @@
 {{ define "main" }}
-<section class="section container-fluid mt-n3 pb-3">
+<section class="section container-fluid mt-n3 pb-3 position-relative">
+  {{ if site.Params.doks.backgroundDots -}}
+  <div class="d-flex justify-content-start position-absolute top-0 start-0 w-100 h-100">
+    <div class="bg-dots w-100 h-100"></div>
+  </div>
+  {{ end }}
   <div class="row justify-content-center">
     <div class="col-lg-12 text-center">
-      <div class="flex flex-col items-center justify-center gap-2 sm:flex-row sm:gap-4 mb-4">
-        <picture>
-          <source srcset="/images/ocm-logo-black-text.svg" media="(prefers-color-scheme: light)">
-          <source srcset="/images/ocm-logo-white-text.svg" media="(prefers-color-scheme: dark)">
-          <img src="/images/ocm-logo-white-text.svg" alt="Open Component Model Logo" width="800">
-       </picture>
-      </div>
+      <picture>
+        <source srcset="/images/ocm-logo-black-text.svg" media="(prefers-color-scheme: light)">
+        <source srcset="/images/ocm-logo-white-text.svg" media="(prefers-color-scheme: dark)">
+        <img src="/images/ocm-logo-white-text.svg" alt="Open Component Model Logo" width="800">
+      </picture>
     </div>
     <div class="col-lg-9 col-xl-8 text-center">
       <p class="text-white leader-open-source-text">
@@ -25,32 +28,23 @@
   </div>
 </section>
 
-
-{{ define "sidebar-prefooter" }}
-  {{ if site.Params.doks.backgroundDots -}}
-  <div class="d-flex justify-content-start position-absolute top-0 start-0 w-100 h-100">
-    <div class="bg-dots w-100 h-100"></div>
-  </div>
-  {{ end -}}
-
-  <section class="section section-md section-features">
-    <div class="container">
-      <div class="row justify-content-center text-center">
-        <section class="section container-fluid mt-n3 pb-3">
-          <h1 class="h1 font-weight-bold mb-2">{{ .Params.headline1 }}</h1>
-          <h1 class="h1 font-weight-bold mb-4">{{ .Params.headline2 }}</h1>
-          <h2 class="h2 font-italic mb-5 mt-0">{{ .Params.subheadline }}</h2>
-          <p class="lead mb-2">{{ .Params.intro1 }}</p>
-          <p class="lead mb-2"><strong>{{ .Params.intro2 }}</strong></p>
-          <p class="lead mb-5">{{ .Params.intro3 }}</p>
-          <a class="btn btn-primary btn-lg rounded-pill px-5 mb-6" href="/docs/getting-started/" role="button">{{ .Params.cta_text }}</a>
-        </section>
-      </div>
+<section class="section section-md section-features">
+  <div class="container">
+    <div class="row justify-content-center text-center">
+      <section class="section container-fluid mt-n3 pb-3">
+        <h1 class="h1 font-weight-bold mb-2">{{ .Params.headline1 }}</h1>
+        <h1 class="h1 font-weight-bold mb-4">{{ .Params.headline2 }}</h1>
+        <h2 class="h2 font-italic mb-5 mt-0">{{ .Params.subheadline }}</h2>
+        <p class="lead mb-2">{{ .Params.intro1 }}</p>
+        <p class="lead mb-2"><strong>{{ .Params.intro2 }}</strong></p>
+        <p class="lead mb-5">{{ .Params.intro3 }}</p>
+        <a class="btn btn-primary btn-lg rounded-pill px-5 mb-6" href="/docs/getting-started/" role="button">{{ .Params.cta_text }}</a>
+      </section>
     </div>
-  </section>
-{{ end }}
+  </div>
+</section>
 
-<section id="how ocm works" class="section bg-dark text-white">
+<section id="how ocm works" class="section container-fluid bg-dark text-white">
   <div class="container">
     <div class="row justify-content-center text-center">
       <h1 class="h1 text-center mb-5">{{ .Params.how_ocm_works_title }}</h1>
