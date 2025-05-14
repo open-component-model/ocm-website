@@ -1,10 +1,5 @@
 # Hugo
-title = "Open Component Model"
-description = ""
-leader = "An open standard to describe software artifact delivery."
-leader_open_source_text = "Open-Source Apache-2.0 licensed."
 latest_version = "v0.24.0"
-images = ["logo-image.png"]
 
 # mainSections
 mainSections = ["docs"]
@@ -13,8 +8,8 @@ mainSections = ["docs"]
 [doks]
   # Color mode
   # For now, all PNG text is White so switching to Light mode will make those texts disappear
-  colorMode = "dark"            # Use "auto", "light", or "dark"
-  colorModeToggler = false       # Enables the color mode toggle button
+  colorMode = "auto"            # Use "auto", "light", or "dark"
+  colorModeToggler = true       # Enables the color mode toggle button
 
   # Navbar
   navbarSticky = true # true (default) or false

@@ -2,26 +2,34 @@
 <section class="section container-fluid mt-n3 pb-3">
   <div class="row justify-content-center">
     <div class="col-lg-12 text-center">
-      <img src="images/logo-image.png" height="auto" width="150px" alt="Open Component Model Logo"/>
-      <img src="images/ocm-text.png" height="auto" width="200px" alt="Open Component Model Logo"/>
-      </p>
+      <div class="flex flex-col items-center justify-center gap-2 sm:flex-row sm:gap-4 mb-4">
+        <picture>
+          <source srcset="/images/ocm-logo-black-text.svg" media="(prefers-color-scheme: light)">
+          <source srcset="/images/ocm-logo-white-text.svg" media="(prefers-color-scheme: dark)">
+          <img src="/images/ocm-logo-white-text.svg" alt="Open Component Model Logo" width="800">
+       </picture>
+      </div>
     </div>
     <div class="col-lg-9 col-xl-8 text-center">
-      <p class="text-white leader-open-source-text">{{.Site.Params.leader_open_source_text}} <a href="https://github.com/open-component-model/ocm/releases/tag/{{ .Site.Params.latest_version }}">GitHub {{ .Site.Params.latest_version }}</a>
-      <p class="mb-1">
-        <a href="https://bestpractices.coreinfrastructure.org/projects/7156"><img src="https://bestpractices.coreinfrastructure.org/projects/7156/badge"></a>
+      <p class="text-white leader-open-source-text">
+        {{ .Params.leader_open_source_text }}
+        <a href="https://github.com/open-component-model/ocm/releases/tag/{{ .Site.Params.latest_version }}">GitHub {{ .Site.Params.latest_version }}</a>
       </p>
       {{ .Content }}
-      <!-- <p class="sub-leader mt-2">{{ .Site.Params.leader }}</p> -->
+      <p class="mb-1">
+        <a href="https://bestpractices.coreinfrastructure.org/projects/7156">
+          <img src="https://bestpractices.coreinfrastructure.org/projects/7156/badge">
+        </a>
+      </p>
     </div>
   </div>
 </section>
-{{ end }}
+
 
 {{ define "sidebar-prefooter" }}
   {{ if site.Params.doks.backgroundDots -}}
-  <div class="d-flex justify-content-start">
-    <div class="bg-dots"></div>
+  <div class="d-flex justify-content-start position-absolute top-0 start-0 w-100 h-100">
+    <div class="bg-dots w-100 h-100"></div>
   </div>
   {{ end -}}
 
@@ -29,106 +37,58 @@
     <div class="container">
       <div class="row justify-content-center text-center">
         <section class="section container-fluid mt-n3 pb-3">
-          <h1 class="h1 font-weight-bold mb-2">Deliver and deploy</h1>
-          <h1 class="h1 font-weight-bold mb-4">your software securely.</h1>
-          <h2 class="h2 font-italic mb-5 mt-0">Anywhere, at any scale.</h2>
-          <p class="lead mb-2">The Open Component Model (OCM) is your one-stop open-source</p>
-          <p class="lead mb-2"><strong>Software Bill of Delivery (SBoD)</strong></p>
-          <p class="lead mb-5">for packaging, signing, transporting and deploying your artifacts - 
-            preserving end-to-end security, integrity and provenance.</p>
-          <a class="btn btn-primary btn-lg rounded-pill px-5 mb-6" href="/docs/getting-started/" role="button">Get Started</a>
+          <h1 class="h1 font-weight-bold mb-2">{{ .Params.headline1 }}</h1>
+          <h1 class="h1 font-weight-bold mb-4">{{ .Params.headline2 }}</h1>
+          <h2 class="h2 font-italic mb-5 mt-0">{{ .Params.subheadline }}</h2>
+          <p class="lead mb-2">{{ .Params.intro1 }}</p>
+          <p class="lead mb-2"><strong>{{ .Params.intro2 }}</strong></p>
+          <p class="lead mb-5">{{ .Params.intro3 }}</p>
+          <a class="btn btn-primary btn-lg rounded-pill px-5 mb-6" href="/docs/getting-started/" role="button">{{ .Params.cta_text }}</a>
         </section>
       </div>
     </div>
   </section>
+{{ end }}
 
-<!-- How It Works -->
 <section id="how ocm works" class="section bg-dark text-white">
-<!--<section class="section section-md section-features">-->
-  <div class="row justify-content-center text-center">
-      <h1 class="h1 text-center mb-5">How OCM Works</h1>
-
+  <div class="container">
+    <div class="row justify-content-center text-center">
+      <h1 class="h1 text-center mb-5">{{ .Params.how_ocm_works_title }}</h1>
+      {{ range .Params.how_ocm_works }}
       <div class="col-lg-3 mb-3">
-        <span class="h1 mb-3" role="img" aria-label="Describe">📝</span>
-        <h3 class="h3">Describe</h3>
-        <p>Define components in code with powerful lifecycle metadata.</p>
+        <span class="h1 mb-3" role="img" aria-label="{{ .label }}">{{ .emoji }}</span>
+        <h3 class="h3">{{ .title }}</h3>
+        <p>{{ .description }}</p>
       </div>
-
-      <div class="col-lg-3 mb-3">
-        <span class="h1 mb-3" role="img" aria-label="Sign">🔐</span>
-        <h3 class="h3">Sign</h3>
-        <p>Add cryptographic signatures. End-to-end trust from source to deployment.</p>
-      </div>
-
-      <div class="col-lg-3 mb-3">
-        <span class="h1 mb-3" role="img" aria-label="Transport">🚚</span>
-        <h3 class="h3">Transport</h3>
-        <p>Works across boundaries — public cloud, on-prem, air-gapped. Tamper-proof.</p>
-      </div>
-
-      <div class="col-lg-3 mb-3">
-        <span class="h1 mb-3" role="img" aria-label="Deploy">🚀</span>
-        <h3 class="h3">Deploy</h3>
-        <p>Automate Deployments with OCM Controllers and Flux. Seamless GitOps.</p>
-      </div>
-
+      {{ end }}
+    </div>
+    <div class="text-center mt-4">
+      <a class="btn btn-primary btn-lg rounded-pill px-5" href="docs/tutorials/ocm-and-gitops" role="button">
+        {{ .Params.how_ocm_cta }}
+      </a>
+    </div>
   </div>
-  <!-- Button placed in its own centered div, below the four sections -->
-  <div class="text-center mt-4">
-    <a class="btn btn-primary btn-lg rounded-pill px-5" href="docs/tutorials/ocm-and-gitops" role="button">
-      Dive Deeper
-    </a>
-  </div>
-
 </section>
 
 <section id="benefits" class="section section-md section-features">
   <div class="container">
-    <h2 class="h1 text-center mb-5">Why Choose OCM?</h2>
+    <h2 class="h1 text-center mb-5">{{ .Params.benefits_title }}</h2>
     <div class="row justify-content-center text-center mb-4">
+      {{ range first 3 .Params.benefits }}
       <div class="col-lg-4 col-md-6 mb-4">
-        <h3 class="h3 mb-2">📦 One Model for All Artifacts</h3>
-        <p>A unified, machine-readable format for everything you deliver.</p>
+        <h3 class="h3 mb-2">{{ .emoji }} {{ .title }}</h3>
+        <p>{{ .description }}</p>
       </div>
-      <div class="col-lg-4 col-md-6 mb-4">
-        <h3 class="h3 mb-2">🔒 Security & Integrity</h3>
-        <p>Component-level signatures that verify everything.
-          Ironclad provenance at every step.</p>
-      </div>
-      <div class="col-lg-4 col-md-6 mb-4">
-        <h3 class="h3 mb-2">🌐 Universal<br>Delivery</h3>
-        <p>Deploy anywhere: public, on-prem, air-gapped.
-          Cross-boundary transfers without compromise.</p>
-      </div>
+      {{ end }}
     </div>
     <div class="row justify-content-center text-center">
+      {{ range after 3 .Params.benefits }}
       <div class="col-lg-4 col-md-6 mb-4">
-        <h3 class="h3 mb-2">🔗 End-to-End Traceability</h3>
-        <p>OCM Coordinates connect all lifecycle phases.
-          One global view for visibility from build to deployment.</p>
+        <h3 class="h3 mb-2">{{ .emoji }} {{ .title }}</h3>
+        <p>{{ .description }}</p>
       </div>
-      <div class="col-lg-4 col-md-6 mb-4">
-        <h3 class="h3 mb-2">⚙️ GitOps-Ready Automation</h3>
-        <p>Integrate your pipelines through OCM tooling.
-          Zero custom code needed — just plug and play</p>
-      </div>
+      {{ end }}
     </div>
   </div>
 </section>
-
-{{ end }}
-
-{{ define "sidebar-footer" }}
-{{ if site.Params.doks.sectionFooter -}}
-<section class="section section-md container-fluid bg-light">
-  <div class="row justify-content-center text-center">
-    <div class="col-lg-7">
-      <h2 class="mt-2">Start building with Doks today</h2>
-      <a class="btn btn-primary rounded-pill px-4 my-2" href="/docs/{{ if site.Params.doks.docsVersioning }}{{ site.Params.doks.docsVersion }}/{{ end }}prologue/introduction/" role="button">{{ i18n "get-started" }}</a>
-    </div>
-  </div>
-</section>
-
-
-{{ end -}}
 {{ end }}
