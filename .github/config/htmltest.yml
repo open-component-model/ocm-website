@@ -1,0 +1,27 @@
+# .htmltest.yml
+DirectoryPath: "public"      # point to Hugo’s build output
+FileExtension: ".html"
+
+# Only check links:
+CheckInternal: true          # internal links (all tags)  
+CheckExternal: true          # external links (all tags)  
+
+# (Optional) skip anchor/fragment tests if you only care about URL existence:
+CheckInternalHash: false     # internal “#…” fragment targets  
+CheckExternalHash: false     # external “#…” fragment targets  
+
+# Disable every other check:
+CheckDoctype: false
+CheckAnchors: false
+CheckLinks: false
+CheckImages: false
+CheckScripts: false
+CheckMeta: false
+CheckGeneric: false
+CheckMailto: false
+CheckTel: false
+EnforceHTTPS: false          # don’t enforce HTTPS or mixed-content checks  
+
+# Cache & logs (speeds up repeated runs):
+OutputDir: "tmp/.htmltest"
+CacheExpires: "336h"         # keep external-link cache for two weeks
