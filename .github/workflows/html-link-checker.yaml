@@ -3,7 +3,8 @@ name: Verify HTML
 on:
   pull_request:
     branches:
-      - correct-link-checker
+      - main
+  workflow_dispatch:
 
 permissions:
   contents: read
