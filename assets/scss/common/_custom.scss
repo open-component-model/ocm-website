@@ -1,76 +1,167 @@
-// Put your custom SCSS code here
+/* ============================================
+   GLOBAL LAYOUT & STRUCTURE
+   ============================================ */
+
+// Full-width container overrides
 .container-fw {
-    // max-width: 1200px;
-    max-width: 100%;
-    padding-left: 1rem;
+  max-width: 100%;
+  padding-left: 1rem;
 
-    .docs-content {
-        margin-left: 0rem !important;
-        margin-right: 0rem !important;
-        padding-right: 0rem !important;
-        padding-left: 0rem !important;
-    }
-    .docs-toc {
-        margin-left: 3rem !important;
-        margin-right: 0rem !important;
-        padding-right: 0rem !important;
-        padding-left: 0rem !important;
-    }
+  .docs-content {
+    margin-left: 0rem !important;
+    margin-right: 0rem !important;
+    padding-right: 0rem !important;
+    padding-left: 0rem !important;
+  }
+
+  .docs-toc {
+    margin-left: 3rem !important;
+    margin-right: 0rem !important;
+    padding-right: 0rem !important;
+    padding-left: 0rem !important;
+  }
 }
 
-.navbar {
-    background: #233545;
-    background-color: #233545 !important; // important is added so the dark CSS template doesn't overwrite this value.
-}
-
-// forces the single page look like a list page
-.list.section.docs .content {
-    padding-top: 0;
-    padding-bottom: 0;
-}
-
-
+// Images responsive in content
 .content img {
-    max-width: 100%;
-    height: auto;
+  max-width: 100%;
+  height: auto;
 }
 
-// === footer full-width & inline links ===
-.site-footer .container {
-    max-width: 100% !important;
-    padding-left: 1rem;
-    padding-right: 1rem;
+
+/* ============================================
+   HEADER (NAVIGATION & LOGO)
+   ============================================ */
+
+// Force header into dark mode style
+header.navbar {
+  background-color: #1d1e22 !important; // consistent dark background
+  color: #dee2e6 !important;            // consistent text color
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
-  
+
+/* === Fixed header top line (same in light/dark) === */
+.header-bar {
+  height: 4px !important;
+  background: linear-gradient(to right, #4cc9f0, #4361ee) !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+// Navbar links and buttons use uniform color
+header.navbar .nav-link,
+header.navbar .btn-link,
+header.navbar .btn-dropdown {
+  color: #dee2e6 !important;
+}
+
+// Icons for search, toggler, etc. only
+header.navbar .btn-link svg,
+header.navbar .btn-dropdown svg,
+header.navbar .nav-link[aria-label="Search website"] svg {
+  stroke: #dee2e6;
+  fill: none;
+}
+
+/* === Logo icon and text SVG styling === */
+.ocm-logo-icon svg {
+  height: 42px;
+  width: auto;
+  display: block;
+  /* Allow native colors inside icon SVG */
+  fill: unset !important;
+  stroke: unset !important;
+}
+
+.ocm-logo-text svg {
+  height: 42px;
+  width: auto;
+  display: block;
+  fill: currentColor;
+  stroke: currentColor;
+}
+
+/* === Force white logo color in the header === */
+header.navbar .ocm-logo {
+  color: #ffffff !important;
+}
+
+/* === Force white logo text in header === */
+header.navbar .ocm-logo-text svg {
+  fill: #ffffff !important;
+  stroke: #ffffff !important;
+}
+
+/* === Force white logo text in section start area (e.g. front page) === */
+.section .ocm-logo-text svg {
+  fill: #ffffff !important;
+  stroke: #ffffff !important;
+}
+
+/* === Theme-dependent color for center logo on start page === */
+[data-bs-theme="dark"] .font-logo {
+  color: #ffffff !important;  // White in dark mode
+}
+
+[data-bs-theme="light"] .font-logo {
+  color: #111111 !important;  // Dark text in light mode
+}
+
+
+
+/* ============================================
+   FOOTER
+   ============================================ */
+
+// Full-width footer layout
+.site-footer .container {
+  max-width: 100% !important;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+// Align footer content left
 .site-footer {
-  /* Optional: left-align text instead of centered */
   text-align: left !important;
 }
-  
+
+// Inline footer links
 .site-footer small a {
   display: inline !important;
   white-space: nowrap !important;
 }
 
-/* ================================
-  Section-specific layout overrides
-  ================================ */
+
+/* ============================================
+   PAGE-TYPE LAYOUT OVERRIDES
+   ============================================ */
+
+// Single page (docs) content styling
+.list.section.docs .content {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+
+/* ============================================
+   SECTION-SPECIFIC OVERRIDES (by page section)
+   ============================================ */
 
 @media (min-width: 1200px) {
-  /* — COMMUNITY PAGE — */
+  /* Community Page */
   body.section-community {
-    /* Hide the left sidebar */
     .docs-sidebar {
       display: none !important;
     }
-    /* Widen the main content */
+
     .docs-content {
       flex: 0 0 85% !important;
       max-width: 85% !important;
       margin: 0 1rem !important;
       padding: 1rem !important;
     }
-    /* Narrow the TOC and keep it visible */
+
     .docs-toc {
       display: block !important;
       flex: 0 0 15% !important;
@@ -78,16 +169,15 @@
       margin: 0 1rem !important;
       padding-top: 1rem !important;
     }
-}
-  
-  /* — ROADMAP PAGE — */
+  }
+
+  /* Roadmap Page */
   body.section-roadmap {
-    /* Hide sidebar and TOC entirely */
     .docs-sidebar,
     .docs-toc {
       display: none !important;
     }
-    /* Make the content almost full-width */
+
     .docs-content {
       flex: 0 0 90% !important;
       max-width: 90% !important;
@@ -96,8 +186,8 @@
     }
   }
 }
-  
-/* Mobile fallback: both pages full-width below 768px */
+
+/* Mobile layout adjustments for special pages */
 @media (max-width: 768px) {
   body.section-community .docs-content,
   body.section-roadmap .docs-content {
@@ -106,7 +196,7 @@
     margin: 0 auto !important;
     padding: 1rem !important;
   }
-  /* On mobile keep the community TOC below the content */
+
   body.section-community .docs-toc {
     flex: 0 0 100% !important;
     max-width: 100% !important;
@@ -115,48 +205,16 @@
   }
 }
 
-/* Import Quicksand Font to display Logo Text correctly (is now an SVG) */
+
+/* ============================================
+   TYPOGRAPHY & FONTS
+   ============================================ */
+
+// Import Quicksand font for OCM logo
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@200&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap');
+
 .font-logo {
   font-family: 'Quicksand', sans-serif;
   font-weight: 300;
-}
-
-// Use "dark mode"-look in header
-header.navbar {
-  background-color: #1d1e22 !important; // dark background 
-  color: #dee2e6 !important;           // light text as in dark mode
-}
-
-// All header links same color
-header.navbar .nav-link,
-header.navbar .btn-link,
-header.navbar .btn-dropdown {
-  color: #dee2e6 !important;
-}
-
-// Only colorize functional icons (search, toggle), not logos or social icons
-header.navbar .btn-link svg,
-header.navbar .btn-dropdown svg,
-header.navbar .nav-link[aria-label="Search website"] svg {
-  stroke: #dee2e6;
-  fill: none;
-} 
-
-/* === Updated Header Logo Styles === */
-.ocm-logo-icon svg,
-.ocm-logo-text svg {
-  height: 42px; // größer als vorher
-  width: auto;
-  display: block;
-}
-
-header.navbar {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-}
-
-.ocm-logo {
-  color: #dee2e6 !important;
 }
