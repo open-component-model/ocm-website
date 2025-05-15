@@ -80,7 +80,7 @@ the access to the local resources. Similarly to the `access` attribute, the kind
 
 Available access and input types are described [here](/docs/tutorials/input-and-access-types/).
 
-For more complex scenarios, the description files might use variable substitution (templating), see [Best Practices](/docs/tutorials/best-practices#templating-the-resources/).
+For more complex scenarios, the description files might use variable substitution (templating), see [Best Practices](/docs/tutorials/best-practices/#templating-the-resources).
 
 ### Add Component Version to CTF archive
 
