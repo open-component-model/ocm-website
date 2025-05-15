@@ -8,3 +8,5 @@ public/
 /.project
 hugo_stats.json
 .DS_Store
+tmp/*
+
