@@ -18,10 +18,13 @@
   {{ end -}}
 
     <!-- Site title -->
-    <!-- Insert our Custom OCM Text Image Instead of the Plain title. -->
-    <!-- <a class="navbar-brand me-auto me-lg-3" href="{{ relLangURL "" }}">{{ .Site.Title }}</a> -->
-    <a class="navbar-brand order-0" href="{{ "/" | relLangURL }}" aria-label="{{ .Site.Params.Title }}">
-      <img src="/images/logo-horizontal-white-text.png" alt="Open Component Model Logo" class="header-logo">
+    <!-- Replaced logo PNG with inline SVGs for icon and text -->
+    <a class="navbar-brand order-0 ocm-logo d-flex align-items-center" href="{{ "/" | relLangURL }}" aria-label="{{ .Site.Params.Title }}">
+      <span class="ocm-logo-icon d-flex align-items-center" style="height: 64px;">
+        {{ partial "inline-svg.html" (dict "src" "ocm-logo-icon-colour") }}
+      </span><span class="ocm-logo-text d-flex align-items-center" style="height: 64px; margin-left: -0.2rem;">
+        {{ partial "inline-svg.html" (dict "src" "ocm-logo-text") }}
+      </span>
     </a>
 
     <!-- FlexSearch mobile -->

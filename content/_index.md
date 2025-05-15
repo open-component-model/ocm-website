@@ -1,9 +1,49 @@
 ---
-title : "Open Component Model"
-description: "The Open Component Model is an open standard to describe the software artifacts which must be delivered
-for a software product."
-draft: false
-images: []
-sidebar:
-  collapsed: true
+title: "Open Component Model"
+leader_open_source_text: "Open-Source Apache-2.0 licensed."
+headline1: "Deliver and deploy"
+headline2: "your software securely."
+subheadline: "Anywhere, at any scale."
+intro1: "The Open Component Model (OCM) is your one-stop open-source"
+intro2: "Software Bill of Delivery (SBoD)"
+intro3: "for packaging, signing, transporting and deploying your artifacts – preserving end-to-end security, integrity and provenance."
+cta_text: "Get Started"
+
+how_ocm_works_title: "How OCM Works"
+how_ocm_cta: "Dive Deeper"
+how_ocm_works:
+  - label: "Describe"
+    emoji: "📝"
+    title: "Describe"
+    description: "Define components in code with powerful lifecycle metadata."
+  - label: "Sign"
+    emoji: "🔐"
+    title: "Sign"
+    description: "Add cryptographic signatures. End-to-end trust from source to deployment."
+  - label: "Transport"
+    emoji: "🚚"
+    title: "Transport"
+    description: "Works across boundaries — public cloud, on-prem, air-gapped. Tamper-proof."
+  - label: "Deploy"
+    emoji: "🚀"
+    title: "Deploy"
+    description: "Automate Deployments with OCM Controllers and Flux. Seamless GitOps."
+
+benefits_title: "Why Choose OCM?"
+benefits:
+  - emoji: "📦"
+    title: "One Model for All Artifacts"
+    description: "A unified, machine-readable format for everything you deliver."
+  - emoji: "🔒"
+    title: "Security & Integrity"
+    description: "Component-level signatures that verify everything. Ironclad provenance at every step."
+  - emoji: "🌐"
+    title: "Universal Delivery"
+    description: "Deploy anywhere: public, on-prem, air-gapped. Cross-boundary transfers without compromise."
+  - emoji: "🔗"
+    title: "End-to-End Traceability"
+    description: "OCM Coordinates connect all lifecycle phases. One global view for visibility from build to deployment."
+  - emoji: "⚙️"
+    title: "GitOps-Ready Automation"
+    description: "Integrate your pipelines through OCM tooling. Zero custom code needed — just plug and play"
 ---
