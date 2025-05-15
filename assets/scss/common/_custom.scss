@@ -79,6 +79,18 @@ header.navbar .ocm-logo {
   color: #ffffff !important;
 }
 
+/* === Force white logo text in header === */
+header.navbar .ocm-logo-text svg {
+  fill: #ffffff !important;
+  stroke: #ffffff !important;
+}
+
+/* === Force white logo text in section start area (e.g. front page) === */
+.section .ocm-logo-text svg {
+  fill: #ffffff !important;
+  stroke: #ffffff !important;
+}
+
 /* === Theme-dependent color for center logo on start page === */
 [data-bs-theme="dark"] .font-logo {
   color: #ffffff !important;  // White in dark mode
