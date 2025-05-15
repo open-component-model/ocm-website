@@ -65,7 +65,15 @@ header.navbar .nav-link[aria-label="Search website"] svg {
 }
 
 /* === Logo icon and text SVG styling === */
-.ocm-logo-icon svg,
+.ocm-logo-icon svg {
+  height: 42px;
+  width: auto;
+  display: block;
+  /* Allow native colors inside icon SVG */
+  fill: unset !important;
+  stroke: unset !important;
+}
+
 .ocm-logo-text svg {
   height: 42px;
   width: auto;
