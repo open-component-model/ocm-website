@@ -78,7 +78,7 @@ The type field is used to specify the kind of access.
 If the resource content is taken from local resources, the field `input` is used to specify
 the access to the local resources. Similarly to the `access` attribute, the kind of the input source is described by the field `type`.
 
-Available access and input types are described [here](https://ocm.software/docs/tutorials/input-and-access-types).
+Available access and input types are described [here](/docs/tutorials/input-and-access-types/).
 
 For more complex scenarios, the description files might use variable substitution (templating), see [Best Practices](/docs/tutorials/best-practices#templating-the-resources/).
 

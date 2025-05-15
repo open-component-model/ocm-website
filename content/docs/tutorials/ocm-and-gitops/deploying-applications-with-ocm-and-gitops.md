@@ -214,5 +214,5 @@ That's it! That's how easy it is to get started using the Open Component Model a
 
 If you want to know more about working with OCM and GitOps, check out our other guides on this topic:
 
-- [Air-gapped GitOps with OCM & Flux](https://ocm.software/docs/tutorials/ocm-and-gitops/air-gapped-gitops-with-ocm-flux/)
-- [GitOps Driven Configuration of OCM Applications](https://ocm.software/docs/tutorials/ocm-and-gitops/gitops-driven-configuration-of-ocm-applications/)
+- [Air-gapped GitOps with OCM & Flux](/docs/tutorials/ocm-and-gitops/air-gapped-gitops-with-ocm-flux/)
+- [GitOps Driven Configuration of OCM Applications](/docs/tutorials/ocm-and-gitops/gitops-driven-configuration-of-ocm-applications/)
