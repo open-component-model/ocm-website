@@ -8,7 +8,7 @@ weight: 26
 toc: true
 ---
 
-The section [Bundle Composed Components](https://ocm.software/docs/getting-started/getting-started-with-ocm/create-a-component-version#bundle-composed-components) explained how to bundle multiple component version into a transport archive.
+The section [Add Component Version to CTF archive](/docs/getting-started/create-component-version#add-component-version-to-ctf-archive/) explained how to store component versions in a CTF archive.
 
 During the transfer, it is possible to include component references as local blobs. It is also possible to include references in a recursive way.
 

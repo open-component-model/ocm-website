@@ -1,7 +1,6 @@
 ---
-title: "Credentials in .ocmconfig file"
-description: ""
-summary: ""
+Title: "Credentials in .ocmconfig file"
+url: "/docs/tutorials/creds-in-ocmconfig"
 draft: false
 weight: 72
 toc: true

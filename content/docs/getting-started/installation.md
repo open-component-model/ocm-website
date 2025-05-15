@@ -1,5 +1,6 @@
 ---
 title: "Installing the OCM CLI"
+url: "/docs/getting-started/installation/"
 description: ""
 lead: ""
 draft: false

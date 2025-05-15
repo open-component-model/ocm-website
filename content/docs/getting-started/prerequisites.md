@@ -1,5 +1,6 @@
 ---
 title: "Prerequisites"
+url: /docs/getting-started/prerequisites/
 description: ""
 lead: ""
 draft: false
@@ -15,7 +16,7 @@ To follow the steps described in this section, you will need to:
 
 ## Install the OCM Command Line Interface (CLI)
 
-The CLI is used to interact with component versions and registries. Install it like described in [Installing the OCM CLI](https://ocm.software/docs/getting-started/installing-the-ocm-cli).
+The CLI is used to interact with component versions and registries. Install it like described in [Installing the OCM CLI](/docs/getting-started/installation/).
 
 ## Obtain Access to an OCM Repository
 
@@ -64,4 +65,4 @@ configurations:
 ```
 
 More information on the credentials topic can be seen by running the OCM CLI help topic command `ocm credential-handling`
-and [in this guide](https://ocm.software/docs/examples/credentials-in-an-ocmconfig-file/) with many examples for different repository types.
+and [in this guide](/docs/tutorials/creds-in-ocmconfig/) with many examples for different repository types.

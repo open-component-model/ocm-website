@@ -1,5 +1,6 @@
 ---
 title: "Create a Component Version"
+url: "/docs/getting-started/create-component-version/"
 description: ""
 lead: ""
 draft: false
@@ -39,7 +40,7 @@ helm pull --untar podinfo/podinfo
 
 Create a file `component-constructor.yaml`, which describes all elements of the component. You can use our public configuration schema to validate the configuration. The schema is available at `https://ocm.software/schemas/configuration-schema.yaml` and can be used in your editor to validate the configuration (e.g., in Visual Studio Code).
 
-Component versions need to have at least a `name`, `version` and `provider` attribute. All other attributes are optional. Check out an [example component descriptor](https://ocm.software/docs/component-descriptors/version-2) or the [OCM Specification](https://github.com/open-component-model/ocm-spec/blob/main/README.md) to see all available attributes.
+Component versions need to have at least a `name`, `version` and `provider` attribute. All other attributes are optional. Check out an [example component descriptor](/docs/getting-started/component-descriptor-example/) or the [OCM Specification](https://github.com/open-component-model/ocm-spec/blob/main/README.md) to see all available attributes.
 
 As mentioned before our example component will just contain a Helm Chart and a Docker image as resources:
 
@@ -79,7 +80,7 @@ the access to the local resources. Similarly to the `access` attribute, the kind
 
 Available access and input types are described [here](https://ocm.software/docs/tutorials/input-and-access-types).
 
-For more complex scenarios, the description files might use variable substitution (templating), see [Best Practices](/docs/tutorials/best-practices#templating-the-resources).
+For more complex scenarios, the description files might use variable substitution (templating), see [Best Practices](/docs/tutorials/best-practices#templating-the-resources/).
 
 ### Add Component Version to CTF archive
 

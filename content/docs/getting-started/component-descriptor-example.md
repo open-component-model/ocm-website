@@ -1,5 +1,6 @@
 ---
 title: "Example of a component descriptor"
+url: "/docs/getting-started/component-descriptor-example/"
 description: ""
 lead: ""
 draft: false

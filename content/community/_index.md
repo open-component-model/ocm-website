@@ -1,7 +1,7 @@
 ---
 title : "Community"
 layout: community
-description: "Community"
+url: "/community/"
 weight: 90
 lead: ""
 draft: false
