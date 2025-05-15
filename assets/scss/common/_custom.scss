@@ -64,18 +64,50 @@ header.navbar .nav-link[aria-label="Search website"] svg {
   fill: none;
 }
 
-// Logo color follows header text color
-.ocm-logo {
-  color: #dee2e6 !important;
+/* === Logo icon and text SVG styling === */
+.ocm-logo-icon svg {
+  height: 42px;
+  width: auto;
+  display: block;
+  /* Allow native colors inside icon SVG */
+  fill: unset !important;
+  stroke: unset !important;
 }
 
-// Size and layout for SVG logos
-.ocm-logo-icon svg,
 .ocm-logo-text svg {
   height: 42px;
   width: auto;
   display: block;
+  fill: currentColor;
+  stroke: currentColor;
 }
+
+/* === Force white logo color in the header === */
+header.navbar .ocm-logo {
+  color: #ffffff !important;
+}
+
+/* === Force white logo text in header === */
+header.navbar .ocm-logo-text svg {
+  fill: #ffffff !important;
+  stroke: #ffffff !important;
+}
+
+/* === Force white logo text in section start area (e.g. front page) === */
+.section .ocm-logo-text svg {
+  fill: #ffffff !important;
+  stroke: #ffffff !important;
+}
+
+/* === Theme-dependent color for center logo on start page === */
+[data-bs-theme="dark"] .font-logo {
+  color: #ffffff !important;  // White in dark mode
+}
+
+[data-bs-theme="light"] .font-logo {
+  color: #111111 !important;  // Dark text in light mode
+}
+
 
 
 /* ============================================
