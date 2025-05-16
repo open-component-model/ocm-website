@@ -31,17 +31,6 @@ jobs:
         TAG=${{ github.event.client_payload.tag }}
         sed -i "s/latest_version = .*/latest_version = \"$TAG\"/" ./config/_default/params.toml
 
-    - name: Setup Go
-      uses: actions/setup-go@v5
-      with:
-        go-version-file: '${{ github.workspace }}/go.mod'
-
-    - name: Regenerate CLI docs
-      run: |
-        go get ocm.software/ocm@${{ github.event.client_payload.tag }}
-        go mod tidy
-        go run ./hack/generate-cli-docs --output-dir=${{ env.OUTPUT_DIR }}
-
     - name: Get OCMBot installation token
       # Instead of creating the PR below with GITHUB_TOKEN use a generated
       # short-lived App installation token with full REST rights
