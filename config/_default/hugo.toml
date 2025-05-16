@@ -115,3 +115,10 @@ lastMod = false
   quality = 85
   resampleFilter = "Lanczos"
 
+[module]
+  [[module.imports]]
+    path   = "ocm.software/ocm"
+    branch = "add-front-matter-to-reference-docs"
+    [[module.imports.mounts]]
+      source = "docs/reference"
+      target = "content/docs/cli-reference"
