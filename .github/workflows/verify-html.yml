@@ -1,4 +1,7 @@
-name: Verify HTML
+# This workflow verifies that all links in the HTML files are valid.
+# GitHub repo: https://github.com/wjdp/htmltest
+
+name: Verify HTML Links
 
 on:
   pull_request:
@@ -10,19 +13,25 @@ permissions:
 
 jobs:
   check-links:
-    name: Check links
+    name: Check external and internal links
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22.12.0 # keep in sync with 'engines'@package.json
+
       - name: Install Dependencies
         run: npm install
+
       - name: Build Site
         run: npm run build
+
       - name: Verify HTML links
-        uses: untitaker/hyperlink@0.1.44
-        with:
-          args: public/ --sources content/
+        # Download binary to ./bin. Execute it with log level 1 (INFO) and config file
+        run: |
+          curl https://htmltest.wjdp.uk | bash
+          chmod +x ./bin/htmltest
+          ./bin/htmltest -l 1 -c .github/config/htmltest.yml
