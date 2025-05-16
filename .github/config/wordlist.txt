@@ -73,6 +73,7 @@ crd
 creationtime
 credentialrequest
 credentialsspec
+creds
 crossplatform
 crypto
 cryptographic

@@ -123,7 +123,7 @@ components:
 
 Some frequently changing parameters have been extracted as variables. The OCM CLI uses
 templating to fill them with values. The templating mechanism is described
-[here](https://ocm.software/docs/tutorials/best-practices/#templating-the-resources). For this example
+[here](/docs/tutorials/best-practices/#templating-the-resources). For this example
 we use the default template engine type `subst`.
 
 Note the differences between the various components:

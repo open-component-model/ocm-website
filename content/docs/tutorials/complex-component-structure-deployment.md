@@ -9,16 +9,16 @@ toc: true
 
 ## Introduction
 
-In this tutorial software products are comprised of logical units called [**components**](https://ocm.software/docs/overview/important-terms/#components-in-ocm). A component version consists of a set of technical [artifacts](https://github.com/open-component-model/ocm-spec/blob/main/doc/04-extensions/01-artifact-types/README.md) (e.g., Docker images, Helm charts, binaries, configuration data, etc.). Such artifacts are called **resources** in this specification. Resources are usually built from something, e.g., code in a git repo. Those are named **sources** in this specification.
+In this tutorial software products are comprised of logical units called [*components*](/docs/overview/important-terms/#components-in-ocm). A component version consists of a set of technical [*artifacts*](https://github.com/open-component-model/ocm-spec/blob/main/doc/04-extensions/01-artifact-types/README.md) (e.g., Docker images, Helm charts, binaries, configuration data, etc.). Such artifacts are called *resources* in this specification. Resources are usually built from something, e.g., code in a git repo. Those are named *sources* in this specification.
 
-OCM introduces a **Component Version** for every component version that
+OCM introduces a *Component Version* for every component version that
 describes the resources, sources, and other component versions belonging to a particular
 component version and how to access them.
 
 Usually, however, real-life applications are composed of multiple components. For
 example, an application might consist of a frontend, a backend, a database, and a web server.
 During the software development process new
-[**component versions**](https://github.com/open-component-model/ocm-spec/blob/main/doc/01-model/02-elements-toplevel.md#components-and-component-versions)
+[*component versions*](https://github.com/open-component-model/ocm-spec/blob/main/doc/01-model/02-elements-toplevel.md#components-and-component-versions)
 are created and third-party components might be consumed from a public registry and
 updated from time to time.
 
@@ -44,7 +44,7 @@ references, you could collect all artifacts belonging to this product version.
 
 ## Prerequisites
 
-We assume that you have already read the guides in the [Getting Started](https://ocm.software/docs/getting-started/getting-started-with-ocm/) section, as this guide discusses a more complex scenario.
+We assume that you have already read the guides in the [Getting Started](/docs/getting-started/) section, as this guide discusses a more complex scenario.
 
 ## Constructing the Component
 

@@ -27,7 +27,7 @@ This chapter contains guidelines for common scenarios how to work with the Open 
 
 The Open Component Model (OCM) provides a public schema to validate and offer auto-completion of component constructor files
 used to create component descriptors.
-This schema is available at [https://ocm.software/schemas/configuration-schema.yaml](/schemas/configuration-schema.yaml).
+This schema is available at [https://ocm.software/schemas/configuration-schema.yaml](https://ocm.software/schemas/configuration-schema.yaml).
 
 To use this schema in your IDE, you can add the following line to your component constructor file:
 
@@ -336,7 +336,7 @@ example can be found in the sample Github repository.
 
 ## Static and Dynamic Variable Substitution
 
-Looking at the [settings file](https://ocm.software/docs/tutorials/build-deploy-applications-using-helm-charts-and-ocm/#building-the-common-transport-archive-ctf) shows that
+Looking at the [settings file](/docs/tutorials/build-deploy-applications-using-helm-charts-and-ocm/#building-the-common-transport-archive-ctf) shows that
 some variables like the `version` or the `commit` change with every build
 or release. In many cases, these variables will be auto-generated during the build.
 

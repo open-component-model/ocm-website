@@ -1,6 +1,6 @@
 ---
 title: "Community Calls History"
-description: "Community Calls History"
+url: /community/call_history/
 lead: true
 draft: false
 images: []

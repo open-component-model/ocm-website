@@ -257,7 +257,7 @@ LAST SEEN   TYPE      REASON      OBJECT                         MESSAGE
 5m44s       Warning   Failed      pod/podinfo-7b7d874bf8-xv75x   Error: ImagePullBackOff
 ```
 
-Check out our [GitOps Driven Configuration of OCM Applications](/docs/tutorials/ocm-and-gitops/gitops-driven-configuration-of-ocm-applications) guide to see how you can use the `ocm-controller` to configure your application at runtime and solve exactly this kind of problem!
+Check out our [GitOps Driven Configuration of OCM Applications](/docs/tutorials/ocm-and-gitops/gitops-driven-configuration-of-ocm-applications/) guide to see how you can use the `ocm-controller` to configure your application at runtime and solve exactly this kind of problem!
 
 ### Conclusion
 

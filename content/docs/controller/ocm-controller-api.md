@@ -35,7 +35,7 @@ Resource Types:
 <td>
 <code>metadata</code><br>
 <em>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.19/#objectmeta-v1-meta">
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#objectmeta-v1-meta">
 Kubernetes meta/v1.ObjectMeta
 </a>
 </em>
@@ -468,7 +468,7 @@ string
 <td>
 <code>metadata</code><br>
 <em>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.19/#objectmeta-v1-meta">
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#objectmeta-v1-meta">
 Kubernetes meta/v1.ObjectMeta
 </a>
 </em>
@@ -708,7 +708,7 @@ github.com/open-component-model/ocm/pkg/contexts/ocm/compdesc/meta/v1.Labels
 <td>
 <code>metadata</code><br>
 <em>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.19/#objectmeta-v1-meta">
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#objectmeta-v1-meta">
 Kubernetes meta/v1.ObjectMeta
 </a>
 </em>
@@ -773,7 +773,7 @@ github.com/fluxcd/kustomize-controller/api/v1beta2.KustomizationSpec
 <td>
 <code>helmReleaseTemplate</code><br>
 <em>
-<a href="https://pkg.go.dev/github.com/fluxcd/helm-controller/api/v2betapkg1#HelmReleaseSpec">
+<a href="https://pkg.go.dev/github.com/fluxcd/helm-controller/api/v2#HelmReleaseSpec">
 github.com/fluxcd/helm-controller/api/v2beta1.HelmReleaseSpec
 </a>
 </em>
@@ -860,7 +860,7 @@ github.com/fluxcd/kustomize-controller/api/v1beta2.KustomizationSpec
 <td>
 <code>helmReleaseTemplate</code><br>
 <em>
-<a href="https://pkg.go.dev/github.com/fluxcd/helm-controller/api/v2betapkg1#HelmReleaseSpec">
+<a href="https://pkg.go.dev/github.com/fluxcd/helm-controller/api/v2#HelmReleaseSpec">
 github.com/fluxcd/helm-controller/api/v2beta1.HelmReleaseSpec
 </a>
 </em>
@@ -1011,7 +1011,7 @@ string
 <td>
 <code>metadata</code><br>
 <em>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.19/#objectmeta-v1-meta">
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#objectmeta-v1-meta">
 Kubernetes meta/v1.ObjectMeta
 </a>
 </em>
@@ -1581,7 +1581,7 @@ string
 <td>
 <code>secretRef</code><br>
 <em>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.19/#localobjectreference-v1-core">
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#localobjectreference-v1-core">
 Kubernetes core/v1.LocalObjectReference
 </a>
 </em>
@@ -1759,7 +1759,7 @@ MUST NOT CONTAIN THE SCHEME.</p>
 <td>
 <code>secretRef</code><br>
 <em>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.19/#localobjectreference-v1-core">
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#localobjectreference-v1-core">
 Kubernetes core/v1.LocalObjectReference
 </a>
 </em>
@@ -1790,7 +1790,7 @@ Kubernetes core/v1.LocalObjectReference
 <td>
 <code>metadata</code><br>
 <em>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.19/#objectmeta-v1-meta">
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#objectmeta-v1-meta">
 Kubernetes meta/v1.ObjectMeta
 </a>
 </em>
@@ -1887,7 +1887,7 @@ ResourceStatus
 <td>
 <code>metadata</code><br>
 <em>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.19/#objectmeta-v1-meta">
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#objectmeta-v1-meta">
 Kubernetes meta/v1.ObjectMeta
 </a>
 </em>
@@ -2644,7 +2644,7 @@ Kubernetes meta/v1.Duration
 <td>
 <code>metadata</code><br>
 <em>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.19/#objectmeta-v1-meta">
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#objectmeta-v1-meta">
 Kubernetes meta/v1.ObjectMeta
 </a>
 </em>
@@ -3017,7 +3017,7 @@ string
 <td>
 <code>secretRef</code><br>
 <em>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.19/#localobjectreference-v1-core">
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#localobjectreference-v1-core">
 Kubernetes core/v1.LocalObjectReference
 </a>
 </em>

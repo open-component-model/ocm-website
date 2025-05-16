@@ -1,7 +1,7 @@
 ---
 title: "The OCM Community"
 description: "The OCM Community"
-url: community
+url: "/community/community/"
 lead: true
 draft: false
 images: []
@@ -86,7 +86,7 @@ To see all announcements and join the group, please visit the [OCM Announcements
 #### Recordings and Slides
 
 All calls will be recorded and uploaded publicly to the [OCM YouTube channel](https://www.youtube.com/@OpenComponentModel).
-Slides and agenda from prior community calls are stored [here](https://ocm.software/community/community-calls-history/).
+Slides and agenda from prior community calls are stored [here](/community/call_history/).
 
 {{<callout context="note" title="Meeting Recordings">}}If you do not consent to being recorded, please do not enable your microphone or camera, or do not join the meetings.{{</callout>}}
 
