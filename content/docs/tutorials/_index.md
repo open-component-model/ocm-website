@@ -1,5 +1,6 @@
 ---
 title : "Tutorials"
+icon: "🚀"
 description: ""
 weight: 60
 lead: ""

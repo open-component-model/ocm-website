@@ -1,6 +1,7 @@
 ---
 title: CLI Reference
 name: cli-reference
+icon: "💻"
 url: /docs/cli-reference/
 draft: false
 images: []

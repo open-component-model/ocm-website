@@ -1,5 +1,6 @@
 ---
 title: "OCM Controller API v1"
+icon: "📡"
 description: ""
 lead: ""
 draft: false
