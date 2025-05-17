@@ -1,2 +1,11 @@
-# Created by venv; see https://docs.python.org/3/library/venv.html
-*
+node_modules/
+resources/_gen/
+.hugo_build.lock
+ocm-cli/
+ocm-spec/
+public/
+.idea/
+/.project
+hugo_stats.json
+.DS_Store
+tmp/*
