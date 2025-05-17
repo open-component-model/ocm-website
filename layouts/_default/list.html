@@ -48,15 +48,19 @@
       {{ if and .IsSection (not .Params.hideChildren) }}
         <div class="section-children">
           {{ if .Pages }}
-            <h2>{{ default "In this section" .Params.childrenTitle }}</h2>
             <div class="cards-grid">
               {{ range .Pages }}
-                <div class="child-page card card-docs-vertical h-100">
-                  <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
-                  {{ with .Description }}
-                    <p>{{ . }}</p>
+                <a class="card card-docs-vertical" href="{{ .RelPermalink }}">
+                  {{ with .Params.icon }}
+                    <span class="card-emoji" aria-hidden="true" style="font-size:2.4rem; margin-bottom:0.2em;">{{ . }}</span>
                   {{ end }}
-                </div>
+                  <div class="card-body text-center">
+                    <h3 class="card-title">{{ .Title }}</h3>
+                    {{ with .Params.description }}
+                      <div class="card-desc small text-truncate-2">{{ . }}</div>
+                    {{ end }}
+                  </div>
+                </a>
               {{ end }}
             </div>
           {{ end }}

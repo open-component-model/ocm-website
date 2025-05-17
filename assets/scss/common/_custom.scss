@@ -230,42 +230,44 @@ header.navbar .ocm-logo-text svg {
   gap: 2rem;
 }
 
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2rem;
+  width: 100%;
+}
 .card.card-docs-vertical {
-  min-width: 0;     // Damit Grid das Handling übernimmt
-  max-width: 100%;  // Damit es immer in die Grid-Zelle passt
   border-radius: 1.2rem;
   border: 1px solid #ddd;
   background: #fff;
-  padding: 1.25rem 1.2rem;
-  box-shadow: 0 0.1rem 0.4rem rgba(0,0,0,0.07);
-  transition: box-shadow 0.2s, border-color 0.2s, background 0.2s;
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 1.25rem 1.2rem;
+  box-shadow: 0 0.1rem 0.4rem rgba(0,0,0,0.07);
+  transition: box-shadow 0.2s, border-color 0.2s, background 0.2s;
 }
-.card.card-docs-vertical:hover {
-  box-shadow: 0 1rem 2rem rgba(0,0,0,.17);
-  border-color: #6095d1;
-  background: #f8fafc;
-  z-index: 2;
+.card-emoji {
+  font-size: 2.1rem;
+  display: block;
+  margin-bottom: 0.5rem;
 }
-.text-truncate-2 {
-  display: -webkit-box !important;
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
+.card-title {
+  font-size: 1.15rem;
+  margin-bottom: 0.7rem;
+}
+.card-desc {
+  font-size: 0.98rem;
+  color: #555;
+  margin-bottom: 0.1rem;
 }
 [data-theme=dark] .card.card-docs-vertical {
-  background: transparent;
-  border: 1px solid rgba(255,255,255,0.15);
-  box-shadow: 0 0.1rem 0.5rem rgba(0,0,0,0.40);
+  background: #23253a;
+  color: #eee;
+  border: 1px solid #3d4259;
 }
-[data-theme=dark] .card.card-docs-vertical:hover {
-  background: rgba(255,255,255,0.06);
-  border-color: #8bb6eb;
-  box-shadow: 0 1.2rem 2.4rem rgba(0,0,0,0.52);
+[data-theme=dark] .card-emoji {
+  /* keeps emoji visible */
 }
 
 /* ============================================
