@@ -1,0 +1,41 @@
+{{ define "main" }}
+  <div class="row flex-xl-nowrap">
+    {{ if (in site.Params.doks.sectionNav .Section) -}}
+      <div class="col-lg-5 col-xl-4 docs-sidebar{{ if ne site.Params.doks.navbarSticky true }} docs-sidebar-top{{ end }}{{ if site.Params.doks.headerBar }} docs-sidebar-offset{{ end }} d-none d-lg-block">
+        {{ partial "sidebar/section-menu.html" . }}
+      </div>
+    {{ end -}}
+
+    <main class="docs-content col-lg-11 col-xl-9 mx-xl-auto">
+      {{ if site.Params.doks.breadcrumbTrail -}}
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            {{ partial "main/breadcrumb" . -}}
+            <li class="breadcrumb-item active" aria-current="page">{{ .Title }}</li>
+          </ol>
+        </nav>
+      {{ end }}
+
+      <h1>{{ .Title }}</h1>
+
+      <!-- Always use the "mobile" TOC, regardless of screen size -->
+      {{ partial "sidebar/docs-toc-mobile.html" . }}
+
+      {{ if site.Params.doks.headlineHash -}}
+        {{ partial "main/headline-hash" .Content }}
+      {{ else -}}
+        {{ .Content }}
+      {{ end -}}
+
+      <div class="page-footer-meta d-flex flex-column flex-md-row justify-content-between">
+        {{ if site.Params.doks.lastMod -}}
+          {{ partial "main/last-modified.html" . }}
+        {{ end -}}
+        {{ if site.Params.doks.editPage -}}
+          {{ partial "main/edit-page.html" . }}
+        {{ end -}}
+      </div>
+      {{ partial "main/docs-navigation.html" . }}
+    </main>
+  </div>
+{{ end }}

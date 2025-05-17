@@ -1,123 +1,80 @@
 {{ define "main" }}
- <div class="row flex-xl-nowrap">
-
-   {{ if (in site.Params.doks.sectionNav .Section) -}}
-     <div class="col-lg-5 col-xl-4 docs-sidebar{{ if ne site.Params.doks.navbarSticky true }} docs-sidebar-top{{ end }}{{ if site.Params.doks.headerBar }} docs-sidebar-offset{{ end }} d-none d-lg-block">
-       {{ partial "sidebar/section-menu.html" . }}
-     </div>
-   {{ end -}}
-
-   {{ if and (eq site.Params.doks.containerBreakpoint "fluid") (in .Site.Params.mainSections .Type) }}
-     <div class="col container-fw d-lg-flex flex-lg-row justify-content-center mx-auto">
-   {{ end }}
-
-   {{ if ne .Params.toc false -}}
-     <nav class="docs-toc{{ if ne site.Params.doks.navbarSticky true }} docs-toc-top{{ end }}{{ if site.Params.doks.headerBar }} docs-toc-offset{{ end }} d-none d-xl-block col-xl-3" aria-label="Secondary navigation">
-       {{ partial "sidebar/docs-toc-desktop.html" . }}
-     </nav>
-   {{ end -}}
-
-  {{ if .Params.toc -}}
-    <main class="docs-content col-lg-11 col-xl-9">
-  {{ else -}}
-    <main class="docs-content col-12">
-  {{ end -}}
-
-   {{ if site.Params.doks.breadcrumbTrail -}}
-     <!-- Breadcrumb navigation for nested content -->
-     <nav aria-label="breadcrumb">
-       <ol class="breadcrumb">
-         {{ partial "main/breadcrumb" . -}}
-         <li class="breadcrumb-item active" aria-current="page">{{ .Title }}</li>
-       </ol>
-     </nav>
-   {{ end }}
-
-   <h1>{{ .Title }}</h1>
-   {{ if .IsSection }}
-    {{ with .Description }}
-      <p class="lead section-description">{{ . }}</p>
-    {{ end }}
-    {{ end }}
-   <!-- <p class="lead">{{ .Params.lead | safeHTML }}</p> -->
-
-   {{ if ne .Params.toc false -}}
-     <nav class="toc-mobile d-xl-none" aria-label="Quaternary navigation">
-       {{ partial "sidebar/docs-toc-mobile.html" . }}
-     </nav>
-   {{ end -}}
- 
-   <!-- Display content from _index.md (the section node itself) -->
-   {{ if site.Params.doks.headlineHash -}}
-     {{ partial "main/headline-hash" .Content }}
-   {{ else -}}
-     {{ .Content }}
-   {{ end -}}
-
-   <!-- Display the section node (from _index.md) as a "child" entry in the overview, if wanted -->
-   {{/* Only show if this is a section (but not home), and _index.md has more than just empty frontmatter */}}
-   {{ if and .IsSection (not .IsHome) (or (.Params.summary) (.Content)) }}
-     <div class="section-self-entry mb-4 p-3 border rounded bg-light">
-       <!-- Section node: shows summary and/or content from _index.md -->
-       <h2 class="h4 mb-2">{{ .Title }}</h2>
-       {{ with .Params.summary }}
-         <p class="mb-2">{{ . }}</p>
-       {{ end }}
-       {{ if .Content }}
-         <div class="mb-2">{{ .Content }}</div>
-       {{ end }}
-     </div>
-   {{ end }}
-
-   <!-- Display children if this is a section page -->
-   {{ if and .IsSection (not .Params.hideChildren) }}
-<div class="child-pages cards-grid">
-  {{ range .Pages }}
-    <div class="card card-docs-vertical h-100">
-      <div class="card-body d-flex flex-column align-items-center text-center">
-        <h5 class="card-title mb-2">
-          <a href="{{ .RelPermalink }}" class="stretched-link text-decoration-none">{{ .Title }}</a>
-        </h5>
-        <span class="fs-2 my-2">
-          {{ with .Params.icon }}
-            {{ . }}
-          {{ else }}
-            {{ with .Parent.Params.icon }}
-              {{ . }}
-            {{ else }}
-              📄
-            {{ end }}
-          {{ end }}
-        </span>
-        {{ with .Description }}
-          <p class="card-text text-truncate-2 text-muted small mb-0">{{ . }}</p>
-        {{ end }}
+  <div class="row flex-xl-nowrap">
+    {{ if (in site.Params.doks.sectionNav .Section) -}}
+      <div class="col-lg-5 col-xl-4 docs-sidebar{{ if ne site.Params.doks.navbarSticky true }} docs-sidebar-top{{ end }}{{ if site.Params.doks.headerBar }} docs-sidebar-offset{{ end }} d-none d-lg-block">
+        {{ partial "sidebar/section-menu.html" . }}
       </div>
-    </div>
-  {{ end }}
-</div>
-   {{ end }}
- 
-   <div class="page-footer-meta d-flex flex-column flex-md-row justify-content-between">
-     {{ if site.Params.doks.lastMod -}}
-       {{ partial "main/last-modified.html" . }}
-     {{ end -}}
-     {{ if site.Params.doks.editPage -}}
-       {{ partial "main/edit-page.html" . }}
-     {{ end -}}
-   </div>
-   {{ partial "main/docs-navigation.html" . }}
-   <!--
-   {{ if not .Site.Params.options.collapsibleSidebar -}}
-     {{ partial "main/docs-navigation.html" . }}
-   {{ else -}}
-     <div class="my-n3"></div>
-   {{ end -}}
-   -->
-   </main>
+    {{ end -}}
+    {{ if and (eq site.Params.doks.containerBreakpoint "fluid") (in .Site.Params.mainSections .Type) }}
+      <div class="col container-fw d-lg-flex flex-lg-row justify-content-center mx-auto">
+    {{ end }}
 
-   {{ if and (eq site.Params.doks.containerBreakpoint "fluid") (in .Site.Params.mainSections .Type) }}
-     </div>
-   {{ end }}
- </div>
+    <main class="docs-content col-lg-11 col-xl-9 mx-xl-auto">
+      {{ if site.Params.doks.breadcrumbTrail -}}
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            {{ partial "main/breadcrumb" . -}}
+            <li class="breadcrumb-item active" aria-current="page">{{ .Title }}</li>
+          </ol>
+        </nav>
+      {{ end }}
+
+      <h1>{{ .Title }}</h1>
+
+      <!-- === TOC box always at the top of the main content area (NEW) === -->
+      {{ if .TableOfContents }}
+        <!-- [TOC-BOX-BEGIN] - TOC is now always shown as a box above content -->
+        <aside class="toc-box mb-4">
+          <h2 class="toc-title">On this page</h2>
+          {{ .TableOfContents }}
+        </aside>
+        <!-- [TOC-BOX-END] -->
+      {{ end }}
+
+      {{ if ne .Params.toc false -}}
+        <nav class="toc-mobile d-xl-none" aria-label="Quaternary navigation">
+          {{ partial "sidebar/docs-toc-mobile.html" . }}
+        </nav>
+      {{ end -}}
+
+      <!-- Display the content from _index.md -->
+      {{ if site.Params.doks.headlineHash -}}
+        {{ partial "main/headline-hash" .Content }}
+      {{ else -}}
+        {{ .Content }}
+      {{ end -}}
+
+      <!-- Cards for all children of this Section -->
+      {{ if and .IsSection (not .Params.hideChildren) }}
+        <div class="section-children">
+          {{ if .Pages }}
+            <h2>{{ default "In this section" .Params.childrenTitle }}</h2>
+            <div class="cards-grid">
+              {{ range .Pages }}
+                <div class="child-page card card-docs-vertical h-100">
+                  <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+                  {{ with .Description }}
+                    <p>{{ . }}</p>
+                  {{ end }}
+                </div>
+              {{ end }}
+            </div>
+          {{ end }}
+        </div>
+      {{ end }}
+
+      <div class="page-footer-meta d-flex flex-column flex-md-row justify-content-between">
+        {{ if site.Params.doks.lastMod -}}
+          {{ partial "main/last-modified.html" . }}
+        {{ end -}}
+        {{ if site.Params.doks.editPage -}}
+          {{ partial "main/edit-page.html" . }}
+        {{ end -}}
+      </div>
+      {{ partial "main/docs-navigation.html" . }}
+    </main>
+    {{ if and (eq site.Params.doks.containerBreakpoint "fluid") (in .Site.Params.mainSections .Type) }}
+      </div>
+    {{ end }}
+  </div>
 {{ end }}

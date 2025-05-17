@@ -267,3 +267,24 @@ header.navbar .ocm-logo-text svg {
   border-color: #8bb6eb;
   box-shadow: 0 1.2rem 2.4rem rgba(0,0,0,0.52);
 }
+
+/* ============================================
+   TOC BOX FOR DOCS CONTENT (NEW)
+   ============================================ */
+/* --- The following styles are new for the TOC box above the main content --- */
+.toc-box {
+  border-radius: 0.6rem;
+  background: #f8f9fa;
+  border: 1px solid #ececec;
+  padding: 1.3rem 1.8rem;
+}
+.toc-title {
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin-bottom: 0.7rem;
+}
+[data-theme=dark] .toc-box {
+  background: #242538;
+  border: 1px solid rgba(255,255,255,0.07);
+}
+/* --- End TOC box styles --- */

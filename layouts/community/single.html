@@ -3,6 +3,7 @@
     <div class="row justify-content-center">
       <div class="col-12 col-md-10 col-lg-8 docs-content mx-auto">
         <h1>{{ .Title }}</h1>
+        {{/* Always show TOC above content, using mobile TOC style for unified look (like Community) */}}
         {{ partial "sidebar/docs-toc-mobile.html" . }}
         {{ .Content }}
       </div>
