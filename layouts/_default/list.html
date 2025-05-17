@@ -71,36 +71,31 @@
 
    <!-- Display children if this is a section page -->
    {{ if and .IsSection (not .Params.hideChildren) }}
-    <div class="child-pages row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-      {{ range .Pages }}
-        <div class="col d-flex">
-          <div class="card h-100 w-100 shadow-sm border rounded-4 card-docs-vertical">
-            <div class="card-body d-flex flex-column align-items-center text-center">
-              <!-- Title as card title -->
-              <h5 class="card-title mb-2">
-                <a href="{{ .RelPermalink }}" class="stretched-link text-decoration-none">{{ .Title }}</a>
-              </h5>
-              <!-- Icon/emoji below the title -->
-              <span class="fs-2 my-2">
-                {{ with .Params.icon }}
-                  {{ . }}
-                {{ else }}
-                  {{ with .Parent.Params.icon }}
-                    {{ . }}
-                  {{ else }}
-                    📄
-                  {{ end }}
-                {{ end }}
-              </span>
-              <!-- Only description from front matter -->
-              {{ with .Description }}
-                <p class="card-text text-truncate-2 text-muted small mb-0">{{ . }}</p>
-              {{ end }}
-            </div>
-          </div>
-        </div>
-      {{ end }}
+<div class="child-pages cards-grid">
+  {{ range .Pages }}
+    <div class="card card-docs-vertical h-100">
+      <div class="card-body d-flex flex-column align-items-center text-center">
+        <h5 class="card-title mb-2">
+          <a href="{{ .RelPermalink }}" class="stretched-link text-decoration-none">{{ .Title }}</a>
+        </h5>
+        <span class="fs-2 my-2">
+          {{ with .Params.icon }}
+            {{ . }}
+          {{ else }}
+            {{ with .Parent.Params.icon }}
+              {{ . }}
+            {{ else }}
+              📄
+            {{ end }}
+          {{ end }}
+        </span>
+        {{ with .Description }}
+          <p class="card-text text-truncate-2 text-muted small mb-0">{{ . }}</p>
+        {{ end }}
+      </div>
     </div>
+  {{ end }}
+</div>
    {{ end }}
  
    <div class="page-footer-meta d-flex flex-column flex-md-row justify-content-between">
