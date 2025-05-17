@@ -6,5 +6,9 @@ ocm.software/ocm v0.15.1-0.20250516161413-50bcc1f02c17 h1:DKBE6igqJKHED48wz8P+v2
 ocm.software/ocm v0.15.1-0.20250516161413-50bcc1f02c17/go.mod h1:9a3LjBegUsayn1ba6UWeOfoBfJArwRbSg5ja9U0jmic=
 ocm.software/ocm v0.15.1-0.20250516165843-1fc1e1b2144a h1:MybpBl6jqbtQvYKL3HNYzAmJZ1DggemyURKBpPDizrQ=
 ocm.software/ocm v0.15.1-0.20250516165843-1fc1e1b2144a/go.mod h1:9a3LjBegUsayn1ba6UWeOfoBfJArwRbSg5ja9U0jmic=
+ocm.software/ocm v0.15.1-0.20250516171157-e9f766ff9d4d h1:ZpPb+bVIY7m/clgbutSZWNmfux8+RacM6WW7Brf1HJA=
+ocm.software/ocm v0.15.1-0.20250516171157-e9f766ff9d4d/go.mod h1:9a3LjBegUsayn1ba6UWeOfoBfJArwRbSg5ja9U0jmic=
+ocm.software/ocm v0.15.1-0.20250516175601-318ad40b3069 h1:lzbPG9dLsDRhe46ZcNlsmG2Um9Z5eEBAnadcYQkKDOs=
+ocm.software/ocm v0.15.1-0.20250516175601-318ad40b3069/go.mod h1:9a3LjBegUsayn1ba6UWeOfoBfJArwRbSg5ja9U0jmic=
 ocm.software/ocm v0.24.0 h1:aCVbWrW19QZLo8gpwWFdGkocJQO3pgk3/Mo5nLImDBM=
 ocm.software/ocm v0.24.0/go.mod h1:uaGRLsrvPG7aWEel6MuDnen1XciClin30gnowCIeUS8=
