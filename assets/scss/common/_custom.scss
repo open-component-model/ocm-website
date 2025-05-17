@@ -113,22 +113,63 @@ header.navbar .ocm-logo-text svg {
    FOOTER
    ============================================ */
 
-// Full-width footer layout
-.site-footer .container {
+// Responsive flex footer layout
+.site-footer .container,
+.site-footer .container-fluid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
   max-width: 100% !important;
   padding-left: 1rem;
   padding-right: 1rem;
 }
-
-// Align footer content left
-.site-footer {
-  text-align: left !important;
+.site-footer small {
+  white-space: normal !important;
+  text-align: left;
+  margin: 0.2rem 0;
+}
+@media (max-width: 700px) {
+  .site-footer .container,
+  .site-footer .container-fluid {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .site-footer small {
+    text-align: left;
+    width: 100%;
+  }
 }
 
-// Inline footer links
+// Let each footer small take up a chunk, but wrap nicely on mobile
+.site-footer small {
+  flex: 1 1 260px;
+  min-width: 160px;
+  white-space: normal !important;
+  text-align: left;
+  margin: 0.2rem 0;
+}
+
+// Keep footer links inline, but allow wrapping if needed
 .site-footer small a {
   display: inline !important;
   white-space: nowrap !important;
+}
+
+// Optional: Center everything on extra-narrow screens
+@media (max-width: 540px) {
+  .site-footer .container,
+  footer.site-footer .container,
+  footer.site-footer .container-fluid {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.2rem;
+  }
+  .site-footer small {
+    text-align: left;
+    width: 100%;
+  }
 }
 
 
@@ -229,16 +270,27 @@ header.navbar .ocm-logo-text svg {
    ============================================ */
 
 /* Allow as many cards per row as fit on the screen */
+/* ============================================
+   CARD STYLES for Section Children Grid
+   ============================================ */
+
+/* Allow as many cards per row as fit on the screen */
 .cards-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));  // << Adaptive!
   gap: 2rem;
   width: 100%;
-  max-width: 1800px;
+  max-width: 100%; // Let parent col handle width
   margin: 0 auto;
+  padding: 0 1.5rem;
 }
 
-/* Card style, prevents underlines, gives padding & hover effect */
+.card.card-docs-vertical {
+  min-width: 0;    // Let grid handle shrinking
+  max-width: 100%; // Let grid handle growing
+}
+/* Ensure cards never overlap sidebar or navbar */
+
 .card.card-docs-vertical {
   border-radius: 1.2rem;
   border: 1px solid #ddd;
@@ -250,6 +302,7 @@ header.navbar .ocm-logo-text svg {
   box-shadow: 0 0.1rem 0.4rem rgba(0,0,0,0.07);
   padding: 1.25rem 1.2rem;
   transition: box-shadow 0.2s, border-color 0.2s, background 0.2s;
+  min-width: 0;
 }
 .card.card-docs-vertical:hover,
 .card.card-docs-vertical:focus {

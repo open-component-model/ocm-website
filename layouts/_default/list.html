@@ -5,66 +5,77 @@
         {{ partial "sidebar/section-menu.html" . }}
       </div>
     {{ end -}}
-    <div class="col container-fw d-lg-flex flex-lg-row justify-content-center mx-auto">
-      {{ if ne .Params.toc false -}}
-        {{ if and (not .IsSection) .TableOfContents }}
-          <nav class="toc-box" aria-label="On this page">
-            <div class="toc-title">On this page</div>
-            {{ .TableOfContents }}
-          </nav>
-        {{ end }}
-      {{ end -}}
-      <main class="docs-content col-lg-11 col-xl-9 mx-xl-auto">
-        {{ if site.Params.doks.breadcrumbTrail -}}
-          <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-              {{ partial "main/breadcrumb" . -}}
-              <li class="breadcrumb-item active" aria-current="page">{{ .Title }}</li>
-            </ol>
-          </nav>
-        {{ end }}
-        <h1>{{ .Title }}</h1>
-        {{ if site.Params.doks.headlineHash -}}
-          {{ partial "main/headline-hash" .Content }}
-        {{ else -}}
-          {{ .Content }}
-        {{ end -}}
-
-        <!-- Section children as cards -->
-        {{ if and .IsSection (not .Params.hideChildren) }}
-          <div class="section-children">
-            {{ if .Pages }}
-              <div class="cards-grid">
-                {{ range .Pages }}
-                  <a class="card card-docs-vertical" href="{{ .RelPermalink }}">
-                    {{ with .Params.icon }}
-                      <span class="card-emoji" aria-hidden="true">{{ . }}</span>
-                    {{ else }}
-                      <span class="card-emoji" aria-hidden="true">📄</span>
-                    {{ end }}
-                    <div class="card-body text-center">
-                      <h3 class="card-title">{{ .Title }}</h3>
-                      {{ with .Params.description }}
-                        <div class="card-desc text-truncate-2">{{ . }}</div>
+    {{/* Use container-fluid for section nodes (card overviews), else regular container */}}
+    {{ if .IsSection }}
+      <div class="container-fluid p-0">
+        <main class="docs-content mx-auto">
+          {{ if site.Params.doks.breadcrumbTrail -}}
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                {{ partial "main/breadcrumb" . -}}
+                <li class="breadcrumb-item active" aria-current="page">{{ .Title }}</li>
+              </ol>
+            </nav>
+          {{ end }}
+          <h1>{{ .Title }}</h1>
+          {{ if site.Params.doks.headlineHash -}}
+            {{ partial "main/headline-hash" .Content }}
+          {{ else -}}
+            {{ .Content }}
+          {{ end -}}
+          <!-- Cards for section children -->
+          {{ if and .IsSection (not .Params.hideChildren) }}
+            <div class="section-children">
+              {{ if .Pages }}
+                <div class="cards-grid">
+                  {{ range .Pages }}
+                    <a class="card card-docs-vertical" href="{{ .RelPermalink }}">
+                      {{ with .Params.icon }}
+                        <span class="card-emoji" aria-hidden="true">{{ . }}</span>
+                      {{ else }}
+                        <span class="card-emoji" aria-hidden="true">📄</span>
                       {{ end }}
-                    </div>
-                  </a>
-                {{ end }}
-              </div>
-            {{ end }}
-          </div>
-        {{ end }}
-
-        <div class="page-footer-meta d-flex flex-column flex-md-row justify-content-between">
-          {{ if site.Params.doks.lastMod -}}
-            {{ partial "main/last-modified.html" . }}
+                      <div class="card-body text-center">
+                        <h3 class="card-title">{{ .Title }}</h3>
+                        {{ with .Params.description }}
+                          <div class="card-desc text-truncate-2">{{ . }}</div>
+                        {{ end }}
+                      </div>
+                    </a>
+                  {{ end }}
+                </div>
+              {{ end }}
+            </div>
+          {{ end }}
+        </main>
+      </div>
+    {{ else }}
+      <div class="col container-fw d-lg-flex flex-lg-row justify-content-center mx-auto">
+        {{ if ne .Params.toc false -}}
+          {{ if and (not .IsSection) .TableOfContents }}
+            <nav class="toc-box" aria-label="On this page">
+              <div class="toc-title">On this page</div>
+              {{ .TableOfContents }}
+            </nav>
+          {{ end }}
+        {{ end -}}
+        <main class="docs-content col-lg-11 col-xl-9 mx-xl-auto">
+          {{ if site.Params.doks.breadcrumbTrail -}}
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                {{ partial "main/breadcrumb" . -}}
+                <li class="breadcrumb-item active" aria-current="page">{{ .Title }}</li>
+              </ol>
+            </nav>
+          {{ end }}
+          <h1>{{ .Title }}</h1>
+          {{ if site.Params.doks.headlineHash -}}
+            {{ partial "main/headline-hash" .Content }}
+          {{ else -}}
+            {{ .Content }}
           {{ end -}}
-          {{ if site.Params.doks.editPage -}}
-            {{ partial "main/edit-page.html" . }}
-          {{ end -}}
-        </div>
-        {{ partial "main/docs-navigation.html" . }}
-      </main>
-    </div>
+        </main>
+      </div>
+    {{ end }}
   </div>
 {{ end }}
