@@ -264,105 +264,136 @@ header.navbar .ocm-logo-text svg {
    CARD STYLES
    ============================================ */
 
-/* Stronger card hover effect & rounded corners */
-/* ============================================
-   CARD STYLES for Section Children Grid
-   ============================================ */
-
-/* Allow as many cards per row as fit on the screen */
-/* ============================================
-   CARD STYLES for Section Children Grid
-   ============================================ */
-
-/* Allow as many cards per row as fit on the screen */
-.cards-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));  // << Adaptive!
-  gap: 2rem;
-  width: 100%;
-  max-width: 100%; // Let parent col handle width
-  margin: 0 auto;
-  padding: 0 1.5rem;
-}
-
-.card.card-docs-vertical {
-  min-width: 0;    // Let grid handle shrinking
-  max-width: 100%; // Let grid handle growing
-}
-/* Ensure cards never overlap sidebar or navbar */
-
-.card.card-docs-vertical {
-  border-radius: 1.2rem;
-  border: 1px solid #ddd;
+.ocm-flexpage {
+  display: flex;
+  width: 100vw;
+  min-height: 80vh;
+  overflow-x: hidden;
   background: #fff;
+  position: relative;
+}
+
+.ocm-sidebar {
+  width: 290px;
+  min-width: 290px;
+  max-width: 290px;
+  flex-shrink: 0;
+  background: #fff;
+  border-right: 1px solid #ececec;
+  position: sticky;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  z-index: 50;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+.ocm-gridpage {
+  flex: 1 1 auto;
+  min-width: 0;
+  max-width: calc(100vw - 290px);
+  margin-left: 0;
+  margin-right: 0;
+  padding: 2.5rem 2rem 2rem 2rem; // reines rem-Padding
+  box-sizing: border-box;
+  position: relative;
+  z-index: 1;
+}
+
+.ocm-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(246px, 246px));
+  gap: 1.6rem;
+  justify-content: start;
+  max-width: 100%;
+  margin: 0 auto;
+  padding-bottom: 2rem;
+  box-sizing: border-box;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+/* ============================================
+   CARD STYLES – wie gehabt!
+   ============================================ */
+
+.card.card-docs-vertical {
+  width: 100%;
+  height: 280px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-decoration: none !important;
-  box-shadow: 0 0.1rem 0.4rem rgba(0,0,0,0.07);
-  padding: 1.25rem 1.2rem;
-  transition: box-shadow 0.2s, border-color 0.2s, background 0.2s;
-  min-width: 0;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 2px 12px 0 rgba(60,60,60,0.06);
+  transition: box-shadow 0.2s, transform 0.15s;
+  cursor: pointer;
+  border: none;
+  padding: 1.3rem 1rem 1rem 1rem;
+  color: #23263b;
+  text-decoration: none;
 }
-.card.card-docs-vertical:hover,
-.card.card-docs-vertical:focus {
-  box-shadow: 0 1rem 2rem rgba(0,0,0,.17);
-  border-color: #6095d1;
-  background: #f8fafc;
-  text-decoration: none !important;
-}
-.card.card-docs-vertical * {
-  text-decoration: none !important;
-}
-.card-emoji {
-  font-size: 2.1rem;
-  display: block;
-  margin-bottom: 0.4rem;
+.card.card-docs-vertical:hover {
+  box-shadow: 0 6px 24px 0 rgba(60,60,60,0.13);
+  transform: translateY(-4px) scale(1.02);
+  color: #2947a9;
+  text-decoration: none;
 }
 .card-title {
-  color: #406bc6;
-  font-size: 1.1rem;
-  font-weight: 600;
-  margin-bottom: 0.6rem;
-  transition: color 0.2s;
-  text-decoration: none !important;
+  font-weight: 700;
+  color: #233284;
 }
-.card.card-docs-vertical:hover .card-title {
-  color: #274997;
+.card-text {
+  font-size: 1rem;
+  color: #313244;
 }
-.card-desc {
-  color: #222;
-  font-size: 0.99rem;
-  font-weight: 400;
-  margin-bottom: 0.1rem;
-  text-decoration: none !important;
-}
-.card.card-docs-vertical:hover .card-desc {
-  color: #222;
-}
-.text-truncate-2 {
-  display: -webkit-box !important;
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
+.card-emoji {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: .6rem;
 }
 
-[data-theme=dark] .card.card-docs-vertical {
-  background: #23253a;
-  color: #eee;
-  border: 1px solid #3d4259;
+/* Responsive Breakpoints */
+@media (max-width: 1100px) {
+  .ocm-flexpage { flex-direction: column; }
+  .ocm-sidebar {
+    position: static;
+    height: auto;
+    width: 100vw;
+    min-width: 0;
+    max-width: 100vw;
+    border-right: none;
+    border-bottom: 1px solid #ececec;
+    box-shadow: none;
+    flex-shrink: 1;
+    z-index: 50;
+  }
+  .ocm-gridpage {
+    max-width: 100vw;
+    padding: 1.5rem 1.2rem 1.2rem 1.2rem;
+  }
+  .ocm-cards-grid {
+    padding-left: 1.2rem;
+    padding-right: 1.2rem;
+  }
+  .card.card-docs-vertical {
+    height: 180px;
+    padding: 0.9rem 0.7rem 0.7rem 0.7rem;
+  }
 }
-[data-theme=dark] .card-emoji {
-  /* keep emoji visible */
+
+@media (max-width: 700px) {
+  .ocm-cards-grid {
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 0.7rem;
+  }
+  .card.card-docs-vertical {
+    height: 140px;
+    padding: 0.7rem 0.6rem 0.6rem 0.6rem;
+  }
 }
-[data-theme=dark] .card-title {
-  color: #7bb6ff;
-}
-[data-theme=dark] .card.card-docs-vertical:hover .card-title {
-  color: #b8d5ff;
-}
+
+
 
 /* ============================================
    TOC BOX FOR DOCS CONTENT (NEW)
