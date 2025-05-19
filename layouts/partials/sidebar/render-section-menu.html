@@ -81,7 +81,7 @@ skipped. To override this behavior, set $skipHome to false below.
   {{- $hasChildren := gt (len $node.Page.Pages) 0 }}
   <li>
     {{- if $hasChildren }}
-      <details{{ if $currentPage.IsSection }}{{ if $currentPage.Eq $node.Page }} open{{ end }}{{ end }}>
+      <details{{ if or ($currentPage.Eq $node.Page) (in $currentPage.Ancestors $node.Page) }} open{{ end }}>
         <summary>
           {{- if $currentPage.IsSection }}
             {{- if $currentPage.Eq $node.Page }}
