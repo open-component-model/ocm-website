@@ -19,7 +19,7 @@
       <h1>{{ .Title }}</h1>
       {{ with .Description }}
         <div class="section-desc-box">
-          {{ . }}
+          {{ . | safeHTML }}
         </div>
       {{ end }}
 

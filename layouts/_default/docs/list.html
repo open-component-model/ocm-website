@@ -3,12 +3,12 @@
     <h1>{{ .Title }}</h1>
       {{ with .Description }}
         <div class="section-desc-box">
-          {{ . }}
+          {{ . | safeHTML }}
         </div>
       {{ end }}
 {{ with .Description }}
   <div class="section-desc-box">
-    {{ . }}
+    {{ . | safeHTML }}
   </div>
 {{ end }}
     <div class="ocm-cards-grid">
