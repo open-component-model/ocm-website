@@ -377,3 +377,44 @@ header.navbar .ocm-logo-text svg {
     min-height: 120px;
   }
 }
+
+/* Only apply arrow to nested lists in sidebar, not to top-level sections */
+.section-nav .list-nested > li > details > summary {
+  display: flex;
+  align-items: center;
+  padding: 0;
+  cursor: pointer;
+}
+
+.section-nav .list-nested > li > details > summary::-webkit-details-marker {
+  display: none;
+}
+
+.section-nav .list-nested > li > details > summary::before {
+  content: "›";
+  display: inline-block;
+  margin-right: 0.5em;
+  font-size: 1.07em;
+  color: #bbb;
+  transition: transform 0.19s;
+  transform: rotate(0deg);
+  line-height: 1.1;
+}
+
+.section-nav .list-nested > li > details[open] > summary::before {
+  transform: rotate(90deg);
+  color: #233284;
+}
+
+/* Fix toggle (arrow) alignment for all sidebar details/summary – one line, no double arrow, no side effect */
+.section-nav details > summary {
+  display: flex;
+  align-items: center;
+  padding: 0;
+  cursor: pointer;
+}
+
+/* Remove any default arrow in webkit browsers */
+.section-nav details > summary::-webkit-details-marker {
+  display: none;
+}

@@ -74,48 +74,37 @@ skipped. To override this behavior, set $skipHome to false below.
 {{- define "walk" }}
   {{- $currentPage := .currentPage }}
   {{- $node := .node }}
-  
-  {{- /* Get the link text */}}
   {{- $linkContent := $node.Page.LinkTitle }}
   {{- with $node.Name }}
     {{- $linkContent = . }}
   {{- end }}
-
-  {{- /* Determine active/aria attributes */}}
-  {{- $ariaCurrent := "" }}
-  {{- $liClass := "" }}
-
-  {{- if in $currentPage.Ancestors $node.Page }}
-    {{- $ariaCurrent = "true" }}
-  {{- end }}
-
-  {{- if $currentPage.Eq $node.Page }}
-    {{- $ariaCurrent = "page" }}
-    {{- $liClass = "active" }}
-  {{- end }}
-
-  <li {{- with $liClass }} class="{{ . }}" {{ end -}}>
-    {{- with $node.Page.Pages }}
-      <!--
-        CHANGED: 
-        - Previously, only a <summary> (not a link) was rendered for section nodes with children.
-        - NOW: The summary includes an <a> tag so the section node can be clicked to load the section page (_index.md) in the main content area.
-        - This makes section nodes both collapsible (still <details>/<summary>) AND clickable.
-      -->
-      <details{{- with $ariaCurrent }} open{{- end }}{{- if ne $node.Page.Params.sidebar.collapsed true }} open{{- end }}>
+  {{- $hasChildren := gt (len $node.Page.Pages) 0 }}
+  <li>
+    {{- if $hasChildren }}
+      <details{{ if $currentPage.IsSection }}{{ if $currentPage.Eq $node.Page }} open{{ end }}{{ end }}>
         <summary>
-          <!-- Clickable section node: title is a link to the section page -->
-          <a href="{{ $node.Page.RelPermalink }}"{{ with $ariaCurrent }} aria-current="{{ . }}"{{ end }}>{{ $linkContent }}</a>
+          {{- if $currentPage.IsSection }}
+            {{- if $currentPage.Eq $node.Page }}
+              <span class="docs-link active">{{ $linkContent }}</span>
+            {{- else }}
+              <a class="docs-link" href="{{ $node.Page.RelPermalink }}">{{ $linkContent }}</a>
+            {{- end }}
+          {{- else }}
+            <a class="docs-link" href="{{ $node.Page.RelPermalink }}">{{ $linkContent }}</a>
+          {{- end }}
         </summary>
         <ul class="list-unstyled list-nested">
-          {{- range . }}
+          {{- range $node.Page.Pages }}
             {{- template "walk" (dict "node" . "currentPage" $currentPage) }}
           {{- end }}
         </ul>
       </details>
     {{- else }}
-      <!-- Leaves: simple links as before -->
-      <a{{ with $ariaCurrent }} aria-current="{{ . }}"{{ end }} href="{{ $node.Page.RelPermalink }}">{{ $linkContent }}</a>
+      {{- if $currentPage.Eq $node.Page }}
+        <a class="docs-link active" href="{{ $node.Page.RelPermalink }}">{{ $linkContent }}</a>
+      {{- else }}
+        <a class="docs-link" href="{{ $node.Page.RelPermalink }}">{{ $linkContent }}</a>
+      {{- end }}
     {{- end }}
   </li>
 {{- end }}
