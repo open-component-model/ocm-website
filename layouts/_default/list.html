@@ -1,27 +1,43 @@
 {{ define "main" }}
-  <div class="ocm-flexpage">
-    <aside class="ocm-sidebar">
-      {{ partial "sidebar/section-menu.html" . }}
-    </aside>
-    <section class="ocm-gridpage">
-      <h1 class="ocm-page-title">{{ .Title }}</h1>
-      <div class="ocm-cards-grid">
-        {{ range .Pages }}
-          <a class="card card-docs-vertical" href="{{ .RelPermalink }}">
-            <div class="card-body d-flex flex-column justify-content-start align-items-start h-100">
-              <div class="d-flex align-items-center mb-2" style="height:2.6rem;">
-                <span class="card-emoji" style="font-size:2rem;line-height:1;margin-right:.6rem;">
-                  {{ with .Params.icon }}{{ . }}{{ else }}📄{{ end }}
-                </span>
-                <h3 class="card-title mb-0" style="font-size:1.18rem;">{{ .LinkTitle }}</h3>
-              </div>
-              {{ with .Params.description }}
-                <div class="card-text mt-3">{{ . }}</div>
-              {{ end }}
-            </div>
-          </a>
-        {{ end }}
+  <div class="row flex-xl-nowrap">
+    {{ if (in site.Params.doks.sectionNav .Section) -}}
+      <div class="col-lg-5 col-xl-4 docs-sidebar{{ if ne site.Params.doks.navbarSticky true }} docs-sidebar-top{{ end }}{{ if site.Params.doks.headerBar }} docs-sidebar-offset{{ end }} d-none d-lg-block">
+        {{ partial "sidebar/section-menu.html" . }}
       </div>
-    </section>
+    {{ end -}}
+
+    <main class="docs-content col-lg-11 col-xl-9 mx-xl-auto">
+      {{ if site.Params.doks.breadcrumbTrail -}}
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            {{ partial "main/breadcrumb" . -}}
+            <li class="breadcrumb-item active" aria-current="page">{{ .Title }}</li>
+          </ol>
+        </nav>
+      {{ end }}
+
+      <h1>{{ .Title }}</h1>
+      {{ .Content }}
+
+      {{ if and .IsSection (not .Params.hideChildren) }}
+        <div class="ocm-cards-grid">
+          {{ range .Pages }}
+            <a class="ocm-section-card" href="{{ .RelPermalink }}">
+              {{ with .Params.icon }}
+                <span class="ocm-card-icon" aria-hidden="true">{{ . }}</span>
+              {{ else }}
+                <span class="ocm-card-icon" aria-hidden="true">📁</span>
+              {{ end }}
+              <div>
+                <div class="ocm-card-title">{{ .Title }}</div>
+                {{ with .Params.description }}
+                  <div class="ocm-card-desc">{{ . }}</div>
+                {{ end }}
+              </div>
+            </a>
+          {{ end }}
+        </div>
+      {{ end }}
+    </main>
   </div>
 {{ end }}
