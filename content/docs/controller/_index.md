@@ -1,6 +1,6 @@
 ---
 title : "OCM Controllers"
-description: ""
+description: "Everything you need to know about OCM controllers."
 lead: ""
 draft: false
 images: []

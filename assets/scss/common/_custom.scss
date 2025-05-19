@@ -281,102 +281,11 @@ header.navbar .ocm-logo-text svg {
 }
 
 
+
+
 /* ===========================================
-   OCM SECTION CARDS GRID – RESPONSIVE & CLEAN
+   SIDEBAR
    =========================================== */
-
-.ocm-section-wrapper {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 3.5rem 1.5rem 2.5rem 1.5rem; // padding-top auf Navbar-Höhe anpassen!
-  box-sizing: border-box;
-}
-
-.ocm-cards-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(222px, 1fr));
-  gap: 1.6rem;
-  width: 100%;
-  margin: 0 auto;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-.ocm-section-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background: #fff;
-  border-radius: 18px;
-  box-shadow: 0 2px 14px 0 rgba(60,60,60,0.08);
-  transition: box-shadow 0.2s, transform 0.15s;
-  cursor: pointer;
-  border: none;
-  padding: 1.4rem 1.1rem 1.2rem 1.1rem;
-  text-decoration: none;
-  color: inherit;
-  min-width: 0;
-  min-height: 170px;
-  position: relative;
-}
-
-.ocm-section-card:hover {
-  box-shadow: 0 6px 24px 0 rgba(60,60,60,0.16);
-  transform: translateY(-4px) scale(1.02);
-  text-decoration: none;
-  color: #2947a9;
-}
-
-.ocm-card-icon {
-  font-size: 2.2rem;
-  margin-bottom: 0.8rem;
-  display: block;
-  line-height: 1;
-}
-
-.ocm-card-title {
-  font-weight: 700;
-  font-size: 1.14rem;
-  color: #233284;
-  margin: 0.4rem 0 0.2rem 0;
-  text-align: center;
-}
-
-.ocm-card-desc {
-  font-size: 1rem;
-  color: #313244;
-  margin-top: 0.1rem;
-  text-align: center;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-/* Responsive Verhalten für mittlere & kleine Screens */
-@media (max-width: 850px) {
-  .ocm-section-wrapper {
-    padding: 2.2rem 0.5rem 1.2rem 0.5rem;
-  }
-  .ocm-cards-grid {
-    gap: 1.1rem;
-  }
-}
-
-@media (max-width: 600px) {
-  .ocm-section-wrapper {
-    padding: 1.5rem 0.2rem 0.8rem 0.2rem;
-  }
-  .ocm-cards-grid {
-    grid-template-columns: 1fr;
-    gap: 0.6rem;
-  }
-  .ocm-section-card {
-    padding: 0.8rem 0.5rem;
-    min-height: 120px;
-  }
-}
 
 /* Only apply arrow to nested lists in sidebar, not to top-level sections */
 .section-nav .list-nested > li > details > summary {
@@ -417,4 +326,118 @@ header.navbar .ocm-logo-text svg {
 /* Remove any default arrow in webkit browsers */
 .section-nav details > summary::-webkit-details-marker {
   display: none;
+}
+
+/* ===========================================
+   OCM SECTION CARDS GRID – FINAL FLEX VERSION
+   =========================================== */
+
+/* Cards grid for section overview pages.
+   - Flexible: max 3 per row on normal screens, more on ultra-wide.
+   - Cards are slightly taller than wide.
+   - No influence on sidebar/toggles.
+*/
+body.list.section.docs .ocm-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); // 3 per row at 1200px+, more on very wide screens
+  gap: 1.6rem;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Individual card style */
+.ocm-section-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 2px 14px 0 rgba(60,60,60,0.08);
+  transition: box-shadow 0.2s, transform 0.15s;
+  cursor: pointer;
+  border: none;
+  padding: 1.4rem 1.1rem 1.2rem 1.1rem;
+  text-decoration: none;
+  color: inherit;
+  min-width: 0;
+  min-height: 210px;
+  height: 270px;
+  max-width: 100%;
+  max-height: 350px;
+}
+
+.ocm-section-card:hover {
+  box-shadow: 0 6px 24px 0 rgba(60,60,60,0.16);
+  transform: translateY(-4px) scale(1.02);
+  text-decoration: none;
+  color: #2947a9;
+}
+
+.ocm-card-icon {
+  font-size: 2.2rem;
+  margin-bottom: 0.8rem;
+  display: block;
+  line-height: 1;
+}
+.ocm-card-title {
+  font-weight: 700;
+  font-size: 1.14rem;
+  color: #233284;
+  margin: 0.4rem 0 0.2rem 0;
+  text-align: center;
+}
+.ocm-card-desc {
+  font-size: 1rem;
+  color: #313244;
+  margin-top: 0.1rem;
+  text-align: center;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Responsive tweaks for small screens */
+@media (max-width: 850px) {
+  body.list.section.docs .ocm-cards-grid {
+    gap: 1.1rem;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  }
+  .ocm-section-card {
+    padding: 0.8rem 0.5rem;
+    min-height: 120px;
+    height: 180px;
+  }
+}
+
+@media (max-width: 600px) {
+  body.list.section.docs .ocm-cards-grid {
+    grid-template-columns: 1fr;
+    gap: 0.6rem;
+  }
+  .ocm-section-card {
+    height: auto;
+    min-height: 110px;
+  }
+}
+
+/* ===========================================
+   Description Box
+   =========================================== */
+
+.section-desc-box {
+  margin: 1.1rem 0 2.2rem 0;      /* 2.2rem more margin to cards */
+  padding: 1.1rem 1.5rem;
+  background: #f6f7fa;
+  border: 1px solid #ececec;
+  border-radius: 0.8rem;
+  font-size: 1.08rem;
+  color: #232336;
+  font-weight: 400;
+  line-height: 1.5;
+  max-width: 100%;
+  box-sizing: border-box;
 }

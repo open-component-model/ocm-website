@@ -17,7 +17,11 @@
       {{ end }}
 
       <h1>{{ .Title }}</h1>
-      {{ .Content }}
+      {{ with .Description }}
+        <div class="section-desc-box">
+          {{ . }}
+        </div>
+      {{ end }}
 
       {{ if and .IsSection (not .Params.hideChildren) }}
         <div class="ocm-cards-grid">
