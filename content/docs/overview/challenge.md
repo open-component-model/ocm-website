@@ -2,6 +2,7 @@
 title: "Benefits of OCM"
 description: "Solving Software Lifecycle Management Challenges"
 weight: 12
+lead: ""
 draft: false
 images: []
 toc: true
