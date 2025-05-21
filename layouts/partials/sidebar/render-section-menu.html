@@ -64,11 +64,6 @@ skipped. To override this behavior, set $skipHome to false below.
 
 {{- /*
   Recursive template to walk through the menu/tree.
-
-  CHANGES:
-    - Section nodes (i.e., nodes with children) are now rendered as <details><summary>...</summary>...</details>
-      BUT the <summary> now includes an <a href="..."> so that the node title is clickable and loads the section page.
-    - Leaves (nodes with no children) are rendered as plain links as before.
 */}}
 
 {{- define "walk" }}
@@ -79,7 +74,7 @@ skipped. To override this behavior, set $skipHome to false below.
     {{- $linkContent = . }}
   {{- end }}
   {{- $hasChildren := gt (len $node.Page.Pages) 0 }}
-  <li>
+  <li class="mb-1">
     {{- if $hasChildren }}
       <details{{ if or ($currentPage.Eq $node.Page) (in $currentPage.Ancestors $node.Page) }} open{{ end }}>
         <summary>
@@ -93,18 +88,14 @@ skipped. To override this behavior, set $skipHome to false below.
             <a class="docs-link" href="{{ $node.Page.RelPermalink }}">{{ $linkContent }}</a>
           {{- end }}
         </summary>
-        <ul class="list-unstyled list-nested">
+        <ul class="list-unstyled list-nested ps-3">
           {{- range $node.Page.Pages }}
             {{- template "walk" (dict "node" . "currentPage" $currentPage) }}
           {{- end }}
         </ul>
       </details>
     {{- else }}
-      {{- if $currentPage.Eq $node.Page }}
-        <a class="docs-link active" href="{{ $node.Page.RelPermalink }}">{{ $linkContent }}</a>
-      {{- else }}
-        <a class="docs-link" href="{{ $node.Page.RelPermalink }}">{{ $linkContent }}</a>
-      {{- end }}
+      <a class="docs-link{{ if $currentPage.Eq $node.Page }} active{{ end }}" href="{{ $node.Page.RelPermalink }}"{{ if $currentPage.Eq $node.Page }} aria-current="page"{{ end }}>{{ $linkContent }}</a>
     {{- end }}
   </li>
 {{- end }}

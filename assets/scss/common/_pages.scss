@@ -1,0 +1,63 @@
+// Single page (docs) content styling
+.list.section.docs .content {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+/* Section-specific overrides */
+@media (min-width: 1200px) {
+  /* Community Page */
+  body.section-community {
+    .docs-sidebar {
+      display: none !important;
+    }
+
+    .docs-content {
+      flex: 0 0 85% !important;
+      max-width: 85% !important;
+      margin: 0 1rem !important;
+      padding: 1rem !important;
+    }
+
+    .docs-toc {
+      display: block !important;
+      flex: 0 0 15% !important;
+      max-width: 15% !important;
+      margin: 0 1rem !important;
+      padding-top: 1rem !important;
+    }
+  }
+
+  /* Roadmap Page */
+  body.section-roadmap {
+    .docs-sidebar,
+    .docs-toc {
+      display: none !important;
+    }
+
+    .docs-content {
+      flex: 0 0 90% !important;
+      max-width: 90% !important;
+      margin: 0 auto !important;
+      padding: 1rem !important;
+    }
+  }
+}
+
+/* Mobile layout adjustments for special pages */
+@media (max-width: 768px) {
+  body.section-community .docs-content,
+  body.section-roadmap .docs-content {
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+    margin: 0 auto !important;
+    padding: 1rem !important;
+  }
+
+  body.section-community .docs-toc {
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+    margin: 1rem 0 !important;
+    padding: 0 !important;
+  }
+}

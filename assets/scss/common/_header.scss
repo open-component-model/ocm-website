@@ -1,0 +1,59 @@
+/*
+ * HEADER STYLES
+ * ============
+ * Diese Datei steuert das Aussehen der Hauptnavigationsleiste (Header)
+ * am oberen Rand jeder Seite.
+ *
+ * WICHTIGE INFORMATIONEN:
+ * - Der Header ist immer sichtbar (fixed position)
+ * - Verwendet immer ein dunkles Design (auch wenn die Seite hell ist)
+ * - Enthält das OCM-Logo und die Hauptnavigation
+ * - Hat einen farbigen Balken am oberen Rand
+ */
+
+/* HAUPTNAVIGATIONSLEISTE
+ * --------------------
+ * Erzwingt ein dunkles Design für bessere Lesbarkeit.
+ * !important wird verwendet, um andere Theme-Einstellungen zu überschreiben.
+ */
+header.navbar {
+  background-color: #1d1e22 !important;  /* Dunkler Hintergrund (fast schwarz) */
+  color: #dee2e6 !important;             /* Helle Textfarbe */
+  padding-top: 1rem;                     /* Abstand oben */
+  padding-bottom: 1rem;                  /* Abstand unten */
+}
+
+/* FARBIGER BALKEN AM OBEREN RAND
+ * ---------------------------
+ * Ein dünner, farbiger Streifen über dem Header.
+ * Bleibt in Hell- und Dunkelmodus gleich.
+ */
+.header-bar {
+  height: 4px !important;                /* Sehr dünne Linie */
+  background: linear-gradient(to right, #4cc9f0, #4361ee) !important;  /* Farbverlauf blau */
+  border: none !important;               /* Keine Ränder */
+  box-shadow: none !important;           /* Keine Schatten */
+}
+
+/* NAVIGATIONS-ELEMENTE
+ * -----------------
+ * Alle klickbaren Elemente im Header (Links, Buttons, Dropdown-Menüs)
+ * haben die gleiche helle Farbe.
+ */
+header.navbar .nav-link,
+header.navbar .btn-link,
+header.navbar .btn-dropdown {
+  color: #dee2e6 !important;             /* Helle Textfarbe für alle Elemente */
+}
+
+/* ICONS IN DER NAVIGATION
+ * --------------------
+ * Spezielle Einstellungen für SVG-Icons wie Suche, Menü-Toggle etc.
+ * Verwendet nur Umrisse (stroke) ohne Füllung für einen leichten Look.
+ */
+header.navbar .btn-link svg,
+header.navbar .btn-dropdown svg,
+header.navbar .nav-link[aria-label="Search website"] svg {
+  stroke: #dee2e6;                      /* Helle Linienfarbe */
+  fill: none;                           /* Keine Füllung */
+}

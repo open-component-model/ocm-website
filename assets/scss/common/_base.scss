@@ -1,0 +1,45 @@
+/*
+ * BASE STYLES
+ * ===========
+ * Diese Datei enthält grundlegende Layout- und Strukturstyles.
+ * Sie definiert:
+ * 1. Container-Verhalten für Vollbildmodus
+ * 2. Grundlegende Bildanpassungen
+ */
+
+/* FULL-WIDTH CONTAINER
+ * ------------------
+ * Container-fw = Full Width Container
+ * Wenn eine Seite die Klasse .container-fw hat, wird der Inhalt über die volle Breite gestreckt.
+ * Wichtig für Landingpages oder breite Dokumentationsseiten.
+ */
+.container-fw {
+  max-width: 100%;       /* Nutzt die komplette verfügbare Breite */
+  padding-left: 1rem;    /* Minimaler Abstand zum linken Rand */
+
+  /* Hauptinhalt (docs-content) im Full-Width-Modus */
+  .docs-content {
+    margin-left: 0rem !important;    /* Entfernt Standard-Margins */
+    margin-right: 0rem !important;   /* damit der Inhalt die volle */
+    padding-right: 0rem !important;  /* Breite nutzen kann */
+    padding-left: 0rem !important;
+  }
+
+  /* Inhaltsverzeichnis (TOC) im Full-Width-Modus */
+  .docs-toc {
+    margin-left: 3rem !important;    /* Abstand zum Hauptinhalt */
+    margin-right: 0rem !important;   /* Keine Margins nach rechts */
+    padding-right: 0rem !important;  /* Keine Polster nach rechts */
+    padding-left: 0rem !important;   /* oder links */
+  }
+}
+
+/* RESPONSIVE BILDER
+ * ---------------
+ * Macht alle Bilder im Content-Bereich responsiv.
+ * Sie passen sich automatisch der Breite ihres Containers an.
+ */
+.content img {
+  max-width: 100%;    /* Bild wird nie breiter als sein Container */
+  height: auto;       /* Höhe passt sich proportional an */
+}

@@ -1,0 +1,58 @@
+/*
+ * KOMPONENTEN-STYLES
+ * =================
+ * Diese Datei enthält wiederverwendbare UI-Komponenten, 
+ * die auf verschiedenen Seiten eingesetzt werden.
+ * 
+ * Aktuell enthält sie:
+ * 1. TOC Box (Table of Contents / Inhaltsverzeichnis)
+ * 2. Description Box (Beschreibungsboxen für Sektionen)
+ */
+
+/* INHALTSVERZEICHNIS-BOX (TOC)
+ * -------------------------
+ * Eine Box, die das Inhaltsverzeichnis einer Seite enthält.
+ * Passt sich an helles und dunkles Design an.
+ */
+.toc-box {
+  border-radius: 0.6rem;              /* Abgerundete Ecken */
+  background: #f8f9fa;                /* Sehr heller Hintergrund */
+  border: 1px solid #ececec;          /* Subtile Umrandung */
+  padding: 1.3rem 1.8rem;             /* Innenabstand */
+}
+
+/* Überschrift im Inhaltsverzeichnis */
+.toc-title {
+  font-size: 1.2rem;                 /* Etwas größer als normaler Text */
+  font-weight: 500;                  /* Leicht fett */
+  margin-bottom: 0.7rem;             /* Abstand nach unten */
+}
+
+/* Dunkelmodus-Anpassungen für TOC */
+[data-theme=dark] .toc-box {
+  background: #242538;               /* Dunklerer Hintergrund */
+  border: 1px solid rgba(255,255,255,0.07);  /* Subtilere Umrandung */
+}
+
+/* BESCHREIBUNGSBOX
+ * -------------
+ * Eine Box für Sektionsbeschreibungen oder wichtige Informationen.
+ * Wird oft am Anfang einer Sektion verwendet.
+ */
+.section-desc-box {
+  margin: 1.1rem 0 2.2rem 0;         /* Abstand oben und unten */
+  padding: 1.1rem 1.5rem;            /* Innenabstand */
+  background: #f6f7fa;               /* Sehr heller Hintergrund */
+  border: 1px solid #ececec;         /* Subtile Umrandung */
+  border-radius: 0.8rem;             /* Stark abgerundete Ecken */
+  
+  /* Textformatierung */
+  font-size: 1.08rem;                /* Etwas größer als normaler Text */
+  color: #232336;                    /* Dunkle, leicht blaue Textfarbe */
+  font-weight: 400;                  /* Normale Schriftstärke */
+  line-height: 1.5;                  /* Angenehmer Zeilenabstand */
+  
+  /* Box-Verhalten */
+  max-width: 100%;                   /* Nie breiter als Container */
+  box-sizing: border-box;            /* Padding nach innen berechnen */
+}
