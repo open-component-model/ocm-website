@@ -1,0 +1,31 @@
+# HTMLTest option reference: https://github.com/wjdp/htmltest?tab=readme-ov-file#basic-options
+
+# Directory for HTMLTest to scan
+DirectoryPath: ./public
+
+# Checks to ignore
+CheckInternalHash: false
+CheckDoctype: false
+IgnoreInternalEmptyHash: true
+IgnoreAltMissing: true
+IgnoreEmptyHref: true
+IgnoreDirectoryMissingTrailingSlash: true
+
+# Avoid HTTP 403 Errors (on corporate pages): Override User-Agent and referer
+HTTPHeaders:
+  "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"
+  "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
+  "Accept-Language": "en-US,en;q=0.9"
+  "Referer": "https://ocm.software"
+ExternalTimeout: 10
+
+# URLs to ignore
+IgnoreURLs:
+  # Skip all SAP legal pages (appears in footer, so on every page)
+  - "^https://www\\.sap\\.com/.*/legal/.*"
+  - "^mailto:"
+  # Skip local pages from secure delivery demo
+  - "^https?://(www\\.)?gitea\\.ocm\\.dev(/|$)"
+  - "^https://.*\\.ocm\\.dev(/|$)"
+  # Skip Google calendar entries
+  - "^https://calendar\\.google\\.com(/|$)"
