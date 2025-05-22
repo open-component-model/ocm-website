@@ -56,3 +56,10 @@
   max-width: 100%;                   /* Nie breiter als Container */
   box-sizing: border-box;            /* Padding nach innen berechnen */
 }
+
+/* Dunkelmodus-Anpassungen für die Beschreibungsbox */
+[data-theme="dark"] .section-desc-box,
+[data-bs-theme="dark"] .section-desc-box {
+  background: #5a5c60 !important; // dunkleres Grau für Dark Mode
+  color: #f6f7fa !important;      // sehr helles, aber nicht reines Weiß
+}

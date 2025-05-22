@@ -132,3 +132,10 @@
   font-weight: 600;
   color: #111111;
 }
+
+[data-theme="dark"] .section-nav .docs-link.active,
+[data-bs-theme="dark"] .section-nav .docs-link.active {
+  color: #fff !important; // Weiß für beste Lesbarkeit
+  background: rgba(67, 97, 238, 0.18); // Leichtes Blau als Hintergrund
+  border-radius: 0.4rem;
+}
