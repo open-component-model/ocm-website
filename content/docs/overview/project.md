@@ -2,8 +2,6 @@
 title : "About the OCM Project"
 description: "About the Open Component Model Project"
 url: /docs/overview/about
-lead: ""
-draft: false
 weight: 11
 toc: true
 images: []
