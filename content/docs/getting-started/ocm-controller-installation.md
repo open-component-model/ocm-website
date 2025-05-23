@@ -1,9 +1,9 @@
 ---
-title: "Installation"
+title: "Installing the OCM Controller"
 description: "OCM Controller Installation"
 draft: false
 images: []
-weight: 41
+weight: 28
 toc: true
 ---
 

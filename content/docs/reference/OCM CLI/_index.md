@@ -1,10 +1,8 @@
 ---
-title: CLI Reference
-name: cli-reference
-url: /docs/cli-reference/
-draft: false
-images: []
-weight: 55
+title: OCM CLI
+description: "Command line client for OCM"
+icon: "💻"
+weight: 11
 toc: true
 sidebar:
   collapsed: true

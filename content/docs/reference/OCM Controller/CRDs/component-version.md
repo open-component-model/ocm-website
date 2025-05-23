@@ -1,9 +1,7 @@
 ---
 title: "Component Version"
-description: ""
-lead: ""
-draft: false
-images: []
+description: "CRD for ComponentVersion"
+icon: "📦"
 weight: 44
 toc: true
 ---
