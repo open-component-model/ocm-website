@@ -4,12 +4,13 @@ import (
 	"flag"
 	"fmt"
 	"log"
-	clictx "ocm.software/ocm/api/cli"
-	"ocm.software/ocm/cmds/ocm/app"
 	"os"
 	"path/filepath"
 	"slices"
 	"strings"
+
+	clictx "ocm.software/ocm/api/cli"
+	"ocm.software/ocm/cmds/ocm/app"
 )
 
 var commandDenyList = []string{
@@ -68,7 +69,7 @@ func run(dir, urlPrefix string) error {
 		}
 	}
 
-	if err := genMarkdownTreeCustom(cmd, dir, urlPrefix, "cli-reference"); err != nil {
+	if err := genMarkdownTreeCustom(cmd, dir, urlPrefix, "ocm-cli"); err != nil {
 		return fmt.Errorf("error generating markdown: %w", err)
 	}
 

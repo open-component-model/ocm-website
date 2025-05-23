@@ -89,10 +89,11 @@ func genMarkdownTreeCustom(cmd *cobra.Command, dir, urlPrefix, parentCmd string)
 		if cmd.IsAdditionalHelpTopicCommand() {
 			url = urlPrefix + "help/" + strings.ToLower(title) + "/"
 			name = title
-		} else if cmdName == "cli-reference" {
+		} else if cmdName == "ocm-cli" {
 			url = urlPrefix
-			name = title
-		} else if parentCmd == "cli-reference" {
+			title = "OCM CLI"
+			name = "OCM CLI"
+		} else if parentCmd == "ocm-cli" {
 			url = urlPrefix + strings.ToLower(title) + "/"
 			name = title
 		} else {
@@ -260,7 +261,7 @@ func useLine(c *cobra.Command) string {
 
 func commandToID(command string) string {
 	if command == "ocm" {
-		return "cli-reference"
+		return "ocm-cli"
 	}
 	return strings.TrimPrefix(strings.Replace(command, " ", "_", -1), "ocm_")
 }
