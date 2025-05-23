@@ -2,7 +2,7 @@
 title: "Input and Access Types"
 url: /docs/tutorials/input-and-access-types/
 draft: false
-weight: 68
+weight: 47
 toc: true
 ---
 

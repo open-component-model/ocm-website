@@ -3,7 +3,7 @@ title: "Structuring Software Products with OCM"
 description: "Structuring Software Products with OCM"
 draft: false
 images: []
-weight: 65
+weight: 45
 toc: true
 ---
 
