@@ -86,3 +86,11 @@
 [[mounts]]
   source = "static"
   target = "static"
+
+# Reference Docs
+[[imports]]
+  path = "github.com/morri-son/open-component-model"
+  version = "v2.0.0"
+  [[imports.mounts]]
+    source = "docs/reference/cli"
+    target = "content/docs/reference/ocm-cli2"

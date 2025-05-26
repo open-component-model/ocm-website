@@ -23,11 +23,13 @@
 				<nav aria-label="breadcrumb">
 					<ol class="breadcrumb">
 						{{ partial "main/breadcrumb" . -}}
-						<li class="breadcrumb-item active" aria-current="page">{{ .Title }}</li>
+						  <li class="breadcrumb-item active" aria-current="page">{{ .Title }}</li>
 					</ol>
 				</nav>
 			{{ end }}
+			{{ if not .Params.suppressTitle }}
 			<h1>{{ .Title }}</h1>
+			{{ end }}
 			<!-- <p class="lead">{{ .Params.lead | safeHTML }}</p> -->
 			{{ if ne .Params.toc false -}}
 			<nav class="toc-mobile d-xl-none" aria-label="Quaternary navigation">

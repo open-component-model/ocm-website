@@ -51,8 +51,10 @@ mainSections = ["docs"]
   showMissingLanguages = true # whether or not to show untranslated languages in the language menu; true (default) or false
 
   # Versioning
-  docsVersioning = false # false (default) or true
-  docsVersion = "1.0"
+  docsVersioning = true # false (default) or true
+  docsVersion = "v1"
+  defaultVersion = "v1"
+  versions = ["v1", "v2"]   ## list of all releases for dropdown box, enhance with every release
 
   # UX
   headerBar = true # true (default) or false

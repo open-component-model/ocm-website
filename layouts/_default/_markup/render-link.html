@@ -1,0 +1,22 @@
+{{/* Process links to handle OCM CLI documentation markdown links */}}
+{{ $link := .Destination }}
+{{ $isRemote := strings.HasPrefix $link "http" }}
+
+{{/* Don't modify remote links */}}
+{{ if not $isRemote }}
+  {{/* Process .md links */}}
+  {{ if strings.HasSuffix $link ".md" }}
+    {{/* Remove the .md extension */}}
+    {{ $link = strings.TrimSuffix ".md" $link }}
+    
+    {{/* Convert underscores to dashes */}}
+    {{ $link = strings.Replace $link "_" "-" -1 }}
+    
+    {{/* Ensure absolute path for OCM CLI references */}}
+    {{ if strings.HasPrefix $link "ocm" }}
+      {{ $link = printf "/v2/docs/reference/ocm-cli2/%s" $link }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+<a href="{{ $link | safeURL }}"{{ with .Title}} title="{{ . }}"{{ end }}{{ if $isRemote }} target="_blank" rel="noopener"{{ end }}>{{ .Text | safeHTML }}</a>

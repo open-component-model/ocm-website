@@ -22,7 +22,11 @@
     "preinfo": "npm version",
     "info": "npm list",
     "postinfo": "exec-bin node_modules/.bin/hugo/hugo version",
-    "postinstall": "hugo-installer --version otherDependencies.hugo --extended --destination node_modules/.bin/hugo"
+    "postinstall": "hugo-installer --version otherDependencies.hugo --extended --destination node_modules/.bin/hugo",
+    "hugo": "exec-bin node_modules/.bin/hugo/hugo",
+    "modules:get": "exec-bin node_modules/.bin/hugo/hugo mod get",
+    "modules:tidy": "exec-bin node_modules/.bin/hugo/hugo mod tidy",
+    "modules:clean": "exec-bin node_modules/.bin/hugo/hugo mod clean"
   },
   "dependencies": {
     "@tabler/icons": "^3.33.0",
