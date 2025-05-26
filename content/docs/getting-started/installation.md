@@ -113,11 +113,8 @@ see: [chocolatey community package: ocm-cli](https://community.chocolatey.org/pa
 
 ### using winget
 
-```powershell
-winget install ocm-cli
-```
-
-see: [microsoft/winget-pkgs: Open-Component-Model](https://github.com/microsoft/winget-pkgs/tree/master/manifests/o/Open-Component-Model)
+_Deprecated_: Please note, winget packages are no longer provided. Any existing packages are still working, but no new
+packages are built and published to winget repository.
 
 ## Building from Source
 
