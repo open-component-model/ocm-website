@@ -1,0 +1,39 @@
+{{ define "main" }}
+<div class="row flex-xl-nowrap">
+  <div class="col-lg-5 col-xl-4 docs-sidebar docs-sidebar-offset d-none d-lg-block">
+    {{ partial "sidebar/docs-sidebar.html" . }}
+  </div>
+  <div class="col container-fw d-lg-flex flex-lg-row justify-content-center mx-auto">
+    {{ if ne .TableOfContents "<nav id=\"TableOfContents\"></nav>" }}
+    <nav class="docs-toc docs-toc-offset d-none d-xl-block col-xl-3" aria-label="Secondary navigation">
+      <div class="page-links">
+        <h3>On this page</h3>
+        {{ .TableOfContents }}
+      </div>
+    </nav>
+    {{ end }}
+    <main class="docs-content col-lg-11 col-xl-9">
+      {{ if not .Params.suppressTitle }}
+      <h1>{{ .Title }}</h1>
+      {{ end }}
+      {{ if ne .TableOfContents "<nav id=\"TableOfContents\"></nav>" }}
+      <nav class="toc-mobile d-xl-none" aria-label="Quaternary navigation">
+        <details>
+          <summary>On this page</summary>
+          <div class="page-links">
+            {{ .TableOfContents }}
+          </div>
+        </details>
+      </nav>
+      {{ end }}
+      {{ $content := .Content }}
+      {{ $content := replaceRE `href="([^"]+)\.md"` `href="$1/"` $content }}
+      {{ $content := replaceRE `href=([^"]+)\.md` `href=$1/` $content }}
+      {{ $content := replaceRE `href='([^']+)\.md'` `href='$1/'` $content }}
+      {{ $content := replaceRE `\(([^)]+)\.md\)` `($1/)` $content }}
+      {{ $content | safeHTML }}
+      {{ partial "main/docs-navigation.html" . }}
+    </main>
+  </div>
+</div>
+{{ end }}
