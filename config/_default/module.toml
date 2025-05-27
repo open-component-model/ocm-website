@@ -87,10 +87,11 @@
   source = "static"
   target = "static"
 
-# Reference Docs
-[[imports]]
-  path = "github.com/morri-son/open-component-model"
-  version = "v2.0.0"
-  [[imports.mounts]]
-    source = "docs/reference/cli"
-    target = "content/docs/reference/ocm-cli2"
+## Reference Docs mounted from other repositories
+## Use @main to always use the latest version of the repository.
+## Use version tags to pin to a specific version.
+#[[imports]]
+#  path = "github.com/open-component-model/open-component-model@main"
+#  [[imports.mounts]]
+#    source = "docs/reference/cli"
+#    target = "content/docs/reference/ocm-cli"

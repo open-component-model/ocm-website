@@ -50,11 +50,14 @@ mainSections = ["docs"]
   multilingualMode = false # false (default) or true
   showMissingLanguages = true # whether or not to show untranslated languages in the language menu; true (default) or false
 
-  # Versioning
+  # Versioning offers toggle to maintain multiple versions of the same documentation
+  # The parameters are used in the layouts/partials/header/header.html template
+  # The central versions.json that contains all parallel versions lies in the data/ folder 
+  # and needs to be maintained in the main branch BEFORE a new version branch is cut off to 
+  # be available in the version switcher of all versions.
   docsVersioning = true # false (default) or true
-  docsVersion = "v1"
-  defaultVersion = "v1"
-  versions = ["v1", "v2"]   ## list of all releases for dropdown box, enhance with every release
+  docsVersion = "current"
+  defaultVersion = "current"
 
   # UX
   headerBar = true # true (default) or false

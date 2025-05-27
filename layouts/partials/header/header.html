@@ -207,8 +207,13 @@
         </div>
         {{ end -}}
 
-        <!-- Versioning dropdown  -->
+        <!-- Versioning dropdown -->
         {{ if site.Params.doks.docsVersioning }}
+        {{/* load versions.json from data/ */}}
+        {{ $versionsData := site.Data.versions }}
+
+        {{ if $versionsData.versions }}
+        {{ $currentVer := site.Params.doks.docsVersion }}
 
         <div class="dropdown mt-1 order-lg-1">
           <button class="btn btn-dropdown dropdown-toggle"
@@ -219,30 +224,35 @@
                   aria-label="Toggle version menu">
             Versions
             <span class="dropdown-caret">
-              <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-down"
+              <svg xmlns="http://www.w3.org/2000/svg"
+                  class="icon icon-tabler icon-tabler-chevron-down"
                   width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5"
-                  stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  stroke="currentColor" fill="none"
+                  stroke-linecap="round" stroke-linejoin="round">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                 <path d="M6 9l6 6l6 -6"/>
               </svg>
             </span>
           </button>
-
-          {{ $d := site.Params.doks }}
+          
           <ul class="dropdown-menu dropdown-menu-lg-end me-lg-2 shadow rounded border-0"
               aria-labelledby="doks-versions">
-            {{ range $i, $v := $d.versions }}
-              {{- $root := cond (eq $v $d.defaultVersion) "/" (printf "/%s/" $v) -}}
+            {{ range $versionsData.versions }}
+              {{ $isDefault := eq . $versionsData.defaultVersion }}
+              {{ $isCurrent := eq . $currentVer }}
+              {{ $versionPath := cond $isDefault "/" (printf "/%s/" .) }}
+              
               <li>
-                <a class="dropdown-item{{ if eq $v $d.docsVersion }} current{{ end }}"
-                  {{ if eq $v $d.docsVersion }}aria-current="true"{{ end }}
-                  href="{{ $root }}docs/overview/about">
-                  {{ if eq $v $d.defaultVersion }}Latest ({{ $v }}){{ else }}{{ $v }}{{ end }}
+                <a class="dropdown-item{{ if $isCurrent }} current{{ end }}"
+                  {{ if $isCurrent }}aria-current="true"{{ end }}
+                  href="{{ $versionPath }}docs/overview/about">
+                  {{ . }}{{ if $isDefault }} (latest){{ end }}
                 </a>
               </li>
             {{ end }}
           </ul>
         </div>
+        {{ end }}
         {{ end }}
 
         <!-- Color mode toggler -->
