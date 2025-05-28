@@ -1,7 +1,7 @@
 # HTMLTest option reference: https://github.com/wjdp/htmltest?tab=readme-ov-file#basic-options
 
-# DirectoryPath can empty when using --http-start-url
-# DirectoryPath: ./public
+# DirectoryPath 
+DirectoryPath: ./public
 
 # Checks to ignore
 CheckInternalHash: false
