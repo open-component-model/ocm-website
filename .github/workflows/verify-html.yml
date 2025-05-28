@@ -25,10 +25,11 @@ jobs:
           REPO="${{ github.repository }}"
           SHA="${{ github.event.pull_request.head.sha }}"
 
+          gh api repos/$REPO/commits/$SHA/check-suites -v
+
           timeout 600 bash -c '
             while true; do
               # Get check suite for Netlify app
-              gh api repos/$REPO/commits/$SHA/check-suites -v
               SUITE_JSON=$(
                 gh api repos/$REPO/commits/$SHA/check-suites \
                   --jq "[ .check_suites[] | select(.app.slug == \"netlify\") ]"
