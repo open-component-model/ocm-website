@@ -48,15 +48,14 @@ jobs:
           done
           echo "Preview not ready after waiting, aborting." >&2
           exit 1
-
-      - name: Download lychee
-        run: |
           
+      - name: Install linkinator
+        run: |
+          npm install linkinator
 
-      - name: Lychee link checker on Netlify Preview
-        uses: lycheeverse/lychee-action@v1
-        with:
-          args: '${{ steps.wait_netlify_preview.outputs.preview_url }} --exclude-mail --user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36" --max-cache-age 1d  --no-progress'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
+      - name: Verify links with linkinator
+        run: |
+          PREVIEW_URL="${{ steps.wait_netlify_preview.outputs.preview_url }}"
+          echo "Verifying links at $PREVIEW_URL"
+          npx linkinator "$PREVIEW_URL" --config .github/config/linkinator.json
+          
