@@ -24,6 +24,7 @@ jobs:
           echo "Waiting up to 10 minutes for Netlify deploy preview…"
           REPO="${{ github.repository }}"
           SHA="${{ github.event.pull_request.head.sha }}"
+          echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
 
           timeout 600 bash -c '
             while true; do
