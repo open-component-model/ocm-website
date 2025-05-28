@@ -1,7 +1,7 @@
 # HTMLTest option reference: https://github.com/wjdp/htmltest?tab=readme-ov-file#basic-options
 
-# Directory for HTMLTest to scan
-DirectoryPath: ./public
+# DirectoryPath can empty when using --http-start-url
+# DirectoryPath: ./public
 
 # Checks to ignore
 CheckInternalHash: false
@@ -29,3 +29,5 @@ IgnoreURLs:
   - "^https://.*\\.ocm\\.dev(/|$)"
   # Skip Google calendar entries
   - "^https://calendar\\.google\\.com(/|$)"
+  # Skip OCM software pages because they are not yet live in a PR
+  - "^https://ocm\\.software(/|$)"

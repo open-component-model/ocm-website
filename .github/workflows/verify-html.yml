@@ -1,6 +1,3 @@
-# This workflow verifies that all links in the HTML files are valid.
-# GitHub repo: https://github.com/wjdp/htmltest
-
 name: Verify HTML Links
 
 on:
@@ -13,7 +10,7 @@ permissions:
 
 jobs:
   check-links:
-    name: Check external and internal links
+    name: Check external and internal links (Netlify Preview)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -26,12 +23,40 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      - name: Build Site
-        run: npm run build
+      - name: Build Site using Netlify Preview URL
+        run: npm run build -- --baseURL="https://deploy-preview-${{ github.event.pull_request.number }}--open-component-model.netlify.app/"
 
       - name: Verify HTML links
-        # Download binary to ./bin. Execute it with log level 1 (INFO) and config file
         run: |
           curl https://htmltest.wjdp.uk | bash
           chmod +x ./bin/htmltest
           ./bin/htmltest -l 1 -c .github/config/htmltest.yml
+
+      - name: Wait for Netlify Preview
+        id: wait_netlify_preview
+        run: |
+          PREVIEW_URL="https://deploy-preview-${{ github.event.pull_request.number }}--open-component-model.netlify.app"
+          for i in {1..60}; do
+            echo "Checking $PREVIEW_URL"
+            if curl -sf -o /dev/null "$PREVIEW_URL"; then
+              echo "Preview is live!"
+              echo "preview_url=$PREVIEW_URL" >> $GITHUB_OUTPUT
+              exit 0
+            fi
+            echo "Preview not live yet, waiting 10s..."
+            sleep 10
+          done
+          echo "Preview not ready after waiting, aborting." >&2
+          exit 1
+
+      - name: Download lychee
+        run: |
+          
+
+      - name: Lychee link checker on Netlify Preview
+        uses: lycheeverse/lychee-action@v1
+        with:
+          args: '${{ steps.wait_netlify_preview.outputs.preview_url }} --exclude-mail --user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36" --max-cache-age 1d  --no-progress'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
