@@ -22,8 +22,8 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           echo "Waiting up to 10 minutes for Netlify deploy preview…"
-          REPO="${{ github.repository }}"
-          SHA="${{ github.event.pull_request.head.sha }}"
+          export REPO="${{ github.repository }}"
+          export SHA="${{ github.event.pull_request.head.sha }}"
 
           gh api repos/$REPO/commits/$SHA/check-suites --verbose
 
