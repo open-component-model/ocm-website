@@ -26,7 +26,7 @@ jobs:
             while true; do
               # Get check suite for Netlify app
               SUITE_JSON=$(
-                gh api repos/$REPO/commits/$SHA/check-suites \
+                gh api repos/"$REPO"/commits/"$SHA"/check-suites \
                   --jq "[ .check_suites[] | select(.app.slug == \"netlify\") ]"
               )
 
