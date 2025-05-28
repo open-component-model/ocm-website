@@ -25,7 +25,7 @@ jobs:
           REPO="${{ github.repository }}"
           SHA="${{ github.event.pull_request.head.sha }}"
 
-          gh api repos/$REPO/commits/$SHA/check-suites -v
+          gh api repos/$REPO/commits/$SHA/check-suites --verbose
 
           timeout 600 bash -c '
             while true; do
