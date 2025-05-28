@@ -183,6 +183,7 @@ instantiation
 io
 ioutils
 iterable
+jfrog
 js
 json
 jsonschema
