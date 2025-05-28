@@ -21,7 +21,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          echo "Waiting up to 10 minutes for Netlify deploy preview…"
+          echo "Waiting up to 10 minutes for Netlify deploy preview..."
           export REPO="${{ github.repository }}"
           export SHA="${{ github.event.pull_request.head.sha }}"
 
@@ -29,8 +29,8 @@ jobs:
             while true; do
               # Get check suite for Netlify app
               SUITE_JSON=$(
-                gh api repos/$REPO/commits/$SHA/check-suites \
-                  --jq "[ .check_suites[] | select(.app.slug == \"netlify\") ]"
+                gh api repos/"$REPO"/commits/"$SHA"/check-suites \
+                  --jq "[ .check_suites[] | select(.app.slug == \"netlify\") ]" 2>/dev/null
               )
 
               # no suite available? sleep and retry
@@ -49,8 +49,9 @@ jobs:
               if [ "$STATUS" = "completed" ]; then
                 if [[ "$CONCLUSION" = "success" || "$CONCLUSION" = "neutral" ]]; then
                   # Get deploy preview URL from status
-                  STATUS_JSON=$(gh api repos/$REPO/commits/$SHA/status \
-                    --jq '.statuses[] | select(.context=="netlify/open-component-model/deploy-preview")')
+                  STATUS_JSON=$(gh api repos/"$REPO"/commits/"$SHA"/status \
+                    --jq ".statuses[] | select(.context==\"netlify/open-component-model/deploy-preview\")" 2>/dev/null
+                  )
 
                   PREVIEW_URL=$(echo "$STATUS_JSON" | jq -r '.target_url')
 
@@ -68,7 +69,7 @@ jobs:
             done
           '
 
-          # if timeout (600 s) reached
+          #  timeout returns 124 if command times out
           if [ $? -eq 124 ]; then
             echo "❌ Timeout after 10 minutes"
             exit 1
