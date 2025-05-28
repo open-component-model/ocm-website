@@ -21,53 +21,46 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          echo "Waiting up to 10 minutes for Netlify deploy preview…"
+          # Export variables so they're visible inside bash -c
           export REPO="${{ github.repository }}"
           export SHA="${{ github.event.pull_request.head.sha }}"
 
+          echo "Waiting up to 10 minutes for Netlify deploy preview..."
+
+          # wait for max 10 minutes for status turn green
           timeout 600 bash -c '
             while true; do
-              # Get check suite for Netlify app
-              SUITE_JSON=$(
-                gh api repos/$REPO/commits/$SHA/check-suites \
-                  --jq "[ .check_suites[] | select(.app.slug == \"netlify\") ]"
-              )
+              # Query commit status API. Filter for Netlify deploy-preview context
+              STATUS_JSON=$(gh api repos/$REPO/commits/$SHA/status \
+                --jq ".statuses[] | select(.context==\"netlify/${REPO#*/}/deploy-preview\")")
 
-              # no suite available? sleep and retry
-              if [ "$(echo "$SUITE_JSON" | jq length)" -eq 0 ]; then
+              # If no deploy preview status is present yet, sleep and retry
+              if [ -z "$STATUS_JSON" ]; then
                 sleep 5
                 continue
               fi
 
-              # Read suite ID, status and conclusion
-              SUITE_ID=$(echo "$SUITE_JSON" | jq -r ".[0].id")
-              STATUS=$(echo    "$SUITE_JSON" | jq -r ".[0].status")
-              CONCLUSION=$(echo "$SUITE_JSON" | jq -r ".[0].conclusion")
+              # Parse state (pending|success|failure|error) and preview URL
+              STATE=$(echo "$STATUS_JSON" | jq -r ".state")
+              PREVIEW_URL=$(echo "$STATUS_JSON" | jq -r ".target_url")
 
-              echo "Netlify suite status: $STATUS, conclusion: $CONCLUSION"
+              echo "Netlify status: $STATE"
 
-              if [ "$STATUS" = "completed" ]; then
-                if [[ "$CONCLUSION" = "success" || "$CONCLUSION" = "neutral" ]]; then
-                  # Get deploy preview URL from sub-runs
-                  PREVIEW_URL=$(
-                    gh api repos/$REPO/check-suites/$SUITE_ID/check-runs \
-                      --jq "[ .check_runs[] | select(.app.slug == \"netlify\") ] | .[0].details_url"
-                  )
-                  echo "✅ Deploy Preview ready: $PREVIEW_URL"
-                  echo "preview_url=$PREVIEW_URL" >> $GITHUB_OUTPUT
-                  exit 0
-                else
-                  echo "❌ Deploy failed: $CONCLUSION"
-                  exit 1
-                fi
+              if [ "$STATE" = "success" ]; then
+                echo "✅ Deploy preview ready: $PREVIEW_URL"
+                echo "preview_url=$PREVIEW_URL" >> $GITHUB_OUTPUT
+                exit 0
+              elif [ "$STATE" = "failure" ] || [ "$STATE" = "error" ]; then
+                echo "❌ Deploy failed: $STATE"
+                exit 1
               fi
 
-              # still pending? 
+              # If still pending, wait before checking again
               sleep 15
             done
           '
 
-          # if timeout (600 s) reached
+          # If timeout (600s) expired, exit with failure
           if [ $? -eq 124 ]; then
             echo "❌ Timeout after 10 minutes"
             exit 1
