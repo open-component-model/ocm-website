@@ -15,6 +15,63 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Wait for Netlify Deploy Preview
+        id: wait_for_preview
+        run: |
+          echo "Waiting up to 10 minutes for Netlify deploy preview…"
+          REPO="${{ github.repository }}"
+          SHA="${{ github.event.pull_request.head.sha }}"
+
+          timeout 600 bash -c '
+            while true; do
+              # Get check suite for Netlify app
+              SUITE_JSON=$(
+                gh api repos/$REPO/commits/$SHA/check-suites \
+                  --jq "[ .check_suites[] | select(.app.slug == \"netlify\") ]"
+              )
+
+              # no suite available? sleep and retry
+              if [ "$(echo "$SUITE_JSON" | jq length)" -eq 0 ]; then
+                sleep 5
+                continue
+              fi
+
+              # Read suite ID, status and conclusion
+              SUITE_ID=$(echo "$SUITE_JSON" | jq -r ".[0].id")
+              STATUS=$(echo    "$SUITE_JSON" | jq -r ".[0].status")
+              CONCLUSION=$(echo "$SUITE_JSON" | jq -r ".[0].conclusion")
+
+              echo "Netlify suite status: $STATUS, conclusion: $CONCLUSION"
+
+              if [ "$STATUS" = "completed" ]; then
+                if [[ "$CONCLUSION" = "success" || "$CONCLUSION" = "neutral" ]]; then
+                  # Get deploy preview URL from sub-runs
+                  PREVIEW_URL=$(
+                    gh api repos/$REPO/check-suites/$SUITE_ID/check-runs \
+                      --jq "[ .check_runs[] | select(.app.slug == \"netlify\") ] | .[0].details_url"
+                  )
+                  echo "✅ Deploy Preview ready: $PREVIEW_URL"
+                  echo "preview_url=$PREVIEW_URL" >> $GITHUB_OUTPUT
+                  exit 0
+                else
+                  echo "❌ Deploy failed: $CONCLUSION"
+                  exit 1
+                fi
+              fi
+
+              # still pending? 
+              sleep 15
+            done
+          '
+
+          # if timeout (600 s) reached
+          if [ $? -eq 124 ]; then
+            echo "❌ Timeout after 10 minutes"
+            exit 1
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -26,8 +83,6 @@ jobs:
       - name: Build Site using Netlify Preview URL
         id: build_site
         run: |
-          PREVIEW_URL="https://deploy-preview-${{ github.event.pull_request.number }}--open-component-model.netlify.app"
-          echo "preview_url=$PREVIEW_URL" >> $GITHUB_OUTPUT
           npm run build -- --baseURL="$PREVIEW_URL"
 
       - name: Verify HTML links
@@ -35,50 +90,6 @@ jobs:
           curl https://htmltest.wjdp.uk | bash
           chmod +x ./bin/htmltest
           ./bin/htmltest -l 1 -c .github/config/htmltest.yml
-
-      - name: Wait for Netlify Deploy Preview
-        run: |
-          echo "Waiting up to 10 minutes for Netlify deploy preview…"
-
-          timeout 600 bash -c '
-            while true; do
-              SUITE_JSON=$(
-                gh api repos/${{ github.repository }}/commits/${{ github.event.pull_request.head.sha }}/check-suites \
-                  --jq "[ .check_suites[] | select(.app.slug == \"netlify\") ]"
-              )
-
-              # no suite available?
-              if [ "$(echo "$SUITE_JSON" | jq length)" -eq 0 ]; then
-                sleep 5
-                continue
-              fi
-
-              STATUS=$(echo "$SUITE_JSON" | jq -r ".[0].status")
-              CONCLUSION=$(echo "$SUITE_JSON" | jq -r ".[0].conclusion")
-
-              echo "Suite status: $STATUS, conclusion: $CONCLUSION"
-
-              if [ "$STATUS" = "completed" ]; then
-                if [[ "$CONCLUSION" = "success" || "$CONCLUSION" = "neutral" ]]; then
-                  echo "✅ Deploy preview ready: ${{ steps.build_site.outputs.preview_url }}"
-                  exit 0
-                else
-                  echo "❌ Deploy failed with conclusion: $CONCLUSION"
-                  exit 1
-                fi
-              fi
-
-              sleep 10
-            done
-          '
-
-          if [ $? -eq 124 ]; then
-            echo "❌ Timeout after 10 minutes"
-            exit 1
-          fi
-        env:
-          GH_TOKEN: ${{ github.token }}
-
 
       - name: Verify links with linkinator
         run: |
