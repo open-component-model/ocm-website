@@ -48,11 +48,12 @@ jobs:
 
               if [ "$STATUS" = "completed" ]; then
                 if [[ "$CONCLUSION" = "success" || "$CONCLUSION" = "neutral" ]]; then
-                  # Get deploy preview URL from sub-runs
-                  PREVIEW_URL=$(
-                    gh api repos/$REPO/check-suites/$SUITE_ID/check-runs \
-                      --jq "[ .check_runs[] | select(.app.slug == \"netlify\") ] | .[0].details_url"
-                  )
+                  # Get deploy preview URL from status
+                  STATUS_JSON=$(gh api repos/$REPO/commits/$SHA/status \
+                    --jq '.statuses[] | select(.context=="netlify/open-component-model/deploy-preview")')
+
+                  PREVIEW_URL=$(echo "$STATUS_JSON" | jq -r '.target_url')
+
                   echo "✅ Deploy Preview ready: $PREVIEW_URL"
                   echo "preview_url=$PREVIEW_URL" >> $GITHUB_OUTPUT
                   exit 0
