@@ -24,7 +24,11 @@ jobs:
         run: npm install
 
       - name: Build Site using Netlify Preview URL
-        run: npm run build -- --baseURL="https://deploy-preview-${{ github.event.pull_request.number }}--open-component-model.netlify.app/"
+        id: build_site
+        run: |
+          PREVIEW_URL="https://deploy-preview-${{ github.event.pull_request.number }}--open-component-model.netlify.app"
+          echo "preview_url=$PREVIEW_URL" >> $GITHUB_OUTPUT
+          npm run build -- --baseURL="$PREVIEW_URL"
 
       - name: Verify HTML links
         run: |
@@ -35,12 +39,10 @@ jobs:
       - name: Wait for Netlify Preview
         id: wait_netlify_preview
         run: |
-          PREVIEW_URL="https://deploy-preview-${{ github.event.pull_request.number }}--open-component-model.netlify.app"
           for i in {1..60}; do
-            echo "Checking $PREVIEW_URL"
-            if curl -sf -o /dev/null "$PREVIEW_URL"; then
+            echo "Checking ${{ steps.build_site.outputs.preview_url }}"
+            if curl -sf -o /dev/null "${{ steps.build_site.outputs.preview_url }}"; then
               echo "Preview is live!"
-              echo "preview_url=$PREVIEW_URL" >> $GITHUB_OUTPUT
               exit 0
             fi
             echo "Preview not live yet, waiting 10s..."
@@ -48,14 +50,9 @@ jobs:
           done
           echo "Preview not ready after waiting, aborting." >&2
           exit 1
-          
-      - name: Install linkinator
-        run: |
-          npm install linkinator
 
       - name: Verify links with linkinator
         run: |
-          PREVIEW_URL="${{ steps.wait_netlify_preview.outputs.preview_url }}"
-          echo "Verifying links at $PREVIEW_URL"
-          npx linkinator "$PREVIEW_URL" --config .github/config/linkinator.json
-          
+          npm install linkinator
+          echo "Verifying links at ${{ steps.build_site.outputs.preview_url }}"
+          npx linkinator "${{ steps.build_site.outputs.preview_url }}" --config .github/config/linkinator.json

@@ -5,6 +5,5 @@
   "timeout": 20000,
   "directoryListing": true,
   "retry": true,
-  "skip": ["https://www\\.sap\\.com/.*/legal/.*","^https?://(www\\.)?gitea\\.ocm\\.dev(/|$)","^https://.*\\.ocm\\.dev(/|$)","^https://calendar\\.google\\.com(/|$)","^https://github\\.com/open-component-model(/|$)"],
-  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"
+  "skip": ["https://www\\.sap\\.com/.*/legal/.*","^https?://(www\\.)?gitea\\.ocm\\.dev(/|$)","^https://.*\\.ocm\\.dev(/|$)","^https://calendar\\.google\\.com(/|$)","^https://github\\.com/open-component-model(/|$)"]
 }

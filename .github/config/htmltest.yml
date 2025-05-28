@@ -4,6 +4,7 @@
 DirectoryPath: ./public
 
 # Checks to ignore
+CheckExternal: false
 CheckInternalHash: false
 CheckDoctype: false
 IgnoreInternalEmptyHash: true
@@ -21,13 +22,6 @@ ExternalTimeout: 10
 
 # URLs to ignore
 IgnoreURLs:
-  # Skip all SAP legal pages (appears in footer, so on every page)
-  - "^https://www\\.sap\\.com/.*/legal/.*"
   - "^mailto:"
-  # Skip local pages from secure delivery demo
-  - "^https?://(www\\.)?gitea\\.ocm\\.dev(/|$)"
-  - "^https://.*\\.ocm\\.dev(/|$)"
-  # Skip Google calendar entries
-  - "^https://calendar\\.google\\.com(/|$)"
   # Skip OCM software pages because they are not yet live in a PR
   - "^https://ocm\\.software(/|$)"
