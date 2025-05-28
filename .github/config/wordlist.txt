@@ -70,6 +70,7 @@ configs
 consumerid
 containerd
 crd
+crds
 creationtime
 credentialrequest
 credentialsspec
