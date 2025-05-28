@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   check-links:
-    name: Check external and internal links (Netlify Preview)
+    name: Check external and internal links (Netlify Deploy Preview)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
