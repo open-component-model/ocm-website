@@ -1,6 +1,6 @@
 # HTMLTest option reference: https://github.com/wjdp/htmltest?tab=readme-ov-file#basic-options
 
-# DirectoryPath 
+# Directory for HTMLTest to scan
 DirectoryPath: ./public
 
 # Checks to ignore
