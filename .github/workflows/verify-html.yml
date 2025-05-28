@@ -7,6 +7,7 @@ on:
 
 permissions:
   contents: read
+  checks: read
 
 jobs:
   check-links:
@@ -17,6 +18,8 @@ jobs:
 
       - name: Wait for Netlify Deploy Preview
         id: wait_for_preview
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           echo "Waiting up to 10 minutes for Netlify deploy preview…"
           REPO="${{ github.repository }}"
@@ -26,7 +29,7 @@ jobs:
             while true; do
               # Get check suite for Netlify app
               SUITE_JSON=$(
-                gh api repos/"$REPO"/commits/"$SHA"/check-suites \
+                gh api repos/$REPO/commits/$SHA/check-suites \
                   --jq "[ .check_suites[] | select(.app.slug == \"netlify\") ]"
               )
 
@@ -69,8 +72,6 @@ jobs:
             echo "❌ Timeout after 10 minutes"
             exit 1
           fi
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
