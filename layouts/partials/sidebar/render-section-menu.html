@@ -74,19 +74,11 @@ skipped. To override this behavior, set $skipHome to false below.
     {{- $linkContent = . }}
   {{- end }}
   {{- $hasChildren := gt (len $node.Page.Pages) 0 }}
-  <li class="mb-1">
+  <li class="mb-1{{ if $currentPage.Eq $node.Page }} active{{ end }}">
     {{- if $hasChildren }}
       <details{{ if or ($currentPage.Eq $node.Page) (in $currentPage.Ancestors $node.Page) }} open{{ end }}>
         <summary>
-          {{- if $currentPage.IsSection }}
-            {{- if $currentPage.Eq $node.Page }}
-              <span class="docs-link active">{{ $linkContent }}</span>
-            {{- else }}
-              <a class="docs-link" href="{{ $node.Page.RelPermalink }}">{{ $linkContent }}</a>
-            {{- end }}
-          {{- else }}
-            <a class="docs-link" href="{{ $node.Page.RelPermalink }}">{{ $linkContent }}</a>
-          {{- end }}
+          <a class="docs-link{{ if $currentPage.Eq $node.Page }} active{{ end }}" href="{{ $node.Page.RelPermalink }}"{{ if $currentPage.Eq $node.Page }} aria-current="page"{{ end }}>{{ $linkContent }}</a>
         </summary>
         <ul class="list-unstyled list-nested ps-3">
           {{- range $node.Page.Pages }}
