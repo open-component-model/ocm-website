@@ -88,9 +88,7 @@ lastMod = false
   tag = "tags"
 
 [permalinks]
-  blog = "/blog/:slug/"
-  docs = "/docs/:sections[1:]/:slug/"
-# docs = "/docs/1.0/:sections[1:]/:slug/"
+  docs = "/docs/:sections[1:]/:title/"
 
 [minify.tdewolff.html]
   keepWhitespace = false
