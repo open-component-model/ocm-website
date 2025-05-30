@@ -51,8 +51,16 @@ mainSections = ["docs"]
   showMissingLanguages = true # whether or not to show untranslated languages in the language menu; true (default) or false
 
   # Versioning
-  docsVersioning = false # false (default) or true
-  docsVersion = "1.0"
+  # Offers toggle to maintain multiple versions of the same documentation
+  # Parameters are used in the layouts/partials/header/header.html template
+  #
+  # Central versions.json containinig all parallel versions lies in data/ folder 
+  # and NEEDS to be maintained in the main branch BEFORE a new version branch is cut off to 
+  # be available in the version switcher of all versions.
+
+  docsVersioning = true 
+  docsVersion = "current"
+  defaultVersion = "current"
 
   # UX
   headerBar = true # true (default) or false
