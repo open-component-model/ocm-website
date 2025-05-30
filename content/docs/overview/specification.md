@@ -1,6 +1,6 @@
 ---
 title: Specification
-description: "The Open Component Model Specification
+description: "The Open Component Model Specification"
 url: /docs/overview/specification/
 icon: "🎯"
 weight: 14
