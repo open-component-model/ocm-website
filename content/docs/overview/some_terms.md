@@ -1,6 +1,6 @@
 ---
 title : "Important Terms"
-description: "Some important terms used in OCM"
+description: "Key terms and definitions in the Open Component Model (OCM)"
 icon: "🔤"
 weight: 13
 toc: true
