@@ -1,10 +1,8 @@
 ---
 title: "Benefits of OCM"
 description: "Solving Software Lifecycle Management Challenges"
+icon: "✨"
 weight: 12
-lead: ""
-draft: false
-images: []
 toc: true
 ---
 

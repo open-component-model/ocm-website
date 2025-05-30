@@ -1,9 +1,6 @@
 ---
 title: "Air-gapped GitOps with OCM & Flux"
-description: "Air-gapped GitOps with OCM & Flux"
-lead: ""
-draft: false
-images: []
+description: "Automate your deployments to air-gapped environments using OCM and Flux."
 weight: 13
 toc: true
 ---

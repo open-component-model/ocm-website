@@ -1,8 +1,7 @@
 ---
 title: "Installation"
-description: "OCM Controller Installation"
-draft: false
-images: []
+description: "Install the OCM controller using Helm"
+icon: "🔧"
 weight: 41
 toc: true
 ---
