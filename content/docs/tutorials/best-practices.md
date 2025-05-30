@@ -1,9 +1,7 @@
 ---
 title: "Best Practices"
-description: ""
-lead: ""
-draft: false
-images: []
+description: "Best practices for working with the Open Component Model."
+icon: "✅"
 weight: 63
 toc: true
 ---
