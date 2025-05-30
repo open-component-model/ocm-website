@@ -83,17 +83,6 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      - name: Build Site using Netlify Preview URL
-        id: build_site
-        run: |
-          npm run build -- --baseURL="$PREVIEW_URL"
-
-      - name: Verify HTML links
-        run: |
-          curl https://htmltest.wjdp.uk | bash
-          chmod +x ./bin/htmltest
-          ./bin/htmltest -l 1 -c .github/config/htmltest.yml
-
       - name: Verify links with linkinator
         run: |
           npm install linkinator
