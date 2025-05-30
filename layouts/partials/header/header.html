@@ -147,7 +147,7 @@
         {{ partial "main/showFlexSearch" . }}
         {{ $showFlexSearch := .Scratch.Get "showFlexSearch" -}}
         {{ if $showFlexSearch -}}
-        <button type="button" id="searchToggleDesktop" class="btn btn-link nav-link p-2 d-none d-lg-block" aria-label="Search website">
+        <button type="button" id="searchToggleDesktop" class="btn btn-link nav-link p-2 d-none d-lg-block order-lg-3" aria-label="Search website">
           <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
             <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
             <circle cx="10" cy="10" r="7"></circle>
@@ -207,33 +207,57 @@
         </div>
         {{ end -}}
 
-        <!-- Versioning dropdown  -->
-        {{ if eq site.Params.doks.docsVersioning true -}}
+        <!-- Versioning dropdown -->
+        {{ if site.Params.doks.docsVersioning }}
+        {{/* load versions.json from data/ */}}
+        {{ $versionsData := site.Data.versions }}
 
-        <div class="dropdown mt-1 order-lg-3">
-          <button class="btn btn-dropdown dropdown-toggle" id="doks-versions" data-bs-toggle="dropdown" aria-expanded="false" data-bs-display="static" aria-label="Toggle version menu">
-            <span class="d-none">Doks</span> v{{ site.Params.doks.docsVersion }}
+        {{ if $versionsData.versions }}
+        {{ $currentVer := site.Params.doks.docsVersion }}
+
+        <div class="dropdown mt-1 order-lg-1">
+          <button class="btn btn-dropdown dropdown-toggle"
+                  id="doks-versions"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                  data-bs-display="static"
+                  aria-label="Toggle version menu">
+            Versions
             <span class="dropdown-caret">
-              <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-down" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                <path d="M6 9l6 6l6 -6"></path>
+              <svg xmlns="http://www.w3.org/2000/svg"
+                  class="icon icon-tabler icon-tabler-chevron-down"
+                  width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5"
+                  stroke="currentColor" fill="none"
+                  stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                <path d="M6 9l6 6l6 -6"/>
               </svg>
             </span>
           </button>
-          <ul class="dropdown-menu dropdown-menu-lg-end me-lg-2 shadow rounded border-0" aria-labelledby="doks-versions">
-            <li><a class="dropdown-item current" aria-current="true" href="/docs/{{ site.Params.doks.docsVersion }}/prologue/introduction/">Latest ({{ site.Params.doks.docsVersion }}.x)</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="/docs/0.2/prologue/introduction/">v0.2.x</a></li>
-            <li><a class="dropdown-item" href="/docs/0.1/prologue/introduction/">v0.1.x</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="/docs/versions/">All versions</a></li>
+          
+          <ul class="dropdown-menu dropdown-menu-lg-end me-lg-2 shadow rounded border-0"
+              aria-labelledby="doks-versions">
+            {{ range $versionsData.versions }}
+              {{ $isDefault := eq . $versionsData.defaultVersion }}
+              {{ $isCurrent := eq . $currentVer }}
+              {{ $versionPath := cond $isDefault "/" (printf "/%s/" .) }}
+              
+              <li>
+                <a class="dropdown-item{{ if $isCurrent }} current{{ end }}"
+                  {{ if $isCurrent }}aria-current="true"{{ end }}
+                  href="{{ $versionPath }}docs/overview/about">
+                  {{ . }}{{ if $isDefault }} (latest){{ end }}
+                </a>
+              </li>
+            {{ end }}
           </ul>
         </div>
-        {{ end -}}
+        {{ end }}
+        {{ end }}
 
         <!-- Color mode toggler -->
         {{ if .Site.Params.doks.colorModeToggler }}
-          <button id="buttonColorMode" class="btn btn-link mx-auto nav-link p-0 ms-lg-2 me-lg-1" type="button" aria-label="Toggle theme">
+          <button id="buttonColorMode" class="btn btn-link mx-auto nav-link p-0 ms-lg-2 me-lg-1 order-lg-4" type="button" aria-label="Toggle theme">
             <svg data-bs-theme-value="dark" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-moon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
               <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
               <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z"></path>
@@ -278,5 +302,5 @@
 
 <!-- Search modal -->
 {{ if site.Params.doks.flexSearch -}}
-{{ partial "header/search-modal" . }}
+  {{ partial "header/search-modal" . }}
 {{ end -}}
