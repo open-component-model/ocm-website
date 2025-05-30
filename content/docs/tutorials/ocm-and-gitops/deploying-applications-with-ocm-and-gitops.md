@@ -4,7 +4,7 @@ description: "Deploying Applications with OCM & GitOps"
 lead: ""
 draft: false
 images: []
-weight: 12
+weight: 51
 toc: true
 ---
 
