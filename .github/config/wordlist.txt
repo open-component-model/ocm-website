@@ -203,6 +203,7 @@ lastsnapshotdigest
 latestsnapshotdigest
 lifecycle
 lifecycles
+linktitle
 linter
 linters
 lister

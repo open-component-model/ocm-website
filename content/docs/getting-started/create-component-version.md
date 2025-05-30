@@ -1,10 +1,8 @@
 ---
 title: "Create a Component Version"
 url: "/docs/getting-started/create-component-version/"
-description: ""
-lead: ""
-draft: false
-images: []
+description: "Learn how to create and store component versions using the OCM CLI."
+icon: "📦"
 weight: 23
 toc: true
 ---

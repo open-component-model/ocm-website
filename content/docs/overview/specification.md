@@ -1,8 +1,8 @@
 ---
 title: Specification
-name: Specification
+description: "The Open Component Model Specification"
 url: /docs/overview/specification/
-draft: false
+icon: "🎯"
 weight: 14
 toc: true
 ---

@@ -1,11 +1,9 @@
 ---
 title : "Important Terms"
-description: "Some important terms used in OCM"
-lead: ""
-draft: false
+description: "Key terms and definitions in the Open Component Model (OCM)"
+icon: "🔤"
 weight: 13
 toc: true
-images: []
 ---
 
 As the Open Component Model (OCM) revolves around components, it is essential to establish a common understanding of the fundamental terminology employed throughout this website. The following section provides concise definitions of key terms, laying the groundwork for the documentation and tutorials that follow.

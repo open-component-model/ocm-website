@@ -1,8 +1,7 @@
 ---
 title: "Architecture"
-description: "OCM Controller Architecture"
-draft: false
-images: []
+description: "OCM Kubernetes Controllers Architecture"
+icon: "📐"
 weight: 42
 toc: true
 ---

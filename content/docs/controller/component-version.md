@@ -1,9 +1,7 @@
 ---
 title: "Component Version"
-description: ""
-lead: ""
-draft: false
-images: []
+description: "Learn about the CRD for a Component Version"
+icon: "📄"
 weight: 44
 toc: true
 ---

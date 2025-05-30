@@ -1,9 +1,7 @@
 ---
 title: "OCM Controller API v1"
-description: ""
-lead: ""
-draft: false
-images: []
+description: "API documentation for the OCM Controller"
+icon: "📡"
 weight: 43
 toc: true
 ---

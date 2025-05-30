@@ -1,9 +1,6 @@
 ---
 title: "GitOps Driven Configuration of OCM Applications"
-description: "GitOps Driven Configuration of OCM Applications"
-lead: ""
-draft: false
-images: []
+description: "OCM as the source of truth for GitOps driven configuration."
 weight: 13
 toc: true
 ---
