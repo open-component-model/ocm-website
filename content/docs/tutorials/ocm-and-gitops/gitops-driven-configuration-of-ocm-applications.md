@@ -4,7 +4,7 @@ description: "GitOps Driven Configuration of OCM Applications"
 lead: ""
 draft: false
 images: []
-weight: 13
+weight: 53
 toc: true
 ---
 

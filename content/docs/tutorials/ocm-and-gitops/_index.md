@@ -1,7 +1,7 @@
 ---
 title: "OCM and GitOps"
 description: ""
-weight: 10
+weight: 50
 lead: ""
 draft: false
 images: []
