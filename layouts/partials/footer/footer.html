@@ -1,7 +1,7 @@
-<footer class="footer text-muted">
-  <div class="container-{{ site.Params.doks.containerBreakpoint | default "lg" }}">
-    <div class="text-center text-lg-end">
-      <small>{{ site.Params.footer | safeHTML }}</small>
-    </div>
+<footer class="site-footer py-4">
+  <div class="container-fluid">
+    {{ with site.Params.footer }}
+      {{ . | safeHTML }}
+    {{ end }}
   </div>
 </footer>

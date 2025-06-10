@@ -1,9 +1,7 @@
 ---
 title: "Sign Component Versions"
-description: ""
-lead: ""
-draft: false
-images: []
+description: "Learn how to sign component versions to ensure integrity and authenticity."
+icon: "🔐"
 weight: 25
 toc: true
 ---

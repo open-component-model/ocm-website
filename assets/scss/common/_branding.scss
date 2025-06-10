@@ -1,0 +1,46 @@
+// Import Quicksand font for OCM logo - ONLY the weight we actually use
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap');
+
+.font-logo {
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 300;
+}
+
+/* === Logo icon and text SVG styling === */
+.ocm-logo-icon svg {
+  height: 42px;
+  width: auto;
+  display: block;
+  /* Allow native colors inside icon SVG */
+  fill: unset !important;
+  stroke: unset !important;
+}
+
+.ocm-logo-text svg {
+  height: 42px;
+  width: auto;
+  display: block;
+  fill: currentColor;
+  stroke: currentColor;
+}
+
+/* === Force white logo color in the header === */
+header.navbar .ocm-logo {
+  color: #ffffff !important;
+}
+
+/* === Force white logo text in header and sections === */
+header.navbar .ocm-logo-text svg,
+.section .ocm-logo-text svg {
+  fill: #ffffff !important;
+  stroke: #ffffff !important;
+}
+
+/* === Theme-dependent color for center logo on start page === */
+[data-bs-theme="dark"] .font-logo {
+  color: #ffffff !important;  // White in dark mode
+}
+
+[data-bs-theme="light"] .font-logo {
+  color: #111111 !important;  // Dark text in light mode
+}

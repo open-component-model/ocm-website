@@ -1,0 +1,54 @@
+// Responsive flex footer layout
+.site-footer .container,
+.site-footer .container-fluid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  max-width: 100% !important;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.site-footer small {
+  flex: 1 1 260px;
+  min-width: 160px;
+  white-space: normal !important;
+  text-align: left;
+  margin: 0.2rem 0;
+}
+
+// Keep footer links inline, but allow wrapping if needed
+.site-footer small a {
+  display: inline !important;
+  white-space: nowrap !important;
+}
+
+// Responsive adjustments
+@media (max-width: 700px) {
+  .site-footer .container,
+  .site-footer .container-fluid {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .site-footer small {
+    text-align: left;
+    width: 100%;
+  }
+}
+
+// Extra narrow screen adjustments
+@media (max-width: 540px) {
+  .site-footer .container,
+  footer.site-footer .container,
+  footer.site-footer .container-fluid {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.2rem;
+  }
+  .site-footer small {
+    text-align: left;
+    width: 100%;
+  }
+}

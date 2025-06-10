@@ -1,9 +1,6 @@
 ---
 title: "Deploying Applications with OCM & GitOps"
-description: "Deploying Applications with OCM & GitOps"
-lead: ""
-draft: false
-images: []
+description: "Get started and deploy your applications with OCM & Flux."
 weight: 12
 toc: true
 ---
