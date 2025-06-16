@@ -2,8 +2,6 @@ module github.com/open-component-model/ocm-website
 
 go 1.24.2
 
-toolchain go1.24.4
-
 require (
 	github.com/spf13/cobra v1.9.1
 	ocm.software/ocm v0.25.0
