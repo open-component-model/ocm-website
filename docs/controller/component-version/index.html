@@ -20,47 +20,47 @@ Versions
 </span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>repository</span><span class=p>:</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>url</span><span class=p>:</span><span class=w> </span><span class=l>ghcr.io/phoban01</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>version</span><span class=p>:</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>semver</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;&gt;=6.3.x&#34;</span></span></span></code></pre></div></figure></div><p>In the above example:</p><ul><li>A ComponentVersion named <code>podinfo</code> is created, indicated by the <code>.metadata.name</code> field.</li><li>The ocm-controller checks the OCM repository every 10m0s, indicated by the <code>.spec.interval</code> field.</li><li>It retrieves the version matching the semver constraint specified by <code>.spec.version.semver</code> field.</li><li>The resolved component descriptor and version are written to the <code>.status.componentDescriptor</code> and <code>.status.reconciledVersion</code> fields.</li><li>Whenever a new version is available that satisfies <code>.spec.version.semver</code> and is greater than <code>.status.reconciledVersion</code> then the ocm-controller will fetch the new component version.</li></ul><p>You can run this example by saving the manifest into <code>componentversion.yaml</code>.</p><ul><li><ol><li>Apply the resource to the cluster:</li></ol></li></ul><div class=expressive-code><figure class="frame is-terminal not-content"><figcaption class=header><span class=title></span></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl> kubectl apply -f componentversion.yaml</span></span></code></pre></div></figure></div><ul><li><ol start=2><li>Run <code>kubectl get componentversion</code> to see the ComponentVersion</li></ol></li></ul><div class=expressive-code><figure class="frame is-terminal not-content"><figcaption class=header><span class=title></span></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>NAME      READY   VERSION   AGE   STATUS
-</span></span><span class=line><span class=cl>podinfo   True    6.3.6     8s    Applied version: 6.3.6</span></span></code></pre></div></figure></div><ul><li><ol start=3><li>Run <code>kubectl describe componentversion podinfo</code> to see the ComponentVersion Status:</li></ol></li></ul><div class=expressive-code><figure class="frame is-terminal not-content"><figcaption class=header><span class=title></span></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>Name:         podinfo
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>semver</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;&gt;=6.3.x&#34;</span></span></span></code></pre></div></figure></div><p>In the above example:</p><ul><li>A ComponentVersion named <code>podinfo</code> is created, indicated by the <code>.metadata.name</code> field.</li><li>The ocm-controller checks the OCM repository every 10m0s, indicated by the <code>.spec.interval</code> field.</li><li>It retrieves the version matching the semver constraint specified by <code>.spec.version.semver</code> field.</li><li>The resolved component descriptor and version are written to the <code>.status.componentDescriptor</code> and <code>.status.reconciledVersion</code> fields.</li><li>Whenever a new version is available that satisfies <code>.spec.version.semver</code> and is greater than <code>.status.reconciledVersion</code> then the ocm-controller will fetch the new component version.</li></ul><p>You can run this example by saving the manifest into <code>componentversion.yaml</code>.</p><ol><li><p>Apply the resource to the cluster:</p><div class=expressive-code><figure class="frame is-terminal not-content"><figcaption class=header><span class=title></span></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>kubectl apply -f componentversion.yaml</span></span></code></pre></div></figure></div></li><li><p>Run <code>kubectl get componentversion</code> to see the ComponentVersion</p><div class=expressive-code><figure class="frame is-terminal not-content"><figcaption class=header><span class=title></span></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>NAME      READY   VERSION   AGE   STATUS
+</span></span><span class=line><span class=cl>podinfo   True    6.3.6     8s    Applied version: 6.3.6</span></span></code></pre></div></figure></div></li><li><p>Run <code>kubectl describe componentversion podinfo</code> to see the ComponentVersion Status:</p><div class=expressive-code><figure class="frame is-terminal not-content"><figcaption class=header><span class=title></span></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>Name:         podinfo
 </span></span><span class=line><span class=cl>Namespace:    default
 </span></span><span class=line><span class=cl>Labels:       &lt;none&gt;
 </span></span><span class=line><span class=cl>Annotations:  &lt;none&gt;
 </span></span><span class=line><span class=cl>API Version:  delivery.ocm.software/v1alpha1
 </span></span><span class=line><span class=cl>Kind:         ComponentVersion
 </span></span><span class=line><span class=cl>Metadata:
-</span></span><span class=line><span class=cl>  Creation Timestamp:  2023-06-28T15:41:57Z
-</span></span><span class=line><span class=cl>  Generation:          <span class=m>1</span>
-</span></span><span class=line><span class=cl>  Resource Version:    <span class=m>235307145</span>
-</span></span><span class=line><span class=cl>  UID:                 318963a5-3b4f-4098-b324-348a57e532ff
+</span></span><span class=line><span class=cl>Creation Timestamp:  2023-06-28T15:41:57Z
+</span></span><span class=line><span class=cl>Generation:          <span class=m>1</span>
+</span></span><span class=line><span class=cl>Resource Version:    <span class=m>235307145</span>
+</span></span><span class=line><span class=cl>UID:                 318963a5-3b4f-4098-b324-348a57e532ff
 </span></span><span class=line><span class=cl>Spec:
-</span></span><span class=line><span class=cl>  Component:  phoban.io/podinfo
-</span></span><span class=line><span class=cl>  Interval:   10m0s
-</span></span><span class=line><span class=cl>  Repository:
+</span></span><span class=line><span class=cl>Component:  phoban.io/podinfo
+</span></span><span class=line><span class=cl>Interval:   10m0s
+</span></span><span class=line><span class=cl>Repository:
 </span></span><span class=line><span class=cl>    URL:  ghcr.io/phoban01
-</span></span><span class=line><span class=cl>  Version:
+</span></span><span class=line><span class=cl>Version:
 </span></span><span class=line><span class=cl>    Semver:  &gt;<span class=o>=</span>6.3.x
 </span></span><span class=line><span class=cl>Status:
-</span></span><span class=line><span class=cl>  Component Descriptor:
+</span></span><span class=line><span class=cl>Component Descriptor:
 </span></span><span class=line><span class=cl>    Component Descriptor Ref:
-</span></span><span class=line><span class=cl>      Name:       phoban.io-podinfo-6.3.6-10372358058082697739
-</span></span><span class=line><span class=cl>      Namespace:  default
+</span></span><span class=line><span class=cl>    Name:       phoban.io-podinfo-6.3.6-10372358058082697739
+</span></span><span class=line><span class=cl>    Namespace:  default
 </span></span><span class=line><span class=cl>    Name:         phoban.io/podinfo
 </span></span><span class=line><span class=cl>    Version:      6.3.6
-</span></span><span class=line><span class=cl>  Conditions:
+</span></span><span class=line><span class=cl>Conditions:
 </span></span><span class=line><span class=cl>    Last Transition Time:  2023-06-28T15:42:01Z
 </span></span><span class=line><span class=cl>    Message:               Applied version: 6.3.6
 </span></span><span class=line><span class=cl>    Observed Generation:   <span class=m>1</span>
 </span></span><span class=line><span class=cl>    Reason:                Succeeded
 </span></span><span class=line><span class=cl>    Status:                True
 </span></span><span class=line><span class=cl>    Type:                  Ready
-</span></span><span class=line><span class=cl>  Observed Generation:     <span class=m>1</span>
-</span></span><span class=line><span class=cl>  Reconciled Version:      6.3.6
+</span></span><span class=line><span class=cl>Observed Generation:     <span class=m>1</span>
+</span></span><span class=line><span class=cl>Reconciled Version:      6.3.6
 </span></span><span class=line><span class=cl>Events:
-</span></span><span class=line><span class=cl>  Type    Reason       Age   From            Message
-</span></span><span class=line><span class=cl>  ----    ------       ----  ----            -------
-</span></span><span class=line><span class=cl>  Normal  Progressing  46s   ocm-controller  Version check succeeded, found latest version: 6.3.6
-</span></span><span class=line><span class=cl>  Normal  Succeeded    43s   ocm-controller  Reconciliation finished, next run in 10m0s</span></span></code></pre></div></figure></div><ul><li><ol start=4><li>View the ComponentDescriptor for this ComponentVersion by running</li></ol></li></ul><div class=expressive-code><figure class="frame is-terminal not-content"><figcaption class=header><span class=title></span></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>kubectl get componentdescriptor -oyaml <span class=se>\
-</span></span></span><span class=line><span class=cl><span class=se></span>  <span class=k>$(</span>kubectl get cv podinfo -ojsonpath<span class=o>=</span><span class=s2>&#34;{.status.componentDescriptor.componentDescriptorRef.name}&#34;</span><span class=k>)</span></span></span></code></pre></div></figure></div><div class=expressive-code><figure class="frame not-content"><figcaption class=header><span class=title></span></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class=l>delivery.ocm.software/v1alpha1</span><span class=w>
+</span></span><span class=line><span class=cl>Type    Reason       Age   From            Message
+</span></span><span class=line><span class=cl>----    ------       ----  ----            -------
+</span></span><span class=line><span class=cl>Normal  Progressing  46s   ocm-controller  Version check succeeded, found latest version: 6.3.6
+</span></span><span class=line><span class=cl>Normal  Succeeded    43s   ocm-controller  Reconciliation finished, next run in 10m0s</span></span></code></pre></div></figure></div></li><li><p>View the ComponentDescriptor for this ComponentVersion by running</p><div class=expressive-code><figure class="frame is-terminal not-content"><figcaption class=header><span class=title></span></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>kubectl get componentdescriptor -oyaml <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span><span class=k>$(</span>kubectl get cv podinfo -ojsonpath<span class=o>=</span><span class=s2>&#34;{.status.componentDescriptor.componentDescriptorRef.name}&#34;</span><span class=k>)</span></span></span></code></pre></div></figure></div></li></ol><div class=expressive-code><figure class="frame not-content"><figcaption class=header><span class=title></span></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class=l>delivery.ocm.software/v1alpha1</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class=l>ComponentDescriptor</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>metadata</span><span class=p>:</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>creationTimestamp</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;2023-06-28T15:42:01Z&#34;</span><span class=w>
