@@ -28,16 +28,18 @@ Our team is passionate about delving into diverse deployment processes, explorin
 
 ### Community Calls
 
-We're excited to announce our regular community calls starting in the second half of this year!
+We're excited to announce our regular community calls:
 
 #### Schedule
 
-- **Frequency**: Every 4 weeks
-- **Day**: Wednesdays
-- **First Call**: Mid 2025 (specific date to be announced)
+- **Frequency**: Every first Wednesday of the months
 - **Time**: 15:00-16:00 UTC (17:00-18:00 CEST, 11:00-12:00 EDT, 08:00-09:00 PDT)
 - **Duration**: 1 hour
-- **Location**: MS Teams link will be shared in the meeting series calendar invite
+- **Location**: Use this [Zoom Link](https://zoom-lfx.platform.linuxfoundation.org/meeting/97987153840?password=fe2c3bf0-6a99-4e75-b62d-f1918154254e) to join the call.
+
+#### iCal (Apple/Outlook)
+
+Download the .ics file to add the community call meeting series to your calendar.
 
 #### What to Expect
 
@@ -57,38 +59,6 @@ You can bring anything, including:
 - Issues you would like to talk about and that should be addressed
 - Concepts you would like to work on together
 - Questions you have about the community or upcoming work
-
-#### How to Join
-
-Meeting details and calendar invites will be shared via our [Slack channel](https://kubernetes.slack.com/archives/C05UWBE8R1D) one week before each call.
-You can also check and subscribe to our [OCM Community Calls Google calendar](https://calendar.google.com/calendar/embed?src=ocm.community@group.calendar.google.com) like described below to receive updates directly in your calendar app.
-
-#### How to get Involved
-
-We want you as a speaker! Share your cloud experiences, projects, tools or best practices with the community. Get in touch with us via [#open-component-model](https://kubernetes.slack.com/archives/C05UWBE8R1D) and we will make space for you in our agenda!
-
-#### Calendar events and mailing list for Community Calls
-
-##### Google Calendar
-
-Use this [link](https://calendar.google.com/calendar/event?action=TEMPLATE&tmeid=MnJnaW5kcTI1YXUwZzh1bzF1aHUyc2xrbHVfMjAyNTA2MThUMTUwMDAwWiA5Y2JiZDQyOTc0MDBkMzQxMjAwMjQ0ODcxN2M4Yjk0ODVjYzA0NWM5YjIxMDJmOWU5NDZhYWYwZThhOGFhYmI4QGc&tmsrc=9cbbd4297400d3412002448717c8b9485cc045c9b2102f9e946aaf0e8a8aabb8%40group.calendar.google.com&scp=ALL) to add the community call meeting series to your Google calendar.
-
-##### iCal (Apple/Outlook)
-
-Download the [.ics file](https://ocm.software/community/ocm-community.ics) to add the community call meeting series to your non-Google calendar.
-
-##### Mailing List (Google Groups)
-
-We use Google Groups as mailing list for public announcements. To join the group and get notifications, you need to sign in with a Google account.
-
-To see all announcements and join the group, please visit the [OCM Announcements](https://groups.google.com/g/ocm-community-announce) group, no Google account is needed to read the posts.
-
-#### Recordings and Slides
-
-All calls will be recorded and uploaded publicly to the [OCM YouTube channel](https://www.youtube.com/@OpenComponentModel).
-Slides and agenda from prior community calls are stored [here](/community/call_history/).
-
-{{<callout context="note" title="Meeting Recordings">}}If you do not consent to being recorded, please do not enable your microphone or camera, or do not join the meetings.{{</callout>}}
 
 ## Contributing
 
