@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>describe on Open Component Model</title><link>https://ocm.software/docs/reference/ocm-cli/describe/</link><description>Recent content in describe on Open Component Model</description><generator>Hugo</generator><language>en</language><copyright>© Copyright 2025, SAP SE and Open Component Model Contributors</copyright><atom:link href="https://ocm.software/docs/reference/ocm-cli/describe/index.xml" rel="self" type="application/rss+xml"/><item><title>artifacts</title><link>https://ocm.software/docs/reference/ocm-cli/describe/artifacts/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/describe/artifacts/</guid><description>&lt;h3 id="usage">Usage&lt;/h3>
+
+
+
+&lt;div class="expressive-code">
+ &lt;figure class="frame not-content">
+ &lt;figcaption class="header">
+ &lt;span class="title">&lt;/span>
+ &lt;/figcaption>
+ &lt;pre tabindex="0">&lt;code>ocm describe artifacts [&amp;lt;options&amp;gt;] {&amp;lt;artifact-reference&amp;gt;}&lt;/code>&lt;/pre>
+ &lt;/figure>
+&lt;/div>
+&lt;h3 id="options">Options&lt;/h3>
+
+
+
+&lt;div class="expressive-code">
+ &lt;figure class="frame not-content">
+ &lt;figcaption class="header">
+ &lt;span class="title">&lt;/span>
+ &lt;/figcaption>
+ &lt;pre tabindex="0">&lt;code> -h, --help help for artifacts
+ --layerfiles list layer files
+ -o, --output string output mode (JSON, json, yaml)
+ --repo string repository name or spec&lt;/code>&lt;/pre>
+ &lt;/figure>
+&lt;/div>
+&lt;h3 id="description">Description&lt;/h3>
+&lt;p>Describe lists all artifact versions specified, if only a repository is specified
+all tagged artifacts are listed.
+Per version a detailed, potentially recursive description is printed.&lt;/p></description></item><item><title>cache</title><link>https://ocm.software/docs/reference/ocm-cli/describe/cache/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/describe/cache/</guid><description>&lt;h3 id="usage">Usage&lt;/h3>
+
+
+
+&lt;div class="expressive-code">
+ &lt;figure class="frame not-content">
+ &lt;figcaption class="header">
+ &lt;span class="title">&lt;/span>
+ &lt;/figcaption>
+ &lt;pre tabindex="0">&lt;code>ocm describe cache [&amp;lt;options&amp;gt;]&lt;/code>&lt;/pre>
+ &lt;/figure>
+&lt;/div>
+&lt;h3 id="options">Options&lt;/h3>
+
+
+
+&lt;div class="expressive-code">
+ &lt;figure class="frame not-content">
+ &lt;figcaption class="header">
+ &lt;span class="title">&lt;/span>
+ &lt;/figcaption>
+ &lt;pre tabindex="0">&lt;code> -h, --help help for cache&lt;/code>&lt;/pre>
+ &lt;/figure>
+&lt;/div>
+&lt;h3 id="description">Description&lt;/h3>
+&lt;p>Show details about the OCI blob cache (if given).&lt;/p></description></item><item><title>package</title><link>https://ocm.software/docs/reference/ocm-cli/describe/package/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/describe/package/</guid><description>&lt;h3 id="usage">Usage&lt;/h3>
+
+
+
+&lt;div class="expressive-code">
+ &lt;figure class="frame not-content">
+ &lt;figcaption class="header">
+ &lt;span class="title">&lt;/span>
+ &lt;/figcaption>
+ &lt;pre tabindex="0">&lt;code>ocm describe package [&amp;lt;options&amp;gt;] {&amp;lt;component-reference&amp;gt;} {&amp;lt;resource id field&amp;gt;}&lt;/code>&lt;/pre>
+ &lt;/figure>
+&lt;/div>
+&lt;h3 id="options">Options&lt;/h3>
+
+
+
+&lt;div class="expressive-code">
+ &lt;figure class="frame not-content">
+ &lt;figcaption class="header">
+ &lt;span class="title">&lt;/span>
+ &lt;/figcaption>
+ &lt;pre tabindex="0">&lt;code> -h, --help help for package
+ --lookup stringArray repository name or spec for closure lookup fallback
+ --repo string repository name or spec&lt;/code>&lt;/pre>
+ &lt;/figure>
+&lt;/div>
+&lt;h3 id="description">Description&lt;/h3>
+&lt;p>Describe a TOI package provided by a resource of an OCM component version.&lt;/p></description></item><item><title>plugins</title><link>https://ocm.software/docs/reference/ocm-cli/describe/plugins/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/describe/plugins/</guid><description>&lt;h3 id="usage">Usage&lt;/h3>
+
+
+
+&lt;div class="expressive-code">
+ &lt;figure class="frame not-content">
+ &lt;figcaption class="header">
+ &lt;span class="title">&lt;/span>
+ &lt;/figcaption>
+ &lt;pre tabindex="0">&lt;code>ocm describe plugins [&amp;lt;options&amp;gt;] {&amp;lt;plugin name&amp;gt;}&lt;/code>&lt;/pre>
+ &lt;/figure>
+&lt;/div>
+&lt;h3 id="options">Options&lt;/h3>
+
+
+
+&lt;div class="expressive-code">
+ &lt;figure class="frame not-content">
+ &lt;figcaption class="header">
+ &lt;span class="title">&lt;/span>
+ &lt;/figcaption>
+ &lt;pre tabindex="0">&lt;code> -h, --help help for plugins&lt;/code>&lt;/pre>
+ &lt;/figure>
+&lt;/div>
+&lt;h3 id="description">Description&lt;/h3>
+&lt;p>Describes provides comprehensive information about the capabilities of
+a plugin.&lt;/p></description></item></channel></rss>

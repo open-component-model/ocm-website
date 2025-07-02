@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>API on Open Component Model</title><link>https://ocm.software/docs/reference/ocm-controller/api/</link><description>Recent content in API on Open Component Model</description><generator>Hugo</generator><language>en</language><copyright>© Copyright 2025, SAP SE and Open Component Model Contributors</copyright><atom:link href="https://ocm.software/docs/reference/ocm-controller/api/index.xml" rel="self" type="application/rss+xml"/><item><title>OCM Controller API</title><link>https://ocm.software/docs/reference/ocm-controller/api/ocm-controller-api/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-controller/api/ocm-controller-api/</guid><description>&lt;p>Packages:&lt;/p>
+&lt;ul class="simple">
+&lt;li>
+&lt;a href="#delivery.ocm.software%2fv1alpha1">delivery.ocm.software/v1alpha1&lt;/a>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="delivery.ocm.software/v1alpha1">delivery.ocm.software/v1alpha1&lt;/h2>
+&lt;p>Package v1alpha1 contains API Schema definitions for the delivery v1alpha1 API group&lt;/p>
+Resource Types:
+&lt;ul class="simple">&lt;/ul>
+&lt;h3 id="delivery.ocm.software/v1alpha1.ComponentVersion">ComponentVersion
+&lt;/h3>
+&lt;p>ComponentVersion is the Schema for the ComponentVersions API.&lt;/p></description></item></channel></rss>
