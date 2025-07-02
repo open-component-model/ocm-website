@@ -140,6 +140,4 @@ OCM follows the [CNCF Code of Conduct](https://github.com/cncf/foundation/blob/m
 
 ## Licensing
 
-Copyright 2025-2025 SAP SE or an SAP affiliate company and Open Component Model contributors.
-Please see our [LICENSE](https://github.com/open-component-model/.github/blob/main/LICENSE) for copyright and license information.
-Detailed information including third-party components and their licensing/copyright information is available [via the REUSE tool](https://api.reuse.software/info/github.com/open-component-model/demo-secure-delivery).
+Copyright SAP SE or an SAP affiliated Company and Open Component Model contributors.
