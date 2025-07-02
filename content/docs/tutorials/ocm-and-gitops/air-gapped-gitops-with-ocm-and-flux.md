@@ -4,7 +4,7 @@ description: "Air-gapped GitOps with OCM & Flux"
 lead: ""
 draft: false
 images: []
-weight: 13
+weight: 52
 toc: true
 ---
 

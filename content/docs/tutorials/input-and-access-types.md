@@ -2,7 +2,7 @@
 title: "Input and Access Types"
 url: /docs/tutorials/input-and-access-types/
 draft: false
-weight: 68
+weight: 47
 toc: true
 ---
 
@@ -78,7 +78,7 @@ ocm ocm-accessmethods | grep '  - Access type' | sort -f
 
 Not all access and input types can be combined in useful ways with all artifact types. But the OCM specification does not define any restrictions on possible combinations.
 
-The following sections give an overview and typical usage examples for access and input types. It does not describe the full list of possible fields and their meaning. For a complete list of attributes, please see the [command reference](/docs/cli-reference/add/resources/). The examples below are meant to be used in a component that looks like this:
+The following sections give an overview and typical usage examples for access and input types. It does not describe the full list of possible fields and their meaning. For a complete list of attributes, please see the [command reference](/docs/reference/ocm-cli/add/resources/). The examples below are meant to be used in a component that looks like this:
 
 ```yaml
 - name: github.com/open-component-model/megacomponent
