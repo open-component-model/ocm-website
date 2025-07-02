@@ -13,12 +13,18 @@
     }
 
     .docs-content {
-      flex: 0 0 85% !important;
-      max-width: 85% !important;
+      flex: 0 0 100% !important;
+      max-width: 100% !important;
       margin: 0 1rem !important;
       padding: 1rem !important;
     }
 
+    /*
+      The following block was commented out to ensure the TOC is always displayed as a mobile TOC
+      (inside the content flow, below the title) and never as a right sidebar, even on large screens.
+      This fixes the issue where the TOC appeared as a sidebar on community pages.
+    */
+    /*
     .docs-toc {
       display: block !important;
       flex: 0 0 15% !important;
@@ -26,6 +32,7 @@
       margin: 0 1rem !important;
       padding-top: 1rem !important;
     }
+    */
   }
 
   /* Roadmap Page */
