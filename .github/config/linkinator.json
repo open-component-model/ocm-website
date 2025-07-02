@@ -4,7 +4,8 @@
   "verbosity": "warning",
   "timeout": 20000,
   "retry": true,
-  "retry-errors-jitter": "5",
-  "retry-errors": "true",
+  "retryErrors": true,
+  "retryErrorsCount": 3,
+  "retryErrorsJitter": 5,
   "skip": ["https://www\\.sap\\.com/.*/legal/.*","^https?://(www\\.)?gitea\\.ocm\\.dev(/|$)","^https://.*\\.ocm\\.dev(/|$)","^https://calendar\\.google\\.com(/|$)","^https://github\\.com/open-component-model(/|$)"]
 }
