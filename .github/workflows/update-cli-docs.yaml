@@ -10,11 +10,11 @@ on:
     types: [ocm-cli-release]
 
 env:
-  OUTPUT_DIR: ./content/docs/cli-reference
+  OUTPUT_DIR: ./content/docs/reference/ocm-cli
 
 jobs:
   generate-cli-reference:
-    name: Update content/docs/cli-reference
+    name: Update content/docs/reference/ocm-cli
     if: github.event.client_payload != ''
     runs-on: ubuntu-latest
     permissions:

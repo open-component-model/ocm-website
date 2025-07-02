@@ -70,6 +70,7 @@ configs
 consumerid
 containerd
 crd
+crds
 creationtime
 credentialrequest
 credentialsspec
@@ -182,6 +183,7 @@ instantiation
 io
 ioutils
 iterable
+jfrog
 js
 json
 jsonschema
