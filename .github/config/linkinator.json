@@ -5,5 +5,6 @@
   "timeout": 20000,
   "retry": true,
   "retry-errors-jitter": "5",
+  "retry-errors": "true",
   "skip": ["https://www\\.sap\\.com/.*/legal/.*","^https?://(www\\.)?gitea\\.ocm\\.dev(/|$)","^https://.*\\.ocm\\.dev(/|$)","^https://calendar\\.google\\.com(/|$)","^https://github\\.com/open-component-model(/|$)"]
 }
