@@ -39,7 +39,7 @@ We're excited to announce our regular community calls:
 
 #### iCal (Apple/Outlook)
 
-Download the [.ics file](ocm-community.ics) to add the community call meeting series to your calendar.
+Download the [.ics file](/ocm-community.ics) to add the community call meeting series to your calendar.
 
 #### What to Expect
 
