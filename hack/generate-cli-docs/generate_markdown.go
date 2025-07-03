@@ -89,10 +89,11 @@ func genMarkdownTreeCustom(cmd *cobra.Command, dir, urlPrefix, parentCmd string)
 		if cmd.IsAdditionalHelpTopicCommand() {
 			url = urlPrefix + "help/" + strings.ToLower(title) + "/"
 			name = title
-		} else if cmdName == "cli-reference" {
+		} else if cmdName == "ocm-cli" {
 			url = urlPrefix
-			name = title
-		} else if parentCmd == "cli-reference" {
+			title = "OCM CLI"
+			name = "OCM CLI"
+		} else if parentCmd == "ocm-cli" {
 			url = urlPrefix + strings.ToLower(title) + "/"
 			name = title
 		} else {
@@ -191,7 +192,7 @@ func genMarkdownCustom(cmd *cobra.Command, w io.Writer, linkHandler func(string)
 				subheader = true
 			}
 			cname := name + " " + "<b>" + child.Name() + "</b>"
-			buf.WriteString(fmt.Sprintf("* [%s](%s)\t &mdash; %s\n", cname, "/docs/cli-reference/help/"+child.Name(), child.Short))
+			buf.WriteString(fmt.Sprintf("* [%s](%s)\t &mdash; %s\n", cname, "/docs/reference/ocm-cli/help/"+child.Name(), child.Short))
 		}
 		if subheader {
 			buf.WriteString("\n")
@@ -260,7 +261,7 @@ func useLine(c *cobra.Command) string {
 
 func commandToID(command string) string {
 	if command == "ocm" {
-		return "cli-reference"
+		return "ocm-cli"
 	}
 	return strings.TrimPrefix(strings.Replace(command, " ", "_", -1), "ocm_")
 }
