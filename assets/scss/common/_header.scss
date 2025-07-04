@@ -57,3 +57,17 @@ header.navbar .nav-link[aria-label="Search website"] svg {
   stroke: #dee2e6;                      /* Helle Linienfarbe */
   fill: none;                           /* Keine Füllung */
 }
+
+/* OFFCANVAS-MENÜ
+ * --------------
+ * Spezifische Einstellungen für das mobile Offcanvas-Menü.
+ * Nur auf kleinen Bildschirmen (max-width: 991.98px) anwenden!
+ */
+@media (max-width: 991.98px) {
+  .offcanvas.offcanvas-end .offcanvas-body .navbar-nav .nav-link {
+    color: #232336 !important;             /* Dunkles Grau für Lesbarkeit im Light Mode */
+  }
+  [data-bs-theme="dark"] .offcanvas.offcanvas-end .offcanvas-body .navbar-nav .nav-link {
+    color: #dee2e6 !important;             /* Helle Farbe im Dark Mode */
+  }
+}

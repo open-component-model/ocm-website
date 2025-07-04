@@ -1,6 +1,7 @@
 ---
 title : "Overview"
-description: "Overview of OCM"
+description: "Get an overview of the Open Component Model (OCM)"
+icon: "🌐"
 weight: 10
 toc: true
 sidebar:

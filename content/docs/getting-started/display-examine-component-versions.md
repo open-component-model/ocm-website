@@ -1,9 +1,7 @@
 ---
 title: "Display and Examine Component Versions"
-description: ""
-lead: ""
-draft: false
-images: []
+description: "Learn how to display and examine component versions in OCM."
+icon: "👁️"
 weight: 24
 toc: true
 ---

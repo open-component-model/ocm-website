@@ -1,10 +1,8 @@
 ---
-title: "Installing the OCM Controller"
-description: "OCM Controller Installation"
-draft: false
-images: []
-weight: 28
-toc: true
+title: "Installation"
+description: "Install the OCM controller using Helm"
+icon: "🔧"
+weight: 41
 ---
 
 To install the `ocm-controller` you can use the provided Helm chart from the `ocm-controller` GitHub project's `./deploy` folder. The Helm chart has also been uploaded to the GitHub container registry as [OCI artifact](https://github.com/open-component-model/ocm-controller/pkgs/container/helm%2Focm-controller) and this is also the preferred way to install the `ocm-controller`.

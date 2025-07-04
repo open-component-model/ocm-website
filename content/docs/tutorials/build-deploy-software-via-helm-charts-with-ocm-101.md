@@ -1,10 +1,8 @@
 ---
-title: "Build & Deploy Applications using Helm Charts and OCM"
-description: ""
-lead: ""
-draft: false
-images: []
-weight: 44
+title: "Build & Deploy Applications with Helm and OCM"
+description: "Learn how to build and deploy applications using Helm and OCM."
+icon: "🏗️"
+weight: 64
 toc: true
 ---
 

@@ -1,6 +1,7 @@
 ---
 title : "About the OCM Project"
-description: "About the Open Component Model Project"
+description: "Learn about the Open Component Model (OCM) project and its main components."
+icon: "💡"
 url: /docs/overview/about
 weight: 11
 toc: true

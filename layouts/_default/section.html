@@ -1,0 +1,43 @@
+{{ define "main" }}
+  <div class="row flex-xl-nowrap">
+    {{ if (in site.Params.doks.sectionNav .Section) -}}
+      <div class="col-lg-5 col-xl-4 docs-sidebar d-none d-lg-block">
+        {{ partial "sidebar/section-menu.html" . }}
+      </div>
+    {{ end -}}
+
+    <main class="docs-content col-lg-11 col-xl-9 mx-xl-auto">
+      {{ if site.Params.doks.breadcrumbTrail -}}
+        {{ partial "main/breadcrumb" . }}
+      {{ end }}
+
+      <h1>{{ .Title }}</h1>
+      
+      {{ with .Description }}
+        <div class="section-desc-box">
+          {{ . | safeHTML }}
+        </div>
+      {{ end }}
+
+      {{ .Content }}
+
+      {{ if not .Params.hideChildren }}
+        <div class="ocm-cards-grid">
+          {{ range .Pages }}
+            <a class="ocm-section-card" href="{{ .RelPermalink }}">
+              <span class="ocm-card-icon">
+                {{- with .Params.icon }}{{ . | safeHTML }}
+                {{- else }}{{ if .IsSection }}📁{{ else }}📄{{ end }}
+                {{- end -}}
+              </span>
+              <div class="ocm-card-title">{{ .Title }}</div>
+              {{ with .Description }}
+                <div class="ocm-card-desc">{{ . }}</div>
+              {{ end }}
+            </a>
+          {{ end }}
+        </div>
+      {{ end }}
+    </main>
+  </div>
+{{ end }}

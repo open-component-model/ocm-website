@@ -1,9 +1,7 @@
 ---
 title: "Transport OCM Component Versions"
-description: ""
-lead: ""
-draft: false
-images: []
+description: "Learn how to transport OCM component versions between different registries."
+icon: "🚚"
 weight: 26
 toc: true
 ---
