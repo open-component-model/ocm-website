@@ -1,4 +1,4 @@
-# OCM Website Content Versioning & Deployment - Process Guide
+# OCM Website Content Creation, Versioning & Deployment - Process Guide
 
 ## 🎯 Objective and Summary
 
@@ -7,6 +7,7 @@ and publishing our static OCM documentation website, including content from othe
 
 The website utilizes:
 
+- **Frontmatter** for each page to define metadata like title, description, and logo. The templates are stored in `.github/templates/`.
 - **Version branches** (e.g., `v1.4.0`) for each released version.
 - A central file `data/versions.json` to power the version switcher.
 - **Hugo Modules** to include the reference documentation for the CLI and APIs from other repositories. The modules are created from specific folders in other Git repositories, using tags. The respective folders are then mounted into the website.
