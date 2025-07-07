@@ -1,5 +1,5 @@
 {
-  "concurrency": 5,
+  "concurrency": 2,
   "recurse": true,
   "verbosity": "warning",
   "timeout": 20000,
@@ -7,5 +7,5 @@
   "retryErrors": true,
   "retryErrorsCount": 3,
   "retryErrorsJitter": 5,
-  "skip": ["https://www\\.sap\\.com/.*/legal/.*","^https?://(www\\.)?gitea\\.ocm\\.dev(/|$)","^https://.*\\.ocm\\.dev(/|$)","^https://calendar\\.google\\.com(/|$)","^https://github\\.com/open-component-model(/|$)"]
+  "skip": ["^https?://(www\\.)?gitea\\.ocm\\.dev(/|$)","^https://.*\\.ocm\\.dev(/|$)"]
 }
