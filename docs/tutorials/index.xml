@@ -1,5 +1,19 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Tutorials on Open Component Model</title><link>https://ocm.software/docs/tutorials/</link><description>Recent content in Tutorials on Open Component Model</description><generator>Hugo</generator><language>en</language><copyright>© Copyright 2025, SAP SE and Open Component Model Contributors</copyright><atom:link href="https://ocm.software/docs/tutorials/index.xml" rel="self" type="application/rss+xml"/><item><title>Best Practices</title><link>https://ocm.software/docs/tutorials/best-practices/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/tutorials/best-practices/</guid><description>&lt;p>This chapter contains guidelines for common scenarios how to work with the Open Component Model, focusing on using CI/CD, build and publishing processes.&lt;/p></description></item><item><title>Build &amp; Deploy Applications using Helm Charts and OCM</title><link>https://ocm.software/docs/tutorials/build-deploy-applications-using-helm-charts-and-ocm/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/tutorials/build-deploy-applications-using-helm-charts-and-ocm/</guid><description>&lt;h2 id="introduction">Introduction&lt;/h2>
-&lt;p>Let&amp;rsquo;s illustrate a very simple &amp;ldquo;Hello World&amp;rdquo; example application and show how to leverage OCM to build an application component containing a Helm Chart and an OCI Image and deploy it to a local &lt;code>kind&lt;/code> k8s cluster.&lt;/p></description></item><item><title>Structuring Software Products with OCM</title><link>https://ocm.software/docs/tutorials/structuring-software-products-with-ocm/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/tutorials/structuring-software-products-with-ocm/</guid><description>&lt;h2 id="introduction">Introduction&lt;/h2>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Tutorials on Open Component Model</title><link>https://ocm.software/docs/tutorials/</link><description>Recent content in Tutorials on Open Component Model</description><generator>Hugo</generator><language>en</language><copyright>© Copyright 2025, SAP SE and Open Component Model Contributors</copyright><atom:link href="https://ocm.software/docs/tutorials/index.xml" rel="self" type="application/rss+xml"/><item><title>Best Practices</title><link>https://ocm.software/docs/tutorials/best-practices/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/tutorials/best-practices/</guid><description>&lt;p>This chapter contains guidelines for common scenarios how to work with the Open Component Model, focusing on using CI/CD, build and publishing processes.&lt;/p></description></item><item><title>Build &amp; Deploy Applications using Helm Charts and OCM</title><link>https://ocm.software/docs/tutorials/build-deploy-applications-using-helm-charts-and-ocm/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/tutorials/build-deploy-applications-using-helm-charts-and-ocm/</guid><description>&lt;div class="callout callout-tip d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
+ 
+ &lt;div class="callout-content">
+ &lt;div class="callout-title">
+ &lt;p>Did you know?&lt;/p>
+
+ &lt;/div>
+ &lt;div class="callout-body">
+ &lt;p>Get ready for the next evolution of the Open Component Model, designed to empower your cloud-native workflows. Discover a preview of the innovative &lt;code>ocm-k8s-toolkit&lt;/code> 
+
+
+
+
+
+
+&lt;a href="https://github.com/open-component-model/ocm-k8s-toolkit" target="_blank" rel="noopener">here&lt;/a> and be part of shaping the future of component management!&lt;/p></description></item><item><title>Structuring Software Products with OCM</title><link>https://ocm.software/docs/tutorials/structuring-software-products-with-ocm/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/tutorials/structuring-software-products-with-ocm/</guid><description>&lt;h2 id="introduction">Introduction&lt;/h2>
 &lt;p>In this tutorial software products are comprised of logical units called 
 
 

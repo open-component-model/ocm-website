@@ -8,8 +8,22 @@
 
 
 &lt;a href="https://github.com/stefanprodan/podinfo" target="_blank" rel="noopener">podinfo&lt;/a> application.&lt;/p></description></item><item><title>Air-gapped GitOps with OCM &amp; Flux</title><link>https://ocm.software/docs/tutorials/ocm-and-gitops/air-gapped-gitops-with-ocm-flux/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/tutorials/ocm-and-gitops/air-gapped-gitops-with-ocm-flux/</guid><description>&lt;h2 id="introduction">Introduction&lt;/h2>
-&lt;p>In this guide, we will show you how the tools provided by OCM make it possible to automate your deployments to air-gapped environments.&lt;/p></description></item><item><title>GitOps Driven Configuration of OCM Applications</title><link>https://ocm.software/docs/tutorials/ocm-and-gitops/gitops-driven-configuration-of-ocm-applications/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/tutorials/ocm-and-gitops/gitops-driven-configuration-of-ocm-applications/</guid><description>&lt;h2 id="introduction">Introduction&lt;/h2>
-&lt;p>This guide is the final part of our series exploring OCM, the &lt;code>ocm-controller&lt;/code>, and how to drive GitOps processes using OCM as the source of truth.&lt;/p></description></item><item><title>Secure software delivery with Flux and OCM</title><link>https://ocm.software/docs/tutorials/ocm-and-gitops/secure-software-delivery-with-flux-and-ocm/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/tutorials/ocm-and-gitops/secure-software-delivery-with-flux-and-ocm/</guid><description>&lt;p>The source code for the demo can be found at 
+&lt;p>In this guide, we will show you how the tools provided by OCM make it possible to automate your deployments to air-gapped environments.&lt;/p></description></item><item><title>GitOps Driven Configuration of OCM Applications</title><link>https://ocm.software/docs/tutorials/ocm-and-gitops/gitops-driven-configuration-of-ocm-applications/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/tutorials/ocm-and-gitops/gitops-driven-configuration-of-ocm-applications/</guid><description>&lt;div class="callout callout-tip d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
+ 
+ &lt;div class="callout-content">
+ &lt;div class="callout-title">
+ &lt;p>Did you know?&lt;/p>
+
+ &lt;/div>
+ &lt;div class="callout-body">
+ &lt;p>Get ready for the next evolution of the Open Component Model, designed to empower your cloud-native workflows. Discover a preview of the innovative &lt;code>ocm-k8s-toolkit&lt;/code> 
+
+
+
+
+
+
+&lt;a href="https://github.com/open-component-model/ocm-k8s-toolkit" target="_blank" rel="noopener">here&lt;/a> and be part of shaping the future of component management!&lt;/p></description></item><item><title>Secure software delivery with Flux and OCM</title><link>https://ocm.software/docs/tutorials/ocm-and-gitops/secure-software-delivery-with-flux-and-ocm/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/tutorials/ocm-and-gitops/secure-software-delivery-with-flux-and-ocm/</guid><description>&lt;p>The source code for the demo can be found at 
 
 
 
