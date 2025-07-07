@@ -1,0 +1,71 @@
+name: Update OCM CLI Docs
+
+permissions:
+  contents: read          # for checkout, file reads
+  actions: write          # to call repository_dispatch
+  pull-requests: write    # to create or update PRs
+
+on:
+  repository_dispatch:
+    types: [ocm-cli-release]
+
+env:
+  OUTPUT_DIR: ./content/docs/reference/ocm-cli
+
+jobs:
+  generate-cli-reference:
+    name: Update content/docs/reference/ocm-cli
+    if: github.event.client_payload != ''
+    runs-on: ubuntu-latest
+    permissions:
+      contents: 'write'
+      id-token: 'write'
+      pull-requests: 'write'
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        persist-credentials: false
+
+    - name: Update Version Parameter
+      run: |
+        TAG=${{ github.event.client_payload.tag }}
+        sed -i "s/latest_version = .*/latest_version = \"$TAG\"/" ./config/_default/params.toml
+
+    - name: Setup Go
+      uses: actions/setup-go@v5
+      with:
+        go-version-file: '${{ github.workspace }}/go.mod'
+
+    - name: Regenerate CLI docs
+      run: |
+        go get ocm.software/ocm@${{ github.event.client_payload.tag }}
+        go mod tidy
+        go run ./hack/generate-cli-docs --output-dir=${{ env.OUTPUT_DIR }}
+
+    - name: Get OCMBot installation token
+      # Instead of creating the PR below with GITHUB_TOKEN use a generated
+      # short-lived App installation token with full REST rights
+      id: generate_token
+      uses: tibdex/github-app-token@v2
+      with:
+        app_id: ${{ secrets.OCMBOT_APP_ID }}
+        private_key: ${{ secrets.OCMBOT_PRIV_KEY }}
+
+    - name: Create Pull Request
+      uses: peter-evans/create-pull-request@v7
+      with:
+        token: ${{ steps.generate_token.outputs.token }}
+        title: "Update CLI docs"
+        commit-message: "[github-actions] automated change"
+        add-paths: |
+          config/
+          content/
+          go.mod
+          go.sum
+        branch: update-cli-docs/auto
+        branch-suffix: timestamp
+        delete-branch: true
+        sign-commits: true
+        body: |
+          Update OCM CLI documentation for new release
+  

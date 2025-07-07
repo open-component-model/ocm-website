@@ -1,0 +1,51 @@
+{
+  "name": "ocm-website",
+  "version": "0.18.0",
+  "description": "OCM website",
+  "author": "open-component-model",
+  "license": "Apache-2.0",
+  "scripts": {
+    "dev": "exec-bin node_modules/.bin/hugo/hugo server --bind=0.0.0.0 --disableFastRender --baseURL=http://localhost --noHTTPCache",
+    "dev:drafts": "exec-bin node_modules/.bin/hugo/hugo server --bind=0.0.0.0 --disableFastRender --baseURL=http://localhost --noHTTPCache --buildDrafts",
+    "create": "exec-bin node_modules/.bin/hugo/hugo new",
+    "lint": "npm run lint:scripts && npm run lint:styles && npm run lint:markdown",
+    "lint:scripts": "eslint --cache assets/js",
+    "lint:styles": "stylelint --cache \"assets/scss/**/*.{css,sass,scss}\"",
+    "lint:markdown": "markdownlint-cli2 \"*.md\" \"content/**/*.md\"",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "exec-bin node_modules/.bin/hugo/hugo --minify --gc",
+    "preview": "http-server --gzip --brotli --ext=html --cors",
+    "clean": "npm run clean:build && npm run clean:lint && npm run clean:install",
+    "clean:build": "shx rm -rf public resources .hugo_build.lock",
+    "clean:install": "shx rm -rf node_modules package-lock.json yarn.lock pnpm-lock.yaml",
+    "clean:lint": "shx rm -rf .eslintcache .stylelintcache",
+    "preinfo": "npm version",
+    "info": "npm list",
+    "postinfo": "exec-bin node_modules/.bin/hugo/hugo version",
+    "postinstall": "hugo-installer --version otherDependencies.hugo --extended --destination node_modules/.bin/hugo"
+  },
+  "dependencies": {
+    "@tabler/icons": "^3.34.0",
+    "@thulite/doks-core": "^1.8.1",
+    "@thulite/images": "^3.3.1",
+    "@thulite/inline-svg": "^1.2.0",
+    "@thulite/seo": "^2.4.1",
+    "exec-bin": "^1.0.0",
+    "hugo-installer": "^4.0.1",
+    "thulite": "^2.5.0"
+  },
+  "devDependencies": {
+    "shx": "^0.4.0"
+  },
+  "otherDependencies": {
+    "hugo": "0.144.2"
+  },
+  "overrides": {
+    "semver": "^7.5.4"
+  },
+  "engines": {
+    "node": ">=22.12.0",
+    "npm": ">=10.9.0"
+  },
+  "packageManager": "npm@11.1.0"
+}

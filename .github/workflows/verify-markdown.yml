@@ -1,0 +1,20 @@
+name: Markdown
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - '**/*.md'
+
+permissions:
+  contents: read
+
+jobs:
+  check-md: # call reusable workflow from central '.github' repo
+    uses: open-component-model/.github/.github/workflows/markdown.yml@main
+    secrets: inherit
+    with:
+      md-lint: .github/config/markdownlint.yml
+      md-ignore: .github/config/markdownignore
+      spellcheck: .github/config/spellcheck.yml
