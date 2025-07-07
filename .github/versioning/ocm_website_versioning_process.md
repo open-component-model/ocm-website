@@ -55,7 +55,7 @@ The templates for the frontmatter are stored in `.github/templates/`. You can us
 
 ### Sections and normal Content
 
-Each section of the website SHOULD be organized in a way that makes it easy to navigate. The content should be written in Markdown and placed in the appropriate directory under `content/`. Each section can have its own subdirectory, and you can use the frontmatter to define the title and description for each page. 
+Each section of the website SHOULD be organized in a way that makes it easy to navigate. The content should be written in Markdown and placed in the appropriate directory under `content/`. Each section can have its own subdirectory, and you can use the frontmatter to define the title and description for each page.
 
 `Sections` can be created by adding new directories under `content/`, and each page within those sections should have its own Markdown file with the appropriate frontmatter. The section itself REQUIRES an `_index.md` file with frontmatter to define the section title and description. There MUST NOT be any additional content in the `_index.md` file, as it is only used for metadata.
 
