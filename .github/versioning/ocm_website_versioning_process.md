@@ -16,16 +16,21 @@ in different subfolders (e.g., `public/v1.4.0/`).
 
 ### 🔧 Key Components
 
-1. 🧱 **Branch and Content Preparation**
+1. **Content Creation**
+   - Uses Markdown files with frontmatter for metadata
+   - Organized in sections under `content/`
+   - Each section requires an `_index.md` file for metadata
+
+2. 🧱 **Branch and Content Preparation**
    - Creates a new version branch (`vX.Y.Z`)
    - Modifies `params.toml`, `module.toml`, and `data/versions.json`
    - Opens a PR to update `main`
 
-2. 🔄 **Version Synchronization**
+3. 🔄 **Version Synchronization**
    - After the PR is merged into `main`
    - Updates `versions.json` in all existing version branches
 
-3. 🚀 **Multi-Version Site Build and Deployment**
+4. 🚀 **Multi-Version Site Build and Deployment**
    - Builds all versions using Hugo
    - Stores output in `public/vX.Y.Z/`
    - Copies the `latest` version content to `public/`
@@ -33,7 +38,30 @@ in different subfolders (e.g., `public/v1.4.0/`).
 
 ---
 
-## 📝 Step-by-Step Instructions (Manual Execution)
+## 📚 Content Creation
+
+### 📝 Frontmatter
+
+Each page in the website MUST have a frontmatter section at the top of the file, which defines the metadata for that page. The frontmatter should include:
+
+```yaml
+title: "Page Title"
+description: "A brief description of the page content"
+logo: "📄"  # Optional, can be an emoji or icon representing the page
+weight: 92  # Optional, used to order the pages in the sidebar. Leave it out for default ordering.
+```
+
+The templates for the frontmatter are stored in `.github/templates/`. You can use these templates to ensure consistency across all pages.
+
+### Sections and normal Content
+
+Each section of the website SHOULD be organized in a way that makes it easy to navigate. The content should be written in Markdown and placed in the appropriate directory under `content/`. Each section can have its own subdirectory, and you can use the frontmatter to define the title and description for each page. 
+
+`Sections` can be created by adding new directories under `content/`, and each page within those sections should have its own Markdown file with the appropriate frontmatter. The section itself REQUIRES an `_index.md` file with frontmatter to define the section title and description. There MUST NOT be any additional content in the `_index.md` file, as it is only used for metadata.
+
+'Normal content' pages can be created by adding Markdown files within specific section directories. Each page should have its own frontmatter to define its title, description, and other metadata.
+
+## 📝 Step-by-Step Instructions for Versioning (Manual Execution)
 
 ### 🧱 Part 1 – Preparing a New Version
 
