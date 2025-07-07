@@ -5,32 +5,35 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"path/filepath"
+	"slices"
+	"strings"
 
-	"golang.org/x/exp/slices"
-
-	"github.com/open-component-model/ocm/cmds/ocm/app"
-	"github.com/open-component-model/ocm/pkg/contexts/clictx"
-	"github.com/spf13/cobra"
+	clictx "ocm.software/ocm/api/cli"
+	"ocm.software/ocm/cmds/ocm/app"
 )
 
-var commandsToDocument = []string{
-	"add",
-	"clean",
-	"create",
-	"describe",
-	"download",
-	"get",
-	"show",
-	"sign",
-	"transfer",
-	"verify",
+var commandDenyList = []string{
+	"bootstrap",
+	"cache",
+	"completion",
+	"controller",
+	"credentials",
+	"execute",
+	"hash",
+	"help",
+	"install",
+	"oci",
+	"ocm",
+	"toi",
+	"version",
 }
 
 func main() {
 	var outputDir, urlPrefix string
 
-	flag.StringVar(&outputDir, "output-dir", "./content/en/docs/cli-reference", "output directory for generated docs")
-	flag.StringVar(&urlPrefix, "url-prefix", "/docs/cli/", "prefix for cli docs urls")
+	flag.StringVar(&outputDir, "output-dir", "./content/docs/reference/ocm-cli", "output directory for generated docs")
+	flag.StringVar(&urlPrefix, "url-prefix", "/docs/reference/ocm-cli", "prefix for cli docs urls")
 
 	flag.Parse()
 
@@ -44,6 +47,10 @@ func main() {
 }
 
 func run(dir, urlPrefix string) error {
+	if !strings.HasSuffix(urlPrefix, "/") {
+		urlPrefix += "/"
+	}
+
 	log.Println("Generating docs for OCM CLI")
 
 	if err := os.RemoveAll(dir); err != nil {
@@ -55,27 +62,22 @@ func run(dir, urlPrefix string) error {
 	}
 
 	cmd := app.NewCliCommand(clictx.DefaultContext())
-	cmd.DisableAutoGenTag = true
 
 	for _, subCmd := range cmd.Commands() {
-		if !shouldDocument(subCmd) {
+		if slices.Contains(commandDenyList, subCmd.Name()) {
 			cmd.RemoveCommand(subCmd)
 		}
 	}
 
-	if err := genMarkdownTreeCustom(cmd, dir, urlPrefix, "cli-reference"); err != nil {
+	if err := genMarkdownTreeCustom(cmd, dir, urlPrefix, "ocm-cli"); err != nil {
 		return fmt.Errorf("error generating markdown: %w", err)
+	}
+
+	if err := genIndexForRootHelpTopics(filepath.Join(dir, "help"), urlPrefix); err != nil {
+		return fmt.Errorf("error generating ocm index: %w", err)
 	}
 
 	log.Printf("Docs successfully written to %s\n", dir)
 
 	return nil
-}
-
-func shouldDocument(cmd *cobra.Command) bool {
-	if slices.Contains(commandsToDocument, cmd.Name()) {
-		return true
-	}
-
-	return false
 }

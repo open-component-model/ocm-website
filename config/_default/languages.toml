@@ -1,20 +1,26 @@
 [en]
   languageName = "English"
-  contentDir = "content/en"
+  contentDir = "content"
   weight = 10
   [en.params]
     languageISO = "EN"
     languageTag = "en-US"
-
-[de]
-  languageName = "German"
-  contentDir = "content/de"
-  weight = 15
-  [de.params]
-    languageISO = "DE"
-    languageTag = "de-DE"
-    # titleAddition =
-    # description =
-    # titleHome =
-    # footer =
-    # alertText =
+    # Footer
+    footer = '''
+    <div style="width:100vw; position:relative; left:50%; margin-left:-50vw; padding:0 1rem; box-sizing:border-box;">
+      <div style="display:flex; justify-content:center; align-items:center; flex-wrap:wrap; gap:2rem;">
+        <small style="flex:1; text-align:center; min-width:200px;">Building this site is powered by <a href="https://www.netlify.com/" target="_blank" rel="noopener">Netlify</a></small>
+        <div style="flex:1; text-align:center; min-width:200px;">
+          <img src="/images/next-generation-eu-funding.png" alt="Funded by the European Union - NextGenerationEU" style="max-width: 200px; width: 100%; height: auto;" />
+        </div>
+        <small style="flex:1; text-align:center; min-width:200px;">
+          Copyright © Linux Foundation Europe.
+          Open Component Model is a project of NeoNephos Foundation.
+          For applicable policies including privacy policy,
+          terms of use and trademark usage guidelines,
+          please see <a href="https://linuxfoundation.eu/">https://linuxfoundation.eu</a>.
+          Linux is a registered trademark of Linus Torvalds.
+        </small>
+      </div>
+    </div>
+    '''

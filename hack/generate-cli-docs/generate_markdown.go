@@ -9,35 +9,30 @@ import (
 	"path/filepath"
 	"sort"
 	"strings"
-	"time"
 
-	"github.com/open-component-model/ocm/pkg/cobrautils"
 	"github.com/spf13/cobra"
+	"ocm.software/ocm/api/utils/cobrautils"
 )
 
 const fmTmpl = `---
 title: %s
 name: %s
 url: %s
-date: %s
 draft: false
 images: []
-menu:
-  docs:
-    parent: %s
+weight: 55
 toc: true
-isCommand: %v
+sidebar:
+  collapsed: true
 ---
 `
 
 func genMarkdownTreeCustom(cmd *cobra.Command, dir, urlPrefix, parentCmd string) error {
 	for _, c := range cmd.Commands() {
-		if c.Name() == "configfile" {
-			strings.TrimSpace(c.Name())
-		}
 		if !c.IsAvailableCommand() && !c.IsAdditionalHelpTopicCommand() {
 			continue
 		}
+
 		parent := commandToID(c.Parent().CommandPath())
 		if err := genMarkdownTreeCustom(c, dir, urlPrefix, parent); err != nil {
 			return err
@@ -45,15 +40,29 @@ func genMarkdownTreeCustom(cmd *cobra.Command, dir, urlPrefix, parentCmd string)
 	}
 
 	var basename string
-	if cmd.HasAvailableSubCommands() && !cmd.HasParent() {
+
+	if cmd.IsAdditionalHelpTopicCommand() {
+		basename = commandToID(cmd.CommandPath()) + ".md"
+		dir = path.Join(dir, "help")
+	} else if cmd.HasAvailableSubCommands() && !cmd.HasParent() {
 		basename = "_index.md"
 	} else if cmd.HasAvailableSubCommands() && cmd.HasParent() {
 		basename = "_index.md"
 		dir = path.Join(dir, commandToDir(cmd.CommandPath()))
-	} else if cmd.HasParent() {
+	} else if cmd.HasParent() && !cmd.IsAdditionalHelpTopicCommand() {
 		dir = path.Join(dir, commandToDir(cmd.Parent().CommandPath()))
 		basename = commandToID(cmd.CommandPath()) + ".md"
-	} else {
+	} else if cmd.HasParent() && cmd.IsAdditionalHelpTopicCommand() {
+		// Put the additional topic into where the command is sitting and not where
+		// subcommand would be.
+		// ocm/add instead of ocm/add/componentversion
+		parent := cmd.Parent()
+		if parent.HasParent() {
+			parent = parent.Parent()
+		}
+		parentCmd = parent.Name()
+
+		dir = path.Join(dir, commandToDir(parent.CommandPath()))
 		basename = commandToID(cmd.CommandPath()) + ".md"
 	}
 
@@ -70,32 +79,31 @@ func genMarkdownTreeCustom(cmd *cobra.Command, dir, urlPrefix, parentCmd string)
 	defer f.Close()
 
 	linkHandler := func(path string) string {
-		link := strings.Replace(path, " ", "/", -1)
-		link = strings.Replace(link, "ocm", "cli", -1)
-		return "/docs/" + link
+		return cmdToLink[path]
 	}
 
-	frontmatter := func(filename string) string {
-		now := time.Now().Format(time.RFC3339)
+	frontmatter := func() string {
 		cmdName := commandToID(cmd.Name())
 		title := strings.TrimSuffix(cmdName, path.Ext(cmdName))
 		var url, name string
-		isCmd := true
-		if cmdName == "cli-reference" {
-			url = urlPrefix
+		if cmd.IsAdditionalHelpTopicCommand() {
+			url = urlPrefix + "help/" + strings.ToLower(title) + "/"
 			name = title
-			isCmd = false
-		} else if parentCmd == "cli-reference" {
+		} else if cmdName == "ocm-cli" {
+			url = urlPrefix
+			title = "OCM CLI"
+			name = "OCM CLI"
+		} else if parentCmd == "ocm-cli" {
 			url = urlPrefix + strings.ToLower(title) + "/"
 			name = title
 		} else {
 			url = urlPrefix + parentCmd + "/" + strings.ToLower(title) + "/"
 			name = fmt.Sprintf("%s %s", parentCmd, title)
 		}
-		return fmt.Sprintf(fmTmpl, title, name, url, now, parentCmd, isCmd)
+		return fmt.Sprintf(fmTmpl, title, name, url)
 	}
 
-	if _, err := io.WriteString(f, frontmatter(filename)); err != nil {
+	if _, err := io.WriteString(f, frontmatter()); err != nil {
 		return err
 	}
 
@@ -104,10 +112,6 @@ func genMarkdownTreeCustom(cmd *cobra.Command, dir, urlPrefix, parentCmd string)
 	}
 
 	return nil
-}
-
-func genMarkdown(cmd *cobra.Command, w io.Writer) error {
-	return genMarkdownCustom(cmd, w, cobrautils.LinkForPath)
 }
 
 func genMarkdownCustom(cmd *cobra.Command, w io.Writer, linkHandler func(string) string) error {
@@ -123,7 +127,7 @@ func genMarkdownCustom(cmd *cobra.Command, w io.Writer, linkHandler func(string)
 	}
 
 	if cmd.IsAvailableCommand() {
-		if err := printOptions(buf, cmd, name); err != nil {
+		if err := printOptions(buf, cmd); err != nil {
 			return err
 		}
 	}
@@ -158,11 +162,6 @@ func genMarkdownCustom(cmd *cobra.Command, w io.Writer, linkHandler func(string)
 					buf.WriteString(fmt.Sprintf("* [%s](%s)\t &mdash; %s\n", pname, linkHandler(parent.CommandPath()), parent.Short))
 				}
 			}
-			cmd.VisitParents(func(c *cobra.Command) {
-				if c.DisableAutoGenTag {
-					cmd.DisableAutoGenTag = c.DisableAutoGenTag
-				}
-			})
 		}
 
 		children := cmd.Commands()
@@ -177,6 +176,7 @@ func genMarkdownCustom(cmd *cobra.Command, w io.Writer, linkHandler func(string)
 				buf.WriteString("\n\n##### Sub Commands\n\n")
 				subheader = true
 			}
+
 			cname := name + " " + "<b>" + child.Name() + "</b>"
 			buf.WriteString(fmt.Sprintf("* [%s](%s)\t &mdash; %s\n", cname, linkHandler(child.CommandPath()), child.Short))
 		}
@@ -192,15 +192,12 @@ func genMarkdownCustom(cmd *cobra.Command, w io.Writer, linkHandler func(string)
 				subheader = true
 			}
 			cname := name + " " + "<b>" + child.Name() + "</b>"
-			buf.WriteString(fmt.Sprintf("* [%s](%s)\t &mdash; %s\n", cname, linkHandler(child.CommandPath()), child.Short))
+			buf.WriteString(fmt.Sprintf("* [%s](%s)\t &mdash; %s\n", cname, "/docs/reference/ocm-cli/help/"+child.Name(), child.Short))
 		}
 		if subheader {
 			buf.WriteString("\n")
 		}
 
-	}
-	if !cmd.DisableAutoGenTag {
-		buf.WriteString("###### Auto generated by spf13/cobra on " + time.Now().Format("2-Jan-2006") + "\n")
 	}
 
 	_, err := buf.WriteTo(w)
@@ -208,7 +205,7 @@ func genMarkdownCustom(cmd *cobra.Command, w io.Writer, linkHandler func(string)
 	return err
 }
 
-func printOptions(buf *bytes.Buffer, cmd *cobra.Command, name string) error {
+func printOptions(buf *bytes.Buffer, cmd *cobra.Command) error {
 	flags := cmd.NonInheritedFlags()
 
 	flags.SetOutput(buf)
@@ -234,7 +231,7 @@ func printOptions(buf *bytes.Buffer, cmd *cobra.Command, name string) error {
 
 func useLine(c *cobra.Command) string {
 	useline := c.Use
-	if strings.Index(useline, " ") < 0 {
+	if !strings.Contains(useline, " ") {
 		if c.HasAvailableLocalFlags() {
 			useline += " [<options>]"
 		}
@@ -264,7 +261,7 @@ func useLine(c *cobra.Command) string {
 
 func commandToID(command string) string {
 	if command == "ocm" {
-		return "cli-reference"
+		return "ocm-cli"
 	}
 	return strings.TrimPrefix(strings.Replace(command, " ", "_", -1), "ocm_")
 }

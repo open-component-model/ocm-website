@@ -1,0 +1,114 @@
+title = "Open Component Model"
+baseurl = "https://ocm.software"
+canonifyURLs = false
+disableAliases = true
+disableHugoGeneratorInject = true
+# disableKinds = ["taxonomy", "term"]
+enableEmoji = true
+enableGitInfo = false
+enableRobotsTXT = true
+languageCode = "en-US"
+rssLimit = 10
+summarylength = 20 # 70 (default)
+
+# Multilingual
+defaultContentLanguage = "en"
+disableLanguages = ["de", "nl"]
+defaultContentLanguageInSubdir = false
+
+# Footer
+footer = '''
+<div style="width:100vw; position:relative; left:50%; margin-left:-50vw; padding:0 1rem; box-sizing:border-box;">
+  <div style="display:flex; justify-content:space-between; flex-wrap:wrap;">
+    <small>Building this site is powered by <a href="https://www.netlify.com/" target="_blank" rel="noopener">Netlify</a></small>
+    <small>
+      © Copyright 2025,
+      <a href="https://www.sap.com/corporate/en/legal/copyright.html">SAP SE</a> and Open Component Model Contributors |
+      <a href="https://www.sap.com/about/legal/trademark.html">Trademark</a> |
+      <a href="https://www.sap.com/about/legal/privacy.html">Privacy Policy</a> |
+      <a href="https://www.sap.com/corporate/en/legal/terms-of-use.html">Terms of Use</a> |
+      <a href="https://www.sap.com/corporate/en/legal/impressum.html">Legal Disclosure</a>
+    </small>
+  </div>
+</div>
+'''
+
+# Feed
+copyRight = "© Copyright 2025, SAP SE and Open Component Model Contributors"
+
+repoHost = "GitHub"
+docsRepo = "https://github.com/open-component-model/ocm-website"
+docsRepoBranch = "main"
+docsRepoSubPath = ""
+editPage = false
+lastMod = false
+
+[pagination]
+  pagerSize = 10
+
+[params]
+  social = true
+
+[build.buildStats]
+  enable = true
+
+[outputs]
+  home = ["HTML", "RSS", "searchIndex"]
+  section = ["HTML", "RSS", "SITEMAP"]
+
+[outputFormats.searchIndex]
+  mediaType = "application/json"
+  baseName = "search-index"
+  isPlainText = true
+  notAlternative = true
+
+# Add output format for section sitemap.xml
+[outputFormats.SITEMAP]
+  mediaType = "application/xml"
+  baseName = "sitemap"
+  isHTML = false
+  isPlainText = true
+  noUgly = true
+  rel  = "sitemap"
+
+[sitemap]
+  changefreq = "monthly"
+  filename = "sitemap.xml"
+  priority = 0.5
+
+[caches]
+  [caches.getjson]
+    dir = ":cacheDir/:project"
+    maxAge = -1 # "30m"
+
+[taxonomies]
+  contributor = "contributors"
+  category = "categories"
+  tag = "tags"
+
+[permalinks]
+  docs = "/docs/:sections[1:]/:title/"
+
+[minify.tdewolff.html]
+  keepWhitespace = false
+
+[related]
+  threshold = 80
+  includeNewer = true
+  toLower = false
+    [[related.indices]]
+      name = "categories"
+      weight = 100
+    [[related.indices]]
+      name = "tags"
+      weight = 80
+    [[related.indices]]
+      name = "date"
+      weight = 10
+
+[imaging]
+  anchor = "Center"
+  bgColor = "#ffffff"
+  hint = "photo"
+  quality = 85
+  resampleFilter = "Lanczos"

@@ -1,0 +1,91 @@
+name: Verify HTML Links
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  checks: read
+
+jobs:
+  check-links:
+    name: Check external and internal links (Netlify Deploy Preview)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Wait for Netlify Deploy Preview
+        id: wait_for_preview
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "Waiting up to 10 minutes for Netlify deploy preview..."
+          export REPO="${{ github.repository }}"
+          export SHA="${{ github.event.pull_request.head.sha }}"
+
+          timeout 600 bash -c '
+            while true; do
+              # Get check suite for Netlify app
+              SUITE_JSON=$(
+                gh api repos/"$REPO"/commits/"$SHA"/check-suites \
+                  --jq "[ .check_suites[] | select(.app.slug == \"netlify\") ]" 2>/dev/null
+              )
+
+              # no suite available? sleep and retry
+              if [ "$(echo "$SUITE_JSON" | jq length)" -eq 0 ]; then
+                sleep 5
+                continue
+              fi
+
+              # Read suite ID, status and conclusion
+              SUITE_ID=$(echo "$SUITE_JSON" | jq -r ".[0].id")
+              STATUS=$(echo    "$SUITE_JSON" | jq -r ".[0].status")
+              CONCLUSION=$(echo "$SUITE_JSON" | jq -r ".[0].conclusion")
+
+              echo "Netlify suite status: $STATUS, conclusion: $CONCLUSION"
+
+              if [ "$STATUS" = "completed" ]; then
+                if [[ "$CONCLUSION" = "success" || "$CONCLUSION" = "neutral" ]]; then
+                  # Get deploy preview URL from status
+                  STATUS_JSON=$(gh api repos/"$REPO"/commits/"$SHA"/status \
+                    --jq ".statuses[] | select(.context==\"netlify/open-component-model/deploy-preview\")" 2>/dev/null
+                  )
+
+                  PREVIEW_URL=$(echo "$STATUS_JSON" | jq -r '.target_url')
+
+                  echo "✅ Deploy Preview ready: $PREVIEW_URL"
+                  echo "preview_url=$PREVIEW_URL" >> $GITHUB_OUTPUT
+                  exit 0
+                else
+                  echo "❌ Deploy failed: $CONCLUSION"
+                  exit 1
+                fi
+              fi
+
+              # still pending? 
+              sleep 15
+            done
+          '
+
+          #  timeout returns 124 if command times out
+          if [ $? -eq 124 ]; then
+            echo "❌ Timeout after 10 minutes"
+            exit 1
+          fi
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.12.0 # keep in sync with 'engines'@package.json
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Verify links with linkinator
+        run: |
+          npm install linkinator
+          echo "Verifying links at ${{ steps.wait_for_preview.outputs.preview_url }}"
+          npx linkinator "${{ steps.wait_for_preview.outputs.preview_url }}" --config .github/config/linkinator.json \
+            && echo "✅ Linkinator: No broken links found."
