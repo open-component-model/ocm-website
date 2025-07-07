@@ -77,6 +77,6 @@ When using AI-generated code contributions in OSS Projects, their usage needs to
 
 ## Licensing
 
-Copyright © Linux Foundation Europe. Open Component Model is a project of NeoNephos Foundation. For applicable policies including privacy policy, terms of use and trademark usage guidelines, please see https://linuxfoundation.eu. Linux is a registered trademark of Linus Torvalds.
+Copyright © Linux Foundation Europe. Open Component Model is a project of NeoNephos Foundation. For applicable policies including privacy policy, terms of use and trademark usage guidelines, please see [https://linuxfoundation.eu](https://linuxfoundation.eu). Linux is a registered trademark of Linus Torvalds.
 Please see our [LICENSE](LICENSE) for copyright and license information.
 Detailed information including third-party components and their licensing/copyright information is available [via the REUSE tool](https://api.reuse.software/info/github.com/open-component-model/ocm-website).
