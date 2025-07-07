@@ -1,0 +1,53 @@
+name: Create new website version branch and update version files
+
+on:
+  workflow_dispatch:
+    inputs:
+      website_version:
+        description: 'New website version (e.g. v1.5.0)'
+        required: true
+      content_version:
+        description: 'OCM CLI content version (e.g. v1.5.0)'
+        required: false
+
+jobs:
+  propose:
+    name: Propose Main Updates
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Generate GitHub App Token
+        id: generate_token
+        uses: tibdex/github-app-token@v2
+        with:
+          app_id: ${{ secrets.OCMBOT_APP_ID }}
+          private_key: ${{ secrets.OCMBOT_PRIV_KEY }}
+
+      - name: Setup Git
+        run: |
+          git config user.name "ocmbot"
+          git config user.email "ocmbot@users.noreply.github.com"
+
+      - name: Run setup_version_branch.sh
+        run: ./versioning/setup_version_branch.sh "$WEBSITE_VERSION" "$CONTENT_VERSION"
+        env:
+          WEBSITE_VERSION: ${{ github.event.inputs.website_version }}
+          CONTENT_VERSION: ${{ github.event.inputs.content_version || github.event.inputs.website_version }}
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ steps.generate_token.outputs.token }}
+          commit-message: "Prepare main updates for version ${{ github.event.inputs.website_version }}"
+          title: "Prepare website version ${{ github.event.inputs.website_version }}"
+          body: "This PR updates versions.json, params.toml, and module.toml for website version `${{ github.event.inputs.website_version }}`."
+          branch: "prepare-${{ github.event.inputs.website_version }}"

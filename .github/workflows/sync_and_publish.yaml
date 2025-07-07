@@ -1,0 +1,54 @@
+name: Sync Versions and Publish Site
+
+on:
+  workflow_dispatch:
+
+jobs:
+  sync-and-publish:
+    name: Sync and Deploy Site
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Generate GitHub App Token
+        id: generate_token
+        uses: tibdex/github-app-token@v2
+        with:
+          app_id: ${{ secrets.OCMBOT_APP_ID }}
+          private_key: ${{ secrets.OCMBOT_PRIV_KEY }}
+
+      - name: Setup Git
+        run: |
+          git config user.name "ocmbot"
+          git config user.email "ocmbot@users.noreply.github.com"
+
+      - name: Run sync-versions-in-branches.sh
+        run: ./scripts/sync-versions-in-branches.sh
+        env:
+          GH_TOKEN: ${{ steps.generate_token.outputs.token }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.12.0 # keep in sync with 'engines'@package.json
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: 🔧 Build all Hugo versions
+        run: ./versioning/build-all-versions.sh
+
+      - name: Publish as GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
