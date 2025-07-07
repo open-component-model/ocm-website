@@ -105,7 +105,7 @@ flux get kustomizations
 
 ### Install the OCM Controller
 
-{{<callout context="tip" title="Did you know?">}}Get ready for the next evolution of the open component model, designed to empower your cloud-native workflows. Discover a preview of the innovative `ocm-k8s-toolkit` [here](https://github.com/open-component-model/ocm-k8s-toolkit) and be part of shaping the future of component management!{{</callout>}}
+{{<callout context="tip" title="Did you know?">}}Get ready for the next evolution of the Open Component Model, designed to empower your cloud-native workflows. Discover a preview of the innovative `ocm-k8s-toolkit` [here](https://github.com/open-component-model/ocm-k8s-toolkit) and be part of shaping the future of component management!{{</callout>}}
 
 To install the `ocm-controller` you can use the provided Helm chart from the `ocm-controller` GitHub project's `./deploy` folder. The Helm chart has also been uploaded to the GitHub container registry as [OCI artifact](https://github.com/open-component-model/ocm-controller/pkgs/container/helm%2Focm-controller) and this is also the preferred way to install the `ocm-controller`.
 
