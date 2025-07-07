@@ -1,5 +1,5 @@
 ---
-title: "Credentials in .ocmconfig file"
+title: "Credentials in .ocmconfig File"
 description: "How to configure credentials in the OCM CLI configuration file"
 url: "/docs/tutorials/creds-in-ocmconfig"
 icon: "🔑"
