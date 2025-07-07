@@ -8,6 +8,8 @@ weight: 53
 toc: true
 ---
 
+{{<callout context="tip" title="Did you know?">}}Get ready for the next evolution of the open component model, designed to empower your cloud-native workflows. Discover a preview of the innovative `ocm-k8s-toolkit` [here](https://github.com/open-component-model/ocm-k8s-toolkit) and be part of shaping the future of component management!{{</callout>}}
+
 ## Introduction
 
 This guide is the final part of our series exploring OCM, the `ocm-controller`, and how to drive GitOps processes using OCM as the source of truth.

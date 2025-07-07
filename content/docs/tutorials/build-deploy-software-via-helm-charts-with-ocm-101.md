@@ -8,6 +8,8 @@ weight: 44
 toc: true
 ---
 
+{{<callout context="tip" title="Did you know?">}}Get ready for the next evolution of the open component model, designed to empower your cloud-native workflows. Discover a preview of the innovative `ocm-k8s-toolkit` [here](https://github.com/open-component-model/ocm-k8s-toolkit) and be part of shaping the future of component management!{{</callout>}}
+
 ## Introduction
 
 Let's illustrate a very simple "Hello World" example application and show how to leverage OCM to build an application component containing a Helm Chart and an OCI Image and deploy it to a local `kind` k8s cluster.  
