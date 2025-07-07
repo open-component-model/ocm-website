@@ -1,18 +1,17 @@
-# OCM Website Versioning & Deployment - Process Guide
+# OCM Website Content Versioning & Deployment - Process Guide
 
 ## 🎯 Objective and Summary
 
 This document describes the complete process for managing, versioning,
-and publishing a static Hugo documentation website, including content from other
-repositories using Hugo modules.
+and publishing our static OCM documentation website, including content from other repositories, e.g. `ocm` or `open-component-model` using Hugo modules.
 
 The website utilizes:
 
-- **Version branches** (e.g., `v1.4.0`) for each released version
-- A central file `data/versions.json` to power the version switcher
-- **Hugo Modules** to include content from other repositories
+- **Version branches** (e.g., `v1.4.0`) for each released version.
+- A central file `data/versions.json` to power the version switcher.
+- **Hugo Modules** to include content from other repositories. Hugo Modules are created from specific folders in other Git repositories, using tags. The respective folders are then mounted into the website.
 - A build output directory `public/` that contains all versions in parallel
-in different subfolders (e.g., `public/v1.4.0/`)
+in different subfolders (e.g., `public/v1.4.0/`).
 
 ### 🔧 Key Components
 
@@ -39,7 +38,7 @@ in different subfolders (e.g., `public/v1.4.0/`)
 
 1. Create a new branch `vX.Y.Z` from `main`
 2. In `config/_default/params.toml`, set `docsVersion = "vX.Y.Z"`
-3. In `config/_default/module.toml`, replace `@main` with `@vX.Y.Z` (or a different content version if needed)
+3. In `config/_default/module.toml`, configure the right folder and tag, e.g. replace `@main` with `@vX.Y.Z` (or a different content version if needed)
 4. Update `data/versions.json`:
    - Add the new version to the `versions` list
    - Set/Keep `defaultVersion` to **latest**
