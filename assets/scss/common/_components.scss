@@ -1,65 +1,65 @@
 /*
- * KOMPONENTEN-STYLES
- * =================
- * Diese Datei enthält wiederverwendbare UI-Komponenten, 
- * die auf verschiedenen Seiten eingesetzt werden.
+ * COMPONENT STYLES
+ * ================
+ * This file contains reusable UI components
+ * used on various pages.
  * 
- * Aktuell enthält sie:
- * 1. TOC Box (Table of Contents / Inhaltsverzeichnis)
- * 2. Description Box (Beschreibungsboxen für Sektionen)
+ * Currently includes:
+ * 1. TOC Box (Table of Contents)
+ * 2. Description Box (for section descriptions)
  */
 
-/* INHALTSVERZEICHNIS-BOX (TOC)
- * -------------------------
- * Eine Box, die das Inhaltsverzeichnis einer Seite enthält.
- * Passt sich an helles und dunkles Design an.
+/* TOC BOX (Table of Contents)
+ * ---------------------------
+ * A box containing the table of contents of a page.
+ * Adapts to light and dark design.
  */
 .toc-box {
-  border-radius: 0.6rem;              /* Abgerundete Ecken */
-  background: #f8f9fa;                /* Sehr heller Hintergrund */
-  border: 1px solid #ececec;          /* Subtile Umrandung */
-  padding: 1.3rem 1.8rem;             /* Innenabstand */
+  border-radius: 0.6rem;              /* Rounded corners */
+  background: #f8f9fa;                /* Very light background */
+  border: 1px solid #ececec;          /* Subtle border */
+  padding: 1.3rem 1.8rem;             /* Inner spacing */
 }
 
-/* Überschrift im Inhaltsverzeichnis */
+/* TOC title */
 .toc-title {
-  font-size: 1.2rem;                 /* Etwas größer als normaler Text */
-  font-weight: 500;                  /* Leicht fett */
-  margin-bottom: 0.7rem;             /* Abstand nach unten */
+  font-size: 1.2rem;                 /* Slightly larger than normal text */
+  font-weight: 500;                  /* Semi-bold */
+  margin-bottom: 0.7rem;             /* Spacing below */
 }
 
-/* Dunkelmodus-Anpassungen für TOC */
+/* Dark mode adjustments for TOC */
 [data-theme=dark] .toc-box {
-  background: #242538;               /* Dunklerer Hintergrund */
-  border: 1px solid rgba(255,255,255,0.07);  /* Subtilere Umrandung */
+  background: #242538;               /* Darker background */
+  border: 1px solid rgba(255,255,255,0.07);  /* More subtle border */
 }
 
-/* BESCHREIBUNGSBOX
- * -------------
- * Eine Box für Sektionsbeschreibungen oder wichtige Informationen.
- * Wird oft am Anfang einer Sektion verwendet.
+/* DESCRIPTION BOX
+ * --------------
+ * A box for section descriptions or important information.
+ * Often used at the beginning of a section.
  */
 .section-desc-box {
-  margin: 1.1rem 0 2.2rem 0;         /* Abstand oben und unten */
-  padding: 1.1rem 1.5rem;            /* Innenabstand */
-  background: #f6f7fa;               /* Sehr heller Hintergrund */
-  border: 1px solid #ececec;         /* Subtile Umrandung */
-  border-radius: 0.8rem;             /* Stark abgerundete Ecken */
+  margin: 1.1rem 0 2.2rem 0;         /* Top and bottom spacing */
+  padding: 1.1rem 1.5rem;            /* Inner spacing */
+  background: #f6f7fa;               /* Very light background */
+  border: 1px solid #ececec;         /* Subtle border */
+  border-radius: 0.8rem;             /* Strongly rounded corners */
   
-  /* Textformatierung */
-  font-size: 1.08rem;                /* Etwas größer als normaler Text */
-  color: #232336;                    /* Dunkle, leicht blaue Textfarbe */
-  font-weight: 400;                  /* Normale Schriftstärke */
-  line-height: 1.5;                  /* Angenehmer Zeilenabstand */
+  /* Text formatting */
+  font-size: 1.08rem;                /* Slightly larger than normal text */
+  color: #232336;                    /* Dark, slightly blue text color */
+  font-weight: 400;                  /* Normal font weight */
+  line-height: 1.5;                  /* Comfortable line height */
   
-  /* Box-Verhalten */
-  max-width: 100%;                   /* Nie breiter als Container */
-  box-sizing: border-box;            /* Padding nach innen berechnen */
+  /* Box behavior */
+  max-width: 100%;                   /* Never wider than container */
+  box-sizing: border-box;            /* Padding calculated inside */
 }
 
-/* Dunkelmodus-Anpassungen für die Beschreibungsbox */
+/* Dark mode adjustments for the description box */
 [data-theme="dark"] .section-desc-box,
 [data-bs-theme="dark"] .section-desc-box {
-  background: #5a5c60 !important; // dunkleres Grau für Dark Mode
-  color: #f6f7fa !important;      // sehr helles, aber nicht reines Weiß
+  background: #5a5c60 !important; // Darker grey for dark mode
+  color: #f6f7fa !important;      // Very light, but not pure white
 }

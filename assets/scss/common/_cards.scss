@@ -49,6 +49,19 @@ body.list.section.docs .ocm-cards-grid {
   max-height: 350px;
 }
 
+/* Dark mode: Make cards light grey instead of white for better contrast */
+[data-theme="dark"] .ocm-section-card,
+[data-bs-theme="dark"] .ocm-section-card {
+  background: #313244 !important; // lighter grey for better contrast
+}
+
+[data-theme="dark"] .ocm-card-title,
+[data-bs-theme="dark"] .ocm-card-title,
+[data-theme="dark"] .ocm-card-desc,
+[data-bs-theme="dark"] .ocm-card-desc {
+  color: #f3f4f6 !important; // very light grey for readability
+}
+
 .ocm-section-card:hover {
   box-shadow: 0 6px 24px 0 rgba(60,60,60,0.16);
   transform: translateY(-4px) scale(1.02);

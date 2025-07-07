@@ -1,7 +1,7 @@
 .docs-sidebar {
   position: sticky;
-  top: 4rem; /* Abstand zum Header */
-  height: calc(100vh - 4rem); /* Volle Höhe minus Header */
+  top: 4rem; /* Spacing to header */
+  height: calc(100vh - 4rem); /* Full height minus header */
   overflow-y: auto;
   padding-right: 1rem;
   margin-left: 0;
@@ -37,12 +37,12 @@
     
     > summary {
       height: 2.5rem; // Match min-height
-      cursor: pointer;  // Zeigt an, dass das Element klickbar ist
+      cursor: pointer;  // Indicates the element is clickable
       display: flex;
       align-items: center;
       padding: 0.25rem 0;
 
-      // Der Link im Summary soll sich wie ein normaler Link verhalten
+      // The link in the summary should behave like a normal link
       .docs-link {
         flex: 1;
         display: block;
@@ -72,7 +72,7 @@
       }
     }
 
-    // Wichtig: Style für geöffnete Details
+    // Important: Style for opened details
     &[open] {
       > summary {
         &::-webkit-details-marker,
@@ -81,7 +81,7 @@
         }
       }
 
-      // Zeige die verschachtelte Liste an
+      // Show the nested list
       .list-nested {
         display: block;
         margin-top: 0.25rem;
@@ -89,7 +89,7 @@
     }
   }
 
-  // Verschachtelte Listen (Unterkategorien)
+  // Nested lists (subcategories)
   .list-nested {
     padding-left: 1.2rem;
     list-style: none;
@@ -104,11 +104,11 @@
     }
   }
 
-  // Links styling
+  // Link styling
   .docs-link {
     text-decoration: none;
     color: var(--bs-body-color);
-    display: block;  // Wichtig: Macht den ganzen Bereich klickbar
+    display: block;  // Important: Makes the whole area clickable
     
     &.active {
       font-weight: 600;
@@ -142,8 +142,8 @@
 
 [data-theme="dark"] .section-nav .docs-link.active,
 [data-bs-theme="dark"] .section-nav .docs-link.active {
-  color: #fff !important; // Weiß für beste Lesbarkeit
-  background: rgba(67, 97, 238, 0.18); // Leichtes Blau als Hintergrund
+  color: #fff !important; // White for best readability
+  background: rgba(67, 97, 238, 0.18); // Light blue as background
   border-radius: 0.4rem;
 }
 
@@ -170,12 +170,12 @@
       
       > summary {
         height: 2.5rem; // Match min-height
-        cursor: pointer;  // Zeigt an, dass das Element klickbar ist
+        cursor: pointer;  // Indicates the element is clickable
         display: flex;
         align-items: center;
         padding: 0.25rem 0;
 
-        // Der Link im Summary soll sich wie ein normaler Link verhalten
+        // The link in the summary should behave like a normal link
         .docs-link {
           flex: 1;
           display: block;
@@ -205,7 +205,7 @@
         }
       }
 
-      // Wichtig: Style für geöffnete Details
+      // Important: Style for opened details
       &[open] {
         > summary {
           &::-webkit-details-marker,
@@ -214,7 +214,7 @@
           }
         }
 
-        // Zeige die verschachtelte Liste an
+        // Show the nested list
         .list-nested {
           display: block;
           margin-top: 0.25rem;
@@ -222,7 +222,7 @@
       }
     }
 
-    // Verschachtelte Listen (Unterkategorien)
+    // Nested lists (subcategories)
     .list-nested {
       padding-left: 1.2rem;
       list-style: none;
@@ -237,11 +237,11 @@
       }
     }
 
-    // Links styling
+    // Link styling
     .docs-link {
       text-decoration: none;
       color: var(--bs-body-color);
-      display: block;  // Wichtig: Macht den ganzen Bereich klickbar
+      display: block;  // Important: Makes the whole area clickable
       
       &.active {
         font-weight: 600;

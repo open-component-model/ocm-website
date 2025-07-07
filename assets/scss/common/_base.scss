@@ -1,45 +1,45 @@
 /*
  * BASE STYLES
  * ===========
- * Diese Datei enthält grundlegende Layout- und Strukturstyles.
- * Sie definiert:
- * 1. Container-Verhalten für Vollbildmodus
- * 2. Grundlegende Bildanpassungen
+ * This file contains basic layout and structure styles.
+ * It defines:
+ * 1. Container behavior for full-width mode
+ * 2. Basic image adjustments
  */
 
 /* FULL-WIDTH CONTAINER
- * ------------------
- * Container-fw = Full Width Container
- * Wenn eine Seite die Klasse .container-fw hat, wird der Inhalt über die volle Breite gestreckt.
- * Wichtig für Landingpages oder breite Dokumentationsseiten.
+ * --------------------
+ * .container-fw = Full Width Container
+ * If a page has the class .container-fw, the content is stretched to full width.
+ * Important for landing pages or wide documentation pages.
  */
 .container-fw {
-  max-width: 100%;       /* Nutzt die komplette verfügbare Breite */
-  padding-left: 1rem;    /* Minimaler Abstand zum linken Rand */
+  max-width: 100%;       /* Uses the full available width */
+  padding-left: 1rem;    /* Minimal left padding */
 
-  /* Hauptinhalt (docs-content) im Full-Width-Modus */
+  /* Main content (docs-content) in full-width mode */
   .docs-content {
-    margin-left: 0rem !important;    /* Entfernt Standard-Margins */
-    margin-right: 0rem !important;   /* damit der Inhalt die volle */
-    padding-right: 0rem !important;  /* Breite nutzen kann */
+    margin-left: 0rem !important;    /* Removes standard margins */
+    margin-right: 0rem !important;   /* so the content can use the full */
+    padding-right: 0rem !important;  /* width */
     padding-left: 0rem !important;
   }
 
-  /* Inhaltsverzeichnis (TOC) im Full-Width-Modus */
+  /* Table of contents (TOC) in full-width mode */
   .docs-toc {
-    margin-left: 3rem !important;    /* Abstand zum Hauptinhalt */
-    margin-right: 0rem !important;   /* Keine Margins nach rechts */
-    padding-right: 0rem !important;  /* Keine Polster nach rechts */
-    padding-left: 0rem !important;   /* oder links */
+    margin-left: 3rem !important;    /* Spacing to main content */
+    margin-right: 0rem !important;   /* No right margin */
+    padding-right: 0rem !important;  /* No right padding */
+    padding-left: 0rem !important;   /* or left */
   }
 }
 
-/* RESPONSIVE BILDER
- * ---------------
- * Macht alle Bilder im Content-Bereich responsiv.
- * Sie passen sich automatisch der Breite ihres Containers an.
+/* RESPONSIVE IMAGES
+ * -----------------
+ * Makes all images in the content area responsive.
+ * They automatically fit the width of their container.
  */
 .content img {
-  max-width: 100%;    /* Bild wird nie breiter als sein Container */
-  height: auto;       /* Höhe passt sich proportional an */
+  max-width: 100%;    /* Image never wider than its container */
+  height: auto;       /* Height scales proportionally */
 }
