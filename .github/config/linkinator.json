@@ -1,5 +1,5 @@
 {
-  "concurrency": 5,
+  "concurrency": 2,
   "recurse": true,
   "verbosity": "warning",
   "timeout": 20000,
