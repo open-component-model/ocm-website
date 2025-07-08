@@ -21,10 +21,12 @@ git checkout -b "$BRANCH_NAME"
 
 # === Update params.toml ===
 echo "→ Updating $PARAMS_FILE"
+# sed -i only works on GNU, on MacOS sed -i '' is needed or use gsed
 sed -i "s/^docsVersion = .*/docsVersion = \"$WEBSITE_VERSION\"/" "$PARAMS_FILE"
 
 # === Update module.toml ===
 echo "→ Updating $MODULE_FILE"
+# sed -i only works on GNU, on MacOS sed -i '' is needed or use gsed
 sed -i "s|\(@\)[^\"]*|@${CONTENT_VERSION}|" "$MODULE_FILE"
 
 # === Update versions.json (append if not present) ===
