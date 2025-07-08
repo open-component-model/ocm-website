@@ -1,5 +1,5 @@
 ---
-title : "My New Section Title"
+title: "My New Section Title"
 description: "This section contains tutorials and guides."
 logo: "🚀"
 weight: 40
