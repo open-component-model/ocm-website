@@ -7,5 +7,10 @@
   "retryErrors": true,
   "retryErrorsCount": 3,
   "retryErrorsJitter": 5,
-  "skip": ["^https?://(www\\.)?gitea\\.ocm\\.dev(/|$)","^https://.*\\.ocm\\.dev(/|$)"]
+  "skip": [
+    "^https?://(www\\.)?gitea\\.ocm\\.dev(/|$)",
+    "^https://.*\\.ocm\\.dev(/|$)",
+    "^https://github\\.com/open-component-model/ocm/blob/main/docs/reference/.*",
+    "^https://github\\.com/open-component-model/open-component-model/blob/main/docs/reference.*"
+  ]
 }
