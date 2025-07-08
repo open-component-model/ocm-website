@@ -1,4 +1,4 @@
-name: Markdown
+name: Verify Markdown
 
 on:
   pull_request:
@@ -9,12 +9,41 @@ on:
 
 permissions:
   contents: read
+  pull-requests: write
 
 jobs:
-  check-md: # call reusable workflow from central '.github' repo
-    uses: open-component-model/.github/.github/workflows/markdown.yml@main
-    secrets: inherit
-    with:
-      md-lint: .github/config/markdownlint.yml
-      md-ignore: .github/config/markdownignore
-      spellcheck: .github/config/spellcheck.yml
+  markdown-lint:
+    runs-on: ubuntu-latest
+    name: Lint Markdown
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+      - uses: DavidAnson/markdownlint-cli2-action@992badcdf24e3b8eb7e87ff9287fe931bcb00c6e # v20
+        with:
+          globs: '**/*.md'
+          separator: ","
+          config: .github/config/.markdownlint-cli2.yaml
+  verify-links:
+    name: Verify links
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+      - name: Run linkspector
+        uses: umbrelladocs/action-linkspector@3a951c1f0dca72300c2320d0eb39c2bafe429ab1 # v1
+        with:
+          github_token: ${{ secrets.github_token }}
+          reporter: github-pr-check
+          fail_level: any
+          config_file: .github/config/linkspector.yaml
+          show_stats: true
+  spellcheck:
+    name: Spellcheck
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+      - name: Spellcheck
+        uses: rojopolis/spellcheck-github-actions@35a02bae020e6999c5c37fabaf447f2eb8822ca7 # v0
+        with:
+          config_path: .github/config/spellcheck.yml
+          task_name: Markdown
+
+
