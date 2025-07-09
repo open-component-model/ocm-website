@@ -5,7 +5,7 @@
 
 [[main]]
   name = "Community"
-  url = "/community/community"
+  url = "/community/engagement"
   weight = 20
 
 [[main]]
