@@ -19,6 +19,15 @@ jobs:
       pull-requests: write
 
     steps:
+      - name: Get OCMBot installation token
+      # Instead of creating the PR below with GITHUB_TOKEN use a generated
+      # short-lived App installation token with full REST rights
+        id: generate_token
+        uses: tibdex/github-app-token@v2
+        with:
+          app_id: ${{ secrets.OCMBOT_APP_ID }}
+          private_key: ${{ secrets.OCMBOT_PRIV_KEY }}
+
       - name: Checkout
         uses: actions/checkout@v4
 
@@ -46,9 +55,12 @@ jobs:
       - name: Copy Schema
         run: |
           cp schema-v2.html schema_doc.css schema_doc.min.js public/docs/overview/specification
-
+          
       - name: Publish as GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ steps.generate_token.outputs.token }}
           publish_dir: ./public
+          commit_message: ${{ github.event.head_commit.message }}
+          user_name: 'GitHub Actions Bot'
+          user_email: '<41898282+github-actions[bot]@users.noreply.github.com>'
