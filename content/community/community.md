@@ -41,6 +41,10 @@ We're excited to announce our regular community calls:
 
 Download the [.ics file](/ocm-community.ics) to add the community call meeting series to your calendar.
 
+##### Call History
+
+[This page](https://github.com/open-component-model/open-component-model/blob/main/docs/community/README.md) contains the history of the Open Component Model community calls and links to slides and recordings.
+
 ##### What to Expect
 
 Join us to see and discuss project updates, share your feedback, ask questions, and connect with other community members.
