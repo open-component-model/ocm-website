@@ -21,7 +21,7 @@ jobs:
         with:
           globs: '**/*.md'
           separator: ","
-          config: .github/config/.markdownlint-cli2.yaml
+          config: .github/config/markdownlint-cli2.yaml
   verify-links:
     name: Verify links
     runs-on: ubuntu-latest
