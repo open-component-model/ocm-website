@@ -61,3 +61,6 @@ jobs:
         with:
           github_token: ${{ steps.generate_token.outputs.token }}
           publish_dir: ./public
+          commit_message: ${{ github.event.head_commit.message }}
+          user_name: 'GitHub Actions Bot'
+          user_email: '<41898282+github-actions[bot]@users.noreply.github.com>'
