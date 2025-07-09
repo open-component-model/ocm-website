@@ -1,11 +1,7 @@
 ---
 title: "The OCM Community"
 description: "The OCM Community"
-url: "/community/community/"
-lead: true
-draft: false
-images: []
-weight: 92
+url: "/community/engagement"
 toc: true
 layout: community
 ---
