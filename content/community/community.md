@@ -1,11 +1,7 @@
 ---
 title: "The OCM Community"
 description: "The OCM Community"
-url: "/community/community/"
-lead: true
-draft: false
-images: []
-weight: 92
+url: "/community/engagement"
 toc: true
 layout: community
 ---
@@ -40,6 +36,10 @@ We're excited to announce our regular community calls:
 ##### iCal (Apple/Outlook)
 
 Download the [.ics file](/ocm-community.ics) to add the community call meeting series to your calendar.
+
+##### Call History
+
+[This page](https://github.com/open-component-model/open-component-model/blob/main/docs/community/README.md) contains the history of the Open Component Model community calls and links to slides and recordings.
 
 ##### What to Expect
 
