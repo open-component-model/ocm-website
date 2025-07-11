@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Tutorials on Open Component Model</title><link>https://ocm.software/docs/tutorials/</link><description>Recent content in Tutorials on Open Component Model</description><generator>Hugo</generator><language>en</language><copyright>© Copyright 2025, SAP SE and Open Component Model Contributors</copyright><atom:link href="https://ocm.software/docs/tutorials/index.xml" rel="self" type="application/rss+xml"/><item><title>Best Practices</title><link>https://ocm.software/docs/tutorials/best-practices/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/tutorials/best-practices/</guid><description>&lt;p>This chapter contains guidelines for common scenarios how to work with the Open Component Model, focusing on using CI/CD, build and publishing processes.&lt;/p></description></item><item><title>Build &amp; Deploy Applications using Helm Charts and OCM</title><link>https://ocm.software/docs/tutorials/build-deploy-applications-using-helm-charts-and-ocm/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/tutorials/build-deploy-applications-using-helm-charts-and-ocm/</guid><description>&lt;div class="callout callout-tip d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Tutorials on Open Component Model</title><link>https://ocm.software/docs/tutorials/</link><description>Recent content in Tutorials on Open Component Model</description><generator>Hugo</generator><language>en</language><copyright>© Copyright 2025, SAP SE and Open Component Model Contributors</copyright><atom:link href="https://ocm.software/docs/tutorials/index.xml" rel="self" type="application/rss+xml"/><item><title>Best Practices</title><link>https://ocm.software/docs/tutorials/best-practices/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/tutorials/best-practices/</guid><description>&lt;p>This chapter contains guidelines for common scenarios how to work with the Open Component Model, focusing on using CI/CD, build and publishing processes.&lt;/p></description></item><item><title>Build &amp; Deploy Applications with Helm and OCM</title><link>https://ocm.software/docs/tutorials/build-deploy-applications-with-helm-and-ocm/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/tutorials/build-deploy-applications-with-helm-and-ocm/</guid><description>&lt;div class="callout callout-tip d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
  
  &lt;div class="callout-content">
  &lt;div class="callout-title">
@@ -31,22 +31,7 @@
 
 
 
-&lt;a href="https://github.com/open-component-model/ocm-spec/blob/main/doc/04-extensions/01-artifact-types/README.md" target="_blank" rel="noopener">&lt;em>artifacts&lt;/em>&lt;/a> (e.g., Docker images, Helm charts, binaries, configuration data, etc.). Such artifacts are called &lt;em>resources&lt;/em> in this specification. Resources are usually built from something, e.g., code in a git repo. Those are named &lt;em>sources&lt;/em> in this specification.&lt;/p></description></item><item><title>Credentials in .ocmconfig file</title><link>https://ocm.software/docs/tutorials/creds-in-ocmconfig/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/tutorials/creds-in-ocmconfig/</guid><description>&lt;h2 id="overview">Overview&lt;/h2>
-&lt;p>The 
-
-
-
-
-
-
-&lt;a href="https://github.com/open-component-model/ocm/blob/main/docs/reference/ocm.md" target="_blank" rel="noopener">OCM command line client&lt;/a> can be configured by supplying it with a 
-
-
-
-
-
-
-&lt;a href="https://github.com/open-component-model/ocm/blob/main/docs/reference/ocm_configfile.md" target="_blank" rel="noopener">configuration file&lt;/a>. By default, the CLI looks for configuration in &lt;code>$HOME/.ocmconfig&lt;/code>, if it exists.&lt;/p></description></item><item><title>Input and Access Types</title><link>https://ocm.software/docs/tutorials/input-and-access-types/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/tutorials/input-and-access-types/</guid><description>&lt;ul>
+&lt;a href="https://github.com/open-component-model/ocm-spec/blob/main/doc/04-extensions/01-artifact-types/README.md" target="_blank" rel="noopener">&lt;em>artifacts&lt;/em>&lt;/a> (e.g., Docker images, Helm charts, binaries, configuration data, etc.). Such artifacts are called &lt;em>resources&lt;/em> in this specification. Resources are usually built from something, e.g., code in a git repo. Those are named &lt;em>sources&lt;/em> in this specification.&lt;/p></description></item><item><title>Input and Access Types</title><link>https://ocm.software/docs/tutorials/input-and-access-types/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/tutorials/input-and-access-types/</guid><description>&lt;ul>
 &lt;li>
 
 
@@ -245,4 +230,19 @@
 &lt;/li>
 &lt;/ul>
 &lt;h2 id="overview">Overview&lt;/h2>
-&lt;p>The Open Component Model spec supports multiple methods how to add resources to a component version. There are two different ways to add content: Input Type and Access Type.&lt;/p></description></item></channel></rss>
+&lt;p>The Open Component Model spec supports multiple methods how to add resources to a component version. There are two different ways to add content: Input Type and Access Type.&lt;/p></description></item><item><title>Credentials in .ocmconfig File</title><link>https://ocm.software/docs/tutorials/creds-in-ocmconfig/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/tutorials/creds-in-ocmconfig/</guid><description>&lt;h2 id="overview">Overview&lt;/h2>
+&lt;p>The 
+
+
+
+
+
+
+&lt;a href="https://github.com/open-component-model/ocm/blob/main/docs/reference/ocm.md" target="_blank" rel="noopener">OCM command line client&lt;/a> can be configured by supplying it with a 
+
+
+
+
+
+
+&lt;a href="https://github.com/open-component-model/ocm/blob/main/docs/reference/ocm_configfile.md" target="_blank" rel="noopener">configuration file&lt;/a>. By default, the CLI looks for configuration in &lt;code>$HOME/.ocmconfig&lt;/code>, if it exists.&lt;/p></description></item></channel></rss>
