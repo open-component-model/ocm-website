@@ -1,0 +1,269 @@
+.docs-sidebar {
+  position: sticky;
+  top: 4rem; /* Spacing to header */
+  height: calc(100vh - 4rem); /* Full height minus header */
+  overflow-y: auto;
+  padding-right: 1rem;
+  margin-left: 0;
+}
+
+/* Uniform sidebar width and position across all pages */
+.row.flex-xl-nowrap {
+  position: relative;
+  margin: 0;
+  padding: 0 1rem;
+}
+
+/* Sidebar Navigation Enhancements */
+.section-nav {
+  // Base container styling
+  > ul {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem; // Consistent spacing between sections
+  }
+
+  // List item base styling
+  > ul > li {
+    position: static;
+    padding: 0;
+    margin: 0;
+  }
+
+  // Details element styling (expandable sections)
+  details {
+    display: block;
+    min-height: 2.5rem; // Ensure consistent height
+    
+    > summary {
+      height: 2.5rem; // Match min-height
+      cursor: pointer;  // Indicates the element is clickable
+      display: flex;
+      align-items: center;
+      padding: 0.25rem 0;
+
+      // The link in the summary should behave like a normal link
+      .docs-link {
+        flex: 1;
+        display: block;
+        text-decoration: none;
+        color: var(--bs-body-color);
+        
+        &:hover {
+          color: #233284;
+        }
+        
+        &.active {
+          font-weight: 600;
+          color: #111111;
+        }
+      }
+
+      &::-webkit-details-marker {
+        cursor: pointer;
+        color: #bbb;
+        transition: color 0.2s;
+      }
+      
+      &::marker {
+        cursor: pointer;
+        color: #bbb;
+        transition: color 0.2s;
+      }
+    }
+
+    // Important: Style for opened details
+    &[open] {
+      > summary {
+        &::-webkit-details-marker,
+        &::marker {
+          color: #233284;
+        }
+      }
+
+      // Show the nested list
+      .list-nested {
+        display: block;
+        margin-top: 0.25rem;
+      }
+    }
+  }
+
+  // Nested lists (subcategories)
+  .list-nested {
+    padding-left: 1.2rem;
+    list-style: none;
+    
+    > li {
+      margin: 0.5rem 0;
+      
+      > details > summary .docs-link {
+        font-size: 1.1rem;
+        font-weight: 600;
+      }
+    }
+  }
+
+  // Link styling
+  .docs-link {
+    text-decoration: none;
+    color: var(--bs-body-color);
+    display: block;  // Important: Makes the whole area clickable
+    
+    &.active {
+      font-weight: 600;
+      color: #111111;
+    }
+
+    &:hover {
+      color: #233284;
+    }
+  }
+
+  // Top level items
+  > ul > li > details > summary .docs-link {
+    font-size: 1.15rem;
+    font-weight: 600;
+  }
+  
+  // Support for both original theme and our custom implementation
+  li.active > .docs-link,
+  li.active > details > summary > .docs-link,
+  .docs-link.active {
+    font-weight: 600;
+  }
+}
+
+/* Highlight active links */
+.section-nav .docs-link.active {
+  font-weight: 600;
+  color: #111111;
+}
+
+[data-theme="dark"] .section-nav .docs-link.active,
+[data-bs-theme="dark"] .section-nav .docs-link.active {
+  color: #fff !important; // White for best readability
+  background: rgba(67, 97, 238, 0.18); // Light blue as background
+  border-radius: 0.4rem;
+}
+
+[data-bs-theme="dark"] {
+  .section-nav {
+    // Base container styling
+    > ul {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem; // Consistent spacing between sections
+    }
+
+    // List item base styling
+    > ul > li {
+      position: static;
+      padding: 0;
+      margin: 0;
+    }
+
+    // Details element styling (expandable sections)
+    details {
+      display: block;
+      min-height: 2.5rem; // Ensure consistent height
+      
+      > summary {
+        height: 2.5rem; // Match min-height
+        cursor: pointer;  // Indicates the element is clickable
+        display: flex;
+        align-items: center;
+        padding: 0.25rem 0;
+
+        // The link in the summary should behave like a normal link
+        .docs-link {
+          flex: 1;
+          display: block;
+          text-decoration: none;
+          color: var(--bs-body-color);
+          
+          &:hover {
+            color: #233284;
+          }
+          
+          &.active {
+            font-weight: 600;
+            color: #111111;
+          }
+        }
+
+        &::-webkit-details-marker {
+          cursor: pointer;
+          color: #bbb;
+          transition: color 0.2s;
+        }
+        
+        &::marker {
+          cursor: pointer;
+          color: #bbb;
+          transition: color 0.2s;
+        }
+      }
+
+      // Important: Style for opened details
+      &[open] {
+        > summary {
+          &::-webkit-details-marker,
+          &::marker {
+            color: #233284;
+          }
+        }
+
+        // Show the nested list
+        .list-nested {
+          display: block;
+          margin-top: 0.25rem;
+        }
+      }
+    }
+
+    // Nested lists (subcategories)
+    .list-nested {
+      padding-left: 1.2rem;
+      list-style: none;
+      
+      > li {
+        margin: 0.5rem 0;
+        
+        > details > summary .docs-link {
+          font-size: 1.1rem;
+          font-weight: 600;
+        }
+      }
+    }
+
+    // Link styling
+    .docs-link {
+      text-decoration: none;
+      color: var(--bs-body-color);
+      display: block;  // Important: Makes the whole area clickable
+      
+      &.active {
+        font-weight: 600;
+        color: #111111;
+      }
+
+      &:hover {
+        color: #233284;
+      }
+    }
+
+    // Top level items
+    > ul > li > details > summary .docs-link {
+      font-size: 1.15rem;
+      font-weight: 600;
+    }
+    
+    // Support for both original theme and our custom implementation
+    li.active > .docs-link,
+    li.active > details > summary > .docs-link,
+    .docs-link.active {
+      font-weight: 600;
+    }
+  }
+}

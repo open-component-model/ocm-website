@@ -1,8 +1,9 @@
 ---
-Title: "Credentials in .ocmconfig file"
+title: "Credentials in .ocmconfig File"
+description: "How to configure credentials in the OCM CLI configuration file"
 url: "/docs/tutorials/creds-in-ocmconfig"
-draft: false
-weight: 46
+icon: "🔑"
+weight: 72
 toc: true
 ---
 

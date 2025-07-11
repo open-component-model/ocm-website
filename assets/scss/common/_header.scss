@@ -1,59 +1,73 @@
 /*
  * HEADER STYLES
  * ============
- * Diese Datei steuert das Aussehen der Hauptnavigationsleiste (Header)
- * am oberen Rand jeder Seite.
+ * This file controls the appearance of the main navigation bar (header)
+ * at the top of every page.
  *
- * WICHTIGE INFORMATIONEN:
- * - Der Header ist immer sichtbar (fixed position)
- * - Verwendet immer ein dunkles Design (auch wenn die Seite hell ist)
- * - Enthält das OCM-Logo und die Hauptnavigation
- * - Hat einen farbigen Balken am oberen Rand
+ * IMPORTANT INFORMATION:
+ * - The header is always visible (fixed position)
+ * - Always uses a dark design (even if the page is light)
+ * - Contains the OCM logo and main navigation
+ * - Has a colored bar at the top
  */
 
-/* HAUPTNAVIGATIONSLEISTE
- * --------------------
- * Erzwingt ein dunkles Design für bessere Lesbarkeit.
- * !important wird verwendet, um andere Theme-Einstellungen zu überschreiben.
+/* MAIN NAVIGATION BAR
+ * -------------------
+ * Forces a dark design for better readability.
+ * !important is used to override other theme settings.
  */
 header.navbar {
-  background-color: #1d1e22 !important;  /* Dunkler Hintergrund (fast schwarz) */
-  color: #dee2e6 !important;             /* Helle Textfarbe */
-  padding-top: 1rem;                     /* Abstand oben */
-  padding-bottom: 1rem;                  /* Abstand unten */
+  background-color: #1d1e22 !important;  /* Dark background (almost black) */
+  color: #dee2e6 !important;             /* Light text color */
+  padding-top: 1rem;                     /* Top spacing */
+  padding-bottom: 1rem;                  /* Bottom spacing */
 }
 
-/* FARBIGER BALKEN AM OBEREN RAND
- * ---------------------------
- * Ein dünner, farbiger Streifen über dem Header.
- * Bleibt in Hell- und Dunkelmodus gleich.
+/* COLORED BAR AT THE TOP
+ * ----------------------
+ * A thin, colored stripe above the header.
+ * Remains the same in light and dark mode.
  */
 .header-bar {
-  height: 4px !important;                /* Sehr dünne Linie */
-  background: linear-gradient(to right, #4cc9f0, #4361ee) !important;  /* Farbverlauf blau */
-  border: none !important;               /* Keine Ränder */
-  box-shadow: none !important;           /* Keine Schatten */
+  height: 4px !important;                /* Very thin line */
+  background: linear-gradient(to right, #4cc9f0, #4361ee) !important;  /* Blue gradient */
+  border: none !important;               /* No borders */
+  box-shadow: none !important;           /* No shadow */
 }
 
-/* NAVIGATIONS-ELEMENTE
- * -----------------
- * Alle klickbaren Elemente im Header (Links, Buttons, Dropdown-Menüs)
- * haben die gleiche helle Farbe.
+/* NAVIGATION ELEMENTS
+ * -------------------
+ * All clickable elements in the header (links, buttons, dropdown menus)
+ * have the same light color.
  */
 header.navbar .nav-link,
 header.navbar .btn-link,
 header.navbar .btn-dropdown {
-  color: #dee2e6 !important;             /* Helle Textfarbe für alle Elemente */
+  color: #dee2e6 !important;             /* Light text color for all elements */
 }
 
-/* ICONS IN DER NAVIGATION
- * --------------------
- * Spezielle Einstellungen für SVG-Icons wie Suche, Menü-Toggle etc.
- * Verwendet nur Umrisse (stroke) ohne Füllung für einen leichten Look.
+/* ICONS IN NAVIGATION
+ * -------------------
+ * Special settings for SVG icons like search, menu toggle, etc.
+ * Uses only outlines (stroke) without fill for a light look.
  */
 header.navbar .btn-link svg,
 header.navbar .btn-dropdown svg,
 header.navbar .nav-link[aria-label="Search website"] svg {
-  stroke: #dee2e6;                      /* Helle Linienfarbe */
-  fill: none;                           /* Keine Füllung */
+  stroke: #dee2e6;                      /* Light stroke color */
+  fill: none;                           /* No fill */
+}
+
+/* OFFCANVAS MENU
+ * --------------
+ * Specific settings for the mobile offcanvas menu.
+ * Only apply on small screens (max-width: 991.98px)!
+ */
+@media (max-width: 991.98px) {
+  .offcanvas.offcanvas-end .offcanvas-body .navbar-nav .nav-link {
+    color: #232336 !important;             /* Dark gray for readability in light mode */
+  }
+  [data-bs-theme="dark"] .offcanvas.offcanvas-end .offcanvas-body .navbar-nav .nav-link {
+    color: #dee2e6 !important;             /* Light color in dark mode */
+  }
 }

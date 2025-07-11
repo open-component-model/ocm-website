@@ -1,10 +1,8 @@
 ---
 title: "Installing the OCM CLI"
 url: "/docs/getting-started/installation/"
-description: ""
-lead: ""
-draft: false
-images: []
+description: "Learn how to install the OCM CLI on various platforms."
+icon: "💻"
 weight: 22
 toc: true
 ---

@@ -1,10 +1,7 @@
 ---
-title: "Secure software delivery with Flux and OCM"
-description: ""
-lead: ""
-draft: false
-images: []
-weight: 54
+title: "Secure Software Delivery with Flux and OCM"
+description: "A fully guided walkthrough of a secure software delivery scenario."
+weight: 14
 toc: true
 ---
 

@@ -1,10 +1,8 @@
 ---
 title: "Best Practices"
-description: ""
-lead: ""
-draft: false
-images: []
-weight: 43
+description: "Best practices for working with the Open Component Model."
+icon: "✅"
+weight: 63
 toc: true
 ---
 
@@ -336,7 +334,7 @@ example can be found in the sample Github repository.
 
 ## Static and Dynamic Variable Substitution
 
-Looking at the [settings file](/docs/tutorials/build-deploy-applications-using-helm-charts-and-ocm/#building-the-common-transport-archive-ctf) shows that
+Looking at the [settings file](/docs/tutorials/build-deploy-applications-with-helm-and-ocm/#building-the-common-transport-archive-ctf) shows that
 some variables like the `version` or the `commit` change with every build
 or release. In many cases, these variables will be auto-generated during the build.
 
