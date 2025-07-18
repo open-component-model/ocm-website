@@ -242,6 +242,7 @@ mvn
 mvnrepository
 namespace
 namespaces
+neonephos
 newcomponentaccess
 newcomponentversionaccess
 newrepository
