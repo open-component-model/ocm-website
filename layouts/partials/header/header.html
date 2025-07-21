@@ -247,7 +247,7 @@
                 <a class="dropdown-item{{ if $isCurrent }} current{{ end }}"
                   {{ if $isCurrent }}aria-current="true"{{ end }}
                   href="{{ $versionPath }}docs/overview/about">
-                  {{ . }}{{ if $isDefault }} (latest){{ end }}
+                  {{ . }}{{ if $isDefault }} <span class="version-default">(default)</span>{{ end }}
                 </a>
               </li>
             {{ end }}
