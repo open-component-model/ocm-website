@@ -71,3 +71,11 @@ header.navbar .nav-link[aria-label="Search website"] svg {
     color: #dee2e6 !important;             /* Light color in dark mode */
   }
 }
+
+/* Anpassung: Haken im Version-Dropdown weiter nach rechts verschieben */
+.dropdown-item.current {
+  padding-right: 2.5em;
+}
+.dropdown-item.current .version-default {
+  margin-right: 0.1em;
+}
