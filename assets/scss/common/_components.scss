@@ -1,0 +1,65 @@
+/*
+ * COMPONENT STYLES
+ * ================
+ * This file contains reusable UI components
+ * used on various pages.
+ * 
+ * Currently includes:
+ * 1. TOC Box (Table of Contents)
+ * 2. Description Box (for section descriptions)
+ */
+
+/* TOC BOX (Table of Contents)
+ * ---------------------------
+ * A box containing the table of contents of a page.
+ * Adapts to light and dark design.
+ */
+.toc-box {
+  border-radius: 0.6rem;              /* Rounded corners */
+  background: #f8f9fa;                /* Very light background */
+  border: 1px solid #ececec;          /* Subtle border */
+  padding: 1.3rem 1.8rem;             /* Inner spacing */
+}
+
+/* TOC title */
+.toc-title {
+  font-size: 1.2rem;                 /* Slightly larger than normal text */
+  font-weight: 500;                  /* Semi-bold */
+  margin-bottom: 0.7rem;             /* Spacing below */
+}
+
+/* Dark mode adjustments for TOC */
+[data-theme=dark] .toc-box {
+  background: #242538;               /* Darker background */
+  border: 1px solid rgba(255,255,255,0.07);  /* More subtle border */
+}
+
+/* DESCRIPTION BOX
+ * --------------
+ * A box for section descriptions or important information.
+ * Often used at the beginning of a section.
+ */
+.section-desc-box {
+  margin: 1.1rem 0 2.2rem 0;         /* Top and bottom spacing */
+  padding: 1.1rem 1.5rem;            /* Inner spacing */
+  background: #f6f7fa;               /* Very light background */
+  border: 1px solid #ececec;         /* Subtle border */
+  border-radius: 0.8rem;             /* Strongly rounded corners */
+  
+  /* Text formatting */
+  font-size: 1.08rem;                /* Slightly larger than normal text */
+  color: #232336;                    /* Dark, slightly blue text color */
+  font-weight: 400;                  /* Normal font weight */
+  line-height: 1.5;                  /* Comfortable line height */
+  
+  /* Box behavior */
+  max-width: 100%;                   /* Never wider than container */
+  box-sizing: border-box;            /* Padding calculated inside */
+}
+
+/* Dark mode adjustments for the description box */
+[data-theme="dark"] .section-desc-box,
+[data-bs-theme="dark"] .section-desc-box {
+  background: #5a5c60 !important; // Darker grey for dark mode
+  color: #f6f7fa !important;      // Very light, but not pure white
+}
