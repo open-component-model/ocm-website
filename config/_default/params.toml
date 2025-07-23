@@ -59,8 +59,8 @@ mainSections = ["docs"]
   # be available in the version switcher of all versions.
 
   docsVersioning = true 
-  docsVersion = "legacy"
-  defaultVersion = "legacy"
+  docsVersion = "current"
+  defaultVersion = "current"
 
   # UX
   headerBar = true # true (default) or false
