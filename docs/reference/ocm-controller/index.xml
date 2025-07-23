@@ -1,1 +1,16 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>OCM Controller on Open Component Model</title><link>https://ocm.software/docs/reference/ocm-controller/</link><description>Recent content in OCM Controller on Open Component Model</description><generator>Hugo</generator><language>en</language><copyright>© Copyright 2025, SAP SE and Open Component Model Contributors</copyright><atom:link href="https://ocm.software/docs/reference/ocm-controller/index.xml" rel="self" type="application/rss+xml"/><item><title>Architecture</title><link>https://ocm.software/docs/reference/ocm-controller/architecture/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-controller/architecture/</guid><description>&lt;p>This document explains the architecture of the OCM Kubernetes Controllers . The purpose of the controllers is to enable the automated deployment of components using Kubernetes and Flux.&lt;/p></description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>OCM Controller on Open Component Model</title><link>https://ocm.software/docs/reference/ocm-controller/</link><description>Recent content in OCM Controller on Open Component Model</description><generator>Hugo</generator><language>en</language><copyright>© Copyright 2025, SAP SE and Open Component Model Contributors</copyright><atom:link href="https://ocm.software/docs/reference/ocm-controller/index.xml" rel="self" type="application/rss+xml"/><item><title>Installation</title><link>https://ocm.software/docs/reference/ocm-controller/installation/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-controller/installation/</guid><description>&lt;div class="callout callout-tip d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
+ 
+ &lt;div class="callout-content">
+ &lt;div class="callout-title">
+ &lt;p>Did you know?&lt;/p>
+
+ &lt;/div>
+ &lt;div class="callout-body">
+ &lt;p>Get ready for the next evolution of the Open Component Model, designed to empower your cloud-native workflows. Discover a preview of the innovative &lt;code>ocm-k8s-toolkit&lt;/code> 
+
+
+
+
+
+
+&lt;a href="https://github.com/open-component-model/ocm-k8s-toolkit" target="_blank" rel="noopener">here&lt;/a> and be part of shaping the future of component management!&lt;/p></description></item><item><title>Architecture</title><link>https://ocm.software/docs/reference/ocm-controller/architecture/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-controller/architecture/</guid><description>&lt;p>This document explains the architecture of the OCM Kubernetes Controllers . The purpose of the controllers is to enable the automated deployment of components using Kubernetes and Flux.&lt;/p></description></item></channel></rss>
