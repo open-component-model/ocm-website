@@ -84,7 +84,7 @@ Confirm that all resources have been successfully packaged and are available as 
 
 ```shell
 du -shA ctf-copy-resources 
-106M	ctf-copy-resources
+106M ctf-copy-resources
 ```
 
 ```shell
@@ -151,7 +151,7 @@ With all components now available in your air-gapped registry, you can proceed w
                     │  └─────┘  └─────┘  └─────┘          │
                     │     │        │        │             │
                     │  ┌──┴────────┴────────┴──┐          │
-                    │  │      MASTER NODE      │          │
+                    │  │      LEADER NODE      │          │
                     │  │         🎛️            │          │
                     │  └───────────────────────┘          │
                     │                                     │
