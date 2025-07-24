@@ -131,7 +131,7 @@ ocm transfer ctf ./media/.../ctf-copy-resources $AIR_GAPPED_OCI_REGISTRY/...
 
 ### Application Deployment
 
-With all components now available in your air-gapped registry, you can proceed with deploying your [applications via GitOps](tutorials/ocm-and-gitops/). The self-contained nature of the OCM package ensures reliable deployment without external dependencies.
+With all components now available in your air-gapped registry, you can proceed with deploying your [applications via GitOps](/docs/tutorials/ocm-and-gitops/). The self-contained nature of the OCM package ensures reliable deployment without external dependencies.
 
 ```shell
               🎉 SUCCESSFUL DEPLOYMENT IN AIR-GAPPED K8S CLUSTER 🎉
