@@ -147,7 +147,7 @@ With all components now available in your air-gapped registry, you can proceed w
                     │                                     │
                     │  ┌─────┐  ┌─────┐  ┌─────┐          │
                     │  │ POD │  │ POD │  │ POD │          │
-                    │  │ ⚙️ │  │ ⚙️  │  │ ⚙️  │          │
+                    │  │ ⚙️  │  │ ⚙️  │  │ ⚙️  │          │
                     │  └─────┘  └─────┘  └─────┘          │
                     │     │        │        │             │
                     │  ┌──┴────────┴────────┴──┐          │
