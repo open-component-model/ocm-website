@@ -35,7 +35,6 @@ The OCM CLI's `transfer` command can be used to transfer component versions, CTF
 
 More examples on the transport archive and the common transfer format (CTF) can be found in the [ocm-spec](https://github.com/open-component-model/ocm-spec/blob/main/doc/04-extensions/03-storage-backends/ctf.md).
 
-
 ## Air gapped environment
 
 Working with air-gapped environments requires careful preparation and a systematic approach to ensure all component dependencies are available offline. This section demonstrates how to prepare, transport, and deploy OCM components in secure, disconnected environments.
