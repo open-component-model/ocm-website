@@ -1,3 +1,20 @@
+/* VERSION DROPDOWN
+ * -------------------------
+ * Ensures the version dropdown is wide enough so that
+ * the version flag (default) is never overlapped by the chevron icon.
+ * Ensures the "(default)" flag in the version dropdown
+ * has the same color, size, and weight as the version text.
+ */
+.dropdown-menu[aria-labelledby="doks-versions"] {
+  min-width: 11em;
+}
+
+.dropdown-item .version-flag {
+  color: inherit;          /* Same color as text */
+  font-size: inherit;      /* Same size as text */
+  font-weight: inherit;    /* Same weight as text */
+}
+
 /*
  * HEADER STYLES
  * ============
@@ -70,12 +87,4 @@ header.navbar .nav-link[aria-label="Search website"] svg {
   [data-bs-theme="dark"] .offcanvas.offcanvas-end .offcanvas-body .navbar-nav .nav-link {
     color: #dee2e6 !important;             /* Light color in dark mode */
   }
-}
-
-/* Anpassung: Haken im Version-Dropdown weiter nach rechts verschieben */
-.dropdown-item.current {
-  padding-right: 2.5em;
-}
-.dropdown-item.current .version-default {
-  margin-right: 0.1em;
 }

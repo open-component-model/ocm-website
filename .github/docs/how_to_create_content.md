@@ -8,9 +8,9 @@ The website utilizes:
 
 - **Frontmatter** for each document to define metadata like title, description, and logo. The templates are stored in `.github/templates/`.
 
-- **Version Branches** (e.g., `v1.4.0`) for each released version of the website. New content is created in the `main` branch, and then branched to the respective version branch when we release a new OCM version. Corrections and updates to existing content are made in the `main` branch and merged to the respective version branch.
+- **Version Branches** (e.g., `v1.4.0`) for each released version of the website. New content is created in the `main` branch, and then branched to the respective website version branch when we release a new OCM version. Corrections and updates to existing content are made in the release branch and are then cherry-picked to the `main` branch.
 
-- **Hugo Modules** to include the reference documentation for the CLI and APIs from other repositories. The version of the modules are configured on branch creation, using tags of the respective repositories.
+- **Hugo Modules** to include the reference documentation for CLI, APIs and other content from other repositories (respectively other folders when all components live in a monorepo). The required versions of the modules are defined in `main` using the release tags of the respective repositories.
 
 ## 📚 Content Creation
 
