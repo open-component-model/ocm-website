@@ -2,136 +2,73 @@
 
 ## 🎯 Objective and Summary
 
-This document describes the process for creating new versions of our static OCM documentation website, including reference content from the docs folder of other repositories, e.g. `open-component-model` using [Hugo modules](https://gohugo.io/hugo-modules/use-modules/), which are technically Go modules. The website is hosted on GitHub Pages and uses a multi-version setup to allow users to switch between different versions of the documentation. Due to the nature of static websites, all versions are built in parallel and deployed to the same `public/` directory, with each version living in its own subfolder. The latest version is served from the root of the `public/` directory.
+This document describes the process for creating new versions of our static OCM documentation website, including reference content from the docs folder of other repositories, e.g. `open-component-model` using [Hugo modules](https://gohugo.io/hugo-modules/use-modules/), which are technically Go modules. The website is hosted on GitHub Pages and uses a multi-version setup to allow users to switch between different versions of the documentation. Due to the nature of static websites, all versions that should later be shown on the website need to be built in parallel and deployed to the same `public/` directory, with each version living in its own subfolder.
 
 ## The basic setup of the multi-version website in a nutshell
 
 - **Version branches** (e.g., `releases/vx.y`) for each released website version.
 
-- A **central file `data/versions.json`** to power the version switcher. This file needs to be created from a central data source or file that contains all OCM product versions, the versions of their subcomponents, e.g. the CLI, and the versions to be used on the website.
+- A **central file `data/versions.json`** to power the version switcher. This file contains all versions to be used on the website. We'll have these versions:
+  - `current` holds the content of our current website, dedicated to OCM v1.
+  - `dev` holds the content dedicated to the ongoing development in the `main` branch of the open-component-model monorepo, dedicated to OCM v2.
+  - `vx.y` hold the content of the released versions of the website, e.g., `v1.4.0`, `v1.5.0`, etc.
 
-- **Hugo Modules** to include reference documentation for the CLI and APIs from other repositories. The modules are created from specific folders in the remote Git repositories, using tags. The respective folders are then mounted into the website. The config for these modules is stored in `config/_default/module.toml`.
+- **Hugo Modules** to include reference documentation for the CLI and APIs from other repositories. The modules are created from the submodules in the remote Git repositories using tags, e.g. ocm.software/open-component-model/cli for the OCM CLI. The modules (or subfolder inside them) are then mounted into the website. The config for these modules is stored in `config/_default/module.toml` and only needs to be maintained in the `main` branch.
 
-- A **build output directory `public/`** that contains all versions in parallel in different subfolders. The default version displayed when the websites is opened, most-likely the latest released version, lives in the root `public` folder, other versions in subfolders like `public/v1.4.0/`. This is required for the static website hosted on GitHub Pages deployment to work correctly, as the complete website is deployed from the `public/` directory. Only then the version switcher can work correctly, as it needs to link to the correct versioned content.
+- A **build output directory `public/`** that is created during each build of the website and contains all versions in parallel in different subfolders. The default version displayed when the websites is opened, most-likely the latest released version, lives in the root `public` folder, other versions in subfolders like `public/v1.4.0/`. This is required for the static website hosted on GitHub Pages deployment to work correctly, as the complete website is deployed from the `public/` directory. Only then the version switcher works correctly and offers back-and-forth navigation.
 
 - Using URL patterns like `https://ocm.software/vx.y/` to access the versioned content, where `x.y` is the version tag.
 
-## 🔧 Steps to Create a new Website Version
+## 🛠️ Versioning Process Step-by-Step
 
-### 🧱 Branching and Configuration
+The versioning process consists of several steps, which can be executed manually or automatically via GitHub Actions workflows. The following steps outline the process:
 
-- Updates `data/versions.json`:
-  - Adds the new version to the `versions` list
-  - The file with the complete list of versions has to be present when building a specific version of the website, as it is used by the version switcher to display the correct versions.
-  - To avoid updating old version branches with that information, the file will be pulled dynamically during the build process for each version, using the latest version of the file from `main`.
+### 🔧 Define Modules for Reference Docs (in `main`)
 
-- Creates a new version branch (`releases/vx.y.z`)
-  - Modifies Hugo website configuration files:
-  - `config/_default/params.toml`: sets the `docsVersion` parameter to the new version tag
-  - `config/_default/module.toml`: configures the Hugo module to import content from. Specifes the source and target
-  folder for the reference content to be included in the website.
-    - This is done using Hugo Modules, which are Go modules, and allow us to import content from other repositories and mount it into our website structure.
-    - Using the 
-    - Example configuration for importing CLI reference content under `content/docs/reference/ocm-cli`:
+The reference documentation for the CLI and APIs is imported using Hugo modules. The configuration for the modules is stored in `config/_default/module.toml` of the website and only needs to be maintained in the `main` branch. It specifies the module(s) to be imported, the source folder and the target folder where the content should be mounted in the website structure. It is expected that the configuration in `main` is always up-to-date and does need to be touched during branching action.
 
-      ```toml
-      [[imports]]
-      path = "github.com/open-component-model/open-component-model"
-      [[imports.mounts]]
-         source = "docs/reference/cli"
-         target = "content/docs/reference/ocm-cli"
-      ```
-
-- Opens a PR to update `main`
-
-### 🚀 Multi-Version Site Build and Deployment
-
-- Builds all website versions using Hugo one after another
-- Stores output in parallel folders under `public/`, e.g., `public/vx.y`. The default version displayed when the websites is opened, most-likely the latest released version, lives in the root `public` folder.
-- To keep the version switcher functional and mount the correct version of the reference content for each version, the build process requires this information:
-   - `data/versions.json` file to determine the available versions and loop through them.
-   - `docsVersion` parameter in `config/_default/params.toml` to determine the folder und `public/` and the version to be built.
-   - `defaultVersion` parameter in `config/_default/params.toml` to determine version to be build to the root `public/` folder.
-   - mapping between website version and Hugo module version(s), to be able to update the Hugo module with the correct version of the reference content using `hugo mod get github.com/open-component-model/open-component-model@v.x.y.z` before building the website.
-- Deployment handled via GitHub Pages using an existing workflow
-
-## 📝 Step-by-Step Instructions for Website Version Branches (Manual Execution)
-
-### 🧱 Preparing a New Version
-
-1. Create a new branch `vX.Y.Z` from `main`
-
-2. In `config/_default/params.toml`, set exactly that version tag to the parameter `docsVersion = "vX.Y.Z"`
-
-3. In `config/_default/module.toml`, configure the right source repo and folder for all content modules, e.g.
+Example configuration for importing CLI reference content under `content/docs/reference/ocm-cli`:
 
    ```toml
    [[imports]]
-   path = "github.com/open-component-model/open-component-model"
+   path = "ocm.software/open-component-model/cli"  # Go module path
    [[imports.mounts]]
-      source = "docs/reference/cli"
-      target = "content/docs/reference/ocm-cli"
+      source = "docs/reference"                    # Source folder in the Go module
+      target = "content/docs/reference/ocm-cli"    # Target folder in the website structure
    ```
 
-4. Update `data/versions.json`:
-   - Add the new version to the `versions` list parameter
-   - Set/Keep `defaultVersion` to **latest**
+### Define Default Version (in `main`)
 
-5. Commit and push the new branch
+The `defaultVersion` parameter in `config/_default/params.toml` determines which version is shown when entering the website. It is shown with `(default)` in the version switcher. It also determines which version to be built to the root `public/` folder during the build process. This parameter should be set to the latest released version of the website, e.g., `v1.5.0`, or `current` as long as we still support the v1 content for the website.
 
-6. Create a PR branch from `main` containing only the update to `data/versions.json`
+### 📄 Update Version Information (in `main`)
 
-7. Open a Pull Request targeting `main`
+Update a new website version in the the file `data/versions.json`, which is used by the version switcher to display the correct versions. Before creating a new version branch, the `data/versions.json` file in the `main` branch should be updated with the new version information in the `versions` list. The list should contain all available versions, including the new one.
 
-### 🔄 Synchronizing All Version Branches
+### 🧱 Create a New Version Branch
 
-1. Once the PR has been merged into `main`:
-2. Retrieve the updated `data/versions.json` from `main`
-3. Check out each existing `v*` version branch
-4. Replace `data/versions.json` in each branch with the version from `main`
-5. Commit and push changes if modified
+To be able to fix already released content on the website, we create version branches from the `main` branch. These branches are named `releases/website/vx.y`, where `vx.y` is the version tag of the website. Normally this step should be part of the release process of the OCM monorepo, but can also be done manually if needed.
 
-### 🚀 Part 3 – Building and Publishing the Website
+### 🛠️ Update Version Information (in `releases/website/vx.y`)
 
-1. Use `git worktree` to check out all version branches locally in parallel. `main` will be checked out in the root directory, and each version branch will be checked out into a subdirectory under `website-build/`:  
-   - `git worktree add ./website-build/vX.Y.Z vX.Y.Z` for each version branch
-2. For each version execute the build process in its respective directory. The build command will build the site and output it to the `public/` directory:
-   - For `main`: Run `npm run build -- --destination ../../public --baseURL "https://ocm.software"`
-   - For other versions: Run `npm run build -- --destination ../../public/vX.Y.Z --baseURL "https://ocm.software/vX.Y.Z"`
-3. Deploy the final `public/` directory using deployment workflow (to be adopted from the existing GitHub Actions workflow).
+Configure the dedicated version of the website in `config/_default/params.toml` and set the `docsVersion` parameter to the new version tag `vx.y`.
 
----
+### Define Version of Hugo Modules (in `releases/website/vx.y`)
 
-## 📦 Workflow Files (GitHub Actions)
+To define the correct version of the reference content for the website, the Hugo modules need to be fetched once to the correct version. This is done by running `hugo mod get` for the wanted version of the referenced module(s), e.g. `hugo mod get ocm.software/open-component-model/cli@v.x`. Ideally the website version matches the version of the referenced module, but this is not a strict requirement. **The correct version needs to be known only when branching the website. All later updates are done using `hugo mod get -u` which will update the module to the latest version of the specified tag**
 
-### 1️⃣ `propose-main-updates.yml`
+Execute `hugo mod tidy` to ensure that the module dependencies are up-to-date and the `go.mod` file is clean. Then commit the changes to the `releases/website/vx.y` branch.
 
-- Creates a new version branch `vX.Y.Z`
-- Modifies version info in the necessary configuration files
-- Pushes the branch
-- Opens a PR for the `data/versions.json` update in `main`
+### 🚀 Multi-Version Site Build and Deployment
 
-### 2️⃣ `sync-branches-after-main-merge.yml`
+For publishing the website, we need to build all versions in parallel and deploy them to the `public/` directory. The build process is handled by an automated workflow and uses the following steps:
 
-- Triggered by updates to `main/data/versions.json`
-- Checks out all `v*` branches
-- Updates `data/versions.json` in each
-- Pushes if changes are detected
+- Loop through all versions defined in `data/versions.json` and check out the corresponding version branch using `git worktree`.
+- Loop through all worktrees and
+  - navigate into the version worktree directory
+  - update all used Hugo modules for reference docs using `hugo mod get -u`
+  - build the website version using Hugo: `npm run build -- --destination ../../public/vx.y --baseURL "https://ocm.software/vx.y"`
+- The build output is stored in parallel folders under `public/`, e.g., `public/vx.y`. The default version gets deployed to the root `public` folder.
+- For version `dev` in the version switcher we need a special, hard-coded mapping to the `main` branch.
+- Once all versions are built, the `public/` directory is deployed to the GitHub Pages branch of the repository, using Gh action `peaceiris/actions-gh-pages`and the branch `gh-pages`.
 
-### 3️⃣ `build-and-publish.yml`
-
-- Triggered manually or automatically after merge
-- Checks out all versions
-- Builds each version using `npm run build`
-- Copies the `defaultVersion` content to `public/`
-- Uploads the final build for GitHub Pages deployment
-- Completely removes the legacy schema generation logic
-
----
-
-## 🔁 Full Workflow Orchestration
-
-- 🔘 Trigger: `workflow_dispatch` with inputs for website version and content version
-- 🧱 Step 1: Execute `propose-main-updates.yml` to create the new version and open a PR
-- 📬 Manually merge the PR into `main`
-- 🚀 Step 2: Trigger `sync-and-publish.yml` to update all version branches, build all versions, and deploy the complete site to GitHub Pages
