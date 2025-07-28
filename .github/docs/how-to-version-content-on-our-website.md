@@ -71,4 +71,3 @@ For publishing the website, we need to build all versions in parallel and deploy
 - The build output is stored in parallel folders under `public/`, e.g., `public/vx.y`. The default version gets deployed to the root `public` folder.
 - For version `dev` in the version switcher we need a special, hard-coded mapping to the `main` branch.
 - Once all versions are built, the `public/` directory is deployed to the GitHub Pages branch of the repository, using Gh action `peaceiris/actions-gh-pages`and the branch `gh-pages`.
-
