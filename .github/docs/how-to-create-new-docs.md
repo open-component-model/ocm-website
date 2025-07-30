@@ -14,13 +14,30 @@ The website utilizes:
 
 - Node.js >=22.12.0
 - npm >=10.9.0
-- Hugo (will be installed via npm)
+- Hugo (will be installed via npm, currently pinned to version `0.145.0` due to incompatible changes in later versions)
 
-To be able to test your changes with a locally running Hugo server, install all dependencies (npm is using the file `package-lock.json`):
+To be able to test your changes with a locally running Hugo server, install EXACTLY the dependencies that are defined for the current version (npm is using the file `package-lock.json`):
 
 ```sh
 npm ci
 ```
+
+If you plan to also update npm packages to the latest available minor version, run:
+
+```sh
+npm install
+```
+
+This will install the latest patches or minor version of the packages defined in the `package.json`, as we normally specify
+
+```json
+"dependencies": {
+    "@thulite/doks-core": "^1.8.1",
+    "..."
+}
+```
+
+which allows that. Since even minor versions can introduce breaking changes, we recommend to only update the packages when you are sure that the new version does not break the build or the website. Especially the `@thulite/doks-core` package is used for the Hugo theme we use for the website and should be updated and tested with care.
 
 ## 📚 Content Creation
 
