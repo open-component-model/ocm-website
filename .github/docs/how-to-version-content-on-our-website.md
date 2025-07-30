@@ -12,7 +12,7 @@ The website is hosted on GitHub Pages and uses a multi-version setup to allow us
 - npm >=10.9.0
 - Hugo (will be installed via npm)
 
-To be able to test your changes with a locally running Hugo server, install all dependencies (npm is using the file `package-lock.json`):
+To be able to test your changes with a locally running Hugo server, install EXACTLY the dependencies that are defined for the current version (npm is using the file `package-lock.json`):
 
 ```sh
 npm ci
