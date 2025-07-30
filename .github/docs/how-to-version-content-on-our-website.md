@@ -38,7 +38,7 @@ npm ci
 
 ## 🛠️ Versioning Process Step-by-Step
 
-1. **Define Modules for Reference Docs (in `main`)**
+1. 🧩 **Define Modules for Reference Docs (in `main`)**
    - Configure Hugo modules in `config/_default/module.toml`.
 
    - Example:
@@ -51,7 +51,7 @@ npm ci
          target = "content/docs/reference/ocm-cli"
      ```
 
-2. **Set Default Version (in `main`)**
+2. 🎯 **Set Default Version (in `main`)**
    - The `defaultVersion` parameter in `config/_default/params.toml` determines which version is shown when the website is accessed and displayed as `(default)` in the version switcher behind the version. Normally this is the latest released version of the website, e.g., `v1.0`, or `current` as long as we still support the v1 content for the website.
 
    - Example:
@@ -60,7 +60,7 @@ npm ci
      defaultVersion = "current"
      ```
 
-3. **Update Version Information (in `main`)**
+3. 🗂️ **Update Version Information (in `main`)**
    - Update `data/versions.json` with the new version in the `versions` list.
 
    - Example:
@@ -71,7 +71,7 @@ npm ci
      }
      ```
 
-4. **Create a New Version Branch**
+4. 🌿 **Create a New Version Branch**
    - Create a branch from `main`, following the naming convention `releases/website/vx.y`.
   
    - Example:
@@ -80,7 +80,7 @@ npm ci
      git checkout -b releases/website/v1.0
      ```
 
-5. **Update Version Information (in `releases/website/vx.y`)**
+5. 📝 **Update Version Information (in `releases/website/vx.y`)**
    - Set the `docsVersion` parameter in `config/_default/params.toml` to the version just used for the new website branch.
   
    - Example:
@@ -89,7 +89,7 @@ npm ci
      docsVersion = "v1.0"
      ```
 
-6. **Set Hugo Module Version (in `releases/website/vx.y`)**
+6. 📦 **Set Hugo Module Version (in `releases/website/vx.y`)**
    - Fetch the correct version of the referenced module(s). You MUST know what module version matches the version of the website you are creating a version branch for.
 
    - This is done by running `hugo mod get` for the wanted version of the referenced module(s). Ideally the website version matches the version of the referenced module, but this is not a strict requirement. **The correct version needs to be known only when branching the website** All later updates are done using `hugo mod get -u` which will update the module to the latest version of the specified tag.
@@ -101,7 +101,7 @@ npm ci
 
    - Commit changes to the branch.
 
-7. **🚀 Multi-Version Site Build and Deployment**
+7. 🚀 **Multi-Version Site Build and Deployment**
    - Build all versions in parallel and save the output to `public/`.
   
    - Use the build script:
