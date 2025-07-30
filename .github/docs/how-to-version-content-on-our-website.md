@@ -20,7 +20,7 @@ npm ci
 
 ## The Basic Setup of the Multi-Version Website in a Nutshell
 
-- **Version branches** e.g., `releases/vx.y` for each released website version.
+- **Version branches** e.g., `website/vx.y` for each released website version.
 
 - A **central file `data/versions.json`** to power the version switcher. This file contains all versions to be used on the website. We'll have these versions:
 
@@ -72,7 +72,7 @@ npm ci
      ```
 
 4. 🌿 **Create a New Version Branch**
-   - Create a branch from `main`, following the naming convention `releases/website/vx.y`.
+   - Create a branch from `main`, following the naming convention `website/vx.y`.
   
    - Example:
 
@@ -80,7 +80,7 @@ npm ci
      git checkout -b releases/website/v1.0
      ```
 
-5. 📝 **Update Version Information (in `releases/website/vx.y`)**
+5. 📝 **Update Version Information (in `website/vx.y`)**
    - Set the `docsVersion` parameter in `config/_default/params.toml` to the version just used for the new website branch.
   
    - Example:
@@ -89,7 +89,7 @@ npm ci
      docsVersion = "v1.0"
      ```
 
-6. 📦 **Set Hugo Module Version (in `releases/website/vx.y`)**
+6. 📦 **Set Hugo Module Version (in `website/vx.y`)**
    - Fetch the correct version of the referenced module(s). You MUST know what module version matches the version of the website you are creating a version branch for.
 
    - This is done by running `hugo mod get` for the wanted version of the referenced module(s). Ideally the website version matches the version of the referenced module, but this is not a strict requirement. **The correct version needs to be known only when branching the website** All later updates are done using `hugo mod get -u` which will update the module to the latest version of the specified tag.
