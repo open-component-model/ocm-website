@@ -54,7 +54,7 @@ weight: 92  # Optional, used to order the pages in the sidebar. Leave it out for
 
 The templates for the frontmatter are stored in `.github/docs/templates/`. You can use these templates to ensure consistency across all pages.
 
-### Section Pages and Normal Content Pages
+### 📂 Section Pages and Normal Content Pages
 
 A section page is a special type of content page that serves as a landing page for a specific section of the website. Each section of the website SHOULD be organized in a way that makes it easy to navigate. The content MUST be written in Markdown and placed in the appropriate directory under `content/`. Each section has its own subdirectory, and you can use the frontmatter to define title, description and logo for each page.
 
@@ -62,7 +62,7 @@ A section page is a special type of content page that serves as a landing page f
 
 'Normal' content pages are created by adding Markdown files within specific section directories. Each page should have its own frontmatter to define its title, description, and other metadata.
 
-### 🧪 Test your changes locally
+### 🧪 Test Your Changes Locally
 
 After creating or updating content, you MUST commit your changes with a clear message indicating what was changed. All changes are done in the `main` branch using PRs. A new release of the website will include all changes made in the `main` branch since the last release and merge it into the respective version branch. In case of required corrections to already released content, the changes are made in the `releases/website/vx.y` branch and then cherry-picked into the `main` branch if required.
 
@@ -84,7 +84,7 @@ npx http-server ./public --port 1313
 
 This will build all website versions in parallel and store the output in the `public/` directory, so you can test the version switcher and navigation locally.
 
-### 💾 Commit & Pull Request Workflow
+### 📝 Commit & Pull Request Workflow
 
 After testing your changes locally:
 
