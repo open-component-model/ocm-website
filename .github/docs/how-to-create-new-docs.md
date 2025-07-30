@@ -22,13 +22,14 @@ To be able to test your changes with a locally running Hugo server, install EXAC
 npm ci
 ```
 
-If you plan to also update npm packages to the latest available minor version, run:
+If you plan to also update npm packages to the latest available minor or patch version, run:
 
 ```sh
-npm install
+npm outdated # to see which packages are outdated
+npm update # to update all packages to the latest minor or patch version and update the package-lock.json file
 ```
 
-This will install the latest patches or minor version of the packages defined in the `package.json`, as we normally specify
+This will install the latest patches or minor version of the packages defined in the `package.json` and update the `package-lock.json` file. We normally specify
 
 ```json
 "dependencies": {
@@ -37,7 +38,9 @@ This will install the latest patches or minor version of the packages defined in
 }
 ```
 
-which allows that. Since even minor versions can introduce breaking changes, we recommend to only update the packages when you are sure that the new version does not break the build or the website. Especially the `@thulite/doks-core` package is used for the Hugo theme we use for the website and should be updated and tested with care.
+which allows that behavior.
+
+Since even minor versions can introduce breaking changes, we recommend to only update the packages when you are sure that the new version does not break the build or the website. Especially the `@thulite/doks-core` package is used for the Hugo theme we use for the website and should be updated and tested with care.
 
 ## 📚 Content Creation
 
