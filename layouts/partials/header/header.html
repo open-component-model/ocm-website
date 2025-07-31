@@ -241,12 +241,10 @@
             {{ range $versionsData.versions }}
               {{ $isDefault := eq . $versionsData.defaultVersion }}
               {{ $isCurrent := eq . $currentVer }}
-              {{ $versionPath := cond $isDefault "/" (printf "/%s/" .) }}
-              
               <li>
                 <a class="dropdown-item{{ if $isCurrent }} current{{ end }}"
                   {{ if $isCurrent }}aria-current="true"{{ end }}
-                  href="{{ $versionPath }}docs/overview/about">
+                  href="{{ if $isDefault }}/docs/{{ else }}/{{ . }}/docs/{{ end }}">
                   {{ . }}{{ if $isDefault }} <span class="version-flag">(default)</span>{{ end }}
                 </a>
               </li>

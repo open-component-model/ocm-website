@@ -93,6 +93,13 @@ for VERSION in $VERSIONS; do
   git worktree add "$WORKTREE_BASE/$VERSION" "$BRANCH" || { err "Failed to add worktree for $BRANCH"; exit 1; }
   pushd "$WORKTREE_BASE/$VERSION" >/dev/null
 
+
+  # Copy the latest data/versions.json from main into the worktree (for version switcher)
+  if [ "$VERSION" != "dev" ]; then
+    cp ../../data/versions.json data/versions.json
+    info "Copied latest data/versions.json into worktree for $VERSION."
+  fi
+
   # Update Hugo modules for the branch
   hugo mod get -u || { err "hugo mod get -u failed for $BRANCH"; popd >/dev/null; exit 1; }
   hugo mod tidy || { err "hugo mod tidy failed for $BRANCH"; popd >/dev/null; exit 1; }
@@ -108,7 +115,11 @@ for VERSION in $VERSIONS; do
   fi
 
   # Build the site for this version
-  npm run build -- --destination "../../$OUTDIR" --baseURL "$BASE_URL/$VERSION" || { err "npm run build failed for $BRANCH"; popd >/dev/null; exit 1; }
+  if [ "$VERSION" = "$DEFAULT_VERSION" ]; then
+    npm run build -- --destination "../../$OUTDIR" --baseURL "$BASE_URL" || { err "npm run build failed for $BRANCH"; popd >/dev/null; exit 1; }
+  else
+    npm run build -- --destination "../../$OUTDIR" --baseURL "$BASE_URL/$VERSION" || { err "npm run build failed for $BRANCH"; popd >/dev/null; exit 1; }
+  fi
   BUILT_VERSIONS["$VERSION"]="$OUTDIR"
 
   popd >/dev/null
