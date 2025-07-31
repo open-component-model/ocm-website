@@ -40,7 +40,8 @@ This will install the latest patches or minor version of the packages defined in
 
 which allows that behavior.
 
-Since even minor versions can introduce breaking changes, we recommend to only update the packages when you are sure that the new version does not break the build or the website. Especially the `@thulite/doks-core` package is used for the Hugo theme we use for the website and should be updated and tested with care.
+⚠️ **Possible BREAKING CHANGES in npm packages**
+Since even minor versions or patches in NPM packages can introduce breaking changes, we recommend to only update the packages when you are sure that the new version does not break the build or the website. Especially the `@thulite/doks-core` package used for our Hugo theme should only be updated and tested with care.
 
 ## 📚 Content Creation
 
