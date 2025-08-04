@@ -34,7 +34,7 @@ npm ci
 
 - A **build output directory `public/`** that is created during each build of the website and contains all versions in parallel in different subfolders. The default version displayed when the website is opened, most-likely the latest released version, lives in the root `public` folder, other versions in subfolders like `public/v1.0`. This is required for the static website hosted as GitHub Pages deployment to work correctly, as the complete website is deployed from the `public/` directory. Only then the version switcher works correctly and offers back-and-forth navigation.
 
-- Using **URL patterns** like <https://ocm.software>`/vx.y/`> to access the versioned content, where `vx.y` is the version tag.
+- Using **URL patterns** like <https://ocm.software>`/vx.y/` to access the versioned content, where `vx.y` is the version tag.
 
 ## 🛠️ Versioning Process Step-by-Step
 
