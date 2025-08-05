@@ -159,11 +159,14 @@ for VERSION in $VERSIONS; do
   fi
 
   # Otherwise, build from the corresponding branch using a git worktree
-  # Check if the branch exists before trying to add a worktree:
+  # Ensure the branch exists locally; if not, try to fetch it from origin
   if ! git rev-parse --verify "$BRANCH" >/dev/null 2>&1; then
-    err "Branch '$BRANCH' for version '$VERSION' does not exist"
-    err "Please create the branch or remove '$VERSION' from versions.json"
-    exit 1
+    info "Branch $BRANCH not found locally, attempting to fetch from origin."
+    git fetch origin $BRANCH:$BRANCH || {
+      err "Branch '$BRANCH' for version '$VERSION' does not exist (neither local nor remote)";
+      err "Please create the branch or remove '$VERSION' from versions.json";
+      exit 1;
+    }
   fi
 
   info "Building version $VERSION from branch $BRANCH into $OUTDIR"
