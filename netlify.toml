@@ -27,8 +27,8 @@
   status = 200
 
 [[redirects]]
-  from = "/legacy/*"
-  to = "/legacy/:splat"
+  from = "/current/*"
+  to = "/current/:splat"
   status = 200
 
 [[redirects]]
