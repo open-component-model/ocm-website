@@ -8,15 +8,6 @@
 [context.deploy-preview]
   command = "bash .github/scripts/build-multi-version.sh $DEPLOY_PRIME_URL"
 
-[context.production]
-  command = "bash .github/scripts/build-multi-version.sh $DEPLOY_PRIME_UR"
-
-[context.deploy-preview]
-  command = "bash .github/scripts/build-multi-version.sh $DEPLOY_PRIME_UR"
-
-[context.branch-deploy]
-  command = "bash .github/scripts/build-multi-version.sh $DEPLOY_PRIME_UR"
-
 [[plugins]]
   package = "netlify-plugin-submit-sitemap"
 
