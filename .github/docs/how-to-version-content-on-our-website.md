@@ -6,6 +6,8 @@ This document describes the process for creating new versions of our static OCM 
 
 The website is hosted on GitHub Pages and uses a multi-version setup to allow users to switch between different versions of the documentation. Due to the nature of static websites, all versions that should later be shown on the website need to be built in parallel and deployed to the same `public/` directory, with each version living in its own subfolder.
 
+All steps described here will be performed by an automation script ./scripts/build-multi-version.sh, which is executed by the GitHub Actions workflow `.github/workflows/publish-site.yaml` on each push to the `main` or any `website/<version>` branch or when a pull request is merged into `main`. The script will also be used by Netlify to build the website for preview deployments.
+
 ## ⚙️ Requirements
 
 - Node.js >=22.12.0
