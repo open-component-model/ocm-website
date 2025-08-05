@@ -201,7 +201,7 @@ for VERSION in $VERSIONS; do
 done
 
 # Print a summary of all built versions and their output directories
-info "Multi-version build completed. Output in $PUBLIC_DIR."
+info "Multi-version build completed. Output in folder $PUBLIC_DIR/."
 echo "--- Build Summary ---"
 for VERSION in "${!BUILT_VERSIONS[@]}"; do
   printf "Version: %-10s → %s\n" "$VERSION" "${BUILT_VERSIONS[$VERSION]}"
