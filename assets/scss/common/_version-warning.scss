@@ -1,0 +1,24 @@
+.version-warning-banner {
+  width: 100%;
+  background: #fffbe6;
+  color: #232336;
+  border-bottom: 1px solid #ffe066;
+  text-align: center;
+  font-size: 1.08rem;
+  font-weight: 500;
+  padding: 0.7rem 1rem;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(60,60,60,0.04);
+
+  a.version-warning-link {
+    color: #111111;
+    font-weight: 600;
+    text-decoration: underline;
+  }
+}
+
+[data-bs-theme="dark"] .version-warning-banner {
+  background: #fff3cd;
+  color: #232336;
+  border-bottom: 1px solid #ffe066;
+}

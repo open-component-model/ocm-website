@@ -1,10 +1,11 @@
 // Main SCSS file importing all modular components
-@import "base";         // Layout & structure
-@import "header";       // Header & navigation
-@import "branding";     // Logo & fonts
-@import "sidebar";      // Sidebar navigation
-@import "cards";        // Card grid system
-@import "components";   // TOC & description boxes
-@import "footer";       // Footer styles
-@import "pages";        // Page-specific overrides
+@import "base";            // Layout & structure
+@import "header";          // Header & navigation
+@import "branding";        // Logo & fonts
+@import "sidebar";         // Sidebar navigation
+@import "cards";           // Card grid system
+@import "components";      // TOC & description boxes
+@import "footer";          // Footer styles
+@import "pages";           // Page-specific overrides
+@import "version-warning"; // Version warning banner styles
 // End of imports
