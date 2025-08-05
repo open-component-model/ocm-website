@@ -1,25 +1,21 @@
-[build]
-  publish = "public"
-  functions = "functions"
-
 [build.environment]
-  NODE_VERSION = "23.11.0"
+  NODE_VERSION = "22.12.0"
   NPM_VERSION = "10.9.2"
 
-[context.production]
-  command = "npm run build"
+[build]
+  publish = "public"
 
 [context.deploy-preview]
-  command = "npm run build -- -b $DEPLOY_PRIME_URL"
+  command = "bash .github/scripts/build-multi-version.sh $DEPLOY_PRIME_URL"
+
+[context.production]
+  command = "bash .github/scripts/build-multi-version.sh $DEPLOY_PRIME_UR"
+
+[context.deploy-preview]
+  command = "bash .github/scripts/build-multi-version.sh $DEPLOY_PRIME_UR"
 
 [context.branch-deploy]
-  command = "npm run build -- -b $DEPLOY_PRIME_URL"
-
-[context.next]
-  command = "npm run build"
-
-[context.next.environment]
-  HUGO_ENV = "next"
+  command = "bash .github/scripts/build-multi-version.sh $DEPLOY_PRIME_UR"
 
 [[plugins]]
   package = "netlify-plugin-submit-sitemap"
@@ -33,10 +29,23 @@
       "yandex"
     ]
 
-[dev]
-  framework = "#custom"
-  command = "npm run start"
-  targetPort = 1313
-  port = 8888
-  publish = "public"
-  autoLaunch = false
+# Redirects for versioned paths
+[[redirects]]
+  from = "/dev/*"
+  to = "/dev/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/legacy/*"
+  to = "/legacy/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/v*/*"
+  to = "/v:version/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/*"
+  to = "/:splat"
+  status = 200
