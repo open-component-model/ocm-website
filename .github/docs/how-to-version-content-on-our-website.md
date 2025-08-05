@@ -135,7 +135,7 @@ npm ci
      npx http-server ./public --port 1313
      ```
 
-   - Deploy to GitHub Pages using the workflow (see `.github/workflows/gh-pages.yml`).
+   - Deploy content of `public/` to GitHub Pages. This is done by updating the remote branch `gh-pages` with the contents of `public/`. Normally this is done as last part of the workflow (see `.github/workflows/publish-site.yaml`).
 
 ## ✅ Checklist
 
