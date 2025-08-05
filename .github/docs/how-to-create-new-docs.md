@@ -2,13 +2,13 @@
 
 ## 🎯 Objective and Summary
 
-This document describes the process for creating and managing our static OCM documentation website, including reference content from the docs folder of other repositories, e.g. `ocm` or `open-component-model` using Hugo modules.
+This document describes how to create and test new content for our OCM website, including impüorting content from other repositories, e.g. `ocm` or `open-component-model` using Hugo modules.
 
 The website utilizes:
 
 - **Frontmatter** for each document to define metadata like title, description, and logo. The templates are stored in `.github/templates/`.
-- **Version Branches** (e.g., `releases/website/v1.0`) for each released version of the website. New content is created in the `main` branch, and then branched to the respective website version branch when we release a new OCM version. Corrections and updates to existing content are made in the release branch and are then cherry-picked to the `main` branch.
-- **Hugo Modules** to include the reference documentation for CLI, APIs and other content from other repositories (respectively other folders when all components live in a monorepo). The required versions of the modules MUST **always** be defined in `main` using the release tags of the respective repositories.
+- **Version Branches** (e.g., `releases/website/v1.0`) for each released version of the website. New content is created in branch `main`, and then branched to the respective website version branch when we release a new OCM version. Corrections and updates to existing content are made in the release branch and are then cherry-picked to the `main` branch.
+- **Hugo Modules** to include the reference documentation for CLI, APIs and other content from other repositories.
 
 ## 📚 Content Creation
 
@@ -51,7 +51,7 @@ This configuration mounts the `docs/reference` directory from the OCM CLI reposi
 
 To define the version of the module and persist it in the `go.mod` file, you need to fetch the correct version of the referenced module first. You MUST know what module version matches the version of the website you are creating a version branch for.
 
-Run `hugo mod get <module>@<version>` for the wanted version of the referenced module(s). All later updates are done using `hugo mod get -u` which will update the module to the latest version of the specified tag.
+Run `hugo mod get <module>@<version>` for the wanted version of the referenced module(s):
 
 ```sh
 hugo mod get ocm.software/open-component-model/cli@v1.0
@@ -96,9 +96,9 @@ This will build all website versions in parallel and store the output in the `pu
 
 ## 📝 Commit & Pull Request Workflow
 
-After creating or updating content, you MUST commit your changes with a clear message indicating what was changed. All changes are done in the `main` branch using PRs. A new release of the website will include all changes made in the `main` branch since the last release and merge it into the respective version branch. In case of required corrections to already released content, the changes are made in the `releases/website/vx.y` branch and then cherry-picked into the `main` branch if required.
+After updating and testing content, you MUST commit your changes with a clear message indicating what was changed. All changes are done in the `main` branch using PRs. A new release of the website will include all changes made in the `main` branch since the last release and merge it into the respective version branch.
 
-After testing your changes locally:
+In case of required corrections to already released content, the changes are made in the `releases/website/vx.y` branch and then cherry-picked into the `main` branch if required.
 
 - Commit your changes with a clear and descriptive message, e.g.:
 
