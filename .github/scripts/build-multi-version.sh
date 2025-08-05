@@ -207,5 +207,6 @@ for VERSION in "${!BUILT_VERSIONS[@]}"; do
   printf "Version: %-10s → %s\n" "$VERSION" "${BUILT_VERSIONS[$VERSION]}"
 done
 
-# Cleanup the worktrees directory after all builds are complete
+# Cleanup the worktrees and .tmpdirectory after all builds are complete
 rm -rf "$WORKTREE_BASE"
+rm -rf "$TMP_MAIN_VERSIONS"
