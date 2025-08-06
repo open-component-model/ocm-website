@@ -208,14 +208,13 @@
         </div>
         {{ end -}}
 
-        <!-- Versioning dropdown -->
+        <!-- Version switches always navigate to the Root page of the selected version -->
+        <!-- Otherwise complex logic for non existing docs in different versions, error handling and -->
+        <!-- fallbacks would require complex logic, most likely only possible in JavaScript. -->
         {{ if site.Params.doks.docsVersioning }}
-        {{/* load versions.json from data/ */}}
         {{ $versionsData := site.Data.versions }}
-
         {{ if $versionsData.versions }}
         {{ $currentVer := site.Params.doks.docsVersion }}
-
         <div class="dropdown mt-1 order-lg-1">
           <button class="btn btn-dropdown dropdown-toggle"
                   id="doks-versions"
@@ -235,18 +234,15 @@
               </svg>
             </span>
           </button>
-          
           <ul class="dropdown-menu dropdown-menu-lg-end me-lg-2 shadow rounded border-0"
               aria-labelledby="doks-versions">
             {{ range $versionsData.versions }}
               {{ $isDefault := eq . $versionsData.defaultVersion }}
               {{ $isCurrent := eq . $currentVer }}
-              {{ $versionPath := cond $isDefault "/" (printf "/%s/" .) }}
-              
               <li>
                 <a class="dropdown-item{{ if $isCurrent }} current{{ end }}"
                   {{ if $isCurrent }}aria-current="true"{{ end }}
-                  href="{{ $versionPath }}docs/overview/about">
+                  href="{{ if $isDefault }}/{{ else }}/{{ . }}/{{ end }}">
                   {{ . }}{{ if $isDefault }} <span class="version-flag">(default)</span>{{ end }}
                 </a>
               </li>
@@ -297,6 +293,7 @@
 
   </div>
 </header>
+{{ partial "header/version-warning.html" . }}
 {{ if site.Params.doks.navbarSticky -}}
 </div>
 {{ end -}}

@@ -1,0 +1,10 @@
+{{ $currentVer := site.Params.doks.docsVersion }}
+{{ $defaultVer := site.Data.versions.defaultVersion }}
+{{ if eq $currentVer "dev" }}
+  <aside class="version-warning-banner" role="status" aria-live="polite" style="margin:0;">
+    <span>
+      You are currently viewing documentation for the <strong>dev</strong> version of OCM.<br>
+      This version is under development and contains our next major release with lots of breaking changes.
+    </span>
+  </aside>
+{{ end }}
