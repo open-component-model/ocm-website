@@ -22,9 +22,12 @@ jobs:
       id-token: 'write'
       pull-requests: 'write'
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 #v4
+      # Checkout branch 'website/current' to update the CLI docs. This is only required for the 
+      # v1 version of the website. Future versions will use main and Hugo modules.
       with:
         persist-credentials: false
+        ref: 'website/current'
 
     - name: Update Version Parameter
       run: |
@@ -35,13 +38,14 @@ jobs:
       # Instead of creating the PR below with GITHUB_TOKEN use a generated
       # short-lived App installation token with full REST rights
       id: generate_token
-      uses: tibdex/github-app-token@v2
+      uses: tibdex/github-app-token@3beb63f4bd073e61482598c45c71c1019b59b73a #v2
       with:
         app_id: ${{ secrets.OCMBOT_APP_ID }}
         private_key: ${{ secrets.OCMBOT_PRIV_KEY }}
 
     - name: Create Pull Request
-      uses: peter-evans/create-pull-request@v7
+      uses: peter-evans/create-pull-request@271a8d0340265f705b14b6d32b9829c1cb33d45e #v7
+      # setting 'base' for branch not required, as it defaults to the branch checked out in the workflow.
       with:
         token: ${{ steps.generate_token.outputs.token }}
         title: "Update CLI docs"
