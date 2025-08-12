@@ -6,7 +6,7 @@
   ignore = "exit 1"
 
 [context.deploy-preview]
-  command = "DEBUG=1 bash .github/scripts/build-multi-version.sh $DEPLOY_PRIME_URL"
+  command = "sh -c 'git fetch origin main:refs/remotes/origin/main && bash .github/scripts/build-multi-version.sh $DEPLOY_PRIME_URL'"
   publish = "public"
 
 [[plugins]]
