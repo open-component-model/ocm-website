@@ -28,6 +28,17 @@ BASE_URL="${1:-https://ocm.software}"
 err() { echo "[ERROR] $*" >&2; }
 # Helper for info output
 info() { echo "[INFO] $*"; }
+# Helper for debug output (only when DEBUG=1)
+debug() { [ "${DEBUG:-0}" = "1" ] && echo "[DEBUG] $*" >&2 || true; }
+
+# Cleanup function to ensure temp files are removed on exit
+cleanup() {
+  local exit_code=$?
+  debug "Cleaning up temporary files..."
+  rm -rf "${TMP_MAIN_VERSIONS:-}" "${WORKTREE_BASE:-}" 2>/dev/null || true
+  exit $exit_code
+}
+trap cleanup EXIT INT TERM
 
 # Check required commands
 for cmd in git npm jq cmp; do
@@ -37,9 +48,49 @@ for cmd in git npm jq cmp; do
   fi
 done
 
+# Validate that data/versions.json exists and has correct structure
+validate_versions_json() {
+  local file="$1"
+  local context="$2"
+  
+  if [ ! -f "$file" ]; then
+    err "$context: File $file does not exist."
+    return 1
+  fi
+  
+  if ! jq -e '.versions' "$file" >/dev/null 2>&1; then
+    err "$context: File $file does not contain a valid 'versions' array."
+    return 1
+  fi
+  
+  local versions=$(jq -r '.versions[]?' "$file" 2>/dev/null)
+  if [ -z "$versions" ]; then
+    err "$context: File $file contains an empty versions array."
+    return 1
+  fi
+  
+  debug "$context: Validated $file - contains $(echo "$versions" | wc -l | tr -d ' ') versions"
+  return 0
+}
+
+# Helper function to count versions (handles empty strings correctly)
+count_versions() {
+  local versions="$1"
+  if [ -z "$versions" ]; then
+    echo "0"
+  else
+    echo "$versions" | wc -l | tr -d ' '
+  fi
+}
+
 # --- Determine the correct source for data/versions.json ---
 # By default, use the local file in the current branch
 VERSIONS_JSON_PATH="data/versions.json"
+
+# Validate local versions.json first
+if ! validate_versions_json "$VERSIONS_JSON_PATH" "Local"; then
+  exit 1
+fi
 
 # Get docsVersion and current branch only once for later use
 DOCS_VERSION=$(grep -E '^[[:space:]]*docsVersion[[:space:]]*=' config/_default/params.toml | cut -d'=' -f2 | tr -d ' "')
@@ -63,28 +114,75 @@ if [ -n "$EXPECTED_DOCSVERSION" ] && [ "$DOCS_VERSION" != "$EXPECTED_DOCSVERSION
   exit 1
 fi
 
-# Determine the upstream branch for version resolution
-# If docsVersion is "dev", upstream is "main"; otherwise, it's "website/<docsVersion>"
-if [ "$DOCS_VERSION" = "dev" ]; then
-  UPSTREAM_BRANCH="main"
+# Decide which data/versions.json to use:
+# Strategy: Use local file if it contains more versions than main, or if docsVersion is new
+# This handles the case where we're preparing a new versioning setup with additional versions
+
+# Always try to fetch the main versions.json for comparison
+TMP_MAIN_VERSIONS=".tmp-main-versions"
+rm -rf "$TMP_MAIN_VERSIONS"
+mkdir -p "$TMP_MAIN_VERSIONS"
+
+# Fetch versions.json from main (handle cases where main might not exist remotely)
+MAIN_VERSIONS=""
+MAIN_VERSIONS_FILE="$TMP_MAIN_VERSIONS/versions.json"
+
+if git show origin/main:data/versions.json > "$MAIN_VERSIONS_FILE" 2>/dev/null; then
+  if validate_versions_json "$MAIN_VERSIONS_FILE" "Origin/main"; then
+    MAIN_VERSIONS=$(jq -r '.versions[]' "$MAIN_VERSIONS_FILE" 2>/dev/null || echo "")
+    info "Successfully fetched and validated data/versions.json from origin/main."
+  else
+    info "Found data/versions.json in origin/main but it's invalid - using local file."
+  fi
 else
-  UPSTREAM_BRANCH="website/$DOCS_VERSION"
+  info "Could not fetch data/versions.json from origin/main (this is OK for new repos)."
 fi
 
-# Decide which data/versions.json to use:
-# - If on main, or a PR branch for main (upstream is origin/main), use the local file
-# - Otherwise, fetch the file from origin/main and use it temporarily
-ACTUAL_UPSTREAM=$(git rev-parse --symbolic-full-name --abbrev-ref "$CURRENT_BRANCH@{upstream}" 2>/dev/null || echo "")
-if [ "$CURRENT_BRANCH" = "main" ] || [ "$ACTUAL_UPSTREAM" = "origin/main" ]; then
-  info "Using local data/versions.json from current branch ($CURRENT_BRANCH)"
+# Get local versions for comparison  
+LOCAL_VERSIONS=$(jq -r '.versions[]' "$VERSIONS_JSON_PATH" 2>/dev/null || echo "")
+
+# Determine whether to use local or main versions.json
+USE_LOCAL_VERSIONS=false
+
+if [ "$CURRENT_BRANCH" = "main" ]; then
+  # Always use local file when on main branch
+  USE_LOCAL_VERSIONS=true
+  info "Using local data/versions.json (on main branch)"
+elif [ -z "$MAIN_VERSIONS" ]; then
+  # Use local file if we can't fetch from main
+  USE_LOCAL_VERSIONS=true
+  info "Using local data/versions.json (cannot fetch valid file from origin/main)"
 else
-  # Create a temporary directory and fetch the latest data/versions.json from origin/main
-  TMP_MAIN_VERSIONS=".tmp-main-versions"
-  rm -rf "$TMP_MAIN_VERSIONS"
-  mkdir -p "$TMP_MAIN_VERSIONS"
-  git show origin/main:data/versions.json > "$TMP_MAIN_VERSIONS/versions.json" || { err "Could not fetch data/versions.json from main"; exit 1; }
-  VERSIONS_JSON_PATH="$TMP_MAIN_VERSIONS/versions.json"
-  info "Using data/versions.json from main (temporary) for version resolution."
+  # Compare version lists: use local if it has more versions or contains docsVersion not in main
+  LOCAL_VERSION_COUNT=$(count_versions "$LOCAL_VERSIONS")
+  MAIN_VERSION_COUNT=$(count_versions "$MAIN_VERSIONS")
+  
+  debug "Local versions ($LOCAL_VERSION_COUNT): $(echo "$LOCAL_VERSIONS" | tr '\n' ' ')"
+  debug "Main versions ($MAIN_VERSION_COUNT): $(echo "$MAIN_VERSIONS" | tr '\n' ' ')"
+  
+  # Check if docsVersion exists in main versions
+  DOCS_VERSION_IN_MAIN=$(echo "$MAIN_VERSIONS" | grep -x "$DOCS_VERSION" || echo "")
+  
+  if [ "$LOCAL_VERSION_COUNT" -gt "$MAIN_VERSION_COUNT" ]; then
+    USE_LOCAL_VERSIONS=true
+    info "Using local data/versions.json (contains more versions: $LOCAL_VERSION_COUNT vs $MAIN_VERSION_COUNT from main)"
+  elif [ -z "$DOCS_VERSION_IN_MAIN" ] && echo "$LOCAL_VERSIONS" | grep -q "^$DOCS_VERSION$"; then
+    USE_LOCAL_VERSIONS=true
+    info "Using local data/versions.json (docsVersion '$DOCS_VERSION' is new and not in main)"
+  else
+    USE_LOCAL_VERSIONS=false
+    info "Using data/versions.json from main (local version does not extend main's version list)"
+  fi
+fi
+
+# Set the final versions.json path based on decision
+if [ "$USE_LOCAL_VERSIONS" = "true" ]; then
+  # Keep using the local file (VERSIONS_JSON_PATH is already set to local file)
+  info "Final decision: Using local data/versions.json from current branch ($CURRENT_BRANCH)"
+else
+  # Use the main file we fetched
+  VERSIONS_JSON_PATH="$MAIN_VERSIONS_FILE"
+  info "Final decision: Using data/versions.json from main for version resolution."
 fi
 
 # Read all available versions from the determined data/versions.json file
@@ -120,9 +218,6 @@ mkdir -p "$PUBLIC_DIR"
 WORKTREE_BASE=".worktrees"
 rm -rf "$WORKTREE_BASE"
 mkdir -p "$WORKTREE_BASE"
-
-# Prune any stale git worktrees before starting the build
-git worktree prune
 
 
 # Build each version listed in versions.json
@@ -162,11 +257,11 @@ for VERSION in $VERSIONS; do
   # Ensure the branch exists locally; if not, try to fetch it from origin
   if ! git rev-parse --verify "$BRANCH" >/dev/null 2>&1; then
     info "Branch $BRANCH not found locally, attempting to fetch from origin."
-    git fetch origin $BRANCH:$BRANCH || {
-      err "Branch '$BRANCH' for version '$VERSION' does not exist (neither local nor remote)";
-      err "Please create the branch or remove '$VERSION' from versions.json";
-      exit 1;
-    }
+    if ! git fetch origin "$BRANCH:$BRANCH" 2>/dev/null; then
+      err "Branch '$BRANCH' for version '$VERSION' does not exist (neither local nor remote)"
+      err "Please create the branch or remove '$VERSION' from versions.json"
+      exit 1
+    fi
   fi
 
   info "Building version $VERSION from branch $BRANCH into $OUTDIR"
@@ -210,6 +305,4 @@ for VERSION in "${!BUILT_VERSIONS[@]}"; do
   printf "Version: %-10s → %s\n" "$VERSION" "${BUILT_VERSIONS[$VERSION]}"
 done
 
-# Cleanup the worktrees and .tmpdirectory after all builds are complete
-rm -rf "$WORKTREE_BASE"
-rm -rf "$TMP_MAIN_VERSIONS"
+# Note: Cleanup is handled by the trap function automatically
