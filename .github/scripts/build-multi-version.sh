@@ -19,7 +19,7 @@ set -euo pipefail
 # DEBUG:
 #   For troubleshooting, enable bash's built-in debug mode by adding 'set -x'
 #   at the start of your command:
-#          set -x; bash .github/scripts/build-multi-version.sh
+#     bash -x .github/scripts/build-multi-version.sh
 #
 # EXAMPLES:
 #   bash .github/scripts/build-multi-version.sh
@@ -219,6 +219,15 @@ for VERSION in $VERSIONS; do
   if [ "$VERSION" = "$DOCS_VERSION" ]; then
     info "Building $VERSION version directly from current branch ($CURRENT_BRANCH) into $OUTDIR"
 
+    # Temporarily replace data/versions.json if we're using main branch versions
+    TEMP_BACKUP=""
+    if [ "$USE_LOCAL_VERSIONS" = "false" ]; then
+      TEMP_BACKUP="data/versions.json.tmp-backup"
+      cp data/versions.json "$TEMP_BACKUP"
+      cp "$VERSIONS_JSON_PATH" data/versions.json
+      info "Temporarily using versions.json from main branch for build."
+    fi
+
     # Make npm clean install (using the package-lock.json file)
     npm ci || { err "npm ci failed for $CURRENT_BRANCH"; exit 1; }
     # Always update Hugo modules and install dependencies before building
@@ -226,13 +235,19 @@ for VERSION in $VERSIONS; do
     npm run hugo -- mod tidy || { err "hugo mod tidy failed for $CURRENT_BRANCH"; exit 1; }
     
     # Execute Hugo build with final base URL
-    npm run build -- --destination "$OUTDIR" --baseURL "$FINAL_BASE_URL" || { err "npm run build failed for $CURRENT_BRANCH"; exit 1; }
+    npm run build -- --destination "$OUTDIR" --baseURL "$FINAL_BASE_URL" || { 
+      # Restore backup on failure
+      if [ -n "$TEMP_BACKUP" ]; then
+        mv "$TEMP_BACKUP" data/versions.json
+      fi
+      err "npm run build failed for $CURRENT_BRANCH"
+      exit 1
+    }
     
-    # If we're using main branch versions, copy them to the built site
-    if [ "$USE_LOCAL_VERSIONS" = "false" ]; then
-      mkdir -p "$OUTDIR/data"
-      cp "$VERSIONS_JSON_PATH" "$OUTDIR/data/versions.json"
-      info "Updated versions.json in built site from main branch."
+    # Restore original versions.json after successful build
+    if [ -n "$TEMP_BACKUP" ]; then
+      mv "$TEMP_BACKUP" data/versions.json
+      info "Restored original versions.json after build."
     fi
     
     BUILT_VERSIONS["$VERSION"]="$OUTDIR"
