@@ -38,7 +38,12 @@ info() { echo "[INFO] $*"; }
 cleanup() {
   local exit_code=$?
   rm -rf "${TMP_MAIN_VERSIONS:-}" "${WORKTREE_BASE:-}" 2>/dev/null || true
+  rm -f .tmp-versions-backup.json 2>/dev/null || true
   git worktree prune 2>/dev/null || true
+  # Restore backup if it exists (in case of unexpected termination)
+  if [ -f .tmp-versions-backup.json ]; then
+    mv .tmp-versions-backup.json data/versions.json 2>/dev/null || true
+  fi
   exit $exit_code
 }
 trap cleanup EXIT INT TERM
@@ -222,7 +227,7 @@ for VERSION in $VERSIONS; do
     # Temporarily replace data/versions.json if we're using main branch versions
     TEMP_BACKUP=""
     if [ "$USE_LOCAL_VERSIONS" = "false" ]; then
-      TEMP_BACKUP="data/versions.json.tmp-backup"
+      TEMP_BACKUP=".tmp-versions-backup.json"
       cp data/versions.json "$TEMP_BACKUP"
       cp "$VERSIONS_JSON_PATH" data/versions.json
       info "Temporarily using versions.json from main branch for build."
