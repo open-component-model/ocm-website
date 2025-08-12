@@ -1,2 +1,4 @@
+github.com/open-component-model/ocm-k8s-toolkit v0.0.0-20250811122454-dc883e55117b h1:pYr77GV9HmJY6ba4ipaOdBUk1Z3ilgBOmJRy/XyOY4Q=
+github.com/open-component-model/ocm-k8s-toolkit v0.0.0-20250811122454-dc883e55117b/go.mod h1:+eFTCy5o/Az7uB4W7tgBcema9YET3R08sQUKt3Rl1mY=
 ocm.software/open-component-model/cli v0.0.0-20250807132404-752715c29db6 h1:iPs4NTIrz8MlA+Aj+lFHehpq3NvyMZ1uQGJbAg7ZkHc=
 ocm.software/open-component-model/cli v0.0.0-20250807132404-752715c29db6/go.mod h1:eZD2euItn5UjQFRm8FLyy9k/MrNHQc95hwD5lJ1EQ64=
