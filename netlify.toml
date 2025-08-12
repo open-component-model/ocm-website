@@ -6,7 +6,7 @@
   publish = "public"
 
 [context.deploy-preview]
-  command = "sh -c 'git fetch https://github.com/open-component-model/ocm-website.git && bash .github/scripts/build-multi-version.sh $DEPLOY_PRIME_URL'"
+  command = "sh -c 'git fetch origin main:refs/remotes/origin/main && bash .github/scripts/build-multi-version.sh $DEPLOY_PRIME_URL'"
 
 [[plugins]]
   package = "netlify-plugin-submit-sitemap"
