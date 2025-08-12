@@ -2,8 +2,20 @@
   NODE_VERSION = "22.12.0"
   NPM_VERSION = "10.9.2"
 
+# deactivate standard builds
 [build]
-  publish = "public"
+  command = "echo 'Default builds are handled externally'"
+  publish = "nonexistent"
+
+# deactivate production builds
+[context.production]
+  command = "echo 'Production builds are handled externally'"
+  publish = "nonexistent"
+
+# deactivate branch deploys
+[context.branch-deploy]
+  command = "echo 'Branch deploys are handled externally'"
+  publish = "nonexistent"
 
 [context.deploy-preview]
   command = "bash .github/scripts/build-multi-version.sh $DEPLOY_PRIME_URL"
