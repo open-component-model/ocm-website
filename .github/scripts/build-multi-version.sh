@@ -133,8 +133,6 @@ MAIN_VERSIONS_FILE="$TMP_MAIN_VERSIONS/versions.json"
 
 # Ensure we have the latest main branch for comparison
 # This is especially important in CI environments like Netlify
-debug "Fetching latest main branch from origin..."
-git fetch git@github.com:open-component-model/ocm-website.git 2>/dev/null || debug "Could not fetch main branch"
 
 if git show origin/main:data/versions.json > "$MAIN_VERSIONS_FILE" 2>/dev/null; then
   if validate_versions_json "$MAIN_VERSIONS_FILE" "Origin/main"; then
