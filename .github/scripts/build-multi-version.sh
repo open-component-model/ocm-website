@@ -16,13 +16,15 @@ set -euo pipefail
 #            "https://ocm.software". For local testing, you can use e.g.
 #            "http://localhost:1313".
 #
-# ENVIRONMENT VARIABLES:
-#   DEBUG: If set to 1, enables debug output for troubleshooting. Example:
-#          DEBUG=1 bash .github/scripts/build-multi-version.sh
+# DEBUG:
+#   For troubleshooting, enable bash's built-in debug mode by adding 'set -x'
+#   at the start of your command:
+#          set -x; bash .github/scripts/build-multi-version.sh
 #
 # EXAMPLES:
 #   bash .github/scripts/build-multi-version.sh
 #   bash .github/scripts/build-multi-version.sh http://localhost:1313
+#   set -x; bash .github/scripts/build-multi-version.sh  # with debug output
 # -----------------------------------------------------------------------------
 
 # Read baseURL from first argument, default to https://ocm.software
@@ -31,12 +33,10 @@ BASE_URL="${1:-https://ocm.software}"
 # Helpers for output
 err() { echo "[ERROR] $*" >&2; }
 info() { echo "[INFO] $*"; }
-debug() { [ "${DEBUG:-0}" = "1" ] && echo "[DEBUG] $*" >&2 || true; }
 
 # Cleanup function to ensure temp files are removed on exit
 cleanup() {
   local exit_code=$?
-  debug "Cleaning up temporary files and stale worktrees..."
   rm -rf "${TMP_MAIN_VERSIONS:-}" "${WORKTREE_BASE:-}" 2>/dev/null || true
   git worktree prune 2>/dev/null || true
   exit $exit_code
@@ -72,7 +72,6 @@ validate_versions_json() {
     return 1
   fi
   
-  debug "$context: Validated $file - contains $(echo "$versions" | wc -l | tr -d ' ') versions"
   return 0
 }
 
@@ -116,9 +115,6 @@ decide_versions_source() {
   
   local local_count=$(count_versions "$local_versions")
   local main_count=$(count_versions "$main_versions")
-  
-  debug "Local versions ($local_count): $(echo "$local_versions" | tr '\n' ' ')"
-  debug "Main versions ($main_count): $(echo "$main_versions" | tr '\n' ' ')"
   
   # Decision logic
   if [ "$CURRENT_BRANCH" = "main" ]; then
