@@ -28,18 +28,17 @@ set -euo pipefail
 # Read baseURL from first argument, default to https://ocm.software
 BASE_URL="${1:-https://ocm.software}"
 
-# Helper for error output
+# Helpers for output
 err() { echo "[ERROR] $*" >&2; }
-# Helper for info output
 info() { echo "[INFO] $*"; }
-# Helper for debug output (only when DEBUG=1)
 debug() { [ "${DEBUG:-0}" = "1" ] && echo "[DEBUG] $*" >&2 || true; }
 
 # Cleanup function to ensure temp files are removed on exit
 cleanup() {
   local exit_code=$?
-  debug "Cleaning up temporary files..."
+  debug "Cleaning up temporary files and stale worktrees..."
   rm -rf "${TMP_MAIN_VERSIONS:-}" "${WORKTREE_BASE:-}" 2>/dev/null || true
+  git worktree prune 2>/dev/null || true
   exit $exit_code
 }
 trap cleanup EXIT INT TERM
@@ -87,15 +86,6 @@ count_versions() {
   fi
 }
 
-# --- Determine the correct source for data/versions.json ---
-# By default, use the local file in the current branch
-VERSIONS_JSON_PATH="data/versions.json"
-
-# Validate local versions.json first
-if ! validate_versions_json "$VERSIONS_JSON_PATH" "Local"; then
-  exit 1
-fi
-
 # Get docsVersion and current branch only once for later use
 DOCS_VERSION=$(grep -E '^[[:space:]]*docsVersion[[:space:]]*=' config/_default/params.toml | cut -d'=' -f2 | tr -d ' "')
 CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
@@ -130,7 +120,7 @@ decide_versions_source() {
   debug "Local versions ($local_count): $(echo "$local_versions" | tr '\n' ' ')"
   debug "Main versions ($main_count): $(echo "$main_versions" | tr '\n' ' ')"
   
-  # Decision logic (simplified)
+  # Decision logic
   if [ "$CURRENT_BRANCH" = "main" ]; then
     echo "local" "Using local data/versions.json (on main branch)"
   elif [ -z "$main_versions" ]; then
@@ -142,10 +132,8 @@ decide_versions_source() {
   fi
 }
 
-# By default, use the local file in the current branch
-VERSIONS_JSON_PATH="data/versions.json"
-
 # Validate local versions.json first
+VERSIONS_JSON_PATH="data/versions.json"
 if ! validate_versions_json "$VERSIONS_JSON_PATH" "Local"; then
   exit 1
 fi
@@ -179,36 +167,34 @@ else
   info "Final decision: Using local data/versions.json from current branch for version resolution."
 fi
 
-# Read all available versions from the determined data/versions.json file
+# Read all available versions from determined data/versions.json
 VERSIONS=$(jq -r '.versions[]' "$VERSIONS_JSON_PATH")
 if [ -z "$VERSIONS" ]; then
   err "No versions found in $VERSIONS_JSON_PATH."
   exit 1
 fi
 
-# Read the default version from config/_default/params.toml
+# Read default version from config/_default/params.toml
 DEFAULT_VERSION=$(grep -E '^[[:space:]]*defaultVersion' config/_default/params.toml | cut -d'=' -f2 | tr -d ' "')
 if [ -z "$DEFAULT_VERSION" ]; then
   err "defaultVersion not found in config/_default/params.toml."
   exit 1
 fi
 
-# Check if the default version exists in the versions.json
+# Check if  default version exists in versions.json
 if ! echo "$VERSIONS" | grep -q "^$DEFAULT_VERSION$"; then
   err "defaultVersion '$DEFAULT_VERSION' not found in versions.json"
   err "Available versions: $(echo "$VERSIONS" | tr '\n' ' ')"
   exit 1
 fi
 
-git worktree prune  # Clean up any stale worktrees
+git worktree prune  # Clean up stale worktrees
 
 # Prepare output and worktree directories
-# Remove and recreate the public directory for fresh build output
 PUBLIC_DIR="public"
 rm -rf "$PUBLIC_DIR"
 mkdir -p "$PUBLIC_DIR"
 
-# Remove and recreate the worktree base directory for temporary git worktrees
 WORKTREE_BASE=".worktrees"
 rm -rf "$WORKTREE_BASE"
 mkdir -p "$WORKTREE_BASE"
@@ -233,17 +219,17 @@ for VERSION in $VERSIONS; do
     FINAL_BASE_URL="$BASE_URL/$VERSION"
   fi
 
-  # If the current branch matches docsVersion, build directly from the current branch (no worktree needed)
+  # If current branch matches docsVersion, build directly from the current branch (no worktree needed)
   if [ "$VERSION" = "$DOCS_VERSION" ]; then
     info "Building $VERSION version directly from current branch ($CURRENT_BRANCH) into $OUTDIR"
-    
-    # Make npm clean install (using the dependency lock file)
+
+    # Make npm clean install (using the package-lock.json file)
     npm ci || { err "npm ci failed for $CURRENT_BRANCH"; exit 1; }
     # Always update Hugo modules and install dependencies before building
     npm run hugo -- mod get -u || { err "hugo mod get -u failed for $CURRENT_BRANCH"; exit 1; }
     npm run hugo -- mod tidy || { err "hugo mod tidy failed for $CURRENT_BRANCH"; exit 1; }
     
-    # Execute Hugo build with the final base URL
+    # Execute Hugo build with final base URL
     npm run build -- --destination "$OUTDIR" --baseURL "$FINAL_BASE_URL" || { err "npm run build failed for $CURRENT_BRANCH"; exit 1; }
     
     # If we're using main branch versions, copy them to the built site
@@ -272,19 +258,18 @@ for VERSION in $VERSIONS; do
   git worktree add "$WORKTREE_BASE/$VERSION" "$BRANCH" || { err "Failed to add worktree for $BRANCH"; exit 1; }
   pushd "$WORKTREE_BASE/$VERSION" >/dev/null
 
-  # Copy the latest data/versions.json into the worktree for the version switcher (except for current branch)
+  # Copy latest data/versions.json into the worktree for the version switcher (except for current branch)
   if [ "$VERSION" != "$DOCS_VERSION" ]; then
     cp "../../$VERSIONS_JSON_PATH" data/versions.json
     info "Copied latest data/versions.json into worktree for $VERSION."
   fi
 
   # Optimization: reuse central node_modules if package-lock.json is identical
-  # This saves time and disk space for identical dependencies across versions
   if cmp -s package-lock.json ../../package-lock.json; then
     info "package-lock.json is identical, creating symlink to central node_modules."
     ln -s ../../node_modules ./node_modules
   else
-    # Make npm clean install (using the dependency lock file)
+    # Make npm clean install (using the package-lock.json file)
     info "package-lock.json differs from central version. Installing separate dependencies for this version."
     npm ci || { err "npm ci failed for $BRANCH"; popd >/dev/null; exit 1; }
   fi
@@ -293,7 +278,7 @@ for VERSION in $VERSIONS; do
   npm run hugo -- mod get -u || { err "hugo mod get -u failed for $BRANCH"; popd >/dev/null; exit 1; }
   npm run hugo -- mod tidy || { err "hugo mod tidy failed for $BRANCH"; popd >/dev/null; exit 1; }
 
-  # Build the site for this version using the final base URL
+  # Build  site for this version using final base URL
   npm run build -- --destination "../../$OUTDIR" --baseURL "$FINAL_BASE_URL" || { err "npm run build failed for $BRANCH"; popd >/dev/null; exit 1; }
   BUILT_VERSIONS["$VERSION"]="$OUTDIR"
 
@@ -308,5 +293,3 @@ echo "--- Build Summary ---"
 for VERSION in "${!BUILT_VERSIONS[@]}"; do
   printf "Version: %-10s → %s\n" "$VERSION" "${BUILT_VERSIONS[$VERSION]}"
 done
-
-# Note: Cleanup is handled by the trap function automatically
