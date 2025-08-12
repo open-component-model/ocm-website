@@ -16,6 +16,10 @@ set -euo pipefail
 #            "https://ocm.software". For local testing, you can use e.g.
 #            "http://localhost:1313".
 #
+# ENVIRONMENT VARIABLES:
+#   DEBUG: If set to 1, enables debug output for troubleshooting. Example:
+#          DEBUG=1 bash .github/scripts/build-multi-version.sh
+#
 # EXAMPLES:
 #   bash .github/scripts/build-multi-version.sh
 #   bash .github/scripts/build-multi-version.sh http://localhost:1313
