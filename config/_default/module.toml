@@ -96,3 +96,9 @@
   [[imports.mounts]]
     source = "docs/reference"
     target = "content/docs/reference/ocm-cli"
+
+[[imports]]
+  path = "github.com/open-component-model/ocm-k8s-toolkit"
+  [[imports.mounts]]
+    source = "docs/getting-started"
+    target = "content/docs/getting-started/how-to-use-the-ocm-controllers"
