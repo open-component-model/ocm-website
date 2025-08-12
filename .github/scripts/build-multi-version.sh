@@ -100,99 +100,83 @@ fi
 DOCS_VERSION=$(grep -E '^[[:space:]]*docsVersion[[:space:]]*=' config/_default/params.toml | cut -d'=' -f2 | tr -d ' "')
 CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
 
-# --- Check for version mismatch between branch and docsVersion ---
-# Determine expected docsVersion based on current branch
-if [ "$CURRENT_BRANCH" = "main" ]; then
-  EXPECTED_DOCSVERSION="dev"
-elif [[ "$CURRENT_BRANCH" =~ ^website/v[0-9]+\.[0-9]+$ ]]; then
-  EXPECTED_DOCSVERSION="${CURRENT_BRANCH#website/}"
-else
-  # For other branches (e.g., feature branches), skip validation
-  EXPECTED_DOCSVERSION=""
-fi
+# --- Determine the correct source for data/versions.json ---
+# Strategy: Use main branch versions as authoritative source, except when:
+# 1. We're on main branch (use local)
+# 2. Main branch is not available (use local)
+# 3. Local has more versions than main (preparing new release)
 
-# Validate docsVersion matches expected value (if we have an expectation)
-if [ -n "$EXPECTED_DOCSVERSION" ] && [ "$DOCS_VERSION" != "$EXPECTED_DOCSVERSION" ]; then
-  err "docsVersion ('$DOCS_VERSION') does not match expected value ('$EXPECTED_DOCSVERSION') for branch '$CURRENT_BRANCH'"
-  err "Please update docsVersion in config/_default/params.toml to '$EXPECTED_DOCSVERSION'"
+# Function to get versions from a file
+get_versions_from_file() {
+  local file="$1"
+  if [ -f "$file" ] && validate_versions_json "$file" "$(basename "$file")"; then
+    jq -r '.versions[]' "$file" 2>/dev/null || echo ""
+  else
+    echo ""
+  fi
+}
+
+# Function to decide which versions.json to use
+decide_versions_source() {
+  local local_file="$1"
+  local main_file="$2"
+  
+  local local_versions=$(get_versions_from_file "$local_file")
+  local main_versions=$(get_versions_from_file "$main_file")
+  
+  local local_count=$(count_versions "$local_versions")
+  local main_count=$(count_versions "$main_versions")
+  
+  debug "Local versions ($local_count): $(echo "$local_versions" | tr '\n' ' ')"
+  debug "Main versions ($main_count): $(echo "$main_versions" | tr '\n' ' ')"
+  
+  # Decision logic (simplified)
+  if [ "$CURRENT_BRANCH" = "main" ]; then
+    echo "local" "Using local data/versions.json (on main branch)"
+  elif [ -z "$main_versions" ]; then
+    echo "local" "Using local data/versions.json (main branch not available)"
+  elif [ "$local_count" -gt "$main_count" ]; then
+    echo "local" "Using local data/versions.json (contains more versions: $local_count vs $main_count)"
+  else
+    echo "main" "Using data/versions.json from main (authoritative source)"
+  fi
+}
+
+# By default, use the local file in the current branch
+VERSIONS_JSON_PATH="data/versions.json"
+
+# Validate local versions.json first
+if ! validate_versions_json "$VERSIONS_JSON_PATH" "Local"; then
   exit 1
 fi
 
-# Decide which data/versions.json to use:
-# Strategy: Use local file if it contains more versions than main, or if docsVersion is new
-# This handles the case where we're preparing a new versioning setup with additional versions
-
-# Always try to fetch the main versions.json for comparison
+# Try to fetch main branch versions.json for comparison
 TMP_MAIN_VERSIONS=".tmp-main-versions"
 rm -rf "$TMP_MAIN_VERSIONS"
 mkdir -p "$TMP_MAIN_VERSIONS"
-
-# Fetch versions.json from main (handle cases where main might not exist remotely)
-MAIN_VERSIONS=""
 MAIN_VERSIONS_FILE="$TMP_MAIN_VERSIONS/versions.json"
 
-# Ensure we have the latest main branch for comparison
-# This is especially important in CI environments like Netlify
-
-#debug "Fetching latest main branch from origin..."
-#git fetch origin main:refs/remotes/origin/main 2>/dev/null || debug "Could not fetch main branch"
-
 if git show origin/main:data/versions.json > "$MAIN_VERSIONS_FILE" 2>/dev/null; then
-  if validate_versions_json "$MAIN_VERSIONS_FILE" "Origin/main"; then
-    MAIN_VERSIONS=$(jq -r '.versions[]' "$MAIN_VERSIONS_FILE" 2>/dev/null || echo "")
-    info "Successfully fetched and validated data/versions.json from origin/main."
-  else
-    info "Found data/versions.json in origin/main but it's invalid - using local file."
-  fi
+  info "Successfully fetched data/versions.json from origin/main."
 else
   info "Could not fetch data/versions.json from origin/main (this is OK for new repos)."
 fi
 
-# Get local versions for comparison  
-LOCAL_VERSIONS=$(jq -r '.versions[]' "$VERSIONS_JSON_PATH" 2>/dev/null || echo "")
+# Decide which source to use
+read -r SOURCE REASON <<< "$(decide_versions_source "$VERSIONS_JSON_PATH" "$MAIN_VERSIONS_FILE")"
 
-# Determine whether to use local or main versions.json
-USE_LOCAL_VERSIONS=false
-
-if [ "$CURRENT_BRANCH" = "main" ]; then
-  # Always use local file when on main branch
-  USE_LOCAL_VERSIONS=true
-  info "Using local data/versions.json (on main branch)"
-elif [ -z "$MAIN_VERSIONS" ]; then
-  # Use local file if we can't fetch from main
-  USE_LOCAL_VERSIONS=true
-  info "Using local data/versions.json (cannot fetch valid file from origin/main)"
+if [ "$SOURCE" = "main" ]; then
+  VERSIONS_JSON_PATH="$MAIN_VERSIONS_FILE"
+  USE_LOCAL_VERSIONS=false
 else
-  # Compare version lists: use local if it has more versions or contains docsVersion not in main
-  LOCAL_VERSION_COUNT=$(count_versions "$LOCAL_VERSIONS")
-  MAIN_VERSION_COUNT=$(count_versions "$MAIN_VERSIONS")
-  
-  debug "Local versions ($LOCAL_VERSION_COUNT): $(echo "$LOCAL_VERSIONS" | tr '\n' ' ')"
-  debug "Main versions ($MAIN_VERSION_COUNT): $(echo "$MAIN_VERSIONS" | tr '\n' ' ')"
-  
-  # Check if docsVersion exists in main versions
-  DOCS_VERSION_IN_MAIN=$(echo "$MAIN_VERSIONS" | grep -x "$DOCS_VERSION" || echo "")
-  
-  if [ "$LOCAL_VERSION_COUNT" -gt "$MAIN_VERSION_COUNT" ]; then
-    USE_LOCAL_VERSIONS=true
-    info "Using local data/versions.json (contains more versions: $LOCAL_VERSION_COUNT vs $MAIN_VERSION_COUNT from main)"
-  elif [ -z "$DOCS_VERSION_IN_MAIN" ] && echo "$LOCAL_VERSIONS" | grep -q "^$DOCS_VERSION$"; then
-    USE_LOCAL_VERSIONS=true
-    info "Using local data/versions.json (docsVersion '$DOCS_VERSION' is new and not in main)"
-  else
-    USE_LOCAL_VERSIONS=false
-    info "Using data/versions.json from main (local version does not extend main's version list)"
-  fi
+  USE_LOCAL_VERSIONS=true
 fi
 
-# Set the final versions.json path based on decision
-if [ "$USE_LOCAL_VERSIONS" = "true" ]; then
-  # Keep using the local file (VERSIONS_JSON_PATH is already set to local file)
-  info "Final decision: Using local data/versions.json from current branch ($CURRENT_BRANCH)"
+info "$REASON"
+if [ "$SOURCE" = "main" ]; then
+  info "Final decision: Using data/versions.json from main branch for version resolution."
 else
-  # Use the main file we fetched
-  VERSIONS_JSON_PATH="$MAIN_VERSIONS_FILE"
-  info "Final decision: Using data/versions.json from main for version resolution."
+  info "Final decision: Using local data/versions.json from current branch for version resolution."
 fi
 
 # Read all available versions from the determined data/versions.json file
@@ -252,13 +236,23 @@ for VERSION in $VERSIONS; do
   # If the current branch matches docsVersion, build directly from the current branch (no worktree needed)
   if [ "$VERSION" = "$DOCS_VERSION" ]; then
     info "Building $VERSION version directly from current branch ($CURRENT_BRANCH) into $OUTDIR"
+    
     # Make npm clean install (using the dependency lock file)
     npm ci || { err "npm ci failed for $CURRENT_BRANCH"; exit 1; }
     # Always update Hugo modules and install dependencies before building
     npm run hugo -- mod get -u || { err "hugo mod get -u failed for $CURRENT_BRANCH"; exit 1; }
     npm run hugo -- mod tidy || { err "hugo mod tidy failed for $CURRENT_BRANCH"; exit 1; }
+    
     # Execute Hugo build with the final base URL
     npm run build -- --destination "$OUTDIR" --baseURL "$FINAL_BASE_URL" || { err "npm run build failed for $CURRENT_BRANCH"; exit 1; }
+    
+    # If we're using main branch versions, copy them to the built site
+    if [ "$USE_LOCAL_VERSIONS" = "false" ]; then
+      mkdir -p "$OUTDIR/data"
+      cp "$VERSIONS_JSON_PATH" "$OUTDIR/data/versions.json"
+      info "Updated versions.json in built site from main branch."
+    fi
+    
     BUILT_VERSIONS["$VERSION"]="$OUTDIR"
     continue
   fi
