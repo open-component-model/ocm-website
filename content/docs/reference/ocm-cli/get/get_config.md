@@ -1,6 +1,6 @@
 ---
-title: config
-name: get config
+title: get config
+name: config
 url: /docs/reference/ocm-cli/get/config/
 draft: false
 images: []

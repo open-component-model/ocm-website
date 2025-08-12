@@ -1,6 +1,6 @@
 ---
-title: cli
-name: download cli
+title: download cli
+name: cli
 url: /docs/reference/ocm-cli/download/cli/
 draft: false
 images: []

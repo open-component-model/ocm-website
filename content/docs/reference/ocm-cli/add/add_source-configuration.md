@@ -1,6 +1,6 @@
 ---
-title: source-configuration
-name: add source-configuration
+title: add source-configuration
+name: source-configuration
 url: /docs/reference/ocm-cli/add/source-configuration/
 draft: false
 images: []
