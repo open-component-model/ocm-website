@@ -24,7 +24,7 @@ set -euo pipefail
 # EXAMPLES:
 #   bash .github/scripts/build-multi-version.sh
 #   bash .github/scripts/build-multi-version.sh http://localhost:1313
-#   set -x; bash .github/scripts/build-multi-version.sh  # with debug output
+#   bash -x .github/scripts/build-multi-version.sh  # with debug output
 # -----------------------------------------------------------------------------
 
 # Read baseURL from first argument, default to https://ocm.software
