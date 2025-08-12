@@ -81,18 +81,9 @@ Component Repositories, and Component Versions.&lt;/p></description></item><item
 
  
  
- 
- 
- 
- 
- 
- 
- 
- 
- 
 
 
-&lt;a href="ocm">ocm&lt;/a>	 - The official Open Component Model (OCM) CLI&lt;/li>
+&lt;a href="https://ocm.software/dev/docs/reference/ocm-cli/ocm/">ocm&lt;/a>	 - The official Open Component Model (OCM) CLI&lt;/li>
 &lt;li>
 
 
@@ -101,24 +92,9 @@ Component Repositories, and Component Versions.&lt;/p></description></item><item
 
  
  
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
 
 
-&lt;a href="https://ocm.software/dev/docs/reference/ocm-cli/ocm-add-component-version">ocm add component-version&lt;/a>	 - Add component version(s) to an OCM Repository stored as Common Transport Format Archive (CTF) based on a &amp;ldquo;component-constructor&amp;rdquo; file&lt;/li>
+&lt;a href="https://ocm.software/dev/docs/reference/ocm-cli/ocm-add-component-version/">ocm add component-version&lt;/a>	 - Add component version(s) to an OCM Repository stored as Common Transport Format Archive (CTF) based on a &amp;ldquo;component-constructor&amp;rdquo; file&lt;/li>
 &lt;/ul></description></item><item><title>ocm add component-version</title><link>https://ocm.software/dev/docs/reference/ocm-cli/ocm-add-component-version/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/dev/docs/reference/ocm-cli/ocm-add-component-version/</guid><description>&lt;h2 id="ocm-add-component-version">ocm add component-version&lt;/h2>
 &lt;p>Add component version(s) to an OCM Repository stored as Common Transport Format Archive (CTF) based on a &amp;ldquo;component-constructor&amp;rdquo; file&lt;/p></description></item><item><title>ocm completion</title><link>https://ocm.software/dev/docs/reference/ocm-cli/ocm-completion/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/dev/docs/reference/ocm-cli/ocm-completion/</guid><description>&lt;h2 id="ocm-completion">ocm completion&lt;/h2>
 &lt;p>Generate the autocompletion script for the specified shell&lt;/p>
@@ -220,18 +196,9 @@ to enable it. You can execute the following once:&lt;/p></description></item><it
 
  
  
- 
- 
- 
- 
- 
- 
- 
- 
- 
 
 
-&lt;a href="ocm">ocm&lt;/a>	 - The official Open Component Model (OCM) CLI&lt;/li>
+&lt;a href="https://ocm.software/dev/docs/reference/ocm-cli/ocm/">ocm&lt;/a>	 - The official Open Component Model (OCM) CLI&lt;/li>
 &lt;li>
 
 
@@ -240,24 +207,9 @@ to enable it. You can execute the following once:&lt;/p></description></item><it
 
  
  
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
 
 
-&lt;a href="https://ocm.software/dev/docs/reference/ocm-cli/ocm-download-plugin">ocm download plugin&lt;/a>	 - Download plugin binaries from a component version.&lt;/li>
+&lt;a href="https://ocm.software/dev/docs/reference/ocm-cli/ocm-download-plugin/">ocm download plugin&lt;/a>	 - Download plugin binaries from a component version.&lt;/li>
 &lt;li>
 
 
@@ -266,24 +218,9 @@ to enable it. You can execute the following once:&lt;/p></description></item><it
 
  
  
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
 
 
-&lt;a href="https://ocm.software/dev/docs/reference/ocm-cli/ocm-download-resource">ocm download resource&lt;/a>	 - Download resources described in a component version in an OCM Repository&lt;/li>
+&lt;a href="https://ocm.software/dev/docs/reference/ocm-cli/ocm-download-resource/">ocm download resource&lt;/a>	 - Download resources described in a component version in an OCM Repository&lt;/li>
 &lt;/ul></description></item><item><title>ocm download plugin</title><link>https://ocm.software/dev/docs/reference/ocm-cli/ocm-download-plugin/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/dev/docs/reference/ocm-cli/ocm-download-plugin/</guid><description>&lt;h2 id="ocm-download-plugin">ocm download plugin&lt;/h2>
 &lt;p>Download plugin binaries from a component version.&lt;/p>
 &lt;h3 id="synopsis">Synopsis&lt;/h3>
