@@ -3,9 +3,7 @@ name: Publish Site
 on:
   workflow_dispatch:
   push:
-    branches:
-      - main
-      - 'website/*'
+    branches: [main]
 
 env:
   OUTPUT_DIR: site-docs/
