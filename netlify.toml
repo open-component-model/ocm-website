@@ -2,15 +2,8 @@
   NODE_VERSION = "22.12.0"
   NPM_VERSION = "10.9.2"
 
-# deactivate standard builds
 [build]
-  command = "echo 'Default builds are handled externally'"
-  publish = "nonexistent"
-
-# deactivate production builds
-[context.production]
-  command = "echo 'Production builds are handled externally'"
-  publish = "nonexistent"
+  ignore = "git diff --quiet $CACHED_COMMIT_REF $COMMIT_REF"
 
 # deactivate branch deploys
 [context.branch-deploy]
