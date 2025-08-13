@@ -1,6 +1,6 @@
 ---
-title: commontransportarchive
-name: transfer commontransportarchive
+title: transfer commontransportarchive
+name: commontransportarchive
 url: /docs/reference/ocm-cli/transfer/commontransportarchive/
 draft: false
 images: []
