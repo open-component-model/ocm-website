@@ -84,23 +84,23 @@ func genMarkdownTreeCustom(cmd *cobra.Command, dir, urlPrefix, parentCmd string)
 
 	frontmatter := func() string {
 		cmdName := commandToID(cmd.Name())
-		title := strings.TrimSuffix(cmdName, path.Ext(cmdName))
-		var url, name string
+		shortName := strings.TrimSuffix(cmdName, path.Ext(cmdName))
+		var url, title string
 		if cmd.IsAdditionalHelpTopicCommand() {
-			url = urlPrefix + "help/" + strings.ToLower(title) + "/"
-			name = title
+			url = urlPrefix + "help/" + strings.ToLower(shortName) + "/"
+			title = shortName
 		} else if cmdName == "ocm-cli" {
 			url = urlPrefix
 			title = "OCM CLI"
-			name = "OCM CLI"
+			shortName = "OCM CLI"
 		} else if parentCmd == "ocm-cli" {
-			url = urlPrefix + strings.ToLower(title) + "/"
-			name = title
+			url = urlPrefix + strings.ToLower(shortName) + "/"
+			title = shortName
 		} else {
-			url = urlPrefix + parentCmd + "/" + strings.ToLower(title) + "/"
-			name = fmt.Sprintf("%s %s", parentCmd, title)
+			url = urlPrefix + parentCmd + "/" + strings.ToLower(shortName) + "/"
+			title = fmt.Sprintf("%s %s", parentCmd, shortName)
 		}
-		return fmt.Sprintf(fmTmpl, title, name, url)
+		return fmt.Sprintf(fmTmpl, title, shortName, url)
 	}
 
 	if _, err := io.WriteString(f, frontmatter()); err != nil {
