@@ -1,6 +1,6 @@
 ---
-title: componentarchive
-name: create componentarchive
+title: create componentarchive
+name: componentarchive
 url: /docs/reference/ocm-cli/create/componentarchive/
 draft: false
 images: []

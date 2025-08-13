@@ -1,6 +1,6 @@
 ---
-title: resource-configuration
-name: add resource-configuration
+title: add resource-configuration
+name: resource-configuration
 url: /docs/reference/ocm-cli/add/resource-configuration/
 draft: false
 images: []

@@ -1,6 +1,6 @@
 ---
-title: plugins
-name: describe plugins
+title: describe plugins
+name: plugins
 url: /docs/reference/ocm-cli/describe/plugins/
 draft: false
 images: []

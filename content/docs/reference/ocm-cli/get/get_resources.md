@@ -1,6 +1,6 @@
 ---
-title: resources
-name: get resources
+title: get resources
+name: resources
 url: /docs/reference/ocm-cli/get/resources/
 draft: false
 images: []
