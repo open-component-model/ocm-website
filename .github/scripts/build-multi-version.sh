@@ -16,26 +16,34 @@ set -euo pipefail
 #            "https://ocm.software". For local testing, you can use e.g.
 #            "http://localhost:1313".
 #
+# DEBUG:
+#   For troubleshooting, enable bash's built-in debug mode by adding 'set -x'
+#   at the start of your command:
+#     bash -x .github/scripts/build-multi-version.sh
+#
 # EXAMPLES:
 #   bash .github/scripts/build-multi-version.sh
 #   bash .github/scripts/build-multi-version.sh http://localhost:1313
+#   bash -x .github/scripts/build-multi-version.sh  # with debug output
 # -----------------------------------------------------------------------------
 
 # Read baseURL from first argument, default to https://ocm.software
 BASE_URL="${1:-https://ocm.software}"
 
-# Helper for error output
+# Helpers for output
 err() { echo "[ERROR] $*" >&2; }
-# Helper for info output
 info() { echo "[INFO] $*"; }
-# Helper for debug output (only when DEBUG=1)
-debug() { [ "${DEBUG:-0}" = "1" ] && echo "[DEBUG] $*" >&2 || true; }
 
 # Cleanup function to ensure temp files are removed on exit
 cleanup() {
   local exit_code=$?
-  debug "Cleaning up temporary files..."
   rm -rf "${TMP_MAIN_VERSIONS:-}" "${WORKTREE_BASE:-}" 2>/dev/null || true
+  rm -f .tmp-versions-backup.json 2>/dev/null || true
+  git worktree prune 2>/dev/null || true
+  # Restore backup if it exists (in case of unexpected termination)
+  if [ -f .tmp-versions-backup.json ]; then
+    mv .tmp-versions-backup.json data/versions.json 2>/dev/null || true
+  fi
   exit $exit_code
 }
 trap cleanup EXIT INT TERM
@@ -69,7 +77,6 @@ validate_versions_json() {
     return 1
   fi
   
-  debug "$context: Validated $file - contains $(echo "$versions" | wc -l | tr -d ' ') versions"
   return 0
 }
 
@@ -83,138 +90,116 @@ count_versions() {
   fi
 }
 
-# --- Determine the correct source for data/versions.json ---
-# By default, use the local file in the current branch
-VERSIONS_JSON_PATH="data/versions.json"
-
-# Validate local versions.json first
-if ! validate_versions_json "$VERSIONS_JSON_PATH" "Local"; then
-  exit 1
-fi
-
 # Get docsVersion and current branch only once for later use
 DOCS_VERSION=$(grep -E '^[[:space:]]*docsVersion[[:space:]]*=' config/_default/params.toml | cut -d'=' -f2 | tr -d ' "')
 CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
 
-# --- Check for version mismatch between branch and docsVersion ---
-# Determine expected docsVersion based on current branch
-if [ "$CURRENT_BRANCH" = "main" ]; then
-  EXPECTED_DOCSVERSION="dev"
-elif [[ "$CURRENT_BRANCH" =~ ^website/v[0-9]+\.[0-9]+$ ]]; then
-  EXPECTED_DOCSVERSION="${CURRENT_BRANCH#website/}"
-else
-  # For other branches (e.g., feature branches), skip validation
-  EXPECTED_DOCSVERSION=""
-fi
+# --- Determine the correct source for data/versions.json ---
+# Strategy: Use main branch versions as authoritative source, except when:
+# 1. We're on main branch (use local)
+# 2. Main branch is not available (use local)
+# 3. Local has more versions than main (preparing new release)
 
-# Validate docsVersion matches expected value (if we have an expectation)
-if [ -n "$EXPECTED_DOCSVERSION" ] && [ "$DOCS_VERSION" != "$EXPECTED_DOCSVERSION" ]; then
-  err "docsVersion ('$DOCS_VERSION') does not match expected value ('$EXPECTED_DOCSVERSION') for branch '$CURRENT_BRANCH'"
-  err "Please update docsVersion in config/_default/params.toml to '$EXPECTED_DOCSVERSION'"
+# Function to get versions from a file
+get_versions_from_file() {
+  local file="$1"
+  if [ -f "$file" ] && validate_versions_json "$file" "$(basename "$file")"; then
+    jq -r '.versions[]' "$file" 2>/dev/null || echo ""
+  else
+    echo ""
+  fi
+}
+
+# Function to decide which versions.json to use
+decide_versions_source() {
+  local local_file="$1"
+  local main_file="$2"
+  
+  local local_versions=$(get_versions_from_file "$local_file")
+  local main_versions=$(get_versions_from_file "$main_file")
+  
+  local local_count=$(count_versions "$local_versions")
+  local main_count=$(count_versions "$main_versions")
+  
+  # Decision logic
+  if [ "$CURRENT_BRANCH" = "main" ]; then
+    echo "local" "Using local data/versions.json (on main branch)"
+  elif [ -z "$main_versions" ]; then
+    echo "local" "Using local data/versions.json (main branch not available)"
+  elif [ "$local_count" -gt "$main_count" ]; then
+    echo "local" "Using local data/versions.json (contains more versions: $local_count vs $main_count)"
+  else
+    echo "main" "Using data/versions.json from main (authoritative source)"
+  fi
+}
+
+# Validate local versions.json first
+VERSIONS_JSON_PATH="data/versions.json"
+if ! validate_versions_json "$VERSIONS_JSON_PATH" "Local"; then
   exit 1
 fi
 
-# Decide which data/versions.json to use:
-# Strategy: Use local file if it contains more versions than main, or if docsVersion is new
-# This handles the case where we're preparing a new versioning setup with additional versions
-
-# Always try to fetch the main versions.json for comparison
+# Try to fetch main branch versions.json for comparison
 TMP_MAIN_VERSIONS=".tmp-main-versions"
 rm -rf "$TMP_MAIN_VERSIONS"
 mkdir -p "$TMP_MAIN_VERSIONS"
-
-# Fetch versions.json from main (handle cases where main might not exist remotely)
-MAIN_VERSIONS=""
 MAIN_VERSIONS_FILE="$TMP_MAIN_VERSIONS/versions.json"
 
+# Ensure we have the latest main branch for comparison
+# This is especially important in CI environments like Netlify
+git fetch origin main:refs/remotes/origin/main 2>/dev/null || echo "Could not fetch main branch"
+
 if git show origin/main:data/versions.json > "$MAIN_VERSIONS_FILE" 2>/dev/null; then
-  if validate_versions_json "$MAIN_VERSIONS_FILE" "Origin/main"; then
-    MAIN_VERSIONS=$(jq -r '.versions[]' "$MAIN_VERSIONS_FILE" 2>/dev/null || echo "")
-    info "Successfully fetched and validated data/versions.json from origin/main."
-  else
-    info "Found data/versions.json in origin/main but it's invalid - using local file."
-  fi
+  info "Successfully fetched data/versions.json from origin/main."
 else
   info "Could not fetch data/versions.json from origin/main (this is OK for new repos)."
 fi
 
-# Get local versions for comparison  
-LOCAL_VERSIONS=$(jq -r '.versions[]' "$VERSIONS_JSON_PATH" 2>/dev/null || echo "")
+# Decide which source to use
+read -r SOURCE REASON <<< "$(decide_versions_source "$VERSIONS_JSON_PATH" "$MAIN_VERSIONS_FILE")"
 
-# Determine whether to use local or main versions.json
-USE_LOCAL_VERSIONS=false
-
-if [ "$CURRENT_BRANCH" = "main" ]; then
-  # Always use local file when on main branch
-  USE_LOCAL_VERSIONS=true
-  info "Using local data/versions.json (on main branch)"
-elif [ -z "$MAIN_VERSIONS" ]; then
-  # Use local file if we can't fetch from main
-  USE_LOCAL_VERSIONS=true
-  info "Using local data/versions.json (cannot fetch valid file from origin/main)"
-else
-  # Compare version lists: use local if it has more versions or contains docsVersion not in main
-  LOCAL_VERSION_COUNT=$(count_versions "$LOCAL_VERSIONS")
-  MAIN_VERSION_COUNT=$(count_versions "$MAIN_VERSIONS")
-  
-  debug "Local versions ($LOCAL_VERSION_COUNT): $(echo "$LOCAL_VERSIONS" | tr '\n' ' ')"
-  debug "Main versions ($MAIN_VERSION_COUNT): $(echo "$MAIN_VERSIONS" | tr '\n' ' ')"
-  
-  # Check if docsVersion exists in main versions
-  DOCS_VERSION_IN_MAIN=$(echo "$MAIN_VERSIONS" | grep -x "$DOCS_VERSION" || echo "")
-  
-  if [ "$LOCAL_VERSION_COUNT" -gt "$MAIN_VERSION_COUNT" ]; then
-    USE_LOCAL_VERSIONS=true
-    info "Using local data/versions.json (contains more versions: $LOCAL_VERSION_COUNT vs $MAIN_VERSION_COUNT from main)"
-  elif [ -z "$DOCS_VERSION_IN_MAIN" ] && echo "$LOCAL_VERSIONS" | grep -q "^$DOCS_VERSION$"; then
-    USE_LOCAL_VERSIONS=true
-    info "Using local data/versions.json (docsVersion '$DOCS_VERSION' is new and not in main)"
-  else
-    USE_LOCAL_VERSIONS=false
-    info "Using data/versions.json from main (local version does not extend main's version list)"
-  fi
-fi
-
-# Set the final versions.json path based on decision
-if [ "$USE_LOCAL_VERSIONS" = "true" ]; then
-  # Keep using the local file (VERSIONS_JSON_PATH is already set to local file)
-  info "Final decision: Using local data/versions.json from current branch ($CURRENT_BRANCH)"
-else
-  # Use the main file we fetched
+if [ "$SOURCE" = "main" ]; then
   VERSIONS_JSON_PATH="$MAIN_VERSIONS_FILE"
-  info "Final decision: Using data/versions.json from main for version resolution."
+  USE_LOCAL_VERSIONS=false
+else
+  USE_LOCAL_VERSIONS=true
 fi
 
-# Read all available versions from the determined data/versions.json file
+info "$REASON"
+if [ "$SOURCE" = "main" ]; then
+  info "Final decision: Using data/versions.json from main branch for version resolution."
+else
+  info "Final decision: Using local data/versions.json from current branch for version resolution."
+fi
+
+# Read all available versions from determined data/versions.json
 VERSIONS=$(jq -r '.versions[]' "$VERSIONS_JSON_PATH")
 if [ -z "$VERSIONS" ]; then
   err "No versions found in $VERSIONS_JSON_PATH."
   exit 1
 fi
 
-# Read the default version from config/_default/params.toml
+# Read default version from config/_default/params.toml
 DEFAULT_VERSION=$(grep -E '^[[:space:]]*defaultVersion' config/_default/params.toml | cut -d'=' -f2 | tr -d ' "')
 if [ -z "$DEFAULT_VERSION" ]; then
   err "defaultVersion not found in config/_default/params.toml."
   exit 1
 fi
 
-# Check if the default version exists in the versions.json
+# Check if  default version exists in versions.json
 if ! echo "$VERSIONS" | grep -q "^$DEFAULT_VERSION$"; then
   err "defaultVersion '$DEFAULT_VERSION' not found in versions.json"
   err "Available versions: $(echo "$VERSIONS" | tr '\n' ' ')"
   exit 1
 fi
 
-git worktree prune  # Clean up any stale worktrees
+git worktree prune  # Clean up stale worktrees
 
 # Prepare output and worktree directories
-# Remove and recreate the public directory for fresh build output
 PUBLIC_DIR="public"
 rm -rf "$PUBLIC_DIR"
 mkdir -p "$PUBLIC_DIR"
 
-# Remove and recreate the worktree base directory for temporary git worktrees
 WORKTREE_BASE=".worktrees"
 rm -rf "$WORKTREE_BASE"
 mkdir -p "$WORKTREE_BASE"
@@ -239,16 +224,41 @@ for VERSION in $VERSIONS; do
     FINAL_BASE_URL="$BASE_URL/$VERSION"
   fi
 
-  # If the current branch matches docsVersion, build directly from the current branch (no worktree needed)
+  # If current branch matches docsVersion, build directly from the current branch (no worktree needed)
   if [ "$VERSION" = "$DOCS_VERSION" ]; then
     info "Building $VERSION version directly from current branch ($CURRENT_BRANCH) into $OUTDIR"
-    # Make npm clean install (using the dependency lock file)
+
+    # Temporarily replace data/versions.json if we're using main branch versions
+    TEMP_BACKUP=""
+    if [ "$USE_LOCAL_VERSIONS" = "false" ]; then
+      TEMP_BACKUP=".tmp-versions-backup.json"
+      cp data/versions.json "$TEMP_BACKUP"
+      cp "$VERSIONS_JSON_PATH" data/versions.json
+      info "Temporarily using versions.json from main branch for build."
+    fi
+
+    # Make npm clean install (using the package-lock.json file)
     npm ci || { err "npm ci failed for $CURRENT_BRANCH"; exit 1; }
     # Always update Hugo modules and install dependencies before building
     npm run hugo -- mod get -u || { err "hugo mod get -u failed for $CURRENT_BRANCH"; exit 1; }
     npm run hugo -- mod tidy || { err "hugo mod tidy failed for $CURRENT_BRANCH"; exit 1; }
-    # Execute Hugo build with the final base URL
-    npm run build -- --destination "$OUTDIR" --baseURL "$FINAL_BASE_URL" || { err "npm run build failed for $CURRENT_BRANCH"; exit 1; }
+    
+    # Execute Hugo build with final base URL
+    npm run build -- --destination "$OUTDIR" --baseURL "$FINAL_BASE_URL" || { 
+      # Restore backup on failure
+      if [ -n "$TEMP_BACKUP" ]; then
+        mv "$TEMP_BACKUP" data/versions.json
+      fi
+      err "npm run build failed for $CURRENT_BRANCH"
+      exit 1
+    }
+    
+    # Restore original versions.json after successful build
+    if [ -n "$TEMP_BACKUP" ]; then
+      mv "$TEMP_BACKUP" data/versions.json
+      info "Restored original versions.json after build."
+    fi
+    
     BUILT_VERSIONS["$VERSION"]="$OUTDIR"
     continue
   fi
@@ -268,19 +278,18 @@ for VERSION in $VERSIONS; do
   git worktree add "$WORKTREE_BASE/$VERSION" "$BRANCH" || { err "Failed to add worktree for $BRANCH"; exit 1; }
   pushd "$WORKTREE_BASE/$VERSION" >/dev/null
 
-  # Copy the latest data/versions.json into the worktree for the version switcher (except for current branch)
+  # Copy latest data/versions.json into the worktree for the version switcher (except for current branch)
   if [ "$VERSION" != "$DOCS_VERSION" ]; then
     cp "../../$VERSIONS_JSON_PATH" data/versions.json
     info "Copied latest data/versions.json into worktree for $VERSION."
   fi
 
   # Optimization: reuse central node_modules if package-lock.json is identical
-  # This saves time and disk space for identical dependencies across versions
   if cmp -s package-lock.json ../../package-lock.json; then
     info "package-lock.json is identical, creating symlink to central node_modules."
     ln -s ../../node_modules ./node_modules
   else
-    # Make npm clean install (using the dependency lock file)
+    # Make npm clean install (using the package-lock.json file)
     info "package-lock.json differs from central version. Installing separate dependencies for this version."
     npm ci || { err "npm ci failed for $BRANCH"; popd >/dev/null; exit 1; }
   fi
@@ -289,7 +298,7 @@ for VERSION in $VERSIONS; do
   npm run hugo -- mod get -u || { err "hugo mod get -u failed for $BRANCH"; popd >/dev/null; exit 1; }
   npm run hugo -- mod tidy || { err "hugo mod tidy failed for $BRANCH"; popd >/dev/null; exit 1; }
 
-  # Build the site for this version using the final base URL
+  # Build  site for this version using final base URL
   npm run build -- --destination "../../$OUTDIR" --baseURL "$FINAL_BASE_URL" || { err "npm run build failed for $BRANCH"; popd >/dev/null; exit 1; }
   BUILT_VERSIONS["$VERSION"]="$OUTDIR"
 
@@ -304,5 +313,3 @@ echo "--- Build Summary ---"
 for VERSION in "${!BUILT_VERSIONS[@]}"; do
   printf "Version: %-10s → %s\n" "$VERSION" "${BUILT_VERSIONS[$VERSION]}"
 done
-
-# Note: Cleanup is handled by the trap function automatically
