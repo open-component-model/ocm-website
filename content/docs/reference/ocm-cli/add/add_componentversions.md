@@ -1,6 +1,6 @@
 ---
-title: componentversions
-name: add componentversions
+title: add componentversions
+name: componentversions
 url: /docs/reference/ocm-cli/add/componentversions/
 draft: false
 images: []

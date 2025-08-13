@@ -1,6 +1,6 @@
 ---
-title: sources
-name: get sources
+title: get sources
+name: sources
 url: /docs/reference/ocm-cli/get/sources/
 draft: false
 images: []

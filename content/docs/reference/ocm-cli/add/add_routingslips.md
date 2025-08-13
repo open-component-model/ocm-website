@@ -1,6 +1,6 @@
 ---
-title: routingslips
-name: add routingslips
+title: add routingslips
+name: routingslips
 url: /docs/reference/ocm-cli/add/routingslips/
 draft: false
 images: []

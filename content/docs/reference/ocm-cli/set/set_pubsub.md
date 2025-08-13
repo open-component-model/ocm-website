@@ -1,6 +1,6 @@
 ---
-title: pubsub
-name: set pubsub
+title: set pubsub
+name: pubsub
 url: /docs/reference/ocm-cli/set/pubsub/
 draft: false
 images: []

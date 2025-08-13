@@ -1,6 +1,6 @@
 ---
-title: references
-name: get references
+title: get references
+name: references
 url: /docs/reference/ocm-cli/get/references/
 draft: false
 images: []
