@@ -8,31 +8,48 @@ toc: true
 
 ## List Component Versions
 
-To show a component stored in an OCM repository or CTF archive (which itself is an OCM repository), the [`ocm get componentversion`](https://github.com/open-component-model/ocm/blob/main/docs/reference/ocm_get_componentversions.md) command can be used:
+To show the list of all component versions of a specific component stored in an OCM repository or CTF archive (which technically is also an OCM repository), the [`ocm get component-version`](/docs/reference/ocm-cli/ocm-get-component-version/) command can be used. 
+
+Notice the format of the specified component which has a prefix that is the OCI repository followed by a double slash `//` and then the component name.
 
 ```shell
-ocm get componentversion ghcr.io/open-component-model/ocm//ocm.software/toi/demo/helmdemo:0.12.0
+ocm get cv ghcr.io/open-component-model/ocm//ocm.software/ocmcli
 ```
 
 ```shell
-  COMPONENT                      VERSION PROVIDER
-  ocm.software/toi/demo/helmdemo 0.12.0  ocm.software
+ COMPONENT           │ VERSION     │ PROVIDER
+─────────────────────┼─────────────┼──────────────
+ ocm.software/ocmcli │ 0.28.0      │ ocm.software
+                     │ 0.28.0-rc.1 │
+                     │ 0.27.0      │
+                     │ 0.27.0-rc.1 │
+                     │ 0.26.0      │
+...
 ```
 
-To see the component descriptor of the displayed component version, use the output format option `-o yaml`:
+## Get and ExamineComponent Versions
+
+To see the just a specific component version, use:
 
 ```shell
-ocm get cv ghcr.io/open-component-model/ocm//ocm.software/toi/demo/helmdemo:0.12.0 -o yaml
+ocm get cv ghcr.io/open-component-model/ocm//ocm.software/ocmcli:0.28.0
+
+ COMPONENT           │ VERSION │ PROVIDER
+─────────────────────┼─────────┼──────────────
+ ocm.software/ocmcli │ 0.28.0  │ ocm.software
+```
+
+To get the component descriptor of that component version, use the output format option `-o yaml` (the output below has been shortened for better readability and respources of other platforms than arm64-darwin have been removed).
+
+```shell
+ocm get cv ghcr.io/open-component-model/ocm//ocm.software/ocmcli:0.28.0 -o yaml
 ```
 
 ```yaml
 component:
-  componentReferences:
-  - componentName: ocm.software/toi/installers/helminstaller
-    name: installer
-    version: 0.12.0
-  creationTime: "2024-07-19T14:32:13Z"
-  name: ocm.software/toi/demo/helmdemo
+  componentReferences: []
+  creationTime: "2025-08-12T07:39:28Z"
+  name: ocm.software/ocmcli
   provider: ocm.software
   repositoryContexts:
   - baseUrl: ghcr.io
@@ -41,27 +58,34 @@ component:
     type: OCIRegistry
   resources:
   - access:
-      localReference: sha256:8a2fe6af4ce56249094622c9d618e24b4cfb461a7dfa6a42cce31749189bc499
-      mediaType: application/vnd.toi.ocm.software.package.v1+yaml
+      localReference: sha256:23e1be605fe47fe4901424631314a9e620807dcdfe7cb30981e329e1bca9adab
+      mediaType: application/octet-stream
       type: localBlob
     digest:
-      ...
+      hashAlgorithm: SHA-256
+      normalisationAlgorithm: genericBlobDigest/v1
+      value: 23e1be605fe47fe4901424631314a9e620807dcdfe7cb30981e329e1bca9adab
+    extraIdentity:
+      architecture: arm64
+      os: darwin
     labels:
-    - name: commit
-      value: e5ca3001323b75ee5793a786089f1f410e9e8db3
-    name: package
+    - name: downloadName
+      value: ocm
+    name: ocmcli
     relation: local
-    type: toiPackage
-    version: 0.12.0
+    type: executable
+    version: 0.28.0
   - access:
-      imageReference: ghcr.io/open-component-model/ocm/ocm.software/toi/demo/helmdemo/echoserver:0.1.0
+      imageReference: ghcr.io/open-component-model/ocm/ocm.software/ocmcli/ocmcli-image:0.28.0@sha256:2e035d29d270d97fd5645ef2d2140882beb72325d02cc1fcb546ef7590f3ac6d
       type: ociArtifact
     digest:
-      ...
-    name: chart
+      hashAlgorithm: SHA-256
+      normalisationAlgorithm: ociArtifactDigest/v1
+      value: 2e035d29d270d97fd5645ef2d2140882beb72325d02cc1fcb546ef7590f3ac6d
+    name: ocmcli-image
     relation: local
-    type: helmChart
-    version: 0.12.0
+    type: ociImage
+    version: 0.28.0
 ...
 ```
 

@@ -8,7 +8,10 @@ toc: true
 ---
 
 This and the following chapters walk you through some basic steps to get started with OCM concepts and the OCM CLI.
-You will learn how to create a component version, display and examine the component, and how to transfer and sign it.
+
+You will learn how to create a component version, display and examine the component, and download resources.
+
+We will update the getting started guides with more actions, like signing, transfer and verification of components during the ongoing development of our new major release.
 
 To follow the steps described in this section, you will need to:
 

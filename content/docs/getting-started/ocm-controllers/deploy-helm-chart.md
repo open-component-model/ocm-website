@@ -1,11 +1,10 @@
 ---
 title: Deploying a Helm Chart
 description: "Demonstrates how to deploy a Helm Chart from an OCM component version using OCM K8s Toolkit, kro, and FluxCD."
-icon: ":motor_boat:"
-weight: 40
+icon: "🚀"
+weight: 30
 toc: true
 ---
-
 
 This guide demonstrates how to deploy a Helm Chart from an OCM component version using OCM K8s Toolkit, kro, and FluxCD.
 It is a rather basic example, in which it is assumed that a developer created an application, packaged it as a Helm

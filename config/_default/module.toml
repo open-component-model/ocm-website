@@ -96,4 +96,3 @@
   [[imports.mounts]]
     source = "docs/reference"
     target = "content/docs/reference/ocm-cli"
-

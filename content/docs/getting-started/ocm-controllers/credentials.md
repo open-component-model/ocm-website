@@ -1,7 +1,7 @@
 ---
 title: Configuring credentials
 description: "Learn how to configure credentials for accessing private OCM repositories in OCM K8s Toolkit resources."
-icon: ":key:"
+icon: "🔑"
 weight: 40
 toc: true
 ---
