@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>download on Open Component Model</title><link>https://ocm.software/docs/reference/ocm-cli/download/</link><description>Recent content in download on Open Component Model</description><generator>Hugo</generator><language>en</language><copyright>© Copyright 2025, SAP SE and Open Component Model Contributors</copyright><atom:link href="https://ocm.software/docs/reference/ocm-cli/download/index.xml" rel="self" type="application/rss+xml"/><item><title>artifacts</title><link>https://ocm.software/docs/reference/ocm-cli/download/artifacts/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/download/artifacts/</guid><description>&lt;h3 id="usage">Usage&lt;/h3>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>download on Open Component Model</title><link>https://ocm.software/docs/reference/ocm-cli/download/</link><description>Recent content in download on Open Component Model</description><generator>Hugo</generator><language>en</language><copyright>© Copyright 2025, SAP SE and Open Component Model Contributors</copyright><atom:link href="https://ocm.software/docs/reference/ocm-cli/download/index.xml" rel="self" type="application/rss+xml"/><item><title>download artifacts</title><link>https://ocm.software/docs/reference/ocm-cli/download/artifacts/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/download/artifacts/</guid><description>&lt;h3 id="usage">Usage&lt;/h3>
 
 
 
@@ -29,7 +29,7 @@
 &lt;/div>
 &lt;h3 id="description">Description&lt;/h3>
 &lt;p>Download artifacts from an OCI registry. The result is stored in
-artifact set format, without the repository part&lt;/p></description></item><item><title>cli</title><link>https://ocm.software/docs/reference/ocm-cli/download/cli/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/download/cli/</guid><description>&lt;h3 id="usage">Usage&lt;/h3>
+artifact set format, without the repository part&lt;/p></description></item><item><title>download cli</title><link>https://ocm.software/docs/reference/ocm-cli/download/cli/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/download/cli/</guid><description>&lt;h3 id="usage">Usage&lt;/h3>
 
 
 
@@ -65,7 +65,7 @@ artifact set format, without the repository part&lt;/p></description></item><ite
 and repository is used. Optionally, another component or repo and even a resource
 can be specified. Resources are specified by identities. An identity consists of
 a name argument followed by optional &lt;code>&amp;lt;key&amp;gt;=&amp;lt;value&amp;gt;&lt;/code>
-arguments.&lt;/p></description></item><item><title>componentversions</title><link>https://ocm.software/docs/reference/ocm-cli/download/componentversions/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/download/componentversions/</guid><description>&lt;h3 id="usage">Usage&lt;/h3>
+arguments.&lt;/p></description></item><item><title>download componentversions</title><link>https://ocm.software/docs/reference/ocm-cli/download/componentversions/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/download/componentversions/</guid><description>&lt;h3 id="usage">Usage&lt;/h3>
 
 
 
@@ -94,7 +94,7 @@ arguments.&lt;/p></description></item><item><title>componentversions</title><lin
 &lt;/div>
 &lt;h3 id="description">Description&lt;/h3>
 &lt;p>Download component versions from an OCM repository. The result is stored in
-component archives.&lt;/p></description></item><item><title>resources</title><link>https://ocm.software/docs/reference/ocm-cli/download/resources/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/download/resources/</guid><description>&lt;h3 id="usage">Usage&lt;/h3>
+component archives.&lt;/p></description></item><item><title>download resources</title><link>https://ocm.software/docs/reference/ocm-cli/download/resources/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/download/resources/</guid><description>&lt;h3 id="usage">Usage&lt;/h3>
 
 
 

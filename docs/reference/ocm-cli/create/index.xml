@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>create on Open Component Model</title><link>https://ocm.software/docs/reference/ocm-cli/create/</link><description>Recent content in create on Open Component Model</description><generator>Hugo</generator><language>en</language><copyright>© Copyright 2025, SAP SE and Open Component Model Contributors</copyright><atom:link href="https://ocm.software/docs/reference/ocm-cli/create/index.xml" rel="self" type="application/rss+xml"/><item><title>componentarchive</title><link>https://ocm.software/docs/reference/ocm-cli/create/componentarchive/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/create/componentarchive/</guid><description>&lt;h3 id="usage">Usage&lt;/h3>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>create on Open Component Model</title><link>https://ocm.software/docs/reference/ocm-cli/create/</link><description>Recent content in create on Open Component Model</description><generator>Hugo</generator><language>en</language><copyright>© Copyright 2025, SAP SE and Open Component Model Contributors</copyright><atom:link href="https://ocm.software/docs/reference/ocm-cli/create/index.xml" rel="self" type="application/rss+xml"/><item><title>create componentarchive</title><link>https://ocm.software/docs/reference/ocm-cli/create/componentarchive/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/create/componentarchive/</guid><description>&lt;h3 id="usage">Usage&lt;/h3>
 
 
 
@@ -29,7 +29,7 @@
 &lt;/div>
 &lt;h3 id="description">Description&lt;/h3>
 &lt;p>Create a new component archive. This might be either a directory prepared
-to host component version content or a tar/tgz file (see option &amp;ndash;type).&lt;/p></description></item><item><title>rsakeypair</title><link>https://ocm.software/docs/reference/ocm-cli/create/rsakeypair/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/create/rsakeypair/</guid><description>&lt;h3 id="usage">Usage&lt;/h3>
+to host component version content or a tar/tgz file (see option &amp;ndash;type).&lt;/p></description></item><item><title>create rsakeypair</title><link>https://ocm.software/docs/reference/ocm-cli/create/rsakeypair/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/create/rsakeypair/</guid><description>&lt;h3 id="usage">Usage&lt;/h3>
 
 
 
@@ -61,7 +61,7 @@ to host component version content or a tar/tgz file (see option &amp;ndash;type)
  &lt;/figure>
 &lt;/div>
 &lt;h3 id="description">Description&lt;/h3>
-&lt;p>Create an RSA public key pair and save to files.&lt;/p></description></item><item><title>transportarchive</title><link>https://ocm.software/docs/reference/ocm-cli/create/transportarchive/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/create/transportarchive/</guid><description>&lt;h3 id="usage">Usage&lt;/h3>
+&lt;p>Create an RSA public key pair and save to files.&lt;/p></description></item><item><title>create transportarchive</title><link>https://ocm.software/docs/reference/ocm-cli/create/transportarchive/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/create/transportarchive/</guid><description>&lt;h3 id="usage">Usage&lt;/h3>
 
 
 
