@@ -3,10 +3,11 @@
   NPM_VERSION = "10.9.2"
 
 [build]
-  publish = "public"
+  ignore = "exit 1"
 
 [context.deploy-preview]
-  command = "bash .github/scripts/build-multi-version.sh $DEPLOY_PRIME_URL"
+  command = "sh -c 'git fetch origin main:refs/remotes/origin/main && bash .github/scripts/build-multi-version.sh $DEPLOY_PRIME_URL'"
+  publish = "public"
 
 [[plugins]]
   package = "netlify-plugin-submit-sitemap"
