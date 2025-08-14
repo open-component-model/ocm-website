@@ -94,9 +94,9 @@ Component Repositories, and Component Versions.&lt;/p></description></item><item
  
 
 
-&lt;a href="https://ocm.software/dev/docs/reference/ocm-cli/ocm-add-component-version/">ocm add component-version&lt;/a>	 - Add component version(s) to an OCM Repository stored as Common Transport Format Archive (CTF) based on a &amp;ldquo;component-constructor&amp;rdquo; file&lt;/li>
+&lt;a href="https://ocm.software/dev/docs/reference/ocm-cli/ocm-add-component-version/">ocm add component-version&lt;/a>	 - Add component version(s) to an OCM Repository stored as Common Transport Format archive (CTF) based on a &amp;ldquo;component-constructor&amp;rdquo; file&lt;/li>
 &lt;/ul></description></item><item><title>ocm add component-version</title><link>https://ocm.software/dev/docs/reference/ocm-cli/ocm-add-component-version/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/dev/docs/reference/ocm-cli/ocm-add-component-version/</guid><description>&lt;h2 id="ocm-add-component-version">ocm add component-version&lt;/h2>
-&lt;p>Add component version(s) to an OCM Repository stored as Common Transport Format Archive (CTF) based on a &amp;ldquo;component-constructor&amp;rdquo; file&lt;/p></description></item><item><title>ocm completion</title><link>https://ocm.software/dev/docs/reference/ocm-cli/ocm-completion/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/dev/docs/reference/ocm-cli/ocm-completion/</guid><description>&lt;h2 id="ocm-completion">ocm completion&lt;/h2>
+&lt;p>Add component version(s) to an OCM Repository stored as Common Transport Format archive (CTF) based on a &amp;ldquo;component-constructor&amp;rdquo; file&lt;/p></description></item><item><title>ocm completion</title><link>https://ocm.software/dev/docs/reference/ocm-cli/ocm-completion/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/dev/docs/reference/ocm-cli/ocm-completion/</guid><description>&lt;h2 id="ocm-completion">ocm completion&lt;/h2>
 &lt;p>Generate the autocompletion script for the specified shell&lt;/p>
 &lt;h3 id="synopsis">Synopsis&lt;/h3>
 &lt;p>Generate the autocompletion script for ocm for the specified shell.
