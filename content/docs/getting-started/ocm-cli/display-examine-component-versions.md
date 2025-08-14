@@ -8,9 +8,9 @@ toc: true
 
 ## List Component Versions
 
-To show the list of all component versions of a specific component stored in an OCM repository or CTF archive (which technically is also an OCM repository), the [`ocm get component-version`](/docs/reference/ocm-cli/ocm-get-component-version/) command can be used. 
+To show the list of all component versions of a specific component stored in an OCM repository or CTF archive (which technically is also an OCM repository), the [`ocm get component-version`](/docs/reference/ocm-cli/ocm-get-component-version/) command can be used. Only specify the component name and skip the version.
 
-Notice the format of the specified component which has a prefix that is the OCI repository followed by a double slash `//` and then the component name.
+Notice the format of the specified component which has a prefix that is the OCM repository followed by a double slash `//` and then the component name.
 
 ```shell
 ocm get cv ghcr.io/open-component-model/ocm//ocm.software/ocmcli
@@ -27,7 +27,7 @@ ocm get cv ghcr.io/open-component-model/ocm//ocm.software/ocmcli
 ...
 ```
 
-## Get and ExamineComponent Versions
+## Get and Examine Component Versions
 
 To see the just a specific component version, use:
 
@@ -39,7 +39,7 @@ ocm get cv ghcr.io/open-component-model/ocm//ocm.software/ocmcli:0.28.0
  ocm.software/ocmcli │ 0.28.0  │ ocm.software
 ```
 
-To get the component descriptor of that component version, use the output format option `-o yaml` (the output below has been shortened for better readability and respources of other platforms than arm64-darwin have been removed).
+To get the component descriptor of that component version, use the output format option `-o yaml` (the output below has been shortened for better readability and resources of other platforms than arm64-darwin have been removed).
 
 ```shell
 ocm get cv ghcr.io/open-component-model/ocm//ocm.software/ocmcli:0.28.0 -o yaml
@@ -89,11 +89,10 @@ component:
 ...
 ```
 
-To refer to the content of a component repository, the component name can be appended to the repository specification separated by `//` (you can also use the `--repo` option to specify the repository).
+In the example above, `ghcr.io/open-component-model/ocm` is the OCM repository, whereas `ocmcli` is the component stored in this component repository and `0.28.0` the component's version.
 
-In the example above, `ghcr.io/open-component-model/ocm` is the OCM repository, whereas `ocm.software/toi/demo/helmdemo` is the component stored in this component repository.
-
-Optionally, a specific version can be appended, separated by a colon (`:`). If no version is specified, all component versions will be displayed.
+> [!NOTE]
+> The `--recursive` option is currently implemented. Stay tuned for it to work :-)
 
 With the option `--recursive`, it is possible to show the complete component version, including the component versions it references.
 
