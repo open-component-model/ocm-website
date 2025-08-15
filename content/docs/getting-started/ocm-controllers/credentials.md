@@ -26,16 +26,17 @@ create a Kubernetes secret of type `dockerconfigjson` that contains the credenti
 kubectl create secret docker-registry ocm-secret --from-file=<path-to-your-docker-config-file>
 ```
 
-> [!NOTE]
-> Be aware that Kubernetes secret are only `base64` encoded and not encrypted. This means that anyone with access to the
-> Kubernetes secret can access the credentials.
->
-> Accordingly, you should make sure that the Docker configuration files does not contain any other information than the
-> credentials for accessing the private OCM repository.
+{{<callout context="caution">}}Listing resources and sources most likely will become part of the `ocm get cv` command and become an additional option. Stay tuned for updates!
+
+Be aware that Kubernetes secret are only `base64` encoded and not encrypted. This means that anyone with access to the
+Kubernetes secret can access the credentials.
+
+Accordingly, you should make sure that the Docker configuration files does not contain any other information than the
+credentials for accessing the private OCM repository.
 
 Or in case you want to create the secret manually, you can use the following command to create a Kubernetes secret
 of type `dockerconfigjson`:
-
+{{</callout>}}
 ```bash
 kubectl create secret docker-registry ocm-secret \
   --docker-username=<your-name> \

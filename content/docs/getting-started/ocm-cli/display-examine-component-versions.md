@@ -10,7 +10,9 @@ toc: true
 
 To show the list of all component versions of a specific component stored in an OCM repository or CTF archive (which technically is also an OCM repository), the [`ocm get component-version`](/docs/reference/ocm-cli/ocm-get-component-version/) command can be used. Only specify the component name and skip the version.
 
-Notice the format of the specified component which has a prefix that is the OCM repository followed by a double slash `//` and then the component name.
+In the example below we use the OCM component `ocm.software/toi/demo/helmdemo`.
+
+Notice the format of the specified component which has a prefix defining the OCM repository followed by a double slash `//` and then the component name.
 
 ```shell
 ocm get cv ghcr.io/open-component-model/ocm//ocm.software/toi/demo/helmdemo
@@ -31,7 +33,7 @@ ocm get cv ghcr.io/open-component-model/ocm//ocm.software/toi/demo/helmdemo
 
 ## Get Component Versions
 
-To see the just a specific component version, use:
+To see just a specific component version, add a version to the component name:
 
 ```shell
 ocm get cv ghcr.io/open-component-model/ocm//ocm.software/toi/demo/helmdemo:0.21.0
@@ -43,7 +45,7 @@ ocm get cv ghcr.io/open-component-model/ocm//ocm.software/toi/demo/helmdemo:0.21
  ocm.software/toi/demo/helmdemo │ 0.21.0  │ ocm.software
 ```
 
-To get the component descriptor of that component version, use the output format option `-o yaml` (the output below has been shortened for better readability and resources of other platforms than arm64-darwin have been removed).
+To get the component descriptor of that component version, use the output format option `-o yaml` (the output below has been shortened for better readability and only the `image` and `chart`).
 
 ```shell
 ocm get cv ghcr.io/open-component-model/ocm//ocm.software/toi/demo/helmdemo:0.21.0 -o yaml
@@ -68,36 +70,7 @@ component:
     subPath: open-component-model/ocm
     type: OCIRegistry
   resources:
-  - access:
-      localReference: sha256:e790920a11de2016de64225280efcf062e14b767955f7508de64fd5192e3fb3a
-      mediaType: application/vnd.toi.ocm.software.credentials.v1+yaml
-      type: localBlob
-    digest:
-      hashAlgorithm: SHA-256
-      normalisationAlgorithm: genericBlobDigest/v1
-      value: e790920a11de2016de64225280efcf062e14b767955f7508de64fd5192e3fb3a
-    labels:
-    - name: commit
-      value: 098b88e1f66f37191b0294808bcc49cd7935844b
-    name: creds-example
-    relation: local
-    type: yaml
-    version: 0.21.0
-  - access:
-      localReference: sha256:87cef1e2233bf5591030ac854e2556fbe6a00a28bb5640e25a9cb69ece519c5a
-      mediaType: application/vnd.toi.ocm.software.config.v1+yaml
-      type: localBlob
-    digest:
-      hashAlgorithm: SHA-256
-      normalisationAlgorithm: genericBlobDigest/v1
-      value: 87cef1e2233bf5591030ac854e2556fbe6a00a28bb5640e25a9cb69ece519c5a
-    labels:
-    - name: commit
-      value: 098b88e1f66f37191b0294808bcc49cd7935844b
-    name: config-example
-    relation: local
-    type: yaml
-    version: 0.21.0
+...
   - access:
       imageReference: ghcr.io/open-component-model/ocm/google-containers/echoserver:1.10@sha256:cb5c1bddd1b5665e1867a7fa1b5fa843a47ee433bbb75d4293888b71def53229
       type: ociArtifact
@@ -165,7 +138,7 @@ ocm get cv /tmp/helloworld/transport-archive//github.com/acme.org/helloworld:1.0
  github.com/acme.org/helloworld │ 1.0.0   │ acme.org
 ```
 
-## Get Resources of a Component Version
+## List Resources of a Component Version
 
 {{<callout context="caution" title="Under Construction">}}Listing resources and sources most likely will become part of the `ocm get cv` command and become an additional option. Stay tuned for updates!{{</callout>}}
 
