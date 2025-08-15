@@ -2,7 +2,7 @@
 title: Configuring credentials
 description: "Learn how to configure credentials for accessing private OCM repositories in OCM K8s Toolkit resources."
 icon: "🔑"
-weight: 40
+weight: 50
 toc: true
 ---
 
@@ -17,7 +17,7 @@ Currently, OCM K8s Toolkit supports two ways to configure credentials for access
 - [Kubernetes secret of type `dockerconfigjson`](#create-a-kubernetes-secret-of-type-dockerconfigjson-to-access-private-ocm-repositories)
 - [Kubernetes secret or configmap containing an `.ocmconfig` file](#create-a-kubernetes-secret-of-configmap-containing-an-ocm-configuration-to-access-private-ocm-repositories)
 
-### Create a Kubernetes secret of type `dockerconfigjson` to access private OCM repositories
+### Create a Kubernetes secret of type `dockerconfigjson`
 
 If you already have an existing Docker configuration file that you use to access your private OCM repository, you can
 create a Kubernetes secret of type `dockerconfigjson` that contains the credentials:
@@ -26,17 +26,15 @@ create a Kubernetes secret of type `dockerconfigjson` that contains the credenti
 kubectl create secret docker-registry ocm-secret --from-file=<path-to-your-docker-config-file>
 ```
 
-{{<callout context="caution">}}Listing resources and sources most likely will become part of the `ocm get cv` command and become an additional option. Stay tuned for updates!
+{{<callout context="caution">}}
+Be aware that Kubernetes secrets are only `base64` encoded and not encrypted. This means that anyone with access to the Kubernetes secret can access the credentials.
 
-Be aware that Kubernetes secret are only `base64` encoded and not encrypted. This means that anyone with access to the
-Kubernetes secret can access the credentials.
-
-Accordingly, you should make sure that the Docker configuration files does not contain any other information than the
-credentials for accessing the private OCM repository.
-
-Or in case you want to create the secret manually, you can use the following command to create a Kubernetes secret
-of type `dockerconfigjson`:
+Accordingly, you should make sure that the Docker configuration file only contains information required for accessing the private OCM repository.
 {{</callout>}}
+
+In case you want to create the secret manually, you can use the following command to create a Kubernetes secret
+of type `dockerconfigjson`:
+
 ```bash
 kubectl create secret docker-registry ocm-secret \
   --docker-username=<your-name> \
@@ -44,23 +42,24 @@ kubectl create secret docker-registry ocm-secret \
   --docker-server=<your-OCM-repository-url>
 ```
 
-### Create a Kubernetes secret of configmap containing an OCM configuration to access private OCM repositories
+### Create a Kubernetes secret from `.ocmconfig` file
 
 To create a Kubernetes secret or configmap containing an OCM configuration that allows OCM K8s Toolkit resources
-to access private OCM repositories, you can use the `.ocmconfig` file that was used to transfer the OCM component in the
+to access private OCM repositories, you can use the `.ocmconfig` file used to transfer the OCM component in the
 first place.
 
-> [!NOTE]
-> Usually, the `.ocmconfig` file is located in your home directory. However, this `.ocmconfig` could contain more
-> configurations than just the credentials for accessing private OCM repositories. As this `.ocmconfig` will be used
-> to create a Kubernetes secret or configmap to which other users might have access to, you have to make sure that it
-> only contains the configuration you want to share.
->
-> We recommend to create a new `.ocmconfig` file that only contains the credentials for accessing the private OCM
-> repository.
->
-> For more information on how to create and use the `.ocmconfig` file, please refer to the
-> [OCM CLI credentials documentation][ocm-credentials].
+{{<callout context="caution">}}
+Usually, the `.ocmconfig` file is located in your HOME directory. However, this `.ocmconfig` could contain more
+configurations than just the credentials for accessing private OCM repositories. As this `.ocmconfig` will be used
+to create a Kubernetes secret or configmap to which other users might have access to, you have to make sure that it
+only contains the configuration you want to share.
+
+We recommend to create a new `.ocmconfig` file that only contains the credentials for accessing the private OCM
+repository.
+
+For more information on how to create and use the `.ocmconfig` file, please refer to the
+[OCM CLI credentials documentation][ocm-credentials].
+{{</callout>}}
 
 For instance, consider you used the following command and `.ocmconfig` file to transfer the OCM component:
 
@@ -91,10 +90,11 @@ You can now create a secret in the Kubernetes cluster that contains the `.ocmcon
 kubectl create secret generic ocm-secret --from-file=./.ocmconfig
 ```
 
-> [!IMPORTANT]
-> Make sure that the secret or configmap containing an OCM config has the correct key to the OCM config file
-> `.ocmconfig`. This is required for OCM K8s Toolkit resources to be able to read the OCM configuration.
-> Using the filename `.ocmconfig` in the `--from-file` option takes care of that.
+{{<callout context="caution">}}
+Make sure that the secret or configmap containing an OCM config has the correct key to the OCM config file
+`.ocmconfig`. This is required for OCM K8s Toolkit resources to be able to read the OCM configuration.
+Using the filename `.ocmconfig` in the `--from-file` option takes care of that.
+{{</callout>}}
 
 ## How to use the configured credentials?
 

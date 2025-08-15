@@ -1,12 +1,12 @@
 ---
-title: Deploying a Helm Chart (Bootstrap)
+title: Deploying a Helm Chart (with Bootstrap)
 description: "Demonstrates how to deploy a Helm Chart using a ResourceGraphDefinition delivered with the OCM component."
 icon: "⚙️"
-weight: 20
+weight: 40
 toc: true
 ---
 
-This [concept](../../README.md#concept) showed a basic example of how to deploy a Helm chart from an OCM component.
+The [concept](/docs/getting-started/ocm-controllers/introduction#concept) and the [previous guide](/docs/getting-started/ocm-controllers/deploying-a-helm-chart/) showed a basic example of how to deploy a Helm chart from an OCM component.
 By defining a `ResourceGraphDefinition` that contains the all the required resources to deploy the Helm chart into a
 Kubernetes cluster.
 
@@ -25,20 +25,21 @@ cluster.
 The following guide demonstrates how to deploy a Helm chart using a `ResourceGraphDefinition` that is also delivered
 with the same OCM component. Additionally, it shows how to **localize** a Helm chart.
 
-> [!NOTE]
-> **Localization** describes the process of inserting a new image reference into the deployment instructions, e.g. a
-> Helm chart. It is a two-step process:
->
-> 1. When an OCM component and its resources are transferred to another registry, **referential resources** can
-> potentially update their reference to the new location. For instance, a resource with an access type `ociArtifact`
-> will update its image reference in the component descriptor to the new registry location, if the OCM transfer is done
-> with the flag `--copy-resources`.
-> 2. However, the deployment using the image is not aware of this change. Accordingly, we need to insert the new image
-> reference into the deployment instruction. This can be done using deployment tools like FluxCDs
-> [HelmRelease](https://fluxcd.io/flux/components/helm/helmreleases/#values) and
-> [Kustomization](https://fluxcd.io/flux/components/kustomize/kustomizations/#patches) or ArgoCDs
-> [Helm](https://argo-cd.readthedocs.io/en/stable/user-guide/helm/#values) and
-> [Kustomize](https://argo-cd.readthedocs.io/en/stable/user-guide/kustomize/#patches).
+{{<callout context="note">}}
+**Localization** describes the process of inserting a new image reference into the deployment instructions, e.g. a
+Helm chart. It is a two-step process:
+
+1. When an OCM component and its resources are transferred to another registry, **referential resources** can
+potentially update their reference to the new location. For instance, a resource with an access type `ociArtifact`
+will update its image reference in the component descriptor to the new registry location, if the OCM transfer is done
+with the flag `--copy-resources`.
+1. However, the deployment using the image is not aware of this change. Accordingly, we need to insert the new image
+reference into the deployment instruction. This can be done using deployment tools like FluxCDs
+[HelmRelease](https://fluxcd.io/flux/components/helm/helmreleases/#values) and
+[Kustomization](https://fluxcd.io/flux/components/kustomize/kustomizations/#patches) or ArgoCDs
+[Helm](https://argo-cd.readthedocs.io/en/stable/user-guide/helm/#values) and
+[Kustomize](https://argo-cd.readthedocs.io/en/stable/user-guide/kustomize/#patches).
+{{</callout>}}
 
 The following diagram shows an overview of the resources and their relationships of this guide:
 
@@ -153,8 +154,9 @@ After applying the `ResourceGraphDefinition`, kro will reconcile it and create a
 
 Finally, we will check if the deployment was successful and if the localization was applied correctly.
 
-> [!IMPORTANT]
-> Before starting, make sure you have set up your environment as described in the [setup guide](setup.md).
+{{<callout context="note">}}
+Before starting, make sure you have set up your environment as described in the [setup guide](/docs/getting-started/ocm-controllers/set-up-your-environment/).
+{{</callout>}}
 
 ## Create the OCM component version
 
@@ -292,14 +294,15 @@ spec:
               tag: ${resourceImage.status.reference.tag}
 ```
 
-> [!NOTE]
-> If you plan to push your OCM component version to a private registry, you need to provide credentials for the OCM
-> K8s Toolkit and FluxCDs `OCIRepository` (if the Helm chart is also stored in a private registry). Accordingly, you
-> have to specify the `ocmConfig` field in the `Resource` resources and the `secretRef` field in the `OCIRepository`.
->
-> If you want to use the same credentials for FluxCD and for the OCM K8s Toolkit resources, create a
-> [Kubernetes secret of type `dockerconfigjson`](credentials.md#create-a-kubernetes-secret-of-type-dockerconfigjson-to-access-private-ocm-repositories)
-> and keep all the resources in the same namespace.
+{{<callout context="note">}}
+If you plan to push your OCM component version to a private registry, you need to provide credentials for the OCM
+K8s Toolkit and FluxCDs `OCIRepository` (if the Helm chart is also stored in a private registry). Accordingly, you
+have to specify the `ocmConfig` field in the `Resource` resources and the `secretRef` field in the `OCIRepository`.
+
+If you want to use the same credentials for FluxCD and for the OCM K8s Toolkit resources, create a
+[Kubernetes secret of type `dockerconfigjson`](/docs/getting-started/ocm-controllers/configuring-credentials/#create-a-kubernetes-secret-of-type-dockerconfigjson-to-access-private-ocm-repositories)
+and keep all the resources in the same namespace.
+{{</callout>}}
 
 After creating both files, we can create the OCM component version using the following command:
 
@@ -317,9 +320,10 @@ be localized in the first step - so, the image reference is updated to the new r
 ocm transfer ctf --copy-resources ./ctf ghcr.io/<your-namespace>
 ```
 
-> [!NOTE]
-> If you are using a registry that requires authentication, you need to provide credentials for ocm. Please refer to
-> the [OCM CLI credentials documentation][ocm-credentials] for more information on how to set up and use credentials.
+{{<callout context="note">}}
+If you are using a registry that requires authentication, you need to provide credentials for ocm. Please refer to
+the [OCM CLI credentials documentation][ocm-credentials] for more information on how to set up and use credentials.
+{{</callout>}}
 
 If everything went well, you should see the following output:
 
@@ -441,11 +445,12 @@ spec:
   # ocmConfig:
 ```
 
-> [!NOTE]
-> Again, if your OCM component version is stored in a private registry, you need to provide credentials for the OCM K8s
-> Toolkit resources to access the OCM repository. You can do so by specifying the `ocmConfig` field in the `Repository`,
-> `Component`, `Resource`, and `Deployer` resources. For more information on how to set up credentials, please refer to
-> the [OCM K8s Toolkit credentials guide](credentials.md).
+{{<callout context="note">}}
+Again, if your OCM component version is stored in a private registry, you need to provide credentials for the OCM K8s
+Toolkit resources to access the OCM repository. You can do so by specifying the `ocmConfig` field in the `Repository`,
+`Component`, `Resource`, and `Deployer` resources. For more information on how to set up credentials, please refer to
+the [OCM K8s Toolkit credentials guide](credentials.md).
+{{</callout>}}
 
 Afterwards, apply the `bootstrap.yaml` to the cluster:
 

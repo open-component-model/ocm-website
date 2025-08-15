@@ -14,8 +14,9 @@ this OCM component version. Using CEL expressions inside the `ResourceGraphDefin
 resource location will be passed to FluxCD, which will then configure the Helm chart and deploy it into the Kubernetes
 cluster.
 
-> [!IMPORTANT]
-> Before starting, make sure you have set up your environment as described in the [setup guide](setup.md).
+{{<callout context="caution">}}
+Before starting, make sure you have set up your environment as described in the [setup guide](/docs/getting-started/ocm-controllers/set-up-your-environment).
+{{</callout>}}
 
 ## Create the OCM component version
 
@@ -54,9 +55,10 @@ registry. For this example, we will use GitHub's container registry, but you can
 ocm transfer ctf ./ctf ghcr.io/<your-namespace>
 ```
 
-> [!NOTE]
-> If you are using a registry that requires authentication, you need to provide credentials for ocm. Please refer to
-> the [OCM CLI credentials documentation][ocm-credentials] for more information on how to set up and use credentials.
+{{<callout context="note">}}
+If you are using a registry that requires authentication, you need to provide credentials for ocm. Please refer to
+the [OCM CLI credentials documentation][ocm-credentials] for more information on how to set up and use credentials.
+{{</callout>}}
 
 If everything went well, you should see the following output:
 
@@ -187,18 +189,19 @@ spec:
               message: ${schema.spec.message}
 ```
 
-> [!NOTE]
-> If you pushed the OCM component version to a private registry, you need to set up the credentials for the OCM K8s
-> Toolkit resources. You can do this by uncommenting the `ocmConfig` fields in the `Repository`, `Component`, and
-> `Resource` resources and providing the necessary credentials. For more information on how to set up and pass the
-> credentials, please check out the guide [configure credentials for OCM K8s Toolkit resources](credentials.md).
->
-> Be aware that FluxCD's `OCIRepository` also needs access to the OCI registry that contains the Helm chart. However,
-> `OCIRepository` only accepts
-> [`imagePullSecrets`](https://fluxcd.io/flux/components/source/ocirepositories/#secret-reference) in the same namespace.
-> If you want to use the same credentials for FluxCD and for the OCM K8s Toolkit resources, create a
-> [Kubernetes secret of type `dockerconfigjson`](credentials.md#create-a-kubernetes-secret-of-type-dockerconfigjson-to-access-private-ocm-repositories)
-> and keep all the resources in the same namespace.
+{{<callout context="note">}}
+If you pushed the OCM component version to a private registry, you need to set up the credentials for the OCM K8s
+Toolkit resources. You can do this by uncommenting the `ocmConfig` fields in the `Repository`, `Component`, and
+`Resource` resources and providing the necessary credentials. For more information on how to set up and pass the
+credentials, please check out the guide [configure credentials for OCM K8s Toolkit resources](credentials.md).
+
+Be aware that FluxCD's `OCIRepository` also needs access to the OCI registry that contains the Helm chart. However,
+`OCIRepository` only accepts
+[`imagePullSecrets`](https://fluxcd.io/flux/components/source/ocirepositories/#secret-reference) in the same namespace.
+If you want to use the same credentials for FluxCD and for the OCM K8s Toolkit resources, create a
+[Kubernetes secret of type `dockerconfigjson`](credentials.md#create-a-kubernetes-secret-of-type-dockerconfigjson-to-access-private-ocm-repositories)
+and keep all the resources in the same namespace.
+{{</callout>}}
 
 After creating the file `rgd.yaml` with the above content and adjusting Repository's `baseUrl` to point to your OCM
 repository, you can apply the `ResourceGraphDefinition` to your Kubernetes cluster:
@@ -289,7 +292,7 @@ private package. If so, you might see an error like the following:
 failed to list versions: failed to list tags: GET "https://ghcr.io/v2...": response status code 401: unauthorized: authentication required
 ```
 
-You can resolve this issue by making the package public or by [providing credentials](credentials.md) to the
+You can resolve this issue by making the package public or by [providing credentials](/docs/getting-started/ocm-controllers/configuring-credentials) to the
 respective resources.
 
 [ocm-doc]: https://ocm.software/docs/getting-started/create-component-version/
