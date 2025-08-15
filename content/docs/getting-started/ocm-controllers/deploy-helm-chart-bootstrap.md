@@ -1,6 +1,6 @@
 ---
 title: Deploying a Helm Chart (with Bootstrap)
-description: "Demonstrates how to deploy a Helm Chart using a ResourceGraphDefinition delivered with the OCM component."
+description: "Deploy a Helm Chart using a ResourceGraphDefinition delivered with the OCM component"
 icon: "⚙️"
 weight: 40
 toc: true

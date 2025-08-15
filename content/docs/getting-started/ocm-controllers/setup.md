@@ -1,6 +1,6 @@
 ---
 title: Set up your environment
-description: "Set up a local environment for testing and running examples from the examples directory or the getting-started guides."
+description: "Set up a local environment for running examples from the getting-started guides"
 icon: "🛠️"
 weight: 20
 toc: true
@@ -15,8 +15,9 @@ This document describes how to set up a local environment for testing and runnin
 
 ## Start a local Kubernetes cluster with kind
 
-> [!NOTE]
-> You don't need to run kind if you are using a remote Kubernetes cluster you have access to. If so, you can skip this.
+{{<callout context="note">}}
+You don't need to run kind if you are using a remote Kubernetes cluster you have access to. If so, you can skip this.
+{{</callout>}}
 
 For download and installation instructions, see the
 [kind documentation](https://kind.sigs.k8s.io/docs/user/quick-start).
@@ -119,14 +120,15 @@ As all examples and guides will create an OCM component version that will be con
 need access to a registry. You can either choose a public registry like [ghcr.io][ghcr.io] or deploy a registry (like
 [`registry`][registry], [`zot`][zot], ...) into your Kubernetes cluster.
 
-> [!IMPORTANT]
-> If you choose to deploy a registry into your Kubernetes cluster, you have to make sure it is accessible from outside
-> the cluster (for `ocm transfer` to work) and inside the cluster (for the OCM K8s Toolkit controllers to work).
->
-> We **strongly** recommend to use a registry that is publicly accessible, like [ghcr.io][ghcr.io].
-> (Deploying your own registry requires a lot of additional configuration. Especially, if you want to try out the
-> localization example, you will need to configure a registry that is accessible with the same address from your
-> CLI, kubelet, and inside the cluster.)
+{{<callout context="caution">}}
+If you choose to deploy a registry into your Kubernetes cluster, you have to make sure it is accessible from outside
+the cluster (for `ocm transfer` to work) and inside the cluster (for the OCM K8s Toolkit controllers to work).
+
+We **strongly** recommend to use a registry that is publicly accessible, like [ghcr.io][ghcr.io].
+(Deploying your own registry requires a lot of additional configuration. Especially, if you want to try out the
+localization example, you will need to configure a registry that is accessible with the same address from your
+CLI, kubelet, and inside the cluster.)
+{{</callout>}}
 
 ---
 

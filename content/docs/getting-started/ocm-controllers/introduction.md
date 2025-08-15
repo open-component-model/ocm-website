@@ -1,6 +1,6 @@
 ---
 title: Introduction
-description: "Learn about the OCM K8s Toolkit and its capabilities."
+description: "Learn about the OCM K8s Toolkit and its capabilities"
 icon: "🏁"
 weight: 10
 toc: true

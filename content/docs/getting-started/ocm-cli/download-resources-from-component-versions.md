@@ -63,7 +63,7 @@ jq . index.json
 
 ### Download using Transformers
 
-{{<callout context="caution" title="Under Construction">}}Transformers are currently in development. We'll extend the below section once they are ready to be used. Until then you can check out the [Transformer ADR[(https://github.com/open-component-model/open-component-model/blob/main/docs/adr/0005_transformation.md){{</callout>}}
+{{<callout context="caution" title="Under Construction">}}Transformers are currently in development. We'll extend the below section once they are ready to be used. Until then you can check out the [Transformer ADR](https://github.com/open-component-model/open-component-model/blob/main/docs/adr/0005_transformation.md){{</callout>}}
 
 To use a format more suitable for the content technology, you can use the `--transformer` to specify a transformer. The transformer will take care that the file will be saved using its correct media type, e.g. a Helm charts will be saved as `.tgz` file which on extraction will show the complete chart.
 
@@ -72,7 +72,7 @@ ocm download resource ghcr.io/open-component-model/ocm//ocm.software/toi/demo/he
 ```
 
 ```shell
-  helmchart.tgz: 3763 byte(s) written
+  helmchart.tgz: 3763 byte(s) written^
 ```
 
 <details><summary>What happened?</summary>
