@@ -1,18 +1,18 @@
 ---
 title: Configuring credentials
-description: "Learn how to configure credentials for accessing private OCM repositories."
+description: "Learn how to configure credentials for accessing private OCM repositories"
 icon: "🔑"
 weight: 50
 toc: true
 ---
 
-OCM K8s Toolkit resources need access to OCM components and their resources. If these OCM components are stored in a
-private OCM repository, we need to configure credentials to allow OCM K8s Toolkit resources to access these
+OCM Controller resources need access to OCM components and their resources. If these OCM components are stored in a
+private OCM repository, we need to configure credentials to allow OCM Controller resources to access these
 repositories.
 
 ## How to configure credentials?
 
-Currently, OCM K8s Toolkit supports two ways to configure credentials for accessing private OCM repositories:
+Currently, OCM Controllers supports two ways to configure credentials for accessing private OCM repositories:
 
 - [Kubernetes secret of type `dockerconfigjson`](#create-a-kubernetes-secret-of-type-dockerconfigjson)
 - [Kubernetes secret or configmap containing an `.ocmconfig` file](#create-a-kubernetes-secret-or-configmap-from-ocmconfig-file)
@@ -44,7 +44,7 @@ kubectl create secret docker-registry ocm-secret \
 
 ### Create a Kubernetes secret or configmap from `.ocmconfig` file
 
-To create a Kubernetes secret or configmap containing an OCM configuration that allows OCM K8s Toolkit resources
+To create a Kubernetes secret or configmap containing an OCM configuration that allows OCM Controller resources
 to access private OCM repositories, you can use the `.ocmconfig` file used to transfer the OCM component in the
 first place.
 
@@ -92,13 +92,13 @@ kubectl create secret generic ocm-secret --from-file=./.ocmconfig
 
 {{<callout context="caution">}}
 Make sure that the secret or configmap containing an OCM config has the correct key to the OCM config file
-`.ocmconfig`. This is required for OCM K8s Toolkit resources to be able to read the OCM configuration.
+`.ocmconfig`. This is required for OCM Controller resources to be able to read the OCM configuration.
 Using the filename `.ocmconfig` in the `--from-file` option takes care of that.
 {{</callout>}}
 
 ## How to use the configured credentials?
 
-Every OCM K8s Toolkit resource offers a `spec.ocmConfig` field that can be used to specify the credentials for accessing
+Every OCM Controller resource offers a `spec.ocmConfig` field that can be used to specify the credentials for accessing
 private OCM repositories. It expects an `OCMConfiguration` that contains a `NamespacedObjectKindReference` to the secret
 or configmap that contains the credentials.
 
@@ -156,8 +156,8 @@ The above example shows how to use the `ocmConfig` field in an `Repository` and 
 references a secret named `ocm-secret` that contains the credentials for accessing the private OCM repository.
 The `Component` then references the `Repository` in `ocmConfig`and uses the same credentials.
 
-However, you always need to specify a reference to the credentials either as secret, configmap, or as OCM K8s Toolkit
-resource for *each resource*. The credentials will not be propagated automatically to all OCM K8s Toolkit resources in
+However, you always need to specify a reference to the credentials either as secret, configmap, or as OCM Controller
+resource for *each resource*. The credentials will not be propagated automatically to all OCM Controller resources in
 the cluster.
 
 In some cases, you do not want to propagate the `ocmConfig` of a resource. To do so, you can set the `policy` to
