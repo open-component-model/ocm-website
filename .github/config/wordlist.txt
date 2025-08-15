@@ -429,3 +429,4 @@ kubelet
 zsh
 zshrc
 bashrc
+argocd
