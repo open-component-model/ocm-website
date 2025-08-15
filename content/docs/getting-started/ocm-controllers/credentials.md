@@ -14,8 +14,8 @@ repositories.
 
 Currently, OCM K8s Toolkit supports two ways to configure credentials for accessing private OCM repositories:
 
-- [Kubernetes secret of type `dockerconfigjson`](#create-a-kubernetes-secret-of-type-dockerconfigjson-to-access-private-ocm-repositories)
-- [Kubernetes secret or configmap containing an `.ocmconfig` file](#create-a-kubernetes-secret-of-configmap-containing-an-ocm-configuration-to-access-private-ocm-repositories)
+- [Kubernetes secret of type `dockerconfigjson`](#create-a-kubernetes-secret-of-type-dockerconfigjson)
+- [Kubernetes secret or configmap containing an `.ocmconfig` file](#create-a-kubernetes-secret-or-configmap-from-ocmconfig-file)
 
 ### Create a Kubernetes secret of type `dockerconfigjson`
 
@@ -42,7 +42,7 @@ kubectl create secret docker-registry ocm-secret \
   --docker-server=<your-OCM-repository-url>
 ```
 
-### Create a Kubernetes secret from `.ocmconfig` file
+### Create a Kubernetes secret or configmap from `.ocmconfig` file
 
 To create a Kubernetes secret or configmap containing an OCM configuration that allows OCM K8s Toolkit resources
 to access private OCM repositories, you can use the `.ocmconfig` file used to transfer the OCM component in the

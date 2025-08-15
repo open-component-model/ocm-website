@@ -67,7 +67,6 @@ jq . index.json
 
 To use a format more suitable for the content technology, you can use the `--transformer` to specify a transformer. The transformer will take care that the file will be saved using its correct media type, e.g. a Helm charts will be saved as `.tgz` file which on extraction will show the complete chart.
 
-
 ```shell
 ocm download resource ghcr.io/open-component-model/ocm//ocm.software/toi/demo/helmdemo:0.12.0 chart --identity name=chart --output helmchart.tgz --transformer helm
 ```

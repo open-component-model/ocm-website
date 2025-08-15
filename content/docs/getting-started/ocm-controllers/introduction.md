@@ -179,5 +179,5 @@ deployer. Please refer to the respective installation guides for these tools:
 - [Deploying a Helm chart using a `ResourceGraphDefinition` with FluxCD](/docs/getting-started/ocm-controllers/deploying-a-helm-chart/)
 - [Deploying a Helm chart using a `ResourceGraphDefinition` inside the OCM component version (bootstrap) with FluxCD](/docs/getting-started/ocm-controllers/deploying-a-helm-chart-bootstrap/)
 - [Configuring credentials for OCM K8s Toolkit resources to access private OCM repositories](docs/getting-started/ocm-controllers/configuring-credentials/)
-- 
+
 [controller-image]: https://github.com/open-component-model/ocm-k8s-toolkit/pkgs/container/ocm-k8s-toolkit
