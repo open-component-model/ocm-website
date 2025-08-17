@@ -23,7 +23,7 @@ jobs:
         private_key: ${{ secrets.OCMBOT_PRIV_KEY }}
 
     - name: Checkout repo
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
 
     - name: Fetch security.txt
       run: |

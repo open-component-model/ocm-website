@@ -22,7 +22,7 @@ jobs:
       id-token: 'write'
       pull-requests: 'write'
     steps:
-    - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 #v4
+    - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 #v4
       # Checkout branch 'website/current' to update the CLI docs. This is only required for the 
       # v1 version of the website. Future versions will use main and Hugo modules.
       with:
