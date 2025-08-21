@@ -18,6 +18,13 @@
 
     {{ partial "footer/script-footer" . }}
     
+    {{ if .Store.Get "hasMermaid" }}
+      <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true });
+      </script>
+    {{ end }}
+    
     {{ if eq site.Params.doks.toTopButton true -}}
       {{ partial "footer/to-top" . }}
     {{ end }}
