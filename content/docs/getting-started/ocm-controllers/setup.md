@@ -6,7 +6,7 @@ weight: 20
 toc: true
 ---
 
-This document describes how to set up a local environment for testing and running examples from the [`examples/`](https://github.com/open-component-model/open-component-model/tree/main/kubernetes/controller/examples) directory or the [getting-started guides](/docs/getting-started/ocm-controllers).
+This document describes how to set up a local environment for testing and running examples from the [`examples/`](https://github.com/open-component-model/open-component-model/tree/main/kubernetes/controller/examples) directory or the [getting-started guides]({{< ref "docs/getting-started/ocm-controllers/_index.md" >}}).
 
 ## Prerequisites
 
@@ -133,7 +133,7 @@ CLI, kubelet, and inside the cluster.)
 ---
 
 If you completed all of the above steps, you are ready to go. You can now play around with the examples in the
-[`examples/`](hhttps://github.com/open-component-model/open-component-model/tree/main/kubernetes/controller/examples) directory or follow the [getting-started guides](/docs/getting-started/ocm-controllers).
+[`examples/`](https://github.com/open-component-model/open-component-model/tree/main/kubernetes/controller/examples) directory or follow the [Getting Started Guides]({{< relref "docs/getting-started/ocm-controllers/_index.md" >}}).
 
 [ghcr.io]: https://docs.github.com/en/packages/learn-github-packages/introduction-to-github-packages
 [registry]: https://hub.docker.com/_/registry

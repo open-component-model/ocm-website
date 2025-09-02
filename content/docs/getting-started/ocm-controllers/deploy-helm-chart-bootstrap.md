@@ -6,7 +6,7 @@ weight: 40
 toc: true
 ---
 
-The [concept](/docs/getting-started/ocm-controllers/introduction#concept) and the [previous guide](/docs/getting-started/ocm-controllers/deploying-a-helm-chart/) showed a basic example of how to deploy a Helm chart from an OCM component.
+The [concept]({{< relref "introduction.md#concept" >}}) and the [previous guide]({{< relref "deploy-helm-chart.md" >}}) showed a basic example of how to deploy a Helm chart from an OCM component.
 By defining a `ResourceGraphDefinition` that contains the all the required resources to deploy the Helm chart into a
 Kubernetes cluster.
 
@@ -155,7 +155,7 @@ After applying the `ResourceGraphDefinition`, kro will reconcile it and create a
 Finally, we will check if the deployment was successful and if the localization was applied correctly.
 
 {{<callout context="note">}}
-Before starting, make sure you have set up your environment as described in the [setup guide](/docs/getting-started/ocm-controllers/set-up-your-environment/).
+Before starting, make sure you have set up your environment as described in the [setup guide]({{< relref "setup.md" >}}).
 {{</callout>}}
 
 ## Create the OCM component version
@@ -300,7 +300,7 @@ K8s Toolkit and FluxCDs `OCIRepository` (if the Helm chart is also stored in a p
 have to specify the `ocmConfig` field in the `Resource` resources and the `secretRef` field in the `OCIRepository`.
 
 If you want to use the same credentials for FluxCD and for the OCM Controller resources, create a
-[Kubernetes secret of type `dockerconfigjson`](/docs/getting-started/ocm-controllers/configuring-credentials/#create-a-kubernetes-secret-of-type-dockerconfigjson-to-access-private-ocm-repositories)
+[Kubernetes secret of type `dockerconfigjson`]({{< relref "credentials.md#create-a-kubernetes-secret-of-type-dockerconfigjson-to-access-private-ocm-repositories" >}})
 and keep all the resources in the same namespace.
 {{</callout>}}
 
@@ -449,7 +449,7 @@ spec:
 Again, if your OCM component version is stored in a private registry, you need to provide credentials for the OCM K8s
 Toolkit resources to access the OCM repository. You can do so by specifying the `ocmConfig` field in the `Repository`,
 `Component`, `Resource`, and `Deployer` resources. For more information on how to set up credentials, please refer to
-the [OCM Controllers credentials guide](/docs/getting-started/ocm-controllers/configuring-credentials).
+the [OCM Controllers credentials guide]({{< relref "credentials.md" >}}).
 {{</callout>}}
 
 Afterwards, apply the `bootstrap.yaml` to the cluster:
@@ -494,7 +494,7 @@ private package. If so, you might see an error like the following:
 failed to list versions: failed to list tags: GET "https://ghcr.io/v2...": response status code 401: unauthorized: authentication required
 ```
 
-You can resolve this issue by making the package public or by [providing credentials](/docs/getting-started/ocm-controllers/configuring-credentials) to the
+You can resolve this issue by making the package public or by [providing credentials]({{< relref "credentials.md" >}}) to the
 respective resources.
 
 ### Creating an instance
