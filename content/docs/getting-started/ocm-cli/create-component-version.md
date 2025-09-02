@@ -15,13 +15,13 @@ Component Versions are locally stored in archives using the [Common Transfer For
 
 Note that a CTF archive itself is also an OCM repository, so it can be used as source or target for component transfer operations using the OCM CLI.
 
-The command [`ocm add component-version`](/docs/reference/ocm-cli/ocm-add-component-version/) directly creates a component version from a `component-constructor.yaml` file and stores it in a local CTF archive.
+The command [`ocm add component-version`]({{< relref "ocm_add_component-version.md" >}}) directly creates a component version from a `component-constructor.yaml` file and stores it in a local CTF archive.
 
 ### Create a Component Version
 
 In this example we will use the the `ocm` CLI tool to create a very basic component version that contains a local resource and a resource that is accessed from a remote location. The local resource is an arbitrary file that we will create from scratch the remote resource is a Docker image stored in an OCI registry.
 
-OCM components can contain any kind of resource, including Helm charts, Docker images, any content from local file systems, and more. Take a look at the tutorial about [Input and Access Types](/docs/tutorials/input-and-access-types/) to see how to define and use different resource types.
+OCM components can contain any kind of resource, including Helm charts, Docker images, any content from local file systems, and more. Take a look at the tutorial about [Input and Access Types]({{< relref "input-and-access-types.md" >}}) to see how to define and use different resource types.
 
 Start by creating a test folder where we execute all required steps for this example and navigating into it:
 
@@ -38,7 +38,7 @@ echo "My first local Resource for an OCM component" > my-local-resource.txt
 
 Now create a file `component-constructor.yaml`, which describes all elements of the component. You can use our public configuration schema to validate the configuration. The schema is available at `https://ocm.software/schemas/configuration-schema.yaml` and can be used in your editor to validate the configuration (e.g., in Visual Studio Code).
 
-Component versions need to have at least a `name`, `version` and `provider` attribute. All other attributes are optional. Check out an [example component descriptor](/docs/getting-started/component-descriptor-example/) or the [OCM Specification](https://github.com/open-component-model/ocm-spec/blob/main/README.md) to see all available attributes.
+Component versions need to have at least a `name`, `version` and `provider` attribute. All other attributes are optional. Check out an [example component descriptor]({{< relref "component-descriptor-example.md" >}}) or the [OCM Specification](https://github.com/open-component-model/ocm-spec/blob/main/README.md) to see all available attributes.
 
 As mentioned before our example component will just contain a local file and a remote Docker image as resources:
 
@@ -75,7 +75,7 @@ The type field is used to specify the kind of access.
 
 If the resource content is taken from local resources, the field `input` is used to specify the access to the local resources. Similarly to the `access` attribute, the kind of the input source is described by the field `type`.
 
-Available access and input types are described in the tutorial about [Input and Access Types](/docs/tutorials/input-and-access-types/).
+Available access and input types are described in the tutorial about [Input and Access Types]({{< relref "input-and-access-types.md" >}}).
 
 ### Add Component Version to CTF archive
 

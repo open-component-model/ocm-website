@@ -106,7 +106,7 @@ This should display the version information and confirm that the installation wa
 
 ## What's Next?
 
-Now that you have the OCM CLI installed, you can start exploring its capabilities. Check out our [Getting Started Guides](/docs/getting-started/ocm-cli/) to learn how to use the OCM CLI to work with your component.
+Now that you have the OCM CLI installed, you can start exploring its capabilities. Check out our [Getting Started Guides]({{< relref "docs/getting-started/ocm-cli/_index.md" >}}) to learn how to use the OCM CLI to work with your component.
 
 ## Future Installation Methods
 

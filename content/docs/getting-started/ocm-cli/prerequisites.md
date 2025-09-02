@@ -17,7 +17,7 @@ To follow the steps described in this section, you will need to:
 
 ## Install the OCM Command Line Interface (CLI)
 
-The CLI is used to interact with component versions and registries. Install it like described in [Installing the OCM CLI](/docs/getting-started/installation/).
+The CLI is used to interact with component versions and registries. Install it like described in [Installing the OCM CLI]({{< relref "ocm-cli-installation.md" >}}).
 
 ## Obtain Access to an OCM Repository
 
@@ -25,7 +25,7 @@ This can be any OCI registry for which you have write permission (e.g., GitHub P
 
 ## Configure Credentials for the CLI to Access the OCM Repository
 
-Credentials to be used by the OCM CLI can be configured by supplying it with a [configuration file](/docs/tutorials/creds-in-ocmconfig). By default, the CLI looks for the file in `$HOME/.ocmconfig`.
+Credentials to be used by the OCM CLI can be configured by supplying it with a [configuration file]({{< relref "creds-in-ocmconfig.md" >}}). By default, the CLI looks for the file in `$HOME/.ocmconfig`.
 
 ### Using the Docker Configuration File
 
@@ -67,4 +67,4 @@ configurations:
               password: <YOUR-PASSWORD>
 ```
 
-More information on how to deal with credentials can be found [in this guide](/docs/tutorials/creds-in-ocmconfig/) with many examples for different repository types.
+More information on how to deal with credentials can be found [in this guide]({{< relref "creds-in-ocmconfig.md" >}}) with many examples for different repository types.
