@@ -30,7 +30,7 @@ You should be familiar with the following concepts:
 {{<callout context="note">}}
 The following section provides a high-level overview of the OCM Controllers and their components regarding the
 deployment of an OCM resource in a very basic scenario. To learn more about the *transfer* of OCM component versions,
-please take a look at its [architecture document](https://github.com/open-component-model/ocm-k8s-toolkit/blob/main/docs/adr/replication.md).
+please take a look at its [architecture document](https://github.com/open-component-model/open-component-model/blob/main/kubernetes/controller/docs/adr/replication.md).
 {{</callout>}}
 
 The primary purpose of OCM Controllers is simple: Deploy an OCM resource from an OCM component version into a Kubernetes
@@ -149,7 +149,7 @@ Kubernetes cluster.
 ## Installation
 
 Currently, the OCM Controllers are available as [image][controller-image] and
-[Kustomization]([config/default/kustomization.yaml](https://github.com/open-component-model/ocm-k8s-toolkit/blob/main/config/default/kustomization.yaml)). A Helm chart is planned for the future.
+[Kustomization](https://github.com/open-component-model/open-component-model/blob/main/kubernetes/controller/config/default/kustomization.yaml). A Helm chart is planned for the future.
 
 To install the OCM Controllers into your running Kubernetes cluster, you can use the following commands:
 
@@ -161,7 +161,7 @@ make deploy
 or
 
 ```console
-kubectl apply -k https://github.com/open-component-model/ocm-k8s-toolkit/config/default?ref=main
+kubectl apply -k https://github.com/open-component-model/open-component-model/kubernetes/controller/config/default?ref=main
 ```
 
 {{<callout context="caution">}}
@@ -180,4 +180,4 @@ deployer. Please refer to the respective installation guides for these tools:
 - [Deploying a Helm chart using a `ResourceGraphDefinition` inside the OCM component version (bootstrap) with FluxCD](/docs/getting-started/ocm-controllers/deploying-a-helm-chart-bootstrap/)
 - [Configuring credentials for OCM Controllers resources to access private OCM repositories](docs/getting-started/ocm-controllers/configuring-credentials/)
 
-[controller-image]: https://github.com/open-component-model/ocm-k8s-toolkit/pkgs/container/ocm-k8s-toolkit
+[controller-image]: ghcr.io/open-component-model/kubernetes/controller:latest

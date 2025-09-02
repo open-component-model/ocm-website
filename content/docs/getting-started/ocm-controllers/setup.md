@@ -6,7 +6,7 @@ weight: 20
 toc: true
 ---
 
-This document describes how to set up a local environment for testing and running examples from the [`examples/`](https://github.com/open-component-model/ocm-k8s-toolkit/tree/main/examples) directory or the [getting-started guides](/docs/getting-started/ocm-controllers).
+This document describes how to set up a local environment for testing and running examples from the [`examples/`](https://github.com/open-component-model/open-component-model/tree/main/kubernetes/controller/examples) directory or the [getting-started guides](/docs/getting-started/ocm-controllers).
 
 ## Prerequisites
 
@@ -90,7 +90,7 @@ make deploy
 or
 
 ```bash
-kubectl apply -k https://github.com/open-component-model/ocm-k8s-toolkit/config/default?ref=main
+kubectl apply -k https://github.com/open-component-model/open-component-model/kubernetes/controller/config/default?ref=main
 ```
 
 If the OCM K8s Toolkit controllers are installed correctly, you should see some similar output when running the
@@ -133,7 +133,7 @@ CLI, kubelet, and inside the cluster.)
 ---
 
 If you completed all of the above steps, you are ready to go. You can now play around with the examples in the
-[`examples/`](https://github.com/open-component-model/ocm-k8s-toolkit/tree/main/examples) directory or follow the [getting-started guides](/docs/getting-started/ocm-controllers).
+[`examples/`](hhttps://github.com/open-component-model/open-component-model/tree/main/kubernetes/controller/examples) directory or follow the [getting-started guides](/docs/getting-started/ocm-controllers).
 
 [ghcr.io]: https://docs.github.com/en/packages/learn-github-packages/introduction-to-github-packages
 [registry]: https://hub.docker.com/_/registry
