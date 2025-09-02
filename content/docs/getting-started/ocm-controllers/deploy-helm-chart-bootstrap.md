@@ -494,7 +494,7 @@ private package. If so, you might see an error like the following:
 failed to list versions: failed to list tags: GET "https://ghcr.io/v2...": response status code 401: unauthorized: authentication required
 ```
 
-You can resolve this issue by making the package public or by [providing credentials](credentials.md) to the
+You can resolve this issue by making the package public or by [providing credentials](/docs/getting-started/ocm-controllers/configuring-credentials) to the
 respective resources.
 
 ### Creating an instance

@@ -193,13 +193,13 @@ spec:
 If you pushed the OCM component version to a private registry, you need to set up the credentials for the OCM K8s
 Toolkit resources. You can do this by uncommenting the `ocmConfig` fields in the `Repository`, `Component`, and
 `Resource` resources and providing the necessary credentials. For more information on how to set up and pass the
-credentials, please check out the guide [configure credentials for OCM Controller resources](credentials.md).
+credentials, please check out the guide [configure credentials for OCM Controller resources](/docs/getting-started/ocm-controllers/configuring-credentials).
 
 Be aware that FluxCD's `OCIRepository` also needs access to the OCI registry that contains the Helm chart. However,
 `OCIRepository` only accepts
 [`imagePullSecrets`](https://fluxcd.io/flux/components/source/ocirepositories/#secret-reference) in the same namespace.
 If you want to use the same credentials for FluxCD and for the OCM Controller resources, create a
-[Kubernetes secret of type `dockerconfigjson`](credentials.md#create-a-kubernetes-secret-of-type-dockerconfigjson-to-access-private-ocm-repositories)
+[Kubernetes secret of type `dockerconfigjson`](/docs/getting-started/ocm-controllers/configuring-credentials#create-a-kubernetes-secret-of-type-dockerconfigjson-to-access-private-ocm-repositories)
 and keep all the resources in the same namespace.
 {{</callout>}}
 
