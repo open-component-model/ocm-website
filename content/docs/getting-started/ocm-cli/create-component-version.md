@@ -77,8 +77,6 @@ If the resource content is taken from local resources, the field `input` is used
 
 Available access and input types are described in the tutorial about [Input and Access Types](/docs/tutorials/input-and-access-types/).
 
-For more complex scenarios, the description files might use variable substitution (templating), see the [Best Practices](/docs/tutorials/best-practices/#templating-the-resources) tutorial.
-
 ### Add Component Version to CTF archive
 
 To store our component version locally and to make it transportable, now add it to a CTF archive using the following command.
