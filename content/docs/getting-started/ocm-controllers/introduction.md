@@ -178,6 +178,6 @@ deployer. Please refer to the respective installation guides for these tools:
 - [Setup your (test) environment with kind, kro, and FluxCD](/docs/getting-started/ocm-controllers/set-up-your-environment/)
 - [Deploying a Helm chart using a `ResourceGraphDefinition` with FluxCD](/docs/getting-started/ocm-controllers/deploying-a-helm-chart/)
 - [Deploying a Helm chart using a `ResourceGraphDefinition` inside the OCM component version (bootstrap) with FluxCD](/docs/getting-started/ocm-controllers/deploying-a-helm-chart-bootstrap/)
-- [Configuring credentials for OCM Controllers resources to access private OCM repositories](docs/getting-started/ocm-controllers/configuring-credentials/)
+- [Configuring credentials for OCM Controllers resources to access private OCM repositories](/docs/getting-started/ocm-controllers/configuring-credentials/)
 
-[controller-image]: ghcr.io/open-component-model/kubernetes/controller:latest
+[controller-image]: https://github.com/open-component-model/open-component-model/pkgs/container/kubernetes%2Fcontroller
