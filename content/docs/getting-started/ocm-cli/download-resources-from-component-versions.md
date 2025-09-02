@@ -8,7 +8,7 @@ toc: true
 
 ## Download Resources of a Component Version
 
-Use the [`ocm download resources`](/docs/reference/ocm-cli/ocm-download-resource/) command to download specific resources from a component version. In this example we download the resource with name `chart` from the [example component used in the last chapter](docs/getting-started/ocm-cli/display-and-examine-component-versions/#get-and-examine-component-versions) and save it as local file:
+Use the [`ocm download resources`](/docs/reference/ocm-cli/ocm-download-resource/) command to download specific resources from a component version. In this example we download the resource with name `chart` from the [example component used in the last chapter](/docs/getting-started/ocm-cli/display-and-examine-component-versions/#get-and-examine-component-versions) and save it as local file:
 
 ```shell
 ocm download resource ghcr.io/open-component-model/ocm//ocm.software/toi/demo/helmdemo:0.21.0 --identity name=chart --output helmchart.tgz
