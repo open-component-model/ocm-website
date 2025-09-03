@@ -2,7 +2,7 @@
 title: Configuring credentials
 description: "Learn how to configure credentials for accessing private OCM repositories"
 icon: "🔑"
-weight: 50
+weight: 35
 toc: true
 ---
 

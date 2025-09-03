@@ -1,8 +1,8 @@
 ---
 title: "Input and Access Types"
-description: "How to add resources to a component version using input and access types"
+description: "How to add resources to a component version using input and access types."
 url: /docs/tutorials/input-and-access-types/
-weight: 68
+weight: 42
 toc: true
 ---
 

@@ -2,7 +2,7 @@
 title: Set up your environment
 description: "Set up a local environment for running examples from the getting-started guides"
 icon: "🛠️"
-weight: 20
+weight: 32
 toc: true
 ---
 
