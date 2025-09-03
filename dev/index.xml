@@ -6,20 +6,10 @@
 
 
 
-&lt;a href="https://github.com/open-component-model/ocm-spec/blob/main/README.md" target="_blank" rel="noopener">OCM specification&lt;/a> offers you a deep insight to all technical details of the Open Component Model and explains all elements the model OCM is based on.&lt;/p></description></item><item><title>Prerequisites</title><link>https://ocm.software/dev/docs/getting-started/prerequisites/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/dev/docs/getting-started/prerequisites/</guid><description>&lt;p>This and the following chapters walk you through some basic steps to get started with OCM concepts and the OCM CLI.
-You will learn how to create a component version, display and examine the component, and how to transport and sign it.&lt;/p></description></item><item><title>Installing the OCM CLI</title><link>https://ocm.software/dev/docs/getting-started/installation/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/dev/docs/getting-started/installation/</guid><description>&lt;h2 id="overview">Overview&lt;/h2>
-&lt;p>You can install the latest release of the OCM CLI from any of the following sources (more details below):&lt;/p></description></item><item><title>Create a Component Version</title><link>https://ocm.software/dev/docs/getting-started/create-component-version/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/dev/docs/getting-started/create-component-version/</guid><description>&lt;h2 id="creating-and-storing-component-versions">Creating and Storing Component Versions&lt;/h2>
-&lt;p>Component Versions are created using a &lt;code>component-constructor.yaml&lt;/code> file, which is a description file that contains one or multiple components. The file describes the components and their artifacts - resources and sources, metadata in form of labels and references to other components.&lt;/p></description></item><item><title>Display and Examine Component Versions</title><link>https://ocm.software/dev/docs/getting-started/display-and-examine-component-versions/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/dev/docs/getting-started/display-and-examine-component-versions/</guid><description>&lt;h2 id="list-component-versions">List Component Versions&lt;/h2>
-&lt;p>To show a component stored in an OCM repository or CTF archive (which itself is an OCM repository), the 
-
-
-
-
-
-
-&lt;a href="https://github.com/open-component-model/ocm/blob/main/docs/reference/ocm_get_componentversions.md" target="_blank" rel="noopener">&lt;code>ocm get componentversion&lt;/code>&lt;/a> command can be used:&lt;/p></description></item><item><title>Sign Component Versions</title><link>https://ocm.software/dev/docs/getting-started/sign-component-versions/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/dev/docs/getting-started/sign-component-versions/</guid><description>&lt;p>Component versions can be signed to ensure integrity along a transport chain.&lt;/p>
-&lt;p>Signing requires a key pair, a signature, and, optionally, an issuer, as well as an algorithm and a
-name for the signature.&lt;/p></description></item><item><title>Transport OCM Component Versions</title><link>https://ocm.software/dev/docs/getting-started/transport-ocm-component-versions/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/dev/docs/getting-started/transport-ocm-component-versions/</guid><description>&lt;p>The section 
+&lt;a href="https://github.com/open-component-model/ocm-spec/blob/main/README.md" target="_blank" rel="noopener">OCM specification&lt;/a> offers you a deep insight to all technical details of the Open Component Model and explains all elements the model OCM is based on.&lt;/p></description></item><item><title>Prerequisites</title><link>https://ocm.software/dev/docs/getting-started/prerequisites/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/dev/docs/getting-started/prerequisites/</guid><description>&lt;p>This and the following chapters walk you through some basic steps to get started with OCM concepts and the OCM CLI.&lt;/p></description></item><item><title>Installing the OCM CLI</title><link>https://ocm.software/dev/docs/getting-started/installation/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/dev/docs/getting-started/installation/</guid><description>&lt;p>The new major version of the OCM CLI is currently under active development. While we&amp;rsquo;re working on providing pre-built releases through various package managers and distribution channels, the only way to install the OCM CLI right now is to &lt;strong>build it from source&lt;/strong>.&lt;/p></description></item><item><title>Create a Component Version</title><link>https://ocm.software/dev/docs/getting-started/create-component-version/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/dev/docs/getting-started/create-component-version/</guid><description>&lt;h2 id="creating-and-storing-component-versions">Creating and Storing Component Versions&lt;/h2>
+&lt;p>Component Versions are created using a &lt;code>component-constructor.yaml&lt;/code> file, which is a description file that contains one or multiple components. The file describes the components and their artifacts - resources and sources, metadata in form of labels and references to other components.&lt;/p></description></item><item><title>Display and Examine Component Versions</title><link>https://ocm.software/dev/docs/getting-started/ocm-cli/display-and-examine-component-versions/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/dev/docs/getting-started/ocm-cli/display-and-examine-component-versions/</guid><description>&lt;h2 id="list-component-versions">List Component Versions&lt;/h2>
+&lt;p>To show the list of all component versions of a specific component stored in an OCM repository or CTF archive (which technically is also an OCM repository), the [&lt;code>ocm get component-version&lt;/code>]/dev/docs/reference/ocm-cli/ocm-get-component-version/ command can be used. Only specify the component name and skip the version.&lt;/p></description></item><item><title>Download Resources from Component Versions</title><link>https://ocm.software/dev/docs/getting-started/ocm-cli/download-resources-from-component-versions/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/dev/docs/getting-started/ocm-cli/download-resources-from-component-versions/</guid><description>&lt;h2 id="download-resources-of-a-component-version">Download Resources of a Component Version&lt;/h2>
+&lt;p>Use the 
 
 
 
@@ -29,5 +19,15 @@ name for the signature.&lt;/p></description></item><item><title>Transport OCM Co
  
 
 
-&lt;a href="https://ocm.software/dev/docs/getting-started/create-component-version/#add-component-version-to-ctf-archive/">Add Component Version to CTF archive&lt;/a> explained how to store component versions in a CTF archive.&lt;/p>
-&lt;p>During the transfer, it is possible to include component references as local blobs. It is also possible to include references in a recursive way.&lt;/p></description></item></channel></rss>
+&lt;a href="https://ocm.software/dev/docs/reference/ocm-cli/ocm-download-resource/">&lt;code>ocm download resources&lt;/code>&lt;/a> command to download specific resources from a component version. In this example we download the resource with name &lt;code>chart&lt;/code> from the 
+
+
+
+
+
+ 
+ 
+
+
+&lt;a href="https://ocm.software/dev/docs/getting-started/ocm-cli/display-and-examine-component-versions/#get-and-examine-component-versions">example component used in the last chapter&lt;/a> and save it as local file:&lt;/p></description></item><item><title>Example of a Component Descriptor</title><link>https://ocm.software/dev/docs/getting-started/component-descriptor-example/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/dev/docs/getting-started/component-descriptor-example/</guid><description>&lt;p>The following is an example of a public-key-based signed component descriptor containing a resource, source and one component reference.&lt;/p>
+&lt;p>The component is publicly available in the GitHub container registry and can be inspected using the following command:&lt;/p></description></item></channel></rss>
