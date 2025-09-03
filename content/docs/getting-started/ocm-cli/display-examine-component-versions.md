@@ -45,7 +45,7 @@ ocm get cv ghcr.io/open-component-model/ocm//ocm.software/toi/demo/helmdemo:0.21
  ocm.software/toi/demo/helmdemo │ 0.21.0  │ ocm.software
 ```
 
-To get the component descriptor of that component version, use the output format option `-o yaml` (the output below has been shortened for better readability and only the `image` and `chart`).
+To get the component descriptor of that component version, use the output format option `-o yaml` (the output below has been shortened for better readability, digests have been removed and and only the `image` and `chart` resources are listed).
 
 ```shell
 ocm get cv ghcr.io/open-component-model/ocm//ocm.software/toi/demo/helmdemo:0.21.0 -o yaml
@@ -56,9 +56,7 @@ component:
   componentReferences:
   - componentName: ocm.software/toi/installers/helminstaller
     digest:
-      hashAlgorithm: ""
-      normalisationAlgorithm: ""
-      value: ""
+      ...
     name: installer
     version: 0.21.0
   creationTime: "2025-03-06T07:37:08Z"
@@ -70,14 +68,12 @@ component:
     subPath: open-component-model/ocm
     type: OCIRegistry
   resources:
-...
+   ...
   - access:
       imageReference: ghcr.io/open-component-model/ocm/google-containers/echoserver:1.10@sha256:cb5c1bddd1b5665e1867a7fa1b5fa843a47ee433bbb75d4293888b71def53229
       type: ociArtifact
     digest:
-      hashAlgorithm: SHA-256
-      normalisationAlgorithm: ociArtifactDigest/v1
-      value: cb5c1bddd1b5665e1867a7fa1b5fa843a47ee433bbb75d4293888b71def53229
+      ...
     name: image
     relation: external
     type: ociImage
@@ -86,9 +82,7 @@ component:
       imageReference: ghcr.io/open-component-model/ocm/ocm.software/toi/demo/helmdemo/echoserver:0.1.0@sha256:8ab41f82c9a28535f1add8ffbcd6d625a19ece63c4e921f9c8358820019d1ec2
       type: ociArtifact
     digest:
-      hashAlgorithm: SHA-256
-      normalisationAlgorithm: ociArtifactDigest/v1
-      value: 8ab41f82c9a28535f1add8ffbcd6d625a19ece63c4e921f9c8358820019d1ec2
+      ...
     name: chart
     relation: local
     type: helmChart
