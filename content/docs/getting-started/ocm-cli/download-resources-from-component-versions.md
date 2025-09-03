@@ -72,7 +72,7 @@ ocm download resource ghcr.io/open-component-model/ocm//ocm.software/toi/demo/he
 ```
 
 ```shell
-  helmchart.tgz: 3763 byte(s) written^
+  helmchart.tgz: 3763 byte(s) written
 ```
 
 <details><summary>What happened?</summary>
