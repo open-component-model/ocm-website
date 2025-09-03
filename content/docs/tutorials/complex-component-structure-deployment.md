@@ -2,13 +2,13 @@
 title: "Structuring Software Products with OCM"
 description: "Learn how to structure complex software products using OCM."
 icon: "🗂️"
-weight: 65
+weight: 41
 toc: true
 ---
 
 ## Introduction
 
-In this tutorial software products are comprised of logical units called [*components*](/docs/overview/important-terms/#components-in-ocm). A component version consists of a set of technical [*artifacts*](https://github.com/open-component-model/ocm-spec/blob/main/doc/04-extensions/01-artifact-types/README.md) (e.g., Docker images, Helm charts, binaries, configuration data, etc.). Such artifacts are called *resources* in this specification. Resources are usually built from something, e.g., code in a git repo. Those are named *sources* in this specification.
+In this tutorial software products are comprised of logical units called [*components*]({{< relref "some_terms.md#components-in-ocm" >}}). A component version consists of a set of technical [*artifacts*](https://github.com/open-component-model/ocm-spec/blob/main/doc/04-extensions/01-artifact-types/README.md) (e.g., Docker images, Helm charts, binaries, configuration data, etc.). Such artifacts are called *resources* in this specification. Resources are usually built from something, e.g., code in a git repo. Those are named *sources* in this specification.
 
 OCM introduces a *Component Version* for every component version that
 describes the resources, sources, and other component versions belonging to a particular
@@ -43,7 +43,7 @@ references, you could collect all artifacts belonging to this product version.
 
 ## Prerequisites
 
-We assume that you have already read the guides in the [Getting Started](/docs/getting-started/) section, as this guide discusses a more complex scenario.
+We assume that you have already read the guides in the [Getting Started]({{< ref "docs/getting-started/ocm-cli/_index.md" >}}) section, as this guide discusses a more complex scenario.
 
 ## Constructing the Component
 

@@ -8,25 +8,30 @@ toc: true
 ---
 
 This and the following chapters walk you through some basic steps to get started with OCM concepts and the OCM CLI.
-You will learn how to create a component version, display and examine the component, and how to transport and sign it.
+
+You will learn how to create a component version, display and examine the component, and download resources.
+
+We will update the getting started guides with more actions, like signing, transfer and verification of components during the ongoing development of our new major release.
 
 To follow the steps described in this section, you will need to:
 
 ## Install the OCM Command Line Interface (CLI)
 
-The CLI is used to interact with component versions and registries. Install it like described in [Installing the OCM CLI](/docs/getting-started/installation/).
+The CLI is used to interact with component versions and registries. Install it like described in [Installing the OCM CLI]({{< relref "ocm-cli-installation.md" >}}).
 
 ## Obtain Access to an OCM Repository
 
 This can be any OCI registry for which you have write permission (e.g., GitHub Packages). An OCM repository based on an OCI registry is identified by a leading OCI repository prefix. For example: `ghcr.io/<YOUR-ORG>/ocm`.
 
-## Obtain Credentials for the CLI to Access the OCM Repository
+## Configure Credentials for the CLI to Access the OCM Repository
+
+Credentials to be used by the OCM CLI can be configured by supplying it with a [configuration file]({{< relref "creds-in-ocmconfig.md" >}}). By default, the CLI looks for the file in `$HOME/.ocmconfig`.
 
 ### Using the Docker Configuration File
 
-The easiest way to do this is to reuse your Docker configuration `json` file.
+The easiest way to configure credentials for the OCM CLI is to reuse an existing Docker configuration `json` file.
 
-To do this, create a file named `.ocmconfig` in your home directory with the following content:
+Create a file named `.ocmconfig` in your home directory with the following content:
 
 ```yaml
 type: generic.config.ocm.software/v1
@@ -45,7 +50,7 @@ configurations:
 
 ### Using Basic Authentication
 
-Alternatively, you can use basic authentication. Create a file named `.ocmconfig` in your home directory with the following content:
+Alternatively, you can use basic authentication. Create a file named `.ocmconfig` with the following content in your home directory:
 
 ```yaml
 type: generic.config.ocm.software/v1
@@ -62,5 +67,4 @@ configurations:
               password: <YOUR-PASSWORD>
 ```
 
-More information on the credentials topic can be seen by running the OCM CLI help topic command `ocm credential-handling`
-and [in this guide](/docs/tutorials/creds-in-ocmconfig/) with many examples for different repository types.
+More information on how to deal with credentials can be found [in this guide]({{< relref "creds-in-ocmconfig.md" >}}) with many examples for different repository types.
