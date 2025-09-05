@@ -145,22 +145,23 @@
   /* Support for both original theme and our custom implementation */
   /* Only apply to direct children, not nested list items */
   > ul > li.active > .docs-link,
-  > ul > li.active > details > summary > .docs-link,
-  .docs-link.active {
+  > ul > li.active > details > summary > .docs-link {
     font-weight: 600;
   }
   
-  /* Ensure nested list items are not affected by parent active state */
-  .list-nested .docs-link {
+  /* Ensure all active links are bold, regardless of nesting level */
+  .docs-link.active {
+    font-weight: 600 !important;
+    color: #111111 !important;
+  }
+  
+  /* Reset child items under active sections that are not themselves active */
+  /* Only target the deepest nested items (actual page links, not section links) */
+  li.active details[open] .list-nested .docs-link:not(.active) {
     font-weight: normal !important;
     color: var(--bs-body-color) !important;
     
-    &.active {
-      font-weight: 600 !important;
-      color: #111111 !important;
-    }
-    
-    &:hover:not(.active) {
+    &:hover {
       color: #233284 !important;
     }
   }
