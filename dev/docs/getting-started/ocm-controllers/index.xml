@@ -1,16 +1,16 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>OCM Controllers on Open Component Model</title><link>https://ocm.software/dev/docs/getting-started/ocm-controllers/</link><description>Recent content in OCM Controllers on Open Component Model</description><generator>Hugo</generator><language>en</language><copyright>© Copyright 2025, SAP SE and Open Component Model Contributors</copyright><atom:link href="https://ocm.software/dev/docs/getting-started/ocm-controllers/index.xml" rel="self" type="application/rss+xml"/><item><title>Introduction</title><link>https://ocm.software/dev/docs/getting-started/ocm-controllers/introduction/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/dev/docs/getting-started/ocm-controllers/introduction/</guid><description>&lt;div class="callout callout-danger d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3">
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>OCM Controllers on Open Component Model</title><link>https://ocm.software/dev/docs/getting-started/ocm-controllers/</link><description>Recent content in OCM Controllers on Open Component Model</description><generator>Hugo</generator><language>en</language><copyright>© Copyright 2025, SAP SE and Open Component Model Contributors</copyright><atom:link href="https://ocm.software/dev/docs/getting-started/ocm-controllers/index.xml" rel="self" type="application/rss+xml"/><item><title>Introduction</title><link>https://ocm.software/dev/docs/getting-started/ocm-controllers/introduction/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/dev/docs/getting-started/ocm-controllers/introduction/</guid><description>&lt;div class="callout callout-danger d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3"&gt;
  
- &lt;div class="callout-content">
+ &lt;div class="callout-content"&gt;
  
- &lt;div class="callout-body">
- &lt;p>This project is in early development and not yet ready for production use.&lt;/p></description></item><item><title>Set up your environment</title><link>https://ocm.software/dev/docs/getting-started/ocm-controllers/set-up-your-environment/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/dev/docs/getting-started/ocm-controllers/set-up-your-environment/</guid><description>&lt;p>This document describes how to set up a local environment for testing and running examples from the 
+ &lt;div class="callout-body"&gt;
+ &lt;p&gt;This project is in early development and not yet ready for production use.&lt;/p&gt;</description></item><item><title>Set up your environment</title><link>https://ocm.software/dev/docs/getting-started/ocm-controllers/set-up-your-environment/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/dev/docs/getting-started/ocm-controllers/set-up-your-environment/</guid><description>&lt;p&gt;This document describes how to set up a local environment for testing and running examples from the 
 
 
 
 
 
 
-&lt;a href="https://github.com/open-component-model/open-component-model/tree/main/kubernetes/controller/examples" target="_blank" rel="noopener">&lt;code>examples/&lt;/code>&lt;/a> directory or the 
+&lt;a href="https://github.com/open-component-model/open-component-model/tree/main/kubernetes/controller/examples" target="_blank" rel="noopener"&gt;&lt;code&gt;examples/&lt;/code&gt;&lt;/a&gt; directory or the 
 
 
 
@@ -20,13 +20,13 @@
  
 
 
-&lt;a href="https://ocm.software/dev/docs/getting-started/ocm-controllers/">getting-started guides&lt;/a>.&lt;/p></description></item><item><title>Deploying a Helm Chart</title><link>https://ocm.software/dev/docs/getting-started/ocm-controllers/deploying-a-helm-chart/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/dev/docs/getting-started/ocm-controllers/deploying-a-helm-chart/</guid><description>&lt;p>This guide demonstrates how to deploy a Helm Chart from an OCM component version using OCM Controllers, kro, and FluxCD.
+&lt;a href="https://ocm.software/dev/docs/getting-started/ocm-controllers/"&gt;getting-started guides&lt;/a&gt;.&lt;/p&gt;</description></item><item><title>Deploying a Helm Chart</title><link>https://ocm.software/dev/docs/getting-started/ocm-controllers/deploying-a-helm-chart/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/dev/docs/getting-started/ocm-controllers/deploying-a-helm-chart/</guid><description>&lt;p&gt;This guide demonstrates how to deploy a Helm Chart from an OCM component version using OCM Controllers, kro, and FluxCD.
 It is a rather basic example, in which it is assumed that a developer created an application, packaged it as a Helm
 chart, and publishes it as OCM component version in an OCI registry. Then, an operator who wants to deploy the
-application via Helm chart in a Kubernetes cluster, creates a &lt;code>ResourceGraphDefinition&lt;/code> with resources that point to
-this OCM component version. Using CEL expressions inside the &lt;code>ResourceGraphDefinition&lt;/code>, the information about the
+application via Helm chart in a Kubernetes cluster, creates a &lt;code&gt;ResourceGraphDefinition&lt;/code&gt; with resources that point to
+this OCM component version. Using CEL expressions inside the &lt;code&gt;ResourceGraphDefinition&lt;/code&gt;, the information about the
 resource location will be passed to FluxCD, which will then configure the Helm chart and deploy it into the Kubernetes
-cluster.&lt;/p></description></item><item><title>Deploying a Helm Chart (with Bootstrap)</title><link>https://ocm.software/dev/docs/getting-started/ocm-controllers/deploying-a-helm-chart-with-bootstrap/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/dev/docs/getting-started/ocm-controllers/deploying-a-helm-chart-with-bootstrap/</guid><description>&lt;p>The 
+cluster.&lt;/p&gt;</description></item><item><title>Deploying a Helm Chart (with Bootstrap)</title><link>https://ocm.software/dev/docs/getting-started/ocm-controllers/deploying-a-helm-chart-with-bootstrap/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/dev/docs/getting-started/ocm-controllers/deploying-a-helm-chart-with-bootstrap/</guid><description>&lt;p&gt;The 
 
 
 
@@ -36,7 +36,7 @@ cluster.&lt;/p></description></item><item><title>Deploying a Helm Chart (with Bo
  
 
 
-&lt;a href="https://ocm.software/dev/docs/getting-started/ocm-controllers/introduction/#concept">concept&lt;/a> and the 
+&lt;a href="https://ocm.software/dev/docs/getting-started/ocm-controllers/introduction/#concept"&gt;concept&lt;/a&gt; and the 
 
 
 
@@ -46,8 +46,8 @@ cluster.&lt;/p></description></item><item><title>Deploying a Helm Chart (with Bo
  
 
 
-&lt;a href="https://ocm.software/dev/docs/getting-started/ocm-controllers/deploying-a-helm-chart/">previous guide&lt;/a> showed a basic example of how to deploy a Helm chart from an OCM component.
-By defining a &lt;code>ResourceGraphDefinition&lt;/code> that contains the all the required resources to deploy the Helm chart into a
-Kubernetes cluster.&lt;/p></description></item><item><title>Configuring credentials</title><link>https://ocm.software/dev/docs/getting-started/ocm-controllers/configuring-credentials/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/dev/docs/getting-started/ocm-controllers/configuring-credentials/</guid><description>&lt;p>OCM Controller resources need access to OCM components and their resources. If these OCM components are stored in a
+&lt;a href="https://ocm.software/dev/docs/getting-started/ocm-controllers/deploying-a-helm-chart/"&gt;previous guide&lt;/a&gt; showed a basic example of how to deploy a Helm chart from an OCM component.
+By defining a &lt;code&gt;ResourceGraphDefinition&lt;/code&gt; that contains the all the required resources to deploy the Helm chart into a
+Kubernetes cluster.&lt;/p&gt;</description></item><item><title>Configuring credentials</title><link>https://ocm.software/dev/docs/getting-started/ocm-controllers/configuring-credentials/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/dev/docs/getting-started/ocm-controllers/configuring-credentials/</guid><description>&lt;p&gt;OCM Controller resources need access to OCM components and their resources. If these OCM components are stored in a
 private OCM repository, we need to configure credentials to allow OCM Controller resources to access these
-repositories.&lt;/p></description></item></channel></rss>
+repositories.&lt;/p&gt;</description></item></channel></rss>
