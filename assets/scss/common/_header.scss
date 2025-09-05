@@ -84,7 +84,37 @@ header.navbar .nav-link[aria-label="Search website"] svg {
   .offcanvas.offcanvas-end .offcanvas-body .navbar-nav .nav-link {
     color: #232336 !important;             /* Dark gray for readability in light mode */
   }
+  
+  /* Versions dropdown and social media icons styling */
+  .offcanvas.offcanvas-end .offcanvas-body .btn-dropdown,
+  .offcanvas.offcanvas-end .offcanvas-body .btn-link,
+  .offcanvas.offcanvas-end .offcanvas-body .dropdown-toggle {
+    color: #232336 !important;             /* Same color as nav links */
+  }
+  
+  /* Social media icons (SVG) styling - match desktop header exactly */
+  .offcanvas.offcanvas-end .offcanvas-body .social-link svg,
+  .offcanvas.offcanvas-end .offcanvas-body .btn-link svg,
+  .offcanvas.offcanvas-end .offcanvas-body .nav-link svg {
+    stroke: #dee2e6 !important;           /* Same as desktop header */
+    /* Don't override fill - let SVG definitions control solid vs outlined */
+  }
+  
+  /* Dark mode styles */
   [data-bs-theme="dark"] .offcanvas.offcanvas-end .offcanvas-body .navbar-nav .nav-link {
     color: #dee2e6 !important;             /* Light color in dark mode */
+  }
+  
+  [data-bs-theme="dark"] .offcanvas.offcanvas-end .offcanvas-body .btn-dropdown,
+  [data-bs-theme="dark"] .offcanvas.offcanvas-end .offcanvas-body .btn-link,
+  [data-bs-theme="dark"] .offcanvas.offcanvas-end .offcanvas-body .dropdown-toggle {
+    color: #dee2e6 !important;             /* Light color in dark mode */
+  }
+  
+  [data-bs-theme="dark"] .offcanvas.offcanvas-end .offcanvas-body .social-link svg,
+  [data-bs-theme="dark"] .offcanvas.offcanvas-end .offcanvas-body .btn-link svg,
+  [data-bs-theme="dark"] .offcanvas.offcanvas-end .offcanvas-body .nav-link svg {
+    stroke: #dee2e6 !important;           /* Same as desktop header */
+    /* Don't override fill - let SVG definitions control solid vs outlined */
   }
 }
