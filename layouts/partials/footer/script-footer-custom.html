@@ -1,6 +1,0 @@
-<!-- Custom JavaScript for sidebar toggle functionality -->
-{{ $customJS := resources.Get "js/custom.js" }}
-{{ if $customJS }}
-  {{ $customJSProcessed := $customJS | resources.Minify }}
-  <script src="{{ $customJSProcessed.RelPermalink }}"></script>
-{{ end }}
