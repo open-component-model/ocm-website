@@ -55,13 +55,20 @@
         display: block;
         text-decoration: none;
         color: var(--bs-body-color);
+        transition: color 0.2s ease; /* Smooth color transitions */
         
-        &:hover {
+        /* Only apply hover color on actual hover, not on expanded state */
+        &:hover:not(.active) {
           color: #233284;
         }
         
         &.active {
           font-weight: 600;
+          color: #111111;
+        }
+        
+        /* Ensure active links don't change color on hover */
+        &.active:hover {
           color: #111111;
         }
       }
@@ -111,14 +118,21 @@
     text-decoration: none;
     color: var(--bs-body-color);
     display: block; /* Important: Makes the whole area clickable */
+    transition: color 0.2s ease; /* Smooth color transitions */
     
     &.active {
       font-weight: 600;
       color: #111111;
     }
 
-    &:hover {
+    /* Only apply hover color on actual hover, not on expanded state */
+    &:hover:not(.active) {
       color: #233284;
+    }
+    
+    /* Ensure active links don't change color on hover */
+    &.active:hover {
+      color: #111111;
     }
   }
 
@@ -129,10 +143,26 @@
   }
   
   /* Support for both original theme and our custom implementation */
-  li.active > .docs-link,
-  li.active > details > summary > .docs-link,
+  /* Only apply to direct children, not nested list items */
+  > ul > li.active > .docs-link,
+  > ul > li.active > details > summary > .docs-link,
   .docs-link.active {
     font-weight: 600;
+  }
+  
+  /* Ensure nested list items are not affected by parent active state */
+  .list-nested .docs-link {
+    font-weight: normal !important;
+    color: var(--bs-body-color) !important;
+    
+    &.active {
+      font-weight: 600 !important;
+      color: #111111 !important;
+    }
+    
+    &:hover:not(.active) {
+      color: #233284 !important;
+    }
   }
 }
 
