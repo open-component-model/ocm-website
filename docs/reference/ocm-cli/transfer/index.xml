@@ -1,53 +1,53 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>transfer on Open Component Model</title><link>https://ocm.software/docs/reference/ocm-cli/transfer/</link><description>Recent content in transfer on Open Component Model</description><generator>Hugo</generator><language>en</language><copyright>© Copyright 2025, SAP SE and Open Component Model Contributors</copyright><atom:link href="https://ocm.software/docs/reference/ocm-cli/transfer/index.xml" rel="self" type="application/rss+xml"/><item><title>transfer artifacts</title><link>https://ocm.software/docs/reference/ocm-cli/transfer/artifacts/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/transfer/artifacts/</guid><description>&lt;h3 id="usage">Usage&lt;/h3>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>transfer on Open Component Model</title><link>https://ocm.software/docs/reference/ocm-cli/transfer/</link><description>Recent content in transfer on Open Component Model</description><generator>Hugo</generator><language>en</language><copyright>© Copyright 2025, SAP SE and Open Component Model Contributors</copyright><atom:link href="https://ocm.software/docs/reference/ocm-cli/transfer/index.xml" rel="self" type="application/rss+xml"/><item><title>transfer artifacts</title><link>https://ocm.software/docs/reference/ocm-cli/transfer/artifacts/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/transfer/artifacts/</guid><description>&lt;h3 id="usage"&gt;Usage&lt;/h3&gt;
 
 
 
-&lt;div class="expressive-code">
- &lt;figure class="frame not-content">
- &lt;figcaption class="header">
- &lt;span class="title">&lt;/span>
- &lt;/figcaption>
- &lt;pre tabindex="0">&lt;code>ocm transfer artifacts [&amp;lt;options&amp;gt;] {&amp;lt;artifact-reference&amp;gt;} &amp;lt;target&amp;gt;&lt;/code>&lt;/pre>
- &lt;/figure>
-&lt;/div>
-&lt;h3 id="options">Options&lt;/h3>
+&lt;div class="expressive-code"&gt;
+ &lt;figure class="frame not-content"&gt;
+ &lt;figcaption class="header"&gt;
+ &lt;span class="title"&gt;&lt;/span&gt;
+ &lt;/figcaption&gt;
+ &lt;pre tabindex="0"&gt;&lt;code&gt;ocm transfer artifacts [&amp;lt;options&amp;gt;] {&amp;lt;artifact-reference&amp;gt;} &amp;lt;target&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+ &lt;/figure&gt;
+&lt;/div&gt;
+&lt;h3 id="options"&gt;Options&lt;/h3&gt;
 
 
 
-&lt;div class="expressive-code">
- &lt;figure class="frame not-content">
- &lt;figcaption class="header">
- &lt;span class="title">&lt;/span>
- &lt;/figcaption>
- &lt;pre tabindex="0">&lt;code> -h, --help help for artifacts
+&lt;div class="expressive-code"&gt;
+ &lt;figure class="frame not-content"&gt;
+ &lt;figcaption class="header"&gt;
+ &lt;span class="title"&gt;&lt;/span&gt;
+ &lt;/figcaption&gt;
+ &lt;pre tabindex="0"&gt;&lt;code&gt; -h, --help help for artifacts
  --repo string repository name or spec
- -R, --repo-name transfer repository name&lt;/code>&lt;/pre>
- &lt;/figure>
-&lt;/div>
-&lt;h3 id="description">Description&lt;/h3>
-&lt;p>Transfer OCI artifacts from one registry to another one.
-Several transfer scenarios are supported:&lt;/p></description></item><item><title>transfer commontransportarchive</title><link>https://ocm.software/docs/reference/ocm-cli/transfer/commontransportarchive/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/transfer/commontransportarchive/</guid><description>&lt;h3 id="usage">Usage&lt;/h3>
+ -R, --repo-name transfer repository name&lt;/code&gt;&lt;/pre&gt;
+ &lt;/figure&gt;
+&lt;/div&gt;
+&lt;h3 id="description"&gt;Description&lt;/h3&gt;
+&lt;p&gt;Transfer OCI artifacts from one registry to another one.
+Several transfer scenarios are supported:&lt;/p&gt;</description></item><item><title>transfer commontransportarchive</title><link>https://ocm.software/docs/reference/ocm-cli/transfer/commontransportarchive/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/transfer/commontransportarchive/</guid><description>&lt;h3 id="usage"&gt;Usage&lt;/h3&gt;
 
 
 
-&lt;div class="expressive-code">
- &lt;figure class="frame not-content">
- &lt;figcaption class="header">
- &lt;span class="title">&lt;/span>
- &lt;/figcaption>
- &lt;pre tabindex="0">&lt;code>ocm transfer commontransportarchive [&amp;lt;options&amp;gt;] &amp;lt;ctf&amp;gt; &amp;lt;target&amp;gt;&lt;/code>&lt;/pre>
- &lt;/figure>
-&lt;/div>
-&lt;h3 id="options">Options&lt;/h3>
+&lt;div class="expressive-code"&gt;
+ &lt;figure class="frame not-content"&gt;
+ &lt;figcaption class="header"&gt;
+ &lt;span class="title"&gt;&lt;/span&gt;
+ &lt;/figcaption&gt;
+ &lt;pre tabindex="0"&gt;&lt;code&gt;ocm transfer commontransportarchive [&amp;lt;options&amp;gt;] &amp;lt;ctf&amp;gt; &amp;lt;target&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+ &lt;/figure&gt;
+&lt;/div&gt;
+&lt;h3 id="options"&gt;Options&lt;/h3&gt;
 
 
 
-&lt;div class="expressive-code">
- &lt;figure class="frame not-content">
- &lt;figcaption class="header">
- &lt;span class="title">&lt;/span>
- &lt;/figcaption>
- &lt;pre tabindex="0">&lt;code> -L, --copy-local-resources transfer referenced local resources by-value
+&lt;div class="expressive-code"&gt;
+ &lt;figure class="frame not-content"&gt;
+ &lt;figcaption class="header"&gt;
+ &lt;span class="title"&gt;&lt;/span&gt;
+ &lt;/figcaption&gt;
+ &lt;pre tabindex="0"&gt;&lt;code&gt; -L, --copy-local-resources transfer referenced local resources by-value
  -V, --copy-resources transfer referenced resources by-value
  --copy-sources transfer referenced sources by-value
  --enforce enforce transport as if target version were not present
@@ -61,32 +61,32 @@ Several transfer scenarios are supported:&lt;/p></description></item><item><titl
  -s, --scriptFile string filename of transfer handler script
  -E, --stop-on-existing stop on existing component version in target repository
  -t, --type string archive format (directory, tar, tgz) (default &amp;#34;directory&amp;#34;)
- --uploader &amp;lt;name&amp;gt;=&amp;lt;value&amp;gt; repository uploader (&amp;lt;name&amp;gt;[:&amp;lt;artifact type&amp;gt;[:&amp;lt;media type&amp;gt;[:&amp;lt;priority&amp;gt;]]]=&amp;lt;JSON target config&amp;gt;) (default [])&lt;/code>&lt;/pre>
- &lt;/figure>
-&lt;/div>
-&lt;h3 id="description">Description&lt;/h3>
-&lt;p>Transfer content of a Common Transport Archive to the given target repository.&lt;/p></description></item><item><title>transfer componentarchive</title><link>https://ocm.software/docs/reference/ocm-cli/transfer/componentarchive/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/transfer/componentarchive/</guid><description>&lt;h3 id="usage">Usage&lt;/h3>
+ --uploader &amp;lt;name&amp;gt;=&amp;lt;value&amp;gt; repository uploader (&amp;lt;name&amp;gt;[:&amp;lt;artifact type&amp;gt;[:&amp;lt;media type&amp;gt;[:&amp;lt;priority&amp;gt;]]]=&amp;lt;JSON target config&amp;gt;) (default [])&lt;/code&gt;&lt;/pre&gt;
+ &lt;/figure&gt;
+&lt;/div&gt;
+&lt;h3 id="description"&gt;Description&lt;/h3&gt;
+&lt;p&gt;Transfer content of a Common Transport Archive to the given target repository.&lt;/p&gt;</description></item><item><title>transfer componentarchive</title><link>https://ocm.software/docs/reference/ocm-cli/transfer/componentarchive/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/transfer/componentarchive/</guid><description>&lt;h3 id="usage"&gt;Usage&lt;/h3&gt;
 
 
 
-&lt;div class="expressive-code">
- &lt;figure class="frame not-content">
- &lt;figcaption class="header">
- &lt;span class="title">&lt;/span>
- &lt;/figcaption>
- &lt;pre tabindex="0">&lt;code>ocm transfer componentarchive [&amp;lt;options&amp;gt;] &amp;lt;source&amp;gt; &amp;lt;target&amp;gt;&lt;/code>&lt;/pre>
- &lt;/figure>
-&lt;/div>
-&lt;h3 id="options">Options&lt;/h3>
+&lt;div class="expressive-code"&gt;
+ &lt;figure class="frame not-content"&gt;
+ &lt;figcaption class="header"&gt;
+ &lt;span class="title"&gt;&lt;/span&gt;
+ &lt;/figcaption&gt;
+ &lt;pre tabindex="0"&gt;&lt;code&gt;ocm transfer componentarchive [&amp;lt;options&amp;gt;] &amp;lt;source&amp;gt; &amp;lt;target&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+ &lt;/figure&gt;
+&lt;/div&gt;
+&lt;h3 id="options"&gt;Options&lt;/h3&gt;
 
 
 
-&lt;div class="expressive-code">
- &lt;figure class="frame not-content">
- &lt;figcaption class="header">
- &lt;span class="title">&lt;/span>
- &lt;/figcaption>
- &lt;pre tabindex="0">&lt;code> -L, --copy-local-resources transfer referenced local resources by-value
+&lt;div class="expressive-code"&gt;
+ &lt;figure class="frame not-content"&gt;
+ &lt;figcaption class="header"&gt;
+ &lt;span class="title"&gt;&lt;/span&gt;
+ &lt;/figcaption&gt;
+ &lt;pre tabindex="0"&gt;&lt;code&gt; -L, --copy-local-resources transfer referenced local resources by-value
  -V, --copy-resources transfer referenced resources by-value
  --copy-sources transfer referenced sources by-value
  --enforce enforce transport as if target version were not present
@@ -94,35 +94,35 @@ Several transfer scenarios are supported:&lt;/p></description></item><item><titl
  --lookup stringArray repository name or spec for closure lookup fallback
  --no-update don&amp;#39;t touch existing versions in target
  -f, --overwrite overwrite existing component versions
- -t, --type string archive format (directory, tar, tgz) (default &amp;#34;directory&amp;#34;)&lt;/code>&lt;/pre>
- &lt;/figure>
-&lt;/div>
-&lt;h3 id="description">Description&lt;/h3>
-&lt;p>Transfer a component archive to some component repository. This might
+ -t, --type string archive format (directory, tar, tgz) (default &amp;#34;directory&amp;#34;)&lt;/code&gt;&lt;/pre&gt;
+ &lt;/figure&gt;
+&lt;/div&gt;
+&lt;h3 id="description"&gt;Description&lt;/h3&gt;
+&lt;p&gt;Transfer a component archive to some component repository. This might
 be a CTF Archive or a regular repository.
 If the type CTF is specified the target must already exist, if CTF flavor
-is specified it will be created if it does not exist.&lt;/p></description></item><item><title>transfer componentversions</title><link>https://ocm.software/docs/reference/ocm-cli/transfer/componentversions/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/transfer/componentversions/</guid><description>&lt;h3 id="usage">Usage&lt;/h3>
+is specified it will be created if it does not exist.&lt;/p&gt;</description></item><item><title>transfer componentversions</title><link>https://ocm.software/docs/reference/ocm-cli/transfer/componentversions/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/transfer/componentversions/</guid><description>&lt;h3 id="usage"&gt;Usage&lt;/h3&gt;
 
 
 
-&lt;div class="expressive-code">
- &lt;figure class="frame not-content">
- &lt;figcaption class="header">
- &lt;span class="title">&lt;/span>
- &lt;/figcaption>
- &lt;pre tabindex="0">&lt;code>ocm transfer componentversions [&amp;lt;options&amp;gt;] {&amp;lt;component-reference&amp;gt;} &amp;lt;target&amp;gt;&lt;/code>&lt;/pre>
- &lt;/figure>
-&lt;/div>
-&lt;h3 id="options">Options&lt;/h3>
+&lt;div class="expressive-code"&gt;
+ &lt;figure class="frame not-content"&gt;
+ &lt;figcaption class="header"&gt;
+ &lt;span class="title"&gt;&lt;/span&gt;
+ &lt;/figcaption&gt;
+ &lt;pre tabindex="0"&gt;&lt;code&gt;ocm transfer componentversions [&amp;lt;options&amp;gt;] {&amp;lt;component-reference&amp;gt;} &amp;lt;target&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+ &lt;/figure&gt;
+&lt;/div&gt;
+&lt;h3 id="options"&gt;Options&lt;/h3&gt;
 
 
 
-&lt;div class="expressive-code">
- &lt;figure class="frame not-content">
- &lt;figcaption class="header">
- &lt;span class="title">&lt;/span>
- &lt;/figcaption>
- &lt;pre tabindex="0">&lt;code> -B, --bom-file string file name to write the component version BOM
+&lt;div class="expressive-code"&gt;
+ &lt;figure class="frame not-content"&gt;
+ &lt;figcaption class="header"&gt;
+ &lt;span class="title"&gt;&lt;/span&gt;
+ &lt;/figcaption&gt;
+ &lt;pre tabindex="0"&gt;&lt;code&gt; -B, --bom-file string file name to write the component version BOM
  -c, --constraints constraints version constraint
  -L, --copy-local-resources transfer referenced local resources by-value
  -V, --copy-resources transfer referenced resources by-value
@@ -141,10 +141,10 @@ is specified it will be created if it does not exist.&lt;/p></description></item
  -s, --scriptFile string filename of transfer handler script
  -E, --stop-on-existing stop on existing component version in target repository
  -t, --type string archive format (directory, tar, tgz) (default &amp;#34;directory&amp;#34;)
- --uploader &amp;lt;name&amp;gt;=&amp;lt;value&amp;gt; repository uploader (&amp;lt;name&amp;gt;[:&amp;lt;artifact type&amp;gt;[:&amp;lt;media type&amp;gt;[:&amp;lt;priority&amp;gt;]]]=&amp;lt;JSON target config&amp;gt;) (default [])&lt;/code>&lt;/pre>
- &lt;/figure>
-&lt;/div>
-&lt;h3 id="description">Description&lt;/h3>
-&lt;p>Transfer all component versions specified to the given target repository.
+ --uploader &amp;lt;name&amp;gt;=&amp;lt;value&amp;gt; repository uploader (&amp;lt;name&amp;gt;[:&amp;lt;artifact type&amp;gt;[:&amp;lt;media type&amp;gt;[:&amp;lt;priority&amp;gt;]]]=&amp;lt;JSON target config&amp;gt;) (default [])&lt;/code&gt;&lt;/pre&gt;
+ &lt;/figure&gt;
+&lt;/div&gt;
+&lt;h3 id="description"&gt;Description&lt;/h3&gt;
+&lt;p&gt;Transfer all component versions specified to the given target repository.
 If only a component (instead of a component version) is specified all versions
-are transferred.&lt;/p></description></item></channel></rss>
+are transferred.&lt;/p&gt;</description></item></channel></rss>

@@ -1,25 +1,25 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>add on Open Component Model</title><link>https://ocm.software/docs/reference/ocm-cli/add/</link><description>Recent content in add on Open Component Model</description><generator>Hugo</generator><language>en</language><copyright>© Copyright 2025, SAP SE and Open Component Model Contributors</copyright><atom:link href="https://ocm.software/docs/reference/ocm-cli/add/index.xml" rel="self" type="application/rss+xml"/><item><title>add componentversions</title><link>https://ocm.software/docs/reference/ocm-cli/add/componentversions/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/add/componentversions/</guid><description>&lt;h3 id="usage">Usage&lt;/h3>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>add on Open Component Model</title><link>https://ocm.software/docs/reference/ocm-cli/add/</link><description>Recent content in add on Open Component Model</description><generator>Hugo</generator><language>en</language><copyright>© Copyright 2025, SAP SE and Open Component Model Contributors</copyright><atom:link href="https://ocm.software/docs/reference/ocm-cli/add/index.xml" rel="self" type="application/rss+xml"/><item><title>add componentversions</title><link>https://ocm.software/docs/reference/ocm-cli/add/componentversions/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/add/componentversions/</guid><description>&lt;h3 id="usage"&gt;Usage&lt;/h3&gt;
 
 
 
-&lt;div class="expressive-code">
- &lt;figure class="frame not-content">
- &lt;figcaption class="header">
- &lt;span class="title">&lt;/span>
- &lt;/figcaption>
- &lt;pre tabindex="0">&lt;code>ocm add componentversions [&amp;lt;options&amp;gt;] [--version &amp;lt;version&amp;gt;] [&amp;lt;ctf archive&amp;gt;] {&amp;lt;component-constructor.yaml&amp;gt;}&lt;/code>&lt;/pre>
- &lt;/figure>
-&lt;/div>
-&lt;h3 id="options">Options&lt;/h3>
+&lt;div class="expressive-code"&gt;
+ &lt;figure class="frame not-content"&gt;
+ &lt;figcaption class="header"&gt;
+ &lt;span class="title"&gt;&lt;/span&gt;
+ &lt;/figcaption&gt;
+ &lt;pre tabindex="0"&gt;&lt;code&gt;ocm add componentversions [&amp;lt;options&amp;gt;] [--version &amp;lt;version&amp;gt;] [&amp;lt;ctf archive&amp;gt;] {&amp;lt;component-constructor.yaml&amp;gt;}&lt;/code&gt;&lt;/pre&gt;
+ &lt;/figure&gt;
+&lt;/div&gt;
+&lt;h3 id="options"&gt;Options&lt;/h3&gt;
 
 
 
-&lt;div class="expressive-code">
- &lt;figure class="frame not-content">
- &lt;figcaption class="header">
- &lt;span class="title">&lt;/span>
- &lt;/figcaption>
- &lt;pre tabindex="0">&lt;code> --addenv access environment for templating
+&lt;div class="expressive-code"&gt;
+ &lt;figure class="frame not-content"&gt;
+ &lt;figcaption class="header"&gt;
+ &lt;span class="title"&gt;&lt;/span&gt;
+ &lt;/figcaption&gt;
+ &lt;pre tabindex="0"&gt;&lt;code&gt; --addenv access environment for templating
  -C, --complete include all referenced component version
  -L, --copy-local-resources transfer referenced local resources by-value
  -V, --copy-resources transfer referenced resources by-value
@@ -38,34 +38,34 @@
  --templater string templater to use (go, none, spiff, subst) (default &amp;#34;subst&amp;#34;)
  -t, --type string archive format (directory, tar, tgz) (default &amp;#34;directory&amp;#34;)
  --uploader &amp;lt;name&amp;gt;=&amp;lt;value&amp;gt; repository uploader (&amp;lt;name&amp;gt;[:&amp;lt;artifact type&amp;gt;[:&amp;lt;media type&amp;gt;[:&amp;lt;priority&amp;gt;]]]=&amp;lt;JSON target config&amp;gt;) (default [])
- -v, --version string default version for components&lt;/code>&lt;/pre>
- &lt;/figure>
-&lt;/div>
-&lt;h3 id="description">Description&lt;/h3>
-&lt;p>Add component versions specified by a constructor file to a Common Transport
+ -v, --version string default version for components&lt;/code&gt;&lt;/pre&gt;
+ &lt;/figure&gt;
+&lt;/div&gt;
+&lt;h3 id="description"&gt;Description&lt;/h3&gt;
+&lt;p&gt;Add component versions specified by a constructor file to a Common Transport
 Archive. The archive might be either a directory prepared to host component version
-content or a tar/tgz file (see option &amp;ndash;type).&lt;/p></description></item><item><title>add references</title><link>https://ocm.software/docs/reference/ocm-cli/add/references/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/add/references/</guid><description>&lt;h3 id="usage">Usage&lt;/h3>
+content or a tar/tgz file (see option &amp;ndash;type).&lt;/p&gt;</description></item><item><title>add references</title><link>https://ocm.software/docs/reference/ocm-cli/add/references/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/add/references/</guid><description>&lt;h3 id="usage"&gt;Usage&lt;/h3&gt;
 
 
 
-&lt;div class="expressive-code">
- &lt;figure class="frame not-content">
- &lt;figcaption class="header">
- &lt;span class="title">&lt;/span>
- &lt;/figcaption>
- &lt;pre tabindex="0">&lt;code>ocm add references [&amp;lt;options&amp;gt;] [&amp;lt;target&amp;gt;] {&amp;lt;referencefile&amp;gt; | &amp;lt;var&amp;gt;=&amp;lt;value&amp;gt;}&lt;/code>&lt;/pre>
- &lt;/figure>
-&lt;/div>
-&lt;h3 id="options">Options&lt;/h3>
+&lt;div class="expressive-code"&gt;
+ &lt;figure class="frame not-content"&gt;
+ &lt;figcaption class="header"&gt;
+ &lt;span class="title"&gt;&lt;/span&gt;
+ &lt;/figcaption&gt;
+ &lt;pre tabindex="0"&gt;&lt;code&gt;ocm add references [&amp;lt;options&amp;gt;] [&amp;lt;target&amp;gt;] {&amp;lt;referencefile&amp;gt; | &amp;lt;var&amp;gt;=&amp;lt;value&amp;gt;}&lt;/code&gt;&lt;/pre&gt;
+ &lt;/figure&gt;
+&lt;/div&gt;
+&lt;h3 id="options"&gt;Options&lt;/h3&gt;
 
 
 
-&lt;div class="expressive-code">
- &lt;figure class="frame not-content">
- &lt;figcaption class="header">
- &lt;span class="title">&lt;/span>
- &lt;/figcaption>
- &lt;pre tabindex="0">&lt;code> --addenv access environment for templating
+&lt;div class="expressive-code"&gt;
+ &lt;figure class="frame not-content"&gt;
+ &lt;figcaption class="header"&gt;
+ &lt;span class="title"&gt;&lt;/span&gt;
+ &lt;/figcaption&gt;
+ &lt;pre tabindex="0"&gt;&lt;code&gt; --addenv access environment for templating
  --component string component name
  --dry-run evaluate and print reference specifications
  --extra &amp;lt;name&amp;gt;=&amp;lt;value&amp;gt; reference extra identity (default [])
@@ -79,33 +79,33 @@ content or a tar/tgz file (see option &amp;ndash;type).&lt;/p></description></it
  -R, --replace replace existing elements
  -s, --settings stringArray settings file with variable settings (yaml)
  --templater string templater to use (go, none, spiff, subst) (default &amp;#34;subst&amp;#34;)
- --version string reference version&lt;/code>&lt;/pre>
- &lt;/figure>
-&lt;/div>
-&lt;h3 id="description">Description&lt;/h3>
-&lt;p>Add aggregation information specified in a reference file to a component version.
-So far only component archives are supported as target.&lt;/p></description></item><item><title>add resource-configuration</title><link>https://ocm.software/docs/reference/ocm-cli/add/resource-configuration/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/add/resource-configuration/</guid><description>&lt;h3 id="usage">Usage&lt;/h3>
+ --version string reference version&lt;/code&gt;&lt;/pre&gt;
+ &lt;/figure&gt;
+&lt;/div&gt;
+&lt;h3 id="description"&gt;Description&lt;/h3&gt;
+&lt;p&gt;Add aggregation information specified in a reference file to a component version.
+So far only component archives are supported as target.&lt;/p&gt;</description></item><item><title>add resource-configuration</title><link>https://ocm.software/docs/reference/ocm-cli/add/resource-configuration/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/add/resource-configuration/</guid><description>&lt;h3 id="usage"&gt;Usage&lt;/h3&gt;
 
 
 
-&lt;div class="expressive-code">
- &lt;figure class="frame not-content">
- &lt;figcaption class="header">
- &lt;span class="title">&lt;/span>
- &lt;/figcaption>
- &lt;pre tabindex="0">&lt;code>ocm add resource-configuration [&amp;lt;options&amp;gt;] &amp;lt;target&amp;gt; {&amp;lt;configfile&amp;gt; | &amp;lt;var&amp;gt;=&amp;lt;value&amp;gt;}&lt;/code>&lt;/pre>
- &lt;/figure>
-&lt;/div>
-&lt;h3 id="options">Options&lt;/h3>
+&lt;div class="expressive-code"&gt;
+ &lt;figure class="frame not-content"&gt;
+ &lt;figcaption class="header"&gt;
+ &lt;span class="title"&gt;&lt;/span&gt;
+ &lt;/figcaption&gt;
+ &lt;pre tabindex="0"&gt;&lt;code&gt;ocm add resource-configuration [&amp;lt;options&amp;gt;] &amp;lt;target&amp;gt; {&amp;lt;configfile&amp;gt; | &amp;lt;var&amp;gt;=&amp;lt;value&amp;gt;}&lt;/code&gt;&lt;/pre&gt;
+ &lt;/figure&gt;
+&lt;/div&gt;
+&lt;h3 id="options"&gt;Options&lt;/h3&gt;
 
 
 
-&lt;div class="expressive-code">
- &lt;figure class="frame not-content">
- &lt;figcaption class="header">
- &lt;span class="title">&lt;/span>
- &lt;/figcaption>
- &lt;pre tabindex="0">&lt;code> --access YAML blob access specification (YAML)
+&lt;div class="expressive-code"&gt;
+ &lt;figure class="frame not-content"&gt;
+ &lt;figcaption class="header"&gt;
+ &lt;span class="title"&gt;&lt;/span&gt;
+ &lt;/figcaption&gt;
+ &lt;pre tabindex="0"&gt;&lt;code&gt; --access YAML blob access specification (YAML)
  --accessComponent string component for access specification
  --accessHostname string hostname used for access
  --accessRepository string repository or registry URL
@@ -160,11 +160,11 @@ So far only component archives are supported as target.&lt;/p></description></it
  --type string resource type
  --url string artifact or server url
  --verb string http request method
- --version string resource version&lt;/code>&lt;/pre>
- &lt;/figure>
-&lt;/div>
-&lt;h3 id="description">Description&lt;/h3>
-&lt;p>Add a resource specification to a resource config file used by 
+ --version string resource version&lt;/code&gt;&lt;/pre&gt;
+ &lt;/figure&gt;
+&lt;/div&gt;
+&lt;h3 id="description"&gt;Description&lt;/h3&gt;
+&lt;p&gt;Add a resource specification to a resource config file used by 
 
 
 
@@ -174,28 +174,28 @@ So far only component archives are supported as target.&lt;/p></description></it
  
 
 
-&lt;a href="https://ocm.software/docs/reference/ocm-cli/add/resources/">ocm add resources&lt;/a>.&lt;/p></description></item><item><title>add resources</title><link>https://ocm.software/docs/reference/ocm-cli/add/resources/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/add/resources/</guid><description>&lt;h3 id="usage">Usage&lt;/h3>
+&lt;a href="https://ocm.software/docs/reference/ocm-cli/add/resources/"&gt;ocm add resources&lt;/a&gt;.&lt;/p&gt;</description></item><item><title>add resources</title><link>https://ocm.software/docs/reference/ocm-cli/add/resources/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/add/resources/</guid><description>&lt;h3 id="usage"&gt;Usage&lt;/h3&gt;
 
 
 
-&lt;div class="expressive-code">
- &lt;figure class="frame not-content">
- &lt;figcaption class="header">
- &lt;span class="title">&lt;/span>
- &lt;/figcaption>
- &lt;pre tabindex="0">&lt;code>ocm add resources [&amp;lt;options&amp;gt;] [&amp;lt;target&amp;gt;] {&amp;lt;resourcefile&amp;gt; | &amp;lt;var&amp;gt;=&amp;lt;value&amp;gt;}&lt;/code>&lt;/pre>
- &lt;/figure>
-&lt;/div>
-&lt;h3 id="options">Options&lt;/h3>
+&lt;div class="expressive-code"&gt;
+ &lt;figure class="frame not-content"&gt;
+ &lt;figcaption class="header"&gt;
+ &lt;span class="title"&gt;&lt;/span&gt;
+ &lt;/figcaption&gt;
+ &lt;pre tabindex="0"&gt;&lt;code&gt;ocm add resources [&amp;lt;options&amp;gt;] [&amp;lt;target&amp;gt;] {&amp;lt;resourcefile&amp;gt; | &amp;lt;var&amp;gt;=&amp;lt;value&amp;gt;}&lt;/code&gt;&lt;/pre&gt;
+ &lt;/figure&gt;
+&lt;/div&gt;
+&lt;h3 id="options"&gt;Options&lt;/h3&gt;
 
 
 
-&lt;div class="expressive-code">
- &lt;figure class="frame not-content">
- &lt;figcaption class="header">
- &lt;span class="title">&lt;/span>
- &lt;/figcaption>
- &lt;pre tabindex="0">&lt;code> --access YAML blob access specification (YAML)
+&lt;div class="expressive-code"&gt;
+ &lt;figure class="frame not-content"&gt;
+ &lt;figcaption class="header"&gt;
+ &lt;span class="title"&gt;&lt;/span&gt;
+ &lt;/figcaption&gt;
+ &lt;pre tabindex="0"&gt;&lt;code&gt; --access YAML blob access specification (YAML)
  --accessComponent string component for access specification
  --accessHostname string hostname used for access
  --accessRepository string repository or registry URL
@@ -258,70 +258,70 @@ So far only component archives are supported as target.&lt;/p></description></it
  --type string resource type
  --url string artifact or server url
  --verb string http request method
- --version string resource version&lt;/code>&lt;/pre>
- &lt;/figure>
-&lt;/div>
-&lt;h3 id="description">Description&lt;/h3>
-&lt;p>Adds resources specified in a resource file to a component version.
-So far, only component archives are supported as target.&lt;/p></description></item><item><title>add routingslips</title><link>https://ocm.software/docs/reference/ocm-cli/add/routingslips/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/add/routingslips/</guid><description>&lt;h3 id="usage">Usage&lt;/h3>
+ --version string resource version&lt;/code&gt;&lt;/pre&gt;
+ &lt;/figure&gt;
+&lt;/div&gt;
+&lt;h3 id="description"&gt;Description&lt;/h3&gt;
+&lt;p&gt;Adds resources specified in a resource file to a component version.
+So far, only component archives are supported as target.&lt;/p&gt;</description></item><item><title>add routingslips</title><link>https://ocm.software/docs/reference/ocm-cli/add/routingslips/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/add/routingslips/</guid><description>&lt;h3 id="usage"&gt;Usage&lt;/h3&gt;
 
 
 
-&lt;div class="expressive-code">
- &lt;figure class="frame not-content">
- &lt;figcaption class="header">
- &lt;span class="title">&lt;/span>
- &lt;/figcaption>
- &lt;pre tabindex="0">&lt;code>ocm add routingslips [&amp;lt;options&amp;gt;] &amp;lt;component-version&amp;gt; &amp;lt;routing-slip&amp;gt; &amp;lt;type&amp;gt;&lt;/code>&lt;/pre>
- &lt;/figure>
-&lt;/div>
-&lt;h3 id="options">Options&lt;/h3>
+&lt;div class="expressive-code"&gt;
+ &lt;figure class="frame not-content"&gt;
+ &lt;figcaption class="header"&gt;
+ &lt;span class="title"&gt;&lt;/span&gt;
+ &lt;/figcaption&gt;
+ &lt;pre tabindex="0"&gt;&lt;code&gt;ocm add routingslips [&amp;lt;options&amp;gt;] &amp;lt;component-version&amp;gt; &amp;lt;routing-slip&amp;gt; &amp;lt;type&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+ &lt;/figure&gt;
+&lt;/div&gt;
+&lt;h3 id="options"&gt;Options&lt;/h3&gt;
 
 
 
-&lt;div class="expressive-code">
- &lt;figure class="frame not-content">
- &lt;figcaption class="header">
- &lt;span class="title">&lt;/span>
- &lt;/figcaption>
- &lt;pre tabindex="0">&lt;code> -S, --algorithm string signature handler (default &amp;#34;RSASSA-PKCS1-V1_5&amp;#34;)
+&lt;div class="expressive-code"&gt;
+ &lt;figure class="frame not-content"&gt;
+ &lt;figcaption class="header"&gt;
+ &lt;span class="title"&gt;&lt;/span&gt;
+ &lt;/figcaption&gt;
+ &lt;pre tabindex="0"&gt;&lt;code&gt; -S, --algorithm string signature handler (default &amp;#34;RSASSA-PKCS1-V1_5&amp;#34;)
  --comment string comment field value
  --digest string parent digest to use
  --entry YAML routing slip entry specification (YAML)
  -h, --help help for routingslips
  --links strings links to other slip/entries (&amp;lt;slipname&amp;gt;[@&amp;lt;digest&amp;gt;])
  --lookup stringArray repository name or spec for closure lookup fallback
- --repo string repository name or spec&lt;/code>&lt;/pre>
- &lt;/figure>
-&lt;/div>
-&lt;h3 id="description">Description&lt;/h3>
-&lt;p>Add a routing slip entry for the specified routing slip name to the given
+ --repo string repository name or spec&lt;/code&gt;&lt;/pre&gt;
+ &lt;/figure&gt;
+&lt;/div&gt;
+&lt;h3 id="description"&gt;Description&lt;/h3&gt;
+&lt;p&gt;Add a routing slip entry for the specified routing slip name to the given
 component version. The name is typically a DNS domain name followed by some
 qualifiers separated by a slash (/). It is possible to use arbitrary types,
 the type is not checked, if it is not known. Accordingly, an arbitrary config
 given as JSON or YAML can be given to determine the attribute set of the new
-entry for unknown types.&lt;/p></description></item><item><title>add source-configuration</title><link>https://ocm.software/docs/reference/ocm-cli/add/source-configuration/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/add/source-configuration/</guid><description>&lt;h3 id="usage">Usage&lt;/h3>
+entry for unknown types.&lt;/p&gt;</description></item><item><title>add source-configuration</title><link>https://ocm.software/docs/reference/ocm-cli/add/source-configuration/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/add/source-configuration/</guid><description>&lt;h3 id="usage"&gt;Usage&lt;/h3&gt;
 
 
 
-&lt;div class="expressive-code">
- &lt;figure class="frame not-content">
- &lt;figcaption class="header">
- &lt;span class="title">&lt;/span>
- &lt;/figcaption>
- &lt;pre tabindex="0">&lt;code>ocm add source-configuration [&amp;lt;options&amp;gt;] &amp;lt;target&amp;gt; {&amp;lt;configfile&amp;gt; | &amp;lt;var&amp;gt;=&amp;lt;value&amp;gt;}&lt;/code>&lt;/pre>
- &lt;/figure>
-&lt;/div>
-&lt;h3 id="options">Options&lt;/h3>
+&lt;div class="expressive-code"&gt;
+ &lt;figure class="frame not-content"&gt;
+ &lt;figcaption class="header"&gt;
+ &lt;span class="title"&gt;&lt;/span&gt;
+ &lt;/figcaption&gt;
+ &lt;pre tabindex="0"&gt;&lt;code&gt;ocm add source-configuration [&amp;lt;options&amp;gt;] &amp;lt;target&amp;gt; {&amp;lt;configfile&amp;gt; | &amp;lt;var&amp;gt;=&amp;lt;value&amp;gt;}&lt;/code&gt;&lt;/pre&gt;
+ &lt;/figure&gt;
+&lt;/div&gt;
+&lt;h3 id="options"&gt;Options&lt;/h3&gt;
 
 
 
-&lt;div class="expressive-code">
- &lt;figure class="frame not-content">
- &lt;figcaption class="header">
- &lt;span class="title">&lt;/span>
- &lt;/figcaption>
- &lt;pre tabindex="0">&lt;code> --access YAML blob access specification (YAML)
+&lt;div class="expressive-code"&gt;
+ &lt;figure class="frame not-content"&gt;
+ &lt;figcaption class="header"&gt;
+ &lt;span class="title"&gt;&lt;/span&gt;
+ &lt;/figcaption&gt;
+ &lt;pre tabindex="0"&gt;&lt;code&gt; --access YAML blob access specification (YAML)
  --accessComponent string component for access specification
  --accessHostname string hostname used for access
  --accessRepository string repository or registry URL
@@ -375,11 +375,11 @@ entry for unknown types.&lt;/p></description></item><item><title>add source-conf
  --type string source type
  --url string artifact or server url
  --verb string http request method
- --version string source version&lt;/code>&lt;/pre>
- &lt;/figure>
-&lt;/div>
-&lt;h3 id="description">Description&lt;/h3>
-&lt;p>Add a source specification to a source config file used by 
+ --version string source version&lt;/code&gt;&lt;/pre&gt;
+ &lt;/figure&gt;
+&lt;/div&gt;
+&lt;h3 id="description"&gt;Description&lt;/h3&gt;
+&lt;p&gt;Add a source specification to a source config file used by 
 
 
 
@@ -389,28 +389,28 @@ entry for unknown types.&lt;/p></description></item><item><title>add source-conf
  
 
 
-&lt;a href="https://ocm.software/docs/reference/ocm-cli/add/sources/">ocm add sources&lt;/a>.&lt;/p></description></item><item><title>add sources</title><link>https://ocm.software/docs/reference/ocm-cli/add/sources/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/add/sources/</guid><description>&lt;h3 id="usage">Usage&lt;/h3>
+&lt;a href="https://ocm.software/docs/reference/ocm-cli/add/sources/"&gt;ocm add sources&lt;/a&gt;.&lt;/p&gt;</description></item><item><title>add sources</title><link>https://ocm.software/docs/reference/ocm-cli/add/sources/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/add/sources/</guid><description>&lt;h3 id="usage"&gt;Usage&lt;/h3&gt;
 
 
 
-&lt;div class="expressive-code">
- &lt;figure class="frame not-content">
- &lt;figcaption class="header">
- &lt;span class="title">&lt;/span>
- &lt;/figcaption>
- &lt;pre tabindex="0">&lt;code>ocm add sources [&amp;lt;options&amp;gt;] [&amp;lt;target&amp;gt;] {&amp;lt;resourcefile&amp;gt; | &amp;lt;var&amp;gt;=&amp;lt;value&amp;gt;}&lt;/code>&lt;/pre>
- &lt;/figure>
-&lt;/div>
-&lt;h3 id="options">Options&lt;/h3>
+&lt;div class="expressive-code"&gt;
+ &lt;figure class="frame not-content"&gt;
+ &lt;figcaption class="header"&gt;
+ &lt;span class="title"&gt;&lt;/span&gt;
+ &lt;/figcaption&gt;
+ &lt;pre tabindex="0"&gt;&lt;code&gt;ocm add sources [&amp;lt;options&amp;gt;] [&amp;lt;target&amp;gt;] {&amp;lt;resourcefile&amp;gt; | &amp;lt;var&amp;gt;=&amp;lt;value&amp;gt;}&lt;/code&gt;&lt;/pre&gt;
+ &lt;/figure&gt;
+&lt;/div&gt;
+&lt;h3 id="options"&gt;Options&lt;/h3&gt;
 
 
 
-&lt;div class="expressive-code">
- &lt;figure class="frame not-content">
- &lt;figcaption class="header">
- &lt;span class="title">&lt;/span>
- &lt;/figcaption>
- &lt;pre tabindex="0">&lt;code> --access YAML blob access specification (YAML)
+&lt;div class="expressive-code"&gt;
+ &lt;figure class="frame not-content"&gt;
+ &lt;figcaption class="header"&gt;
+ &lt;span class="title"&gt;&lt;/span&gt;
+ &lt;/figcaption&gt;
+ &lt;pre tabindex="0"&gt;&lt;code&gt; --access YAML blob access specification (YAML)
  --accessComponent string component for access specification
  --accessHostname string hostname used for access
  --accessRepository string repository or registry URL
@@ -471,10 +471,10 @@ entry for unknown types.&lt;/p></description></item><item><title>add source-conf
  --type string source type
  --url string artifact or server url
  --verb string http request method
- --version string source version&lt;/code>&lt;/pre>
- &lt;/figure>
-&lt;/div>
-&lt;h3 id="description">Description&lt;/h3>
-&lt;p>Add information about the sources, e.g. commits in a Github repository,
+ --version string source version&lt;/code&gt;&lt;/pre&gt;
+ &lt;/figure&gt;
+&lt;/div&gt;
+&lt;h3 id="description"&gt;Description&lt;/h3&gt;
+&lt;p&gt;Add information about the sources, e.g. commits in a Github repository,
 that have been used to create the resources specified in a resource file to a component version.
-So far only component archives are supported as target.&lt;/p></description></item></channel></rss>
+So far only component archives are supported as target.&lt;/p&gt;</description></item></channel></rss>
