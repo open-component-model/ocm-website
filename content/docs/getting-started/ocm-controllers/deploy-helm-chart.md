@@ -48,7 +48,7 @@ ocm add componentversion --create --file ./ctf component-constructor.yaml
 ```
 
 This will create a local CTF (Component Transfer Format) directory `./ctf` containing the OCM component version. Since
-the OCM component version must be accessible for the OCM K8s Toolkit, we will transfer the CTF to a
+the OCM component version must be accessible for the OCM Controllers, we will transfer the CTF to a
 registry. For this example, we will use GitHub's container registry, but you can use any OCI registry:
 
 ```bash
@@ -190,8 +190,7 @@ spec:
 ```
 
 {{<callout context="note">}}
-If you pushed the OCM component version to a private registry, you need to set up the credentials for the OCM K8s
-Toolkit resources. You can do this by uncommenting the `ocmConfig` fields in the `Repository`, `Component`, and
+If you pushed the OCM component version to a private registry, you need to set up the credentials for the OCM Controller resources. You can do this by uncommenting the `ocmConfig` fields in the `Repository`, `Component`, and
 `Resource` resources and providing the necessary credentials. For more information on how to set up and pass the
 credentials, please check out the guide [configure credentials for OCM Controller resources]({{< relref "credentials.md" >}}).
 
