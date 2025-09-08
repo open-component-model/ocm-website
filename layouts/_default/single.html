@@ -1,12 +1,26 @@
 {{ define "main" }}
   <div class="row flex-xl-nowrap">
     {{ if (in site.Params.doks.sectionNav .Section) -}}
-      <div class="col-lg-5 col-xl-4 docs-sidebar{{ if ne site.Params.doks.navbarSticky true }} docs-sidebar-top{{ end }} d-none d-lg-block">
+      <div class="col-lg-5 col-xl-4 docs-sidebar{{ if ne site.Params.doks.navbarSticky true }} docs-sidebar-top{{ end }}{{ if site.Params.doks.headerBar }} docs-sidebar-offset{{ end }} d-none d-lg-block">
         {{ partial "sidebar/section-menu.html" . }}
       </div>
     {{ end -}}
-
+    
+    {{ if and (eq site.Params.doks.containerBreakpoint "fluid") (in .Site.Params.mainSections .Type) }}
+      <div class="col container-fw d-lg-flex flex-lg-row justify-content-center mx-auto">
+    {{ end }}
+    
+    {{ if ne .Params.toc false -}}
+    <nav class="docs-toc{{ if ne site.Params.doks.navbarSticky true }} docs-toc-top{{ end }}{{ if site.Params.doks.headerBar }} docs-toc-offset{{ end }} d-none d-xl-block col-xl-3" aria-label="Secondary navigation">
+      {{ partial "sidebar/docs-toc-desktop.html" . }}
+    </nav>
+    {{ end -}}
+    
+    {{ if .Params.toc -}}
+    <main class="docs-content col-lg-11 col-xl-9">
+    {{ else -}}
     <main class="docs-content col-lg-11 col-xl-9 mx-xl-auto">
+    {{ end -}}
       {{ if site.Params.doks.breadcrumbTrail -}}
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
@@ -17,9 +31,14 @@
       {{ end }}
 
       <h1>{{ .Title }}</h1>
+      
+      {{ if ne .Params.toc false -}}
+      <nav class="toc-mobile d-xl-none" aria-label="Quaternary navigation">
+        {{ partial "sidebar/docs-toc-mobile.html" . }}
+      </nav>
+      {{ end -}}
 
-      <!-- Always use the "mobile" TOC, regardless of screen size -->
-      {{ partial "sidebar/docs-toc-mobile.html" . }}
+      <div style="margin-bottom: 2rem;"></div>
 
       {{ if site.Params.doks.headlineHash -}}
         {{ partial "main/headline-hash" .Content }}
@@ -37,5 +56,9 @@
       </div>
       {{ partial "main/docs-navigation.html" . }}
     </main>
+    
+    {{ if and (eq site.Params.doks.containerBreakpoint "fluid") (in .Site.Params.mainSections .Type) }}
+      </div>
+    {{ end }}
   </div>
 {{ end }}

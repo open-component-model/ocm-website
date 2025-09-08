@@ -1,10 +1,16 @@
-// Single page (docs) content styling
+/*
+ * PAGE-SPECIFIC STYLES
+ * ===================
+ * Custom styling for specific page types and sections
+ */
+
+/* Single page (docs) content styling */
 .list.section.docs .content {
   padding-top: 0;
   padding-bottom: 0;
 }
 
-/* Section-specific overrides */
+/* Section-specific overrides for large screens */
 @media (min-width: 1200px) {
   /* Community Page */
   body.section-community {
@@ -18,21 +24,6 @@
       margin: 0 1rem !important;
       padding: 1rem !important;
     }
-
-    /*
-      The following block was commented out to ensure the TOC is always displayed as a mobile TOC
-      (inside the content flow, below the title) and never as a right sidebar, even on large screens.
-      This fixes the issue where the TOC appeared as a sidebar on community pages.
-    */
-    /*
-    .docs-toc {
-      display: block !important;
-      flex: 0 0 15% !important;
-      max-width: 15% !important;
-      margin: 0 1rem !important;
-      padding-top: 1rem !important;
-    }
-    */
   }
 
   /* Roadmap Page */
@@ -53,12 +44,14 @@
 
 /* Mobile layout adjustments for special pages */
 @media (max-width: 768px) {
-  body.section-community .docs-content,
-  body.section-roadmap .docs-content {
-    flex: 0 0 100% !important;
-    max-width: 100% !important;
-    margin: 0 auto !important;
-    padding: 1rem !important;
+  body.section-community,
+  body.section-roadmap {
+    .docs-content {
+      flex: 0 0 100% !important;
+      max-width: 100% !important;
+      margin: 0 auto !important;
+      padding: 1rem !important;
+    }
   }
 
   body.section-community .docs-toc {
