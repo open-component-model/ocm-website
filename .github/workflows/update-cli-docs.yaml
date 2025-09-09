@@ -8,12 +8,20 @@ permissions:
 on:
   repository_dispatch:
     types: [ocm-cli-release]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'OCM CLI release tag'
+        required: true
+        type: string
 
 jobs:
   generate-cli-reference:
     name: Update content/docs/reference/ocm-cli
-    if: github.event.client_payload != ''
+    if: github.event.client_payload != '' || github.event.inputs.tag != ''
     runs-on: ubuntu-latest
+    env:
+      TAG: ${{ github.event.inputs.tag || github.event.client_payload.tag }}
     permissions:
       contents: 'write'
       id-token: 'write'
@@ -25,7 +33,6 @@ jobs:
 
     - name: Update Version Parameter
       run: |
-        TAG=${{ github.event.client_payload.tag }}
         sed -i "s/latest_version = .*/latest_version = \"$TAG\"/" ./config/_default/params.toml
 
     - name: Setup Go
@@ -36,7 +43,7 @@ jobs:
     - name: Regenerate CLI docs
       run: |
         cd ./hack/generate-cli-docs
-        go get ocm.software/ocm@${{ github.event.client_payload.tag }}
+        go get ocm.software/ocm@$TAG
         go mod tidy
         go run ./hack/generate-cli-docs --output-dir=${{ github.workspace }}/content/docs/reference/ocm-cli
 
