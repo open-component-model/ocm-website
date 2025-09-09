@@ -8,6 +8,12 @@ permissions:
 on:
   repository_dispatch:
     types: [ocm-cli-release]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'OCM CLI release tag'
+        required: true
+        type: string
 
 env:
   OUTPUT_DIR: ./content/docs/reference/ocm-cli
@@ -15,8 +21,10 @@ env:
 jobs:
   generate-cli-reference:
     name: Update content/docs/reference/ocm-cli
-    if: github.event.client_payload != ''
+    if: github.event.client_payload != '' || github.event.inputs.tag != ''
     runs-on: ubuntu-latest
+    env:
+      TAG: ${{ github.event.inputs.tag || github.event.client_payload.tag }}
     permissions:
       contents: 'write'
       id-token: 'write'
@@ -31,7 +39,6 @@ jobs:
 
     - name: Update Version Parameter
       run: |
-        TAG=${{ github.event.client_payload.tag }}
         sed -i "s/latest_version = .*/latest_version = \"$TAG\"/" ./config/_default/params.toml
 
     - name: Get OCMBot installation token
@@ -53,8 +60,6 @@ jobs:
         add-paths: |
           config/
           content/
-          go.mod
-          go.sum
         branch: update-cli-docs/auto
         branch-suffix: timestamp
         delete-branch: true
