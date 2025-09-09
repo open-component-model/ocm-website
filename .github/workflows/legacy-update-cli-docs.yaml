@@ -45,7 +45,7 @@ jobs:
           cd ./hack/generate-cli-docs
           go get ocm.software/ocm@$TAG
           go mod tidy
-          go run ./hack/generate-cli-docs --output-dir=${{ github.workspace }}/content/docs/reference/ocm-cli
+          go run ./... --output-dir=${{ github.workspace }}/content/docs/reference/ocm-cli
 
       - name: Get OCMBot installation token
         # Instead of creating the PR below with GITHUB_TOKEN use a generated
