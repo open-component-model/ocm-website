@@ -22,55 +22,57 @@ jobs:
     runs-on: ubuntu-latest
     env:
       TAG: ${{ github.event.inputs.tag || github.event.client_payload.tag }}
+      REF: ${{ github.event.event_type == ocm-cli-release && 'website/current' || github.ref }}
     permissions:
       contents: 'write'
       id-token: 'write'
       pull-requests: 'write'
     steps:
-    - uses: actions/checkout@v4
-      with:
-        persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          ref: ${{ env.REF }}
 
-    - name: Update Version Parameter
-      run: |
-        sed -i "s/latest_version = .*/latest_version = \"$TAG\"/" ./config/_default/params.toml
+      - name: Update Version Parameter
+        run: |
+          sed -i "s/latest_version = .*/latest_version = \"$TAG\"/" ./config/_default/params.toml
 
-    - name: Setup Go
-      uses: actions/setup-go@v5
-      with:
-        go-version-file: '${{ github.workspace }}/hack/generate-cli-docs/go.mod'
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: '${{ github.workspace }}/hack/generate-cli-docs/go.mod'
 
-    - name: Regenerate CLI docs
-      run: |
-        cd ./hack/generate-cli-docs
-        go get ocm.software/ocm@$TAG
-        go mod tidy
-        go run ./hack/generate-cli-docs --output-dir=${{ github.workspace }}/content/docs/reference/ocm-cli
+      - name: Regenerate CLI docs
+        run: |
+          cd ./hack/generate-cli-docs
+          go get ocm.software/ocm@$TAG
+          go mod tidy
+          go run ./... --output-dir=${{ github.workspace }}/content/docs/reference/ocm-cli
 
-    - name: Get OCMBot installation token
-      # Instead of creating the PR below with GITHUB_TOKEN use a generated
-      # short-lived App installation token with full REST rights
-      id: generate_token
-      uses: tibdex/github-app-token@v2
-      with:
-        app_id: ${{ secrets.OCMBOT_APP_ID }}
-        private_key: ${{ secrets.OCMBOT_PRIV_KEY }}
+      - name: Get OCMBot installation token
+        # Instead of creating the PR below with GITHUB_TOKEN use a generated
+        # short-lived App installation token with full REST rights
+        id: generate_token
+        uses: tibdex/github-app-token@v2
+        with:
+          app_id: ${{ secrets.OCMBOT_APP_ID }}
+          private_key: ${{ secrets.OCMBOT_PRIV_KEY }}
 
-    - name: Create Pull Request
-      uses: peter-evans/create-pull-request@v7
-      with:
-        token: ${{ steps.generate_token.outputs.token }}
-        title: "Update CLI docs"
-        commit-message: "[github-actions] automated change"
-        add-paths: |
-          config/
-          content/
-          hack/generate-cli-docs/go.mod
-          hack/generate-cli-docs/go.sum
-        branch: update-cli-docs/auto
-        branch-suffix: timestamp
-        delete-branch: true
-        sign-commits: true
-        body: |
-          Update OCM CLI documentation for new release
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ steps.generate_token.outputs.token }}
+          title: "Update CLI docs"
+          commit-message: "[github-actions] automated change"
+          add-paths: |
+            config/
+            content/
+            hack/generate-cli-docs/go.mod
+            hack/generate-cli-docs/go.sum
+          branch: update-cli-docs/auto
+          branch-suffix: timestamp
+          delete-branch: true
+          sign-commits: true
+          body: |
+            Update OCM CLI documentation for new release
   
