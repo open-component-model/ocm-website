@@ -1,4 +1,4 @@
-name: Update OCM CLI Docs
+name: Update Version Tags
 
 permissions:
   contents: read          # for checkout, file reads
