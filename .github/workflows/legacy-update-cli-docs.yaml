@@ -1,4 +1,4 @@
-name: Update OCM CLI Docs
+name: Legacy Update OCM CLI Docs
 
 permissions:
   contents: read          # for checkout, file reads
