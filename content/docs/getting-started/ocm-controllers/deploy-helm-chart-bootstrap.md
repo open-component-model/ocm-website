@@ -296,7 +296,7 @@ spec:
 
 {{<callout context="note">}}
 If you plan to push your OCM component version to a private registry, you need to provide credentials for the OCM
-K8s Toolkit and FluxCDs `OCIRepository` (if the Helm chart is also stored in a private registry). Accordingly, you
+Controllers and FluxCDs `OCIRepository` (if the Helm chart is also stored in a private registry). Accordingly, you
 have to specify the `ocmConfig` field in the `Resource` resources and the `secretRef` field in the `OCIRepository`.
 
 If you want to use the same credentials for FluxCD and for the OCM Controller resources, create a
@@ -371,7 +371,7 @@ Resource Definition (CRD) which will deploy the Helm chart and configure the loc
 
 ### Bootstrapping
 
-The bootstrap process consists of creating the OCM K8s Toolkits resources that will download and apply the
+The bootstrap process consists of creating the OCM Controller resources that will download and apply the
 `ResourceGraphDefinition`.
 First, we will create a `Repository` and `Component` resource that point to the OCM component in the registry
 (the `Component` resource is reused in the `ResourceGraphDefinition` (see above) as reference for the `Resource`
@@ -446,8 +446,7 @@ spec:
 ```
 
 {{<callout context="note">}}
-Again, if your OCM component version is stored in a private registry, you need to provide credentials for the OCM K8s
-Toolkit resources to access the OCM repository. You can do so by specifying the `ocmConfig` field in the `Repository`,
+Again, if your OCM component version is stored in a private registry, you need to provide credentials for the OCM Controller resources to access the OCM repository. You can do so by specifying the `ocmConfig` field in the `Repository`,
 `Component`, `Resource`, and `Deployer` resources. For more information on how to set up credentials, please refer to
 the [OCM Controllers credentials guide]({{< relref "credentials.md" >}}).
 {{</callout>}}
@@ -557,7 +556,7 @@ You now have successfully created an OCM component containing a Helm chart, the 
 By creating the required bootstrap-resources you bootstrapped the `ResourceGraphDefinition` from the OCM component
 and created the resulting CRD.
 Finally, you created an instance of the CRD which deployed the Helm chart and configured the localization using the OCM
-K8s Toolkit, kro, and FluxCD.
+Controllers, kro, and FluxCD.
 
 [ocm-doc]: https://ocm.software/docs/getting-started/create-component-version/
 [ocm-credentials]: https://ocm.software/docs/tutorials/creds-in-ocmconfig/

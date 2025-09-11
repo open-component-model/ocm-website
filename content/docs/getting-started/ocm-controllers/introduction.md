@@ -154,8 +154,8 @@ Currently, the OCM Controllers are available as [image][controller-image] and
 To install the OCM Controllers into your running Kubernetes cluster, you can use the following commands:
 
 ```console
-# In the ocm-k8s-toolkit/ repository
-make deploy
+# In the open-component-model repository, folder kubernetes/controller
+task deploy
 ```
 
 or
