@@ -1,5 +1,5 @@
 ---
-title: "Installing the OCM CLI"
+title: "Install and Configure the OCM CLI"
 url: "/docs/getting-started/installation/"
 description: "Learn how to install the OCM CLI on various platforms."
 icon: "💻"
@@ -10,15 +10,7 @@ toc: true
 
 The new major version of the OCM CLI is currently under active development. While we're working on providing pre-built releases through various package managers and distribution channels, the only  way to install the OCM CLI right now is to **build it from source**.
 
-This guide will walk you through the process of building and installing the OCM CLI from the source code.
-
-## Prerequisites
-
-Before you begin, make sure you have the following tools installed on your system:
-
-- [Git](https://git-scm.com/) for cloning the repository
-- [Go](https://golang.org/) (version 1.24 or later)
-- [Task](https://taskfile.dev/) build tool
+This guide will walk you through building the OCM CLI from the source code and configuring the necessary credentials.
 
 ## Build from Source
 
@@ -104,9 +96,55 @@ ocm version
 
 This should display the version information and confirm that the installation was successful.
 
+## Configure the OCM Command Line Client
+
+Credentials to be used by the OCM CLI can be configured by supplying it with a [configuration file]({{< relref "creds-in-ocmconfig.md" >}}). By default, the CLI looks for the file in `$HOME/.ocmconfig`.
+
+### Using the Docker Configuration File
+
+The easiest way to configure credentials for the OCM CLI is to reuse an existing Docker configuration `json` file.
+
+Create a file named `.ocmconfig` in your home directory with the following content:
+
+```yaml
+type: generic.config.ocm.software/v1
+configurations:
+- type: credentials.config.ocm.software
+  repositories:
+    - repository:
+        type: DockerConfig/v1
+        # The path to the Docker configuration file
+        dockerConfigFile: "~/.docker/config.json"
+        propagateConsumerIdentity: true
+- type: attributes.config.ocm.software
+  attributes:
+    cache: ~/.ocm/cache
+```
+
+### Using Basic Authentication
+
+Alternatively, you can use basic authentication. Create a file named `.ocmconfig` with the following content in your home directory:
+
+```yaml
+type: generic.config.ocm.software/v1
+configurations:
+- type: credentials.config.ocm.software
+    consumers:
+      - identity:
+          type: ociRegistry
+          hostname: <YOUR-REGISTRY>/<YOUR-REPO> # e.g. ghcr.io/acme/acme
+        credentials:
+          - type: Credentials
+            properties:
+              username: <YOUR-USERNAME>
+              password: <YOUR-PASSWORD>
+```
+
+More information on how to deal with credentials can be found [in this guide]({{< relref "creds-in-ocmconfig.md" >}}) with many examples for different repository types.
+
 ## What's Next?
 
-Now that you have the OCM CLI installed, you can start exploring its capabilities. Check out our [Getting Started Guides]({{< relref "docs/getting-started/ocm-cli/_index.md" >}}) to learn how to use the OCM CLI to work with your component.
+Now that you have the OCM CLI installed and configured, you can start exploring its capabilities. Check out our [Getting Started Guides]({{< relref "docs/getting-started/ocm-cli/_index.md" >}}) to learn how to use the OCM CLI to work with your component.
 
 ## Future Installation Methods
 
