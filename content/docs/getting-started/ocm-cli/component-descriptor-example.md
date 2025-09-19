@@ -50,7 +50,7 @@ component:
     relation: external
     # resource type
     type: ociImage
-    # resource version. Must also adhere to “relaxed SemVer” (see `component.versio` above`)
+    # resource version. Must also adhere to “relaxed SemVer” (see `component.version` above`)
     version: v0.14.1
     # metadata describing how to access the resource
     access:

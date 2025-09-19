@@ -12,7 +12,7 @@ To show the list of all component versions of a specific component stored in an 
 
 In the example below, we use the OCM component `ocm.software/toi/demo/helmdemo` from the OCM repository `ghcr.io/open-component-model/ocm`.
 
-Notice the format of the specified component which has a prefix defining the OCM repository followed by a double slash `//` and then the component name.
+Notice the format of the specified component, which has a prefix defining the OCM repository followed by a double slash `//` and then the component name.
 
 ```shell
 ocm get cv ghcr.io/open-component-model/ocm//ocm.software/toi/demo/helmdemo
@@ -45,7 +45,7 @@ ocm get cv ghcr.io/open-component-model/ocm//ocm.software/toi/demo/helmdemo:0.21
  ocm.software/toi/demo/helmdemo │ 0.21.0  │ ocm.software
 ```
 
-To get the component descriptor of that component version, use the output format option `-o yaml` (the output below has been shortened for better readability, digests have been removed and and only the `image` and `chart` resources are listed).
+To get the component descriptor of that component version, use the output format option `-o yaml` (the output below has been shortened for better readability, digests have been removed and only the `image` and `chart` resources are listed).
 
 ```shell
 ocm get cv ghcr.io/open-component-model/ocm//ocm.software/toi/demo/helmdemo:0.21.0 -o yaml
@@ -120,7 +120,7 @@ ocm get cv ghcr.io/open-component-model/ocm//ocm.software/toi/demo/helmdemo:0.21
      └─   ocm.software/toi/installers/helminstaller 0.21.0  ocm.software "name"="installer"
 ```
 
-As mentioned before a CTF archive itself is an OCM repository, so we can execute the same commands on a CTF archive. So, let's get the information about the component `github.com/acme.org/helloworld` we created in the previous step and that we stored in the CTF archive `/tmp/helloworld/ctf-hello-world`:
+As mentioned before, a CTF archive itself is an OCM repository, so we can execute the same commands on a CTF archive. So, let's get the information about the component `github.com/acme.org/helloworld` we created in the previous step and that we stored in the CTF archive `/tmp/helloworld/ctf-hello-world`:
 
 ```shell
 ocm get cv /tmp/helloworld/transport-archive//github.com/acme.org/helloworld:1.0.0
