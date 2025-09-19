@@ -8,7 +8,7 @@ toc: true
 
 ## List Component Versions
 
-To show the list of all component versions of a specific component stored in an OCM repository or CTF archive (which technically is also an OCM repository), the [`ocm get component-version`]{{< relref "ocm_get_component-version.md" >}} command can be used. Only specify the component name and skip the version.
+To show the list of all component versions of a specific component stored in an OCM repository or CTF archive (which technically is also an OCM repository), the [`ocm get component-version`]({{< relref "ocm_get_component-version.md" >}}) command can be used. Only specify the component name and skip the version.
 
 In the example below we use the OCM component `ocm.software/toi/demo/helmdemo`.
 
