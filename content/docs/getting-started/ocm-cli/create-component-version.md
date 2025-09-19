@@ -36,11 +36,9 @@ Quickly create a simple test file with some content in:
 echo "My first local Resource for an OCM component" > my-local-resource.txt
 ```
 
-Now create a file `component-constructor.yaml`, which describes all elements of the component. You can use our public configuration schema to validate the configuration. The schema is available at `https://ocm.software/schemas/configuration-schema.yaml` and can be used in your editor to validate the configuration (e.g., in Visual Studio Code).
+Now, create a file named `component-constructor.yaml`. This file will define all elements of your component. In our example, the component contains a local file and a remote Docker image as resources.
 
-Component versions need to have at least a `name`, `version` and `provider` attribute. All other attributes are optional. Check out an [example component descriptor]({{< relref "component-descriptor-example.md" >}}) or the [OCM Specification](https://github.com/open-component-model/ocm-spec/blob/main/README.md) to see all available attributes.
-
-As mentioned before our example component will just contain a local file and a remote Docker image as resources:
+To create the example component, save the following YAML configuration to `component-constructor.yaml`:
 
 ```yaml
 # specify a schema to validate the configuration and get auto-completion in your editor
@@ -66,6 +64,10 @@ components:
         type: ociArtifact
         imageReference: ghcr.io/stefanprodan/podinfo:6.9.1
 ```
+
+You can use our public configuration schema to validate the configuration. The schema is available at `https://ocm.software/schemas/configuration-schema.yaml` and can be used in your editor to validate the configuration (e.g., in Visual Studio Code).
+
+Component versions need to have at least a `name`, `version` and `provider` attribute. All other attributes are optional. Check out an [example component descriptor]({{< relref "component-descriptor-example.md" >}}) or the [OCM Specification](https://github.com/open-component-model/ocm-spec/blob/main/README.md) to see all available attributes. 
 
 A resource is described either by its access information to a remote repository or by locally provided resources.
 
