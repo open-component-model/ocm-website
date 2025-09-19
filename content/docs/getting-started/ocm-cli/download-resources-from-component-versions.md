@@ -8,7 +8,7 @@ toc: true
 
 ## Download Resources of a Component Version
 
-Use the [`ocm download resources`]({{< relref "ocm_download_resource.md" >}}) command to download specific resources from a component version. In this example we download the resource with name `chart` from the [example component used in the last chapter]({{< relref "display-examine-component-versions.md#get-and-examine-component-versions" >}}) and save it as local file:
+Use the [`ocm download resources`]({{< relref "ocm_download_resource.md" >}}) command to download specific resources from a component version. In this example, we download the resource with name `chart` from the [example component used in the last chapter]({{< relref "display-examine-component-versions.md#get-and-examine-component-versions" >}}) and save it as a local file:
 
 ```shell
 ocm download resource ghcr.io/open-component-model/ocm//ocm.software/toi/demo/helmdemo:0.21.0 --identity name=chart --output helmchart.tgz
@@ -37,7 +37,7 @@ index.json
 oci-layout
 ```
 
-{{<callout context="caution" title="Under Construction">}}The file permissions and ownership may not be preserved when extracting the archive. This needs to be fixed. Currently you have to add at least read permissions to continue: `chmod +r index.json`{{</callout>}}
+{{<callout context="caution" title="Under Construction">}}The file permissions and ownership may not be preserved when extracting the archive. This needs to be fixed. Currently, you have to add at least read permissions to continue: `chmod +r index.json`{{</callout>}}
 
 ```shell
 jq . index.json
@@ -63,9 +63,9 @@ jq . index.json
 
 ### Download using Transformers
 
-{{<callout context="caution" title="Under Construction">}}Transformers are currently in development. We'll extend the below section once they are ready to be used. Until then you can check out the [Transformer ADR](https://github.com/open-component-model/open-component-model/blob/main/docs/adr/0005_transformation.md){{</callout>}}
+{{<callout context="caution" title="Under Construction">}}Transformers are currently in development. We'll extend the below section once they are ready to be used. Until then, you can check out the [Transformer ADR](https://github.com/open-component-model/open-component-model/blob/main/docs/adr/0005_transformation.md){{</callout>}}
 
-To use a format more suitable for the content technology, you can use the `--transformer` to specify a transformer. The transformer will take care that the file will be saved using its correct media type, e.g. a Helm charts will be saved as `.tgz` file which on extraction will show the complete chart.
+To use a format more suitable for the content technology, you can use the `--transformer` to specify a transformer. The transformer will take care that the file will be saved using its correct media type, e.g. a Helm chart will be saved as a `.tgz` file which on extraction will show the complete chart.
 
 ```shell
 ocm download resource ghcr.io/open-component-model/ocm//ocm.software/toi/demo/helmdemo:0.12.0 chart --identity name=chart --output helmchart.tgz --transformer helm

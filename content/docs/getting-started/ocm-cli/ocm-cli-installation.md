@@ -8,7 +8,7 @@ toc: true
 ---
 
 
-The new major version of the OCM CLI is currently under active development. While we're working on providing pre-built releases through various package managers and distribution channels, the only  way to install the OCM CLI right now is to **build it from source**.
+The new major version of the OCM CLI is currently under active development. While we're working on providing pre-built releases through various package managers and distribution channels, the only way to install the OCM CLI right now is to **build it from source**.
 
 This guide will walk you through building the OCM CLI from the source code and configuring the necessary credentials.
 
