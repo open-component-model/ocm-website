@@ -10,7 +10,7 @@ toc: true
 
 To show the list of all component versions of a specific component stored in an OCM repository or CTF archive (which technically is also an OCM repository), the [`ocm get component-version`]({{< relref "ocm_get_component-version.md" >}}) command can be used. Only specify the component name and skip the version.
 
-In the example below we use the OCM component `ocm.software/toi/demo/helmdemo`.
+In the example below, we use the OCM component `ocm.software/toi/demo/helmdemo` from the OCM repository `ghcr.io/open-component-model/ocm`.
 
 Notice the format of the specified component which has a prefix defining the OCM repository followed by a double slash `//` and then the component name.
 
