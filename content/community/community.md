@@ -68,6 +68,21 @@ We welcome community contributions! Please see the [Contributing Guideline](http
 
 To make OCM a welcoming and harassment-free experience for everyone, we follow the [CNCF Code of Conduct](https://github.com/cncf/foundation/blob/main/code-of-conduct.md).
 
+## Special Interest Groups (SIGs)
+
+To organize contributions to OCM in a structured and topic-focused way, we have defined a **framework for Special Interest Groups (SIGs)**.  
+SIGs are specialized working groups that take responsibility for particular areas of the OCM project.
+
+The **[SIG Handbook](https://github.com/open-component-model/open-component-model/blob/main/docs/community/SIGs/SIG-Handbook.md)** describes:
+
+- the goals and motivation behind SIGs  
+- roles and responsibilities  
+- processes for establishing and running a SIG  
+
+At this point, we are still in the **introduction phase**: there are no active SIGs yet. Once the first groups are established, we will list them here.
+
+If you are interested in contributing to the setup or in joining a SIG later, please start by reading the [SIG Handbook](https://github.com/open-component-model/open-component-model/tree/main/docs/community/SIGs).
+
 ## Security Guideline
 
 In case you want to report any security vulnerabilities inside the Open Component Model project,
