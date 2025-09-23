@@ -145,6 +145,10 @@ rm -rf "$TMP_MAIN_VERSIONS"
 mkdir -p "$TMP_MAIN_VERSIONS"
 MAIN_VERSIONS_FILE="$TMP_MAIN_VERSIONS/versions.json"
 
+# Ensure we have the latest main branch for comparison
+# This is especially important in CI environments like Netlify
+git fetch origin main:refs/remotes/origin/main 2>/dev/null || echo "Could not fetch main branch"
+
 if git show origin/main:data/versions.json > "$MAIN_VERSIONS_FILE" 2>/dev/null; then
   info "Successfully fetched data/versions.json from origin/main."
 else
@@ -200,6 +204,35 @@ WORKTREE_BASE=".worktrees"
 rm -rf "$WORKTREE_BASE"
 mkdir -p "$WORKTREE_BASE"
 
+# read all Hugo module imports for updating modules in "dev" version
+get_hugo_imports() {
+  npm run hugo -- --logLevel error config --format json \
+    | jq -r '.[].module.imports[]?.path' 2>/dev/null \
+    | sort -u
+}
+
+# Update Hugo modules for a given version
+# For "dev" version, set each module explicitly to @main to get latest changes
+# For other versions, use pinned go.mod without changes
+update_modules_for_version() {
+  local ver="$1"
+  if [ "$ver" = "dev" ]; then
+    info "DEV: set each Hugo module to @main"
+    local modules
+    modules=$(get_hugo_imports || true)
+    if [ -n "$modules" ]; then
+      for m in $modules; do
+        npm run hugo -- mod get "${m}@main" || { err "hugo mod get ${m}@main failed"; return 1; }
+      done
+    else
+      info "No module imports found in effective config."
+    fi
+    npm run hugo -- mod tidy || { err "hugo mod tidy failed"; return 1; }
+  else
+    info "Non-DEV: using pinned go.mod (no module actions)"
+    :
+  fi
+}
 
 # Build each version listed in versions.json
 # BUILT_VERSIONS will hold the mapping: version -> output directory
@@ -235,9 +268,9 @@ for VERSION in $VERSIONS; do
 
     # Make npm clean install (using the package-lock.json file)
     npm ci || { err "npm ci failed for $CURRENT_BRANCH"; exit 1; }
-    # Always update Hugo modules and install dependencies before building
-    npm run hugo -- mod get -u || { err "hugo mod get -u failed for $CURRENT_BRANCH"; exit 1; }
-    npm run hugo -- mod tidy || { err "hugo mod tidy failed for $CURRENT_BRANCH"; exit 1; }
+
+    # Update Hugo modules for "dev" version. In case of errors restore backup of versions.json and exit
+    update_modules_for_version "$VERSION" || { [ -n "$TEMP_BACKUP" ] && mv "$TEMP_BACKUP" data/versions.json; exit 1; }
     
     # Execute Hugo build with final base URL
     npm run build -- --destination "$OUTDIR" --baseURL "$FINAL_BASE_URL" || { 
@@ -282,17 +315,19 @@ for VERSION in $VERSIONS; do
 
   # Optimization: reuse central node_modules if package-lock.json is identical
   if cmp -s package-lock.json ../../package-lock.json; then
-    info "package-lock.json is identical, creating symlink to central node_modules."
-    ln -s ../../node_modules ./node_modules
+    if [ -d ../../node_modules ]; then
+      info "package-lock.json is identical, creating symlink to central node_modules."
+      ln -s ../../node_modules ./node_modules
+    else
+      info "Central node_modules not present yet; installing dependencies in worktree."
+      npm ci || { err "npm ci failed for $BRANCH"; popd >/dev/null; exit 1; }
+    fi
   else
-    # Make npm clean install (using the package-lock.json file)
     info "package-lock.json differs from central version. Installing separate dependencies for this version."
     npm ci || { err "npm ci failed for $BRANCH"; popd >/dev/null; exit 1; }
   fi
-
-  # Always update Hugo modules before building
-  npm run hugo -- mod get -u || { err "hugo mod get -u failed for $BRANCH"; popd >/dev/null; exit 1; }
-  npm run hugo -- mod tidy || { err "hugo mod tidy failed for $BRANCH"; popd >/dev/null; exit 1; }
+  # Update Hugo Modules for "dev" version
+  update_modules_for_version "$VERSION" || { popd >/dev/null; exit 1; }
 
   # Build  site for this version using final base URL
   npm run build -- --destination "../../$OUTDIR" --baseURL "$FINAL_BASE_URL" || { err "npm run build failed for $BRANCH"; popd >/dev/null; exit 1; }

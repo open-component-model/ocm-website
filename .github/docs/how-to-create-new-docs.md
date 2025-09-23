@@ -2,12 +2,12 @@
 
 ## 🎯 Objective and Summary
 
-This document describes how to create and test new content for our OCM website, including impüorting content from other repositories, e.g. `ocm` or `open-component-model` using Hugo modules.
+This document describes how to create and test new content for our OCM website, including importing content from other repositories, e.g. `ocm` or `open-component-model` using Hugo modules.
 
 The website utilizes:
 
 - **Frontmatter** for each document to define metadata like title, description, and logo. The templates are stored in `.github/templates/`.
-- **Version Branches** (e.g., `releases/website/v1.0`) for each released version of the website. New content is created in branch `main`, and then branched to the respective website version branch when we release a new OCM version. Corrections and updates to existing content are made in the release branch and are then cherry-picked to the `main` branch.
+- **Version Branches** (e.g., `releases/website/v1.0`) for each released version of the website. New content is created in branch `main`, and then branched to the respective website version branch when we release a new OCM version. Corrections and updates to existing content are made in the `main`branch and then cherry-picked into the release branch.
 - **Hugo Modules** to include the reference documentation for CLI, APIs and other content from other repositories.
 
 ## 📚 Content Creation
@@ -35,7 +35,7 @@ A section page is a special type of content page that serves as a landing page f
 
 ### 🔗 Import Content from other locations
 
-*Adding new references to other repositories is a very rare action. Most-likely we will only have two referenced modules, one for the CLI and for the controllers.*
+*Adding new references to other repositories is a very rare action. Most-likely we will only have two referenced modules, one for the CLI and one for the controllers.*
 
 A new module MUST only be created in combination a new website version. To include a new references you can use Hugo modules. The configuration is done in `config/_default/module.toml`. You can define the modules to be used and where they should be mounted in the website. Here's an example for the OCM CLI reference documentation:
 
@@ -45,6 +45,13 @@ path = "ocm.software/open-component-model/cli"
   [[imports.mounts]]
     source = "docs/reference"
     target = "content/docs/reference/ocm-cli"
+
+### not available yet, but planned
+#[[imports]]
+#path = "ocm.software/open-component-model/kubernetes/controller"
+#  [[imports.mounts]]
+#    source = "docs/reference"
+#    target = "content/docs/reference/ocm-controller"
 ```
 
 This configuration mounts the `docs/reference` directory from the OCM CLI repository into the `content/docs/reference/ocm-cli` directory of the website. You can add multiple modules as needed.
@@ -139,3 +146,4 @@ If you find any issues, update your PR and the preview will be rebuilt automatic
 - [ ] Commit message is clear
 - [ ] PR created for review
 - [ ] Changes documented in the PR description
+- [ ] 
