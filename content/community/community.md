@@ -72,7 +72,9 @@ To make OCM a welcoming and harassment-free experience for everyone, we follow t
 
 OCM grows when people build together — and our Special Interest Groups (SIGs) are where ideas turn into impact.
 
-SIGs are focused working groups that take ownership of a specific area of the project and move it forward. Following the example of other CNCF projects, we defined a framework for SIGs to help contributors collaborate effectively.
+SIGs are focused working groups that take ownership of a specific area of the project and move it forward.
+
+Following the example of other CNCF projects, we defined a framework for SIGs to help contributors collaborate effectively.
 
 The **[SIG Handbook](https://github.com/open-component-model/open-component-model/blob/main/docs/community/SIGs/SIG-Handbook.md)** covers:
 
