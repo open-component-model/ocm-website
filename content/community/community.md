@@ -70,18 +70,23 @@ To make OCM a welcoming and harassment-free experience for everyone, we follow t
 
 ## Special Interest Groups (SIGs)
 
-To organize contributions to OCM in a structured and topic-focused way, we have defined a **framework for Special Interest Groups (SIGs)**.  
-SIGs are specialized working groups that take responsibility for particular areas of the OCM project.
+OCM grows when people build together — and our Special Interest Groups (SIGs) are where ideas turn into impact.
 
-The **[SIG Handbook](https://github.com/open-component-model/open-component-model/blob/main/docs/community/SIGs/SIG-Handbook.md)** describes:
+SIGs are focused working groups that take ownership of a specific area of the project and move it forward. Following the example of other CNCF projects, we defined a framework for SIGs to help contributors collaborate effectively.
 
-- the goals and motivation behind SIGs  
-- roles and responsibilities  
-- processes for establishing and running a SIG  
+The **[SIG Handbook](https://github.com/open-component-model/open-component-model/blob/main/docs/community/SIGs/SIG-Handbook.md)** covers:
 
-At this point, we are still in the **introduction phase**: there are no active SIGs yet. Once the first groups are established, we will list them here.
+- goals and motivation behind SIGs
+- roles and responsibilities
+- how to propose, establish, and run a SIG
 
-If you are interested in contributing to the setup or in joining a SIG later, please start by reading the [SIG Handbook](https://github.com/open-component-model/open-component-model/tree/main/docs/community/SIGs).
+> **Status:** We’re in the kick-off phase — there are no active SIGs *yet*. That’s your chance to shape the very first ones! As SIGs form, we’ll list them here.
+
+### How to get involved
+
+- **Curious?** Start with the [SIG Handbook](https://github.com/open-component-model/open-component-model/blob/main/docs/community/SIGs/SIG-Handbook.md).  
+- **Have a topic in mind?** Follow the handbook’s steps to **propose a SIG** and gather interested contributors.  
+- **Prefer to join later?** Keep an eye on this page — we’ll announce and list new SIGs here.
 
 ## Security Guideline
 
