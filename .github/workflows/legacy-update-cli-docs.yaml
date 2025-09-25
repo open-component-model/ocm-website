@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       TAG: ${{ github.event.inputs.tag || github.event.client_payload.tag }}
-      REF: ${{ github.event.event_type == 'ocm-cli-release' && 'website/current' || github.ref }}
+      REF: ${{ github.event.event_type == 'repository_dispatch' && 'website/current' || github.ref }}
     permissions:
       contents: 'write'
       id-token: 'write'
