@@ -19,9 +19,11 @@
 
       <p class="text-default leader-open-source-text">
         {{ .Params.leader_open_source_text }}
+        {{ if ne site.Params.doks.docsVersion "dev" }}
         <a href="https://github.com/open-component-model/ocm/releases/tag/{{ .Site.Params.latest_version }}" class="text-link">
           GitHub {{ .Site.Params.latest_version }}
         </a>
+        {{ end }}
       </p>
       {{ .Content }}
       <p class="mb-1">
