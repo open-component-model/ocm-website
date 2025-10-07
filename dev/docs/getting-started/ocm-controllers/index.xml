@@ -47,7 +47,7 @@ cluster.&lt;/p&gt;</description></item><item><title>Deploying a Helm Chart (with
 
 
 &lt;a href="https://ocm.software/dev/docs/getting-started/ocm-controllers/deploying-a-helm-chart/"&gt;previous guide&lt;/a&gt; showed a basic example of how to deploy a Helm chart from an OCM component.
-By defining a &lt;code&gt;ResourceGraphDefinition&lt;/code&gt; that contains the all the required resources to deploy the Helm chart into a
+By defining a &lt;code&gt;ResourceGraphDefinition&lt;/code&gt; that contains all the required resources to deploy the Helm chart into a
 Kubernetes cluster.&lt;/p&gt;</description></item><item><title>Configuring credentials</title><link>https://ocm.software/dev/docs/getting-started/ocm-controllers/configuring-credentials/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/dev/docs/getting-started/ocm-controllers/configuring-credentials/</guid><description>&lt;p&gt;OCM Controller resources need access to OCM components and their resources. If these OCM components are stored in a
 private OCM repository, we need to configure credentials to allow OCM Controller resources to access these
 repositories.&lt;/p&gt;</description></item></channel></rss>
