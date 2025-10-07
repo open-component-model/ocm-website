@@ -7,7 +7,7 @@ toc: true
 ---
 
 The [concept]({{< relref "introduction.md#concept" >}}) and the [previous guide]({{< relref "deploy-helm-chart.md" >}}) showed a basic example of how to deploy a Helm chart from an OCM component.
-By defining a `ResourceGraphDefinition` that contains the all the required resources to deploy the Helm chart into a
+By defining a `ResourceGraphDefinition` that contains all the required resources to deploy the Helm chart into a
 Kubernetes cluster.
 
 However, there are scenarios, where the developer already knows how the deployment instructions for the Helm chart
