@@ -23,7 +23,7 @@ In this example, we will use the the `ocm` CLI tool to create a very basic compo
 
 OCM components can contain any kind of resource, including Helm charts, Docker images, any content from local file systems, and more. Take a look at the tutorial about [Input and Access Types]({{< relref "input-and-access-types.md" >}}) to see how to define and use different resource types.
 
-Start by creating a test folder where we execute all required steps for this example and navigating into it:
+Start by creating a test folder where we will execute all required steps for this example, and then navigate into it:
 
 ```shell
 mkdir /tmp/helloworld
