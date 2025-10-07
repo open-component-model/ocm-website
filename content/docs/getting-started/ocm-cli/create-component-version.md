@@ -95,7 +95,7 @@ ocm add cv
 
 This is the most basic form of the command. When executed, the OCM CLI defaults the constructor file name to `component-constructor.yaml` and the CTF archive name to `transport-archive`. If the CTF archive doesn’t exist yet, it will be created automatically.
 
-If you want to specify a different constructor file name or CTF archive name, you can use the `--repository` and `-c` flags.
+If you want to specify a different constructor file name or CTF archive name, you can use the `--constructor` and `--repository` flags.
 
 ```shell
 ocm add cv --repository /path/to/my-own-ctf -c /path/to/my-component-constructor.yaml
