@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       TAG: ${{ github.event.inputs.tag || github.event.client_payload.tag }}
-      REF: ${{ github.event.event_type == 'ocm-cli-release' && 'website/current' || github.ref }}
+      REF: ${{ github.event_name == 'repository_dispatch' && github.event.action == 'ocm-cli-release' && 'website/current' || github.ref }}
     permissions:
       contents: 'write'
       id-token: 'write'
@@ -61,6 +61,7 @@ jobs:
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v7
         with:
+          base: website/current
           token: ${{ steps.generate_token.outputs.token }}
           title: "Update CLI docs"
           commit-message: "[github-actions] automated change"

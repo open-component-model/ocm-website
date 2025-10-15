@@ -432,4 +432,6 @@ zshrc
 bashrc
 argocd
 relref
-
+sig
+sig's
+sigs
