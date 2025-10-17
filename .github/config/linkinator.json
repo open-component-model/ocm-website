@@ -2,7 +2,7 @@
   "concurrency": 100,
   "recurse": true,
   "verbosity": "warning",
-  "timeout": 20000,
+  "timeout": 50000,
   "retry": true,
   "retryErrors": true,
   "retryErrorsCount": 3,
