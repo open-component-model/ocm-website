@@ -183,6 +183,7 @@ io
 ioutils
 iterable
 jfrog
+jq
 js
 json
 jsonschema

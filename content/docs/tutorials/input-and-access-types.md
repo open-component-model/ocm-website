@@ -28,6 +28,8 @@ toc: true
 
 The Open Component Model spec supports multiple methods how to add resources to a component version. There are two different ways to add content: Input Type and Access Type.
 
+For the real comprehensive official documentation, please have a look on [GitHub](https://github.com/open-component-model/ocm/tree/main/cmds/ocm) (or `ocm`-cli help).
+
 An **Input type** adds content *by value*, along with the component descriptor and stores it in the same target repository where the component is stored. After pushing the content to the target registry this always resolves to the attribute
 
 ```yaml

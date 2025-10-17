@@ -9,9 +9,9 @@ toc: true
 
 ## Creating and Storing Component Versions
 
-Component Versions are created using a `component-constructor.yaml` file, which is a description file that contains one or multiple components. The file describes the components and their artifacts - resources and sources, metadata in form of labels and references to other components.
+Component versions are created using a `component-constructor.yaml` file, which is a description file that contains one or multiple components. The file describes the components and their artifacts - resources and sources, metadata in form of labels and references to other components.
 
-Component Versions are locally stored in archives using the [Common Transfer Format (CTF)](https://github.com/open-component-model/ocm-spec/blob/main/doc/04-extensions/03-storage-backends/ctf.md). A CTF archive may contain any number of component versions and is used to transfer components to and between component repositories.
+Component versions are locally stored in archives using the [Common Transfer Format (CTF)](https://github.com/open-component-model/ocm-spec/blob/main/doc/04-extensions/03-storage-backends/ctf.md). A CTF archive may contain any number of component versions and is used to transfer components to and between component repositories.
 
 Note that a CTF archive itself is also an OCM repository, so it can be used as source or target for component transfer operations using the OCM CLI.
 
@@ -19,11 +19,11 @@ The command [`ocm add component-version`]({{< relref "ocm_add_component-version.
 
 ### Create a Component Version
 
-In this example we will use the the `ocm` CLI tool to create a very basic component version that contains a local resource and a resource that is accessed from a remote location. The local resource is an arbitrary file that we will create from scratch the remote resource is a Docker image stored in an OCI registry.
+In this example, we will use the the `ocm` CLI tool to create a very basic component version that contains a local resource and a resource that is accessed from a remote location. The local resource is an arbitrary file that we will create from scratch the remote resource is a Docker image stored in an OCI registry.
 
 OCM components can contain any kind of resource, including Helm charts, Docker images, any content from local file systems, and more. Take a look at the tutorial about [Input and Access Types]({{< relref "input-and-access-types.md" >}}) to see how to define and use different resource types.
 
-Start by creating a test folder where we execute all required steps for this example and navigating into it:
+Start by creating a test folder where we will execute all required steps for this example, and then navigate into it:
 
 ```shell
 mkdir /tmp/helloworld
@@ -36,11 +36,9 @@ Quickly create a simple test file with some content in:
 echo "My first local Resource for an OCM component" > my-local-resource.txt
 ```
 
-Now create a file `component-constructor.yaml`, which describes all elements of the component. You can use our public configuration schema to validate the configuration. The schema is available at `https://ocm.software/schemas/configuration-schema.yaml` and can be used in your editor to validate the configuration (e.g., in Visual Studio Code).
+Now, create a file named `component-constructor.yaml`. This file will define all elements of your component. In our example, the component contains a local file and a remote Docker image as resources.
 
-Component versions need to have at least a `name`, `version` and `provider` attribute. All other attributes are optional. Check out an [example component descriptor]({{< relref "component-descriptor-example.md" >}}) or the [OCM Specification](https://github.com/open-component-model/ocm-spec/blob/main/README.md) to see all available attributes.
-
-As mentioned before our example component will just contain a local file and a remote Docker image as resources:
+To create the example component, save the following YAML configuration to `component-constructor.yaml`:
 
 ```yaml
 # specify a schema to validate the configuration and get auto-completion in your editor
@@ -67,6 +65,10 @@ components:
         imageReference: ghcr.io/stefanprodan/podinfo:6.9.1
 ```
 
+You can use our public configuration schema to validate the configuration. The schema is available at `https://ocm.software/schemas/configuration-schema.yaml` and can be used in your editor to validate the configuration (e.g., in Visual Studio Code).
+
+Component versions need to have at least a `name`, `version` and `provider` attribute. All other attributes are optional. Check out an [example component descriptor]({{< relref "component-descriptor-example.md" >}}) or the [OCM Specification](https://github.com/open-component-model/ocm-spec/blob/main/README.md) to see all available attributes. 
+
 A resource is described either by its access information to a remote repository or by locally provided resources.
 
 For remote access, the field `access` is used to describe the
@@ -79,19 +81,21 @@ Available access and input types are described in the tutorial about [Input and 
 
 ### Add Component Version to CTF archive
 
-To store our component version locally and to make it transportable, now add it to a CTF archive using the following command.
+To store our component version locally and to make it transportable, add it to a CTF archive using the following command:
 
 ```shell
 ocm add component-version
 ```
 
-or the short form (which we will use from now on)
+or the short form (which we will use from now on):
 
 ```shell
 ocm add cv
 ```
 
-This is the most basic command form, where we use the `cv` alias and the OCM CLI defaults both the constructor file name and the CTF archive name. If you want to specify different names, you can use the `--repository` and `-c` flags.
+This is the most basic form of the command. When executed, the OCM CLI defaults the constructor file name to `component-constructor.yaml` and the CTF archive name to `transport-archive`. If the CTF archive doesn’t exist yet, it will be created automatically.
+
+If you want to specify a different constructor file name or CTF archive name, you can use the `--constructor` and `--repository` flags.
 
 ```shell
 ocm add cv --repository /path/to/my-own-ctf -c /path/to/my-component-constructor.yaml
