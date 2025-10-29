@@ -2,7 +2,7 @@
 title: "Structuring Software Products with OCM"
 description: "Learn how to structure complex software products using OCM."
 icon: "🗂️"
-weight: 41
+weight: 51
 toc: true
 ---
 
