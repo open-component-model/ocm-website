@@ -2,7 +2,7 @@
 title: "Architecture"
 description: "OCM Kubernetes Controllers Architecture"
 icon: "📐"
-weight: 42
+weight: 51
 toc: true
 ---
 

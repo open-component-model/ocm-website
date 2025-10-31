@@ -2,7 +2,7 @@
 title: OCM Controller
 description: "OCM Controller"
 icon: "🎮"
-weight: 11
+weight: 50
 toc: true
 sidebar:
   collapsed: true

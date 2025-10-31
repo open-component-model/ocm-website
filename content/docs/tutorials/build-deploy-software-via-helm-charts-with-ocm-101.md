@@ -2,7 +2,7 @@
 title: "Build & Deploy Applications with Helm and OCM"
 description: "Learn how to build and deploy applications using Helm and OCM."
 icon: "🏗️"
-weight: 64
+weight: 42
 toc: true
 ---
 
