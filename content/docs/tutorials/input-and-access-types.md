@@ -23,6 +23,7 @@ toc: true
     - [npm](#npm)
     - [ociArtifact](#ociartifact)
     - [s3](#s3)
+    - [wget](#wget)
 
 ## Overview
 
@@ -313,7 +314,7 @@ Refers to an image in an (external) OCI registry.
 ```yaml
   resources:
   - name: echo-image
-    version: "1.10"
+    version: ${VERSION}
     type: ociImage
     access:
       type: ociArtifact
@@ -333,4 +334,18 @@ Refers to an object in an AWS S3 store.
       type: s3
       bucket: gardenlinux
       key: meta/singles/gcp-cloud-gardener-_prod-890.0-53b732
+```
+
+#### wget
+
+Refers to resources stored on an http server.
+
+```yaml
+    resources:
+    - name: busybox-binary
+    type: blob
+    version: ${VERSION}
+    access:
+        type: wget
+        url: https://busybox.net/downloads/binaries/1.21.1/busybox-x86_64
 ```
