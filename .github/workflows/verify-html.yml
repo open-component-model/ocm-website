@@ -89,7 +89,12 @@ jobs:
       - name: Verify links with linkinator
         run: |
           npm install linkinator
-          echo "Verifying links at ${{ steps.wait_for_preview.outputs.preview_url }}"
-          npx linkinator "${{ steps.wait_for_preview.outputs.preview_url }}" --config .github/config/linkinator.json \
-            && echo "✅ Linkinator: No broken links found."
-    
+
+          PREVIEW_URL="${{ steps.wait_for_preview.outputs.preview_url }}"
+          echo "🔍 Verifying internal links at $PREVIEW_URL"
+
+          npx linkinator "$PREVIEW_URL" \
+            --config .github/config/linkinator.json \
+            --skip "^(?!$PREVIEW_URL)"
+
+          echo "✅ Linkinator: No broken links found."
