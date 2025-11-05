@@ -14,7 +14,8 @@
     "^https://github\\.com/.*",
     "^https://kubernetes\\.slack\\.com/.*",
     "^https://join\\.slack\\.com/.*",
-    "^https://www\\.linuxfoundation\\.org/.*"
+    "^https://www\\.linuxfoundation\\.org/.*",
+    "^https?://[^/]+/\\.netlify/.*"
   ],
 
   "statusCodes": {
