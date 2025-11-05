@@ -54,6 +54,7 @@ jobs:
 
       - name: Copy Schema
         run: |
+          mkdir -p public/docs/overview/specification
           cp schema-v2.html schema_doc.css schema_doc.min.js public/docs/overview/specification
           
       - name: Publish as GitHub Pages
