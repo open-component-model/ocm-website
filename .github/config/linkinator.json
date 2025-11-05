@@ -1,15 +1,25 @@
 {
-  "concurrency": 100,
+  "concurrency": 50,
   "recurse": true,
   "verbosity": "warning",
-  "timeout": 50000,
+  "timeout": 15000,
   "retry": true,
   "retryErrors": true,
-  "retryErrorsCount": 3,
-  "retryErrorsJitter": 5,
+  "retryErrorsCount": 2,
+  "retryErrorsJitter": 500,
+
   "skip": [
     "^https?://(www\\.)?gitea\\.ocm\\.dev(/|$)",
     "^https://.*\\.ocm\\.dev(/|$)",
-    "^https://github\\.com/.*"
-  ]
+    "^https://github\\.com/.*",
+    "^https://kubernetes\\.slack\\.com/.*",
+    "^https://join\\.slack\\.com/.*",
+    "^https://www\\.linuxfoundation\\.org/.*"
+  ],
+
+  "statusCodes": {
+    "403": "warn",
+    "429": "warn",
+    "5xx": "warn"
+  }
 }
