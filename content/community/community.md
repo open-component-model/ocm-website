@@ -3,7 +3,6 @@ title: "The OCM Community"
 description: "The OCM Community"
 url: "/community/engagement"
 toc: true
-layout: community
 ---
 
 ## How to engage with us
