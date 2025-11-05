@@ -3,7 +3,7 @@ title: "Credentials in .ocmconfig File"
 description: "How to configure credentials in the OCM CLI configuration file"
 url: "/docs/tutorials/creds-in-ocmconfig"
 icon: "🔑"
-weight: 72
+weight: 45
 toc: true
 ---
 
