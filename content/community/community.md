@@ -28,13 +28,9 @@ We're excited to announce our regular community calls:
 #### Schedule
 
 - **Frequency**: Every first Wednesday of the months
-- **Time**: 15:00-16:00 UTC (17:00-18:00 CEST, 11:00-12:00 EDT, 08:00-09:00 PDT)
+- **Time**: 16:00-17:00 UTC (17:00-18:00 CET, 11:00-12:00 EST, 08:00-09:00 PST)
 - **Duration**: 1 hour
 - **Location**: Use this [Zoom Link](https://zoom-lfx.platform.linuxfoundation.org/meeting/97987153840?password=fe2c3bf0-6a99-4e75-b62d-f1918154254e) to join the call.
-
-#### iCal (Apple/Outlook)
-
-Download the [.ics file](/ocm-community.ics) to add the community call meeting series to your calendar.
 
 #### Call History
 
