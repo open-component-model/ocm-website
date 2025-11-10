@@ -46,14 +46,6 @@ path = "ocm.software/open-component-model/cli"
     source = "docs/reference"
     target = "content/docs/reference/ocm-cli"
 
-### not available yet, but planned
-#[[imports]]
-#path = "ocm.software/open-component-model/kubernetes/controller"
-#  [[imports.mounts]]
-#    source = "docs/reference"
-#    target = "content/docs/reference/ocm-controller"
-```
-
 This configuration mounts the `docs/reference` directory from the OCM CLI repository into the `content/docs/reference/ocm-cli` directory of the website. You can add multiple modules as needed.
 
 To define the version of the module and persist it in the `go.mod` file, you need to fetch the correct version of the referenced module first. You MUST know what module version matches the version of the website you are creating a version branch for.
