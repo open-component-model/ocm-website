@@ -35,9 +35,9 @@ A section page is a special type of content page that serves as a landing page f
 
 ### 🔗 Import Content from other locations
 
-*Adding new references to other repositories is a very rare action. Most-likely we will only have two referenced modules, one for the CLI and one for the controllers.*
+*Adding new references to other repositories is a very rare action. Most likely we will only reference the module for the OCM CLI.*
 
-A new module MUST only be created in combination a new website version. To include a new references you can use Hugo modules. The configuration is done in `config/_default/module.toml`. You can define the modules to be used and where they should be mounted in the website. Here's an example for the OCM CLI reference documentation:
+A new module MUST only be created in combination a new website version. To include a new reference you can use Hugo modules. The configuration is done in `config/_default/module.toml`. You can define the modules to be used and where they should be mounted in the website. Here's an example for the OCM CLI reference documentation:
 
 ```toml
 [[imports]]
