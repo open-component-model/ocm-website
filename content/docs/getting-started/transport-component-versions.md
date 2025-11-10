@@ -128,39 +128,3 @@ Transfer the OCM artifacts from your portable storage device to the air-gapped O
 ```shell
 ocm transfer ctf ./media/.../ctf-copy-resources $AIR_GAPPED_OCI_REGISTRY/... 
 ```
-
-### Application Deployment
-
-With all components now available in your air-gapped registry, you can proceed with deploying your [applications via GitOps](/docs/tutorials/ocm-and-gitops/deploying-applications-with-ocm-gitops/). The self-contained nature of the OCM package ensures reliable deployment without external dependencies.
-
-```shell
-              🎉 SUCCESSFUL DEPLOYMENT IN AIR-GAPPED K8S CLUSTER 🎉
-
-                    ╔══════════════════════════════════════╗
-                    ║        AIR-GAPPED ENVIRONMENT        ║
-                    ║              🔒 SECURE �             ║
-                    ╚══════════════════════════════════════╝
-                                      │
-                    ┌─────────────────────────────────────┐
-                    │         KUBERNETES CLUSTER          │
-                    │                                     │
-                    │  ┌─────┐  ┌─────┐  ┌─────┐          │
-                    │  │ POD │  │ POD │  │ POD │          │
-                    │  │ ⚙️  │  │ ⚙️  │  │ ⚙️  │          │
-                    │  └─────┘  └─────┘  └─────┘          │
-                    │     │        │        │             │
-                    │  ┌──┴────────┴────────┴──┐          │
-                    │  │      LEADER NODE      │          │
-                    │  │         🎛️            │          │
-                    │  └───────────────────────┘          │
-                    │                                     │
-                    │  ┌─────┐  ┌─────┐  ┌─────┐          │
-                    │  │NODE1│  │NODE2│  │NODE3│          │
-                    │  │ 🖥️  │  │ 🖥️  │  │ 🖥️  │          │
-                    │  └─────┘  └─────┘  └─────┘          │
-                    └─────────────────────────────────────┘
-
-                        \o/  "DEPLOYMENT SUCCESSFUL!"
-                         |   "All pods are running!"
-                        / \  "Zero downtime achieved!"
-```
