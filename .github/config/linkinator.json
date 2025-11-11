@@ -1,8 +1,8 @@
 {
   "concurrency": 10,
   "recurse": true,
-  "verbosity": "error",
-  "timeout": 15000,
+  "verbosity": "warning",
+  "timeout": 60000,
   "retry": true,
   "retryErrors": true,
   "retryErrorsCount": 5,
