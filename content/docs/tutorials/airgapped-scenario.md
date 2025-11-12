@@ -1,8 +1,8 @@
 ---
-title: "Transport OCM Component Versions to an Air-Gapped Environment"
-description: "Learn how to transport OCM component versions to air-gapped registries."
+title: "Transport to Air-Gapped Environments"
+description: "Learn how to transfer OCM components to air-gapped registries."
 icon: "🚚"
-weight: 26
+weight: 48
 toc: true
 ---
 

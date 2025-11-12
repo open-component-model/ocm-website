@@ -1,8 +1,8 @@
 ---
 title: Deploying a Helm Chart
-description: "Deploy a Helm Chart from an OCM component version using OCM Controllers"
+description: "Deploy a Helm Chart from an OCM component version using ocm-controller.md"
 icon: "🚀"
-weight: 27
+weight: 28
 toc: true
 ---
 
@@ -15,7 +15,7 @@ resource location will be passed to FluxCD, which will then configure the Helm c
 cluster.
 
 {{<callout context="caution">}}
-Before starting, make sure you have set up your environment as described in the [setup guide]({{< relref "setup.md" >}}).
+Before starting, make sure you have set up your environment as described in the [setup guide]({{< relref "setup-controller.md" >}}).
 {{</callout>}}
 
 ## Create the OCM component version
@@ -192,13 +192,13 @@ spec:
 {{<callout context="note">}}
 If you pushed the OCM component version to a private registry, you need to set up the credentials for the OCM Controller resources. You can do this by uncommenting the `ocmConfig` fields in the `Repository`, `Component`, and
 `Resource` resources and providing the necessary credentials. For more information on how to set up and pass the
-credentials, please check out the guide [configure credentials for OCM Controller resources]({{< relref "credentials.md" >}}).
+credentials, please check out the guide [configure credentials for OCM Controller resources]({{< relref "controller-credentials.md" >}}).
 
 Be aware that FluxCD's `OCIRepository` also needs access to the OCI registry that contains the Helm chart. However,
 `OCIRepository` only accepts
 [`imagePullSecrets`](https://fluxcd.io/flux/components/source/ocirepositories/#secret-reference) in the same namespace.
 If you want to use the same credentials for FluxCD and for the OCM Controller resources, create a
-[Kubernetes secret of type `dockerconfigjson`]({{< relref "credentials.md/#create-a-kubernetes-secret-of-type-dockerconfigjson-to-access-private-ocm-repositories" >}})
+[Kubernetes secret of type `dockerconfigjson`]({{< relref "controller-credentials.md/#create-a-kubernetes-secret-of-type-dockerconfigjson-to-access-private-ocm-repositories" >}})
 and keep all the resources in the same namespace.
 {{</callout>}}
 

@@ -6,7 +6,7 @@ weight: 47
 toc: true
 ---
 
-The [concept]({{< relref "introduction.md#concept" >}}) and the [previous guide]({{< relref "deploy-helm-chart.md" >}}) showed a basic example of how to deploy a Helm chart from an OCM component.
+The [concept]({{< relref "ocm-controller.md#concept" >}}) and the [Deploy Helm Chart]({{< relref "deploy-helm-chart.md" >}}) guide showed a basic example of how to deploy a Helm chart from an OCM component.
 By defining a `ResourceGraphDefinition` that contains all the required resources to deploy the Helm chart into a
 Kubernetes cluster.
 
@@ -155,7 +155,7 @@ After applying the `ResourceGraphDefinition`, kro will reconcile it and create a
 Finally, we will check if the deployment was successful and if the localization was applied correctly.
 
 {{<callout context="note">}}
-Before starting, make sure you have set up your environment as described in the [setup guide]({{< relref "setup.md" >}}).
+Before starting, make sure you have set up your environment as described in the [setup guide]({{< relref "setup-controller.md" >}}).
 {{</callout>}}
 
 ## Create the OCM component version

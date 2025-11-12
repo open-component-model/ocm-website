@@ -1,5 +1,5 @@
 ---
-title: Configuring credentials for OCM Controllers
+title: Configuring credentials for OCM controller
 description: "Learn how to configure credentials for accessing private OCM repositories"
 icon: "🔑"
 weight: 46
