@@ -19,6 +19,9 @@ jobs:
         with:
           fetch-depth: 0 # fetch all history for the PR
 
+      - name: Stabilize Node networking on CI
+        run: echo "NODE_OPTIONS=--dns-result-order=ipv4first" >> $GITHUB_ENV
+
       - name: Wait for Netlify Deploy Preview
         id: wait_for_preview
         env:
