@@ -1,12 +1,12 @@
 ---
-title: Deploying a Helm Chart
+title: Deploy a Helm Chart
 description: "Deploy a Helm Chart from an OCM component version using ocm-controller.md"
 icon: "🚀"
 weight: 28
 toc: true
 ---
 
-This guide demonstrates how to deploy a Helm Chart from an OCM component version using OCM Controllers, kro, and FluxCD.
+This guide demonstrates how to deploy a Helm Chart from an OCM component version using OCM controllers, kro, and FluxCD.
 It is a rather basic example, in which it is assumed that a developer created an application, packaged it as a Helm
 chart, and publishes it as OCM component version in an OCI registry. Then, an operator who wants to deploy the
 application via Helm chart in a Kubernetes cluster, creates a `ResourceGraphDefinition` with resources that point to
@@ -18,7 +18,7 @@ cluster.
 Before starting, make sure you have set up your environment as described in the [setup guide]({{< relref "setup-controller.md" >}}).
 {{</callout>}}
 
-## Create the OCM component version
+## Create the OCM Component Version
 
 First, we will create an OCM component version containing a Helm chart. For this example, we will use the `podinfo`
 Helm chart, which is a simple web application that serves a pod information page. For more details on how to create an
@@ -48,7 +48,7 @@ ocm add componentversion --create --file ./ctf component-constructor.yaml
 ```
 
 This will create a local CTF (Component Transfer Format) directory `./ctf` containing the OCM component version. Since
-the OCM component version must be accessible for the OCM Controllers, we will transfer the CTF to a
+the OCM component version must be accessible to the OCM controllers, we will transfer the CTF to a
 registry. For this example, we will use GitHub's container registry, but you can use any OCI registry:
 
 ```bash
@@ -78,7 +78,7 @@ all required resources. Additionally, we will add a configuration to the `HelmRe
 through the instance of that `ResourceGraphDefinition`. After the `ResourceGraphDefinition` is created and applied, we
 create the instance of the `ResourceGraphDefinition` that will deploy the Helm chart.
 
-### Create and apply the `ResourceGraphDefinition`
+### Create and Apply the `ResourceGraphDefinition`
 
 The `ResourceGraphDefinition` is a custom resource that defines all the resources that should be applied. To proceed
 with the example, create a file named `rgd.yaml` and add the following content:
@@ -190,14 +190,14 @@ spec:
 ```
 
 {{<callout context="note">}}
-If you pushed the OCM component version to a private registry, you need to set up the credentials for the OCM Controller resources. You can do this by uncommenting the `ocmConfig` fields in the `Repository`, `Component`, and
+If you pushed the OCM component version to a private registry, you need to set up the credentials for the OCM controller resources. You can do this by uncommenting the `ocmConfig` fields in the `Repository`, `Component`, and
 `Resource` resources and providing the necessary credentials. For more information on how to set up and pass the
-credentials, please check out the guide [configure credentials for OCM Controller resources]({{< relref "controller-credentials.md" >}}).
+credentials, please check out the guide [configure credentials for OCM controller resources]({{< relref "controller-credentials.md" >}}).
 
 Be aware that FluxCD's `OCIRepository` also needs access to the OCI registry that contains the Helm chart. However,
 `OCIRepository` only accepts
 [`imagePullSecrets`](https://fluxcd.io/flux/components/source/ocirepositories/#secret-reference) in the same namespace.
-If you want to use the same credentials for FluxCD and for the OCM Controller resources, create a
+If you want to use the same credentials for FluxCD and for the OCM controller resources, create a
 [Kubernetes secret of type `dockerconfigjson`]({{< relref "controller-credentials.md/#create-a-kubernetes-secret-of-type-dockerconfigjson-to-access-private-ocm-repositories" >}})
 and keep all the resources in the same namespace.
 {{</callout>}}
@@ -280,7 +280,7 @@ bar
 ```
 
 You now have successfully created an OCM component version containing a Helm chart and deployed as well as configured it
-using the OCM Controllers, kro, and FluxCD.
+using the OCM controllers, kro, and FluxCD.
 
 #### Troubleshooting
 
