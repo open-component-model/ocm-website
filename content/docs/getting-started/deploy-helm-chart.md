@@ -78,7 +78,7 @@ all required resources. Additionally, we will add a configuration to the `HelmRe
 through the instance of that `ResourceGraphDefinition`. After the `ResourceGraphDefinition` is created and applied, we
 create the instance of the `ResourceGraphDefinition` that will deploy the Helm chart.
 
-### Create and Apply the `ResourceGraphDefinition`
+### Create and Apply the ResourceGraphDefinition
 
 The `ResourceGraphDefinition` is a custom resource that defines all the resources that should be applied. To proceed
 with the example, create a file named `rgd.yaml` and add the following content:
