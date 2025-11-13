@@ -50,7 +50,8 @@
           <h2 class="h2 font-italic mb-5 mt-0 text-muted">{{ .Params.subheadline }}</h2>
           <p class="lead mb-2 text-default">{{ .Params.intro1 }}</p>
           <p class="lead mb-2 text-default"><strong>{{ .Params.intro2 }}</strong></p>
-          <p class="lead mb-2 text-default">{{ .Params.intro3 }}</p>
+          <p class="lead mb-5 text-default">{{ .Params.intro3 }}</p>
+          <a class="btn btn-primary btn-lg rounded-pill px-5 mb-6" href="/docs/getting-started/" role="button">{{ .Params.cta_text }}</a>
         </section>
       </div>
     </div>
@@ -71,7 +72,9 @@
       {{ end }}
     </div>
     <div class="text-center mt-4">
-      <a class="btn btn-primary btn-lg rounded-pill px-5 mb-6" href="/docs/getting-started/" role="button">{{ .Params.cta_text }}</a>
+      <a class="btn btn-primary btn-lg rounded-pill px-5" href="/docs/tutorials/ocm-and-gitops/" role="button">
+        {{ .Params.how_ocm_cta }}
+      </a>
     </div>
   </div>
 </section>
