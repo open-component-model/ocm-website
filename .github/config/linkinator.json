@@ -5,7 +5,7 @@
   "timeout": 180000,
   "retry": true,
   "retryErrors": true,
-  "retryErrorsCount": 5,
+  "retryErrorsCount": 3,
   "retryErrorsJitter": 1000,
 
   "skip": [
