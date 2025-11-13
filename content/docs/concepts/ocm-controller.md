@@ -6,8 +6,9 @@ weight: 33
 toc: true
 ---
 
-> [!CAUTION]
-> This project is in early development and not yet ready for production use.
+{{<callout context="caution">}}
+This project is in early development and not yet ready for production use.
+{{</callout>}}
 
 The OCM controllers
 
@@ -26,9 +27,10 @@ You should be familiar with the following concepts:
 
 ## Concept
 
-> [!NOTE]
-> The following section provides a high-level overview of the OCM controllers and their components regarding the
-> deployment of an OCM resource in a very basic scenario.
+{{<callout context="note">}}
+The following section provides a high-level overview of the OCM controllers and their components regarding the
+deployment of an OCM resource in a very basic scenario.
+{{</callout>}}
 
 The primary purpose of the OCM controllers is simple: Deploy an OCM resource from an OCM component version into a Kubernetes
 cluster.
@@ -132,9 +134,10 @@ of this CRD (`Instance: Simple`), the resources are created and reconciled by th
 of the OCM resource. It then downloads the resource to verify its signature (optional) and publishes the location of the
 resource in its status.
 
-> [!IMPORTANT]
-> With FluxCD, this only works if the OCM resource has an access for which FluxCD has a corresponding Source type (e.g.
-> an OCI or a GitHub repository)
+{{<callout context="note">}}
+With FluxCD, this only works if the OCM resource has an access for which FluxCD has a corresponding Source type (e.g.
+an OCI or a GitHub repository)
+{{</callout>}}
 
 As a result, FluxCD can now consume the information of the `Resource` and deploy the Helm chart:
 
@@ -142,13 +145,14 @@ As a result, FluxCD can now consume the information of the `Resource` and deploy
 - `HelmRelease`: Refers to the `OCIRepository`, lets you configure the Helm chart, and creates the deployment into the
 Kubernetes cluster.
 
-> [!IMPORTANT]
-> While the OCM controllers technically can be used standalone, they require kro and a deployer, e.g. FluxCD, to deploy
-> an OCM resource into a Kubernetes cluster. The OCM controller deployment, however, does not contain kro or any
-> deployer. Please refer to the respective installation guides for these tools:
->
-> - [kro](https://kro.run/docs/getting-started/Installation/)
-> - [FluxCD](https://fluxcd.io/docs/installation/)
+{{<callout context="note">}}
+While the OCM controllers technically can be used standalone, they require kro and a deployer, e.g. FluxCD, to deploy
+an OCM resource into a Kubernetes cluster. The OCM controller deployment, however, does not contain kro or any
+deployer. Please refer to the respective installation guides for these tools:
+
+- [kro](https://kro.run/docs/getting-started/Installation/)
+- [FluxCD](https://fluxcd.io/docs/installation/)
+{{</callout>}}
 
 ## Getting Started
 

@@ -1,5 +1,5 @@
 ---
-title: "Transport OCM Component Versions"
+title: "Transport Component Versions"
 description: "Learn how to transport OCM component versions between different registries."
 icon: "🚚"
 weight: 26
