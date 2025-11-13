@@ -1,12 +1,12 @@
 {
-  "concurrency": 10,
+  "concurrency": 1,
   "recurse": true,
   "verbosity": "warning",
   "timeout": 60000,
   "retry": true,
   "retryErrors": true,
-  "retryErrorsCount": 5,
-  "retryErrorsJitter": 2000,
+  "retryErrorsCount": 3,
+  "retryErrorsJitter": 1000,
 
   "skip": [
     "^https?://(www\\.)?gitea\\.ocm\\.dev(/|$)",
