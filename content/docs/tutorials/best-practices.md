@@ -334,8 +334,7 @@ example can be found in the sample Github repository.
 
 ## Static and Dynamic Variable Substitution
 
-Looking at the [settings file](/docs/tutorials/build-deploy-applications-with-helm-and-ocm/#building-the-common-transport-archive-ctf) shows that
-some variables like the `version` or the `commit` change with every build
+Some variables like the `version` or the `commit` change with every build
 or release. In many cases, these variables will be auto-generated during the build.
 
 Other variables like the version of 3rd-party components will just change from time to

@@ -23,7 +23,6 @@ jobs:
           globs: |
             **/*.md
             !content/docs/reference/ocm-cli
-            !content/docs/reference/ocm-controller
           config: .github/config/.markdownlint-cli2.yaml
 
   spellcheck:

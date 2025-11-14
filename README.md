@@ -22,7 +22,6 @@ Content lives under the `content/en` directory.
 - `./content/en/docs/guides` contains articles describing OCM use-cases
 - `./content/en/docs/component-descriptors` contains links to OCM JSON schemas in the `ocm` github repository
 - `./content/en/project` contains information about the OCM project & the parties responsible
-- `./content/en/controller-reference` contains information about all OCM K8s controllers
 
 New pages can be created using the following command:
 
