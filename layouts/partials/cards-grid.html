@@ -1,0 +1,11 @@
+<div class="ocm-cards-grid">
+  {{- range .items }}
+    {{- $href := "#" -}}
+    {{- with .link }}{{ $href = (. | relURL) }}{{ end -}}
+    <a class="ocm-section-card" href="{{ $href }}">
+      <span class="ocm-card-icon" aria-hidden="true">{{ .emoji }}</span>
+      <div class="ocm-card-title">{{ .title }}</div>
+      {{- with .description }}<div class="ocm-card-desc">{{ . }}</div>{{ end -}}
+    </a>
+  {{- end -}}
+</div>

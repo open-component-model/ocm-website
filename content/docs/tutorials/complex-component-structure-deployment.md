@@ -3,6 +3,7 @@ title: "Structuring Software Products with OCM"
 description: "Learn how to structure complex software products using OCM."
 icon: "🗂️"
 weight: 51
+url: "/docs/tutorials/complex-component-structure-deployment/"
 toc: true
 ---
 
