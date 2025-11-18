@@ -414,6 +414,15 @@ yy
 yyyy
 resourcegraphdefinition
 deployer
+cet
+kro
+deployer
+deployers
+deployable
+kubelet
+cel
+fluxcd's
+resourcegraphdefinition
 argocds
 fluxcds
 helmrelease
@@ -436,3 +445,6 @@ sig
 sig's
 sigs
 cet
+monorepo
+uncommenting
+argocd
