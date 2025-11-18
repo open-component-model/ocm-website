@@ -53,5 +53,5 @@ benefits:
   - emoji: "⚙️"
     title: "GitOps-Ready Automation"
     description: "Integrate your pipelines through OCM tooling. Zero custom code needed — just plug and play"
-    link: "/docs/getting-started/ocm-controllers"
+    link: "/docs/getting-started/ocm-controllers/"
 ---
