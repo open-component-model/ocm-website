@@ -77,15 +77,16 @@ body.list.section.docs .ocm-cards-grid {
 }
 .ocm-card-title {
   font-weight: 700;
-  font-size: 1.14rem;
+  font-size: clamp(1.3rem, calc(1.12rem + 0.6vw), 1.7rem);
+  line-height: 1.25;
   color: #233284;
-  margin: 0.4rem 0 0.2rem 0;
+  margin: 0.4rem 0 0.8rem 0;
   text-align: center;
 }
 .ocm-card-desc {
   font-size: 1rem;
   color: #313244;
-  margin-top: 0.1rem;
+  margin-top: 0;
   text-align: center;
   display: -webkit-box;
   -webkit-line-clamp: 3;

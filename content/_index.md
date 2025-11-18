@@ -10,7 +10,6 @@ intro3: "for packaging, signing, transporting and deploying your artifacts – p
 cta_text: "Get Started"
 
 how_ocm_works_title: "How OCM Works"
-how_ocm_cta: "Dive Deeper"
 how_ocm_works:
   - label: "Pack"
     emoji: "📝"
