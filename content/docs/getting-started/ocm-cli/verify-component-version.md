@@ -1,7 +1,7 @@
 ---
 title: "Verify a Component Version"
 url: "/docs/getting-started/verify-component-version/"
-description: "Learn how to sign component versions using key pairs."
+description: "Learn how to verify component versions using key pairs."
 icon: "📦"
 weight: 27
 toc: true
