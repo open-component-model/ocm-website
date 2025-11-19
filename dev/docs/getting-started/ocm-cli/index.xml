@@ -31,5 +31,17 @@
  
 
 
-&lt;a href="https://ocm.software/dev/docs/getting-started/ocm-cli/display-and-examine-component-versions/#get-and-examine-component-versions"&gt;example component used in the last chapter&lt;/a&gt; and save it as a local file:&lt;/p&gt;</description></item><item><title>Example of a Component Descriptor</title><link>https://ocm.software/dev/docs/getting-started/component-descriptor-example/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/dev/docs/getting-started/component-descriptor-example/</guid><description>&lt;p&gt;The following is an example of a public-key-based signed component descriptor containing a resource, source and one component reference.&lt;/p&gt;
+&lt;a href="https://ocm.software/dev/docs/getting-started/ocm-cli/display-and-examine-component-versions/#get-and-examine-component-versions"&gt;example component used in the last chapter&lt;/a&gt; and save it as a local file:&lt;/p&gt;</description></item><item><title>Sign a Component Version</title><link>https://ocm.software/dev/docs/getting-started/sign-component-version/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/dev/docs/getting-started/sign-component-version/</guid><description>&lt;div class="callout callout-caution d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3"&gt;
+ 
+ &lt;div class="callout-content"&gt;
+ 
+ &lt;div class="callout-body"&gt;
+ &lt;p&gt;This project is in early development and not yet ready for production use.
+Certain documents are still being written and just act as anchors for upcoming content.&lt;/p&gt;</description></item><item><title>Verify a Component Version</title><link>https://ocm.software/dev/docs/getting-started/verify-component-version/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/dev/docs/getting-started/verify-component-version/</guid><description>&lt;div class="callout callout-caution d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3"&gt;
+ 
+ &lt;div class="callout-content"&gt;
+ 
+ &lt;div class="callout-body"&gt;
+ &lt;p&gt;This project is in early development and not yet ready for production use.
+Certain documents are still being written and just act as anchors for upcoming content.&lt;/p&gt;</description></item><item><title>Example of a Component Descriptor</title><link>https://ocm.software/dev/docs/getting-started/component-descriptor-example/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/dev/docs/getting-started/component-descriptor-example/</guid><description>&lt;p&gt;The following is an example of a public-key-based signed component descriptor containing a resource, source and one component reference.&lt;/p&gt;
 &lt;p&gt;The component is publicly available in the GitHub container registry and can be inspected using the following command:&lt;/p&gt;</description></item></channel></rss>

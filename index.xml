@@ -1,60 +1,9 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Open Component Model</title><link>https://ocm.software/</link><description>Recent content on Open Component Model</description><generator>Hugo</generator><language>en</language><copyright>© Copyright 2025, SAP SE and Open Component Model Contributors</copyright><atom:link href="https://ocm.software/index.xml" rel="self" type="application/rss+xml"/><item><title>About the OCM Project</title><link>https://ocm.software/docs/overview/about/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/overview/about/</guid><description>&lt;p&gt;The Open Component Model (OCM) is an open standard that enables teams to describe software artifacts and their lifecycle metadata in a consistent, technology-agnostic way. It’s built to support secure, reliable delivery and deployment of software—across cloud, on-prem, hybrid, and even air-gapped environments. By decoupling and streamlining lifecycle processes like compliance checks, security scans, and deployments, OCM helps teams collaborate more effectively and build trust into every step of the software supply chain.&lt;/p&gt;</description></item><item><title>Benefits of OCM</title><link>https://ocm.software/docs/overview/benefits-of-ocm/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/overview/benefits-of-ocm/</guid><description>&lt;p&gt;Software development is complex. Most organizations struggle with fragmented tools, complicated workflows, and the challenge of managing software across different environments - cloud, on-premises, hybrid, and even air-gapped networks.&lt;/p&gt;</description></item><item><title>Deploying Applications with OCM &amp; GitOps</title><link>https://ocm.software/docs/tutorials/ocm-and-gitops/deploying-applications-with-ocm-gitops/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/tutorials/ocm-and-gitops/deploying-applications-with-ocm-gitops/</guid><description>&lt;h2 id="introduction"&gt;Introduction&lt;/h2&gt;
-&lt;p&gt;This tutorial will demonstrate how to get started deploying applications using the Open Component Model &amp;amp; Flux.&lt;/p&gt;
-&lt;p&gt;In this guide, we will leverage Flux and the &lt;code&gt;ocm-controller&lt;/code&gt; to deploy an existing component to a Kubernetes cluster. Specifically, we will deploy the &lt;code&gt;phoban.io/podinfo&lt;/code&gt; component that contains the resources needed to launch the 
-
-
-
-
-
-
-&lt;a href="https://github.com/stefanprodan/podinfo" target="_blank" rel="noopener"&gt;podinfo&lt;/a&gt; application.&lt;/p&gt;</description></item><item><title>Air-gapped GitOps with OCM &amp; Flux</title><link>https://ocm.software/docs/tutorials/ocm-and-gitops/air-gapped-gitops-with-ocm-flux/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/tutorials/ocm-and-gitops/air-gapped-gitops-with-ocm-flux/</guid><description>&lt;h2 id="introduction"&gt;Introduction&lt;/h2&gt;
-&lt;p&gt;In this guide, we will show you how the tools provided by OCM make it possible to automate your deployments to air-gapped environments.&lt;/p&gt;</description></item><item><title>GitOps Driven Configuration of OCM Applications</title><link>https://ocm.software/docs/tutorials/ocm-and-gitops/gitops-driven-configuration-of-ocm-applications/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/tutorials/ocm-and-gitops/gitops-driven-configuration-of-ocm-applications/</guid><description>&lt;div class="callout callout-tip d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3"&gt;
- 
- &lt;div class="callout-content"&gt;
- &lt;div class="callout-title"&gt;
- &lt;p&gt;Did you know?&lt;/p&gt;
-
- &lt;/div&gt;
- &lt;div class="callout-body"&gt;
- &lt;p&gt;Get ready for the next evolution of the Open Component Model, designed to empower your cloud-native workflows. Discover a preview of the innovative &lt;code&gt;ocm-k8s-toolkit&lt;/code&gt; 
-
-
-
-
-
-
-&lt;a href="https://github.com/open-component-model/ocm-k8s-toolkit" target="_blank" rel="noopener"&gt;here&lt;/a&gt; and be part of shaping the future of component management!&lt;/p&gt;</description></item><item><title>Secure Software Delivery with Flux and OCM</title><link>https://ocm.software/docs/tutorials/ocm-and-gitops/secure-software-delivery-with-flux-and-ocm/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/tutorials/ocm-and-gitops/secure-software-delivery-with-flux-and-ocm/</guid><description>&lt;p&gt;The source code for the demo can be found at 
-
-
-
-
-
-
-&lt;a href="https://github.com/open-component-model/demo-secure-delivery" target="_blank" rel="noopener"&gt;https://github.com/open-component-model/demo-secure-delivery&lt;/a&gt;.
-A video guide can be found 
-
-
-
-
-
-
-&lt;a href="https://share.vidyard.com/watch/NjNrZF2926RUTSUvkU4MdR" target="_blank" rel="noopener"&gt;here&lt;/a&gt;.&lt;/p&gt;
-&lt;h2 id="fully-guided-walkthrough"&gt;Fully guided walkthrough&lt;/h2&gt;
-&lt;p&gt;
-
-&lt;img
- src="https://ocm.software/new_diagram_7403461049610658471_hu_2cc43917646c1293.webp"
- width="3036"
- height="1956"
- decoding="async"
- fetchpriority="auto"
- loading="lazy"
- alt="workflow"
- id="h-rh-i-0"
-&gt;&lt;/p&gt;
-&lt;p&gt;This walkthrough deploys a full end-to-end scenario demonstrating how OCM and Flux can be employed to continuously deploy applications in air-gapped environments.&lt;/p&gt;</description></item><item><title>Prerequisites</title><link>https://ocm.software/docs/getting-started/prerequisites/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/getting-started/prerequisites/</guid><description>&lt;p&gt;This and the following chapters walk you through some basic steps to get started with OCM concepts and the OCM CLI.
-You will learn how to create a component version, display and examine the component, and how to transport and sign it.&lt;/p&gt;</description></item><item><title>Installing the OCM CLI</title><link>https://ocm.software/docs/getting-started/installation/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/getting-started/installation/</guid><description>&lt;h2 id="overview"&gt;Overview&lt;/h2&gt;
-&lt;p&gt;You can install the latest release of the OCM CLI from any of the following sources (more details below):&lt;/p&gt;</description></item><item><title>Create a Component Version</title><link>https://ocm.software/docs/getting-started/create-component-version/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/getting-started/create-component-version/</guid><description>&lt;h2 id="creating-and-storing-component-versions"&gt;Creating and Storing Component Versions&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Open Component Model</title><link>https://ocm.software/</link><description>Recent content on Open Component Model</description><generator>Hugo</generator><language>en</language><copyright>© Copyright 2025, SAP SE and Open Component Model Contributors</copyright><atom:link href="https://ocm.software/index.xml" rel="self" type="application/rss+xml"/><item><title>About the OCM Project</title><link>https://ocm.software/docs/overview/about/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/overview/about/</guid><description>&lt;p&gt;The Open Component Model (OCM) is an open standard that enables teams to describe software artifacts and their lifecycle metadata in a consistent,
+technology-agnostic way. It’s built to support secure, reliable delivery and deployment of software—across cloud, on-prem, hybrid, and even air-gapped environments.
+By decoupling and streamlining lifecycle processes like compliance checks, security scans, and deployments, OCM helps teams collaborate more effectively
+and build trust into every step of the software supply chain.&lt;/p&gt;</description></item><item><title>Benefits of OCM</title><link>https://ocm.software/docs/overview/benefits-of-ocm/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/overview/benefits-of-ocm/</guid><description>&lt;p&gt;Software development is complex. Most organizations struggle with fragmented tools, complicated workflows, and the challenge of managing software across different environments - cloud, on-premises, hybrid, and even air-gapped networks.&lt;/p&gt;</description></item><item><title>Prerequisites</title><link>https://ocm.software/docs/getting-started/prerequisites/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/getting-started/prerequisites/</guid><description>&lt;p&gt;This and the following chapters walk you through some basic steps to get started with OCM concepts and the OCM CLI.
+You will learn how to create a component version, display and examine the component, and how to transport and sign it.&lt;/p&gt;</description></item><item><title>Install the OCM CLI</title><link>https://ocm.software/docs/getting-started/installation/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/getting-started/installation/</guid><description>&lt;h2 id="overview"&gt;Overview&lt;/h2&gt;
+&lt;p&gt;You can install the latest release of the OCM CLI from any of the following sources (more details below):&lt;/p&gt;</description></item><item><title>Create Component Versions</title><link>https://ocm.software/docs/getting-started/create-component-version/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/getting-started/create-component-version/</guid><description>&lt;h2 id="creating-and-storing-component-versions"&gt;Creating and Storing Component Versions&lt;/h2&gt;
 &lt;p&gt;Component Versions are created using a &lt;code&gt;component-constructor.yaml&lt;/code&gt; file, which is a description file that contains one or multiple components. The file describes the components and their artifacts - resources and sources, metadata in form of labels and references to other components.&lt;/p&gt;</description></item><item><title>Display and Examine Component Versions</title><link>https://ocm.software/docs/getting-started/display-and-examine-component-versions/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/getting-started/display-and-examine-component-versions/</guid><description>&lt;h2 id="list-component-versions"&gt;List Component Versions&lt;/h2&gt;
 &lt;p&gt;To show a component stored in an OCM repository or CTF archive (which itself is an OCM repository), the 
 
@@ -63,4 +12,51 @@ You will learn how to create a component version, display and examine the compon
 
 
 
-&lt;a href="https://github.com/open-component-model/ocm/blob/main/docs/reference/ocm_get_componentversions.md" target="_blank" rel="noopener"&gt;&lt;code&gt;ocm get componentversion&lt;/code&gt;&lt;/a&gt; command can be used:&lt;/p&gt;</description></item></channel></rss>
+&lt;a href="https://github.com/open-component-model/ocm/blob/main/docs/reference/ocm_get_componentversions.md" target="_blank" rel="noopener"&gt;&lt;code&gt;ocm get componentversion&lt;/code&gt;&lt;/a&gt; command can be used:&lt;/p&gt;</description></item><item><title>Sign Component Versions</title><link>https://ocm.software/docs/getting-started/sign-component-versions/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/getting-started/sign-component-versions/</guid><description>&lt;p&gt;Component versions can be signed to ensure integrity along a transport chain.&lt;/p&gt;
+&lt;p&gt;Signing requires a key pair, a signature, and, optionally, an issuer, as well as an algorithm and a
+name for the signature.&lt;/p&gt;</description></item><item><title>Transport Component Versions</title><link>https://ocm.software/docs/getting-started/transport-component-versions/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/getting-started/transport-component-versions/</guid><description>&lt;p&gt;The section 
+
+
+
+
+
+ 
+ 
+
+
+&lt;a href="https://ocm.software/docs/getting-started/create-component-version/#add-component-version-to-ctf-archive/"&gt;Add Component Version to CTF archive&lt;/a&gt; explained how to store component versions in a CTF archive.&lt;/p&gt;
+&lt;p&gt;During the transfer, it is possible to include component references as local blobs. It is also possible to include references in a recursive way.&lt;/p&gt;</description></item><item><title>Set Up OCM Controller Environment</title><link>https://ocm.software/docs/getting-started/set-up-ocm-controller-environment/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/getting-started/set-up-ocm-controller-environment/</guid><description>&lt;p&gt;This document describes how to set up a local environment to 
+
+
+
+
+
+ 
+ 
+
+
+&lt;a href="https://ocm.software/docs/getting-started/deploy-a-helm-chart/"&gt;Deploy a Helm Chart&lt;/a&gt; using the OCM controllers.&lt;/p&gt;
+&lt;h2 id="prerequisites"&gt;Prerequisites&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+
+
+
+
+
+
+&lt;a href="https://kubernetes.io/docs/tasks/tools/#kubectl" target="_blank" rel="noopener"&gt;kubectl&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="start-a-local-kubernetes-cluster-with-kind"&gt;Start a Local Kubernetes Cluster with kind&lt;/h2&gt;
+&lt;div class="callout callout-note d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3"&gt;
+ 
+ &lt;div class="callout-content"&gt;
+ 
+ &lt;div class="callout-body"&gt;
+ &lt;p&gt;You don&amp;rsquo;t need to run kind if you are using a remote Kubernetes cluster you have access to. If so, you can skip this.&lt;/p&gt;</description></item><item><title>Deploy a Helm Chart</title><link>https://ocm.software/docs/getting-started/deploy-a-helm-chart/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/getting-started/deploy-a-helm-chart/</guid><description>&lt;p&gt;This guide demonstrates how to deploy a Helm Chart from an OCM component version using OCM controllers, kro, and FluxCD.
+It is a rather basic example, in which it is assumed that a developer created an application, packaged it as a Helm
+chart, and publishes it as OCM component version in an OCI registry. Then, an operator who wants to deploy the
+application via Helm chart in a Kubernetes cluster, creates a &lt;code&gt;ResourceGraphDefinition&lt;/code&gt; with resources that point to
+this OCM component version. Using CEL expressions inside the &lt;code&gt;ResourceGraphDefinition&lt;/code&gt;, the information about the
+resource location will be passed to FluxCD, which will then configure the Helm chart and deploy it into the Kubernetes
+cluster.&lt;/p&gt;</description></item></channel></rss>

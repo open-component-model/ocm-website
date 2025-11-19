@@ -1,19 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Tutorials on Open Component Model</title><link>https://ocm.software/docs/tutorials/</link><description>Recent content in Tutorials on Open Component Model</description><generator>Hugo</generator><language>en</language><copyright>© Copyright 2025, SAP SE and Open Component Model Contributors</copyright><atom:link href="https://ocm.software/docs/tutorials/index.xml" rel="self" type="application/rss+xml"/><item><title>Best Practices</title><link>https://ocm.software/docs/tutorials/best-practices/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/tutorials/best-practices/</guid><description>&lt;p&gt;This chapter contains guidelines for common scenarios how to work with the Open Component Model, focusing on using CI/CD, build and publishing processes.&lt;/p&gt;</description></item><item><title>Build &amp; Deploy Applications with Helm and OCM</title><link>https://ocm.software/docs/tutorials/build-deploy-applications-with-helm-and-ocm/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/tutorials/build-deploy-applications-with-helm-and-ocm/</guid><description>&lt;div class="callout callout-tip d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3"&gt;
- 
- &lt;div class="callout-content"&gt;
- &lt;div class="callout-title"&gt;
- &lt;p&gt;Did you know?&lt;/p&gt;
-
- &lt;/div&gt;
- &lt;div class="callout-body"&gt;
- &lt;p&gt;Get ready for the next evolution of the Open Component Model, designed to empower your cloud-native workflows. Discover a preview of the innovative &lt;code&gt;ocm-k8s-toolkit&lt;/code&gt; 
-
-
-
-
-
-
-&lt;a href="https://github.com/open-component-model/ocm-k8s-toolkit" target="_blank" rel="noopener"&gt;here&lt;/a&gt; and be part of shaping the future of component management!&lt;/p&gt;</description></item><item><title>Structuring Software Products with OCM</title><link>https://ocm.software/docs/tutorials/structuring-software-products-with-ocm/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/tutorials/structuring-software-products-with-ocm/</guid><description>&lt;h2 id="introduction"&gt;Introduction&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Tutorials on Open Component Model</title><link>https://ocm.software/docs/tutorials/</link><description>Recent content in Tutorials on Open Component Model</description><generator>Hugo</generator><language>en</language><copyright>© Copyright 2025, SAP SE and Open Component Model Contributors</copyright><atom:link href="https://ocm.software/docs/tutorials/index.xml" rel="self" type="application/rss+xml"/><item><title>Best Practices</title><link>https://ocm.software/docs/tutorials/best-practices/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/tutorials/best-practices/</guid><description>&lt;p&gt;This chapter contains guidelines for common scenarios how to work with the Open Component Model, focusing on using CI/CD, build and publishing processes.&lt;/p&gt;</description></item><item><title>Structure Software Products with OCM</title><link>https://ocm.software/docs/tutorials/structure-software-products-with-ocm/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/tutorials/structure-software-products-with-ocm/</guid><description>&lt;h2 id="introduction"&gt;Introduction&lt;/h2&gt;
 &lt;p&gt;In this tutorial software products are comprised of logical units called 
 
 
@@ -230,7 +215,7 @@
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id="overview"&gt;Overview&lt;/h2&gt;
-&lt;p&gt;The Open Component Model spec supports multiple methods how to add resources to a component version. There are two different ways to add content: Input Type and Access Type.&lt;/p&gt;</description></item><item><title>Credentials in .ocmconfig File</title><link>https://ocm.software/docs/tutorials/creds-in-ocmconfig/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/tutorials/creds-in-ocmconfig/</guid><description>&lt;h2 id="overview"&gt;Overview&lt;/h2&gt;
+&lt;p&gt;The Open Component Model spec supports multiple methods how to add resources to a component version. There are two different ways to add content: Input Type and Access Type.&lt;/p&gt;</description></item><item><title>Credentials in an .ocmconfig File</title><link>https://ocm.software/docs/tutorials/creds-in-ocmconfig/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/tutorials/creds-in-ocmconfig/</guid><description>&lt;h2 id="overview"&gt;Overview&lt;/h2&gt;
 &lt;p&gt;The 
 
 
@@ -245,4 +230,29 @@
 
 
 
-&lt;a href="https://github.com/open-component-model/ocm/blob/main/docs/reference/ocm_configfile.md" target="_blank" rel="noopener"&gt;configuration file&lt;/a&gt;. By default, the CLI looks for configuration in &lt;code&gt;$HOME/.ocmconfig&lt;/code&gt;, if it exists.&lt;/p&gt;</description></item></channel></rss>
+&lt;a href="https://github.com/open-component-model/ocm/blob/main/docs/reference/ocm_configfile.md" target="_blank" rel="noopener"&gt;configuration file&lt;/a&gt;. By default, the CLI looks for configuration in &lt;code&gt;$HOME/.ocmconfig&lt;/code&gt;, if it exists.&lt;/p&gt;</description></item><item><title>Configure Credentials for OCM Controllers</title><link>https://ocm.software/docs/tutorials/configure-credentials-for-ocm-controllers/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/tutorials/configure-credentials-for-ocm-controllers/</guid><description>&lt;p&gt;OCM controller resources need access to OCM components and their resources. If these OCM components are stored in a
+private OCM repository, we need to configure credentials to allow OCM controller resources to access these
+repositories.&lt;/p&gt;</description></item><item><title>Example of a Component Descriptor</title><link>https://ocm.software/docs/getting-started/component-descriptor-example/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/getting-started/component-descriptor-example/</guid><description>&lt;p&gt;The following is an example of a public-key-based signed component descriptor containing a resource, source and one component reference.&lt;/p&gt;
+&lt;p&gt;The component is publicly available in the GitHub container registry and can be inspected using the following command:&lt;/p&gt;</description></item><item><title>Deploy a Helm Chart (with Bootstrap)</title><link>https://ocm.software/docs/tutorials/deploy-a-helm-chart-with-bootstrap/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/tutorials/deploy-a-helm-chart-with-bootstrap/</guid><description>&lt;p&gt;The 
+
+
+
+
+
+ 
+ 
+
+
+&lt;a href="https://ocm.software/docs/concepts/ocm-controllers/#concept"&gt;concept&lt;/a&gt; and the 
+
+
+
+
+
+ 
+ 
+
+
+&lt;a href="https://ocm.software/docs/getting-started/deploy-a-helm-chart/"&gt;Deploy Helm Chart&lt;/a&gt; guide showed a basic example of how to deploy a Helm chart from an OCM component.
+By defining a &lt;code&gt;ResourceGraphDefinition&lt;/code&gt; that contains all the required resources to deploy the Helm chart into a
+Kubernetes cluster.&lt;/p&gt;</description></item><item><title>Transport to Air-Gapped Environments</title><link>https://ocm.software/docs/tutorials/transport-to-air-gapped-environments/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/tutorials/transport-to-air-gapped-environments/</guid><description>&lt;p&gt;Working with air-gapped environments requires careful preparation and a systematic approach to ensure all component dependencies are available offline. This section demonstrates how to prepare, transport, and deploy OCM components in secure, disconnected environments.&lt;/p&gt;</description></item></channel></rss>
