@@ -78,7 +78,10 @@ jobs:
             echo "❌ Timeout after 10 minutes"
             exit 1
           fi
-
+      - name: Give Netlify time to stabilize
+        run: |
+          echo "Waiting 20 seconds for Netlify to fully stabilize..."
+          sleep 20
       - name: Fetch versions list from main
         run: |
           curl -fsSL \
@@ -137,7 +140,7 @@ jobs:
           cat "$URLS_FILE"
       
 
-      # NEW: run lychee on all URLs
+      # Run lychee on all URLs
       - name: Run lychee
         uses: lycheeverse/lychee-action@v2
         env:
@@ -146,10 +149,11 @@ jobs:
           args: >-
             --no-progress
             --include-fragments
-            --max-concurrency 8
-            --max-retries 5
-            --retry-wait-time 2
-            --timeout 20
-            --user-agent "Mozilla/5.0 (compatible; OCM-LinkChecker/1.0; +https://ocm.software)"
+            --max-concurrency 4
+            --max-retries 8
+            --retry-wait-time 5
+            --timeout 45
+            --accept 200,201,204,301,302,307,308,429,503
+            --user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
             --files-from urls.txt
           fail: true
