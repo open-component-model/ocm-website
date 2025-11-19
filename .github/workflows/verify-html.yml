@@ -129,7 +129,7 @@ jobs:
             fi
           done
 
-          # Doppelte URLs entfernen
+          # Remove duplicate URLs
           sort -u "$URLS_FILE" -o "$URLS_FILE"
 
           echo "Final URLs to check:"
