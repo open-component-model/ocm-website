@@ -15,6 +15,13 @@ jobs:
     name: Check external links (Netlify Deploy Preview)
     runs-on: ubuntu-latest
     steps:
+      - name: Get OCMBot installation token
+        id: generate_token
+        uses: tibdex/github-app-token@v2
+        with:
+          app_id: ${{ secrets.OCMBOT_APP_ID }}
+          private_key: ${{ secrets.OCMBOT_PRIV_KEY }}
+
       - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v4
         with:
           fetch-depth: 0 # fetch all history for the PR
@@ -78,23 +85,73 @@ jobs:
             exit 1
           fi
 
-      - name: Setup Node.js
-        uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v4
-        with:
-          node-version: 20  # v22+ has "unsettled top-level await" issues: https://github.com/nodejs/node/issues/55468
-
-      - name: Install Dependencies
-        run: npm install
-
-      - name: Verify links with linkinator
+      - name: Fetch versions list from main
         run: |
-          npm install linkinator
+          curl -fsSL \
+            "https://raw.githubusercontent.com/open-component-model/ocm-website/refs/heads/main/data/versions.json" \
+            -o versions-main.json
+          
+          echo "versions-main.json:"
+          cat versions-main.json
+
+      - name: Build URL list from all index.json files
+        run: |
+          set -euo pipefail
 
           PREVIEW_URL="${{ steps.wait_for_preview.outputs.preview_url }}"
-          echo "🔍 Verifying internal links at $PREVIEW_URL"
+          echo "Preview URL: $PREVIEW_URL"
 
-          npx linkinator "$PREVIEW_URL" \
-            --config .github/config/linkinator.json \
-            --skip "^(?!$PREVIEW_URL)"
+          # Get versions from main branch /data/versions.json
+          DEFAULT_VERSION=$(jq -r '.defaultVersion' versions-main.json)
+          VERSIONS=$(jq -r '.versions[]' versions-main.json)
 
-          echo "✅ Linkinator: No broken links found."
+          echo "Default version: $DEFAULT_VERSION"
+          echo "Versions: $VERSIONS"
+
+          URLS_FILE="urls.txt"
+          : > "$URLS_FILE"
+
+          for v in $VERSIONS; do
+            if [ "$v" = "$DEFAULT_VERSION" ]; then
+              INDEX_URL="${PREVIEW_URL%/}/index.json"
+              LABEL="root"
+            else
+              INDEX_URL="${PREVIEW_URL%/}/$v/index.json"
+              LABEL="$v"
+            fi
+
+            echo "Fetching index for version '$v' from: $INDEX_URL"
+
+            FOUND=0
+
+            if curl -fsS "$INDEX_URL" -o "index-${LABEL}.json"; then
+              FOUND=1
+              echo "  -> OK, parsing URLs from index-${LABEL}.json"
+              jq -r '.[]' "index-${LABEL}.json" >> "$URLS_FILE"
+            fi
+
+            if [ "$FOUND" -eq 0 ]; then
+              echo "::warning::index.json for version '$v' not found at $INDEX_URL"
+            fi
+          done
+
+          # Doppelte URLs entfernen
+          sort -u "$URLS_FILE" -o "$URLS_FILE"
+
+          echo "Final URLs to check:"
+          cat "$URLS_FILE"
+      
+
+      # NEW: run lychee on all URLs
+      - name: Run lychee
+        uses: lycheeverse/lychee-action@v2
+        env:
+          GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
+        with:
+          args: >-
+            --no-progress
+            --include-fragments
+            --max-concurrency 32
+            --timeout 20
+            --files-from urls.txt
+          fail: true

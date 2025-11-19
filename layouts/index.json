@@ -1,0 +1,6 @@
+{{- /* layouts/index.json: list of all site-URLs as JSON array */ -}}
+{{- $urls := slice -}}
+{{- range .Site.RegularPages -}}
+{{- $urls = $urls | append .Permalink -}}
+{{- end -}}
+{{- $urls | uniq | jsonify -}}
