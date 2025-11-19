@@ -33,6 +33,7 @@ how_ocm_works:
     link: "/docs/getting-started/ocm-controllers"
 
 benefits_title: "Why Choose OCM?"
+benefits_cards_max_columns: 3
 benefits:
   - emoji: "📦"
     title: "One Model for All Artifacts"
