@@ -101,8 +101,9 @@ jobs:
 
           echo "Default version: $DEFAULT_VERSION"
           echo "Versions: $VERSIONS"
-
+          # Prepare URLs file
           URLS_FILE="urls.txt"
+          # ':' built-in "no-op", redirected to a file, empties it or creates a new file, if it doesn't exist
           : > "$URLS_FILE"
 
           for v in $VERSIONS; do
