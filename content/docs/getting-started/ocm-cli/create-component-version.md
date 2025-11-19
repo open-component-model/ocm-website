@@ -19,7 +19,7 @@ The command [`ocm add component-version`]({{< relref "ocm_add_component-version.
 
 ### Create a Component Version
 
-In this example, we will use the the `ocm` CLI tool to create a very basic component version that contains a local resource and a resource that is accessed from a remote location. The local resource is an arbitrary file that we will create from scratch the remote resource is a Docker image stored in an OCI registry.
+In this example, we will use the `ocm` CLI tool to create a very basic component version that contains a local resource and a resource that is accessed from a remote location. The local resource is an arbitrary file that we will create from scratch the remote resource is a Docker image stored in an OCI registry.
 
 OCM components can contain any kind of resource, including Helm charts, Docker images, any content from local file systems, and more. Take a look at the tutorial about [Input and Access Types]({{< relref "input-and-access-types.md" >}}) to see how to define and use different resource types.
 
@@ -93,7 +93,8 @@ or the short form (which we will use from now on):
 ocm add cv
 ```
 
-This is the most basic form of the command. When executed, the OCM CLI defaults the constructor file name to `component-constructor.yaml` and the CTF archive name to `transport-archive`. If the CTF archive doesn’t exist yet, it will be created automatically.
+This is the most basic form of the command. When executed, the OCM CLI defaults the constructor file name to `component-constructor.yaml` 
+and the CTF archive name to `transport-archive`. If the CTF archive doesn’t exist yet, it will be created automatically.
 
 If you want to specify a different constructor file name or CTF archive name, you can use the `--constructor` and `--repository` flags.
 
@@ -198,8 +199,8 @@ Notice that the output of the component version above contains the component des
 tar xvf transport-archive/blobs/sha256.74db132670ec370396ec10160c4e761591d0e9e6c5960c72d2e26c0f9d6f6a76 -O
 ```
 
-```yaml
 component-descriptor.yaml
+```yaml
 component:
   componentReferences: null
   name: github.com/acme.org/helloworld
