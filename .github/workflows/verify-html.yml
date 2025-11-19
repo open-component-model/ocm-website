@@ -149,11 +149,19 @@ jobs:
           args: >-
             --no-progress
             --include-fragments
-            --max-concurrency 4
-            --max-retries 8
-            --retry-wait-time 5
+            --max-concurrency 2
+            --max-retries 10
+            --retry-wait-time 8
             --timeout 45
             --accept 200,201,204,301,302,307,308,429,503
             --user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
             --files-from urls.txt
           fail: true
+
+      - name: Show detailed results
+        if: always()
+        run: |
+          if [ -f lychee/out.md ]; then
+            echo "=== Detailed Lychee Report ==="
+            cat lychee/out.md
+          fi
