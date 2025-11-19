@@ -165,3 +165,10 @@ jobs:
             echo "=== Detailed Lychee Report ==="
             cat lychee/out.md
           fi
+
+      - name: Upload lychee report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lychee-report
+          path: lychee/out.md
