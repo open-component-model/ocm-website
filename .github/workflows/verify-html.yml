@@ -145,7 +145,10 @@ jobs:
           args: >-
             --no-progress
             --include-fragments
-            --max-concurrency 32
+            --max-concurrency 8
+            --max-retries 5
+            --retry-wait-time 2
             --timeout 20
+            --user-agent "Mozilla/5.0 (compatible; OCM-LinkChecker/1.0; +https://ocm.software)"
             --files-from urls.txt
           fail: true
