@@ -82,6 +82,7 @@ jobs:
         run: |
           echo "Waiting 30 seconds for Netlify to fully stabilize..."
           sleep 30
+
       - name: Fetch versions list from main
         run: |
           curl -fsSL \
@@ -156,9 +157,9 @@ jobs:
             --accept 200,201,204,301,302,307,308,429,503
             --user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
             --files-from urls.txt
-            --output lychee/out.md
-            --format markdown
           fail: true
+          output: lychee/out.md
+          format: markdown
 
       - name: Show detailed results
         if: always()
