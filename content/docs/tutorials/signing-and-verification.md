@@ -32,6 +32,7 @@ Fetch component version → Normalize descriptor → Hash descriptor → Verify 
 ### What Gets Signed?
 
 OCM signs the **component descriptor**, which contains:
+
 - Component metadata (name, version, provider)
 - Resources (artifacts like container images, Helm charts)
 - Sources (references to source code)
@@ -39,6 +40,7 @@ OCM signs the **component descriptor**, which contains:
 - **Resource digests** (cryptographic hashes of artifacts)
 
 **Important:** OCM does **not** sign the artifacts themselves, but rather their digests in the component descriptor. This provides:
+
 - ✅ Efficient verification (no external dependencies)
 - ✅ Tamper detection (any change to artifacts invalidates the signature)
 - ✅ Provenance (signature proves who created/released the component version)
@@ -58,12 +60,14 @@ Before generating keys, decide which approach fits your needs:
 ### Self-Signed vs. CA-Signed
 
 **Self-Signed Keys:**
+
 - Simple to create (no external CA required)
 - Full control over key lifecycle
 - Trust based on explicit key distribution
 - Public key must be manually distributed to verifiers
 
 **CA-Signed Certificates:**
+
 - Requires Certificate Authority (CA)
 - Certificate chain validates against trusted root CAs
 - Trust leverages existing PKI
@@ -74,6 +78,7 @@ Before generating keys, decide which approach fits your needs:
 ## Key Pair Generation
 
 OCM supports **RSA** signatures with two algorithms:
+
 - **RSASSA-PSS** (Probabilistic Signature Scheme) - Default and recommended
 - **RSASSA-PKCS1v15** - Legacy support
 
@@ -116,6 +121,7 @@ chmod 644 ~/.ocm/keys/dev/public.pem
 ```
 
 **Files created:**
+
 - `~/.ocm/keys/dev/private.key` - Private key (4096 bits)
 - `~/.ocm/keys/dev/public.pem` - Public key
 
@@ -150,10 +156,12 @@ chmod 644 ~/.ocm/keys/prod/request.csr
 ```
 
 **Files created:**
+
 - `~/.ocm/keys/prod/private.key` - Private key (4096 bits)
 - `~/.ocm/keys/prod/request.csr` - Certificate signing request (send to CA)
 
 **Files received from CA:**
+
 - `~/.ocm/keys/prod/certificate.pem` - Signed certificate
 - `~/.ocm/keys/prod/ca-chain.pem` - CA certificate chain (optional but recommended)
 
@@ -240,6 +248,7 @@ The `signature` attribute is particularly useful for multi-environment setups.
 In many organizations, you'll want different signing keys for different environments or purposes.
 
 For multiple environments, generate separate keys using the same process:
+
 - **Development:** Self-signed keys (see [Self-Signed Keys](#self-signed-keys-development) section)
 - **Staging:** Self-signed keys in `~/.ocm/keys/staging/` (same process)
 - **Production:** CA-signed keys (see [CA-Signed Keys](#ca-signed-keys-production) section)
@@ -288,6 +297,7 @@ configurations:
 ```
 
 **Notes:**
+
 - Each environment has both private and public keys
 - Production uses the certificate chain for verification
 - The same configuration works for both signing and verification
@@ -348,6 +358,7 @@ The `--signer-spec` flag provides fine-grained control over the signing process 
 ### When to Use Signer Specs
 
 Use signer specifications when you need:
+
 - ✅ Command-specific signing config
 - ✅ CI/CD pipeline integration
 - ✅ Explicit control over signing parameters
@@ -396,6 +407,7 @@ signatureEncodingPolicy: Plain
 ```
 
 This means:
+
 - Algorithm: RSASSA-PSS
 - Encoding: Plain (raw signature bytes)
 - Key: Retrieved from `.ocmconfig` credential system
@@ -454,12 +466,14 @@ signatureEncodingPolicy: PEM
 ```
 
 **How it works:**
+
 1. Creates a PEM block containing the signature
 2. Appends the signer's certificate chain
 3. During verification, validates the chain against the system trust store
 4. Extracts the public key from the validated certificate
 
 **Requirements:**
+
 - Signature name must match the config
 - Certificate chain must be included in the signature
 - System trust store must contain the root CA, or root CA must be provided in `.ocmconfig`
@@ -556,6 +570,7 @@ ocm verify cv \
 ### Verification Success Criteria
 
 For verification to succeed:
+
 - ✅ Signature exists with specified name
 - ✅ Public key can be resolved
 - ✅ Signature cryptographically valid
@@ -572,6 +587,7 @@ OCM supports multiple trust models depending on your security requirements.
 Specific public keys configured in `.ocmconfig`. Trust is based on exact key match without certificate validation.
 
 **Trust chain:**
+
 ```
 Component Signature → Public Key in .ocmconfig → Trust
 ```
@@ -583,6 +599,7 @@ Simple setup with full control, suitable for small teams and development environ
 Certificate chain embedded in signature and validated against system trust store or distributed root CA. No manual public key distribution needed.
 
 **Trust chain:**
+
 ```
 Component Signature → Embedded Cert Chain → System Trust Store → Root CA → Trust
 ```
@@ -635,6 +652,7 @@ ocm verify cv --signature dev ghcr.io/myorg/component:1.0.0
 **Prerequisites:** Use CA-signed production keys (see "CA-Signed Keys" section).
 
 **Key differences from Development:**
+
 - Uses `signatureEncodingPolicy: PEM`
 - Certificate chain embedded in signature
 - Validates against system trust store
@@ -669,12 +687,14 @@ ocm verify cv --signature prod ghcr.io/myorg/component:1.0.0
 **Error:** "signature verification failed"
 
 **Common causes:**
+
 1. Wrong public key configured
 2. Component version modified after signing
 3. Signature name mismatch
 4. Certificate chain invalid (PEM encoding)
 
 **Solutions:**
+
 - Verify public key matches private key: `openssl rsa -in private.key -pubout`
 - Check signature name: `ocm get cv -o yaml ghcr.io/myorg/component:1.0.0`
 - Verify certificate chain: `openssl verify -CAfile ca-chain.pem certificate.pem`
@@ -684,6 +704,7 @@ ocm verify cv --signature prod ghcr.io/myorg/component:1.0.0
 **Error:** "could not resolve credentials for identity"
 
 **Solutions:**
+
 - Check `.ocmconfig` path and syntax
 - Verify file paths in `private_key_pem_file`
 - Ensure `signature` attribute matches between config and command
@@ -693,6 +714,7 @@ ocm verify cv --signature prod ghcr.io/myorg/component:1.0.0
 **Error:** "certificate validation failed"
 
 **Solutions:**
+
 - Ensure system trust store includes required root CAs
 - Provide root CA in `.ocmconfig`: `public_key_pem_file: ./ca-root.pem`
 - Verify certificate DN matches signature name
@@ -703,6 +725,7 @@ ocm verify cv --signature prod ghcr.io/myorg/component:1.0.0
 **Error:** "signature 'name' already exists"
 
 **Solutions:**
+
 - Use `--force` to overwrite: `ocm sign cv ... --force`
 - Use a different signature name: `--signature name-v2`
 - Remove old signature first (manual descriptor editing)
