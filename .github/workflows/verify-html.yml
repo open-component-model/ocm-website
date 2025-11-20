@@ -156,6 +156,8 @@ jobs:
             --accept 200,201,204,301,302,307,308,429,503
             --user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
             --files-from urls.txt
+            --output lychee/out.md
+            --format markdown
           fail: true
 
       - name: Show detailed results
