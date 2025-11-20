@@ -36,6 +36,7 @@ configurations:
 ```
 
 **Explanation:**
+
 - The properties below the `identity` field define the signing profile
   - `type` specifies the key type (here: RSA)
   - `algorithm` specifies the signing algorithm (here: RSASSA-PSS)
@@ -56,7 +57,7 @@ ocm sign cv transport-archive//github.com/acme.org/helloworld:1.0.0
 
 This command signs the specified component version and stores the signature in the repository:
 
-```
+```yaml
 digest:
   hashAlgorithm: SHA-256
   normalisationAlgorithm: jsonNormalisation/v4alpha1
@@ -67,6 +68,7 @@ signature:
   mediaType: application/vnd.ocm.signature.rsa.pss
   value: 57cfd281dc43fdba5d73547aed13226c2358b3bfbc6c600dd42e80144cb944faf4c...
 ```
+
  When looking at the component descriptor we can also see the new signature entry at the end of the descriptor:
 
 ```bash
@@ -171,10 +173,13 @@ See the [Multi-Environment Configuration]({{< relref "signing-and-verification.m
 ## Common Issues
 
 **Signature already exists?**
+
 - Use `--force` to overwrite: `ocm sign cv ... --force`
 
 **Private key not found?**
+
 - Check the file path in `privateKey` and `publicKey`.
 
 **Need more help?**
+
 - See [Troubleshooting]({{< relref "../../tutorials/signing-and-verification.md#troubleshooting" >}})

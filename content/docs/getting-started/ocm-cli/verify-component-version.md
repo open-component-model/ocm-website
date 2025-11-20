@@ -10,6 +10,7 @@ toc: true
 Verifying a component version ensures that a signature was created by a trusted key and that the component descriptor has not been modified.
 
 **Prerequisites:**
+
 - Public key corresponding to the signature
 
 **Don't have keys yet?** → [Generate Keys in the Signing Guide]({{< relref "signing-and-verification.md#key-pair-generation" >}})
@@ -37,6 +38,7 @@ configurations:
 ```
 
 **Explanation:**
+
 - The properties below the `id` field are required:
 
   - `name`: Name of the signature
@@ -119,16 +121,20 @@ ocm verify cv --signature prod transport-archive//github.com/acme.org/helloworld
 ## Common Issues
 
 **Verification fails?**
+
 - Ensure the public key matches the signature
 - Check that you're verifying the correct signature name
 - Verify the component hasn't been modified after signing
 
 **Public key not found?**
+
 - Check the file path in `publicKey` and `signature`.
 
 **Wrong signature name?**
+
 - List signatures: `ocm get cv ... --signatures`
 - Use `--signature <name>` to specify the correct signature
 
 **Need more help?**
+
 - See [Troubleshooting]({{< relref "../../tutorials/signing-and-verification.md#troubleshooting" >}})
