@@ -150,7 +150,9 @@ jobs:
           args: >-
             --no-progress
             --include-fragments
-            --max-concurrency 2
+            -- verbose
+            -- vv
+            --max-concurrency 1
             --max-retries 10
             --retry-wait-time 8
             --timeout 45
