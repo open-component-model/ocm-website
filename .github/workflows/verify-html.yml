@@ -151,7 +151,7 @@ jobs:
             --no-progress
             --include-fragments
             --verbose
-            --vv
+            -vv
             --max-concurrency 1
             --max-retries 10
             --retry-wait-time 8
