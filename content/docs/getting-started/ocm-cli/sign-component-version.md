@@ -8,13 +8,13 @@ toc: true
 ---
 
 Signing ensures the **authenticity** and **integrity** of component versions in OCM.  
-In this Getting Started section, we assume:
 
-- You **already have generated a key pair** (private + public key in PEM format).
+## Prerequisites
+- Key pair (private + public key in PEM format)
 
-If you do *not* have a key pair yet, see the [SSL Key Pairs for Signing and Verification]({{< relref "key-pairs-and-ocmconfig.md" >}}) document.
+**Don't have keys yet?** → [Generate Keys in the Signing Guide]({{< relref "signing-and-verification.md#key-pair-generation" >}})
 
-### Minimal `.ocmconfig` for signing
+## Minimal .ocmconfig for signing
 
 Add the following to your `.ocmconfig` file:
 
@@ -40,9 +40,9 @@ configurations:
   - `signature` specifies the signature name (default is `default`)
 - `private_key_pem_file` → path to a private key file in PEM format
 
-### Sign a component version
+## Sign a component version
 
-An .ocmconfig can contain multiple signature profiles which can be specified during signing using the --signature option.  
+An `.ocmconfig` can contain multiple signature profiles which can be specified during signing using the `--signature` option.  
 If no signature is specified, the signature named `default` will be looked up in the `.ocmconfig` and used for signing.
 
 Let's sign the component we created earlier in the [Create a Component Version]({{< relref "create-component-version.md" >}}) section,
@@ -117,7 +117,7 @@ ocm get cv transport-archive//github.com/acme.org/helloworld:1.0.0 -oyaml
       value: 57cfd281dc43fdba5d73547aed13226c2358b3bfbc6c600dd42e8014...
 ```
 
-### Replace an existing signature
+## Replace an existing signature
 
 In case you want to replace an existing signature, use the `--force` flag.
 Otherwise you will get an error like `Error: signature "default" already exists`.
@@ -127,3 +127,54 @@ ocm sign cv transport-archive//github.com/acme.org/helloworld:1.0.0 --force
 ```
 
 > ⚠️ Only overwrite signatures if you are sure no other process relies on the existing one.
+
+## Multiple Signatures (Multi-Environment)
+
+For multi-environment setups, you can use named signatures. Configure different keys in `.ocmconfig`:
+
+```yaml
+type: generic.config.ocm.software/v1
+configurations:
+  - type: credentials.config.ocm.software
+    consumers:
+      - identity:
+          type: RSA/v1alpha1
+          signature: dev
+        credentials:
+          - type: Credentials/v1
+            properties:
+              private_key_pem_file: ~/.ocm/keys/dev/private.key
+      
+      - identity:
+          type: RSA/v1alpha1
+          signature: prod
+        credentials:
+          - type: Credentials/v1
+            properties:
+              private_key_pem_file: ~/.ocm/keys/prod/private.key
+```
+
+Then sign with the appropriate signature name:
+
+```bash
+# Sign for development
+ocm sign cv --signature dev transport-archive//github.com/acme.org/helloworld:1.0.0
+
+# Sign for production
+ocm sign cv --signature prod transport-archive//github.com/acme.org/helloworld:1.0.0
+```
+
+See the [Multi-Environment Configuration]({{< relref "signing-and-verification.md#multi-environment-configuration" >}}) section for complete examples.
+
+## Common Issues
+
+**Signature already exists?**
+- Use `--force` to overwrite: `ocm sign cv --force ...`
+- Or use a different signature name: `--signature name-v2`
+
+**Private key not found?**
+- Check the file path in `private_key_pem_file`
+- Ensure the `.ocmconfig` file is in the correct location (`~/.ocmconfig`)
+
+**Need more help?**
+- See [Troubleshooting]({{< relref "signing-and-verification.md#troubleshooting" >}}) in the Signing and Verification Guide

@@ -7,11 +7,12 @@ weight: 27
 toc: true
 ---
 
-Verifying a component version ensures that a signature was created by a trusted key and that the component descriptor has not been modified.  
-This Getting Started section mirrors the workflow from [Sign a Component Version]({{< relref sign-component-version.md >}}),
-assuming you already have access to the **public key** corresponding to the private key used for signing.
+Verifying a component version ensures that a signature was created by a trusted key and that the component descriptor has not been modified.
 
-If you do not yet know how to generate key pairs, see the [SSL Key Pairs for Signing and Verification]({{< relref "key-pairs-and-ocmconfig.md" >}}) document.
+**Prerequisites:**
+- Public key corresponding to the private key used for signing
+
+**Don't have keys yet?** → [Generate Keys in the Signing Guide]({{< relref "signing-and-verification.md#key-pair-generation" >}})
 
 ## Minimal `.ocmconfig` for verification
 
@@ -41,6 +42,9 @@ configurations:
     - `algorithm` specifies the signing algorithm (here: RSASSA-PSS)
     - `signature` specifies the signature name (default is `default`)
 - `public_key_pem_file` → path to a public key file in PEM format
+
+> **💡 Path Consistency:** Use the same directory structure as for signing.  
+> If you signed with `~/.ocm/keys/dev/private.key`, verify with `~/.ocm/keys/dev/public.pem`.
 
 ## Verify a component version
 
@@ -73,3 +77,58 @@ ocm verify cv transport-archive//github.com/acme.org/helloworld:1.0.0 --signatur
 ```
 
 OCM then selects the credentials associated with the `prod` profile.
+
+## Multiple Signatures (Multi-Environment)
+
+For multi-environment setups with different keys:
+
+```yaml
+type: generic.config.ocm.software/v1
+configurations:
+  - type: credentials.config.ocm.software
+    consumers:
+      - identity:
+          type: RSA/v1alpha1
+          signature: dev
+        credentials:
+          - type: Credentials/v1
+            properties:
+              public_key_pem_file: ~/.ocm/keys/dev/public.pem
+      
+      - identity:
+          type: RSA/v1alpha1
+          signature: prod
+        credentials:
+          - type: Credentials/v1
+            properties:
+              public_key_pem_file: ~/.ocm/keys/prod/cert-chain.pem
+```
+
+Then verify the appropriate signature:
+
+```bash
+# Verify development signature
+ocm verify cv --signature dev transport-archive//github.com/acme.org/helloworld:1.0.0
+
+# Verify production signature
+ocm verify cv --signature prod transport-archive//github.com/acme.org/helloworld:1.0.0
+```
+
+## Common Issues
+
+**Verification fails?**
+- Ensure the public key matches the private key used for signing
+- Check that you're verifying the correct signature name
+- Verify the component hasn't been modified after signing
+
+**Public key not found?**
+- Check the file path in `public_key_pem_file`
+- Ensure the `.ocmconfig` file is in the correct location (`~/.ocmconfig`)
+
+**Wrong signature name?**
+- List signatures: `ocm get cv -o yaml <component>` and check the `signatures` section
+- Use `--signature <name>` to specify the correct signature
+
+**Need more help?**
+- See [Troubleshooting]({{< relref "signing-and-verification.md#troubleshooting" >}}) in the Signing Guide
+

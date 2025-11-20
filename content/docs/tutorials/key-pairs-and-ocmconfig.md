@@ -7,16 +7,25 @@ weight: 54
 toc: true
 ---
 
-This section provides a comprehensive look behind the scenes of how OCM handles keys, signatures, trust, and verification.
-While the Getting Started sections focus on the simplest and most practical workflow,
-this Deep Dive explains why things work the way they do, what options exist for more advanced setups,
-and how to choose the right signing and verification strategy for your environment.
+> **⚠️ This document is deprecated**  
+> This guide has been superseded by the comprehensive [Signing and Verification Deep Dive]({{< relref "signing-and-verification.md" >}}), which provides complete coverage of cryptographic signing, key management, trust models, and advanced configuration options.
+>
+> Please refer to the new guide for:
+> - Detailed signing and verification workflows
+> - Key pair generation best practices
+> - Multi-environment configurations
+> - Signer specifications and encoding policies
+> - Enterprise PKI integration
+>
+> The content below is kept for reference but may be incomplete.
 
-It is especially useful if you:
-- want to understand the difference between self-signed and CA-signed keys,
-- need to integrate OCM signing into enterprise trust infrastructures,
-- want to use certificate chains and the system trust store,
-- maintain multiple signing identities or environments (dev, staging, prod)
+---
+
+This section provides a look behind the scenes of how OCM handles keys, signatures, trust, and verification.
+While the Getting Started sections focus on the simplest and most practical workflow,
+this section explains some basics about key generation and configuration.
+
+For comprehensive information, see the [Signing and Verification Deep Dive]({{< relref "signing-and-verification.md" >}}).
 
 ## Creating a keypair using OpenSSL
 
