@@ -588,7 +588,7 @@ Specific public keys configured in `.ocmconfig`. Trust is based on exact key mat
 
 **Trust chain:**
 
-```
+```code
 Component Signature → Public Key in .ocmconfig → Trust
 ```
 
@@ -600,7 +600,7 @@ Certificate chain embedded in signature and validated against system trust store
 
 **Trust chain:**
 
-```
+```code
 Component Signature → Embedded Cert Chain → System Trust Store → Root CA → Trust
 ```
 
