@@ -164,14 +164,10 @@ jobs:
       - name: Show detailed results
         if: always()
         run: |
-          if [ -f lychee/out.md ]; then
-            echo "=== Detailed Lychee Report ==="
-            cat lychee/out.md
+          echo "=== Detailed Lychee Report ===" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          if [ -f ./lychee/out.md ]; then
+            cat ./lychee/out.md >> $GITHUB_STEP_SUMMARY
+          else
+            echo "No output file found" >> $GITHUB_STEP_SUMMARY
           fi
-
-      - name: Upload lychee report
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: lychee-report
-          path: lychee/out.md
