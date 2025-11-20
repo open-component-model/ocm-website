@@ -10,7 +10,7 @@ toc: true
 Verifying a component version ensures that a signature was created by a trusted key and that the component descriptor has not been modified.
 
 **Prerequisites:**
-- Public key corresponding to the private key used for signing
+- Public key corresponding to the signature
 
 **Don't have keys yet?** → [Generate Keys in the Signing Guide]({{< relref "signing-and-verification.md#key-pair-generation" >}})
 
@@ -37,10 +37,12 @@ configurations:
 ```
 
 **Explanation:**
-- The properties below the `identity` field define the signing profile
-    - `type` specifies the key type (here: RSA)
-    - `algorithm` specifies the signing algorithm (here: RSASSA-PSS)
-    - `signature` specifies the signature name (default is `default`)
+- The properties below the `id` field are required:
+
+  - `name`: Name of the signature
+  - `publicKey`: Path to the public key file
+  - `signature`: Path to the signature file
+
 - `public_key_pem_file` → path to a public key file in PEM format
 
 > **💡 Path Consistency:** Use the same directory structure as for signing.  
@@ -117,18 +119,16 @@ ocm verify cv --signature prod transport-archive//github.com/acme.org/helloworld
 ## Common Issues
 
 **Verification fails?**
-- Ensure the public key matches the private key used for signing
+- Ensure the public key matches the signature
 - Check that you're verifying the correct signature name
 - Verify the component hasn't been modified after signing
 
 **Public key not found?**
-- Check the file path in `public_key_pem_file`
-- Ensure the `.ocmconfig` file is in the correct location (`~/.ocmconfig`)
+- Check the file path in `publicKey` and `signature`.
 
 **Wrong signature name?**
-- List signatures: `ocm get cv -o yaml <component>` and check the `signatures` section
+- List signatures: `ocm get cv ... --signatures`
 - Use `--signature <name>` to specify the correct signature
 
 **Need more help?**
-- See [Troubleshooting]({{< relref "signing-and-verification.md#troubleshooting" >}}) in the Signing Guide
-
+- See [Troubleshooting]({{< relref "../../tutorials/signing-and-verification.md#troubleshooting" >}})

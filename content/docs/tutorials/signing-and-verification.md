@@ -13,12 +13,11 @@ The Open Component Model provides cryptographic signing and verification capabil
 to establish **provenance** and **authenticity** of component versions.
 This guide covers the complete signing and verification workflow, from key pair generation to trust model selection.
 
-### This guide is for users who want to:
-- Understand how OCM handles cryptographic signatures
-- Choose between self-signed and CA-signed key approaches
-- Configure signing for different environments (dev, staging, production)
-- Integrate OCM signing into enterprise PKI infrastructures
-- Use advanced features like certificate chains and custom signer specifications
+### This guide is for users who want to
+
+- Understand how OCM handles component signing and verification
+- Learn about supported signature types
+- See step-by-step signing and verification examples
 
 ## Signing and Verification Workflow
 
@@ -40,7 +39,7 @@ OCM signs the **component descriptor**, which contains:
 - **Resource digests** (cryptographic hashes of artifacts)
 
 **Important:** OCM does **not** sign the artifacts themselves, but rather their digests in the component descriptor. This provides:
-- ✅ Efficient verification (no need to download large artifacts)
+- ✅ Efficient verification (no external dependencies)
 - ✅ Tamper detection (any change to artifacts invalidates the signature)
 - ✅ Provenance (signature proves who created/released the component version)
 
@@ -59,13 +58,13 @@ Before generating keys, decide which approach fits your needs:
 ### Self-Signed vs. CA-Signed
 
 **Self-Signed Keys:**
-- Simple to create (no external CA needed)
+- Simple to create (no external CA required)
 - Full control over key lifecycle
 - Trust based on explicit key distribution
 - Public key must be manually distributed to verifiers
 
 **CA-Signed Certificates:**
-- Requires Certificate Authority infrastructure
+- Requires Certificate Authority (CA)
 - Certificate chain validates against trusted root CAs
 - Trust leverages existing PKI
 - Automatic trust propagation via certificate validation
@@ -289,7 +288,7 @@ configurations:
 ```
 
 **Notes:**
-- Each environment has both private and public keys configured
+- Each environment has both private and public keys
 - Production uses the certificate chain for verification
 - The same configuration works for both signing and verification
 
@@ -349,7 +348,7 @@ The `--signer-spec` flag provides fine-grained control over the signing process 
 ### When to Use Signer Specs
 
 Use signer specifications when you need:
-- ✅ Command-specific signing configuration
+- ✅ Command-specific signing config
 - ✅ CI/CD pipeline integration
 - ✅ Explicit control over signing parameters
 - ✅ Different encoding policies
@@ -461,7 +460,7 @@ signatureEncodingPolicy: PEM
 4. Extracts the public key from the validated certificate
 
 **Requirements:**
-- Signature name must match the certificate's Distinguished Name (DN)
+- Signature name must match the config
 - Certificate chain must be included in the signature
 - System trust store must contain the root CA, or root CA must be provided in `.ocmconfig`
 
@@ -471,7 +470,7 @@ Suitable for enterprise PKI integration and scenarios requiring automated trust 
 
 ### Basic Signing
 
-```bash
+```sh
 # Sign with default signature name and configuration
 ocm sign cv ghcr.io/myorg/component:1.0.0
 
@@ -481,7 +480,7 @@ ocm sign cv --signature release ghcr.io/myorg/component:1.0.0
 
 ### Advanced Signing Options
 
-```bash
+```sh
 # Use specific signer specification
 ocm sign cv \
   --signer-spec ./config/prod-signer.yaml \
@@ -523,7 +522,7 @@ For complete flag reference, see `ocm sign cv --help`.
 
 ### Basic Verification
 
-```bash
+```sh
 # Verify default signature
 ocm verify cv ghcr.io/myorg/component:1.0.0
 
@@ -533,7 +532,7 @@ ocm verify cv --signature release ghcr.io/myorg/component:1.0.0
 
 ### Verification with External Public Key
 
-```bash
+```sh
 # Provide public key via command line
 ocm verify cv \
   --public-key ./keys/public.pem \
@@ -704,7 +703,7 @@ ocm verify cv --signature prod ghcr.io/myorg/component:1.0.0
 **Error:** "signature 'name' already exists"
 
 **Solutions:**
-- Use `--force` to overwrite: `ocm sign cv --force --signature name ...`
+- Use `--force` to overwrite: `ocm sign cv ... --force`
 - Use a different signature name: `--signature name-v2`
 - Remove old signature first (manual descriptor editing)
 
@@ -733,4 +732,3 @@ OCM's signing and verification system provides:
 
 - [Credentials in .ocmconfig File]({{< relref "creds-in-ocmconfig.md" >}}) - Practical credential configuration examples
 - [OCM CLI Reference]({{< relref "/docs/reference/ocm-cli" >}}) - Complete command-line options
-

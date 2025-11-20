@@ -10,7 +10,9 @@ toc: true
 Signing ensures the **authenticity** and **integrity** of component versions in OCM.  
 
 ## Prerequisites
-- Key pair (private + public key in PEM format)
+
+- Key pair (private + public key)
+- OCM CLI installed
 
 **Don't have keys yet?** → [Generate Keys in the Signing Guide]({{< relref "signing-and-verification.md#key-pair-generation" >}})
 
@@ -53,8 +55,8 @@ ocm sign cv transport-archive//github.com/acme.org/helloworld:1.0.0
 ```
 
 This command signs the specified component version and stores the signature in the repository:
+
 ```
-...
 digest:
   hashAlgorithm: SHA-256
   normalisationAlgorithm: jsonNormalisation/v4alpha1
@@ -169,12 +171,10 @@ See the [Multi-Environment Configuration]({{< relref "signing-and-verification.m
 ## Common Issues
 
 **Signature already exists?**
-- Use `--force` to overwrite: `ocm sign cv --force ...`
-- Or use a different signature name: `--signature name-v2`
+- Use `--force` to overwrite: `ocm sign cv ... --force`
 
 **Private key not found?**
-- Check the file path in `private_key_pem_file`
-- Ensure the `.ocmconfig` file is in the correct location (`~/.ocmconfig`)
+- Check the file path in `privateKey` and `publicKey`.
 
 **Need more help?**
-- See [Troubleshooting]({{< relref "signing-and-verification.md#troubleshooting" >}}) in the Signing and Verification Guide
+- See [Troubleshooting]({{< relref "../../tutorials/signing-and-verification.md#troubleshooting" >}})
