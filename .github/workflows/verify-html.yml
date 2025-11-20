@@ -80,8 +80,8 @@ jobs:
           fi
       - name: Give Netlify time to stabilize
         run: |
-          echo "Waiting 20 seconds for Netlify to fully stabilize..."
-          sleep 20
+          echo "Waiting 30 seconds for Netlify to fully stabilize..."
+          sleep 30
       - name: Fetch versions list from main
         run: |
           curl -fsSL \
