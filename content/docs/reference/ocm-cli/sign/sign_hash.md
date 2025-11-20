@@ -1,6 +1,6 @@
 ---
-title: sign hash
-name: hash
+title: hash
+name: sign hash
 url: /docs/reference/ocm-cli/sign/hash/
 draft: false
 images: []

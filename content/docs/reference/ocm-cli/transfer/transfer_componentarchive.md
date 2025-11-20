@@ -1,6 +1,6 @@
 ---
-title: transfer componentarchive
-name: componentarchive
+title: componentarchive
+name: transfer componentarchive
 url: /docs/reference/ocm-cli/transfer/componentarchive/
 draft: false
 images: []

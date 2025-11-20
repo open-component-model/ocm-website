@@ -1,6 +1,6 @@
 ---
-title: transfer componentversions
-name: componentversions
+title: componentversions
+name: transfer componentversions
 url: /docs/reference/ocm-cli/transfer/componentversions/
 draft: false
 images: []

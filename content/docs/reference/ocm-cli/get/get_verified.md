@@ -1,6 +1,6 @@
 ---
-title: get verified
-name: verified
+title: verified
+name: get verified
 url: /docs/reference/ocm-cli/get/verified/
 draft: false
 images: []

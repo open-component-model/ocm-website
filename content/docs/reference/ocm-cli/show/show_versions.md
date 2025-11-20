@@ -1,6 +1,6 @@
 ---
-title: show versions
-name: versions
+title: versions
+name: show versions
 url: /docs/reference/ocm-cli/show/versions/
 draft: false
 images: []

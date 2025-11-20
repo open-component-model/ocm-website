@@ -1,6 +1,6 @@
 ---
-title: get routingslips
-name: routingslips
+title: routingslips
+name: get routingslips
 url: /docs/reference/ocm-cli/get/routingslips/
 draft: false
 images: []

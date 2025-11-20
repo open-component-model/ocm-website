@@ -1,6 +1,6 @@
 ---
-title: show tags
-name: tags
+title: tags
+name: show tags
 url: /docs/reference/ocm-cli/show/tags/
 draft: false
 images: []

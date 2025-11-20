@@ -1,6 +1,6 @@
 ---
-title: add sources
-name: sources
+title: sources
+name: add sources
 url: /docs/reference/ocm-cli/add/sources/
 draft: false
 images: []

@@ -1,6 +1,6 @@
 ---
-title: download resources
-name: resources
+title: resources
+name: download resources
 url: /docs/reference/ocm-cli/download/resources/
 draft: false
 images: []

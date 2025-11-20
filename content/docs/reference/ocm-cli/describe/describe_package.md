@@ -1,6 +1,6 @@
 ---
-title: describe package
-name: package
+title: package
+name: describe package
 url: /docs/reference/ocm-cli/describe/package/
 draft: false
 images: []

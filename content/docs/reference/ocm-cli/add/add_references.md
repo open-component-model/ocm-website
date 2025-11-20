@@ -1,6 +1,6 @@
 ---
-title: add references
-name: references
+title: references
+name: add references
 url: /docs/reference/ocm-cli/add/references/
 draft: false
 images: []

@@ -1,6 +1,6 @@
 ---
-title: get credentials
-name: credentials
+title: credentials
+name: get credentials
 url: /docs/reference/ocm-cli/get/credentials/
 draft: false
 images: []

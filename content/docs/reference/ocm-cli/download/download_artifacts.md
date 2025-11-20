@@ -1,6 +1,6 @@
 ---
-title: download artifacts
-name: artifacts
+title: artifacts
+name: download artifacts
 url: /docs/reference/ocm-cli/download/artifacts/
 draft: false
 images: []

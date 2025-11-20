@@ -1,6 +1,6 @@
 ---
-title: clean cache
-name: cache
+title: cache
+name: clean cache
 url: /docs/reference/ocm-cli/clean/cache/
 draft: false
 images: []

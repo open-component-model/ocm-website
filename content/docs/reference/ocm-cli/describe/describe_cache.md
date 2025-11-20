@@ -1,6 +1,6 @@
 ---
-title: describe cache
-name: cache
+title: cache
+name: describe cache
 url: /docs/reference/ocm-cli/describe/cache/
 draft: false
 images: []

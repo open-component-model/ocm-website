@@ -1,6 +1,6 @@
 ---
-title: transfer artifacts
-name: artifacts
+title: artifacts
+name: transfer artifacts
 url: /docs/reference/ocm-cli/transfer/artifacts/
 draft: false
 images: []

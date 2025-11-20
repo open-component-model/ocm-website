@@ -1,6 +1,6 @@
 ---
-title: download componentversions
-name: componentversions
+title: componentversions
+name: download componentversions
 url: /docs/reference/ocm-cli/download/componentversions/
 draft: false
 images: []
