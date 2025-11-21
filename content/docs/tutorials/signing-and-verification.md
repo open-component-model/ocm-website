@@ -18,16 +18,23 @@ This guide covers the complete signing and verification workflow, from key pair 
 - Understand how OCM handles component signing and verification
 - Learn about supported signature types
 - See step-by-step signing and verification examples
+- Plan multi-environment workflows with dedicated signing profiles (dev/staging/prod)
+- Understand how signer specifications and encoding policies complement `.ocmconfig`
 
 ## Signing and Verification Workflow
 
 ### High-Level Process
 
-**Signing:**  
-Normalize component descriptor → Hash descriptor → Sign with private key → Store signature
+A side-by-side comparison makes it clear how both flows mirror the same normalization and hashing steps while differing only in credential handling.
 
-**Verification:**  
-Fetch component version → Normalize descriptor → Hash descriptor → Verify with public key
+### Workflow comparison
+
+| Step | Signing flow | Verification flow |
+|------|--------------|-------------------|
+| 1 | Resolve signing credentials from `.ocmconfig` or signer spec | Resolve signature by name and load public key/certificate (config, CLI flag, or embedded PEM) |
+| 2 | Normalize component descriptor (selected algorithm) | Normalize component descriptor with the same algorithm |
+| 3 | Hash normalized descriptor (selected hash) | Hash normalized descriptor and compare against signature digest |
+| 4 | Produce signature, store it with descriptor metadata | Verify signature (and certificate chain if PEM) |
 
 ### What Gets Signed?
 
@@ -186,6 +193,8 @@ The keys are configured as credentials for a special consumer type: `RSA/v1alpha
 
 All examples below use the **exact file paths** from the key generation section above.
 
+> **Tip:** Add the entries below to your `.ocmconfig`. If the file is present in your home directory (`~/.ocmconfig`), the OCM CLI will use it automatically. Only provide `--config <path>` when you want to reference a different configuration file.
+
 ### Basic Signing Configuration (Development)
 
 Using the development keys we created earlier:
@@ -244,6 +253,8 @@ The consumer identity for RSA signing/verification supports these attributes:
 The `signature` attribute is particularly useful for multi-environment setups.
 
 ## Multi-Environment Configuration
+
+> **Optional (advanced):** Skip this section if you operate a single environment. You can continue with [Signer Specifications](#signer-specifications) without missing any required setup.
 
 In many organizations, you'll want different signing keys for different environments or purposes.
 
@@ -353,6 +364,8 @@ configurations:
 
 ## Signer Specifications
 
+> **Optional (advanced):** If you do not need per-command overrides or CI-friendly specs, skip ahead to [Signature Encoding Policies](#signature-encoding-policies). Core functionality continues there.
+
 The `--signer-spec` flag provides fine-grained control over the signing process via a YAML configuration file.
 
 ### When to Use Signer Specs
@@ -438,6 +451,8 @@ ocm sign cv \
 ```
 
 ## Signature Encoding Policies
+
+> **Optional (advanced):** Readers who only work with the default signing setup can skip directly to [Signing Component Versions](#signing-component-versions). The sections below cover advanced storage and trust scenarios.
 
 OCM supports two encoding policies that affect how signatures are stored and verified.
 

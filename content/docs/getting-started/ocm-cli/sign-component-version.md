@@ -18,7 +18,8 @@ Signing ensures the **authenticity** and **integrity** of component versions in 
 
 ## Minimal .ocmconfig for signing
 
-Add the following to your `.ocmconfig` file:
+Add the following to your `.ocmconfig` file. If the file is present in your home directory (`~/.ocmconfig`),
+it will be used by default by the OCM CLI.
 
 ```yaml
 type: generic.config.ocm.software/v1
@@ -52,7 +53,7 @@ Let's sign the component we created earlier in the [Create a Component Version](
 assuming you used the default name for the CTF:
 
 ```bash
-ocm sign cv transport-archive//github.com/acme.org/helloworld:1.0.0
+ocm sign cv transport-archive//github.com/acme.org/helloworld:1.0.0 --config <path to your .ocmconfig>
 ```
 
 This command signs the specified component version and stores the signature in the repository:

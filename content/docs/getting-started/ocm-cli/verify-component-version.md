@@ -20,7 +20,8 @@ Verifying a component version ensures that a signature was created by a trusted 
 To verify a signature, OCM needs a public key.  
 We recommend referring to key files rather than embedding PEM blocks directly.
 
-Add the following to your `.ocmconfig`:
+Add the following to your `.ocmconfig`. If the file is present in your home directory (`~/.ocmconfig`),
+it will be used by default by the OCM CLI.
 
 ```yaml
 type: generic.config.ocm.software/v1
