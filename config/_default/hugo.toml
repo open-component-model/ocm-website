@@ -54,7 +54,7 @@ lastMod = false
   enable = true
 
 [outputs]
-  home = ["HTML", "RSS", "searchIndex"]
+  home = ["HTML", "RSS", "searchIndex", "JSON"]
   section = ["HTML", "RSS", "SITEMAP"]
 
 [outputFormats.searchIndex]

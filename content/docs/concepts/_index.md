@@ -1,6 +1,6 @@
 ---
 title: "Concepts"
-description: "Explore the basic concepts and principles of the Open Component Model (OCM)."
+description: "Explore basic concepts and principles of the Open Component Model"
 icon: "📚"
 weight: 30
 url: /docs/concepts/

@@ -88,10 +88,44 @@ body.list.section.docs .ocm-cards-grid {
   margin-top: 0.1rem;
   text-align: center;
   display: -webkit-box;
-  -webkit-line-clamp: 3;
-  line-clamp: 3;
+  -webkit-line-clamp: 4;
+  line-clamp: 4;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+/* Home page variant */
+.ocm-cards-grid--home {
+  --ocm-grid-home-gap: 1.2rem;
+  gap: var(--ocm-grid-home-gap);
+  grid-template-columns: repeat(var(--ocm-grid-home-columns, 4), minmax(210px, 1fr));
+  margin: 2rem auto;
+  width: 100%;
+  max-width: calc(var(--ocm-grid-home-columns, 4) * 320px + (var(--ocm-grid-home-columns, 4) - 1) * var(--ocm-grid-home-gap, 1.2rem));
+  justify-content: center;
+  justify-items: center;
+}
+
+.ocm-section-card--home {
+  padding: 1.3rem 1.1rem 1.2rem;
+  width: 100%;
+  max-width: 320px;
+  text-align: center;
+}
+
+.ocm-section-card--home .ocm-card-title {
+  font-size: clamp(1.25rem, calc(1.1rem + 0.6vw), 1.75rem);
+  line-height: 1.25;
+  color: #1d2a73;
+  margin: 0.35rem 0 1rem;
+  letter-spacing: 0.01em;
+}
+
+.ocm-section-card--home .ocm-card-desc {
+  font-size: 1.1rem;
+  line-height: 1.45;
+  color: #343a5c;
+  margin-top: 0;
 }
 
 /* Responsive tweaks for small screens */
@@ -105,6 +139,16 @@ body.list.section.docs .ocm-cards-grid {
     min-height: 120px;
     height: 180px;
   }
+  .ocm-cards-grid--home {
+    --ocm-grid-home-gap: 1.1rem;
+    gap: var(--ocm-grid-home-gap);
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    width: 100%;
+  }
+  .ocm-section-card--home {
+    padding: 1rem 0.8rem;
+    height: auto;
+  }
 }
 
 @media (max-width: 600px) {
@@ -114,6 +158,14 @@ body.list.section.docs .ocm-cards-grid {
   }
   .ocm-section-card {
     height: auto;
+    min-height: 110px;
+  }
+  .ocm-cards-grid--home {
+    grid-template-columns: 1fr;
+    gap: 0.6rem;
+    width: 100%;
+  }
+  .ocm-section-card--home {
     min-height: 110px;
   }
 }
