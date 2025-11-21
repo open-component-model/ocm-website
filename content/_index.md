@@ -30,7 +30,7 @@ how_ocm_works:
     emoji: "🚀"
     title: "Deploy"
     description: "Automate Deployments with OCM Controllers and Flux. Seamless GitOps."
-    link: "/docs/getting-started/ocm-controllers"
+    link: "/docs/getting-started/ocm-controllers/"
 
 benefits_title: "Why Choose OCM?"
 benefits_cards_max_columns: 3
