@@ -17,9 +17,7 @@ updates:
   - kind/skip-release-notes
   - component/github-actions
 - package-ecosystem: "gomod"
-  directories:
-    - "/"
-    - "/hack/generate-cli-docs"
+  directory: "/hack/generate-cli-docs"
   groups:
     go:
       update-types: [ "minor", "patch" ]
