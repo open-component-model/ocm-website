@@ -18,7 +18,7 @@
 <div class="{{ $gridClass }}"{{ if $styleValue }} style="{{ $styleValue | safeCSS }}"{{ end }}>
   {{- range .items }}
     {{- $href := "#" -}}
-    {{- with .link }}{{ $href = (. | relURL) }}{{ end -}}
+    {{- with .link }}{{ $href = ref $.page . }}{{ end -}}
     <a class="{{ $cardClass }}" href="{{ $href }}">
       <span class="ocm-card-icon" aria-hidden="true">{{ .emoji }}</span>
       <div class="ocm-card-title">{{ .title }}</div>
