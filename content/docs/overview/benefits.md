@@ -26,7 +26,6 @@ Security is built into OCM. You can **cryptographically sign and verify** every 
 
 Beyond signatures, OCM uses [**immutable, globally unique component identities**]({{<relref "coordinates.md">}}). These act like tracking IDs, linking all lifecycle phases. They make compliance checks, audits, and vulnerability scans easier and more reliable. With OCM, your software is fully traceable from build to deployment.
 
-
 ### Deploy Anywhere, Even Air-Gapped
 
 You can **deliver across boundaries** and **deploy anywhere — public cloud, on-premises, or air-gapped environments**. OCM separates the identity of software artifacts from their location. Identities remain stable while locations can change as needed. You can store software artifacts in local registries, move them between systems, and work in environments with limited or no internet access — all without losing integrity or traceability.
