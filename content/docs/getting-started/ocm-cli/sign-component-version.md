@@ -11,10 +11,10 @@ Signing ensures the **authenticity** and **integrity** of component versions in 
 
 ## Prerequisites
 
-- Key pair (private + public key)
-- OCM CLI installed
-
-**Don't have a key pair yet?** → [Generate Keys in the Signing Guide]({{< relref "signing-and-verification.md#key-pair-generation" >}})
+- You have a key pair (private + public key).
+    - Don't have a key pair yet? Follow our guide: [Key Pair Generation]({{< relref "signing-and-verification.md#key-pair-generation" >}}).
+- You have the OCM CLI installed.
+    - To install the OCM CLI, follow our guide: [Install and Configure the OCM CLI]({{< relref "ocm-cli-installation" >}}).
 
 ## Minimal .ocmconfig for Signing
 
