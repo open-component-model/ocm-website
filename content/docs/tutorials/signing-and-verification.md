@@ -109,8 +109,6 @@ mkdir -p ~/.ocm/keys
 
 Throughout this guide, we'll use this structure and reference files with their full paths.
 
-> **Note:** OCM supports **RSA** signatures with two algorithms: **RSASSA-PSS** (default and recommended) and **RSASSA-PKCS1v15** (legacy support).
-
 ### Self-Signed Keys (Development)
 
 Self-signed keys are ideal for development, testing, and environments without PKI infrastructure.
