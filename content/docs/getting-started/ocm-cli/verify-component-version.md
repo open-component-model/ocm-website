@@ -13,7 +13,7 @@ Verifying a component version ensures that a signature was created by a trusted 
 
 - Public key corresponding to the signature
 
-**Don't have keys yet?** → [Generate Keys in the Signing Guide]({{< relref "signing-and-verification.md#key-pair-generation" >}})
+**Don't have a key pair yet?** → [Generate Keys in the Signing Guide]({{< relref "signing-and-verification.md#key-pair-generation" >}})
 
 ## Minimal `.ocmconfig` for verification
 
@@ -40,13 +40,12 @@ configurations:
 
 **Explanation:**
 
-- The properties below the `id` field are required:
-
-  - `name`: Name of the signature
-  - `publicKey`: Path to the public key file
-  - `signature`: Path to the signature file
-
-- `public_key_pem_file` → path to a public key file in PEM format
+- `identity` attributes define the consumer type for RSA verification:
+  - `type` must be `RSA/v1alpha1` for RSA-based verification
+  - `algorithm` specifies the signing algorithm (`RSASSA-PSS` is recommended, `RSASSA-PKCS1V15` is legacy)
+  - `signature` specifies the signature name/label for this configuration (default is `default`)
+- `credentials` properties contain the actual key material:
+  - `public_key_pem_file` → path to a public key file in PEM format
 
 > **💡 Path Consistency:** Use the same directory structure as for signing.  
 > If you signed with `~/.ocm/keys/dev/private.key`, verify with `~/.ocm/keys/dev/public.pem`.

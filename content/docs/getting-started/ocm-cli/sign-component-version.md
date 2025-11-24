@@ -14,7 +14,7 @@ Signing ensures the **authenticity** and **integrity** of component versions in 
 - Key pair (private + public key)
 - OCM CLI installed
 
-**Don't have keys yet?** → [Generate Keys in the Signing Guide]({{< relref "signing-and-verification.md#key-pair-generation" >}})
+**Don't have a key pair yet?** → [Generate Keys in the Signing Guide]({{< relref "signing-and-verification.md#key-pair-generation" >}})
 
 ## Minimal .ocmconfig for signing
 
@@ -38,11 +38,12 @@ configurations:
 
 **Explanation:**
 
-- The properties below the `identity` field define the signing profile
-  - `type` specifies the key type (here: RSA)
-  - `algorithm` specifies the signing algorithm (here: RSASSA-PSS)
-  - `signature` specifies the signature name (default is `default`)
-- `private_key_pem_file` → path to a private key file in PEM format
+- `identity` attributes define the consumer type for RSA signing:
+  - `type` must be `RSA/v1alpha1` for RSA-based signing
+  - `algorithm` specifies the signing algorithm (`RSASSA-PSS` is recommended, `RSASSA-PKCS1V15` is legacy)
+  - `signature` specifies the signature name/label for this configuration (default is `default`)
+- `credentials` properties contain the actual key material:
+  - `private_key_pem_file` → path to a private key file in PEM format
 
 ## Sign a component version
 
@@ -171,16 +172,7 @@ ocm sign cv --signature prod transport-archive//github.com/acme.org/helloworld:1
 
 See the [Multi-Environment Configuration]({{< relref "signing-and-verification.md#multi-environment-configuration" >}}) section for complete examples.
 
-## Common Issues
+## Troubleshooting
 
-**Signature already exists?**
-
-- Use `--force` to overwrite: `ocm sign cv ... --force`
-
-**Private key not found?**
-
-- Check the file path in `privateKey` and `publicKey`.
-
-**Need more help?**
-
-- See [Troubleshooting]({{< relref "../../tutorials/signing-and-verification.md#troubleshooting" >}})
+For support with common issues, see the [Troubleshooting]({{< relref "../../tutorials/signing-and-verification.md#troubleshooting" >}})
+section of the Signing and Verification Guide.

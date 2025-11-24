@@ -52,14 +52,19 @@ OCM signs the **component descriptor**, which contains:
 - ✅ Tamper detection (any change to artifacts invalidates the signature)
 - ✅ Provenance (signature proves who created/released the component version)
 
-## Choose Your Approach
+## Key Pair Generation (Optional)
+
+> **Already have RSA key pairs?** Skip to [Configuring Keys in .ocmconfig](#configuring-keys-in-ocmconfig-file)
+
+This section covers general RSA key pair generation and management. If you already have suitable RSA keys (self-signed or CA-signed), you can use them directly with OCM and skip to the configuration section.
+
+### Choose Your Approach
 
 Before generating keys, decide which approach fits your needs:
 
 | Your Situation | Recommended Approach |
 |----------------|---------------------|
 | Local development or testing | **Self-Signed Keys** |
-| Small team (< 10 people) | **Self-Signed Keys** |
 | Production environment | **CA-Signed Keys** |
 | Enterprise/Multi-organization | **CA-Signed Keys** |
 | Compliance requirements | **CA-Signed Keys** |
@@ -80,13 +85,11 @@ Before generating keys, decide which approach fits your needs:
 - Trust leverages existing PKI
 - Automatic trust propagation via certificate validation
 
-**When in doubt:** Start with self-signed for development, move to CA-signed for production.
-
 ## Key Pair Generation
 
 OCM supports **RSA** signatures with two algorithms:
 
-- **RSASSA-PSS** (Probabilistic Signature Scheme) - Default and recommended
+- **RSASSA-PSS** - Default and recommended
 - **RSASSA-PKCS1v15** - Legacy support
 
 ### Directory Structure Setup
@@ -105,6 +108,8 @@ mkdir -p ~/.ocm/keys
 ```
 
 Throughout this guide, we'll use this structure and reference files with their full paths.
+
+> **Note:** OCM supports **RSA** signatures with two algorithms: **RSASSA-PSS** (default and recommended) and **RSASSA-PKCS1v15** (legacy support).
 
 ### Self-Signed Keys (Development)
 
@@ -190,6 +195,8 @@ chmod 644 ~/.ocm/keys/prod/cert-chain.pem
 
 OCM uses its credential system to resolve signing and verification keys.
 The keys are configured as credentials for a special consumer type: `RSA/v1alpha1`.
+
+> **Using your own keys?** Simply reference your existing key file paths in the configuration examples below instead of the `~/.ocm/keys/` paths shown here.
 
 All examples below use the **exact file paths** from the key generation section above.
 
@@ -423,7 +430,7 @@ This means:
 
 - Algorithm: RSASSA-PSS
 - Encoding: Plain (raw signature bytes)
-- Key: Retrieved from `.ocmconfig` credential system
+- Key: Retrieved from `.ocmconfig` config file
 
 ### Example: Using Signer Spec in CI/CD
 
