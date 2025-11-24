@@ -130,7 +130,7 @@ ocm verify cv --signature prod transport-archive//github.com/acme.org/helloworld
 
 **Public key not found?**
 
-- Check the file path in `publicKey` and `signature`.
+- Check the file path in `public_key_pem_file` and the `signature` profile.
 
 **Wrong signature name?**
 
