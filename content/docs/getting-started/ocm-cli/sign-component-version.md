@@ -18,8 +18,7 @@ Signing ensures the **authenticity** and **integrity** of component versions in 
 
 ## Minimal .ocmconfig for Signing
 
-Add the following to your `.ocmconfig` file. If the file is present in your home directory (`~/.ocmconfig`),
-it will be used by default by the OCM CLI.
+Add the following to your `.ocmconfig` file. If the file is present in your home directory (`~/.ocmconfig`), the OCM CLI will use it by default.
 
 ```yaml
 type: generic.config.ocm.software/v1
@@ -36,18 +35,19 @@ configurations:
               private_key_pem_file: ./keys/private.key
 ```
 
-**Explanation:**
+**Explanation**
 
-- `identity` attributes define the consumer type for RSA signing:
-  - `type` must be `RSA/v1alpha1` for RSA-based signing
-  - `algorithm` specifies the signing algorithm (`RSASSA-PSS` is recommended, `RSASSA-PKCS1V15` is legacy)
-  - `signature` specifies the signature name/label for this configuration (default is `default`)
-- `credentials` properties contain the actual key material:
-  - `private_key_pem_file` → path to a private key file in PEM format
+The `identity` attributes define the consumer type for RSA signing:
+  - `type` must be `RSA/v1alpha1` for RSA-based signing.
+  - `algorithm` specifies the signing algorithm (`RSASSA-PSS` is recommended, `RSASSA-PKCS1V15` is legacy).
+  - `signature` specifies the signature name/label for this configuration (default is `default`).
+
+The `credentials` properties contain the actual key material:
+  - `private_key_pem_file` is the path to a private key file in PEM format.
 
 ## Sign a Component Version
 
-An `.ocmconfig` can contain multiple signature profiles which can be specified during signing using the `--signature` option.  
+An `.ocmconfig` file can contain multiple signature profiles which can be specified during signing using the `--signature` option.  
 If no signature is specified, the signature named `default` will be looked up in the `.ocmconfig` and used for signing.
 
 Let's sign the component we created earlier in the [Create a Component Version]({{< relref "create-component-version.md" >}}) section,
@@ -71,7 +71,7 @@ signature:
   value: 57cfd281dc43fdba5d73547aed13226c2358b3bfbc6c600dd42e80144cb944faf4c...
 ```
 
- When looking at the component descriptor we can also see the new signature entry at the end of the descriptor:
+When looking at the component descriptor, we can also see the new signature entry at the end of the descriptor:
 
 ```bash
 ocm get cv transport-archive//github.com/acme.org/helloworld:1.0.0 -oyaml
@@ -175,4 +175,4 @@ See the [Multi-Environment Configuration]({{< relref "signing-and-verification.m
 ## Troubleshooting
 
 For support with common issues, see the [Troubleshooting]({{< relref "../../tutorials/signing-and-verification.md#troubleshooting" >}})
-section of the Signing and Verification Guide.
+section of the Signing and Verification guide.

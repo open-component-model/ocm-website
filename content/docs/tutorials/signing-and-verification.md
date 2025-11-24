@@ -13,7 +13,7 @@ The Open Component Model provides cryptographic signing and verification capabil
 to establish **provenance** and **authenticity** of component versions.
 This guide covers the complete signing and verification workflow, from key pair generation to trust model selection.
 
-### This guide is for users who want to
+**This guide is for users who want to:**
 
 - Understand how OCM handles component signing and verification
 - Learn about supported signature types
@@ -29,7 +29,7 @@ A side-by-side comparison makes it clear how both flows mirror the same normaliz
 
 ### Workflow Comparison
 
-| Step | Signing flow | Verification flow |
+| Step | Signing Flow | Verification Flow |
 |------|--------------|-------------------|
 | 1 | Resolve signing credentials from `.ocmconfig` or signer spec | Resolve signature by name and load public key/certificate (config, CLI flag, or embedded PEM) |
 | 2 | Normalize component descriptor (selected algorithm) | Normalize component descriptor with the same algorithm |
@@ -54,7 +54,7 @@ OCM signs the **component descriptor**, which contains:
 
 ## Key Pair Generation (Optional)
 
-> **Already have RSA key pairs?** Skip to [Configuring Keys in .ocmconfig](#configuring-keys-in-ocmconfig-file)
+> **Already have RSA key pairs?** Skip to [Configuring Keys in .ocmconfig](#configuring-keys-in-ocmconfig-file).
 
 This section covers general RSA key pair generation and management. If you already have suitable RSA keys (self-signed or CA-signed), you can use them directly with OCM and skip to the configuration section.
 
