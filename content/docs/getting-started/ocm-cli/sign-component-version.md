@@ -16,7 +16,7 @@ Signing ensures the **authenticity** and **integrity** of component versions in 
 
 **Don't have a key pair yet?** → [Generate Keys in the Signing Guide]({{< relref "signing-and-verification.md#key-pair-generation" >}})
 
-## Minimal .ocmconfig for signing
+## Minimal .ocmconfig for Signing
 
 Add the following to your `.ocmconfig` file. If the file is present in your home directory (`~/.ocmconfig`),
 it will be used by default by the OCM CLI.
@@ -45,7 +45,7 @@ configurations:
 - `credentials` properties contain the actual key material:
   - `private_key_pem_file` → path to a private key file in PEM format
 
-## Sign a component version
+## Sign a Component Version
 
 An `.ocmconfig` can contain multiple signature profiles which can be specified during signing using the `--signature` option.  
 If no signature is specified, the signature named `default` will be looked up in the `.ocmconfig` and used for signing.
@@ -123,7 +123,7 @@ ocm get cv transport-archive//github.com/acme.org/helloworld:1.0.0 -oyaml
       value: 57cfd281dc43fdba5d73547aed13226c2358b3bfbc6c600dd42e8014...
 ```
 
-## Replace an existing signature
+## Replace an Existing Signature
 
 In case you want to replace an existing signature, use the `--force` flag.
 Otherwise you will get an error like `Error: signature "default" already exists`.

@@ -15,7 +15,7 @@ Verifying a component version ensures that a signature was created by a trusted 
 
 **Don't have a key pair yet?** → [Generate Keys in the Signing Guide]({{< relref "signing-and-verification.md#key-pair-generation" >}})
 
-## Minimal `.ocmconfig` for verification
+## Minimal .ocmconfig for Verification
 
 To verify a signature, OCM needs a public key.  
 We recommend referring to key files rather than embedding PEM blocks directly.
@@ -50,7 +50,7 @@ configurations:
 > **💡 Path Consistency:** Use the same directory structure as for signing.  
 > If you signed with `~/.ocm/keys/dev/private.key`, verify with `~/.ocm/keys/dev/public.pem`.
 
-## Verify a component version
+## Verify a Component Version
 
 Assuming you created and signed a component version in the previous steps, you can verify it with:
 
@@ -71,7 +71,7 @@ time=2025-11-19T15:58:22.435+01:00 level=INFO msg="signature verification comple
 time=2025-11-19T15:58:22.435+01:00 level=INFO msg="SIGNATURE VERIFICATION SUCCESSFUL"
 ```
 
-## Verifying a specific signature name
+## Verifying a Specific Signature Name
 
 If your component contains multiple signatures (e.g., `dev`, `prod`), you can explicitly choose a signature for verification.
 Your .ocmconfig must contain the corresponding public key for that signature:
