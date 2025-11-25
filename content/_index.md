@@ -41,7 +41,7 @@ benefits:
     link: "/docs/overview/benefits-of-ocm/#protect-your-supply-chain"
   - emoji: "🌐"
     title: "Deploy Anywhere, Even Air-Gapped"
-    description: "Deliver across any system or environment without loosing traceability."
+    description: "Deliver across any system or environment without losing traceability."
     link: "/docs/overview/benefits-of-ocm/#deploy-anywhere-even-air-gapped"
   - emoji: "⚙️"
     title:  "Works with Your Existing Tools"
@@ -54,5 +54,5 @@ benefits:
   - emoji: "🤝"
     title: "Committed to Open Source"
     description: "We champion open innovation — in OCM and across the community."
-    link: "/docs/overview/benefits-of-ocm/#commited-to-open-source"
+    link: "/docs/overview/benefits-of-ocm/#committed-to-open-source"
 ---
