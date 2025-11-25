@@ -45,7 +45,7 @@ benefits:
     link: "/docs/overview/benefits-of-ocm/#protect-your-supply-chain"
   - emoji: "🌐"
     title: "Deploy Anywhere, Even Air-Gapped"
-    description: "Deliver across any system or environment without loosing traceability."
+    description: "Deliver across any system or environment without losing traceability."
     link: "/docs/overview/benefits-of-ocm/#deploy-anywhere-even-air-gapped"
   - emoji: "⚙️"
     title:  "Works with Your Existing Tools"
