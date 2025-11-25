@@ -6,12 +6,11 @@ weight: 32
 toc: true
 ---
 
-This document describes how to set up a local environment for testing and running examples from the [`examples/`](https://github.com/open-component-model/open-component-model/tree/main/kubernetes/controller/examples) directory or the [getting-started guides]({{< ref "docs/getting-started/ocm-controllers/_index.md" >}}).
+This document describes how to set up a local environment for testing and running examples from the [Deploy a Helm Chart]({{< ref "docs/getting-started/deploy-helm-chart.md" >}}) guide.
 
 ## Prerequisites
 
 - [kubectl](https://kubernetes.io/docs/tasks/tools/#kubectl)
-- [ocm CLI](https://ocm.software/docs/getting-started/installation/) (will not be used in this guide, but is required to follow the examples and getting-started guides)
 
 ## Start a local Kubernetes cluster with kind
 
@@ -132,8 +131,8 @@ CLI, kubelet, and inside the cluster.)
 
 ---
 
-If you completed all of the above steps, you are ready to go. You can now play around with the examples in the
-[`examples/`](https://github.com/open-component-model/open-component-model/tree/main/kubernetes/controller/examples) directory or follow the [Getting Started Guides]({{< relref "docs/getting-started/ocm-controllers/_index.md" >}}).
+If you completed all of the above steps, you are ready to go. You can now start with the [Deploy a Helm Chart]({{< relref "docs/getting-started/deploy-helm-chart.md" >}}) guide or play around with the examples in the
+[`examples/`](https://github.com/open-component-model/open-component-model/tree/main/kubernetes/controller/examples) directory.
 
 [ghcr.io]: https://docs.github.com/en/packages/learn-github-packages/introduction-to-github-packages
 [registry]: https://hub.docker.com/_/registry
