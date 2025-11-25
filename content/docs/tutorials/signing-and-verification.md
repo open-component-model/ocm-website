@@ -54,7 +54,7 @@ OCM signs the **component descriptor**, which contains:
 
 ## Key Pair Generation (Optional)
 
-> **Already have RSA key pairs?** Skip to [Configuring Keys in .ocmconfig](#configuring-keys-in-ocmconfig-file).
+> **Already have RSA key pairs?** Skip to [Configuring Keys in an .ocmconfig File](#configuring-keys-in-an-ocmconfig-file).
 
 This section covers general RSA key pair generation and management. If you already have suitable RSA keys (self-signed or CA-signed), you can use them directly with OCM and skip to the configuration section.
 
@@ -189,7 +189,7 @@ cat ~/.ocm/keys/prod/certificate.pem \
 chmod 644 ~/.ocm/keys/prod/cert-chain.pem
 ```
 
-## Configuring Keys in .ocmconfig File
+## Configuring Keys in an .ocmconfig File
 
 OCM uses its credential system to resolve signing and verification keys.
 The keys are configured as credentials for a special consumer type: `RSA/v1alpha1`.

@@ -73,7 +73,7 @@ time=2025-11-19T15:58:22.435+01:00 level=INFO msg="signature verification comple
 time=2025-11-19T15:58:22.435+01:00 level=INFO msg="SIGNATURE VERIFICATION SUCCESSFUL"
 ```
 
-## Verifying a Specific Signature Name
+## Verify a Specific Signature Name
 
 If your component contains multiple signatures (e.g., `dev`, `prod`), you can explicitly choose a signature for verification.
 Your `.ocmconfig` must contain the corresponding public key for that signature:
