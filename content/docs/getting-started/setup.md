@@ -79,7 +79,7 @@ kro                  kro-86d5b5b5bd-6gmvr                         1/1     Runnin
 
 ## Install the OCM Controllers
 
-To install the OCM Controllers, you can use one of the following commands:
+To install the OCM controllers, you can use one of the following commands:
 
 ```bash
 # In the open-component-model repository, folder kubernetes/controller
@@ -92,7 +92,7 @@ or
 kubectl apply -k https://github.com/open-component-model/open-component-model/kubernetes/controller/config/default?ref=main
 ```
 
-If the OCM Controllers are installed correctly, you should see some similar output when running the
+If the OCM controllers are installed correctly, you should see some similar output when running the
 following command:
 
 ```bash
@@ -115,13 +115,13 @@ ocm-k8s-toolkit-system   ocm-k8s-toolkit-controller-manager-788f58d4bd-ntbx8   1
 
 ## Access to a registry
 
-As all examples and guides will create an OCM component version that will be consumed by the OCM Controllers, you will
+As all examples and guides will create an OCM component version that will be consumed by the OCM controllers, you will
 need access to a registry. You can either choose a public registry like [ghcr.io][ghcr.io] or deploy a registry (like
 [`registry`][registry], [`zot`][zot], ...) into your Kubernetes cluster.
 
 {{<callout context="caution">}}
 If you choose to deploy a registry into your Kubernetes cluster, you have to make sure it is accessible from outside
-the cluster (for `ocm transfer` to work) and inside the cluster (for the OCM Controllers to work).
+the cluster (for `ocm transfer` to work) and inside the cluster (for the OCM controllers to work).
 
 We **strongly** recommend to use a registry that is publicly accessible, like [ghcr.io][ghcr.io].
 (Deploying your own registry requires a lot of additional configuration. Especially, if you want to try out the
