@@ -1,5 +1,5 @@
 ---
-title: "Install and Configure the OCM CLI"
+title: "Install the OCM CLI"
 url: "/docs/getting-started/installation/"
 description: "Learn how to install the OCM CLI on various platforms."
 icon: "💻"

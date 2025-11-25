@@ -1,5 +1,5 @@
 ---
-title: Set up your environment
+title: Set Up OCM Controller Environment
 description: "Set up a local environment for running examples from the getting-started guides"
 icon: "🛠️"
 weight: 32
