@@ -1,8 +1,8 @@
 ---
-title: Introduction
-description: "Learn about the OCM Controllers and their capabilities"
+title: OCM Controllers
+description: "Learn about the OCM controllers and their capabilities."
 icon: "🏁"
-weight: 31
+weight: 43
 toc: true
 ---
 
