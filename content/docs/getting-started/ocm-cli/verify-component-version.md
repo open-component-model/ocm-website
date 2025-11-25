@@ -39,8 +39,6 @@ configurations:
               public_key_pem_file: ./keys/public.pem
 ```
 
-**Explanation**
-
 The `identity` attributes define the consumer type for RSA verification:
   - `type` must be `RSA/v1alpha1` for RSA-based verification.
   - `algorithm` specifies the signing algorithm (`RSASSA-PSS` is recommended, `RSASSA-PKCS1V15` is legacy).
