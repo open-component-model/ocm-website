@@ -2,7 +2,7 @@
 latest_version = "v0.26.0"
 
 # mainSections
-mainSections = ["docs"]
+mainSections = ["docs", "community"]
 
 # Doks (@thulite/doks-core)
 [doks]
@@ -40,7 +40,7 @@ mainSections = ["docs"]
   bootstrapJavascript = false # false (default) or true
 
   # Nav
-  sectionNav = ["docs"] # ["docs"] (default) or list of sections (e.g. ["docs", "guides"])
+  sectionNav = ["docs", "community"] # include community so sidebar appears for community section
   toTopButton = false # false (default) or true
   breadcrumbTrail = false # false (default) or true
   headlineHash = true # true (default) or false
