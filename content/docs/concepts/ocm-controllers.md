@@ -16,7 +16,7 @@ The OCM controllers
 into a Kubernetes cluster with the help of kro and a deployer, e.g. FluxCD.
 - provide a controller to transfer OCM components.
 
-### What should I know before I start?
+### Before You Begin
 
 You should be familiar with the following concepts:
 

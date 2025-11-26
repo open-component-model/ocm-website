@@ -10,14 +10,14 @@ OCM controller resources need access to OCM components and their resources. If t
 private OCM repository, we need to configure credentials to allow OCM controller resources to access these
 repositories.
 
-## How to configure credentials?
+## How to Configure Credentials?
 
 Currently, OCM controllers supports two ways to configure credentials for accessing private OCM repositories:
 
 - [Kubernetes secret of type `dockerconfigjson`](#create-a-kubernetes-secret-of-type-dockerconfigjson)
 - [Kubernetes secret or configmap containing an `.ocmconfig` file](#create-a-kubernetes-secret-or-configmap-from-ocmconfig-file)
 
-### Create a Kubernetes secret of type `dockerconfigjson`
+### Create a Kubernetes Secret of Type `dockerconfigjson`
 
 If you already have an existing Docker configuration file that you use to access your private OCM repository, you can
 create a Kubernetes secret of type `dockerconfigjson` that contains the credentials:
@@ -42,7 +42,7 @@ kubectl create secret docker-registry ocm-secret \
   --docker-server=<your-OCM-repository-url>
 ```
 
-### Create a Kubernetes secret or configmap from `.ocmconfig` file
+### Create a Kubernetes Secret or Configmap from an `.ocmconfig` file
 
 To create a Kubernetes secret or configmap containing an OCM configuration that allows OCM controller resources
 to access private OCM repositories, you can use the `.ocmconfig` file used to transfer the OCM component in the
@@ -96,7 +96,7 @@ Make sure that the secret or configmap containing an OCM config has the correct 
 Using the filename `.ocmconfig` in the `--from-file` option takes care of that.
 {{</callout>}}
 
-## How to use the configured credentials?
+## How to Use the Configured Credentials?
 
 Every OCM controller resource offers a `spec.ocmConfig` field that can be used to specify the credentials for accessing
 private OCM repositories. It expects an `OCMConfiguration` that contains a `NamespacedObjectKindReference` to the secret

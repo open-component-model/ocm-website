@@ -1,5 +1,5 @@
 ---
-title: Set Up OCM Controller Environment
+title: Set Up an OCM Controller Environment
 description: "Set up a local environment for running examples from the getting-started guides"
 icon: "🛠️"
 weight: 32
@@ -12,7 +12,7 @@ This document describes how to set up a local environment for testing and runnin
 
 - [kubectl](https://kubernetes.io/docs/tasks/tools/#kubectl)
 
-## Start a local Kubernetes cluster with kind
+## Start a Local Kubernetes Cluster With kind
 
 {{<callout context="note">}}
 You don't need to run kind if you are using a remote Kubernetes cluster you have access to. If so, you can skip this.
@@ -45,7 +45,7 @@ kro                  kro-86d5b5b5bd-6gmvr                         1/1     Runnin
 ...
 ```
 
-## Install a deployer
+## Install a Deployer
 
 Currently, we created our examples and getting-started guides using [FluxCD](https://fluxcd.io/) as deployer.
 But, in theory, you could use any other deployer that is able to apply a deployable resource to a Kubernetes cluster,
@@ -113,7 +113,7 @@ ocm-k8s-toolkit-system   ocm-k8s-toolkit-controller-manager-788f58d4bd-ntbx8   1
 ...
 ```
 
-## Access to a registry
+## Access to a Registry
 
 As all examples and guides will create an OCM component version that will be consumed by the OCM controllers, you will
 need access to a registry. You can either choose a public registry like [ghcr.io][ghcr.io] or deploy a registry (like

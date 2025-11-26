@@ -158,7 +158,7 @@ Finally, we will check if the deployment was successful and if the localization 
 Before starting, make sure you have set up your environment as described in the [setup guide]({{< relref "setup.md" >}}).
 {{</callout>}}
 
-## Create the OCM component version
+## Create the OCM Component Version
 
 First, we will create an OCM component version containing a Helm chart, the application image that is used in the Helm
 chart, and the `ResourceGraphDefinition` that contains all required resource to deploy the Helm chart and configure the
@@ -496,7 +496,7 @@ failed to list versions: failed to list tags: GET "https://ghcr.io/v2...": respo
 You can resolve this issue by making the package public or by [providing credentials]({{< relref "credentials.md" >}}) to the
 respective resources.
 
-### Creating an instance
+### Create an Instance
 
 After applying the `ResourceGraphDefinition` and making sure that the resulting CRD is available, we can create an
 instance of the CRD, which will deploy the Helm chart and configure the localization. To do so, create a file containing

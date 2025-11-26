@@ -6,7 +6,7 @@ weight: 25
 toc: true
 ---
 
-## Download Resources of a Component Version
+## Download Resources from a Component Version
 
 Use the [`ocm download resources`]({{< relref "ocm_download_resource.md" >}}) command to download specific resources from a component version. In this example, we download the resource with name `chart` from the [example component used in the last chapter]({{< relref "display-examine-component-versions.md#get-and-examine-component-versions" >}}) and save it as a local file:
 
@@ -61,7 +61,7 @@ jq . index.json
 
 </details>
 
-### Download using Transformers
+## Download Using Transformers
 
 {{<callout context="caution" title="Under Construction">}}Transformers are currently in development. We'll extend the below section once they are ready to be used. Until then, you can check out the [Transformer ADR](https://github.com/open-component-model/open-component-model/blob/main/docs/adr/0005_transformation.md){{</callout>}}
 
