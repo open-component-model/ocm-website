@@ -39,11 +39,13 @@ configurations:
 ```
 
 The `identity` attributes define the consumer type for RSA verification:
+
 - `type` must be `RSA/v1alpha1` for RSA-based verification.
 - `algorithm` specifies the signing algorithm (`RSASSA-PSS` is recommended, `RSASSA-PKCS1V15` is legacy).
 - `signature` specifies the signature name/label for this configuration (default is `default`).
 
 The `credentials` properties contain the actual key material:
+
 - `public_key_pem_file` is the path to a public key file in PEM format.
 
 > 💡 Path Consistency: Use the same directory structure as for signing.  
