@@ -1,5 +1,5 @@
 ---
-title: "Verify a Component Version"
+title: "Verify Component Versions"
 url: "/docs/getting-started/verify-component-version/"
 description: "Learn how to verify signed component versions using public keys."
 icon: "🔍"
@@ -9,19 +9,20 @@ toc: true
 
 Verifying a component version ensures that a signature was created by a trusted key and that the component descriptor has not been modified.
 
-**Prerequisites:**
+## Prerequisites
 
-- Public key corresponding to the signature
+- You have a public key corresponding to the signature. 
+    - Don't have a key pair yet? Follow our guide: [Key Pair Generation]({{< relref "signing-and-verification.md#key-pair-generation" >}}).
+- You have the OCM CLI installed.
+    - To install the OCM CLI, follow our guide: [Install and Configure the OCM CLI]({{< relref "ocm-cli-installation" >}}).
 
-**Don't have a key pair yet?** → [Generate Keys in the Signing Guide]({{< relref "signing-and-verification.md#key-pair-generation" >}})
 
-## Minimal `.ocmconfig` for verification
+## Minimal .ocmconfig for Verification
 
 To verify a signature, OCM needs a public key.  
 We recommend referring to key files rather than embedding PEM blocks directly.
 
-Add the following to your `.ocmconfig`. If the file is present in your home directory (`~/.ocmconfig`),
-it will be used by default by the OCM CLI.
+Add the following to your `.ocmconfig`. If the file is present in your home directory (`~/.ocmconfig`), the OCM CLI will use it by default.
 
 ```yaml
 type: generic.config.ocm.software/v1
@@ -38,19 +39,18 @@ configurations:
               public_key_pem_file: ./keys/public.pem
 ```
 
-**Explanation:**
+The `identity` attributes define the consumer type for RSA verification:
+  - `type` must be `RSA/v1alpha1` for RSA-based verification.
+  - `algorithm` specifies the signing algorithm (`RSASSA-PSS` is recommended, `RSASSA-PKCS1V15` is legacy).
+  - `signature` specifies the signature name/label for this configuration (default is `default`).
 
-- `identity` attributes define the consumer type for RSA verification:
-  - `type` must be `RSA/v1alpha1` for RSA-based verification
-  - `algorithm` specifies the signing algorithm (`RSASSA-PSS` is recommended, `RSASSA-PKCS1V15` is legacy)
-  - `signature` specifies the signature name/label for this configuration (default is `default`)
-- `credentials` properties contain the actual key material:
-  - `public_key_pem_file` → path to a public key file in PEM format
+The `credentials` properties contain the actual key material:
+  - `public_key_pem_file` is the path to a public key file in PEM format.
 
 > **💡 Path Consistency:** Use the same directory structure as for signing.  
 > If you signed with `~/.ocm/keys/dev/private.key`, verify with `~/.ocm/keys/dev/public.pem`.
 
-## Verify a component version
+## Verify a Component Version
 
 Assuming you created and signed a component version in the previous steps, you can verify it with:
 
@@ -71,10 +71,10 @@ time=2025-11-19T15:58:22.435+01:00 level=INFO msg="signature verification comple
 time=2025-11-19T15:58:22.435+01:00 level=INFO msg="SIGNATURE VERIFICATION SUCCESSFUL"
 ```
 
-## Verifying a specific signature name
+## Verify a Specific Signature Name
 
 If your component contains multiple signatures (e.g., `dev`, `prod`), you can explicitly choose a signature for verification.
-Your .ocmconfig must contain the corresponding public key for that signature:
+Your `.ocmconfig` must contain the corresponding public key for that signature:
 
 ```bash
 ocm verify cv transport-archive//github.com/acme.org/helloworld:1.0.0 --signature prod
@@ -122,19 +122,19 @@ ocm verify cv --signature prod transport-archive//github.com/acme.org/helloworld
 
 **Verification fails?**
 
-- Ensure the public key matches the signature
-- Check that you're verifying the correct signature name
-- Verify the component hasn't been modified after signing
+- Ensure the public key matches the signature.
+- Check that you're verifying the correct signature name.
+- Verify the component hasn't been modified after signing.
 
 **Public key not found?**
 
-- Check the file path in `publicKey` and `signature`.
+- Check the file path in `public_key_pem_file` and the `signature` profile.
 
 **Wrong signature name?**
 
-- List signatures: `ocm get cv ... --signatures`
-- Use `--signature <name>` to specify the correct signature
+- List signatures: `ocm get cv ... --signatures`.
+- Use `--signature <name>` to specify the correct signature.
 
 **Need more help?**
 
-- See [Troubleshooting]({{< relref "../../tutorials/signing-and-verification.md#troubleshooting" >}})
+- See [Troubleshooting]({{< relref "../../tutorials/signing-and-verification.md#troubleshooting" >}}).

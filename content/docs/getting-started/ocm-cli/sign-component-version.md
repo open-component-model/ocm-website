@@ -1,5 +1,5 @@
 ---
-title: "Sign a Component Version"
+title: "Sign Component Versions"
 url: "/docs/getting-started/sign-component-version/"
 description: "Learn how to sign component versions using key pairs."
 icon: "📦"
@@ -11,15 +11,14 @@ Signing ensures the **authenticity** and **integrity** of component versions in 
 
 ## Prerequisites
 
-- Key pair (private + public key)
-- OCM CLI installed
+- You have a key pair (private + public key).
+    - Don't have a key pair yet? Follow our guide: [Key Pair Generation]({{< relref "signing-and-verification.md#key-pair-generation" >}}).
+- You have the OCM CLI installed.
+    - To install the OCM CLI, follow our guide: [Install and Configure the OCM CLI]({{< relref "ocm-cli-installation" >}}).
 
-**Don't have a key pair yet?** → [Generate Keys in the Signing Guide]({{< relref "signing-and-verification.md#key-pair-generation" >}})
+## Minimal .ocmconfig for Signing
 
-## Minimal .ocmconfig for signing
-
-Add the following to your `.ocmconfig` file. If the file is present in your home directory (`~/.ocmconfig`),
-it will be used by default by the OCM CLI.
+Add the following to your `.ocmconfig` file. If the file is present in your home directory (`~/.ocmconfig`), the OCM CLI will use it by default.
 
 ```yaml
 type: generic.config.ocm.software/v1
@@ -36,18 +35,17 @@ configurations:
               private_key_pem_file: ./keys/private.key
 ```
 
-**Explanation:**
+The `identity` attributes define the consumer type for RSA signing:
+  - `type` must be `RSA/v1alpha1` for RSA-based signing.
+  - `algorithm` specifies the signing algorithm (`RSASSA-PSS` is recommended, `RSASSA-PKCS1V15` is legacy).
+  - `signature` specifies the signature name/label for this configuration (default is `default`).
 
-- `identity` attributes define the consumer type for RSA signing:
-  - `type` must be `RSA/v1alpha1` for RSA-based signing
-  - `algorithm` specifies the signing algorithm (`RSASSA-PSS` is recommended, `RSASSA-PKCS1V15` is legacy)
-  - `signature` specifies the signature name/label for this configuration (default is `default`)
-- `credentials` properties contain the actual key material:
-  - `private_key_pem_file` → path to a private key file in PEM format
+The `credentials` properties contain the actual key material:
+  - `private_key_pem_file` is the path to a private key file in PEM format.
 
-## Sign a component version
+## Sign a Component Version
 
-An `.ocmconfig` can contain multiple signature profiles which can be specified during signing using the `--signature` option.  
+An `.ocmconfig` file can contain multiple signature profiles which can be specified during signing using the `--signature` option.  
 If no signature is specified, the signature named `default` will be looked up in the `.ocmconfig` and used for signing.
 
 Let's sign the component we created earlier in the [Create a Component Version]({{< relref "create-component-version.md" >}}) section,
@@ -71,7 +69,7 @@ signature:
   value: 57cfd281dc43fdba5d73547aed13226c2358b3bfbc6c600dd42e80144cb944faf4c...
 ```
 
- When looking at the component descriptor we can also see the new signature entry at the end of the descriptor:
+When looking at the component descriptor, we can also see the new signature entry at the end of the descriptor:
 
 ```bash
 ocm get cv transport-archive//github.com/acme.org/helloworld:1.0.0 -oyaml
@@ -123,7 +121,7 @@ ocm get cv transport-archive//github.com/acme.org/helloworld:1.0.0 -oyaml
       value: 57cfd281dc43fdba5d73547aed13226c2358b3bfbc6c600dd42e8014...
 ```
 
-## Replace an existing signature
+## Replace an Existing Signature
 
 In case you want to replace an existing signature, use the `--force` flag.
 Otherwise you will get an error like `Error: signature "default" already exists`.
@@ -175,4 +173,4 @@ See the [Multi-Environment Configuration]({{< relref "signing-and-verification.m
 ## Troubleshooting
 
 For support with common issues, see the [Troubleshooting]({{< relref "../../tutorials/signing-and-verification.md#troubleshooting" >}})
-section of the Signing and Verification Guide.
+section of the Signing and Verification guide.
