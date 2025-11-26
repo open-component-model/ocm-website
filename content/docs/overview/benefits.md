@@ -1,6 +1,7 @@
 ---
 title: "Benefits of OCM"
 description: "Security for your software supply chain"
+url: "/docs/overview/benefits-of-ocm/"
 icon: "✨"
 weight: 12
 toc: true
