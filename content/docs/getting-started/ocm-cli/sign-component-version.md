@@ -12,9 +12,9 @@ Signing ensures the **authenticity** and **integrity** of component versions in 
 ## Prerequisites
 
 - You have a key pair (private + public key).
-    - Don't have a key pair yet? Follow our guide: [Key Pair Generation]({{< relref "signing-and-verification.md#key-pair-generation" >}}).
+  - Don't have a key pair yet? Follow our guide: [Key Pair Generation]({{< relref "signing-and-verification.md#key-pair-generation" >}}).
 - You have the OCM CLI installed.
-    - To install the OCM CLI, follow our guide: [Install and Configure the OCM CLI]({{< relref "ocm-cli-installation" >}}).
+  - To install the OCM CLI, follow our guide: [Install and Configure the OCM CLI]({{< relref "ocm-cli-installation" >}}).
 
 ## Minimal .ocmconfig for Signing
 
@@ -36,12 +36,12 @@ configurations:
 ```
 
 The `identity` attributes define the consumer type for RSA signing:
-  - `type` must be `RSA/v1alpha1` for RSA-based signing.
-  - `algorithm` specifies the signing algorithm (`RSASSA-PSS` is recommended, `RSASSA-PKCS1V15` is legacy).
-  - `signature` specifies the signature name/label for this configuration (default is `default`).
+- `type` must be `RSA/v1alpha1` for RSA-based signing.
+- `algorithm` specifies the signing algorithm (`RSASSA-PSS` is recommended, `RSASSA-PKCS1V15` is legacy).
+- `signature` specifies the signature name/label for this configuration (default is `default`).
 
 The `credentials` properties contain the actual key material:
-  - `private_key_pem_file` is the path to a private key file in PEM format.
+- `private_key_pem_file` is the path to a private key file in PEM format.
 
 ## Sign a Component Version
 
