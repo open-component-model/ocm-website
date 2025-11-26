@@ -14,7 +14,7 @@ To follow the steps described in this section, you will need to:
 
 ## Install the OCM Command Line Interface (CLI)
 
-The CLI is used to interact with component versions and registries. Install it like described in [Installing the OCM CLI](/docs/getting-started/installation/).
+The CLI is used to interact with component versions and registries. Install it like described in [Installing the OCM CLI]({{< relref "docs/getting-started/ocm-cli-installation" >}}).
 
 ## Obtain Access to an OCM Repository
 
@@ -50,7 +50,7 @@ Alternatively, you can use basic authentication. Create a file named `.ocmconfig
 ```yaml
 type: generic.config.ocm.software/v1
 configurations:
-- type: credentials.config.ocm.software
+  - type: credentials.config.ocm.software
     consumers:
       - identity:
           type: ociRegistry
@@ -63,4 +63,4 @@ configurations:
 ```
 
 More information on the credentials topic can be seen by running the OCM CLI help topic command `ocm credential-handling`
-and [in this guide](/docs/tutorials/creds-in-ocmconfig/) with many examples for different repository types.
+and [in this guide]({{< relref "docs/tutorials/creds-in-ocmconfig" >}}) with many examples for different repository types.
