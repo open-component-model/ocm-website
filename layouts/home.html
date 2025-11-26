@@ -63,18 +63,8 @@
   <div class="container">
     <div class="row justify-content-center text-center">
       <h1 class="h1 text-center mb-5 text-default">{{ .Params.how_ocm_works_title }}</h1>
-      {{ range .Params.how_ocm_works }}
-      <div class="col-lg-3 mb-3">
-        <span class="h1 mb-3" role="img" aria-label="{{ .label }}">{{ .emoji }}</span>
-        <h3 class="h3 text-default">{{ .title }}</h3>
-        <p class="text-default">{{ .description }}</p>
-      </div>
-      {{ end }}
-    </div>
-    <div class="text-center mt-4">
-      <a class="btn btn-primary btn-lg rounded-pill px-5" href="{{ ref . "docs/tutorials/" }}" role="button">
-        {{ .Params.how_ocm_cta }}
-      </a>
+      {{- $howCardsMaxColumns := default 4 .Params.how_ocm_works_cards_max_columns -}}
+      {{ partial "cards/cards-grid.html" (dict "items" .Params.how_ocm_works "cards_max_columns" $howCardsMaxColumns "cards_variant" "home") }}
     </div>
   </div>
 </section>
@@ -82,22 +72,8 @@
 <section id="benefits" class="section section-md section-features">
   <div class="container">
     <h2 class="h1 text-center mb-5 text-default">{{ .Params.benefits_title }}</h2>
-    <div class="row justify-content-center text-center mb-4">
-      {{ range first 3 .Params.benefits }}
-      <div class="col-lg-4 col-md-6 mb-4">
-        <h3 class="h3 mb-2 text-default">{{ .emoji }} {{ .title }}</h3>
-        <p class="text-default">{{ .description }}</p>
-      </div>
-      {{ end }}
-    </div>
-    <div class="row justify-content-center text-center">
-      {{ range after 3 .Params.benefits }}
-      <div class="col-lg-4 col-md-6 mb-4">
-        <h3 class="h3 mb-2 text-default">{{ .emoji }} {{ .title }}</h3>
-        <p class="text-default">{{ .description }}</p>
-      </div>
-      {{ end }}
-    </div>
+    {{- $benefitsMaxColumns := default 4 .Params.benefits_cards_max_columns -}}
+    {{ partial "cards/cards-grid.html" (dict "items" .Params.benefits "cards_max_columns" $benefitsMaxColumns "cards_variant" "home") }}
   </div>
 </section>
 {{ end }}
