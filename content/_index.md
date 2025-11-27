@@ -15,12 +15,12 @@ how_ocm_works:
     emoji: "📝"
     title: "Pack"
     description: "Describe and pack components in code with powerful lifecycle metadata."
-    link: "/docs/getting-started/ocm-cli/create-component-version/"
+    link: "/docs/getting-started/create-component-version/"
   - label: "Sign"
     emoji: "🔐"
     title: "Sign"
     description: "Add cryptographic signatures. End-to-end trust from source to deployment."
-    link: "/docs/getting-started/ocm-cli/sign-component-version/"
+    link: "/docs/getting-started/sign-component-version/"
   - label: "Transport"
     emoji: "🚚"
     title: "Transport"
@@ -30,7 +30,7 @@ how_ocm_works:
     emoji: "🚀"
     title: "Deploy"
     description: "Automate deployments with OCM controllers and Flux. Seamless GitOps."
-    link: "/docs/getting-started/ocm-controllers/"
+    link: "/docs/getting-started/setup/"
 
 benefits_title: "Why Choose OCM?"
 benefits_cards_max_columns: 3
