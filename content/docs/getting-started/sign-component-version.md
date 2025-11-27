@@ -174,5 +174,5 @@ See the [Multi-Environment Configuration]({{< relref "signing-and-verification.m
 
 ## Troubleshooting
 
-For support with common issues, see the [Troubleshooting]({{< relref "../../tutorials/signing-and-verification.md#troubleshooting" >}})
+For support with common issues, see the [Troubleshooting]({{< relref "/docs/tutorials/signing-and-verification#troubleshooting" >}})
 section of the Signing and Verification guide.
