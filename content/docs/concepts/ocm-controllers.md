@@ -1,8 +1,8 @@
 ---
-title: Introduction
-description: "Learn about the OCM Controllers and their capabilities"
+title: OCM Controllers
+description: "Learn about the OCM controllers and their capabilities."
 icon: "🏁"
-weight: 31
+weight: 43
 toc: true
 ---
 
@@ -10,13 +10,13 @@ toc: true
 This project is in early development and not yet ready for production use.
 {{</callout>}}
 
-The OCM Controller
+The OCM controllers
 
-- supports the deployment of an OCM component and its resources, like Helm charts or other manifests,
+- support the deployment of an OCM component and its resources, like Helm charts or other manifests,
 into a Kubernetes cluster with the help of kro and a deployer, e.g. FluxCD.
-- provides a controller to transfer OCM components.
+- provide a controller to transfer OCM components.
 
-### What should I know before I start?
+### Before You Begin
 
 You should be familiar with the following concepts:
 
@@ -28,12 +28,12 @@ You should be familiar with the following concepts:
 ## Concept
 
 {{<callout context="note">}}
-The following section provides a high-level overview of the OCM Controllers and their components regarding the
+The following section provides a high-level overview of the OCM controllers and their components regarding the
 deployment of an OCM resource in a very basic scenario. To learn more about the *transfer* of OCM component versions,
 please take a look at its [architecture document](https://github.com/open-component-model/open-component-model/blob/main/kubernetes/controller/docs/adr/replication.md).
 {{</callout>}}
 
-The primary purpose of OCM Controllers is simple: Deploy an OCM resource from an OCM component version into a Kubernetes
+The primary purpose of OCM controllers is simple: Deploy an OCM resource from an OCM component version into a Kubernetes
 cluster.
 
 The implementation, however, is a bit more complex as deployments must be secure and configurable. Additionally, an
@@ -43,7 +43,7 @@ configured. So, instead of creating a generic deployer that offers all these fun
 tools that are already available in the Kubernetes ecosystem.
 
 The following diagram describes a basic scenario in which an OCM resource containing a Helm chart is deployed into a
-Kubernetes cluster using the OCM Controllers as well as kro and FluxCD.
+Kubernetes cluster using the OCM controllers as well as kro and FluxCD.
 kro is used to orchestrate the deployment and to transport information about the location of the OCM resource to FluxCD.
 FluxCD takes the location of the OCM resource, downloads the chart, configures it if necessary,
 and deploys it into the Kubernetes cluster.
@@ -148,10 +148,10 @@ Kubernetes cluster.
 
 ## Installation
 
-Currently, the OCM Controllers are available as [image][controller-image] and
+Currently, the OCM controllers are available as [image][controller-image] and
 [Kustomization](https://github.com/open-component-model/open-component-model/blob/main/kubernetes/controller/config/default/kustomization.yaml). A Helm chart is planned for the future.
 
-To install the OCM Controllers into your running Kubernetes cluster, you can use the following commands:
+To install the OCM controllers into your running Kubernetes cluster, you can use the following commands:
 
 ```console
 # In the open-component-model repository, folder kubernetes/controller
@@ -165,8 +165,8 @@ kubectl apply -k https://github.com/open-component-model/open-component-model/ku
 ```
 
 {{<callout context="caution">}}
-While the OCM Controllers technically can be used standalone, it requires kro and a deployer, e.g. FluxCD, to deploy
-an OCM resource into a Kubernetes cluster. The OCM Controllers deployment, however, does not contain kro or any
+While the OCM controllers technically can be used standalone, it requires kro and a deployer, e.g. FluxCD, to deploy
+an OCM resource into a Kubernetes cluster. The OCM controllers deployment, however, does not contain kro or any
 deployer. Please refer to the respective installation guides for these tools:
 
 - [kro](https://kro.run/docs/getting-started/Installation/)
@@ -178,6 +178,6 @@ deployer. Please refer to the respective installation guides for these tools:
 - [Setup your (test) environment with kind, kro, and FluxCD]({{< relref "setup.md" >}})
 - [Deploying a Helm chart using a `ResourceGraphDefinition` with FluxCD]({{< relref "deploy-helm-chart.md" >}})
 - [Deploying a Helm chart using a `ResourceGraphDefinition` inside the OCM component version (bootstrap) with FluxCD]({{< relref "deploy-helm-chart-bootstrap.md" >}})
-- [Configuring credentials for OCM Controllers resources to access private OCM repositories]({{< relref "credentials.md" >}})
+- [Configuring credentials for OCM controller resources to access private OCM repositories]({{< relref "credentials.md" >}})
 
 [controller-image]: https://github.com/open-component-model/open-component-model/pkgs/container/kubernetes%2Fcontroller

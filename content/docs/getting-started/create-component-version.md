@@ -1,13 +1,11 @@
 ---
-title: "Create a Component Version"
+title: "Create Component Versions"
 url: "/docs/getting-started/create-component-version/"
 description: "Learn how to create and store component versions using the OCM CLI."
 icon: "📦"
 weight: 23
 toc: true
 ---
-
-## Creating and Storing Component Versions
 
 Component versions are created using a `component-constructor.yaml` file, which is a description file that contains one or multiple components. The file describes the components and their artifacts - resources and sources, metadata in form of labels and references to other components.
 
@@ -79,7 +77,7 @@ If the resource content is taken from local resources, the field `input` is used
 
 Available access and input types are described in the tutorial about [Input and Access Types]({{< relref "input-and-access-types.md" >}}).
 
-### Add Component Version to CTF archive
+### Add a Component Version to a CTF archive
 
 To store our component version locally and to make it transportable, add it to a CTF archive using the following command:
 

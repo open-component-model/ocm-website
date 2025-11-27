@@ -1,5 +1,5 @@
 ---
-title: "Verify a Component Version"
+title: "Verify Component Versions"
 url: "/docs/getting-started/verify-component-version/"
 description: "Learn how to verify component versions using key pairs."
 icon: "📦"
