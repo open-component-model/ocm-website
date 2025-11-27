@@ -1,5 +1,5 @@
 ---
-title: "Structuring Software Products with OCM"
+title: "Structure Software Products with OCM"
 description: "Learn how to structure complex software products using OCM."
 icon: "🗂️"
 weight: 51
@@ -44,7 +44,7 @@ references, you could collect all artifacts belonging to this product version.
 
 ## Prerequisites
 
-We assume that you have already read the guides in the [Getting Started]({{< ref "docs/getting-started/ocm-cli/_index.md" >}}) section, as this guide discusses a more complex scenario.
+We assume that you have already read the guides in the [Getting Started]({{< ref "docs/getting-started/_index.md" >}}) section, as this guide discusses a more complex scenario.
 
 ## Constructing the Component
 

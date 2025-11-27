@@ -1,5 +1,5 @@
 ---
-title: "Install and Configure the OCM CLI"
+title: "Install the OCM CLI"
 url: "/docs/getting-started/installation/"
 description: "Learn how to install the OCM CLI on various platforms."
 icon: "💻"
@@ -144,7 +144,7 @@ More information on how to deal with credentials can be found [in this guide]({{
 
 ## What's Next?
 
-Now that you have the OCM CLI installed and configured, you can start exploring its capabilities. Check out our [Getting Started Guides]({{< relref "docs/getting-started/ocm-cli/_index.md" >}}) to learn how to use the OCM CLI to work with your component.
+Now that you have the OCM CLI installed and configured, you can start exploring its capabilities. Check out our [Getting Started Guides]({{< relref "docs/getting-started/_index.md" >}}) to learn how to use the OCM CLI to work with your component.
 
 ## Future Installation Methods
 

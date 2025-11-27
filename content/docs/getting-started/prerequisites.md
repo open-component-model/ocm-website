@@ -1,7 +1,7 @@
 ---
 title: "Prerequisites"
 url: /docs/getting-started/prerequisites/
-description: "What you need to get started with OCM"
+description: "Learn what you need to get started with OCM."
 icon: "⚠️"
 weight: 21
 toc: true
