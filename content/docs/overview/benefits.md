@@ -1,6 +1,6 @@
 ---
 title: "Benefits of OCM"
-description: "Discover how OCM makes software deliveries simpler and more secure."
+description: "Discover how OCM brings visibility, security, and adaptability to your software delivery."
 icon: "✨"
 weight: 12
 toc: true
