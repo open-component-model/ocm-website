@@ -74,18 +74,18 @@ time=2025-11-19T15:58:22.435+01:00 level=INFO msg="SIGNATURE VERIFICATION SUCCES
 
 ## Verify a Specific Signature Name
 
-If your component contains multiple signatures (e.g., `dev`, `prod`), you can explicitly choose a signature for verification.
-Your `.ocmconfig` must contain the corresponding public key for that signature:
+If your component contains multiple signatures (e.g., `dev`, `prod`), you can explicitly specify the signature for verification.
+Your `.ocmconfig` must contain the corresponding public key for that signature. OCM then selects the credentials
+associated with the specified signature.
 
 ```bash
-ocm verify cv transport-archive//github.com/acme.org/helloworld:1.0.0 --signature prod
+# Verify specific signature
+ocm verify cv --signature dev transport-archive//github.com/acme.org/helloworld:1.0.0
 ```
-
-OCM then selects the credentials associated with the `prod` profile.
 
 ## Multiple Signatures (Multi-Environment)
 
-For multi-environment setups with different keys:
+For multi-environment setups with multiple different keys:
 
 ```yaml
 type: generic.config.ocm.software/v1
