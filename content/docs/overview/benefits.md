@@ -1,6 +1,6 @@
 ---
 title: "Benefits of OCM"
-description: "Security for your software supply chain"
+description: "Discover how OCM makes software deliveries simpler and more secure."
 icon: "✨"
 weight: 12
 toc: true

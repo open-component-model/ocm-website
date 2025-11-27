@@ -1,6 +1,6 @@
 ---
 title: Deploy a Helm Chart
-description: "Deploy a Helm Chart from an OCM component version using OCM controllers"
+description: "Deploy a Helm Chart from an OCM component version using OCM controllers."
 icon: "🚀"
 weight: 33
 toc: true

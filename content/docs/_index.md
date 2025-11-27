@@ -2,5 +2,5 @@
 title: "Documentation"
 icon: "📚"
 linkTitle: "Docs"
-description: "All documentation sections at a glance."
+description: "View all documentation sections at a glance."
 ---

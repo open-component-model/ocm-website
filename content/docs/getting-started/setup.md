@@ -1,6 +1,6 @@
 ---
 title: Set Up an OCM Controller Environment
-description: "Set up a local environment for running examples from the getting-started guides"
+description: "Set up a local environment for running examples from the getting-started guides."
 icon: "🛠️"
 weight: 32
 toc: true
