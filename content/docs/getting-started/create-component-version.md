@@ -273,6 +273,7 @@ ocm get cv /tmp/helloworld/transport-archive//github.com/acme.org/helloworld:1.0
 ```
 
 {{<callout context="caution" title="Under Construction">}}The following options are currently being implemented from scratch and are not yet available:
+
 - `--recursive`: shows the complete component version, including the component versions it references
 - `-o tree`: outputs a tree view
 
