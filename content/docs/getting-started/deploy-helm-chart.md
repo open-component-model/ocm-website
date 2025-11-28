@@ -14,9 +14,10 @@ this OCM component version. Using CEL expressions inside the `ResourceGraphDefin
 resource location will be passed to FluxCD, which will then configure the Helm chart and deploy it into the Kubernetes
 cluster.
 
-{{<callout context="caution">}}
-Before starting, make sure you have set up your environment as described in the [setup guide]({{< relref "setup.md" >}}).
-{{</callout>}}
+## Prerequisites
+
+- [Install the OCM CLI]({{< relref "docs/getting-started/ocm-cli-installation.md" >}}).
+- [Set up an OCM controller environment]({{< relref "docs/getting-started/setup.md" >}}).
 
 ## Create the OCM Component Version
 
