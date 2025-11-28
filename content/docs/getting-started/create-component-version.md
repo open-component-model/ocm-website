@@ -243,3 +243,37 @@ meta:
 The other elements listed as `layers` describe the blobs for the local resources stored along with the component version. The digests can be seen in the `localReference` attributes of the component descriptor.
 
 </details>
+
+## View Component Versions
+
+To list all component versions of a component stored in an OCM repository or CTF archive (which is technically also an OCM repository), you can use the [`ocm get component-version`]({{< relref "ocm_get_component-version.md" >}}) command. Only specify the component name and skip the version:
+
+```shell
+ocm get cv /tmp/helloworld/transport-archive//github.com/acme.org/helloworld
+```
+
+```shell
+ COMPONENT                      │ VERSION │ PROVIDER
+────────────────────────────────┼─────────┼──────────
+ github.com/acme.org/helloworld │ 1.0.0   │ acme.org
+```
+
+Notice the format of the specified component: The component path starts with the OCM repository prefix (`/tmp/helloworld/transport-archive`), followed by `//`, then the component name (`github.com/acme.org/helloworld`).
+
+To view a specific version, add the version to the component name:
+
+```shell
+ocm get cv /tmp/helloworld/transport-archive//github.com/acme.org/helloworld:1.0.0
+```
+
+In this example, the output remains the same because the component has only one component version.
+
+```shell
+ocm get cv /tmp/helloworld/transport-archive//github.com/acme.org/helloworld:1.0.0 -o yaml
+```
+
+{{<callout context="caution" title="Under Construction">}}The following options are currently being implemented from scratch and are not yet available:
+- `--recursive`: shows the complete component version, including the component versions it references
+- `-o tree`: outputs a tree view
+
+Stay tuned for updates!{{</callout>}}
