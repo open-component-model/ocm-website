@@ -437,3 +437,12 @@ sig
 sig's
 sigs
 cet
+hsm
+dev
+rsassa
+pki
+dn
+openssl
+csr
+verifiers
+cryptographically
