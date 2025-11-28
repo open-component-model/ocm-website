@@ -21,9 +21,6 @@ This document describes how to set up a local environment for running examples f
 You don't need to run kind if you are using a remote Kubernetes cluster you have access to. If so, you can skip this.
 {{</callout>}}
 
-For download and installation instructions, see the
-[kind documentation](https://kind.sigs.k8s.io/docs/user/quick-start).
-
 To create a local kind cluster run the following command:
 
 ```bash
@@ -32,7 +29,7 @@ kind create cluster
 
 ## Install kro
 
-Please follow the official installation guides for [kro](https://kro.run/docs/getting-started/Installation). You might
+Please follow [the official installation guides for kro](https://kro.run/docs/getting-started/Installation). You might
 need [helm](https://helm.sh/docs/intro/install/) to install kro.
 
 If kro is installed correctly, you should see some similar output when running the following command:
@@ -55,7 +52,7 @@ But, in theory, you could use any other deployer that is able to apply a deploya
 for instance [ArgoCD](https://argo-cd.readthedocs.io/en/stable/).
 
 To install FluxCD, please follow the official [installation guide](https://fluxcd.io/docs/installation/). After you
-installed the cli tool, you can run the following command to install the FluxCD controllers:
+installed the CLI tool, you can run the following command to install the FluxCD controllers:
 
 ```bash
 flux install
@@ -116,7 +113,7 @@ ocm-k8s-toolkit-system   ocm-k8s-toolkit-controller-manager-788f58d4bd-ntbx8   1
 ...
 ```
 
-## Access to a Registry
+## Get Access to a Registry
 
 As all examples and guides will create an OCM component version that will be consumed by the OCM controllers, you will
 need access to a registry. You can either choose a public registry like [ghcr.io][ghcr.io] or deploy a registry (like

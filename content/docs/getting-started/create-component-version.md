@@ -84,7 +84,7 @@ If the resource content is taken from local resources, the field `input` is used
 
 Available access and input types are described in the tutorial about [Input and Access Types]({{< relref "input-and-access-types.md" >}}).
 
-### Add a Component Version to a CTF archive
+## Add a Component Version to a CTF Archive
 
 To store our component version locally and to make it transportable, add it to a CTF archive using the following command:
 

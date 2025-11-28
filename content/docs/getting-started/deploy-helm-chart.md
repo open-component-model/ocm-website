@@ -1,12 +1,12 @@
 ---
 title: Deploy a Helm Chart
-description: "Deploy a Helm Chart from an OCM component version using OCM controllers."
+description: "Deploy a Helm chart from an OCM component version using OCM controllers."
 icon: "🚀"
 weight: 33
 toc: true
 ---
 
-This guide demonstrates how to deploy a Helm Chart from an OCM component version using OCM controllers, kro, and FluxCD.
+This guide demonstrates how to deploy a Helm chart from an OCM component version using OCM controllers, kro, and FluxCD.
 It is a rather basic example, in which it is assumed that a developer created an application, packaged it as a Helm
 chart, and publishes it as OCM component version in an OCI registry. Then, an operator who wants to deploy the
 application via Helm chart in a Kubernetes cluster, creates a `ResourceGraphDefinition` with resources that point to
@@ -167,7 +167,7 @@ spec:
             tag: ${resourceChart.status.reference.tag}
           # secretRef is required, if the OCI repository requires credentials to access it.
           # secretRef:
-    # HelmRelease refers to the OCIRepository, lets you configure the helm chart and deploys the Helm Chart into the
+    # HelmRelease refers to the OCIRepository, lets you configure the Helm chart and deploys the Helm chart into the
     # Kubernetes cluster.
     - id: helmrelease
       template:
@@ -224,7 +224,7 @@ simple   v1alpha1     Simple   Active   19s
 This creates a Kubernetes Custom Resource Definition (CRD) `Simple` that can be used to create instances. An applied
 instance of the CRD will create all resources defined in the `ResourceGraphDefinition`.
 
-### Create an Instance of `Simple`
+### Create an Instance of Simple
 
 To create an instance of the `Simple` CRD, create a file named `instance.yaml` and add the following content:
 
