@@ -6,9 +6,16 @@ weight: 25
 toc: true
 ---
 
+## Prerequisites
+
+- [Install the OCM CLI]({{< relref "ocm-cli-installation.md" >}}).
+- Install [jq](https://jqlang.org/).
+
 ## Download Resources from a Component Version
 
-Use the [`ocm download resources`]({{< relref "ocm_download_resource.md" >}}) command to download specific resources from a component version. In this example, we download the resource with name `chart` from the [example component used in the last chapter]({{< relref "display-examine-component-versions.md#get-and-examine-component-versions" >}}) and save it as a local file:
+Use the [`ocm download resources`]({{< relref "ocm_download_resource.md" >}}) command to download specific resources from a component version.
+
+In this example, we download the resource with the name `chart` from the OCM component `ocm.software/toi/demo/helmdemo` in the OCM repository `ghcr.io/open-component-model/ocm`:
 
 ```shell
 ocm download resource ghcr.io/open-component-model/ocm//ocm.software/toi/demo/helmdemo:0.21.0 --identity name=chart --output helmchart.tgz
