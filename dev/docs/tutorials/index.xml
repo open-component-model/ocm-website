@@ -244,7 +244,10 @@ repositories.&lt;/p&gt;</description></item><item><title>Credentials in an .ocmc
 
 
 
-&lt;a href="https://github.com/open-component-model/ocm/blob/main/docs/reference/ocm_configfile.md" target="_blank" rel="noopener"&gt;configuration file&lt;/a&gt;. By default, the CLI looks for configuration in &lt;code&gt;$HOME/.ocmconfig&lt;/code&gt;, if it exists.&lt;/p&gt;</description></item><item><title>Deploy a Helm Chart (with Bootstrap)</title><link>https://ocm.software/dev/docs/tutorials/deploy-a-helm-chart-with-bootstrap/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/dev/docs/tutorials/deploy-a-helm-chart-with-bootstrap/</guid><description>&lt;p&gt;The 
+&lt;a href="https://github.com/open-component-model/ocm/blob/main/docs/reference/ocm_configfile.md" target="_blank" rel="noopener"&gt;configuration file&lt;/a&gt;. By default, the CLI looks for configuration in &lt;code&gt;$HOME/.ocmconfig&lt;/code&gt;, if it exists.&lt;/p&gt;</description></item><item><title>Signing and Verification</title><link>https://ocm.software/dev/docs/tutorials/signing-and-verification/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/dev/docs/tutorials/signing-and-verification/</guid><description>&lt;h2 id="overview"&gt;Overview&lt;/h2&gt;
+&lt;p&gt;The Open Component Model provides cryptographic signing and verification capabilities
+to establish &lt;strong&gt;provenance&lt;/strong&gt; and &lt;strong&gt;authenticity&lt;/strong&gt; of component versions.
+This guide covers the complete signing and verification workflow, from key pair generation to trust model selection.&lt;/p&gt;</description></item><item><title>Deploy a Helm Chart (with Bootstrap)</title><link>https://ocm.software/dev/docs/tutorials/deploy-a-helm-chart-with-bootstrap/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/dev/docs/tutorials/deploy-a-helm-chart-with-bootstrap/</guid><description>&lt;p&gt;The 
 
 
 
