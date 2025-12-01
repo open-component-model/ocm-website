@@ -1,6 +1,6 @@
 ---
 title: "Signing and Verification"
-description: "Complete guide to cryptographic signing and verification in OCM, including key pair management, signer specifications, and trust models."
+description: "Complete guide to cryptographic signing and verification in OCM."
 url: "/docs/tutorials/signing-and-verification"
 icon: "✍️"
 weight: 55
