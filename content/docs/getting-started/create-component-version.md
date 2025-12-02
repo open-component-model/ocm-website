@@ -7,7 +7,7 @@ weight: 23
 toc: true
 ---
 
-## How it works
+## How It Works
 
 Component versions are created using a `component-constructor.yaml` file, which is a description file that contains one or multiple components. The file describes the components and their artifacts - resources and sources, metadata in form of labels and references to other components.
 
