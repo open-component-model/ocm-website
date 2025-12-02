@@ -16,6 +16,7 @@ This guide will walk you through building the OCM CLI from the source code and c
 
 - Install [Git](https://git-scm.com/).
 - Install [Task](https://taskfile.dev/).
+- Install [Go](https://golang.org/) (version 1.24 or later).
 - Obtain access to an OCM repository. This can be any OCI registry for which you have write permission (e.g., GitHub Packages). An OCM repository based on an OCI registry is identified by a leading OCI repository prefix. For example: `ghcr.io/<YOUR-ORG>/ocm`. 
 
 ## Build from Source
