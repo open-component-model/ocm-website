@@ -7,6 +7,8 @@ weight: 23
 toc: true
 ---
 
+## How It Works
+
 Component versions are created using a `component-constructor.yaml` file, which is a description file that contains one or multiple components. The file describes the components and their artifacts - resources and sources, metadata in form of labels and references to other components.
 
 Component versions are locally stored in archives using the [Common Transfer Format (CTF)](https://github.com/open-component-model/ocm-spec/blob/main/doc/04-extensions/03-storage-backends/ctf.md). A CTF archive may contain any number of component versions and is used to transfer components to and between component repositories.
@@ -15,7 +17,12 @@ Note that a CTF archive itself is also an OCM repository, so it can be used as s
 
 The command [`ocm add component-version`]({{< relref "ocm_add_component-version.md" >}}) directly creates a component version from a `component-constructor.yaml` file and stores it in a local CTF archive.
 
-### Create a Component Version
+## Prerequisites
+
+- [Install the OCM CLI]({{< relref "ocm-cli-installation.md" >}}).
+- Install [jq](https://jqlang.org/).
+
+## Create a Component Version
 
 In this example, we will use the `ocm` CLI tool to create a very basic component version that contains a local resource and a resource that is accessed from a remote location. The local resource is an arbitrary file that we will create from scratch the remote resource is a Docker image stored in an OCI registry.
 
@@ -77,7 +84,7 @@ If the resource content is taken from local resources, the field `input` is used
 
 Available access and input types are described in the tutorial about [Input and Access Types]({{< relref "input-and-access-types.md" >}}).
 
-### Add a Component Version to a CTF archive
+## Add a Component Version to a CTF Archive
 
 To store our component version locally and to make it transportable, add it to a CTF archive using the following command:
 
@@ -237,3 +244,38 @@ meta:
 The other elements listed as `layers` describe the blobs for the local resources stored along with the component version. The digests can be seen in the `localReference` attributes of the component descriptor.
 
 </details>
+
+## View Component Versions
+
+To list all component versions of a component stored in an OCM repository or CTF archive (which is technically also an OCM repository), you can use the [`ocm get component-version`]({{< relref "ocm_get_component-version.md" >}}) command. Only specify the component name and skip the version:
+
+```shell
+ocm get cv /tmp/helloworld/transport-archive//github.com/acme.org/helloworld
+```
+
+```shell
+ COMPONENT                      │ VERSION │ PROVIDER
+────────────────────────────────┼─────────┼──────────
+ github.com/acme.org/helloworld │ 1.0.0   │ acme.org
+```
+
+Notice the format of the specified component: The component path starts with the OCM repository prefix (`/tmp/helloworld/transport-archive`), followed by `//`, then the component name (`github.com/acme.org/helloworld`).
+
+To view a specific version, add the version to the component name:
+
+```shell
+ocm get cv /tmp/helloworld/transport-archive//github.com/acme.org/helloworld:1.0.0
+```
+
+In this example, the output remains the same because the component has only one component version.
+
+```shell
+ocm get cv /tmp/helloworld/transport-archive//github.com/acme.org/helloworld:1.0.0 -o yaml
+```
+
+{{<callout context="caution" title="Under Construction">}}The following options are currently being implemented from scratch and are not yet available:
+
+- `--recursive`: shows the complete component version, including the component versions it references
+- `-o tree`: outputs a tree view
+
+Stay tuned for updates!{{</callout>}}
