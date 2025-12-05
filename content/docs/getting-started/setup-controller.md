@@ -7,6 +7,11 @@ url: /docs/getting-started/setup-controller/
 toc: true
 ---
 
+{{<callout context="caution">}}
+The [OCM controllers](https://github.com/open-component-model/open-component-model/tree/main/kubernetes/controller) are
+in early development and not yet ready for production use.
+{{</callout>}}
+
 This document describes how to set up a local environment to [Deploy a Helm Chart]({{< relref "deploy-helm-chart.md" >}}) using the OCM controllers.
 
 ## Prerequisites

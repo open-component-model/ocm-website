@@ -7,6 +7,11 @@ url: /docs/tutorials/deploy-helm-chart-bootstrap/
 toc: true
 ---
 
+{{<callout context="caution">}}
+The [OCM controllers](https://github.com/open-component-model/open-component-model/tree/main/kubernetes/controller) are
+in early development and not yet ready for production use.
+{{</callout>}}
+
 The [concept]({{< relref "ocm-controller.md#concept" >}}) and the [Deploy Helm Chart]({{< relref "deploy-helm-chart.md" >}}) guide showed a basic example of how to deploy a Helm chart from an OCM component.
 By defining a `ResourceGraphDefinition` that contains all the required resources to deploy the Helm chart into a
 Kubernetes cluster.

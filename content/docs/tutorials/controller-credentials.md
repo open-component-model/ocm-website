@@ -6,6 +6,11 @@ weight: 46
 toc: true
 ---
 
+{{<callout context="caution">}}
+The [OCM controllers](https://github.com/open-component-model/open-component-model/tree/main/kubernetes/controller) are
+in early development and not yet ready for production use.
+{{</callout>}}
+
 OCM controller resources need access to OCM components and their resources. If these OCM components are stored in a
 private OCM repository, we need to configure credentials to allow OCM controller resources to access these
 repositories.
