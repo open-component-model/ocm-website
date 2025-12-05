@@ -22,38 +22,30 @@ name for the signature.&lt;/p&gt;</description></item><item><title>Transport Com
 
 
 &lt;a href="https://ocm.software/docs/getting-started/create-component-version/#add-component-version-to-ctf-archive/"&gt;Add Component Version to CTF archive&lt;/a&gt; explained how to store component versions in a CTF archive.&lt;/p&gt;
-&lt;p&gt;During the transfer, it is possible to include component references as local blobs. It is also possible to include references in a recursive way.&lt;/p&gt;</description></item><item><title>Set Up OCM Controller Environment</title><link>https://ocm.software/docs/getting-started/setup-controller/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/getting-started/setup-controller/</guid><description>&lt;p&gt;This document describes how to set up a local environment to 
-
-
-
-
-
- 
- 
-
-
-&lt;a href="https://ocm.software/docs/getting-started/deploy-a-helm-chart/"&gt;Deploy a Helm Chart&lt;/a&gt; using the OCM controllers.&lt;/p&gt;
-&lt;h2 id="prerequisites"&gt;Prerequisites&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;
-
-
-
-
-
-
-&lt;a href="https://kubernetes.io/docs/tasks/tools/#kubectl" target="_blank" rel="noopener"&gt;kubectl&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id="start-a-local-kubernetes-cluster-with-kind"&gt;Start a Local Kubernetes Cluster with kind&lt;/h2&gt;
-&lt;div class="callout callout-note d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3"&gt;
+&lt;p&gt;During the transfer, it is possible to include component references as local blobs. It is also possible to include references in a recursive way.&lt;/p&gt;</description></item><item><title>Set Up OCM Controller Environment</title><link>https://ocm.software/docs/getting-started/setup-controller/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/getting-started/setup-controller/</guid><description>&lt;div class="callout callout-caution d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3"&gt;
  
  &lt;div class="callout-content"&gt;
  
  &lt;div class="callout-body"&gt;
- &lt;p&gt;You don&amp;rsquo;t need to run kind if you are using a remote Kubernetes cluster you have access to. If so, you can skip this.&lt;/p&gt;</description></item><item><title>Deploy a Helm Chart</title><link>https://ocm.software/docs/getting-started/deploy-a-helm-chart/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/getting-started/deploy-a-helm-chart/</guid><description>&lt;p&gt;This guide demonstrates how to deploy a Helm Chart from an OCM component version using OCM controllers, kro, and FluxCD.
-It is a rather basic example, in which it is assumed that a developer created an application, packaged it as a Helm
-chart, and publishes it as OCM component version in an OCI registry. Then, an operator who wants to deploy the
-application via Helm chart in a Kubernetes cluster, creates a &lt;code&gt;ResourceGraphDefinition&lt;/code&gt; with resources that point to
-this OCM component version. Using CEL expressions inside the &lt;code&gt;ResourceGraphDefinition&lt;/code&gt;, the information about the
-resource location will be passed to FluxCD, which will then configure the Helm chart and deploy it into the Kubernetes
-cluster.&lt;/p&gt;</description></item></channel></rss>
+ &lt;p&gt;The 
+
+
+
+
+
+
+&lt;a href="https://github.com/open-component-model/open-component-model/tree/main/kubernetes/controller" target="_blank" rel="noopener"&gt;OCM controllers&lt;/a&gt; are
+in early development and not yet ready for production use.&lt;/p&gt;</description></item><item><title>Deploy a Helm Chart</title><link>https://ocm.software/docs/getting-started/deploy-a-helm-chart/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/getting-started/deploy-a-helm-chart/</guid><description>&lt;div class="callout callout-caution d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3"&gt;
+ 
+ &lt;div class="callout-content"&gt;
+ 
+ &lt;div class="callout-body"&gt;
+ &lt;p&gt;The 
+
+
+
+
+
+
+&lt;a href="https://github.com/open-component-model/open-component-model/tree/main/kubernetes/controller" target="_blank" rel="noopener"&gt;OCM controllers&lt;/a&gt; are
+in early development and not yet ready for production use.&lt;/p&gt;</description></item></channel></rss>
