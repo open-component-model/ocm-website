@@ -7,7 +7,7 @@ toc: true
 ---
 
 {{<callout context="caution">}}
-The [ocm controllers](https://github.com/open-component-model/open-component-model/tree/main/kubernetes/controller) are
+The [OCM controllers](https://github.com/open-component-model/open-component-model/tree/main/kubernetes/controller) are
 in early development and not yet ready for production use.
 {{</callout>}}
 
