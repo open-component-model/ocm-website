@@ -6,6 +6,11 @@ weight: 28
 toc: true
 ---
 
+{{<callout context="caution">}}
+The [ocm controllers](https://github.com/open-component-model/open-component-model/tree/main/kubernetes/controller) are
+in early development and not yet ready for production use.
+{{</callout>}}
+
 This guide demonstrates how to deploy a Helm Chart from an OCM component version using OCM controllers, kro, and FluxCD.
 It is a rather basic example, in which it is assumed that a developer created an application, packaged it as a Helm
 chart, and publishes it as OCM component version in an OCI registry. Then, an operator who wants to deploy the
