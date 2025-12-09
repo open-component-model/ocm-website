@@ -114,7 +114,7 @@ Prerequisite: `docker` cli & `ocm` cli available.
 2. Copy the OCI image to your preferred portable storage medium for secure transport:
 
    ```shell
-   $ sudo cp -r ./local-image-1-0 /media/....
+   sudo cp -r ./local-image-1-0 /media/....
    ```
 
 3. Import OCI image to `docker`
