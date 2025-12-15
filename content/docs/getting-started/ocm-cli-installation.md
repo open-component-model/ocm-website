@@ -38,15 +38,15 @@ For more information, refer to the [OCM CLI package on Homebrew](https://formula
 nix run github:open-component-model/ocm -- --help
 nix run github:open-component-model/ocm#helminstaller -- --help
 
-# install development version
+# Install development version
 nix profile install github:open-component-model/ocm
-# or release <version>
+# Or release <version>
 nix profile install github:open-component-model/ocm/<version>
 
-#check installation
+# Check installation
 nix profile list | grep ocm
 
-# optionally, open a new shell and verify that cmd completion works
+# Optionally, open a new shell and verify that cmd completion works
 ocm --help
 ```
 
@@ -55,7 +55,7 @@ For more information, refer to the Nix documentation: [Nix flakes](https://nixos
 ### From AUR (Arch Linux User Repository)
 
 ```shell
-# if not using a helper util
+# If not using a helper util
 git clone https://aur.archlinux.org/ocm-cli.git
 cd ocm-cli
 makepkg -i
