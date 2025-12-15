@@ -16,7 +16,13 @@ component version is used for signing. See [Signing Process and Normalization](h
 Currently, only signing according to the
 [RSA PKCS #1 v1.5 signature algorithm](https://datatracker.ietf.org/doc/html/rfc3447) is supported.
 
-To follow the examples, one must follow the instructions from the section [Create a Component Version]({{< relref "docs/getting-started/create-component-version" >}}).
+## Prerequisites
+
+- [Install and configure the OCM CLI]({{< relref "ocm-cli-installation.md" >}}).
+- Install [jq](https://jqlang.org/).
+- To follow the examples, you need to create the component version from our guide [Create Component Versions]({{< relref "docs/getting-started/create-component-version" >}}).
+
+## Sign with a Key Pair
 
 Create a key pair using the OCM CLI:
 
