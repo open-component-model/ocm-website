@@ -16,16 +16,16 @@ This document describes how to set up a local environment to [Deploy a Helm Char
 
 ## Prerequisites
 
-- [kubectl](https://kubernetes.io/docs/tasks/tools/#kubectl)
+- Install [kubectl](https://kubernetes.io/docs/tasks/tools/#kubectl).
+- Install [kind](https://kind.sigs.k8s.io/).
+- Install [Git](https://git-scm.com/).
+- Install [Task](https://taskfile.dev/).
 
 ## Start a Local Kubernetes Cluster with kind
 
 {{<callout context="note">}}
 You don't need to run kind if you are using a remote Kubernetes cluster you have access to. If so, you can skip this.
 {{</callout>}}
-
-For download and installation instructions, see the
-[kind documentation](https://kind.sigs.k8s.io/docs/user/quick-start).
 
 To create a local kind cluster run the following command:
 
@@ -35,7 +35,7 @@ kind create cluster
 
 ## Install kro
 
-Please follow the official installation guides for [kro](https://kro.run/docs/getting-started/Installation). You might
+Please follow the [official installation guides for kro](https://kro.run/docs/getting-started/Installation). You might
 need [helm](https://helm.sh/docs/intro/install/) to install kro.
 
 If kro is installed correctly, you should see some similar output when running the following command:
