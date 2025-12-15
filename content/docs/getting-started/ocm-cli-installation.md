@@ -7,18 +7,13 @@ weight: 22
 toc: true
 ---
 
-## Overview
+This guide walks you through installing the OCM CLI and configuring the necessary credentials.
 
-You can install the latest release of the OCM CLI from any of the following sources (more details below):
+## Install the OCM CLI
 
-- [Homebrew](https://brew.sh)
-- [Nix](https://nixos.org)
-- [AUR](https://aur.archlinux.org/packages/ocm-cli)
-- [Docker](https://www.docker.com/)
-- [Podman](https://podman.io/)
-- [GitHub Releases](https://github.com/open-component-model/ocm/releases)
+You can install the latest release of the OCM CLI from any of the following sources.
 
-## Bash
+### Bash
 
 To install with `bash` for macOS or Linux, execute the following command:
 
@@ -26,18 +21,20 @@ To install with `bash` for macOS or Linux, execute the following command:
 curl -s https://ocm.software/install.sh | sudo bash
 ```
 
-## Install using Homebrew
+### Using Homebrew
 
 ```sh
 # Homebrew (macOS and Linux)
 brew install open-component-model/tap/ocm
 ```
 
-## Install using Nix (with Flakes)
+For more information, refer to the [OCM CLI package on Homebrew](https://formulae.brew.sh/formula/ocm#default) and the [Homebrew documentation](https://brew.sh).
+
+### Using Nix (with Flakes)
 
 ```sh
 # Nix (macOS, Linux, and Windows)
-# ad hoc cmd execution
+# Ad hoc cmd execution
 nix run github:open-component-model/ocm -- --help
 nix run github:open-component-model/ocm#helminstaller -- --help
 
@@ -53,11 +50,9 @@ nix profile list | grep ocm
 ocm --help
 ```
 
-see: [Flakes](https://nixos.wiki/wiki/Flakes)
+For more information, refer to the Nix documentation: [Nix flakes](https://nixos.wiki/wiki/Flakes).
 
-## Install from AUR (Arch Linux User Repository)
-
-[package-url](https://aur.archlinux.org/packages/ocm-cli)
+### From AUR (Arch Linux User Repository)
 
 ```shell
 # if not using a helper util
@@ -65,16 +60,17 @@ git clone https://aur.archlinux.org/ocm-cli.git
 cd ocm-cli
 makepkg -i
 ```
+For more information, refer to the [OCM CLI package on AUR](https://aur.archlinux.org/packages/ocm-cli) and the [AUR Documentation](https://wiki.archlinux.org/title/Arch_User_Repository).
 
-[AUR Documentation](https://wiki.archlinux.org/title/Arch_User_Repository)
-
-## Install using Docker / Podman
+### Using Docker / Podman
 
 ```sh
 podman run -t ghcr.io/open-component-model/ocm:latest --help
 ```
 
-### Build and Run It Yourself
+For more information, refer to the [Podman documentation](https://podman.io/).
+
+#### Build and Run It Yourself
 
 ```sh
 podman build -t ocm .
@@ -99,30 +95,31 @@ Please check [hub.docker.com](https://hub.docker.com/_/golang/tags?page=1&name=a
 podman build -t ocm --build-arg GO_VERSION=1.22 --build-arg ALPINE_VERSION=3.19 --build-arg GO_PROXY=https://proxy.golang.org .
 ```
 
-## on MS Windows
+### On MS Windows
 
-### using Chocolatey
+#### Using Chocolatey
 
 ```powershell
 choco install ocm-cli
 ```
 
-see: [chocolatey community package: ocm-cli](https://community.chocolatey.org/packages/ocm-cli)
+For more information, refer to the [OCM CLI package on Chocolatey](https://community.chocolatey.org/packages/ocm-cli) and the [Chocolatey documentation](https://chocolatey.org/).
 
-### using winget
+#### Using winget
 
 _Deprecated_: Please note, winget packages are no longer provided. Any existing packages are still working, but no new
 packages are built and published to winget repository.
 
-## Building from Source
+### Build It From Source
 
-### Prerequisites
+#### Prerequisites
 
-- [git](https://www.git-scm.com/)
-- [golang](https://go.dev/)
+You need the following tools installed:
+- [Git](https://www.git-scm.com/)
+- [Golang](https://go.dev/)
 - make
 
-### Installation Process
+#### Installation Process
 
 Clone the `open-component-model/ocm` repo:
 
