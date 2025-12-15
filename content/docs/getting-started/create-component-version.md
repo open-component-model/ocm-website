@@ -213,3 +213,103 @@ component:
 The other elements listed as `layers` describe the blobs for the local resources stored along with the component version. The digests can be seen in the `localReference` attributes of the component descriptor.
 
 </details>
+
+## View Component Versions
+
+To show a component stored in an OCM repository or CTF archive (which itself is an OCM repository), the [`ocm get componentversion`](https://github.com/open-component-model/ocm/blob/main/docs/reference/ocm_get_componentversions.md) command can be used:
+
+```shell
+ocm get componentversion ghcr.io/open-component-model/ocm//ocm.software/toi/demo/helmdemo:0.12.0
+```
+
+```shell
+  COMPONENT                      VERSION PROVIDER
+  ocm.software/toi/demo/helmdemo 0.12.0  ocm.software
+```
+
+To see the component descriptor of the displayed component version, use the output format option `-o yaml`:
+
+```shell
+ocm get cv ghcr.io/open-component-model/ocm//ocm.software/toi/demo/helmdemo:0.12.0 -o yaml
+```
+
+```yaml
+component:
+  componentReferences:
+  - componentName: ocm.software/toi/installers/helminstaller
+    name: installer
+    version: 0.12.0
+  creationTime: "2024-07-19T14:32:13Z"
+  name: ocm.software/toi/demo/helmdemo
+  provider: ocm.software
+  repositoryContexts:
+  - baseUrl: ghcr.io
+    componentNameMapping: urlPath
+    subPath: open-component-model/ocm
+    type: OCIRegistry
+  resources:
+  - access:
+      localReference: sha256:8a2fe6af4ce56249094622c9d618e24b4cfb461a7dfa6a42cce31749189bc499
+      mediaType: application/vnd.toi.ocm.software.package.v1+yaml
+      type: localBlob
+    digest:
+      ...
+    labels:
+    - name: commit
+      value: e5ca3001323b75ee5793a786089f1f410e9e8db3
+    name: package
+    relation: local
+    type: toiPackage
+    version: 0.12.0
+  - access:
+      imageReference: ghcr.io/open-component-model/ocm/ocm.software/toi/demo/helmdemo/echoserver:0.1.0
+      type: ociArtifact
+    digest:
+      ...
+    name: chart
+    relation: local
+    type: helmChart
+    version: 0.12.0
+...
+```
+
+To refer to the content of a component repository, the component name can be appended to the repository specification separated by `//` (you can also use the `--repo` option to specify the repository).
+
+In the example above, `ghcr.io/open-component-model/ocm` is the OCM repository, whereas `ocm.software/toi/demo/helmdemo` is the component stored in this component repository.
+
+Optionally, a specific version can be appended, separated by a colon (`:`). If no version is specified, all component versions will be displayed.
+
+With the option `--recursive`, it is possible to show the complete component version, including the component versions it references.
+
+```shell
+ocm get cv ghcr.io/open-component-model/ocm//ocm.software/toi/demo/helmdemo:0.12.0 --recursive
+```
+
+```shell
+  REFERENCEPATH                         COMPONENT                                 VERSION PROVIDER     IDENTITY
+                                        ocm.software/toi/demo/helmdemo            0.12.0  ocm.software
+  ocm.software/toi/demo/helmdemo:0.12.0 ocm.software/toi/installers/helminstaller 0.12.0  ocm.software "name"="installer"
+```
+
+To get a tree view, add the option `-o tree`:
+
+```shell
+ocm get cv ghcr.io/open-component-model/ocm//ocm.software/toi/demo/helmdemo:0.12.0 --recursive -o tree
+```
+
+```shell
+  NESTING COMPONENT                                 VERSION PROVIDER     IDENTITY
+  └─ ⊗    ocm.software/toi/demo/helmdemo            0.12.0  ocm.software
+     └─   ocm.software/toi/installers/helminstaller 0.12.0  ocm.software "name"="installer"
+```
+
+As mentioned before a CTF archive itself is an OCM repository, so we can execute the same commands on a CTF archive. So, let's get the information about the component `github.com/acme.org/helloworld` we created in the previous step and that we stored in the CTF archive `/tmp/helloworld/ctf-hello-world`:
+
+```shell
+ocm get cv /tmp/helloworld/ctf-hello-world//github.com/acme.org/helloworld:1.0.0
+```
+
+```shell
+  COMPONENT                       VERSION  PROVIDER
+  github.com/acme.org/helloworld  0.1.0    ocm.software
+```
