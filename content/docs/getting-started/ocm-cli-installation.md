@@ -115,6 +115,7 @@ packages are built and published to winget repository.
 #### Prerequisites
 
 You need the following tools installed:
+
 - [Git](https://www.git-scm.com/)
 - [Golang](https://go.dev/)
 - make
