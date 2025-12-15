@@ -1,5 +1,5 @@
 ---
-title: Set Up OCM Controller Environment
+title: Set Up an OCM Controller Environment
 description: "Set up a local environment for running examples from the getting-started guides"
 icon: "🛠️"
 weight: 27
@@ -12,7 +12,7 @@ The [OCM controllers](https://github.com/open-component-model/open-component-mod
 in early development and not yet ready for production use.
 {{</callout>}}
 
-This document describes how to set up a local environment to [Deploy a Helm Chart]({{< relref "deploy-helm-chart.md" >}}) using the OCM controllers.
+This document describes how to set up a local environment for running the examples from the [Deploy a Helm Chart]({{< relref "deploy-helm-chart.md" >}}) guide. You will create a local Kubernetes cluster with kind and then install kro, Flux, and the OCM controllers.
 
 ## Prerequisites
 
@@ -112,7 +112,7 @@ ocm-k8s-toolkit-system   ocm-k8s-toolkit-controller-manager-788f58d4bd-ntbx8   1
 ...
 ```
 
-## Access to a Registry
+## Get Access to a Registry
 
 As all examples and guides will create an OCM component version that will be consumed by the OCM controllers, you will
 need access to a registry. You can either choose a public registry like [ghcr.io][ghcr.io] or deploy a registry (like
