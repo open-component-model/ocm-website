@@ -18,7 +18,12 @@ Note that a CTF archive itself is also an OCM repository, so it can be used as s
 The command [`ocm add componentversions`](https://github.com/open-component-model/ocm/blob/main/docs/reference/ocm_add_componentversions.md)
 directly creates a component version from a `component-constructor.yaml` file and stores it in a local CTF archive.
 
-### Create a Component Version
+## Prerequisites
+
+- [Install and configure the OCM CLI]({{< relref "ocm-cli-installation.md" >}}).
+- Install [jq](https://jqlang.org/).
+
+## Create a Component Version
 
 In this example we will use the The `ocm` CLI tool to create a very basic component version that contains a local resource and a resource that is accessed from a remote location. The local resource is the `podinfo` Helm Chart and the referenced resource is a Docker image stored in an OCI registry.
 
