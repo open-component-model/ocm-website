@@ -140,3 +140,54 @@ Verify the installation:
 ```bash
 ocm version
 ```
+
+## Configure the OCM Command Line Client
+
+Credentials to be used by the OCM CLI can be configured by supplying it with a [configuration file]({{< relref "docs/tutorials/creds-in-ocmconfig" >}}). By default, the CLI looks for the file in `$HOME/.ocmconfig`.
+
+### Prerequisites
+
+- Obtain access to an OCM repository. This can be any OCI registry for which you have write permission (e.g., GitHub Packages). An OCM repository based on an OCI registry is identified by a leading OCI repository prefix. For example: `ghcr.io/<YOUR-ORG>/ocm`.
+
+### Using the Docker Configuration File
+
+The easiest way to do this is to reuse your Docker configuration `json` file.
+
+Create a file named `.ocmconfig` in your home directory with the following content:
+
+```yaml
+type: generic.config.ocm.software/v1
+configurations:
+- type: credentials.config.ocm.software
+  repositories:
+    - repository:
+        type: DockerConfig/v1
+        # The path to the Docker configuration file
+        dockerConfigFile: "~/.docker/config.json"
+        propagateConsumerIdentity: true
+- type: attributes.config.ocm.software
+  attributes:
+    cache: ~/.ocm/cache
+```
+
+### Using Basic Authentication
+
+Alternatively, you can use basic authentication. Create a file named `.ocmconfig` in your home directory with the following content:
+
+```yaml
+type: generic.config.ocm.software/v1
+configurations:
+  - type: credentials.config.ocm.software
+    consumers:
+      - identity:
+          type: ociRegistry
+          hostname: <YOUR-REGISTRY>/<YOUR-REPO> # e.g. ghcr.io/acme/acme
+        credentials:
+          - type: Credentials
+            properties:
+              username: <YOUR-USERNAME>
+              password: <YOUR-PASSWORD>
+```
+
+More information on the credentials topic can be found by running the OCM CLI help topic command `ocm credential-handling`
+and in the guide [Credentials in an .ocmconfig File]({{< relref "docs/tutorials/creds-in-ocmconfig" >}}), which contains many examples for different repository types.
