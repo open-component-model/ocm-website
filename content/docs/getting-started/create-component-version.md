@@ -41,7 +41,13 @@ Quickly create a simple test file with some content in:
 echo "My first local Resource for an OCM component" > my-local-resource.txt
 ```
 
-Now, create a file named `component-constructor.yaml`. This file will define all elements of your component. In our example, the component contains a local file and a remote Docker image as resources.
+Now, create a file named `component-constructor.yaml`.
+
+```shell
+touch component-constructor.yaml
+```
+
+The `component-constructor.yaml` file will define all elements of your component. In our example, the component contains a local file and a remote Docker image as resources. 
 
 To create the example component, save the following YAML configuration to `component-constructor.yaml`:
 
@@ -268,6 +274,8 @@ ocm get cv /tmp/helloworld/transport-archive//github.com/acme.org/helloworld:1.0
 ```
 
 In this example, the output remains the same because the component has only one component version.
+
+To get the component descriptor of that component version, use the output format option `-o yaml`.
 
 ```shell
 ocm get cv /tmp/helloworld/transport-archive//github.com/acme.org/helloworld:1.0.0 -o yaml
