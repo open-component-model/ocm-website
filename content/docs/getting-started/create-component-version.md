@@ -113,6 +113,8 @@ If you want to specify a different constructor file name or CTF archive name, yo
 ocm add cv --repository /path/to/my-own-ctf -c /path/to/my-component-constructor.yaml
 ```
 
+If the component version was created successfully, you will see the following output:
+
 ```shell
 ...
 component github.com/acme.org/helloworld/1.0.0 constructed ... done! [1 component version in 482ms]
@@ -275,7 +277,7 @@ ocm get cv /tmp/helloworld/transport-archive//github.com/acme.org/helloworld:1.0
 
 In this example, the output remains the same because the component has only one component version.
 
-To get the component descriptor of that component version, use the output format option `-o yaml`.
+To get the component descriptor of that component version, use the output format option `-o yaml`:
 
 ```shell
 ocm get cv /tmp/helloworld/transport-archive//github.com/acme.org/helloworld:1.0.0 -o yaml
