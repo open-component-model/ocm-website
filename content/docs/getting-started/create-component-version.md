@@ -41,7 +41,7 @@ Quickly create a simple test file with some content in:
 echo "My first local Resource for an OCM component" > my-local-resource.txt
 ```
 
-Now, create a file named `component-constructor.yaml`.
+Now, create a file named `component-constructor.yaml`:
 
 ```shell
 touch component-constructor.yaml
