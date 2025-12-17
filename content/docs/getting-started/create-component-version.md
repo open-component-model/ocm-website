@@ -73,7 +73,7 @@ components:
       version: 1.0.0
       access:
         type: ociArtifact
-        imageReference: ghcr.io/stefanprodan/podinfo:6.9.1
+        imageReference: ghcr.io/stefanprodan/podinfo:6.9.4
 ```
 
 You can use our public configuration schema to validate the configuration. The schema is available at `https://ocm.software/schemas/configuration-schema.yaml` and can be used in your editor to validate the configuration (e.g., in Visual Studio Code).
