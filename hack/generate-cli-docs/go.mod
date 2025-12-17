@@ -4,7 +4,7 @@ go 1.25.4
 
 require (
 	github.com/spf13/cobra v1.10.1
-	ocm.software/ocm v0.34.1
+	ocm.software/ocm v0.34.2
 )
 
 require (
