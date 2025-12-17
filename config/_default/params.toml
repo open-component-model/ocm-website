@@ -1,5 +1,5 @@
 # Hugo
-latest_version = "v0.34.1"
+latest_version = "v0.34.2"
 
 # mainSections
 mainSections = ["docs", "community"]
