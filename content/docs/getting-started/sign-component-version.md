@@ -54,7 +54,7 @@ Let's sign the component we created earlier in the [Create a Component Version](
 assuming you used the default name for the CTF:
 
 ```bash
-ocm sign cv transport-archive//github.com/acme.org/helloworld:1.0.0 --config <path to your .ocmconfig>
+ocm sign cv /tmp/helloworld/transport-archive//github.com/acme.org/helloworld:1.0.0 --config <path-to-your-.ocmconfig>
 ```
 
 This command signs the specified component version and stores the signature in the repository:
@@ -74,7 +74,7 @@ signature:
 When looking at the component descriptor, we can also see the new signature entry at the end of the descriptor:
 
 ```bash
-ocm get cv transport-archive//github.com/acme.org/helloworld:1.0.0 -oyaml
+ocm get cv /tmp/helloworld/transport-archive//github.com/acme.org/helloworld:1.0.0 -oyaml
 ```
 
 ```yaml
@@ -129,7 +129,7 @@ In case you want to replace an existing signature, use the `--force` flag.
 Otherwise you will get an error like `Error: signature "default" already exists`.
 
 ```bash
-ocm sign cv transport-archive//github.com/acme.org/helloworld:1.0.0 --force
+ocm sign cv /tmp/helloworld/transport-archive//github.com/acme.org/helloworld:1.0.0 --force
 ```
 
 > ⚠️ Only overwrite signatures if you are sure no other process relies on the existing one.
@@ -164,10 +164,10 @@ Then sign with the appropriate signature name:
 
 ```bash
 # Sign for development
-ocm sign cv --signature dev transport-archive//github.com/acme.org/helloworld:1.0.0
+ocm sign cv --signature dev /tmp/helloworld/transport-archive//github.com/acme.org/helloworld:1.0.0
 
 # Sign for production
-ocm sign cv --signature prod transport-archive//github.com/acme.org/helloworld:1.0.0
+ocm sign cv --signature prod /tmp/helloworld/transport-archive//github.com/acme.org/helloworld:1.0.0
 ```
 
 See the [Multi-Environment Configuration]({{< relref "signing-and-verification.md#multi-environment-configuration" >}}) section for complete examples.
