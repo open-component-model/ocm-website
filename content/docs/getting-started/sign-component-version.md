@@ -13,7 +13,7 @@ Signing ensures the **authenticity** and **integrity** of component versions in 
 
 - [Install the OCM CLI]({{< relref "ocm-cli-installation" >}}).
 - Get a key pair (private + public key). Don't have a key pair yet? Follow our guide: [Key Pair Generation]({{< relref "signing-and-verification.md#key-pair-generation" >}}).
-- To follow the examples, you need the component version from the  guide [Create Component Versions]({{< relref "create-component-version.md" >}}).
+- To follow the examples, you need the component version from the  guide [Create and Examine Component Versions]({{< relref "create-component-version.md" >}}).
 
 ## Minimal .ocmconfig for Signing
 

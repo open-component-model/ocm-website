@@ -1,5 +1,5 @@
 ---
-title: "Create Component Versions"
+title: "Create and Examine Component Versions"
 url: "/docs/getting-started/create-component-version/"
 description: "Learn how to create and store component versions using the OCM CLI."
 icon: "📦"
@@ -253,7 +253,7 @@ The other elements listed as `layers` describe the blobs for the local resources
 
 </details>
 
-## View Component Versions
+## Examine Component Versions
 
 To list all component versions of a component stored in an OCM repository or CTF archive (which is technically also an OCM repository), you can use the [`ocm get component-version`]({{< relref "ocm_get_component-version.md" >}}) command. Only specify the component name and skip the version:
 
