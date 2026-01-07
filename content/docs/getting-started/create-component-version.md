@@ -9,7 +9,7 @@ toc: true
 
 ## How It Works
 
-Component versions are created using a `component-constructor.yaml` file, which is a description file that contains one or multiple components. The file describes the components and their artifacts - resources and sources, metadata in form of labels and references to other components.
+Component versions are created using a `component-constructor.yaml` file, which is a description file that contains one or multiple components. The file describes the components and their artifacts – resources and sources, metadata in form of labels and references to other components.
 
 Component versions are locally stored in archives using the [Common Transfer Format (CTF)](https://github.com/open-component-model/ocm-spec/blob/main/doc/04-extensions/03-storage-backends/ctf.md). A CTF archive may contain any number of component versions and is used to transfer components to and between component repositories.
 
