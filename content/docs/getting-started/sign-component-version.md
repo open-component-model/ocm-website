@@ -32,8 +32,9 @@ configurations:
         credentials:
           - type: Credentials/v1
             properties:
-              private_key_pem_file: ./keys/private.key
+              private_key_pem_file: "<path-to-your-private-key>"
 ```
+Replace `<path-to-your-private-key>` with the corresponding path. If you followed the [Key Pair Generation]({{< relref "signing-and-verification.md#key-pair-generation" >}}) guide, you can use the path `~/.ocm/keys/dev/private.pem`.
 
 The `identity` attributes define the consumer type for RSA signing:
 
@@ -149,7 +150,7 @@ configurations:
         credentials:
           - type: Credentials/v1
             properties:
-              private_key_pem_file: ~/.ocm/keys/dev/private.key
+              private_key_pem_file: "<path-to-the-first-private-key>"
       
       - identity:
           type: RSA/v1alpha1
@@ -157,8 +158,13 @@ configurations:
         credentials:
           - type: Credentials/v1
             properties:
-              private_key_pem_file: ~/.ocm/keys/prod/private.key
+              private_key_pem_file: "<path-to-the-second-private-key>"
 ```
+
+Replace `<path-to-the-first-private-key>` and `<path-to-the-second-private-key>` with the corresponding paths. If you followed the [Key Pair Generation]({{< relref "signing-and-verification.md#key-pair-generation" >}}) guide, you can use the following paths:
+
+- `~/.ocm/keys/dev/private.pem` for the `dev` signature
+- `~/.ocm/keys/prod/private.pem` for the `prod` signature
 
 Then sign with the appropriate signature name:
 

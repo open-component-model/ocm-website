@@ -35,8 +35,10 @@ configurations:
         credentials:
           - type: Credentials/v1
             properties:
-              public_key_pem_file: ./keys/public.pem
+              public_key_pem_file: "<path-to-your-public-key>"
 ```
+
+Replace `<path-to-your-public-key>` with the corresponding path. If you followed the [Key Pair Generation]({{< relref "signing-and-verification.md#key-pair-generation" >}}) guide, you can use the path `~/.ocm/keys/dev/public.pem`.
 
 The `identity` attributes define the consumer type for RSA verification:
 
@@ -98,7 +100,7 @@ configurations:
         credentials:
           - type: Credentials/v1
             properties:
-              public_key_pem_file: ~/.ocm/keys/dev/public.pem
+              public_key_pem_file: "<path-to-the-first-public-key>"
       
       - identity:
           type: RSA/v1alpha1
@@ -106,8 +108,13 @@ configurations:
         credentials:
           - type: Credentials/v1
             properties:
-              public_key_pem_file: ~/.ocm/keys/prod/cert-chain.pem
+              public_key_pem_file: "<path-to-the-first-public-key>"
 ```
+
+Replace `<path-to-the-first-public-key>` and `<path-to-the-second-public-key>` with the corresponding paths. If you followed the [Key Pair Generation]({{< relref "signing-and-verification.md#key-pair-generation" >}}) guide, you can use the following paths:
+
+- `~/.ocm/keys/dev/public.pem` for the `dev` signature
+- `~/.ocm/keys/prod/cert-chain.pem` for the `prod` signature
 
 Then verify the appropriate signature:
 
