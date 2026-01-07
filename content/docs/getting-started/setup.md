@@ -21,7 +21,7 @@ This document describes how to set up a local environment for running examples f
 You don't need to run kind if you are using a remote Kubernetes cluster you have access to. If so, you can skip this.
 {{</callout>}}
 
-To create a local kind cluster run the following command:
+Create a local kind cluster:
 
 ```bash
 kind create cluster
@@ -32,7 +32,7 @@ kind create cluster
 Please follow [the official installation guides for kro](https://kro.run/docs/getting-started/Installation). You might
 need [helm](https://helm.sh/docs/intro/install/) to install kro.
 
-If kro is installed correctly, you should see some similar output when running the following command:
+Verify the installation:
 
 ```bash
 kubectl get pods --all-namespaces
@@ -47,19 +47,20 @@ kro                  kro-86d5b5b5bd-6gmvr                         1/1     Runnin
 
 ## Install a Deployer
 
-Currently, we created our examples and getting-started guides using [FluxCD](https://fluxcd.io/) as deployer.
+Currently, we created our examples and getting-started guides using [Flux](https://fluxcd.io/) as deployer.
 But, in theory, you could use any other deployer that is able to apply a deployable resource to a Kubernetes cluster,
-for instance [ArgoCD](https://argo-cd.readthedocs.io/en/stable/).
+for instance [Argo CD](https://argo-cd.readthedocs.io/en/stable/).
 
-To install FluxCD, please follow the official [installation guide](https://fluxcd.io/docs/installation/). After you
-installed the CLI tool, you can run the following command to install the FluxCD controllers:
+To install the Flux CLI, please follow the official [installation guide](https://fluxcd.io/docs/installation/). After you have
+installed the CLI tool, you can proceed with the steps below.
+
+Install the Flux controllers:
 
 ```bash
 flux install
 ```
 
-If the FluxCD controllers are installed correctly, you should see some similar output when running the following
-command:
+Verify the installation:
 
 ```bash
 kubectl get pods --all-namespaces
@@ -79,21 +80,21 @@ kro                  kro-86d5b5b5bd-6gmvr                         1/1     Runnin
 
 ## Install the OCM Controllers
 
-To install the OCM controllers, you can use one of the following commands:
+Install the OCM controllers with one of the following commands:
 
 ```bash
-# In the open-component-model repository, folder kubernetes/controller
+# In the open-component-model repository
+cd kubernetes/controller
 task deploy
 ```
 
 or
 
 ```bash
-kubectl apply -k https://github.com/open-component-model/open-component-model/kubernetes/controller/config/default?ref=main
+kubectl apply -k "https://github.com/open-component-model/open-component-model/kubernetes/controller/config/default?ref=main"
 ```
 
-If the OCM controllers are installed correctly, you should see some similar output when running the
-following command:
+Verify the installation:
 
 ```bash
 kubectl get pods --all-namespaces
@@ -123,7 +124,7 @@ need access to a registry. You can either choose a public registry like [ghcr.io
 If you choose to deploy a registry into your Kubernetes cluster, you have to make sure it is accessible from outside
 the cluster (for `ocm transfer` to work) and inside the cluster (for the OCM controllers to work).
 
-We **strongly** recommend to use a registry that is publicly accessible, like [ghcr.io][ghcr.io].
+We **strongly** recommend to use a registry that is publicly accessible, like [ghcr.io](https://docs.github.com/en/packages/learn-github-packages/introduction-to-github-packages).
 (Deploying your own registry requires a lot of additional configuration. Especially, if you want to try out the
 localization example, you will need to configure a registry that is accessible with the same address from your
 CLI, kubelet, and inside the cluster.)
@@ -132,7 +133,7 @@ CLI, kubelet, and inside the cluster.)
 ---
 
 If you completed all of the above steps, you are ready to go. You can now start with the [Deploy a Helm Chart]({{< relref "docs/getting-started/deploy-helm-chart.md" >}}) guide or play around with the examples in the
-[`examples/`](https://github.com/open-component-model/open-component-model/tree/main/kubernetes/controller/examples) directory.
+[`examples/` directory on GitHub](https://github.com/open-component-model/open-component-model/tree/main/kubernetes/controller/examples) directory.
 
 [ghcr.io]: https://docs.github.com/en/packages/learn-github-packages/introduction-to-github-packages
 [registry]: https://hub.docker.com/_/registry
