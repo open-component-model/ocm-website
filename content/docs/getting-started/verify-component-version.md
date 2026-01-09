@@ -12,8 +12,7 @@ Verifying a component version ensures that a signature was created by a trusted 
 ## Prerequisites
 
 - [Install the OCM CLI]({{< relref "ocm-cli-installation" >}}).
-- Get a key pair (private + public key). Don't have a key pair yet? Follow our guide: [Key Pair Generation]({{< relref "signing-and-verification.md#key-pair-generation" >}}).
-- To follow the examples, you need the component version from the  guide [Create and Examine Component Versions]({{< relref "signing-and-verification.md#key-pair-generation" >}}).
+- You need a signed component version and the public key for the signature. The following examples use the signed component version from the [Sign Component Versions]({{< relref "sign-component-version.md" >}}) guide.
 
 ## Minimal .ocmconfig for Verification
 
