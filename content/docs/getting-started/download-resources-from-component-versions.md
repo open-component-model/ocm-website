@@ -26,7 +26,7 @@ ocm download resource ghcr.io/open-component-model/ocm//ocm.software/toi/demo/he
 time=2025-08-14T13:03:54.372+02:00 level=INFO msg="resource downloaded successfully" output=helmchart.tgz
 ```
 
-Because it is stored as OCI artifact in an OCI registry, the filesystem format used for OCI artifacts is the blob format.
+Because it is stored as an OCI artifact in an OCI registry, the filesystem format used for OCI artifacts is the blob format.
 
 <details><summary>What happened?</summary>
 
@@ -72,7 +72,7 @@ jq . index.json
 
 {{<callout context="caution" title="Under Construction">}}Transformers are currently in development. We'll extend the below section once they are ready to be used. Until then, you can check out the [Transformer ADR](https://github.com/open-component-model/open-component-model/blob/main/docs/adr/0005_transformation.md){{</callout>}}
 
-To use a format more suitable for the content technology, you can use the `--transformer` to specify a transformer. The transformer will take care that the file will be saved using its correct media type, e.g. a Helm chart will be saved as a `.tgz` file which on extraction will show the complete chart.
+To use a format more suitable for the content technology, you can use the `--transformer` flag to specify a transformer. The transformer will take care that the file is saved using its correct media type. For example, a Helm chart will be saved as a `.tgz` file, which on extraction will show the complete chart.
 
 ```shell
 ocm download resource ghcr.io/open-component-model/ocm//ocm.software/toi/demo/helmdemo:0.12.0 chart --identity name=chart --output helmchart.tgz --transformer helm
