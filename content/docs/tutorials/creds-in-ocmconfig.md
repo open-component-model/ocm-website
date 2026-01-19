@@ -106,6 +106,30 @@ configurations:
               password: admin
 ```
 
+#### Certificate Authority
+
+To access artifacts in `localhost:5001` with a PEM-encoded certificate:
+
+```yaml
+type: generic.config.ocm.software/v1
+configurations:
+  - type: credentials.config.ocm.software
+    consumers:
+      - identity:
+          type: OCIRegistry
+          scheme: https
+          hostname: localhost
+          port: 5001
+        credentials:
+          - type: Credentials
+            properties:
+              certificateAuthority: |-
+                -----BEGIN CERTIFICATE-----
+                ...
+                -----END CERTIFICATE----
+
+ ```
+
 ### Accessing Helm Chart Repositories
 
 Similar to OCI registries, but uses `HelmChartRepository` as identity type.
