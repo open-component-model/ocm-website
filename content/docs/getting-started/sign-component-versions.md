@@ -16,7 +16,13 @@ component version is used for signing. See [Signing Process and Normalization](h
 Currently, only signing according to the
 [RSA PKCS #1 v1.5 signature algorithm](https://datatracker.ietf.org/doc/html/rfc3447) is supported.
 
-To follow the examples, one must follow the instructions from the section [Create a Component Version]({{< relref "docs/getting-started/create-component-version" >}}).
+## Prerequisites
+
+- [Install and configure the OCM CLI]({{< relref "ocm-cli-installation.md" >}}).
+- Install [jq](https://jqlang.org/).
+- To follow the examples, you need to create the component version from our guide [Create Component Versions]({{< relref "docs/getting-started/create-component-version" >}}).
+
+## Sign with a Key Pair
 
 Create a key pair using the OCM CLI:
 
@@ -158,7 +164,7 @@ signatures:
 
 </details>
 
-## Signing with Certificates
+## Sign with Certificates
 
 The public key from the last example cannot be validated. This can be changed by using a certificate
 instead of a pure public key. The certificate is signed by a CA. This ensures the authenticity of the
@@ -216,7 +222,7 @@ ocm sign componentversion ${CTF_ARCHIVE} --private-key key.priv --public-key key
 Now the issuer will be stored along the signature and will be checked when verifying with the certificate
 instead of the public key.
 
-## Signature Verification
+## Verify a Signature
 
 You can verify a signed component version. Therefore, a public key or a certificate provided by the
 signer is required. If a certificate is provided, it is validated according to its certificate chain.

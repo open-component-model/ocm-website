@@ -7,20 +7,25 @@ weight: 23
 toc: true
 ---
 
-## Creating and Storing Component Versions
+## How It Works
 
-Component Versions are created using a `component-constructor.yaml` file, which is a description file that contains one or multiple components. The file describes the components and their artifacts - resources and sources, metadata in form of labels and references to other components.
+Component versions are created using a `component-constructor.yaml` file, which is a description file that contains one or multiple components. The file describes the components and their artifacts - resources and sources, metadata in form of labels and references to other components.
 
-Component Versions are locally stored in archives using the [Common Transfer Format (CTF)](https://github.com/open-component-model/ocm-spec/blob/main/doc/04-extensions/03-storage-backends/ctf.md). A CTF archive may contain any number of component versions and is used to transfer components to and between component repositories.
+Component versions are locally stored in archives using the [Common Transfer Format (CTF)](https://github.com/open-component-model/ocm-spec/blob/main/doc/04-extensions/03-storage-backends/ctf.md). A CTF archive may contain any number of component versions and is used to transfer components to and between component repositories.
 
 Note that a CTF archive itself is also an OCM repository, so it can be used as source or target for component transfer operations using the OCM CLI.
 
 The command [`ocm add componentversions`](https://github.com/open-component-model/ocm/blob/main/docs/reference/ocm_add_componentversions.md)
 directly creates a component version from a `component-constructor.yaml` file and stores it in a local CTF archive.
 
-### Create a Component Version
+## Prerequisites
 
-In this example we will use the The `ocm` CLI tool to create a very basic component version that contains a local resource and a resource that is accessed from a remote location. The local resource is the `podinfo` Helm Chart and the referenced resource is a Docker image stored in an OCI registry.
+- [Install and configure the OCM CLI]({{< relref "ocm-cli-installation.md" >}}).
+- Install [jq](https://jqlang.org/).
+
+## Create a Component Version
+
+In this example, we will use the the `ocm` CLI tool to create a very basic component version that contains two resources: a local resource and a resource that is accessed from a remote location. The local resource is the `podinfo` Helm Chart and the referenced resource is a Docker image stored in an OCI registry.
 
 We start by creating a test folder where we execute all required steps for this example and navigating into it:
 
@@ -76,14 +81,14 @@ The type field is used to specify the kind of access.
 If the resource content is taken from local resources, the field `input` is used to specify
 the access to the local resources. Similarly to the `access` attribute, the kind of the input source is described by the field `type`.
 
-Available access and input types are described [here]({{< relref "docs/tutorials/input-and-access-types" >}}).
+For the available access and input types, refer to [Input and Access Types]({{< relref "docs/tutorials/input-and-access-types" >}}).
 
-For more complex scenarios, the description files might use variable substitution (templating), see [Best Practices]({{< relref "docs/tutorials/best-practices#templating-the-resources" >}}).
+For more complex scenarios, the description files might use variable substitution (templating), refer to [Best Practices]({{< relref "docs/tutorials/best-practices#templating-the-resources" >}}).
 
-### Add Component Version to CTF archive
+## Store Component Versions
 
-To store our component version locally and to make it transportable, we now add it to a CTF archive
-using the following command. The option `--create` is used to create a new CTF archive if it does not exist:
+To store the component version locally and to make it transportable, we add it to a CTF archive
+using the command [`ocm add componentversions`](https://github.com/open-component-model/ocm/blob/main/docs/reference/ocm_add_componentversions.md). The option `--create` is used to create a new CTF archive if it does not exist:
 
 ```shell
 ocm add componentversions --create --file ctf-hello-world component-constructor.yaml
@@ -134,7 +139,7 @@ jq . ${CTF_ARCHIVE}/artifact-index.json
 }
 ```
 
-The content of the transport archive is stored as OCI artifacts. Notice that the repository names of Component Version artifacts (found at `artifacts.respository`) are prefixed by `component-descriptors/`.
+The content of the transport archive is stored as OCI artifacts. Notice that the repository names of component version artifacts (found at `artifacts.respository`) are prefixed by `component-descriptors/`.
 
 The component version is described as an OCI manifest:
 
@@ -208,3 +213,103 @@ component:
 The other elements listed as `layers` describe the blobs for the local resources stored along with the component version. The digests can be seen in the `localReference` attributes of the component descriptor.
 
 </details>
+
+## View Component Versions
+
+To show a component stored in an OCM repository or CTF archive (which itself is an OCM repository), use the [`ocm get componentversion`](https://github.com/open-component-model/ocm/blob/main/docs/reference/ocm_get_componentversions.md) command:
+
+```shell
+ocm get componentversion ghcr.io/open-component-model/ocm//ocm.software/toi/demo/helmdemo:0.12.0
+```
+
+```shell
+  COMPONENT                      VERSION PROVIDER
+  ocm.software/toi/demo/helmdemo 0.12.0  ocm.software
+```
+
+To see the component descriptor of the displayed component version, use the output format option `-o yaml`:
+
+```shell
+ocm get cv ghcr.io/open-component-model/ocm//ocm.software/toi/demo/helmdemo:0.12.0 -o yaml
+```
+
+```yaml
+component:
+  componentReferences:
+  - componentName: ocm.software/toi/installers/helminstaller
+    name: installer
+    version: 0.12.0
+  creationTime: "2024-07-19T14:32:13Z"
+  name: ocm.software/toi/demo/helmdemo
+  provider: ocm.software
+  repositoryContexts:
+  - baseUrl: ghcr.io
+    componentNameMapping: urlPath
+    subPath: open-component-model/ocm
+    type: OCIRegistry
+  resources:
+  - access:
+      localReference: sha256:8a2fe6af4ce56249094622c9d618e24b4cfb461a7dfa6a42cce31749189bc499
+      mediaType: application/vnd.toi.ocm.software.package.v1+yaml
+      type: localBlob
+    digest:
+      ...
+    labels:
+    - name: commit
+      value: e5ca3001323b75ee5793a786089f1f410e9e8db3
+    name: package
+    relation: local
+    type: toiPackage
+    version: 0.12.0
+  - access:
+      imageReference: ghcr.io/open-component-model/ocm/ocm.software/toi/demo/helmdemo/echoserver:0.1.0
+      type: ociArtifact
+    digest:
+      ...
+    name: chart
+    relation: local
+    type: helmChart
+    version: 0.12.0
+...
+```
+
+To refer to the content of a component repository, the component name can be appended to the repository specification separated by `//` (you can also use the `--repo` option to specify the repository).
+
+In the example above, `ghcr.io/open-component-model/ocm` is the OCM repository, whereas `ocm.software/toi/demo/helmdemo` is the component stored in this component repository.
+
+Optionally, a specific version can be appended, separated by a colon (`:`). If no version is specified, all component versions will be displayed.
+
+With the option `--recursive`, it is possible to show the complete component version, including the component versions it references.
+
+```shell
+ocm get cv ghcr.io/open-component-model/ocm//ocm.software/toi/demo/helmdemo:0.12.0 --recursive
+```
+
+```shell
+  REFERENCEPATH                         COMPONENT                                 VERSION PROVIDER     IDENTITY
+                                        ocm.software/toi/demo/helmdemo            0.12.0  ocm.software
+  ocm.software/toi/demo/helmdemo:0.12.0 ocm.software/toi/installers/helminstaller 0.12.0  ocm.software "name"="installer"
+```
+
+To get a tree view, add the option `-o tree`:
+
+```shell
+ocm get cv ghcr.io/open-component-model/ocm//ocm.software/toi/demo/helmdemo:0.12.0 --recursive -o tree
+```
+
+```shell
+  NESTING COMPONENT                                 VERSION PROVIDER     IDENTITY
+  └─ ⊗    ocm.software/toi/demo/helmdemo            0.12.0  ocm.software
+     └─   ocm.software/toi/installers/helminstaller 0.12.0  ocm.software "name"="installer"
+```
+
+As mentioned before a CTF archive itself is an OCM repository, so we can execute the same commands on a CTF archive. So, let's get the information about the component `github.com/acme.org/helloworld` we created in the previous step and that we stored in the CTF archive `/tmp/helloworld/ctf-hello-world`:
+
+```shell
+ocm get cv /tmp/helloworld/ctf-hello-world//github.com/acme.org/helloworld:1.0.0
+```
+
+```shell
+  COMPONENT                       VERSION  PROVIDER
+  github.com/acme.org/helloworld  0.1.0    ocm.software
+```
