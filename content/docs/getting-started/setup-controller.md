@@ -1,5 +1,5 @@
 ---
-title: Set Up OCM Controller Environment
+title: Set Up an OCM Controller Environment
 description: "Set up a local environment for running examples from the getting-started guides"
 icon: "🛠️"
 weight: 27
@@ -12,20 +12,20 @@ The [OCM controllers](https://github.com/open-component-model/open-component-mod
 in early development and not yet ready for production use.
 {{</callout>}}
 
-This document describes how to set up a local environment to [Deploy a Helm Chart]({{< relref "deploy-helm-chart.md" >}}) using the OCM controllers.
+This document describes how to set up a local environment for running the examples from the [Deploy a Helm Chart]({{< relref "deploy-helm-chart.md" >}}) guide. You will create a local Kubernetes cluster with kind and then install kro, Flux, and the OCM controllers.
 
 ## Prerequisites
 
-- [kubectl](https://kubernetes.io/docs/tasks/tools/#kubectl)
+- Install [kubectl](https://kubernetes.io/docs/tasks/tools/#kubectl).
+- Install [kind](https://kind.sigs.k8s.io/).
+- Install [Git](https://git-scm.com/).
+- Install [Task](https://taskfile.dev/).
 
 ## Start a Local Kubernetes Cluster with kind
 
 {{<callout context="note">}}
 You don't need to run kind if you are using a remote Kubernetes cluster you have access to. If so, you can skip this.
 {{</callout>}}
-
-For download and installation instructions, see the
-[kind documentation](https://kind.sigs.k8s.io/docs/user/quick-start).
 
 To create a local kind cluster run the following command:
 
@@ -35,7 +35,7 @@ kind create cluster
 
 ## Install kro
 
-Please follow the official installation guides for [kro](https://kro.run/docs/getting-started/Installation). You might
+Please follow the [official installation guides for kro](https://kro.run/docs/getting-started/Installation). You might
 need [helm](https://helm.sh/docs/intro/install/) to install kro.
 
 If kro is installed correctly, you should see some similar output when running the following command:
@@ -112,7 +112,7 @@ ocm-k8s-toolkit-system   ocm-k8s-toolkit-controller-manager-788f58d4bd-ntbx8   1
 ...
 ```
 
-## Access to a Registry
+## Get Access to a Registry
 
 As all examples and guides will create an OCM component version that will be consumed by the OCM controllers, you will
 need access to a registry. You can either choose a public registry like [ghcr.io][ghcr.io] or deploy a registry (like

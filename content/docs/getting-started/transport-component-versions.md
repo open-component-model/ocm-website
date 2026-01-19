@@ -6,11 +6,17 @@ weight: 26
 toc: true
 ---
 
-The section [Add Component Version to CTF archive]({{< relref "docs/getting-started/create-component-version#add-component-version-to-ctf-archive/" >}}) explained how to store component versions in a CTF archive.
+## Prerequisites
 
-During the transfer, it is possible to include component references as local blobs. It is also possible to include references in a recursive way.
+- [Install and configure the OCM CLI]({{< relref "ocm-cli-installation.md" >}}).
 
-Here is an example of a recursive transfer from one OCI registry to another, which includes resources and references:
+## Transfer a Component Version
+
+The section [Store Component Versions]({{< relref "docs/getting-started/create-component-version#store-component-versions" >}}) explained how to add a component version to a CTF archive. There, you used the [`ocm add componentversions`](https://github.com/open-component-model/ocm/blob/main/docs/reference/ocm_add_componentversions.md) command.
+
+To transfer component versions between two OCM repositories, you can use the [`ocm transfer componentversions`](https://github.com/open-component-model/ocm/blob/main/docs/reference/ocm_transfer_componentversions.md) command.
+
+Here is an example of a recursive transfer from one OCI registry to another. The transfer includes both resources and references:
 
 ```shell
 ocm transfer componentversion --recursive --copy-resources ghcr.io/open-component-model/ocm//ocm.software/toi/demo/helmdemo:0.12.0 another-registry/
