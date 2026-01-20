@@ -7,6 +7,13 @@
  * 2. Basic image adjustments
  */
 
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://rsms.me/inter/inter.css'); /* Inter variable font – matches other NeoNephos sites */
+
+html, body {
+  font-family: 'Inter var', 'Inter', system-ui, sans-serif;
+  font-optical-sizing: auto;
+}
 /* FULL-WIDTH CONTAINER
  * --------------------
  * .container-fw = Full Width Container
@@ -14,23 +21,32 @@
  * Important for landing pages or wide documentation pages.
  */
 .container-fw {
-  max-width: 100%;       /* Uses the full available width */
-  padding-left: 1rem;    /* Minimal left padding */
+  max-width: 100%;
+  /* Uses the full available width */
+  padding-left: 1rem;
+  /* Minimal left padding */
 
   /* Main content (docs-content) in full-width mode */
   .docs-content {
-    margin-left: 0rem !important;    /* Removes standard margins */
-    margin-right: 0rem !important;   /* so the content can use the full */
-    padding-right: 0rem !important;  /* width */
+    margin-left: 0rem !important;
+    /* Removes standard margins */
+    margin-right: 0rem !important;
+    /* so the content can use the full */
+    padding-right: 0rem !important;
+    /* width */
     padding-left: 0rem !important;
   }
 
   /* Table of contents (TOC) in full-width mode */
   .docs-toc {
-    margin-left: 3rem !important;    /* Spacing to main content */
-    margin-right: 0rem !important;   /* No right margin */
-    padding-right: 0rem !important;  /* No right padding */
-    padding-left: 0rem !important;   /* or left */
+    margin-left: 3rem !important;
+    /* Spacing to main content */
+    margin-right: 0rem !important;
+    /* No right margin */
+    padding-right: 0rem !important;
+    /* No right padding */
+    padding-left: 0rem !important;
+    /* or left */
   }
 }
 
@@ -40,6 +56,22 @@
  * They automatically fit the width of their container.
  */
 .content img {
-  max-width: 100%;    /* Image never wider than its container */
-  height: auto;       /* Height scales proportionally */
+  max-width: 100%;
+  /* Image never wider than its container */
+  height: auto;
+  /* Height scales proportionally */
+}
+
+/* WORD WRAPPING
+ * -------------
+ * Used to wrap individual words in spans for styling or animation.
+ */
+.word {
+  display: inline-block;
+  margin-right: 0.25em;
+  /* Add space between words wrapped in spans */
+
+  &:last-child {
+    margin-right: 0;
+  }
 }

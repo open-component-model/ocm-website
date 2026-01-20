@@ -22,10 +22,9 @@
       {{ .Content }}
 
       {{ if not .Params.hideChildren }}
-        {{- $cardsMaxColumns := default 0 .Params.cards_max_columns -}}
-        <div class="ocm-cards-grid"{{ if gt $cardsMaxColumns 0 }} style="--ocm-grid-template: repeat({{ $cardsMaxColumns }}, minmax(210px, 1fr));"{{ end }}>
+        <div class="ocm-card-grid ocm-card-grid--vertical">
           {{ range .Pages }}
-            <a class="ocm-section-card" href="{{ .RelPermalink }}">
+            <a class="ocm-card ocm-card--vertical" href="{{ .RelPermalink }}">
               <span class="ocm-card-icon">
                 {{- with .Params.icon }}{{ . | safeHTML }}
                 {{- else }}{{ if .IsSection }}📁{{ else }}📄{{ end }}
