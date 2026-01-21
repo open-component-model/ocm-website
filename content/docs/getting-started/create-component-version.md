@@ -9,7 +9,7 @@ toc: true
 
 ## How It Works
 
-Component versions are created using a `component-constructor.yaml` file, which is a description file that contains one or multiple components. The file describes the components and their artifacts – resources and sources, metadata in form of labels and references to other components.
+Component versions are created using a `component-constructor.yaml` file, which is a description file that contains one or multiple components. The file describes the components and their artifacts – resources and sources, metadata in form of labels, and references to other components.
 
 Component versions are locally stored in archives using the [Common Transfer Format (CTF)](https://github.com/open-component-model/ocm-spec/blob/main/doc/04-extensions/03-storage-backends/ctf.md). A CTF archive may contain any number of component versions and is used to transfer components to and between component repositories.
 
@@ -255,10 +255,10 @@ The other elements listed as `layers` describe the blobs for the local resources
 
 ## Examine Component Versions
 
-To list all component versions of a component stored in an OCM repository or CTF archive (which is technically also an OCM repository), you can use the [`ocm get component-version`]({{< relref "ocm_get_component-version.md" >}}) command. Only specify the component name and skip the version:
+To view a component version stored in an OCM repository or CTF archive (which is technically also an OCM repository), you can use the [`ocm get component-version`]({{< relref "ocm_get_component-version.md" >}}) command: 
 
 ```shell
-ocm get cv /tmp/helloworld/transport-archive//github.com/acme.org/helloworld
+ocm get cv /tmp/helloworld/transport-archive//github.com/acme.org/helloworld:1.0.0
 ```
 
 ```shell
@@ -267,15 +267,21 @@ ocm get cv /tmp/helloworld/transport-archive//github.com/acme.org/helloworld
  github.com/acme.org/helloworld │ 1.0.0   │ acme.org
 ```
 
-Notice the format of the specified component: The component path starts with the OCM repository prefix (`/tmp/helloworld/transport-archive`), followed by `//`, then the component name (`github.com/acme.org/helloworld`).
+Notice the format of the specified component version: The component path starts with the OCM repository prefix (`/tmp/helloworld/transport-archive`), followed by `//`, then the component name and version (`github.com/acme.org/helloworld:1.0.0`).
 
-To view a specific version, add the version to the component name:
+To list all versions of a component, only specify the component name and skip the version. Let us view all versions of the component with the name `ocm.software/demos/podinfo`, which is stored in the the OCM repository `ghcr.io/open-component-model`:
 
 ```shell
-ocm get cv /tmp/helloworld/transport-archive//github.com/acme.org/helloworld:1.0.0
+ocm get cv ghcr.io/open-component-model//ocm.software/demos/podinfo
 ```
 
-In this example, the output remains the same because the component has only one component version.
+```shell
+ COMPONENT                  │ VERSION │ PROVIDER     
+────────────────────────────┼─────────┼──────────────
+ ocm.software/demos/podinfo │ 6.8.0   │ ocm.software 
+                            │ 6.7.1   │              
+                            │ 6.7.0   │          
+```
 
 To get the component descriptor of that component version, use the output format option `-o yaml`:
 
