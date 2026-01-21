@@ -15,10 +15,10 @@ toc: true
 
 Use the [`ocm download resources`]({{< relref "ocm_download_resource.md" >}}) command to download specific resources from a component version.
 
-In this example, we download the resource with the name `chart` from the OCM component `ocm.software/toi/demo/helmdemo` in the OCM repository `ghcr.io/open-component-model/ocm`:
+In this example, we download the resource with the name `chart` from the component `ocm.software/demos/podinfo` with version `6.8.0`, which is stored in the the OCM repository `ghcr.io/open-component-model`:
 
 ```shell
-ocm download resource ghcr.io/open-component-model/ocm//ocm.software/toi/demo/helmdemo:0.21.0 --identity name=chart --output helmchart.tgz
+ocm download resource ghcr.io/open-component-model//ocm.software/demos/podinfo:6.8.0 --identity name=chart --output helmchart.tgz
 ```
 
 ```shell
@@ -75,7 +75,7 @@ jq . index.json
 To use a format more suitable for the content technology, you can use the `--transformer` flag to specify a transformer. The transformer will take care that the file is saved using its correct media type. For example, a Helm chart will be saved as a `.tgz` file, which on extraction will show the complete chart.
 
 ```shell
-ocm download resource ghcr.io/open-component-model/ocm//ocm.software/toi/demo/helmdemo:0.12.0 chart --identity name=chart --output helmchart.tgz --transformer helm
+ocm download resource ghcr.io/open-component-model//ocm.software/demos/podinfo:6.8.0 chart --identity name=chart --output helmchart.tgz --transformer helm
 ```
 
 ```shell

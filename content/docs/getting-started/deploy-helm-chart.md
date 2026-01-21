@@ -65,7 +65,7 @@ the [OCM CLI credentials documentation][ocm-credentials] for more information on
 If everything went well, you should see the following output:
 
 ```bash
-ocm get componentversion ghcr.io/<your-namespace>//ocm.software/ocm-k8s-toolkit/simple:1.0.0
+ocm get component-version ghcr.io/<your-namespace>//ocm.software/ocm-k8s-toolkit/simple:1.0.0
 ```
 
 ```console

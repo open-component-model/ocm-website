@@ -133,7 +133,7 @@ CLI, kubelet, and inside the cluster.)
 ---
 
 If you completed all of the above steps, you are ready to go. You can now start with the [Deploy a Helm Chart]({{< relref "docs/getting-started/deploy-helm-chart.md" >}}) guide or play around with the examples in the
-[`examples/` directory on GitHub](https://github.com/open-component-model/open-component-model/tree/main/kubernetes/controller/examples) directory.
+[`examples/` directory on GitHub](https://github.com/open-component-model/open-component-model/tree/main/kubernetes/controller/examples).
 
 [ghcr.io]: https://docs.github.com/en/packages/learn-github-packages/introduction-to-github-packages
 [registry]: https://hub.docker.com/_/registry
