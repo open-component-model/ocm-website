@@ -349,6 +349,40 @@
         }
     }
 
+    /* Up to 974px: force column layout and center all hero elements */
+    @media (max-width: 974px) {
+        .container {
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: clamp(40px, 4vw, 64px);
+        }
+        .main {
+            order: 2;
+            text-align: center;
+        }
+        .image {
+            order: 1;
+        }
+        .heading,
+        .name,
+        .text,
+        .subheadlines,
+        .tagline {
+            text-align: center;
+        }
+        .name,
+        .text,
+        .subheadlines,
+        .tagline {
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .subheadlines .subheadline {
+            text-align: center;
+        }
+    }
+
     /* Mobile smallest view: ensure name and text are centered */
     @media (max-width: 480px) {
         .name,
