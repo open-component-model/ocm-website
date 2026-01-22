@@ -53,7 +53,10 @@
   line-height: 1.5;                  /* Comfortable line height */
   
   /* Box behavior */
-  max-width: 100%;                   /* Never wider than container */
+  width: 100%;                       /* Fill available content width */
+  max-width: none;                   /* Ensure no external max-width caps */
+  margin-left: 0;                    /* Align with content left edge */
+  margin-right: 0;                   /* Align with content right edge */
   box-sizing: border-box;            /* Padding calculated inside */
 }
 

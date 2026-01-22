@@ -105,7 +105,6 @@
 .ocm-card-grid {
   display: grid;
   gap: 16px;
-  max-width: 1152px;
   margin: 0 auto;
   width: 100%;
 }
@@ -376,6 +375,13 @@
   
   .ocm-card-grid--benefit {
     grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* 5 columns for vertical grids on very wide screens (1900px+) */
+@media (min-width: 1900px) {
+  .ocm-card-grid--vertical {
+    grid-template-columns: repeat(5, 1fr);
   }
 }
 

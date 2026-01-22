@@ -53,18 +53,24 @@
     padding: 0 !important;
 
     .container-fluid {
-        max-width: var(--container);
+        width: 100%;
         height: 100%;
         display: flex;
         align-items: center;
         gap: var(--nav-gap);
-        padding-inline: var(--nav-pad-x, 24px); // Add padding using var or fallback
+        --bs-gutter-x: 0; // neutralize Bootstrap container gutters within navbar
+        padding-inline: var(--nav-pad-x, 24px) !important; // keep header-controlled padding only
     }
 }
 
 [data-bs-theme="dark"] {
     .navbar {
         background-color: transparent;
+    }
+    .header {
+        background-color: var(--lp-c-bg) !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
     }
 }
 
@@ -445,5 +451,13 @@
             overflow: visible;
             width: 100%; // Ensure body fills the offcanvas
         }
+    }
+}
+
+/* Ensure mobile offcanvas stays wide enough up to lg breakpoint (prevents narrowing at ~576px) */
+@media (max-width: 991.98px) {
+    .navbar .offcanvas.offcanvas-start,
+    .navbar .offcanvas.offcanvas-end {
+        width: 80vw !important; /* keep responsive width instead of fixed 332px */
     }
 }

@@ -1,9 +1,8 @@
 ---
 title: "Open Component Model"
 leader_open_source_text: "Open-Source Apache-2.0 licensed."
-hero_line1: "The solution for"
-hero_line2: "secure delivery for"
-hero_line3: "sovereign clouds"
+hero_line1: "Secure Delivery for"
+hero_line2: "Sovereign Clouds"
 subheadline1: "Deliver and deploy your software securely."
 subheadline2: "Anywhere, at any scale."
 
