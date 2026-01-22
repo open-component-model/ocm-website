@@ -454,10 +454,118 @@
     }
 }
 
-/* Ensure mobile offcanvas stays wide enough up to lg breakpoint (prevents narrowing at ~576px) */
+/* Ensure mobile offcanvas stays wide enough up to lg breakpoint (prevents narrowing at ~576px)
+   + enable multi-line stacking for right-side controls on small screens */
 @media (max-width: 991.98px) {
     .navbar .offcanvas.offcanvas-start,
     .navbar .offcanvas.offcanvas-end {
         width: 80vw !important; /* keep responsive width instead of fixed 332px */
+    }
+
+    /* Organize offcanvas content vertically with spacing */
+    .offcanvas .offcanvas-body {
+        display: flex;
+        flex-direction: column;
+        gap: var(--nav-gap);
+        width: 100%;
+        padding: 24px; /* retain mobile spacing */
+    }
+
+    /* Allow right-side controls to wrap to multiple lines and take full rows */
+    .navbar-right {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        justify-content: center; /* center all controls on mobile */
+        margin-top: 1rem; /* keep mobile spacing */
+    }
+
+    /* Default: keep controls inline and non-stretched on mobile */
+    .navbar-right .header-github-pill,
+    .navbar-right .dropdown,
+    .navbar-right .btn-link.nav-link,
+    .navbar-right .mode-toggle,
+    .navbar-right .version-droplet {
+        flex: 0 0 auto;
+    }
+
+    /* Center droplet on mobile while keeping static width */
+    .navbar-right .version-droplet {
+        margin-left: auto;
+        margin-right: auto;
+        flex: 0 0 auto !important;   /* prevent full-width stretch */
+        width: auto !important;       /* keep intrinsic width */
+        display: inline-flex;         /* maintain pill sizing */
+        white-space: nowrap;          /* avoid internal wrap */
+    }
+
+    /* Ensure dropdown opens directly under its toggle without shifting layout */
+    .navbar-right .dropdown {
+        position: relative; /* anchor for absolutely positioned menu */
+    }
+    .navbar-right .dropdown-menu {
+        width: auto;
+        max-width: 90vw;
+        position: absolute; /* do not affect layout; avoid pushing content */
+        left: 0;
+        right: auto;
+        top: calc(100% + 4px);
+        transform: none;
+        margin-top: 0;
+    }
+    .navbar-right .dropdown-menu[data-bs-popper] {
+        left: 0 !important;
+        right: auto !important;
+        transform: none !important;
+        top: calc(100% + 4px) !important;
+        margin-top: 0 !important;
+    }
+
+    /* Tighten spacing and selectively wrap at very narrow widths */
+    @media (max-width: 480px) {
+        .offcanvas .offcanvas-body {
+            padding: 16px;
+            gap: 12px;
+        }
+        .navbar-right {
+            gap: 8px;
+        }
+        /* Wrap only Versions at very narrow widths; keep droplet static size and centered */
+        .navbar-right .dropdown {
+            flex: 1 0 100%;
+            justify-content: center;
+        }
+        /* At <=480px ensure menu is centered under the toggle without reflow */
+        .navbar-right .dropdown { position: relative; }
+        .navbar-right .dropdown-menu {
+            position: absolute !important;
+            left: 50% !important;
+            right: auto !important;
+            top: calc(100% + 4px) !important;
+            transform: translateX(-50%) !important;
+            margin-top: 0 !important;
+            width: max-content !important;  /* shrink to content width */
+            max-width: 90vw !important;     /* prevent overflow */
+            z-index: 1002;
+        }
+        .navbar-right .dropdown-menu[data-bs-popper] {
+            position: absolute !important;
+            left: 50% !important;
+            right: auto !important;
+            top: calc(100% + 4px) !important;
+            transform: translateX(-50%) !important;
+            margin-top: 0 !important;
+            width: max-content !important;
+            max-width: 90vw !important;
+        }
+        .navbar-right .version-droplet {
+            flex: 0 0 auto !important; /* keep static size */
+            width: auto !important;
+            display: inline-flex;
+            white-space: nowrap;
+            margin-left: auto;
+            margin-right: auto;
+        }
     }
 }
