@@ -7,8 +7,8 @@
 
 .docs-sidebar {
   position: sticky;
-  top: 4rem; /* Spacing to header */
-  height: calc(100vh - 4rem); /* Full height minus header */
+  top: var(--nav-height); /* Align exactly to header height */
+  height: calc(100vh - var(--nav-height)); /* Full height minus header */
   overflow-y: auto;
   padding-right: 1rem;
   margin-left: 0;
@@ -18,7 +18,7 @@
 .row.flex-xl-nowrap {
   position: relative;
   margin: 0;
-  padding: 0 1rem;
+  padding: 0 24px; /* increased horizontal gutter to align with content/header padding */
 }
 
 /* Sidebar Navigation Enhancements */
@@ -107,7 +107,7 @@
       margin: 0.5rem 0;
       
       > details > summary .docs-link {
-        font-size: 1.1rem;
+        font-size: 1rem; /* reduce nested title size slightly */
         font-weight: 600;
       }
     }
@@ -119,6 +119,8 @@
     color: var(--bs-body-color);
     display: block; /* Important: Makes the whole area clickable */
     transition: color 0.2s ease; /* Smooth color transitions */
+    font-size: 0.95rem;          /* slightly more compact default size */
+    line-height: 1.4;            /* maintain comfortable click target height */
     
     &.active {
       font-weight: 600;
@@ -138,7 +140,7 @@
 
   /* Top level items */
   > ul > li > details > summary .docs-link {
-    font-size: 1.15rem;
+    font-size: 1.05rem; /* reduce top-level size slightly */
     font-weight: 600;
   }
   
@@ -174,9 +176,24 @@
 }
 
 /* Dark mode adjustments */
-[data-theme="dark"] .section-nav .docs-link.active,
 [data-bs-theme="dark"] .section-nav .docs-link.active {
   color: #fff !important; /* White for best readability */
   background: rgba(67, 97, 238, 0.18); /* Light blue as background */
   border-radius: 0.4rem;
+}
+
+/* XL and above: constrain sidebar width within a sensible range while keeping Doks grid */
+@media (min-width: 1200px) {
+  .row.flex-xl-nowrap {
+    align-items: flex-start;
+  }
+  .docs-sidebar {
+    width: clamp(260px, 26vw, 360px) !important;  /* limit actual sidebar width */
+  }
+  .docs-content {
+    width: calc(100% - clamp(260px, 26vw, 360px)) !important; /* ensure content uses remaining width */
+  }
+  .docs-toc {
+    margin-left: 1.25rem; /* slightly increase separation between content and ToC on desktop */
+  }
 }

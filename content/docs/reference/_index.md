@@ -1,7 +1,7 @@
 ---
 title: Reference
 description: "Browse reference documentation for the OCM CLI and OCM controllers."
-icon: "📚"
+icon: "💾"
 weight: 
 toc: true
 sidebar:

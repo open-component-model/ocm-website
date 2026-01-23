@@ -1,7 +1,7 @@
 ---
 title: "Concepts"
 description: "Explore basic concepts and principles of the Open Component Model."
-icon: "📚"
+icon: "🏢"
 weight: 40
 url: /docs/concepts/
 sidebar:

@@ -1,0 +1,18 @@
+{{ $context := .Get "context" | default "note" }}
+{{ $title := .Get "title" }}
+{{ $class := "primary" }}
+
+{{ if eq $context "note" }}
+{{ $class = "info" }}
+{{ else if eq $context "warning" }}
+{{ $class = "warning" }}
+{{ else if eq $context "caution" }}
+{{ $class = "danger" }}
+{{ else if eq $context "tip" }}
+{{ $class = "success" }}
+{{ end }}
+
+<div class="alert alert-{{ $class }}" role="alert">
+    {{ with $title }}<h4 class="alert-heading">{{ . }}</h4>{{ end }}
+    {{ .Inner | markdownify }}
+</div>
