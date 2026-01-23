@@ -25,8 +25,8 @@
   /* Card Text Colors */
   --ocm-card-title-color: var(--lp-c-text-1);
   --ocm-card-desc-color: var(--lp-c-text-2);
-
-  /* Icon Color (harmonized with OCM brand/header). 
+  
+  /* Icon Color (harmonized with OCM brand/header).
      Uses brand-1 by default; overrideable via --ocm-card-icon-color */
   --ocm-card-icon-color: var(--brand-blue-dark);
   
@@ -89,14 +89,21 @@
   }
 }
 
-/* Dark mode support */
-[data-theme="dark"] .ocm-card,
+/* Dark mode support (Bootstrap theme attribute) */
 [data-bs-theme="dark"] .ocm-card {
   background: var(--ocm-card-bg-dark);
   
   &:hover {
     background: var(--lp-c-bg-soft);
   }
+}
+
+/* Landing page: align card gray with the alt button in light theme */
+[data-bs-theme="light"] .lp-home .ocm-card {
+  background: var(--lp-button-alt-bg);
+}
+[data-bs-theme="light"] .lp-home .ocm-card:hover {
+  background: var(--lp-button-alt-hover-bg);
 }
 
 /* ============================================

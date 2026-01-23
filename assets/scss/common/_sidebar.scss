@@ -176,7 +176,6 @@
 }
 
 /* Dark mode adjustments */
-[data-theme="dark"] .section-nav .docs-link.active,
 [data-bs-theme="dark"] .section-nav .docs-link.active {
   color: #fff !important; /* White for best readability */
   background: rgba(67, 97, 238, 0.18); /* Light blue as background */
