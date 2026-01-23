@@ -13,6 +13,7 @@
    ============================================ */
 .lp-home {
     display: grid;
+    align-content: start; /* prevent grid rows from stretching vertically; keep constant spacing between sections even on tall viewports */
     background: var(--lp-c-bg);
     min-height: 100vh;
     gap: 24px;
