@@ -101,10 +101,6 @@
   }
 }
 
-.ocm-section-page h1:first-child {
-  margin-top: 0; /* remove margin since we control spacing via container padding */
-}
-
 /* Docs article pages: when a desktop TOC column is present, keep the same top gap
    so the content title baseline aligns with the TOC heading start. */
 @media (min-width: 1200px) {
