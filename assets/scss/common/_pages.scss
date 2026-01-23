@@ -10,6 +10,7 @@
   padding-bottom: 0;
 }
 
+
 /* Section-specific overrides for large screens */
 @media (min-width: 1200px) {
   /* Community Page */
@@ -118,8 +119,6 @@
 
 /* ============================================
    Docs ToC (right column) compact sizing
-   - Make ToC entries slightly smaller to give Content mehr Vorrang
-   - Erhalte gute Scanbarkeit über moderates line-height
    ============================================ */
 .docs-toc {
   .nav-link {

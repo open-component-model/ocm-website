@@ -92,11 +92,12 @@
 /* When a desktop TOC column is present (single docs pages), increase the top gap
    so the content title baseline aligns with the TOC heading start. */
 @media (min-width: 1200px) {
-  /* Desktop: unify title-top spacing for both docs pages (with TOC) and section pages (without TOC) */
-  .row.flex-xl-nowrap .docs-content h1:first-child {
-    margin-top: 1.75rem; /* unified spacing under sticky header */
+  /* Desktop: adjust section pages only to match docs pages spacing */
+  .ocm-section-page h1:first-child {
+    margin-top: 1.75rem; /* match docs article title offset; prevents jump when switching */
   }
+  /* Docs article pages with desktop TOC retain their spacing */
   .row.flex-xl-nowrap .docs-toc + .docs-content h1:first-child {
-    margin-top: 1.75rem; /* explicit when TOC present (same value) */
+    margin-top: 1.75rem; /* align with TOC baseline on docs pages */
   }
 }
