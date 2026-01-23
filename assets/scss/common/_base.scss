@@ -75,3 +75,11 @@ html, body {
     margin-right: 0;
   }
 }
+
+/* Prevent sticky header from overlapping page content on non-home pages
+ * The non-home layout wraps content in .wrap .content (baseof.html).
+ * Ensure there's always at least the header height above the content.
+ */
+.wrap .content {
+  padding-top: var(--nav-height);
+}

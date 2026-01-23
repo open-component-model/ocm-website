@@ -1,19 +1,16 @@
 <!doctype html>
-<html lang="{{ .Site.LanguageCode | default " en" }}" data-bs-theme="{{ site.Params.doks.colorMode | default " auto"
-  }}">
+<html lang="{{ .Site.LanguageCode | default "en" }}" data-bs-theme="{{ site.Params.doks.colorMode | default "auto" }}">
 {{ partial "head/head" . }}
 {{ partial "head/body-class" . }}
 
-<body class="{{ delimit (.Scratch.Get " class" | default (slice)) " " }}"{{ if eq site.Params.doks.scrollSpy true }}
-  data-bs-spy="scroll" data-bs-target="#toc" data-bs-root-margin="0px 0px -60%" data-bs-smooth-scroll="true"
-  tabindex="0" {{ end }}>
+<body class='{{ delimit (.Scratch.Get " class" | default (slice)) " " }}'{{ if eq site.Params.doks.scrollSpy true }} data-bs-spy="scroll" data-bs-target="#toc" data-bs-root-margin="0px 0px -60%" data-bs-smooth-scroll="true" tabindex="0" {{ end }}>
   {{ partial "header/custom-header" . }} <!-- Main content container -->
   {{ if .IsHome }}
   <div class="content">
     {{ block "main" . }}{{ end }}
   </div>
   {{ else }}
-  <div class="wrap container-{{ site.Params.doks.containerBreakpoint | default " lg" }}" role="document">
+  <div class='wrap container-{{ site.Params.doks.containerBreakpoint | default "lg" }}' role="document">
     <div class="content">
       {{ block "main" . }}{{ end }}
     </div>
@@ -23,8 +20,10 @@
   {{ block "sidebar-prefooter" . }}{{ end }}
   {{ block "sidebar-footer" . }}{{ end }}
 
-  <!-- Footer partial (always rendered at the bottom) -->
+  <!-- Footer partial (rendered only on Home/Landing page) -->
+  {{ if .IsHome }}
   {{ partial "footer/footer" . }}
+  {{ end }}
 
   {{ partial "footer/script-footer" . }}
 
