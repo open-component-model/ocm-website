@@ -15,8 +15,8 @@
    ============================================ */
 :root {
     --nav-height: 56px;
-    --nav-gap: clamp(16px, 2vw, 24px);
-    --nav-link-size: 1rem;
+    --nav-gap: clamp(18px, 2.6vw, 32px); // moderately increase gap for better breathing room
+    --nav-link-size: 0.875rem; // ~14px for a slightly more compact navbar
     --fw-nav: 400;
     --fw-nav-hover: 400;
     --fw-nav-active: 500;
@@ -60,6 +60,8 @@
         gap: var(--nav-gap);
         --bs-gutter-x: 0; // neutralize Bootstrap container gutters within navbar
         padding-inline: var(--nav-pad-x, 24px) !important; // keep header-controlled padding only
+        max-width: 1920px; /* limit header container width on ultra-wide screens */
+        margin-inline: auto; /* center the inner container */
     }
 }
 
@@ -92,6 +94,8 @@
         // height attribute handles size, ensuring unconstrained width maintains aspect ratio
         display: block;
         margin-right: 0; /* rely on gap for spacing */
+        width: 44px; /* slightly smaller brand mark for a tighter header */
+        height: auto;
     }
 
     > span {
@@ -291,6 +295,12 @@
             }
         }
     }
+
+    /* Slightly reduce default icon sizes in header controls for a more compact look */
+    svg {
+        width: 18px;
+        height: 18px;
+    }
 }
 
 /* GitHub Pill Style */
@@ -373,7 +383,7 @@
 
     .dropdown-item {
         color: var(--lp-c-text-1) !important;
-        font-size: 0.875rem;
+        font-size: 0.8125rem; /* ~13px for a subtler dropdown */
         padding: 8px 16px;
         transition: background-color 0.2s ease, color 0.2s ease;
 

@@ -66,3 +66,25 @@
   background: #5a5c60 !important; // Darker grey for dark mode
   color: #f6f7fa !important;      // Very light, but not pure white
 }
+
+/* --------------------------------------------
+   Docs content compact spacing (tables/lists/hr)
+   -------------------------------------------- */
+.docs-content table td,
+.docs-content table th {
+  padding: 0.5rem;
+}
+
+.docs-content ul,
+.docs-content ol {
+  margin-block: 0.75rem;
+}
+
+.docs-content hr {
+  margin-block: 0.5rem;
+}
+
+/* Resilience: ensure extra top margin for first H1 if needed */
+.docs-content h1:first-child {
+  margin-top: clamp(16px, var(--nav-height), 64px);
+}

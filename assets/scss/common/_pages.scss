@@ -61,3 +61,80 @@
     padding: 0 !important;
   }
 }
+
+/* ============================================
+   Docs Typography (scoped to docs-content)
+   Rationale:
+   - Make body text lighter (400) and maintain 1rem size with relaxed line-height for readability.
+   - Compact but clear heading scale, inspired by index.css values.
+   - Keep scope local to docs-content to avoid impacting landing/home.
+   ============================================ */
+.docs-content {
+  /* Body text */
+  p,
+  li {
+    font-size: 1rem;         /* 16px */
+    font-weight: 400;        /* normal weight for better readability */
+    line-height: 1.7;        /* relaxed line-height for long-form content */
+  }
+
+  /* Headings scale */
+  h1 {
+    font-size: 2.5rem;       /* ~40px */
+    font-weight: 600;
+    line-height: 1.15;
+  }
+
+  h2 {
+    font-size: 1.8rem;       /* ~29px */
+    font-weight: 600;
+    line-height: 1.2;
+  }
+
+  h3 {
+    font-size: 1.45rem;      /* ~23px */
+    font-weight: 600;
+    line-height: 1.25;
+  }
+
+  h4 {
+    font-size: 1.2rem;       /* ~19px */
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  h5 {
+    font-size: 1.1rem;       /* ~17.6px */
+    font-weight: 600;
+    line-height: 1.35;
+  }
+
+  h6 {
+    font-size: 1rem;         /* 16px */
+    font-weight: 600;
+    line-height: 1.4;
+  }
+}
+
+/* ============================================
+   Docs ToC (right column) compact sizing
+   - Make ToC entries slightly smaller to give Content mehr Vorrang
+   - Erhalte gute Scanbarkeit über moderates line-height
+   ============================================ */
+.docs-toc {
+  .nav-link {
+    font-size: 0.95rem;   /* subtle reduction for top-level */
+    line-height: 1.4;
+    padding: 0.25rem 0;   /* tighten vertical rhythm a bit */
+  }
+
+  /* Second level */
+  .nav .nav .nav-link {
+    font-size: 0.9rem;
+  }
+
+  /* Third level and deeper */
+  .nav .nav .nav .nav-link {
+    font-size: 0.875rem;
+  }
+}

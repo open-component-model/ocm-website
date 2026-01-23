@@ -16,7 +16,7 @@
     background: var(--lp-c-bg);
     min-height: 100vh;
     gap: 24px;
-    padding-top: var(--nav-height);
+    padding-top: calc(var(--nav-height) * 4);
     padding-left: var(--nav-pad-x) !important;
     padding-right: var(--nav-pad-x) !important;
     padding-bottom: var(--nav-height);
@@ -244,7 +244,7 @@
     }
 
     @media (min-width: 960px) {
-        padding-top: 16px;
+        padding-top: 32px; /* doubled desktop spacing between header and hero title */
 
         .container {
             flex-direction: row;
@@ -310,9 +310,9 @@
             white-space: normal;
         }
 
-        /* Slightly reduce glow radius to free horizontal space */
+        /* Slightly reduce glow radius to free horizontal space (still larger than before overall) */
         .image .image-bg {
-            filter: blur(44px);
+            filter: blur(56px);
         }
     }
 

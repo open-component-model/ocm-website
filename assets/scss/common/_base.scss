@@ -8,7 +8,7 @@
  */
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-@import url('https://rsms.me/inter/inter.css'); /* Inter variable font – matches other NeoNephos sites */
+@import url('https://rsms.me/inter/inter.css'); /* Inter variable font – OpenMFP and Platform Mesh sites */
 
 html, body {
   font-family: 'Inter var', 'Inter', system-ui, sans-serif;
@@ -39,14 +39,10 @@ html, body {
 
   /* Table of contents (TOC) in full-width mode */
   .docs-toc {
-    margin-left: 3rem !important;
-    /* Spacing to main content */
-    margin-right: 0rem !important;
-    /* No right margin */
-    padding-right: 0rem !important;
-    /* No right padding */
-    padding-left: 0rem !important;
-    /* or left */
+    margin-left: 3rem !important;  /* slightly increased separation from main content */
+    margin-right: 0rem !important;   /* no extra right margin */
+    padding-right: 0rem !important;  /* no extra right padding */
+    padding-left: 0rem !important;   /* keep left padding neutral */
   }
 }
 
@@ -60,6 +56,13 @@ html, body {
   /* Image never wider than its container */
   height: auto;
   /* Height scales proportionally */
+}
+
+/* Limit overall content container width and align with navbar padding */
+.wrap {
+  max-width: 1920px;
+  margin-inline: auto;
+  padding-inline: 24px; /* align horizontal content padding with header */
 }
 
 /* WORD WRAPPING
@@ -81,5 +84,5 @@ html, body {
  * Ensure there's always at least the header height above the content.
  */
 .wrap .content {
-  padding-top: var(--nav-height);
+  padding-top: var(--nav-height); /* restore container offset so divider starts directly under the header */
 }
