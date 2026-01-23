@@ -7,8 +7,8 @@
 
 .docs-sidebar {
   position: sticky;
-  top: 4rem; /* Spacing to header */
-  height: calc(100vh - 4rem); /* Full height minus header */
+  top: var(--nav-height); /* Align exactly to header height */
+  height: calc(100vh - var(--nav-height)); /* Full height minus header */
   overflow-y: auto;
   padding-right: 1rem;
   margin-left: 0;

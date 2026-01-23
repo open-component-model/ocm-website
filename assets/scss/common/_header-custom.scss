@@ -29,7 +29,10 @@
     z-index: 1100; // ensure header stays above page content and any overlays
     width: 100%;
     height: var(--nav-height);
+    border-bottom: 1px solid var(--lp-c-divider);
     transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    
+    
 
     @include media-breakpoint-up(lg) {
         background-color: var(--lp-c-bg);
@@ -46,6 +49,7 @@
         border-bottom-color: var(--nav-border-scrolled);
         box-shadow: var(--shadow-md);
     }
+    
 }
 
 .navbar {

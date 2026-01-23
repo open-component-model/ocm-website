@@ -83,7 +83,20 @@
   margin-block: 0.5rem;
 }
 
-/* Resilience: ensure extra top margin for first H1 if needed */
+/* Align the first content heading with TOC start:
+   Default for pages without a desktop TOC (e.g., section/list pages): slightly lower than header */
 .docs-content h1:first-child {
-  margin-top: clamp(16px, var(--nav-height), 64px);
+  margin-top: 0.5rem; /* tuned to better match sidebar start on section pages */
+}
+
+/* When a desktop TOC column is present (single docs pages), increase the top gap
+   so the content title baseline aligns with the TOC heading start. */
+@media (min-width: 1200px) {
+  /* Desktop: unify title-top spacing for both docs pages (with TOC) and section pages (without TOC) */
+  .row.flex-xl-nowrap .docs-content h1:first-child {
+    margin-top: 1.75rem; /* unified spacing under sticky header */
+  }
+  .row.flex-xl-nowrap .docs-toc + .docs-content h1:first-child {
+    margin-top: 1.75rem; /* explicit when TOC present (same value) */
+  }
 }

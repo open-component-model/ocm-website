@@ -84,5 +84,29 @@ html, body {
  * Ensure there's always at least the header height above the content.
  */
 .wrap .content {
-  padding-top: var(--nav-height); /* restore container offset so divider starts directly under the header */
+  border-top: none; /* avoid double thickness; rely on header border for the horizontal divider */
+  padding-top: 0; /* shift the offset into the columns so the vertical divider aligns */
+}
+
+/* Shift content and TOC down to clear the sticky header while keeping the top divider flush.
+   Sidebar itself is sticky and already offset via top: var(--nav-height), so do not add extra padding there. */
+.row.flex-xl-nowrap > .docs-content,
+.row.flex-xl-nowrap > .docs-toc {
+  padding-top: var(--nav-height);
+}
+
+/* Ensure the first content element aligns directly under the header divider (no gap) */
+.wrap .content > *:first-child {
+  margin-top: 0;
+}
+
+/* If the first element is an HR or a dedicated divider, remove its top margin as well */
+.wrap .content > hr:first-child,
+.docs-content > hr:first-child {
+  margin-top: 0;
+}
+
+/* Also normalize top margin for the first element inside docs-content */
+.docs-content > *:first-child {
+  margin-top: 0;
 }

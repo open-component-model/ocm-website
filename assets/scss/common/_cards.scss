@@ -98,12 +98,12 @@
   }
 }
 
-/* Landing page: align card gray with the alt button in light theme */
+/* Landing page: use lighter neutral surfaces in light theme (avoid blue tint) */
 [data-bs-theme="light"] .lp-home .ocm-card {
-  background: var(--lp-button-alt-bg);
+  background: var(--lp-c-bg-soft);
 }
 [data-bs-theme="light"] .lp-home .ocm-card:hover {
-  background: var(--lp-button-alt-hover-bg);
+  background: var(--lp-c-bg-elv);
 }
 
 /* ============================================
