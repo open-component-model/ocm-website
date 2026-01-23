@@ -89,14 +89,14 @@
   margin-top: 0.5rem; /* tuned to better match sidebar start on section pages */
 }
 
-/* When a desktop TOC column is present (single docs pages), increase the top gap
+/* Section pages: unify title offset under sticky header to match docs article pages */
+.ocm-section-page h1:first-child {
+  margin-top: 1.75rem; /* apply consistently across breakpoints for section pages */
+}
+
+/* Docs article pages: when a desktop TOC column is present, keep the same top gap
    so the content title baseline aligns with the TOC heading start. */
 @media (min-width: 1200px) {
-  /* Desktop: adjust section pages only to match docs pages spacing */
-  .ocm-section-page h1:first-child {
-    margin-top: 1.75rem; /* match docs article title offset; prevents jump when switching */
-  }
-  /* Docs article pages with desktop TOC retain their spacing */
   .row.flex-xl-nowrap .docs-toc + .docs-content h1:first-child {
     margin-top: 1.75rem; /* align with TOC baseline on docs pages */
   }

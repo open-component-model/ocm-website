@@ -22,13 +22,47 @@
       {{ .Content }}
 
       {{ if not .Params.hideChildren }}
+        {{/* Emoji → SVG Icon Mapping (initial Vorschlag, abgeleitet aus content/ Frontmatter und assets/svg) */}}
+        {{- $emojiMap := dict
+          "📚" "books"
+          "🧭" "compass"
+          "🏁" "device-desktop-code"
+          "🔍" "search"
+          "✍"  "shield-lock"
+          "✍️" "shield-lock"
+          "🚀" "rocket"
+          "📦" "package-import"
+          "📥" "book-download"
+          "🔩" "address-book"
+          "💻" "device-desktop-code"
+          "🔑" "key"
+          "🌐" "world"
+          "🛠" "settings-heart"
+          "🛠️" "settings-heart"
+          "⚙"  "settings-bolt"
+          "⚙️" "settings-bolt"
+          "✨" "sparkles-2"
+          "💡" "bulb"
+          "🗂" "library"
+          "📄" "clipboard-text"
+          "📁" "library"
+          "🏢" "go-game"
+          "💾" "file-type-doc"
+        -}}
         <div class="ocm-card-grid ocm-card-grid--vertical">
           {{ range .Pages }}
+            {{- $raw := default "" .Params.icon -}}
+            {{- $key := trim $raw " " -}}
+            {{- $iconName := or (index $emojiMap $key) $key -}}
+            {{- $res := (cond (ne $iconName "") (resources.Get (printf "svg/%s.svg" $iconName)) nil) -}}
+            {{- /* Fallback: SVG Platzhalter statt Emoji */ -}}
+            {{- if not $res -}}
+              {{- $fallback := cond .IsSection "library" "book" -}}
+              {{- $res = resources.Get (printf "svg/%s.svg" $fallback) -}}
+            {{- end -}}
             <a class="ocm-card ocm-card--vertical" href="{{ .RelPermalink }}">
-              <span class="ocm-card-icon">
-                {{- with .Params.icon }}{{ . | safeHTML }}
-                {{- else }}{{ if .IsSection }}📁{{ else }}📄{{ end }}
-                {{- end -}}
+              <span class="ocm-card-icon" aria-hidden="true">
+                {{- with $res -}}{{ .Content | safeHTML }}{{- end -}}
               </span>
               <div class="ocm-card-title">{{ .Title }}</div>
               {{ with .Description }}

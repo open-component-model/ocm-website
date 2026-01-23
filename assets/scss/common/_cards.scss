@@ -29,7 +29,9 @@
   /* Icon Color (harmonized with OCM brand/header).
      Uses brand-1 by default; overrideable via --ocm-card-icon-color */
   --ocm-card-icon-color: var(--brand-blue-dark);
-  
+  /* NEW: unify stroke width across all card icons */
+  --ocm-card-icon-stroke-width: 1;
+
   /* Card Shadows */
   --ocm-card-shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.15);
   
@@ -148,6 +150,11 @@
 .ocm-card-icon svg {
   /* rely on Tabler's built-in outline attributes; just ensure sizing and color */
   fill: none;
+  /* unify stroke styling across all icons regardless of inline attributes */
+  stroke: currentColor;
+  stroke-width: var(--ocm-card-icon-stroke-width, 1);
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 /* Explicitly suppress Tabler's guide path to avoid any perceived "frame" */
 .ocm-card-icon svg path[d="M0 0h24v24H0z"] {
