@@ -7,9 +7,9 @@ subheadline1: "Deliver and deploy your software securely."
 subheadline2: "Anywhere, at any scale."
 
 actions:
-  - icon: "clipboard-text"
-    label: "Describe"
-    description: "Define components in code with powerful lifecycle metadata."
+  - icon: "package"
+    label: "Pack"
+    description: "Describe and pack components in code with powerful lifecycle metadata."
     link: "docs/getting-started/create-component-version/"
   - icon: "lock-plus"
     label: "Sign"
