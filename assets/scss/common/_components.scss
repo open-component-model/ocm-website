@@ -89,9 +89,16 @@
   margin-top: 0.5rem; /* tuned to better match sidebar start on section pages */
 }
 
-/* Section pages: unify title offset under sticky header to match docs article pages */
-.ocm-section-page h1:first-child {
-  margin-top: 1.75rem; /* apply consistently across breakpoints for section pages */
+/* Section pages: reduce container padding and title margin to align with single/article pages */
+.ocm-section-page {
+  padding-top: calc(var(--nav-height) - 1.75rem) !important; /* override base padding to bring content higher */
+}
+
+/* Add spacing from sidebar on larger screens */
+@media (min-width: 1200px) {
+  .ocm-section-page {
+    padding-left: 3.8rem; /* more margin to sidebar */
+  }
 }
 
 /* Docs article pages: when a desktop TOC column is present, keep the same top gap
