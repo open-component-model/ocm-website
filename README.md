@@ -50,7 +50,7 @@ Contributions of documentation and code, feature requests, bug reports, and help
 
 Before contributing, please check out the following pages:
 
-- [Quickstart: Creating New Documents for the OCM Website](https://github.com/open-component-model/ocm-website/blob/main/.github/docs/how-to-create-new-docs.md)
+- [How to Create and Test Content for the OCM Website](https://github.com/open-component-model/ocm-website/blob/main/.github/docs/how-to-create-new-docs.md)
 - [How to Create and Update Website Versions](https://github.com/open-component-model/ocm-website/blob/main/.github/docs/how-to-version-content-on-our-website.md)
 - [Templates](https://github.com/open-component-model/ocm-website/tree/main/.github/docs/templates)
 
