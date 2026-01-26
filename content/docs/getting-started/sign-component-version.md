@@ -2,7 +2,7 @@
 title: "Sign Component Versions"
 url: "/docs/getting-started/sign-component-version/"
 description: "Learn how to sign component versions using key pairs."
-icon: "📦"
+icon: "✍️"
 weight: 26
 toc: true
 ---
@@ -11,10 +11,9 @@ Signing ensures the **authenticity** and **integrity** of component versions in 
 
 ## Prerequisites
 
-- You have a key pair (private + public key).
-  - Don't have a key pair yet? Follow our guide: [Key Pair Generation]({{< relref "signing-and-verification.md#key-pair-generation" >}}).
-- You have the OCM CLI installed.
-  - To install the OCM CLI, follow our guide: [Install and Configure the OCM CLI]({{< relref "ocm-cli-installation" >}}).
+- [Install the OCM CLI]({{< relref "ocm-cli-installation" >}}).
+- Get a key pair (private + public key). Don't have a key pair yet? Follow our guide: [Key Pair Generation]({{< relref "signing-and-verification.md#key-pair-generation" >}}).
+- To follow the examples, you need the component version from the  guide [Create and Examine Component Versions]({{< relref "create-component-version.md" >}}).
 
 ## Minimal .ocmconfig for Signing
 
@@ -32,8 +31,9 @@ configurations:
         credentials:
           - type: Credentials/v1
             properties:
-              private_key_pem_file: ./keys/private.key
+              private_key_pem_file: "<path-to-your-private-key>"
 ```
+Replace `<path-to-your-private-key>` with the corresponding path. If you followed the [Key Pair Generation]({{< relref "signing-and-verification.md#key-pair-generation" >}}) guide, you can use the path `~/.ocm/keys/dev/private.pem`.
 
 The `identity` attributes define the consumer type for RSA signing:
 
@@ -54,7 +54,7 @@ Let's sign the component we created earlier in the [Create a Component Version](
 assuming you used the default name for the CTF:
 
 ```bash
-ocm sign cv transport-archive//github.com/acme.org/helloworld:1.0.0 --config <path to your .ocmconfig>
+ocm sign cv /tmp/helloworld/transport-archive//github.com/acme.org/helloworld:1.0.0 --config <path-to-your-.ocmconfig>
 ```
 
 This command signs the specified component version and stores the signature in the repository:
@@ -74,7 +74,7 @@ signature:
 When looking at the component descriptor, we can also see the new signature entry at the end of the descriptor:
 
 ```bash
-ocm get cv transport-archive//github.com/acme.org/helloworld:1.0.0 -oyaml
+ocm get cv /tmp/helloworld/transport-archive//github.com/acme.org/helloworld:1.0.0 -oyaml
 ```
 
 ```yaml
@@ -129,7 +129,7 @@ In case you want to replace an existing signature, use the `--force` flag.
 Otherwise you will get an error like `Error: signature "default" already exists`.
 
 ```bash
-ocm sign cv transport-archive//github.com/acme.org/helloworld:1.0.0 --force
+ocm sign cv /tmp/helloworld/transport-archive//github.com/acme.org/helloworld:1.0.0 --force
 ```
 
 > ⚠️ Only overwrite signatures if you are sure no other process relies on the existing one.
@@ -149,7 +149,7 @@ configurations:
         credentials:
           - type: Credentials/v1
             properties:
-              private_key_pem_file: ~/.ocm/keys/dev/private.key
+              private_key_pem_file: "<path-to-the-first-private-key>"
       
       - identity:
           type: RSA/v1alpha1
@@ -157,17 +157,22 @@ configurations:
         credentials:
           - type: Credentials/v1
             properties:
-              private_key_pem_file: ~/.ocm/keys/prod/private.key
+              private_key_pem_file: "<path-to-the-second-private-key>"
 ```
+
+Replace `<path-to-the-first-private-key>` and `<path-to-the-second-private-key>` with the corresponding paths. If you followed the [Key Pair Generation]({{< relref "signing-and-verification.md#key-pair-generation" >}}) guide, you can use the following paths:
+
+- `~/.ocm/keys/dev/private.pem` for the `dev` signature
+- `~/.ocm/keys/prod/private.pem` for the `prod` signature
 
 Then sign with the appropriate signature name:
 
 ```bash
 # Sign for development
-ocm sign cv --signature dev transport-archive//github.com/acme.org/helloworld:1.0.0
+ocm sign cv --signature dev /tmp/helloworld/transport-archive//github.com/acme.org/helloworld:1.0.0
 
 # Sign for production
-ocm sign cv --signature prod transport-archive//github.com/acme.org/helloworld:1.0.0
+ocm sign cv --signature prod /tmp/helloworld/transport-archive//github.com/acme.org/helloworld:1.0.0
 ```
 
 See the [Multi-Environment Configuration]({{< relref "signing-and-verification.md#multi-environment-configuration" >}}) section for complete examples.

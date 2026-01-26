@@ -120,19 +120,19 @@ Self-signed keys are ideal for development, testing, and environments without PK
 mkdir -p ~/.ocm/keys/dev
 
 # Generate private key (4096 bits recommended)
-openssl genrsa -out ~/.ocm/keys/dev/private.key 4096
+openssl genrsa -out ~/.ocm/keys/dev/private.pem 4096
 
 # Extract public key
-openssl rsa -in ~/.ocm/keys/dev/private.key -pubout -out ~/.ocm/keys/dev/public.pem
+openssl rsa -in ~/.ocm/keys/dev/private.pem -pubout -out ~/.ocm/keys/dev/public.pem
 
 # Set secure permissions
-chmod 600 ~/.ocm/keys/dev/private.key
+chmod 600 ~/.ocm/keys/dev/private.pem
 chmod 644 ~/.ocm/keys/dev/public.pem
 ```
 
 **Files created:**
 
-- `~/.ocm/keys/dev/private.key` - Private key (4096 bits)
+- `~/.ocm/keys/dev/private.pem` - Private key (4096 bits)
 - `~/.ocm/keys/dev/public.pem` - Public key
 
 ### CA-Signed Keys (Production)
@@ -148,15 +148,15 @@ and scenarios requiring PKI integration or compliance.
 mkdir -p ~/.ocm/keys/prod
 
 # Generate private key
-openssl genrsa -out ~/.ocm/keys/prod/private.key 4096
+openssl genrsa -out ~/.ocm/keys/prod/private.pem 4096
 
 # Create certificate signing request (CSR)
-openssl req -new -key ~/.ocm/keys/prod/private.key \
+openssl req -new -key ~/.ocm/keys/prod/private.pem \
   -out ~/.ocm/keys/prod/request.csr \
   -subj "/C=US/O=MyOrg/OU=Engineering/CN=OCM Production Signer"
 
 # Set secure permissions
-chmod 600 ~/.ocm/keys/prod/private.key
+chmod 600 ~/.ocm/keys/prod/private.pem
 chmod 644 ~/.ocm/keys/prod/request.csr
 
 # Send request.csr to your CA and save the response
@@ -167,7 +167,7 @@ chmod 644 ~/.ocm/keys/prod/request.csr
 
 **Files created:**
 
-- `~/.ocm/keys/prod/private.key` - Private key (4096 bits)
+- `~/.ocm/keys/prod/private.pem` - Private key (4096 bits)
 - `~/.ocm/keys/prod/request.csr` - Certificate signing request (send to CA)
 
 **Files received from CA:**
@@ -216,10 +216,10 @@ configurations:
         credentials:
           - type: Credentials/v1
             properties:
-              private_key_pem_file: ~/.ocm/keys/dev/private.key
+              private_key_pem_file: ~/.ocm/keys/dev/private.pem
 ```
 
-**Note:** This references `~/.ocm/keys/dev/private.key` which we created with the OpenSSL command in the previous section.
+**Note:** This references `~/.ocm/keys/dev/private.pem` which we created with the OpenSSL command in the previous section.
 
 > **Alternative:** Keys can also be embedded inline using `private_key_pem` property.
 > The inline format uses a multi-line YAML string with the PEM block.
@@ -286,7 +286,7 @@ configurations:
         credentials:
           - type: Credentials/v1
             properties:
-              private_key_pem_file: ~/.ocm/keys/dev/private.key
+              private_key_pem_file: ~/.ocm/keys/dev/private.pem
               public_key_pem_file: ~/.ocm/keys/dev/public.pem
 
       # Staging environment
@@ -297,7 +297,7 @@ configurations:
         credentials:
           - type: Credentials/v1
             properties:
-              private_key_pem_file: ~/.ocm/keys/staging/private.key
+              private_key_pem_file: ~/.ocm/keys/staging/private.pem
               public_key_pem_file: ~/.ocm/keys/staging/public.pem
 
       # Production environment (CA-signed with certificate chain)
@@ -308,7 +308,7 @@ configurations:
         credentials:
           - type: Credentials/v1
             properties:
-              private_key_pem_file: ~/.ocm/keys/prod/private.key
+              private_key_pem_file: ~/.ocm/keys/prod/private.pem
               public_key_pem_file: ~/.ocm/keys/prod/cert-chain.pem
 ```
 
@@ -402,7 +402,7 @@ signatureAlgorithm: RSASSA-PSS  # or RSASSA-PKCS1V15
 signatureEncodingPolicy: Plain  # or PEM
 
 # Option 1: Reference external file (preferred)
-privateKeyPEMFile: ~/.ocm/keys/dev/private.key
+privateKeyPEMFile: ~/.ocm/keys/dev/private.pem
 
 # Option 2: Inline private key
 # privateKeyPEM: |
@@ -634,9 +634,9 @@ Suitable for automatic trust propagation in enterprise PKI infrastructure.
 
 ```bash
 mkdir -p ~/.ocm/keys/dev
-openssl genrsa -out ~/.ocm/keys/dev/private.key 4096
-openssl rsa -in ~/.ocm/keys/dev/private.key -pubout -out ~/.ocm/keys/dev/public.pem
-chmod 600 ~/.ocm/keys/dev/private.key
+openssl genrsa -out ~/.ocm/keys/dev/private.pem 4096
+openssl rsa -in ~/.ocm/keys/dev/private.pem -pubout -out ~/.ocm/keys/dev/public.pem
+chmod 600 ~/.ocm/keys/dev/private.pem
 chmod 644 ~/.ocm/keys/dev/public.pem
 ```
 
@@ -653,7 +653,7 @@ configurations:
         credentials:
           - type: Credentials/v1
             properties:
-              private_key_pem_file: ~/.ocm/keys/dev/private.key
+              private_key_pem_file: ~/.ocm/keys/dev/private.pem
               public_key_pem_file: ~/.ocm/keys/dev/public.pem
 ```
 
@@ -684,7 +684,7 @@ ocm verify cv --signature dev ghcr.io/myorg/component:1.0.0
 type: RSA/v1alpha1
 signatureAlgorithm: RSASSA-PSS
 signatureEncodingPolicy: PEM
-privateKeyPEMFile: ~/.ocm/keys/prod/private.key
+privateKeyPEMFile: ~/.ocm/keys/prod/private.pem
 ```
 
 **Sign:**
@@ -715,7 +715,7 @@ ocm verify cv --signature prod ghcr.io/myorg/component:1.0.0
 
 **Solutions:**
 
-- Verify public key matches private key: `openssl rsa -in private.key -pubout`
+- Verify public key matches private key: `openssl rsa -in private.pem -pubout`
 - Check signature name: `ocm get cv -o yaml ghcr.io/myorg/component:1.0.0`
 - Verify certificate chain: `openssl verify -CAfile ca-chain.pem certificate.pem`
 

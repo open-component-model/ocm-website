@@ -1,6 +1,0 @@
-{{- $svg := printf "svg/%s.svg" .src -}}
-{{- with resources.Get $svg }}
-  {{ .Content | safeHTML }}
-{{- else }}
-  {{ errorf "SVG '%s' not found in /assets/svg/" $svg }}
-{{- end }}

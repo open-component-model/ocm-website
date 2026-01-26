@@ -446,3 +446,4 @@ openssl
 csr
 verifiers
 cryptographically
+svg

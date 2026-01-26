@@ -6,12 +6,13 @@ weight: 33
 toc: true
 ---
 
-This guide demonstrates how to deploy a Helm chart from an OCM component version using OCM controllers, kro, and FluxCD.
-It is a rather basic example, in which it is assumed that a developer created an application, packaged it as a Helm
+This guide demonstrates how to deploy a Helm chart from an OCM component version using OCM controllers, [kro](https://kro.run/), and [Flux](https://fluxcd.io/).
+
+For the following example, it is assumed that a developer created an application, packaged it as a Helm
 chart, and publishes it as OCM component version in an OCI registry. Then, an operator who wants to deploy the
 application via Helm chart in a Kubernetes cluster, creates a `ResourceGraphDefinition` with resources that point to
-this OCM component version. Using CEL expressions inside the `ResourceGraphDefinition`, the information about the
-resource location will be passed to FluxCD, which will then configure the Helm chart and deploy it into the Kubernetes
+the OCM component version. Using CEL expressions inside the `ResourceGraphDefinition`, the information about the
+resource location will be passed to Flux, which will then configure the Helm chart and deploy it into the Kubernetes
 cluster.
 
 ## Prerequisites
@@ -64,7 +65,7 @@ the [OCM CLI credentials documentation][ocm-credentials] for more information on
 If everything went well, you should see the following output:
 
 ```bash
-ocm get componentversion ghcr.io/<your-namespace>//ocm.software/ocm-k8s-toolkit/simple:1.0.0
+ocm get component-version ghcr.io/<your-namespace>//ocm.software/ocm-k8s-toolkit/simple:1.0.0
 ```
 
 ```console
