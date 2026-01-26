@@ -31,7 +31,6 @@ Install the following tools:
 - [Node.js](https://docs.npmjs.com/getting-started)
 - [Hugo](https://gohugo.io/)
 
-
 Install dependencies:
 
 ```sh
