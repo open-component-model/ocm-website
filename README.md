@@ -14,7 +14,7 @@ The sources for some of the documentation are maintained in other repositories w
 
 ## Content Structure
 
-Content lives under the `content/docs` directory.
+Content lives under the `content` directory.
 
 | Directory | Content                                      |
 | ----------------- | -------------------------------------------------- |
@@ -23,6 +23,8 @@ Content lives under the `content/docs` directory.
 | `content/docs/overview` | Overview and introductory information about the OCM project |
 | `content/docs/reference` | Generated CLI documentation |
 | `content/docs/tutorials` | Tutorials about specific use cases |
+| `content/community` | Information about community engagement |
+| `content/_index.md` | Landing page content |
 
 ## Running the OCM Website Locally
 
