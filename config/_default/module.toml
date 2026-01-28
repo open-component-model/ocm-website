@@ -96,12 +96,3 @@
   source = "static"
   target = "static"
 
-## Reference Docs mounted from other repositories
-## Use @main to always use the latest version of the repository.
-## Use version tags to pin to a specific version.
-
-[[imports]]
-  path = "ocm.software/open-component-model/cli"
-  [[imports.mounts]]
-    source = "docs/reference"
-    target = "content/docs/reference/ocm-cli"

@@ -6,7 +6,7 @@
   "license": "Apache-2.0",
 
   "scripts": {
-    "build-multi-version": "bash .github/scripts/build-multi-version.sh",
+    "build-multi-version": "node scripts/build-multiversion.js",
     "build": "exec-bin node_modules/.bin/hugo/hugo --minify --gc",
     "clean:build": "shx rm -rf public resources .hugo_build.lock",
     "clean:install": "shx rm -rf node_modules package-lock.json yarn.lock pnpm-lock.yaml",
@@ -44,7 +44,7 @@
     "shx": "^0.4.0"
   },
   "otherDependencies": {
-    "hugo": "0.149.0"
+    "hugo": "0.150.0"
   },
   "overrides": {
     "semver": "^7.5.4"

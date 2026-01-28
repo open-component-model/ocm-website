@@ -15,7 +15,7 @@ Component versions are locally stored in archives using the [Common Transfer For
 
 Note that a CTF archive itself is also an OCM repository, so it can be used as source or target for component transfer operations using the OCM CLI.
 
-The command [`ocm add component-version`]({{< relref "ocm_add_component-version.md" >}}) directly creates a component version from a `component-constructor.yaml` file and stores it in a local CTF archive.
+The command [`ocm add component-version`](/docs/reference/ocm-cli/add/componentversions/) directly creates a component version from a `component-constructor.yaml` file and stores it in a local CTF archive.
 
 ## Prerequisites
 
@@ -255,7 +255,7 @@ The other elements listed as `layers` describe the blobs for the local resources
 
 ## Examine Component Versions
 
-To view a component version stored in an OCM repository or CTF archive (which is technically also an OCM repository), you can use the [`ocm get component-version`]({{< relref "ocm_get_component-version.md" >}}) command: 
+To view a component version stored in an OCM repository or CTF archive (which is technically also an OCM repository), you can use the [`ocm get component-version`](/docs/reference/ocm-cli/get/componentversions/) command:
 
 ```shell
 ocm get cv /tmp/helloworld/transport-archive//github.com/acme.org/helloworld:1.0.0

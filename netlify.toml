@@ -6,7 +6,11 @@
   ignore = "exit 1"
 
 [context.deploy-preview]
-  command = "sh -c 'git fetch origin main:refs/remotes/origin/main && bash .github/scripts/build-multi-version.sh $DEPLOY_PRIME_URL'"
+  command = "sh -c 'node scripts/build-multiversion.js $DEPLOY_PRIME_URL'"
+  publish = "public"
+
+[context.production]
+  command = "node scripts/build-multiversion.js"
   publish = "public"
 
 [[plugins]]
