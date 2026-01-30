@@ -17,28 +17,24 @@ on:
 
 jobs:
   generate-cli-reference:
-    name: Update content/docs/reference/ocm-cli
+    name: Update content_versioned/version-old/docs/reference/ocm-cli
     if: github.event.client_payload != '' || github.event.inputs.tag != ''
     runs-on: ubuntu-latest
     env:
       TAG: ${{ github.event.inputs.tag || github.event.client_payload.tag }}
-      REF: ${{ github.event_name == 'repository_dispatch' && github.event.action == 'ocm-cli-release' && 'website/current' || github.ref }}
+      REF: main
     permissions:
       contents: 'write'
       id-token: 'write'
       pull-requests: 'write'
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 #v6
         with:
           persist-credentials: false
           ref: ${{ env.REF }}
 
-      - name: Update Version Parameter
-        run: |
-          sed -i "s/latest_version = .*/latest_version = \"$TAG\"/" ./config/_default/params.toml
-
       - name: Setup Go
-        uses: actions/setup-go@v5
+        uses: actions/setup-go@v7a3fe6cf4cb3a834922a1244abfce67bcef6a0c5 #v6
         with:
           go-version-file: '${{ github.workspace }}/hack/generate-cli-docs/go.mod'
 
@@ -47,7 +43,7 @@ jobs:
           cd ./hack/generate-cli-docs
           go get ocm.software/ocm@$TAG
           go mod tidy
-          go run ./... --output-dir=${{ github.workspace }}/content/docs/reference/ocm-cli
+          go run ./... --output-dir=${{ github.workspace }}/content_versioned/version-old/docs/reference/ocm-cli
 
       - name: Get OCMBot installation token
         # Instead of creating the PR below with GITHUB_TOKEN use a generated
@@ -59,15 +55,15 @@ jobs:
           private_key: ${{ secrets.OCMBOT_PRIV_KEY }}
 
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v7
+        uses: peter-evans/create-pull-request@vc0f553fe549906ede9cf27b5156039d195d2ece0 #v8
         with:
-          base: website/current
+          base: main
           token: ${{ steps.generate_token.outputs.token }}
-          title: "Update CLI docs"
+          title: "Update CLI docs for version-old"
           commit-message: "[github-actions] automated change"
           add-paths: |
             config/
-            content/
+            content_versioned/version-old/
             hack/generate-cli-docs/go.mod
             hack/generate-cli-docs/go.sum
           branch: update-cli-docs/auto
@@ -75,4 +71,4 @@ jobs:
           delete-branch: true
           sign-commits: true
           body: |
-            Update OCM CLI documentation for new release
+            Update OCM CLI documentation for new release in folder content_versioned/version-old
