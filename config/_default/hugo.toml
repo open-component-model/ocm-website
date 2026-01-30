@@ -124,5 +124,5 @@ defaultContentVersionInSubdir = false
 [versions]
   [versions."old"]
     weight = 1
-  [versions.dev]
+  [versions."dev"]
     weight = 2

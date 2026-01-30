@@ -80,18 +80,14 @@ Examples:
 ```sh
 # Create version 0.0.2 (and keep the current default)
 npm run cutoff -- 0.0.2
-
-# Create version 0.0.3 and set it as the default
-npm run cutoff -- --makeDefault 0.0.3
 ```
 
 What the script does (brief):
 - Copies `content/` to `content_versioned/version-x.y.z`.
 - Appends a `[versions."x.y.z"]` stanza (without weight) to `config/_default/hugo.toml`.
 - Appends a grouped, per-version section to `config/_default/module.toml`.
-- If `--makeDefault` is used, sets `defaultContentVersion = "x.y.z"` in `config/_default/hugo.toml`.
 
-The script keeps versioning configuration minimal and consistent. Authors only need to run the script; no manual edits are required.
+The script keeps versioning configuration minimal and consistent. Authors only need to run the script; no manual edits of config files are required.
 
 ## Contributing
 
