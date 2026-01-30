@@ -1,5 +1,4 @@
-# Hugo
-latest_version = "v0.26.0"
+# Hugo Parameters
 
 # mainSections
 mainSections = ["docs", "community"]
@@ -50,15 +49,6 @@ mainSections = ["docs", "community"]
   multilingualMode = false # false (default) or true
   showMissingLanguages = true # whether or not to show untranslated languages in the language menu; true (default) or false
 
-  # Versioning
-  # Offers toggle to maintain multiple versions of the same documentation
-  # Parameters are used in the layouts/partials/header/header.html template
-  #
-  # Central versions.json containinig all parallel versions lies in data/ folder 
-  # and NEEDS to be maintained in the main branch BEFORE a new version branch is cut off to 
-  # be available in the version switcher of all versions.
-
-
   # UX
   headerBar = true # true (default) or false
   backgroundDots = true # true (default) or false
@@ -73,22 +63,6 @@ mainSections = ["docs", "community"]
 
   # Repository
   repoHost = "GitHub" # GitHub (default), Gitea, GitLab, Bitbucket, or BitbucketServer
-  # Explicit default version label for Hugo versions dropdown workaround
-  defaultVersion = "old"
-
-  # SCSS colors
-  # backGround = "yellowgreen"
-  ## Dark theme
-  # textDark = "#dee2e6" # "#dee2e6" (default), "#dee2e6" (orignal), or custom color
-  # accentDark = "#5d2f86" # "#5d2f86" (default), "#5d2f86" (original), or custom color
-  ## Light theme
-  # textLight = "#1d2d35" # "#1d2d35" (default), "#1d2d35" (orignal), or custom color
-  # accentLight = "#8ed6fb" # "#8ed6fb" (default), "#8ed6fb" (orignal), or custom color
-
-  # [doks.menu]
-  #   [doks.menu.section]
-  #     auto = true # true (default) or false
-  #     collapsibleSidebar = true # true (default) or false
 
 # Debug
 [render_hooks.image]

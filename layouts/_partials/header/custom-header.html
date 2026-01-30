@@ -136,9 +136,8 @@
                                 {{ with .Site.Home.Rotate "version" }}
                                   {{ range . }}
                                     {{ $isCurrent := eq .Site.Version.Name $currentVersionName }}
-                                    {{/* Workaround for Hugo not respecting defaultContentVersion: allow explicit default via params or fallback to "0.0.0" */}}
-                                    {{ $desiredDefault := site.Params.doks.defaultVersion | default "0.0.0" }}
-                                    {{ $isDefault := eq .Site.Version.Name $desiredDefault }}
+                                    {{/* Default detection via Hugo: use .Site.Version.IsDefault */}}
+                                    {{ $isDefault := .Site.Version.IsDefault }}
                                     <li>
                                       <a class="dropdown-item{{ if $isCurrent }} current{{ end }}" {{ if $isCurrent }}aria-current="true" {{ end }}
                                          href="{{ .RelPermalink }}">

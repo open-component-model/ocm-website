@@ -6,19 +6,10 @@
 # Mounts specify file paths in your project that Hugo should use when building
 # the site. They allow for custom directory structures and integrating content
 # from different locations.
-
-# content folders (versions-aware)
-[[mounts]]
-  source = "content_versioned/version-old"
-  target = "content"
-  [mounts.sites.matrix]
-    versions = ["old"]
-
-[[mounts]]
-  source = "content"
-  target = "content"
-  [mounts.sites.matrix]
-    versions = ["dev"]
+#
+# At the end of this file, there are per-version mounts and imports for
+# reference documentation, allowing different versions of content to be
+# served based on the site's versioning strategy.
 
 ## data
 [[mounts]]
@@ -104,11 +95,43 @@
   source = "static"
   target = "static"
 
-# Per-version reference for doc module imports
-  # current: No import (uses embedded snapshot docs)
-  # 0.0.1 uses latest (as per current availability)
+# Versioning content with mounts and imports
+## per-version mounts of content folders
+## per-version imports of reference docs using module imports
+### old: no import (uses embedded reference docs in content folder)
+### dev: uses latest
+### x.y.z uses version x.y.z of ref docs module
 
-# "dev" uses latest
+# old (only mount, no imports)
+[[mounts]]
+  source = "content_versioned/version-old"
+  target = "content"
+[mounts.sites.matrix]
+  versions = ["old"]
+
+# dev
+[[mounts]]
+  source = "content"
+  target = "content"
+  [mounts.sites.matrix]
+    versions = ["dev"]
+
+[[imports]]
+  path = "ocm.software/open-component-model/cli"
+  version = "latest"
+  [[imports.mounts]]
+  source = "docs/reference"
+  target = "content/docs/reference/ocm-cli"
+  [imports.mounts.sites.matrix]
+    versions = ["dev"]
+
+# 0.0.2
+[[mounts]]
+  source = "content_versioned/version-v0.0.2"
+  target = "content"
+  [mounts.sites.matrix]
+    versions = ["latest"]
+
 [[imports]]
   path = "ocm.software/open-component-model/cli"
   version = "latest"
@@ -116,4 +139,36 @@
     source = "docs/reference"
     target = "content/docs/reference/ocm-cli"
     [imports.mounts.sites.matrix]
-      versions = ["dev"]
+      versions = ["v0.0.2"]
+
+# 0.0.3
+[[mounts]]
+  source = "content_versioned/version-v0.0.3"
+  target = "content"
+  [mounts.sites.matrix]
+    versions = ["v0.0.3"]
+
+[[imports]]
+  path = "ocm.software/open-component-model/cli"
+  version = "latest"
+  [[imports.mounts]]
+    source = "docs/reference"
+    target = "content/docs/reference/ocm-cli"
+    [imports.mounts.sites.matrix]
+      versions = ["v0.0.3"]
+
+# 0.0.4
+[[mounts]]
+  source = "content_versioned/version-v0.0.4"
+  target = "content"
+  [mounts.sites.matrix]
+    versions = ["v0.0.4"]
+
+[[imports]]
+  path = "ocm.software/open-component-model/cli"
+  version = "latest"
+  [[imports.mounts]]
+    source = "docs/reference"
+    target = "content/docs/reference/ocm-cli"
+    [imports.mounts.sites.matrix]
+      versions = ["v0.0.4"]
