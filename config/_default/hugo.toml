@@ -113,3 +113,16 @@ lastMod = false
   hint = "photo"
   quality = 85
   resampleFilter = "Lanczos"
+
+# Versions (Hugo >= 0.153.0)
+# Default version is mentioned as "default" in version switcher, BUT NOT rendered at root
+# ONLY the weight of a version decides what is in root (lowest weight wins)
+defaultContentVersion = "old"
+# Also render the default version into its own subdirectory (e.g., /0.0.1/ when Hugo treats 0.0.1 as default)
+defaultContentVersionInSubdir = false
+
+[versions]
+  [versions."old"]
+    weight = 1
+  [versions.dev]
+    weight = 2

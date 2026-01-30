@@ -52,10 +52,15 @@
                 <div class="offcanvas-body">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         {{ $currentPage := . }}
+                        {{ $siteRoot := strings.TrimSuffix "/" $.Site.Home.RelPermalink }}
                         {{ range site.Menus.main }}
                         {{ $active := or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }}
+                        {{ $url := .URL }}
+                        {{ $isAbs := or (strings.HasPrefix $url "http://") (strings.HasPrefix $url "https://") }}
+                        {{ $path := strings.TrimPrefix "/" $url }}
+                        {{ $href := cond $isAbs $url (printf "%s/%s" $siteRoot $path) }}
                         <li class="nav-item">
-                            <a class="nav-link {{ if $active }}active{{ end }}" href="{{ .URL }}" {{ if $active
+                            <a class="nav-link {{ if $active }}active{{ end }}" href="{{ $href }}" {{ if $active
                                 }}aria-current="page" {{ end }}>{{ .Name }}</a>
                         </li>
                         {{ end }}
@@ -109,11 +114,7 @@
                         </a>
                         {{ end }}
 
-                        <!-- Version switches always navigate to the Root page of the selected version -->
-                        {{ if site.Params.doks.docsVersioning -}}
-                        {{ $versionsData := site.Data.versions -}}
-                        {{ if $versionsData.versions -}}
-                        {{ $currentVer := site.Params.doks.docsVersion -}}
+                        <!-- Version switcher using Hugo's built-in versions. Always show global versions via Home.Rotate. -->
                         <div class="dropdown me-3 d-none d-lg-flex">
                             <button class="btn btn-link nav-link p-0 dropdown-toggle btn-dropdown" id="doks-versions"
                                 data-bs-toggle="dropdown" aria-expanded="false" data-bs-display="static"
@@ -131,21 +132,23 @@
                             </button>
                             <ul class="dropdown-menu dropdown-menu-lg-end shadow rounded border-0"
                                 aria-labelledby="doks-versions">
-                                {{ range $versionsData.versions -}}
-                                {{ $isDefault := eq . $versionsData.defaultVersion -}}
-                                {{ $isCurrent := eq . $currentVer -}}
-                                <li>
-                                    <a class="dropdown-item{{ if $isCurrent }} current{{ end }}" {{ if $isCurrent
-                                        }}aria-current="true" {{ end }}
-                                        href="{{ if $isDefault }}/{{ else }}/{{ . }}/{{ end }}">
-                                        {{ . }}{{ if $isDefault }} <span class="version-flag">(default)</span>{{ end }}
-                                    </a>
-                                </li>
-                                {{ end -}}
+                                {{ $currentVersionName := $.Site.Version.Name }}
+                                {{ with .Site.Home.Rotate "version" }}
+                                  {{ range . }}
+                                    {{ $isCurrent := eq .Site.Version.Name $currentVersionName }}
+                                    {{/* Workaround for Hugo not respecting defaultContentVersion: allow explicit default via params or fallback to "0.0.0" */}}
+                                    {{ $desiredDefault := site.Params.doks.defaultVersion | default "0.0.0" }}
+                                    {{ $isDefault := eq .Site.Version.Name $desiredDefault }}
+                                    <li>
+                                      <a class="dropdown-item{{ if $isCurrent }} current{{ end }}" {{ if $isCurrent }}aria-current="true" {{ end }}
+                                         href="{{ .RelPermalink }}">
+                                        {{ .Site.Version.Name }}{{ if $isDefault }} <span class="version-flag">(default)</span>{{ end }}
+                                      </a>
+                                    </li>
+                                  {{ end }}
+                                {{ end }}
                             </ul>
                         </div>
-                        {{ end -}}
-                        {{ end -}}
 
                         <!-- Version Droplet -->
                         {{ partial "header/version-warning.html" . }}

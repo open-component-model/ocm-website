@@ -7,10 +7,18 @@
 # the site. They allow for custom directory structures and integrating content
 # from different locations.
 
-## content
+# content folders (versions-aware)
+[[mounts]]
+  source = "content_versioned/version-old"
+  target = "content"
+  [mounts.sites.matrix]
+    versions = ["old"]
+
 [[mounts]]
   source = "content"
   target = "content"
+  [mounts.sites.matrix]
+    versions = ["dev"]
 
 ## data
 [[mounts]]
@@ -96,3 +104,16 @@
   source = "static"
   target = "static"
 
+# Per-version reference for doc module imports
+  # current: No import (uses embedded snapshot docs)
+  # 0.0.1 uses latest (as per current availability)
+
+# "dev" uses latest
+[[imports]]
+  path = "ocm.software/open-component-model/cli"
+  version = "latest"
+  [[imports.mounts]]
+    source = "docs/reference"
+    target = "content/docs/reference/ocm-cli"
+    [imports.mounts.sites.matrix]
+      versions = ["dev"]

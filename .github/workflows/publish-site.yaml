@@ -38,9 +38,16 @@ jobs:
         with:
           node-version: 22.12.0 # keep in sync with 'engines'@package.json
 
-      - name: Build Multi-Version Site
-      # Using script .github/workflows/scripts/build-multi-version.sh
-        run: npm run build-multi-version
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: '0.155.0'
+          extended: true
+
+      - name: Install deps and Build
+        run: |
+          npm ci
+          npm run build
 
       - name: Setup Python
         uses: actions/setup-python@e797f83bcb11b83ae66e0230d6156d7c80228e7c #v5

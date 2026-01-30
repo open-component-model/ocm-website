@@ -58,8 +58,6 @@ mainSections = ["docs", "community"]
   # and NEEDS to be maintained in the main branch BEFORE a new version branch is cut off to 
   # be available in the version switcher of all versions.
 
-  docsVersioning = true 
-  docsVersion = "dev"
 
   # UX
   headerBar = true # true (default) or false
@@ -75,6 +73,8 @@ mainSections = ["docs", "community"]
 
   # Repository
   repoHost = "GitHub" # GitHub (default), Gitea, GitLab, Bitbucket, or BitbucketServer
+  # Explicit default version label for Hugo versions dropdown workaround
+  defaultVersion = "old"
 
   # SCSS colors
   # backGround = "yellowgreen"

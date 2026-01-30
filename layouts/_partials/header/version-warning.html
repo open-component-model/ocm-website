@@ -1,5 +1,4 @@
-{{ $currentVer := site.Params.doks.docsVersion }}
-{{ $defaultVer := site.Data.versions.defaultVersion }}
+{{ $currentVer := .Site.Version.Name }}
 {{ if eq $currentVer "dev" }}
 <div class="version-droplet" role="status" aria-live="polite"
     data-tooltip="You are currently viewing documentation for the dev version of OCM. This version is under development and contains our next major release with lots of breaking changes.">
