@@ -26,24 +26,3 @@
       "google",
       "yandex"
     ]
-
-# Redirects for versioned paths
-[[redirects]]
-  from = "/dev/*"
-  to = "/dev/:splat"
-  status = 200
-
-[[redirects]]
-  from = "/current/*"
-  to = "/current/:splat"
-  status = 200
-
-[[redirects]]
-  from = "/v*/*"
-  to = "/v:version/:splat"
-  status = 200
-
-[[redirects]]
-  from = "/*"
-  to = "/:splat"
-  status = 200
