@@ -449,3 +449,4 @@ cryptographically
 svg
 frontmatter
 subfolders
+monorepo
