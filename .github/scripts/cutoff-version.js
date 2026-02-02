@@ -47,16 +47,26 @@ function fail(msg) {
   process.exit(1);
 }
 
+function createUserError(msg) {
+  const err = new Error(msg);
+  err.isUserError = true;
+  return err;
+}
+
 // Validate and extract SemVer version from first command line argument
 // NOTE: We intentionally restrict to numeric X.Y.Z only (no prerelease or build metadata).
 function parseVersionArgument(args) {
   if (args.length === 0) {
-    fail('Missing version argument. Usage: node .github/scripts/cutoff-version.js X.Y.Z. Only SemVer format without leading "v" or any suffix is supported.');
+    throw createUserError(
+      'Missing version argument. Usage: node .github/scripts/cutoff-version.js X.Y.Z. Only SemVer format without leading "v" or any suffix is supported.'
+    );
   }
 
   const version = args[0].trim();
   if (!/^\d+\.\d+\.\d+$/.test(version)) {
-    fail(`Invalid version '${version}'. Expected numeric SemVer X.Y.Z (no prerelease/build metadata), e.g., 1.2.3`);
+    throw createUserError(
+      `Invalid version '${version}'. Expected numeric SemVer X.Y.Z (no prerelease/build metadata), e.g., 1.2.3`
+    );
   }
 
   return version;
@@ -65,7 +75,7 @@ function parseVersionArgument(args) {
 /* Update config/_default/hugo.toml */
 
 // Append [versions."X.Y.Z"] after last stanza under [versions]
-async function ensureHugoVersionStanza(repoRoot, version) {
+async function updateHugoToml(repoRoot, version) {
   const tomlPath = path.join(repoRoot, 'config', '_default', 'hugo.toml');
   let content;
   try {
@@ -122,7 +132,7 @@ async function ensureHugoVersionStanza(repoRoot, version) {
 
     const updated = content.slice(0, scanPos) + insertion + content.slice(scanPos);
     await fsp.writeFile(tomlPath, updated, 'utf-8');
-    log(`Inserted [versions."${version}"] after last version stanza.`);
+    log(`Appended [versions."${version}"] after last version stanza.`);
     return;
   }
 
@@ -206,7 +216,7 @@ async function main() {
   await fsp.cp(srcContent, destDir, { recursive: true, errorOnExist: false, force: true });
 
   // Update Hugo versions configuration
-  await ensureHugoVersionStanza(repoRoot, version);
+  await updateHugoToml(repoRoot, version);
 
   // Update module.toml mounts & imports
   await updateModuleToml(repoRoot, version);
@@ -214,6 +224,20 @@ async function main() {
   log('Cutoff completed successfully.');
 }
 
-main().catch((e) => {
-  fail(e.stack || e.message || String(e));
-});
+if (require.main === module) {
+  main().catch((e) => {
+    if (e && e.isUserError) {
+      fail(e.message);
+      return;
+    }
+    fail(e.stack || e.message || String(e));
+  });
+}
+
+module.exports = {
+  parseVersionArgument,
+  updateHugoToml,
+  buildGroupedVersionBlock,
+  updateModuleToml,
+  main,
+};
