@@ -15,7 +15,7 @@ Component versions are locally stored in archives using the [Common Transfer For
 
 Note that a CTF archive itself is also an OCM repository, so it can be used as source or target for component transfer operations using the OCM CLI.
 
-The command [`ocm add component-version`]{{< relref "ocm_add_component-version.md" >}}) directly creates a component version from a `component-constructor.yaml` file and stores it in a local CTF archive.
+The command [`ocm add component-version`]({{< relref "ocm_add_component-version.md" >}}) directly creates a component version from a `component-constructor.yaml` file and stores it in a local CTF archive.
 
 ## Prerequisites
 

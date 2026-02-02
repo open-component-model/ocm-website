@@ -774,4 +774,4 @@ OCM's signing and verification system provides:
 ## Related Documentation
 
 - [Credentials in .ocmconfig File]({{< relref "creds-in-ocmconfig.md" >}}) - Practical credential configuration examples
-- [OCM CLI Reference]{{< relref "/docs/reference/ocm-cli" >}}) - Complete command-line options
+- [OCM CLI Reference]({{< relref "/docs/reference/ocm-cli" >}}) - Complete command-line options
