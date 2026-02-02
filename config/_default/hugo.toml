@@ -115,8 +115,9 @@ lastMod = false
   resampleFilter = "Lanczos"
 
 # Versions (Hugo >= 0.153.0)
-# Default version is mentioned as "default" in version switcher, BUT NOT rendered at root /
-# ONLY the weight of a version decides what is in root (lowest weight wins)
+# Default version is mentioned as "default" in version switcher, and when holding a valid SemVer also takes care
+# to render this version under root. BUT as long as we have non-SemVer version names, we have to rely on weights for every version.
+# Once we are on OCM v2, the latest release will become the new defaultContentVersion. "dev" will then get weight 1 to be listed first.
 defaultContentVersion = "old"
 # Also render the default version into its own subdirectory (e.g., /0.0.1/ when Hugo treats 0.0.1 as default)
 defaultContentVersionInSubdir = false
