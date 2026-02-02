@@ -60,11 +60,11 @@ To test and develop the website locally, you can start a Hugo development server
 
 Requirements:
 
-- [Node.js](https://nodejs.org/en/download) ≥ 22.12.0
-- [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) ≥ 10.9.0
-- [Hugo](https://gohugo.io/installation/extended) ≥ 0.153.0
+- [Node.js](https://nodejs.org/en/download) ≥ 25.5.0
+- [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) ≥ 11.8.0
+- [Hugo](https://gohugo.io/installation/extended) ≥ 0.155.0
 
-Install dependencies and start Hugo server :
+Install dependencies and start Hugo server:
 
 ```sh
 npm ci
@@ -76,7 +76,8 @@ The site will be available at [http://localhost:1313][website_local] with live r
 ## Cut-off New Versions
 
 Versioning is performed via a script that snapshots the current `content/` and updates all necessary configuration files.
-As long as the website still contains content for the old OCM v1 version, version "old" should be kept as the default version.
+By default it also sets the new version as the `defaultContentVersion`, which is the version served at the site root.
+As long as the website still contains content for the old OCM v1 version, version "legacy" should be kept as the default version.
 
 Examples:
 
@@ -89,7 +90,7 @@ npm run cutoff -- 0.0.2
 ```
 
 Until the first OCM v2 release ships, **the recommended standard** is to run the script with `--keepDefault`
-so the legacy default stays in place.
+so the "legacy" version stays as default in place.
 
 What the script does (brief):
 
