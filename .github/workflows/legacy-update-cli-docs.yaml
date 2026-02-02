@@ -17,7 +17,7 @@ on:
 
 jobs:
   generate-cli-reference:
-    name: Update content_versioned/version-old/docs/reference/ocm-cli
+    name: Update content_versioned/version-legacy/docs/reference/ocm-cli
     if: github.event.client_payload != '' || github.event.inputs.tag != ''
     runs-on: ubuntu-latest
     env:
@@ -59,7 +59,7 @@ jobs:
         with:
           base: main
           token: ${{ steps.generate_token.outputs.token }}
-          title: "Update CLI docs for version-old"
+          title: "Update CLI docs for version-legacy"
           commit-message: "[github-actions] automated change"
           add-paths: |
             config/

@@ -102,12 +102,12 @@
 ### dev: uses latest
 ### x.y.z uses version x.y.z of ref docs module
 
-# old (only mount, no imports)
+# legacy (only mount, no imports)
 [[mounts]]
-  source = "content_versioned/version-old"
+  source = "content_versioned/version-legacy"
   target = "content"
 [mounts.sites.matrix]
-  versions = ["old"]
+  versions = ["legacy"]
 
 # dev
 [[mounts]]

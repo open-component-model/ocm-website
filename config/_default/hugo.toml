@@ -115,15 +115,15 @@ lastMod = false
   resampleFilter = "Lanczos"
 
 # Versions (Hugo >= 0.153.0)
-# Default version is mentioned as "default" in version switcher, and when holding a valid SemVer also takes care
-# to render this version under root. BUT as long as we have non-SemVer version names, we have to rely on weights for every version.
+# Default version is marked as "default" in version switcher. When holding a valid SemVer Hugo builds it into
+# the root of the website. BUT as long as we have non-SemVer version names, we have to rely on a "weight" attribute for every version.
 # Once we are on OCM v2, the latest release will become the new defaultContentVersion. "dev" will then get weight 1 to be listed first.
-defaultContentVersion = "old"
-# Also render the default version into its own subdirectory (e.g., /0.0.1/ when Hugo treats 0.0.1 as default)
+defaultContentVersion = "legacy"
+# Render the default version into its own subdirectory (e.g., /0.1.0/ when defaultContentVersion = "0.1.0")
 defaultContentVersionInSubdir = false
 
 [versions]
-  [versions."old"]
+  [versions."legacy"]
     weight = 1
   [versions."dev"]
     weight = 2

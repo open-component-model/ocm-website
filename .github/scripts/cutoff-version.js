@@ -6,7 +6,7 @@
  *   node .github/scripts/cutoff-version.js X.Y.Z
  *
  * Behavior:
- * - Accepts SemVer version X.Y.Z
+ * - Accepts SemVer version X.Y.Z. Only SemVer without leading "v" or any suffix is supported
  * - Copies content/ to content_versioned/version-X.Y.Z
  * - Updates config/_default/hugo.toml:
  *   - Create [versions."X.Y.Z"] under [versions]
@@ -48,14 +48,15 @@ function fail(msg) {
 }
 
 // Validate and extract SemVer version from first command line argument
+// NOTE: We intentionally restrict to numeric X.Y.Z only (no prerelease or build metadata).
 function parseVersionArgument(args) {
   if (args.length === 0) {
-    fail('Missing version argument. Usage: node .github/scripts/cutoff-version.js X.Y.Z');
+    fail('Missing version argument. Usage: node .github/scripts/cutoff-version.js X.Y.Z. Only SemVer format without leading "v" or any suffix is supported.');
   }
 
   const version = args[0].trim();
   if (!/^\d+\.\d+\.\d+$/.test(version)) {
-    fail(`Invalid version '${version}'. Expected SemVer, e.g., 1.2.3`);
+    fail(`Invalid version '${version}'. Expected numeric SemVer X.Y.Z (no prerelease/build metadata), e.g., 1.2.3`);
   }
 
   return version;
