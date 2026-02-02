@@ -81,14 +81,21 @@ As long as the website still contains content for the old OCM v1 version, versio
 Examples:
 
 ```sh
-# Create version 0.0.2 (and keep the current default)
+# Create version 0.0.2 and keep the current defaultContentVersion
+npm run cutoff -- 0.0.2 --keepDefault
+
+# Create version 0.0.2 and set it as the defaultContentVersion
 npm run cutoff -- 0.0.2
 ```
+
+Until the first OCM v2 release ships, **the recommended standard** is to run the script with `--keepDefault`
+so the legacy default stays in place.
 
 What the script does (brief):
 
 - Copies `content/` to `content_versioned/version-x.y.z`.
-- Appends a `[versions."x.y.z"]` stanza (without weight) to `config/_default/hugo.toml`.
+- Appends a `[versions."x.y.z"]` stanza (without weight) to `config/_default/hugo.toml` and optionally keeps
+  `defaultContentVersion` unchanged when `--keepDefault` is supplied.
 - Appends a grouped, per-version section to `config/_default/module.toml`.
 
 The script keeps versioning configuration minimal and consistent. Authors only need to run the script; no manual edits of config files are required.

@@ -3,48 +3,30 @@
  * Cut off a new versioned snapshot of content
  *
  * Usage:
- *   node .github/scripts/cutoff-version.js X.Y.Z
+ *   node .github/scripts/cutoff-version.js X.Y.Z [--keepDefault]
  *
  * Behavior:
- * - Accepts SemVer version X.Y.Z. Only SemVer without leading "v" or any suffix is supported
- * - Copies content/ to content_versioned/version-X.Y.Z
- * - Updates config/_default/hugo.toml:
- *   - Create [versions."X.Y.Z"] under [versions]
- * - Updates config/_default/module.toml:
- *   - Appends a grouped section:
- *
- *     # X.Y.Z
- *     [[mounts]]
- *       source = "content_versioned/version-X.Y.Z"
- *       target = "content"
- *       [mounts.sites.matrix]
- *         versions = ["X.Y.Z"]
- *
- *     [[imports]]
- *       path = "ocm.software/open-component-model/cli"
- *       version = "vX.Y.Z"
- *       [[imports.mounts]]
- *         source = "docs/reference"
- *         target = "content/docs/reference/ocm-cli"
- *         [imports.mounts.sites.matrix]
- *           versions = ["X.Y.Z"]
+ * - Accepts SemVer version X.Y.Z (no leading "v" or any suffix)
+ * - Copies folder content/ to content_versioned/version-X.Y.Z
+ * - Appends [versions."X.Y.Z"] to hugo.toml (after GENERATED marker)
+ * - Appends mount/import blocks to module.toml (after GENERATED marker)
+ * - Optional --keepDefault keeps defaultContentVersion unchanged. Required until OCM v2 release.
  */
 
-const fs = require('fs');
-const fsp = fs.promises;
+const fsp = require('node:fs/promises');
 const path = require('path');
+const MARKER = 'GENERATED VERSION';
 
 /* Helper functions */
 
-// Log message to stdout
 function log(msg) {
   process.stdout.write(`${msg}\n`);
 }
 
-// Log error message to stderr and exit with status 1
 function fail(msg) {
   process.stderr.write(`[ERROR] ${msg}\n`);
   process.exit(1);
+  throw new Error(msg); // Ensures execution stops even when process.exit is mocked
 }
 
 function createUserError(msg) {
@@ -53,29 +35,39 @@ function createUserError(msg) {
   return err;
 }
 
-// Validate and extract SemVer version from first command line argument
-// NOTE: We intentionally restrict to numeric X.Y.Z only (no prerelease or build metadata).
+ // Parse and validate SemVer version from CLI args
 function parseVersionArgument(args) {
   if (args.length === 0) {
     throw createUserError(
-      'Missing version argument. Usage: node .github/scripts/cutoff-version.js X.Y.Z. Only SemVer format without leading "v" or any suffix is supported.'
+      'Missing version argument. Usage: node .github/scripts/cutoff-version.js X.Y.Z'
     );
   }
-
   const version = args[0].trim();
   if (!/^\d+\.\d+\.\d+$/.test(version)) {
     throw createUserError(
-      `Invalid version '${version}'. Expected numeric SemVer X.Y.Z (no prerelease/build metadata), e.g., 1.2.3`
+      `Invalid version '${version}'. Expected numeric SemVer X.Y.Z (e.g., 1.2.3)`
     );
   }
-
   return version;
+}
+
+// Parse CLI arguments into { version, keepDefault }
+function parseArguments(args) {
+  const versionArgs = args.filter((arg) => !arg.startsWith('--'));
+  const flags = new Set(args.filter((arg) => arg.startsWith('--')));
+  const version = parseVersionArgument(versionArgs);
+  const keepDefault = flags.has('--keepDefault');
+  flags.delete('--keepDefault');
+  if (flags.size) {
+    throw createUserError(`Unknown flag(s): ${[...flags].join(', ')}`);
+  }
+  return { version, keepDefault };
 }
 
 /* Update config/_default/hugo.toml */
 
-// Append [versions."X.Y.Z"] after last stanza under [versions]
-async function updateHugoToml(repoRoot, version) {
+// Append [versions."X.Y.Z"] to hugo.toml after the GENERATED marker
+async function updateHugoToml(repoRoot, version, keepDefault) {
   const tomlPath = path.join(repoRoot, 'config', '_default', 'hugo.toml');
   let content;
   try {
@@ -84,66 +76,37 @@ async function updateHugoToml(repoRoot, version) {
     fail(`Failed to read ${tomlPath}: ${e.message}`);
   }
 
-  // Return if version already exists (escape dots for regex)
-  const versionPattern = version.replace(/\./g, '\\.');
-  const existsRe = new RegExp(`^\\s*\\[versions\\."${versionPattern}"]\\s*$`, 'm');
-  if (existsRe.test(content)) {
-    log(`hugo.toml already contains stanza for ${version}.`);
+  // Check if version already exists
+  if (content.includes(`[versions."${version}"]`)) {
+    log(`hugo.toml already contains ${version}, skipping.`);
     return;
   }
 
-  // Build insertion line
-  const insertion = `  [versions."${version}"]\n`;
-
-  // Find last version under [versions] and append new one
-  const subRe = /^\s*\[versions\.[^\]]+]\s*$/gm;
-  let lastMatch = null;
-  let match;
-  while ((match = subRe.exec(content)) !== null) {
-    lastMatch = match;
+  // Verify marker exists
+  if (!content.includes(MARKER)) {
+    fail(`Marker "${MARKER}" not found in hugo.toml`);
   }
 
-  if (lastMatch) {
-    let pos = lastMatch.index + lastMatch[0].length;
-    // Skip past newline to start of next line
-    if (content[pos] === '\n') {
-      pos += 1;
-    }
+  // Append version stanza at end
+  const stanza = `  [versions."${version}"]\n`;
+  content = content.trimEnd() + '\n' + stanza;
 
-    // Skip indented properties (e.g. "weight = 2") until next stanza or blank line
-    let scanPos = pos;
-    while (scanPos < content.length) {
-      const nl = content.indexOf('\n', scanPos);
-      const lineEnd = nl === -1 ? content.length : nl;
-      const line = content.slice(scanPos, lineEnd);
-
-      if (line.startsWith('  [')) {
-        // Insert before next stanza
-        break;
-      }
-      if (!line.startsWith('  ') || line.trim().length === 0) {
-        // Stop at unindented or blank line
-        break;
-      }
-
-      // Skip indented property line
-      scanPos = nl === -1 ? content.length : nl + 1;
-    }
-
-    const updated = content.slice(0, scanPos) + insertion + content.slice(scanPos);
-    await fsp.writeFile(tomlPath, updated, 'utf-8');
-    log(`Appended [versions."${version}"] after last version stanza.`);
-    return;
+  // Update defaultContentVersion if needed
+  if (!keepDefault) {
+    content = content.replace(
+      /defaultContentVersion\s*=\s*"[^"]*"/,
+      `defaultContentVersion = "${version}"`
+    );
   }
 
-  // Could not find any version under [versions]
-  fail('Could not locate existing [versions] stanza to append to. Ensure [versions] has at least one version.');
+  await fsp.writeFile(tomlPath, content, 'utf-8');
+  log(`Updated hugo.toml with version ${version}.`);
 }
 
 /* Update config/_default/module.toml */
 
-// Build version block (mounts + imports) as TOML formatted string
-function buildGroupedVersionBlock(version) {
+// Build mount/import block as TOML formatted string
+function buildVersionBlock(version) {
   return `
 # ${version}
 [[mounts]]
@@ -163,7 +126,7 @@ function buildGroupedVersionBlock(version) {
 `;
 }
 
-// Append new block for new version
+// Append mount/import block after the GENERATED marker.
 async function updateModuleToml(repoRoot, version) {
   const modulePath = path.join(repoRoot, 'config', '_default', 'module.toml');
   let content;
@@ -173,23 +136,34 @@ async function updateModuleToml(repoRoot, version) {
     fail(`Failed to read ${modulePath}: ${e.message}`);
   }
 
-  const sourceLine = `source = "content_versioned/version-${version}"`;
-  if (content.includes(sourceLine)) {
-    fail(`module.toml already contains mounts for ${version}. Aborting.`);
+  // Check if version already exists (complete block with imports.mounts.sites.matrix)
+  const completeMarker = `versions = ["${version}"]`;
+  if (content.includes(`version-${version}"`) && content.includes(completeMarker)) {
+    log(`module.toml already contains ${version}, skipping.`);
+    return;
   }
 
-  const grouped = buildGroupedVersionBlock(version);
-  const updated = content.replace(/\s*$/, '') + '\n' + grouped;
-  await fsp.writeFile(modulePath, updated, 'utf-8');
-  log(`Appended grouped module.toml section for ${version}.`);
+  // Detect incomplete block (mount exists but not the full import structure)
+  if (content.includes(`version-${version}"`)) {
+    fail(`module.toml has incomplete block for ${version}. Fix manually before retrying.`);
+  }
+
+  // Verify marker exists
+  if (!content.includes(MARKER)) {
+    fail(`Marker "${MARKER}" not found in module.toml`);
+  }
+
+  // Append mount/import block at end
+  content = content.trimEnd() + '\n' + buildVersionBlock(version);
+  await fsp.writeFile(modulePath, content, 'utf-8');
+  log(`Updated module.toml with version ${version}.`);
 }
 
 /* Main execution */
 
 // Execute all cut-off steps
 async function main() {
-  const args = process.argv.slice(2);
-  const version = parseVersionArgument(args);
+  const { version, keepDefault } = parseArguments(process.argv.slice(2));
 
   const repoRoot = path.resolve(__dirname, '../..');
   const srcContent = path.join(repoRoot, 'content');
@@ -215,10 +189,7 @@ async function main() {
   await fsp.mkdir(path.dirname(destDir), { recursive: true });
   await fsp.cp(srcContent, destDir, { recursive: true, errorOnExist: false, force: true });
 
-  // Update Hugo versions configuration
-  await updateHugoToml(repoRoot, version);
-
-  // Update module.toml mounts & imports
+  await updateHugoToml(repoRoot, version, keepDefault);
   await updateModuleToml(repoRoot, version);
 
   log('Cutoff completed successfully.');
@@ -235,9 +206,11 @@ if (require.main === module) {
 }
 
 module.exports = {
+  MARKER,
   parseVersionArgument,
+  parseArguments,
   updateHugoToml,
-  buildGroupedVersionBlock,
+  buildVersionBlock,
   updateModuleToml,
   main,
 };

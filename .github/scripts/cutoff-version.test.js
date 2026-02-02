@@ -1,120 +1,79 @@
-const assert = require('assert');
-const fs = require('fs');
-const fsp = fs.promises;
-const os = require('os');
-const path = require('path');
+// Tests for cutoff-version.js
+// Executed with: `node .github/scripts/cutoff-version.test.js` or `npm test`
+
+const test = require('node:test');
+const assert = require('node:assert/strict');
 
 const {
-  parseVersionArgument,
-  updateHugoToml,
+  ensureHugoTomlVersion,
   buildGroupedVersionBlock,
-  updateModuleToml,
-} = require('./cutoff-version.js');
+  hasMountForVersion,
+  hasImportForVersion,
+  detectEol,
+  parseArguments,
+} = require('./cutoff-version');
 
-// Test parseVersionArgument
-console.log('Testing parseVersionArgument...');
+test('ensureHugoTomlVersion sets defaultContentVersion without weight', () => {
+  const parsed = {
+    defaultContentVersion: 'legacy',
+    versions: {
+      legacy: { weight: 1 },
+      dev: { weight: 2 },
+    },
+  };
 
-assert.strictEqual(
-  parseVersionArgument(['1.2.3']),
-  '1.2.3',
-  'Should accept numeric SemVer X.Y.Z'
-);
+  const updated = ensureHugoTomlVersion(parsed, '1.2.3', false);
 
-assert.throws(
-  () => parseVersionArgument(['1.2.3-rc.1']),
-  /Invalid version/, 
-  'Should reject prerelease versions and other suffixes'
-);
+  assert.equal(updated.defaultContentVersion, '1.2.3');
+  assert.deepEqual(updated.versions['1.2.3'], {});
+});
 
-assert.throws(
-  () => parseVersionArgument([]),
-  /Missing version argument/, 
-  'Should reject missing argument'
-);
+test('ensureHugoTomlVersion keeps defaultContentVersion when requested', () => {
+  const parsed = {
+    defaultContentVersion: 'legacy',
+    versions: {
+      legacy: { weight: 1 },
+      dev: { weight: 2 },
+    },
+  };
 
-// Test buildGroupedVersionBlock (module.toml snippet)
-console.log('Testing buildGroupedVersionBlock...');
+  const updated = ensureHugoTomlVersion(parsed, '1.2.3', true);
 
-const block = buildGroupedVersionBlock('1.2.3');
-assert.ok(
-  block.includes('content_versioned/version-1.2.3'),
-  'Block should include content mount source'
-);
-assert.ok(
-  block.includes('versions = ["1.2.3"]'),
-  'Block should include version in sites matrix'
-);
-assert.ok(
-  block.includes('version = "v1.2.3"'),
-  'Block should include CLI import version'
-);
+  assert.equal(updated.defaultContentVersion, 'legacy');
+  assert.deepEqual(updated.versions['1.2.3'], {});
+});
 
-async function withTempConfigFile(filename, content, fn) {
-  const tmpRoot = await fsp.mkdtemp(path.join(os.tmpdir(), 'ocm-website-'));
-  const configDir = path.join(tmpRoot, 'config', '_default');
-  await fsp.mkdir(configDir, { recursive: true });
-  const tomlPath = path.join(configDir, filename);
-  await fsp.writeFile(tomlPath, content, 'utf-8');
-  try {
-    await fn(tmpRoot, tomlPath);
-  } finally {
-    await fsp.rm(tmpRoot, { recursive: true, force: true });
-  }
-}
+test('buildGroupedVersionBlock omits comment and contains mount/import', () => {
+  const block = buildGroupedVersionBlock('2.3.4');
+  assert.ok(!block.includes('# 2.3.4'));
+  assert.ok(block.includes('[[mounts]]'));
+  assert.ok(block.includes('[[imports]]'));
+  assert.ok(block.includes('versions = ["2.3.4"]'));
+});
 
-async function runAsyncTests() {
-  // Test updateHugoToml
-  console.log('Testing updateHugoToml...');
+test('hasMountForVersion/hasImportForVersion detect versions correctly', () => {
+  const parsed = {
+    mounts: [{ sites: { matrix: { versions: ['1.0.0'] } } }],
+    imports: [
+      {
+        mounts: [{ sites: { matrix: { versions: ['1.0.0'] } } }],
+      },
+    ],
+  };
 
-  const baseToml = `
-[versions]
-  [versions."dev"]
-    weight = 1
-  [versions."1.0.0"]
-    weight = 2
+  assert.equal(hasMountForVersion(parsed, '1.0.0'), true);
+  assert.equal(hasImportForVersion(parsed, '1.0.0'), true);
+  assert.equal(hasMountForVersion(parsed, '2.0.0'), false);
+  assert.equal(hasImportForVersion(parsed, '2.0.0'), false);
+});
 
-[params]
-  foo = "bar"
-`;
+test('detectEol prefers CRLF when present', () => {
+  assert.equal(detectEol('line\r\nnext\r\n'), '\r\n');
+  assert.equal(detectEol('line\nnext\n'), '\n');
+});
 
-  await withTempConfigFile('hugo.toml', baseToml, async (tmpRoot, tomlPath) => {
-    await updateHugoToml(tmpRoot, '1.2.3');
-    const updated = await fsp.readFile(tomlPath, 'utf-8');
-
-    const indexOld = updated.indexOf('[versions."1.0.0"]');
-    const indexNew = updated.indexOf('[versions."1.2.3"]');
-    assert.ok(indexNew > indexOld, 'New stanza should be appended after last version stanza');
-  });
-
-  // Test updateModuleToml
-  console.log('Testing updateModuleToml...');
-
-  const baseModuleToml = `
-[[mounts]]
-  source = "content"
-  target = "content"
-`;
-
-  await withTempConfigFile('module.toml', baseModuleToml, async (tmpRoot, tomlPath) => {
-    await updateModuleToml(tmpRoot, '1.2.3');
-    const updated = await fsp.readFile(tomlPath, 'utf-8');
-
-    const expectedSnippets = [
-      'source = "content_versioned/version-1.2.3"',
-      'versions = ["1.2.3"]',
-    ];
-
-    expectedSnippets.forEach((snippet) => {
-      assert.ok(updated.includes(snippet), `module.toml should include '${snippet}'`);
-    });
-  });
-}
-
-runAsyncTests()
-  .then(() => {
-    console.log('✅ All tests passed.');
-  })
-  .catch((error) => {
-    console.error(error);
-    process.exitCode = 1;
-  });
+test('parseArguments handles --keepDefault flag', () => {
+  const parsed = parseArguments(['1.2.3', '--keepDefault']);
+  assert.equal(parsed.version, '1.2.3');
+  assert.equal(parsed.keepDefault, true);
+});
