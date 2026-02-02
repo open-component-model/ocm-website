@@ -5,6 +5,7 @@
  * - Responsive hero layout with image container
  * - Animated background effects
  * - EU funding footer with Neonephos branding
+ * - Netlify logo for footer
  * - Light/dark theme support
  */
 
@@ -406,7 +407,7 @@
     --ifm-footer-background-color: var(--lp-c-bg);
     background-color: var(--lp-c-bg);
     border-top: 1px solid var(--lp-c-divider);
-    padding: 16px 0 0;
+    padding: 16px 0 24px; /* increase bottom space */
 }
 
 .footer-content-wrapper {
@@ -425,6 +426,21 @@
     width: 100%;
 }
 
+.footer-bottom-group {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.footer--dark .netlify-logo {
+    display: inline-block;
+    opacity: 1;
+    filter: brightness(1.2);
+}
+
+html[data-bs-theme="dark"] .footer--dark .netlify-logo {
+    filter: brightness(1.4);
+}
+
 .footer--dark .footer__copyright {
     color: var(--lp-c-text-2);
     font-size: 12px;
@@ -434,9 +450,6 @@
     text-align: left;
 }
 
-.footer--dark svg {
-    display: none;
-}
 
 .footer-funding {
     display: flex;
