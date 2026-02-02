@@ -13,7 +13,7 @@ toc: true
 
 ## Download Resources from a Component Version
 
-Use the [`ocm download resources`](/docs/reference/ocm-cli/download/resources/) command to download specific resources from a component version.
+Use the [`ocm download resources`]({{< relref "ocm_download_resource.md" >}}) command to download specific resources from a component version.
 
 In this example, we download the resource with the name `chart` from the component `ocm.software/demos/podinfo` with version `6.8.0`, which is stored in the the OCM repository `ghcr.io/open-component-model`:
 
