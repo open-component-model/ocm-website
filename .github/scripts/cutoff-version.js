@@ -167,5 +167,3 @@ async function main() {
 if (require.main === module) main().catch(e => fail(e.message || String(e)));
 
 module.exports = { parseArguments, hasMountForVersion, hasImportForVersion };
-
- 

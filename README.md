@@ -62,9 +62,9 @@ Requirements:
 
 - [Node.js](https://nodejs.org/en/download) ≥ 25.5.0
 - [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) ≥ 11.8.0
-- [Hugo](https://gohugo.io/installation/extended) ≥ 0.155.0
+- Hugo Extended ≥ 0.155.0 (provided via npm package `hugo-extended`; no local Hugo install needed)
 
-Install dependencies and start Hugo server:
+Install dependencies and start Hugo server (npm-first, no local Hugo install needed):
 
 ```sh
 npm ci
