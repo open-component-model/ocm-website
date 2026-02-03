@@ -255,7 +255,7 @@ The other elements listed as `layers` describe the blobs for the local resources
 
 ## Examine Component Versions
 
-To view a component version stored in an OCM repository or CTF archive (which is technically also an OCM repository), you can use the [`ocm get component-version`]({{< relref "ocm_get_component-version.md" >}}) command:
+To view a component version stored in an OCM repository or CTF archive (which is technically also an OCM repository), you can use the [`ocm get component-version`]({{< relref "ocm_get_component-version.md" >}}) command: 
 
 ```shell
 ocm get cv /tmp/helloworld/transport-archive//github.com/acme.org/helloworld:1.0.0
