@@ -10,7 +10,7 @@
  * - Copies folder content/ to content_versioned/version-X.Y.Z
  * - Appends [versions."X.Y.Z"] to hugo.toml
  * - Appends mount/import blocks to module.toml
- * - Optional --keepDefault keeps defaultContentVersion unchanged
+ * - Optional --keepDefault keeps defaultContentVersion unchanged. Required until first OCM v2 release.
  */
 
 const fsp = require('node:fs/promises');
