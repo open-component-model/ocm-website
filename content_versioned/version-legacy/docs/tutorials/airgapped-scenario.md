@@ -97,3 +97,46 @@ Transfer the OCM artifacts from your portable storage device to the air-gapped O
 ```shell
 ocm transfer ctf ./media/.../ctf-copy-resources $AIR_GAPPED_OCI_REGISTRY/... 
 ```
+
+### Deploy in Air-Gapped Environment
+
+Transfer the OCM artifacts from your portable storage device to the air-gapped OCI registry:
+
+```shell
+ocm transfer ctf ./media/.../ctf-copy-resources $AIR_GAPPED_OCI_REGISTRY/... 
+```
+
+### Run `local` OCI image in Air-Gapped Environment
+
+Sometimes you do not have an air-gapped OCI registry from the start and need to run a OCI image from your portable storage device.
+
+Prerequisite: `docker` cli & `ocm` cli available.
+
+1. Download OCM resource which you want to run as `local` image.
+
+   ```shell
+   $ ocm download resource ghcr.io/open-component-model/ocm//ocm.software/toi/demo/helmdemo:0.12.0 image -O ./local-image-1-0
+   ./local-image-1-0: 46181313 byte(s) written
+   ```
+
+2. Copy the OCI image to your preferred portable storage medium for secure transport:
+
+   ```shell
+   sudo cp -r ./local-image-1-0 /media/....
+   ```
+
+3. Import OCI image to `docker`
+
+   ```shell
+   $ docker import ./local-image-1-0 helmdemo-image:1.0
+   sha256:a107d637d6b8dd1d021d49b7f315f1b77eb763aec1205ad942a99e9a1255ed22
+
+   $ docker images | grep helmdemo
+   helmdemo-image 1.0 a107d637d6b8   44 seconds ago   46.2MB
+   ```
+
+4. Start Container
+
+   ```shell
+   docker run helmdemo-image:1.0 ....
+    ```
