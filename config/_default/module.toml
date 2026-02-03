@@ -98,7 +98,7 @@
 # Versioning content with mounts and imports
 ## per-version mounts of content folders
 ## per-version imports of reference docs using module imports
-### old: no import (uses embedded reference docs in content folder)
+### legacy: no import (uses embedded reference docs in content folder)
 ### dev: uses latest
 ### x.y.z uses version x.y.z of ref docs module
 
