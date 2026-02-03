@@ -1,7 +1,7 @@
 ---
 title: sign
 name: sign
-url: /docs/reference/ocm-cli/sign/
+url: docs/reference/ocm-cli/sign/
 draft: false
 images: []
 weight: 55

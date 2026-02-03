@@ -1,7 +1,7 @@
 ---
 title: download artifacts
 name: artifacts
-url: /docs/reference/ocm-cli/download/artifacts/
+url: docs/reference/ocm-cli/download/artifacts/
 draft: false
 images: []
 weight: 55

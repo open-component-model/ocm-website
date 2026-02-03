@@ -1,7 +1,7 @@
 ---
 title: show versions
 name: versions
-url: /docs/reference/ocm-cli/show/versions/
+url: docs/reference/ocm-cli/show/versions/
 draft: false
 images: []
 weight: 55

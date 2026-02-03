@@ -1,7 +1,7 @@
 ---
 title: describe package
 name: package
-url: /docs/reference/ocm-cli/describe/package/
+url: docs/reference/ocm-cli/describe/package/
 draft: false
 images: []
 weight: 55

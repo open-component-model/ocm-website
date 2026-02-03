@@ -1,7 +1,7 @@
 ---
 title: clean cache
 name: cache
-url: /docs/reference/ocm-cli/clean/cache/
+url: docs/reference/ocm-cli/clean/cache/
 draft: false
 images: []
 weight: 55

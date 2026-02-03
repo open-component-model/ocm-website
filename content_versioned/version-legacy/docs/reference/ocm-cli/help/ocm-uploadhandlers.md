@@ -1,7 +1,7 @@
 ---
 title: ocm-uploadhandlers
 name: ocm-uploadhandlers
-url: /docs/reference/ocm-cli/help/ocm-uploadhandlers/
+url: docs/reference/ocm-cli/help/ocm-uploadhandlers/
 draft: false
 images: []
 weight: 55

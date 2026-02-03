@@ -1,7 +1,7 @@
 ---
 title: ocm-accessmethods
 name: ocm-accessmethods
-url: /docs/reference/ocm-cli/help/ocm-accessmethods/
+url: docs/reference/ocm-cli/help/ocm-accessmethods/
 draft: false
 images: []
 weight: 55

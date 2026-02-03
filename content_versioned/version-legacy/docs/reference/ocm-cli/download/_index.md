@@ -1,7 +1,7 @@
 ---
 title: download
 name: download
-url: /docs/reference/ocm-cli/download/
+url: docs/reference/ocm-cli/download/
 draft: false
 images: []
 weight: 55

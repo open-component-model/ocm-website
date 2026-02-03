@@ -1,7 +1,7 @@
 ---
 title: create componentarchive
 name: componentarchive
-url: /docs/reference/ocm-cli/create/componentarchive/
+url: docs/reference/ocm-cli/create/componentarchive/
 draft: false
 images: []
 weight: 55

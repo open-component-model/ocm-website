@@ -1,7 +1,7 @@
 ---
 title: "Signing and Verification"
 description: "Complete guide to cryptographic signing and verification in OCM."
-url: "/docs/tutorials/signing-and-verification"
+url: "docs/tutorials/signing-and-verification"
 icon: "✍️"
 weight: 55
 toc: true

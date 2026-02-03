@@ -1,7 +1,7 @@
 ---
 title: get artifacts
 name: artifacts
-url: /docs/reference/ocm-cli/get/artifacts/
+url: docs/reference/ocm-cli/get/artifacts/
 draft: false
 images: []
 weight: 55

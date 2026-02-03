@@ -1,7 +1,7 @@
 ---
 title: create rsakeypair
 name: rsakeypair
-url: /docs/reference/ocm-cli/create/rsakeypair/
+url: docs/reference/ocm-cli/create/rsakeypair/
 draft: false
 images: []
 weight: 55
