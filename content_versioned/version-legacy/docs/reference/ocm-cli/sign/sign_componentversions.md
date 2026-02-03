@@ -1,7 +1,7 @@
 ---
 title: sign componentversions
 name: componentversions
-url: /docs/reference/ocm-cli/sign/componentversions/
+url: docs/reference/ocm-cli/sign/componentversions/
 draft: false
 images: []
 weight: 55

@@ -1,7 +1,7 @@
 ---
 title: logging
 name: logging
-url: /docs/reference/ocm-cli/help/logging/
+url: docs/reference/ocm-cli/help/logging/
 draft: false
 images: []
 weight: 55

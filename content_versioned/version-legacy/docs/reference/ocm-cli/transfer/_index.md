@@ -1,7 +1,7 @@
 ---
 title: transfer
 name: transfer
-url: /docs/reference/ocm-cli/transfer/
+url: docs/reference/ocm-cli/transfer/
 draft: false
 images: []
 weight: 55

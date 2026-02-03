@@ -1,7 +1,7 @@
 ---
 title: get plugins
 name: plugins
-url: /docs/reference/ocm-cli/get/plugins/
+url: docs/reference/ocm-cli/get/plugins/
 draft: false
 images: []
 weight: 55

@@ -1,7 +1,7 @@
 ---
 title: describe
 name: describe
-url: /docs/reference/ocm-cli/describe/
+url: docs/reference/ocm-cli/describe/
 draft: false
 images: []
 weight: 55

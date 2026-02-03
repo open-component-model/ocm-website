@@ -1,7 +1,7 @@
 ---
 title: get verified
 name: verified
-url: /docs/reference/ocm-cli/get/verified/
+url: docs/reference/ocm-cli/get/verified/
 draft: false
 images: []
 weight: 55

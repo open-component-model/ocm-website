@@ -1,7 +1,7 @@
 ---
 title: credential-handling
 name: credential-handling
-url: /docs/reference/ocm-cli/help/credential-handling/
+url: docs/reference/ocm-cli/help/credential-handling/
 draft: false
 images: []
 weight: 55

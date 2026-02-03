@@ -1,7 +1,7 @@
 ---
 title: ocm-pubsub
 name: ocm-pubsub
-url: /docs/reference/ocm-cli/help/ocm-pubsub/
+url: docs/reference/ocm-cli/help/ocm-pubsub/
 draft: false
 images: []
 weight: 55

@@ -1,7 +1,7 @@
 ---
 title: transfer commontransportarchive
 name: commontransportarchive
-url: /docs/reference/ocm-cli/transfer/commontransportarchive/
+url: docs/reference/ocm-cli/transfer/commontransportarchive/
 draft: false
 images: []
 weight: 55

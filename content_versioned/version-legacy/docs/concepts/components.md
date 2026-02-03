@@ -3,7 +3,7 @@ title : "OCM Components"
 description: "Learn about OCM components and their elements."
 icon: "🔩"
 weight: 31
-url: /docs/concepts/ocm-components
+url: docs/concepts/ocm-components
 toc: true
 ---
 

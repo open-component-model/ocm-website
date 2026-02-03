@@ -1,7 +1,7 @@
 ---
 title: describe artifacts
 name: artifacts
-url: /docs/reference/ocm-cli/describe/artifacts/
+url: docs/reference/ocm-cli/describe/artifacts/
 draft: false
 images: []
 weight: 55

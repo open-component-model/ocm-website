@@ -1,7 +1,7 @@
 ---
 title: list componentversions
 name: componentversions
-url: /docs/reference/ocm-cli/list/componentversions/
+url: docs/reference/ocm-cli/list/componentversions/
 draft: false
 images: []
 weight: 55

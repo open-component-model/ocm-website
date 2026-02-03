@@ -1,7 +1,7 @@
 ---
 title: create transportarchive
 name: transportarchive
-url: /docs/reference/ocm-cli/create/transportarchive/
+url: docs/reference/ocm-cli/create/transportarchive/
 draft: false
 images: []
 weight: 55

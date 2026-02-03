@@ -1,7 +1,7 @@
 ---
 title: OCM CLI
 name: OCM CLI
-url: /docs/reference/ocm-cli/
+url: docs/reference/ocm-cli/
 draft: false
 images: []
 weight: 55

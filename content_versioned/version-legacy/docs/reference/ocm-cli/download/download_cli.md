@@ -1,7 +1,7 @@
 ---
 title: download cli
 name: cli
-url: /docs/reference/ocm-cli/download/cli/
+url: docs/reference/ocm-cli/download/cli/
 draft: false
 images: []
 weight: 55

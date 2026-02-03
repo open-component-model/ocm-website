@@ -1,7 +1,7 @@
 ---
 title: add
 name: add
-url: /docs/reference/ocm-cli/add/
+url: docs/reference/ocm-cli/add/
 draft: false
 images: []
 weight: 55

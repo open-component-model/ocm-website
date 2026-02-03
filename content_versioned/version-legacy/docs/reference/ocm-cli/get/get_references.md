@@ -1,7 +1,7 @@
 ---
 title: get references
 name: references
-url: /docs/reference/ocm-cli/get/references/
+url: docs/reference/ocm-cli/get/references/
 draft: false
 images: []
 weight: 55

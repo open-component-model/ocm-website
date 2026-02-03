@@ -1,7 +1,7 @@
 ---
 title: describe cache
 name: cache
-url: /docs/reference/ocm-cli/describe/cache/
+url: docs/reference/ocm-cli/describe/cache/
 draft: false
 images: []
 weight: 55

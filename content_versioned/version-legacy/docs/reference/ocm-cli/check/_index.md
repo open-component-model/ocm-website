@@ -1,7 +1,7 @@
 ---
 title: check
 name: check
-url: /docs/reference/ocm-cli/check/
+url: docs/reference/ocm-cli/check/
 draft: false
 images: []
 weight: 55

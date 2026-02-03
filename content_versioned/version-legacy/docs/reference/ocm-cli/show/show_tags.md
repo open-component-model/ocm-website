@@ -1,7 +1,7 @@
 ---
 title: show tags
 name: tags
-url: /docs/reference/ocm-cli/show/tags/
+url: docs/reference/ocm-cli/show/tags/
 draft: false
 images: []
 weight: 55

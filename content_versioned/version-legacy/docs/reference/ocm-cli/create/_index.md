@@ -1,7 +1,7 @@
 ---
 title: create
 name: create
-url: /docs/reference/ocm-cli/create/
+url: docs/reference/ocm-cli/create/
 draft: false
 images: []
 weight: 55

@@ -1,7 +1,7 @@
 ---
 title: download resources
 name: resources
-url: /docs/reference/ocm-cli/download/resources/
+url: docs/reference/ocm-cli/download/resources/
 draft: false
 images: []
 weight: 55
