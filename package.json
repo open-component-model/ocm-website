@@ -29,7 +29,6 @@
     "test": "node --test .github/scripts/cutoff-version.test.js"
   },
   "dependencies": {
-    "@rainbowatcher/toml-edit-js": "^0.6.4",
     "@tabler/icons": "^3.34.1",
     "@thulite/doks-core": "^1.8.3",
     "@thulite/images": "^3.3.1",
@@ -39,7 +38,8 @@
     "thulite": "^2.6.3"
   },
   "devDependencies": {
-    "shx": "^0.4.0"
+    "shx": "^0.4.0",
+    "smol-toml": "^1.6.0"
   },
   "otherDependencies": {
     "hugo": "0.155.0"
