@@ -83,6 +83,7 @@ function parseArguments(args) {
 }
 
 // Update config/_default/hugo.toml
+// Add new [versions."X.Y.Z"] stanza and optionally update defaultContentVersion
 async function updateHugoToml(repoRoot, version, keepDefault) {
   const tomlPath = path.join(repoRoot, 'config', '_default', 'hugo.toml');
   let content;
@@ -117,6 +118,7 @@ async function updateHugoToml(repoRoot, version, keepDefault) {
 
 
 // Update config/_default/module.toml
+// Build mount/import block for given version
 function buildVersionBlock(version) {
   return `
 # ${version}
