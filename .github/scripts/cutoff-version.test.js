@@ -5,75 +5,125 @@ const test = require('node:test');
 const assert = require('node:assert/strict');
 
 const {
-  ensureHugoTomlVersion,
-  buildGroupedVersionBlock,
   hasMountForVersion,
   hasImportForVersion,
-  detectEol,
+  buildVersionBlock,
   parseArguments,
 } = require('./cutoff-version');
 
-test('ensureHugoTomlVersion sets defaultContentVersion without weight', () => {
-  const parsed = {
-    defaultContentVersion: 'legacy',
-    versions: {
-      legacy: { weight: 1 },
-      dev: { weight: 2 },
-    },
-  };
+/* buildVersionBlock tests */
 
-  const updated = ensureHugoTomlVersion(parsed, '1.2.3', false);
-
-  assert.equal(updated.defaultContentVersion, '1.2.3');
-  assert.deepEqual(updated.versions['1.2.3'], {});
-});
-
-test('ensureHugoTomlVersion keeps defaultContentVersion when requested', () => {
-  const parsed = {
-    defaultContentVersion: 'legacy',
-    versions: {
-      legacy: { weight: 1 },
-      dev: { weight: 2 },
-    },
-  };
-
-  const updated = ensureHugoTomlVersion(parsed, '1.2.3', true);
-
-  assert.equal(updated.defaultContentVersion, 'legacy');
-  assert.deepEqual(updated.versions['1.2.3'], {});
-});
-
-test('buildGroupedVersionBlock omits comment and contains mount/import', () => {
-  const block = buildGroupedVersionBlock('2.3.4');
-  assert.ok(!block.includes('# 2.3.4'));
+test('buildVersionBlock includes comment and mount/import blocks', () => {
+  const block = buildVersionBlock('2.3.4');
+  assert.ok(block.includes('# 2.3.4'));
   assert.ok(block.includes('[[mounts]]'));
   assert.ok(block.includes('[[imports]]'));
   assert.ok(block.includes('versions = ["2.3.4"]'));
+  assert.ok(block.includes('version = "v2.3.4"'));
 });
 
-test('hasMountForVersion/hasImportForVersion detect versions correctly', () => {
-  const parsed = {
-    mounts: [{ sites: { matrix: { versions: ['1.0.0'] } } }],
-    imports: [
-      {
-        mounts: [{ sites: { matrix: { versions: ['1.0.0'] } } }],
-      },
-    ],
-  };
+/* hasMountForVersion tests */
 
+test('hasMountForVersion returns true when version exists', () => {
+  const parsed = { mounts: [{ sites: { matrix: { versions: ['1.0.0'] } } }] };
   assert.equal(hasMountForVersion(parsed, '1.0.0'), true);
-  assert.equal(hasImportForVersion(parsed, '1.0.0'), true);
+});
+
+test('hasMountForVersion returns false when version missing', () => {
+  const parsed = { mounts: [{ sites: { matrix: { versions: ['1.0.0'] } } }] };
   assert.equal(hasMountForVersion(parsed, '2.0.0'), false);
+});
+
+test('hasMountForVersion handles null/undefined gracefully', () => {
+  assert.equal(hasMountForVersion(null, '1.0.0'), false);
+  assert.equal(hasMountForVersion(undefined, '1.0.0'), false);
+  assert.equal(hasMountForVersion({}, '1.0.0'), false);
+  assert.equal(hasMountForVersion({ mounts: null }, '1.0.0'), false);
+  assert.equal(hasMountForVersion({ mounts: [] }, '1.0.0'), false);
+  assert.equal(hasMountForVersion({ mounts: [{}] }, '1.0.0'), false);
+  assert.equal(hasMountForVersion({ mounts: [{ sites: null }] }, '1.0.0'), false);
+});
+
+/* hasImportForVersion tests */
+
+test('hasImportForVersion returns true when version exists', () => {
+  const parsed = {
+    imports: [{ mounts: [{ sites: { matrix: { versions: ['1.0.0'] } } }] }],
+  };
+  assert.equal(hasImportForVersion(parsed, '1.0.0'), true);
+});
+
+test('hasImportForVersion returns false when version missing', () => {
+  const parsed = {
+    imports: [{ mounts: [{ sites: { matrix: { versions: ['1.0.0'] } } }] }],
+  };
   assert.equal(hasImportForVersion(parsed, '2.0.0'), false);
 });
 
-test('detectEol prefers CRLF when present', () => {
-  assert.equal(detectEol('line\r\nnext\r\n'), '\r\n');
-  assert.equal(detectEol('line\nnext\n'), '\n');
+test('hasImportForVersion handles null/undefined gracefully', () => {
+  assert.equal(hasImportForVersion(null, '1.0.0'), false);
+  assert.equal(hasImportForVersion(undefined, '1.0.0'), false);
+  assert.equal(hasImportForVersion({}, '1.0.0'), false);
+  assert.equal(hasImportForVersion({ imports: null }, '1.0.0'), false);
+  assert.equal(hasImportForVersion({ imports: [] }, '1.0.0'), false);
+  assert.equal(hasImportForVersion({ imports: [{}] }, '1.0.0'), false);
+  assert.equal(hasImportForVersion({ imports: [{ mounts: null }] }, '1.0.0'), false);
+});
+
+/* parseArguments tests */
+
+test('parseArguments parses version correctly', () => {
+  const result = parseArguments(['1.2.3']);
+  assert.equal(result.version, '1.2.3');
+  assert.equal(result.keepDefault, false);
 });
 
 test('parseArguments handles --keepDefault flag', () => {
-  const parsed = parseArguments(['1.2.3', '--keepDefault']);
-  assert.equal(parsed.version, '1.2.3');
-  assert.equal(parsed.keepDefault, true);
+  const result = parseArguments(['1.2.3', '--keepDefault']);
+  assert.equal(result.version, '1.2.3');
+  assert.equal(result.keepDefault, true);
+});
+
+test('parseArguments handles flag before version', () => {
+  const result = parseArguments(['--keepDefault', '1.2.3']);
+  assert.equal(result.version, '1.2.3');
+  assert.equal(result.keepDefault, true);
+});
+
+test('parseArguments throws on missing version', () => {
+  assert.throws(
+    () => parseArguments([]),
+    { message: /Missing version argument/ }
+  );
+});
+
+test('parseArguments throws on invalid version format', () => {
+  assert.throws(
+    () => parseArguments(['v1.2.3']),
+    { message: /Invalid version.*Expected numeric SemVer/ }
+  );
+  assert.throws(
+    () => parseArguments(['1.2']),
+    { message: /Invalid version/ }
+  );
+  assert.throws(
+    () => parseArguments(['1.2.3-beta']),
+    { message: /Invalid version/ }
+  );
+});
+
+test('parseArguments throws on unknown flags', () => {
+  assert.throws(
+    () => parseArguments(['1.2.3', '--unknown']),
+    { message: /Unknown flag.*--unknown/ }
+  );
+  assert.throws(
+    () => parseArguments(['1.2.3', '--foo', '--bar']),
+    { message: /Unknown flag.*--foo.*--bar/ }
+  );
+});
+
+test('parseArguments trims whitespace from version', () => {
+  const result = parseArguments(['  1.2.3  ']);
+  assert.equal(result.version, '1.2.3');
 });

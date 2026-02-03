@@ -8,65 +8,82 @@
  * Behavior:
  * - Accepts SemVer version X.Y.Z (no leading "v" or any suffix)
  * - Copies folder content/ to content_versioned/version-X.Y.Z
- * - Appends [versions."X.Y.Z"] to hugo.toml (after GENERATED marker)
- * - Appends mount/import blocks to module.toml (after GENERATED marker)
- * - Optional --keepDefault keeps defaultContentVersion unchanged. Required until OCM v2 release.
+ * - Appends [versions."X.Y.Z"] to hugo.toml
+ * - Appends mount/import blocks to module.toml
+ * - Optional --keepDefault keeps defaultContentVersion unchanged
  */
 
 const fsp = require('node:fs/promises');
-const path = require('path');
-const MARKER = 'GENERATED VERSION';
+const path = require('node:path');
 
-/* Helper functions */
-
-function log(msg) {
-  process.stdout.write(`${msg}\n`);
+/* TOML module lazy loader */
+let tomlModule;
+async function getTomlModule() {
+  if (!tomlModule) {
+    tomlModule = await import('@rainbowatcher/toml-edit-js');
+    if (typeof tomlModule.init === 'function') await tomlModule.init();
+  }
+  return tomlModule;
 }
 
+// Log error and exit
 function fail(msg) {
-  process.stderr.write(`[ERROR] ${msg}\n`);
+  console.error(`[ERROR] ${msg}`);
   process.exit(1);
-  throw new Error(msg); // Ensures execution stops even when process.exit is mocked
+  throw new Error(msg); // Ensures execution stops when process.exit is mocked in tests
 }
 
-function createUserError(msg) {
-  const err = new Error(msg);
-  err.isUserError = true;
-  return err;
+// Check if path exists
+async function pathExists(p) {
+  try {
+    await fsp.access(p);
+    return true;
+  } catch {
+    return false;
+  }
 }
 
- // Parse and validate SemVer version from CLI args
-function parseVersionArgument(args) {
-  if (args.length === 0) {
-    throw createUserError(
-      'Missing version argument. Usage: node .github/scripts/cutoff-version.js X.Y.Z'
-    );
+// Parse TOML content
+async function parseToml(content, filePath) {
+  try {
+    const { parse } = await getTomlModule();
+    return parse(content);
+  } catch (e) {
+    fail(`Failed to parse ${filePath}: ${e.message}`);
   }
-  const version = args[0].trim();
-  if (!/^\d+\.\d+\.\d+$/.test(version)) {
-    throw createUserError(
-      `Invalid version '${version}'. Expected numeric SemVer X.Y.Z (e.g., 1.2.3)`
-    );
-  }
-  return version;
 }
 
 // Parse CLI arguments into { version, keepDefault }
 function parseArguments(args) {
-  const versionArgs = args.filter((arg) => !arg.startsWith('--'));
-  const flags = new Set(args.filter((arg) => arg.startsWith('--')));
-  const version = parseVersionArgument(versionArgs);
-  const keepDefault = flags.has('--keepDefault');
-  flags.delete('--keepDefault');
-  if (flags.size) {
-    throw createUserError(`Unknown flag(s): ${[...flags].join(', ')}`);
+  let version = null;
+  let keepDefault = false;
+  const unknownFlags = [];
+
+  for (const arg of args) {
+    if (arg === '--keepDefault') {
+      keepDefault = true;
+    } else if (arg.startsWith('--')) {
+      unknownFlags.push(arg);
+    } else if (!version) {
+      version = arg.trim();
+    }
   }
+
+  if (!version) {
+    throw new Error('Missing version argument. Usage: node .github/scripts/cutoff-version.js X.Y.Z [--keepDefault]');
+  }
+  if (!/^\d+\.\d+\.\d+$/.test(version)) {
+    throw new Error(`Invalid version '${version}'. Expected numeric SemVer X.Y.Z (e.g., 1.2.3) without leading 'v' or suffix.`);
+  }
+  if (unknownFlags.length) {
+    throw new Error(`Unknown flag(s): ${unknownFlags.join(', ')}`);
+  }
+
   return { version, keepDefault };
 }
 
 /* Update config/_default/hugo.toml */
 
-// Append [versions."X.Y.Z"] to hugo.toml after the GENERATED marker
 async function updateHugoToml(repoRoot, version, keepDefault) {
   const tomlPath = path.join(repoRoot, 'config', '_default', 'hugo.toml');
   let content;
@@ -76,31 +93,26 @@ async function updateHugoToml(repoRoot, version, keepDefault) {
     fail(`Failed to read ${tomlPath}: ${e.message}`);
   }
 
-  // Check if version already exists
-  if (content.includes(`[versions."${version}"]`)) {
-    log(`hugo.toml already contains ${version}, skipping.`);
+  const parsed = await parseToml(content, tomlPath);
+
+  if (parsed?.versions?.[version]) {
+    console.log(`hugo.toml already contains ${version}, skipping.`);
     return;
   }
 
-  // Verify marker exists
-  if (!content.includes(MARKER)) {
-    fail(`Marker "${MARKER}" not found in hugo.toml`);
-  }
+  const { edit } = await getTomlModule();
+  let updated = edit(content, `versions."${version}"`, {}, { inline: false });
 
-  // Append version stanza at end
-  const stanza = `  [versions."${version}"]\n`;
-  content = content.trimEnd() + '\n' + stanza;
+  // Normalize indentation of new stanza header
+  const stanzaHeader = `[versions."${version}"]`;
+  updated = updated.replace(new RegExp(`\\n\\n?${stanzaHeader.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`), `\n  ${stanzaHeader}`);
 
-  // Update defaultContentVersion if needed
   if (!keepDefault) {
-    content = content.replace(
-      /defaultContentVersion\s*=\s*"[^"]*"/,
-      `defaultContentVersion = "${version}"`
-    );
+    updated = edit(updated, 'defaultContentVersion', version);
   }
 
-  await fsp.writeFile(tomlPath, content, 'utf-8');
-  log(`Updated hugo.toml with version ${version}.`);
+  await fsp.writeFile(tomlPath, updated, 'utf-8');
+  console.log(`Updated hugo.toml with version ${version}.`);
 }
 
 /* Update config/_default/module.toml */
@@ -126,7 +138,16 @@ function buildVersionBlock(version) {
 `;
 }
 
-// Append mount/import block after the GENERATED marker.
+function hasMountForVersion(parsed, version) {
+  return parsed?.mounts?.some((m) => m?.sites?.matrix?.versions?.includes(version)) ?? false;
+}
+
+function hasImportForVersion(parsed, version) {
+  return parsed?.imports?.some((i) =>
+    i?.mounts?.some((m) => m?.sites?.matrix?.versions?.includes(version))
+  ) ?? false;
+}
+
 async function updateModuleToml(repoRoot, version) {
   const modulePath = path.join(repoRoot, 'config', '_default', 'module.toml');
   let content;
@@ -136,32 +157,26 @@ async function updateModuleToml(repoRoot, version) {
     fail(`Failed to read ${modulePath}: ${e.message}`);
   }
 
-  // Check if version already exists (complete block with imports.mounts.sites.matrix)
-  const completeMarker = `versions = ["${version}"]`;
-  if (content.includes(`version-${version}"`) && content.includes(completeMarker)) {
-    log(`module.toml already contains ${version}, skipping.`);
+  const parsed = await parseToml(content, modulePath);
+  const hasMount = hasMountForVersion(parsed, version);
+  const hasImport = hasImportForVersion(parsed, version);
+
+  if (hasMount && hasImport) {
+    console.log(`module.toml already contains ${version}, skipping.`);
     return;
   }
 
-  // Detect incomplete block (mount exists but not the full import structure)
-  if (content.includes(`version-${version}"`)) {
+  if (hasMount || hasImport) {
     fail(`module.toml has incomplete block for ${version}. Fix manually before retrying.`);
   }
 
-  // Verify marker exists
-  if (!content.includes(MARKER)) {
-    fail(`Marker "${MARKER}" not found in module.toml`);
-  }
-
-  // Append mount/import block at end
   content = content.trimEnd() + '\n' + buildVersionBlock(version);
   await fsp.writeFile(modulePath, content, 'utf-8');
-  log(`Updated module.toml with version ${version}.`);
+  console.log(`Updated module.toml with version ${version}.`);
 }
 
 /* Main execution */
 
-// Execute all cut-off steps
 async function main() {
   const { version, keepDefault } = parseArguments(process.argv.slice(2));
 
@@ -180,37 +195,29 @@ async function main() {
   }
 
   // Prevent overwrite
-  const exists = await fsp.access(destDir).then(() => true).catch(() => false);
-  if (exists) {
+  if (await pathExists(destDir)) {
     fail(`Destination already exists: ${path.relative(repoRoot, destDir)}`);
   }
 
-  log(`Creating snapshot: ${path.relative(repoRoot, destDir)}`);
+  console.log(`Creating snapshot: ${path.relative(repoRoot, destDir)}`);
   await fsp.mkdir(path.dirname(destDir), { recursive: true });
-  await fsp.cp(srcContent, destDir, { recursive: true, errorOnExist: false, force: true });
+  await fsp.cp(srcContent, destDir, { recursive: true });
 
   await updateHugoToml(repoRoot, version, keepDefault);
   await updateModuleToml(repoRoot, version);
 
-  log('Cutoff completed successfully.');
+  console.log('Cutoff completed successfully.');
 }
 
 if (require.main === module) {
   main().catch((e) => {
-    if (e && e.isUserError) {
-      fail(e.message);
-      return;
-    }
-    fail(e.stack || e.message || String(e));
+    fail(e.message || String(e));
   });
 }
 
 module.exports = {
-  MARKER,
-  parseVersionArgument,
-  parseArguments,
-  updateHugoToml,
+  hasMountForVersion,
+  hasImportForVersion,
   buildVersionBlock,
-  updateModuleToml,
-  main,
+  parseArguments,
 };
