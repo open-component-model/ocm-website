@@ -29,7 +29,7 @@
     z-index: 1100; // ensure header stays above page content and any overlays
     width: 100%;
     height: var(--nav-height);
-    border-bottom: 1px solid var(--lp-c-divider);
+    border-bottom: 1px solid color-mix(in srgb, var(--lp-c-divider) 60%, transparent);
     transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
     
     
@@ -46,10 +46,22 @@
     }
 
     &.scrolled {
-        border-bottom-color: var(--nav-border-scrolled);
-        box-shadow: var(--shadow-md);
+        border-bottom-color: color-mix(in srgb, var(--lp-c-divider) 60%, transparent);
     }
     
+}
+
+[data-bs-theme="light"] {
+    .header {
+        border-bottom-color: color-mix(in srgb, var(--lp-c-divider) 40%, transparent);
+        background-color: var(--lp-c-bg) !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+
+        &.scrolled {
+            border-bottom-color: color-mix(in srgb, var(--lp-c-divider) 40%, transparent);
+        }
+    }
 }
 
 .navbar {

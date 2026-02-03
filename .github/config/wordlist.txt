@@ -447,3 +447,6 @@ csr
 verifiers
 cryptographically
 svg
+frontmatter
+subfolders
+monorepo

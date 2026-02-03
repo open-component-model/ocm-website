@@ -6,11 +6,10 @@
 # Mounts specify file paths in your project that Hugo should use when building
 # the site. They allow for custom directory structures and integrating content
 # from different locations.
-
-## content
-[[mounts]]
-  source = "content"
-  target = "content"
+#
+# At the end of this file, there are per-version mounts and imports for
+# reference documentation, allowing different versions of content to be
+# served based on the site's versioning strategy.
 
 ## data
 [[mounts]]
@@ -96,12 +95,32 @@
   source = "static"
   target = "static"
 
-## Reference Docs mounted from other repositories
-## Use @main to always use the latest version of the repository.
-## Use version tags to pin to a specific version.
+# Versioning content with mounts and imports
+## per-version mounts of content folders
+## per-version imports of reference docs using module imports
+### legacy: no import (uses embedded reference docs in content folder)
+### dev: uses latest
+### x.y.z uses version x.y.z of ref docs module
+
+# legacy (only mount, no imports)
+[[mounts]]
+  source = "content_versioned/version-legacy"
+  target = "content"
+[mounts.sites.matrix]
+  versions = ["legacy"]
+
+# dev
+[[mounts]]
+  source = "content"
+  target = "content"
+  [mounts.sites.matrix]
+    versions = ["dev"]
 
 [[imports]]
   path = "ocm.software/open-component-model/cli"
+  version = "latest"
   [[imports.mounts]]
-    source = "docs/reference"
-    target = "content/docs/reference/ocm-cli"
+  source = "docs/reference"
+  target = "content/docs/reference/ocm-cli"
+  [imports.mounts.sites.matrix]
+    versions = ["dev"]
