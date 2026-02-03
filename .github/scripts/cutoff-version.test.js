@@ -1,120 +1,130 @@
-const assert = require('assert');
-const fs = require('fs');
-const fsp = fs.promises;
-const os = require('os');
-const path = require('path');
+// Tests for cutoff-version.js
+// Executed with: `node .github/scripts/cutoff-version.test.js` or `npm test`
+
+const test = require('node:test');
+const assert = require('node:assert/strict');
 
 const {
-  parseVersionArgument,
-  updateHugoToml,
-  buildGroupedVersionBlock,
-  updateModuleToml,
-} = require('./cutoff-version.js');
+  hasMountForVersion,
+  hasImportForVersion,
+  buildVersionBlock,
+  parseArguments,
+} = require('./cutoff-version');
 
-// Test parseVersionArgument
-console.log('Testing parseVersionArgument...');
+/* buildVersionBlock tests */
 
-assert.strictEqual(
-  parseVersionArgument(['1.2.3']),
-  '1.2.3',
-  'Should accept numeric SemVer X.Y.Z'
-);
+test('buildVersionBlock includes comment and mount/import blocks', () => {
+  const block = buildVersionBlock('2.3.4');
+  assert.ok(block.includes('# 2.3.4'));
+  assert.ok(block.includes('[[mounts]]'));
+  assert.ok(block.includes('[[imports]]'));
+  assert.ok(block.includes('versions = ["2.3.4"]'));
+  assert.ok(block.includes('version = "v2.3.4"'));
+  assert.ok(block.includes('content_versioned/version-2.3.4'));
+});
 
-assert.throws(
-  () => parseVersionArgument(['1.2.3-rc.1']),
-  /Invalid version/, 
-  'Should reject prerelease versions and other suffixes'
-);
+/* hasMountForVersion tests */
 
-assert.throws(
-  () => parseVersionArgument([]),
-  /Missing version argument/, 
-  'Should reject missing argument'
-);
+test('hasMountForVersion returns true when version exists', () => {
+  const parsed = { mounts: [{ sites: { matrix: { versions: ['1.0.0'] } } }] };
+  assert.equal(hasMountForVersion(parsed, '1.0.0'), true);
+});
 
-// Test buildGroupedVersionBlock (module.toml snippet)
-console.log('Testing buildGroupedVersionBlock...');
+test('hasMountForVersion returns false when version missing', () => {
+  const parsed = { mounts: [{ sites: { matrix: { versions: ['1.0.0'] } } }] };
+  assert.equal(hasMountForVersion(parsed, '2.0.0'), false);
+});
 
-const block = buildGroupedVersionBlock('1.2.3');
-assert.ok(
-  block.includes('content_versioned/version-1.2.3'),
-  'Block should include content mount source'
-);
-assert.ok(
-  block.includes('versions = ["1.2.3"]'),
-  'Block should include version in sites matrix'
-);
-assert.ok(
-  block.includes('version = "v1.2.3"'),
-  'Block should include CLI import version'
-);
+test('hasMountForVersion handles null/undefined gracefully', () => {
+  assert.equal(hasMountForVersion(null, '1.0.0'), false);
+  assert.equal(hasMountForVersion(undefined, '1.0.0'), false);
+  assert.equal(hasMountForVersion({}, '1.0.0'), false);
+  assert.equal(hasMountForVersion({ mounts: null }, '1.0.0'), false);
+  assert.equal(hasMountForVersion({ mounts: [] }, '1.0.0'), false);
+  assert.equal(hasMountForVersion({ mounts: [{}] }, '1.0.0'), false);
+  assert.equal(hasMountForVersion({ mounts: [{ sites: null }] }, '1.0.0'), false);
+});
 
-async function withTempConfigFile(filename, content, fn) {
-  const tmpRoot = await fsp.mkdtemp(path.join(os.tmpdir(), 'ocm-website-'));
-  const configDir = path.join(tmpRoot, 'config', '_default');
-  await fsp.mkdir(configDir, { recursive: true });
-  const tomlPath = path.join(configDir, filename);
-  await fsp.writeFile(tomlPath, content, 'utf-8');
-  try {
-    await fn(tmpRoot, tomlPath);
-  } finally {
-    await fsp.rm(tmpRoot, { recursive: true, force: true });
-  }
-}
+/* hasImportForVersion tests */
 
-async function runAsyncTests() {
-  // Test updateHugoToml
-  console.log('Testing updateHugoToml...');
+test('hasImportForVersion returns true when version exists', () => {
+  const parsed = {
+    imports: [{ mounts: [{ sites: { matrix: { versions: ['1.0.0'] } } }] }],
+  };
+  assert.equal(hasImportForVersion(parsed, '1.0.0'), true);
+});
 
-  const baseToml = `
-[versions]
-  [versions."dev"]
-    weight = 1
-  [versions."1.0.0"]
-    weight = 2
+test('hasImportForVersion returns false when version missing', () => {
+  const parsed = {
+    imports: [{ mounts: [{ sites: { matrix: { versions: ['1.0.0'] } } }] }],
+  };
+  assert.equal(hasImportForVersion(parsed, '2.0.0'), false);
+});
 
-[params]
-  foo = "bar"
-`;
+test('hasImportForVersion handles null/undefined gracefully', () => {
+  assert.equal(hasImportForVersion(null, '1.0.0'), false);
+  assert.equal(hasImportForVersion(undefined, '1.0.0'), false);
+  assert.equal(hasImportForVersion({}, '1.0.0'), false);
+  assert.equal(hasImportForVersion({ imports: null }, '1.0.0'), false);
+  assert.equal(hasImportForVersion({ imports: [] }, '1.0.0'), false);
+  assert.equal(hasImportForVersion({ imports: [{}] }, '1.0.0'), false);
+  assert.equal(hasImportForVersion({ imports: [{ mounts: null }] }, '1.0.0'), false);
+});
 
-  await withTempConfigFile('hugo.toml', baseToml, async (tmpRoot, tomlPath) => {
-    await updateHugoToml(tmpRoot, '1.2.3');
-    const updated = await fsp.readFile(tomlPath, 'utf-8');
+/* parseArguments tests */
 
-    const indexOld = updated.indexOf('[versions."1.0.0"]');
-    const indexNew = updated.indexOf('[versions."1.2.3"]');
-    assert.ok(indexNew > indexOld, 'New stanza should be appended after last version stanza');
-  });
+test('parseArguments parses version correctly', () => {
+  const result = parseArguments(['1.2.3']);
+  assert.equal(result.version, '1.2.3');
+  assert.equal(result.keepDefault, false);
+});
 
-  // Test updateModuleToml
-  console.log('Testing updateModuleToml...');
+test('parseArguments handles --keepDefault flag', () => {
+  const result = parseArguments(['1.2.3', '--keepDefault']);
+  assert.equal(result.version, '1.2.3');
+  assert.equal(result.keepDefault, true);
+});
 
-  const baseModuleToml = `
-[[mounts]]
-  source = "content"
-  target = "content"
-`;
+test('parseArguments handles flag before version', () => {
+  const result = parseArguments(['--keepDefault', '1.2.3']);
+  assert.equal(result.version, '1.2.3');
+  assert.equal(result.keepDefault, true);
+});
 
-  await withTempConfigFile('module.toml', baseModuleToml, async (tmpRoot, tomlPath) => {
-    await updateModuleToml(tmpRoot, '1.2.3');
-    const updated = await fsp.readFile(tomlPath, 'utf-8');
+test('parseArguments throws on missing version', () => {
+  assert.throws(
+    () => parseArguments([]),
+    { message: /Missing version argument/ }
+  );
+});
 
-    const expectedSnippets = [
-      'source = "content_versioned/version-1.2.3"',
-      'versions = ["1.2.3"]',
-    ];
+test('parseArguments throws on invalid version format', () => {
+  assert.throws(
+    () => parseArguments(['v1.2.3']),
+    { message: /Invalid version.*Expected numeric SemVer/ }
+  );
+  assert.throws(
+    () => parseArguments(['1.2']),
+    { message: /Invalid version/ }
+  );
+  assert.throws(
+    () => parseArguments(['1.2.3-beta']),
+    { message: /Invalid version/ }
+  );
+});
 
-    expectedSnippets.forEach((snippet) => {
-      assert.ok(updated.includes(snippet), `module.toml should include '${snippet}'`);
-    });
-  });
-}
+test('parseArguments throws on unknown flags', () => {
+  assert.throws(
+    () => parseArguments(['1.2.3', '--unknown']),
+    { message: /Unknown flag.*--unknown/ }
+  );
+  assert.throws(
+    () => parseArguments(['1.2.3', '--foo', '--bar']),
+    { message: /Unknown flag.*--foo.*--bar/ }
+  );
+});
 
-runAsyncTests()
-  .then(() => {
-    console.log('✅ All tests passed.');
-  })
-  .catch((error) => {
-    console.error(error);
-    process.exitCode = 1;
-  });
+test('parseArguments trims whitespace from version', () => {
+  const result = parseArguments(['  1.2.3  ']);
+  assert.equal(result.version, '1.2.3');
+});

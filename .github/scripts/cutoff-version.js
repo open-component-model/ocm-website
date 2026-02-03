@@ -82,8 +82,7 @@ function parseArguments(args) {
   return { version, keepDefault };
 }
 
-/* Update config/_default/hugo.toml */
-
+// Update config/_default/hugo.toml
 async function updateHugoToml(repoRoot, version, keepDefault) {
   const tomlPath = path.join(repoRoot, 'config', '_default', 'hugo.toml');
   let content;
@@ -115,9 +114,9 @@ async function updateHugoToml(repoRoot, version, keepDefault) {
   console.log(`Updated hugo.toml with version ${version}.`);
 }
 
-/* Update config/_default/module.toml */
 
-// Build mount/import block as TOML formatted string
+
+// Update config/_default/module.toml
 function buildVersionBlock(version) {
   return `
 # ${version}
@@ -175,8 +174,8 @@ async function updateModuleToml(repoRoot, version) {
   console.log(`Updated module.toml with version ${version}.`);
 }
 
-/* Main execution */
 
+// Execute all cutoff steps
 async function main() {
   const { version, keepDefault } = parseArguments(process.argv.slice(2));
 
