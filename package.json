@@ -29,6 +29,7 @@
     "test": "node --test .github/scripts/cutoff-version.test.js"
   },
   "dependencies": {
+    "@rainbowatcher/toml-edit-js": "^0.6.4",
     "@tabler/icons": "^3.34.1",
     "@thulite/doks-core": "^1.8.3",
     "@thulite/images": "^3.3.1",

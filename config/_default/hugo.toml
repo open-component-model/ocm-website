@@ -10,6 +10,7 @@ enableRobotsTXT = true
 languageCode = "en-US"
 rssLimit = 10
 summarylength = 20
+summarylength = 20 # 70 (default)
 
 # Multilingual
 defaultContentLanguage = "en"
@@ -100,3 +101,4 @@ defaultContentVersion = "legacy"
     weight = 1
   [versions."dev"]
     weight = 2
+
