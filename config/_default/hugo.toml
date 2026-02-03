@@ -107,8 +107,3 @@ defaultContentVersion = "legacy"
     weight = 1
   [versions."dev"]
     weight = 2
-
-# ═══════════════════════════════════════════════════════════════════════════════
-# GENERATED VERSION CONFIG BELOW - DO NOT EDIT MANUALLY
-# Managed by: .github/scripts/cutoff-version.js
-# ═══════════════════════════════════════════════════════════════════════════════

@@ -124,8 +124,3 @@
   target = "content/docs/reference/ocm-cli"
   [imports.mounts.sites.matrix]
     versions = ["dev"]
-
- # ═══════════════════════════════════════════════════════════════════════════════
- # GENERATED VERSION MOUNTS - DO NOT EDIT MANUALLY
- # Managed by: .github/scripts/cutoff-version.js
- # ═══════════════════════════════════════════════════════════════════════════════
