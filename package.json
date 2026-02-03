@@ -4,7 +4,6 @@
   "description": "OCM website",
   "author": "open-component-model",
   "license": "Apache-2.0",
-
   "scripts": {
     "build-multi-version": "bash .github/scripts/build-multi-version.sh",
     "build": "exec-bin node_modules/.bin/hugo/hugo --minify --gc",
@@ -28,9 +27,10 @@
     "postinstall": "hugo-installer --version otherDependencies.hugo --extended --destination node_modules/.bin/hugo",
     "preinfo": "npm version",
     "preview": "http-server --gzip --brotli --ext=html --cors",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node --test .github/scripts/cutoff-version.test.js"
   },
   "dependencies": {
+    "@rainbowatcher/toml-edit-js": "^0.6.4",
     "@tabler/icons": "^3.34.1",
     "@thulite/doks-core": "^1.8.3",
     "@thulite/images": "^3.3.1",
