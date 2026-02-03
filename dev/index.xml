@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Open Component Model</title><link>https://ocm.software/dev/</link><description>Recent content on Open Component Model</description><generator>Hugo</generator><language>en-US</language><atom:link href="https://ocm.software/dev/index.xml" rel="self" type="application/rss+xml"/><item><title>About the OCM Project</title><link>https://ocm.software/docs/overview/about/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/overview/about/</guid><description>&lt;p&gt;The Open Component Model (OCM) is an open standard that enables teams to describe software artifacts and their lifecycle metadata in a consistent, technology-agnostic way. It’s built to support secure, reliable delivery and deployment of software—across cloud, on-prem, hybrid, and even air-gapped environments. By decoupling and streamlining lifecycle processes like compliance checks, security scans, and deployments, OCM helps teams collaborate more effectively and build trust into every step of the software supply chain.&lt;/p&gt;</description></item><item><title>Benefits of OCM</title><link>https://ocm.software/dev/docs/overview/benefits-of-ocm/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/dev/docs/overview/benefits-of-ocm/</guid><description>&lt;p&gt;The Open Component Model (OCM) is an open-source toolset for secure software delivery.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Open Component Model</title><link>https://ocm.software/dev/</link><description>Recent content on Open Component Model</description><generator>Hugo</generator><language>en-US</language><atom:link href="https://ocm.software/dev/index.xml" rel="self" type="application/rss+xml"/><item><title>About the OCM Project</title><link>https://ocm.software/dev/docs/overview/about/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/dev/docs/overview/about/</guid><description>&lt;p&gt;The Open Component Model (OCM) is an open standard that enables teams to describe software artifacts and their lifecycle metadata in a consistent, technology-agnostic way. It’s built to support secure, reliable delivery and deployment of software—across cloud, on-prem, hybrid, and even air-gapped environments. By decoupling and streamlining lifecycle processes like compliance checks, security scans, and deployments, OCM helps teams collaborate more effectively and build trust into every step of the software supply chain.&lt;/p&gt;</description></item><item><title>Benefits of OCM</title><link>https://ocm.software/dev/docs/overview/benefits-of-ocm/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/dev/docs/overview/benefits-of-ocm/</guid><description>&lt;p&gt;The Open Component Model (OCM) is an open-source toolset for secure software delivery.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;OCM gives you full visibility and control across the supply chain, streamlining compliance checks, security scans, and deployments.&lt;/li&gt;
 &lt;li&gt;OCM works everywhere — cloud, on-premises, hybrid, and air-gapped environments.&lt;/li&gt;
 &lt;li&gt;OCM integrates seamlessly with your existing tools and is easy to extend.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;With OCM, you gain control, reduce risk, and keep your delivery approach adaptable.&lt;/p&gt;</description></item><item><title>Install the OCM CLI</title><link>https://ocm.software/docs/getting-started/installation/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/getting-started/installation/</guid><description>&lt;p&gt;The new major version of the OCM CLI is currently under active development. While we&amp;rsquo;re working on providing pre-built releases through various package managers and distribution channels, the only way to install the OCM CLI right now is to &lt;strong&gt;build it from source&lt;/strong&gt;.&lt;/p&gt;</description></item><item><title>Create and Examine Component Versions</title><link>https://ocm.software/docs/getting-started/create-component-version/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/getting-started/create-component-version/</guid><description>&lt;h2 id="how-it-works"&gt;How It Works&lt;/h2&gt;
+&lt;p&gt;With OCM, you gain control, reduce risk, and keep your delivery approach adaptable.&lt;/p&gt;</description></item><item><title>Install the OCM CLI</title><link>https://ocm.software/dev/docs/getting-started/installation/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/dev/docs/getting-started/installation/</guid><description>&lt;p&gt;The new major version of the OCM CLI is currently under active development. While we&amp;rsquo;re working on providing pre-built releases through various package managers and distribution channels, the only way to install the OCM CLI right now is to &lt;strong&gt;build it from source&lt;/strong&gt;.&lt;/p&gt;</description></item><item><title>Create and Examine Component Versions</title><link>https://ocm.software/dev/docs/getting-started/create-component-version/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/dev/docs/getting-started/create-component-version/</guid><description>&lt;h2 id="how-it-works"&gt;How It Works&lt;/h2&gt;
 &lt;p&gt;Component versions are created using a &lt;code&gt;component-constructor.yaml&lt;/code&gt; file, which is a description file that contains one or multiple components. The file describes the components and their artifacts – resources and sources, metadata in form of labels, and references to other components.&lt;/p&gt;</description></item><item><title>Download Resources from Component Versions</title><link>https://ocm.software/dev/docs/getting-started/download-resources-from-component-versions/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/dev/docs/getting-started/download-resources-from-component-versions/</guid><description>&lt;h2 id="prerequisites"&gt;Prerequisites&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;
@@ -17,7 +17,7 @@
  
 
 
-&lt;a href="https://ocm.software/docs/getting-started/installation/"&gt;Install the OCM CLI&lt;/a&gt;.&lt;/li&gt;
+&lt;a href="https://ocm.software/dev/docs/getting-started/installation/"&gt;Install the OCM CLI&lt;/a&gt;.&lt;/li&gt;
 &lt;li&gt;Install 
 
 
@@ -38,7 +38,7 @@
  
 
 
-&lt;a href="https://ocm.software/dev/docs/reference/ocm-cli/ocm-download-resource/"&gt;&lt;code&gt;ocm download resources&lt;/code&gt;&lt;/a&gt; command to download specific resources from a component version.&lt;/p&gt;</description></item><item><title>Sign Component Versions</title><link>https://ocm.software/docs/getting-started/sign-component-version/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/getting-started/sign-component-version/</guid><description>&lt;p&gt;Signing ensures the &lt;strong&gt;authenticity&lt;/strong&gt; and &lt;strong&gt;integrity&lt;/strong&gt; of component versions in OCM.&lt;/p&gt;
+&lt;a href="https://ocm.software/dev/docs/reference/ocm-cli/ocm-download-resource/"&gt;&lt;code&gt;ocm download resources&lt;/code&gt;&lt;/a&gt; command to download specific resources from a component version.&lt;/p&gt;</description></item><item><title>Sign Component Versions</title><link>https://ocm.software/dev/docs/getting-started/sign-component-version/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/dev/docs/getting-started/sign-component-version/</guid><description>&lt;p&gt;Signing ensures the &lt;strong&gt;authenticity&lt;/strong&gt; and &lt;strong&gt;integrity&lt;/strong&gt; of component versions in OCM.&lt;/p&gt;
 &lt;h2 id="prerequisites"&gt;Prerequisites&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;
@@ -51,7 +51,7 @@
  
 
 
-&lt;a href="https://ocm.software/docs/getting-started/installation/"&gt;Install the OCM CLI&lt;/a&gt;.&lt;/li&gt;
+&lt;a href="https://ocm.software/dev/docs/getting-started/installation/"&gt;Install the OCM CLI&lt;/a&gt;.&lt;/li&gt;
 &lt;li&gt;Get a key pair (private + public key). Don&amp;rsquo;t have a key pair yet? Follow our guide: 
 
 
@@ -62,7 +62,7 @@
  
 
 
-&lt;a href="https://ocm.software/docs/tutorials/signing-and-verification/#key-pair-generation"&gt;Key Pair Generation&lt;/a&gt;.&lt;/li&gt;
+&lt;a href="https://ocm.software/dev/docs/tutorials/signing-and-verification/#key-pair-generation"&gt;Key Pair Generation&lt;/a&gt;.&lt;/li&gt;
 &lt;li&gt;To follow the examples, you need the component version from the guide 
 
 
@@ -73,10 +73,10 @@
  
 
 
-&lt;a href="https://ocm.software/docs/getting-started/create-component-version/"&gt;Create and Examine Component Versions&lt;/a&gt;.&lt;/li&gt;
+&lt;a href="https://ocm.software/dev/docs/getting-started/create-component-version/"&gt;Create and Examine Component Versions&lt;/a&gt;.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id="minimal-ocmconfig-for-signing"&gt;Minimal .ocmconfig for Signing&lt;/h2&gt;
-&lt;p&gt;Add the following to your &lt;code&gt;.ocmconfig&lt;/code&gt; file. If the file is present in your home directory (&lt;code&gt;~/.ocmconfig&lt;/code&gt;), the OCM CLI will use it by default.&lt;/p&gt;</description></item><item><title>Verify Component Versions</title><link>https://ocm.software/docs/getting-started/verify-component-version/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/getting-started/verify-component-version/</guid><description>&lt;p&gt;Verifying a component version ensures that a signature was created by a trusted key and that the component descriptor has not been modified.&lt;/p&gt;</description></item><item><title>Set Up an OCM Controller Environment</title><link>https://ocm.software/dev/docs/getting-started/set-up-an-ocm-controller-environment/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/dev/docs/getting-started/set-up-an-ocm-controller-environment/</guid><description>&lt;p&gt;This document describes how to set up a local environment for running examples from the 
+&lt;p&gt;Add the following to your &lt;code&gt;.ocmconfig&lt;/code&gt; file. If the file is present in your home directory (&lt;code&gt;~/.ocmconfig&lt;/code&gt;), the OCM CLI will use it by default.&lt;/p&gt;</description></item><item><title>Verify Component Versions</title><link>https://ocm.software/dev/docs/getting-started/verify-component-version/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/dev/docs/getting-started/verify-component-version/</guid><description>&lt;p&gt;Verifying a component version ensures that a signature was created by a trusted key and that the component descriptor has not been modified.&lt;/p&gt;</description></item><item><title>Set Up an OCM Controller Environment</title><link>https://ocm.software/dev/docs/getting-started/set-up-an-ocm-controller-environment/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/dev/docs/getting-started/set-up-an-ocm-controller-environment/</guid><description>&lt;p&gt;This document describes how to set up a local environment for running examples from the 
 
 
 
@@ -106,7 +106,7 @@ chart, and publishes it as OCM component version in an OCI registry. Then, an op
 application via Helm chart in a Kubernetes cluster, creates a &lt;code&gt;ResourceGraphDefinition&lt;/code&gt; with resources that point to
 the OCM component version. Using CEL expressions inside the &lt;code&gt;ResourceGraphDefinition&lt;/code&gt;, the information about the
 resource location will be passed to Flux, which will then configure the Helm chart and deploy it into the Kubernetes
-cluster.&lt;/p&gt;</description></item><item><title>OCM Components</title><link>https://ocm.software/docs/concepts/ocm-components/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/concepts/ocm-components/</guid><description>&lt;p&gt;In OCM, &lt;em&gt;components&lt;/em&gt; group a set of semantically related &lt;em&gt;component versions&lt;/em&gt;. Each component version is uniquely and globally identified by a 
+cluster.&lt;/p&gt;</description></item><item><title>OCM Components</title><link>https://ocm.software/dev/docs/concepts/ocm-components/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/dev/docs/concepts/ocm-components/</guid><description>&lt;p&gt;In OCM, &lt;em&gt;components&lt;/em&gt; group a set of semantically related &lt;em&gt;component versions&lt;/em&gt;. Each component version is uniquely and globally identified by a 
 
 
 
@@ -116,4 +116,4 @@ cluster.&lt;/p&gt;</description></item><item><title>OCM Components</title><link>
  
 
 
-&lt;a href="https://ocm.software/docs/concepts/ocm-coordinates/"&gt;&lt;em&gt;component identity&lt;/em&gt;&lt;/a&gt; and can reference other components. A component version can also contain &lt;em&gt;artifacts&lt;/em&gt; and a formal description of how to access them. These artifacts come in two categories: &lt;em&gt;resources&lt;/em&gt;, which describe the payload (e.g., OCI images), and &lt;em&gt;sources&lt;/em&gt;, which describe the input for creating resources (e.g., source code).&lt;/p&gt;</description></item></channel></rss>
+&lt;a href="https://ocm.software/dev/docs/concepts/ocm-coordinates/"&gt;&lt;em&gt;component identity&lt;/em&gt;&lt;/a&gt; and can reference other components. A component version can also contain &lt;em&gt;artifacts&lt;/em&gt; and a formal description of how to access them. These artifacts come in two categories: &lt;em&gt;resources&lt;/em&gt;, which describe the payload (e.g., OCI images), and &lt;em&gt;sources&lt;/em&gt;, which describe the input for creating resources (e.g., source code).&lt;/p&gt;</description></item></channel></rss>
