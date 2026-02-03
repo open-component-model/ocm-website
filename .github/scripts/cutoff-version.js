@@ -103,7 +103,7 @@ async function updateHugoToml(repoRoot, version, keepDefault) {
   const { edit } = await getTomlModule();
   let updated = edit(content, `versions."${version}"`, {}, { inline: false });
 
-  // Normalize indentation of new stanza header
+  // Add indentation and remove empty header line of new stanza header (added by toml-edit-js)
   const stanzaHeader = `[versions."${version}"]`;
   updated = updated.replace(new RegExp(`\\n\\n?${stanzaHeader.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`), `\n  ${stanzaHeader}`);
 
