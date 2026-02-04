@@ -52,6 +52,7 @@ weight: 92
 There is a template for frontmatter of [standard pages](content_templates/new-doc.md).
 
 #### Internal Links
+
 We **always** use `relref` for internal links. The **default** for `relref` is to use the base filename of the target.
 
 **Example:**
