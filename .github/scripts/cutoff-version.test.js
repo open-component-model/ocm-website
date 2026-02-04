@@ -26,6 +26,7 @@ test('parseArguments: missing version throws', () => {
 test('parseArguments: invalid version throws', () => {
     assert.throws(() => parseArguments(['v1.2.3']), /Invalid version/);
     assert.throws(() => parseArguments(['1.2']), /Invalid version/);
+    assert.throws(() => parseArguments(['--keepDefault', 'test', '1.2.3']), /Invalid version/);
 });
 
 test('parseArguments: unknown flag throws', () => {

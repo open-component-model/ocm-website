@@ -46,7 +46,6 @@ const loadToml = async () => TOML || (TOML = await import('smol-toml'));
 // Log error and exit
 function fail(msg) {
     console.error(`[ERROR] ${msg}`);
-    process.exit(1);
     throw new Error(msg);
 }
 
@@ -59,15 +58,21 @@ async function pathExists(p) {
 function parseArguments(args) {
     let version = null, keepDefault = false;
     const unknownFlags = [];
+    const versionPattern = /^\d+\.\d+\.\d+$/;
 
     for (const arg of args) {
         if (arg === '--keepDefault') keepDefault = true;
         else if (arg.startsWith('--')) unknownFlags.push(arg);
-        else if (!version) version = arg.trim();
+        else if (!version) {
+            const candidate = arg.trim();
+            if (!versionPattern.test(candidate)) {
+                throw new Error(`Invalid version '${candidate}'. Expected X.Y.Z, without "v" or suffixes, e.g. 1.2.3`);
+            }
+            version = candidate;
+        }
     }
 
     if (!version) throw new Error('Missing version. Usage: cutoff-version.js X.Y.Z [--keepDefault]');
-    if (!/^\d+\.\d+\.\d+$/.test(version)) throw new Error(`Invalid version '${version}'. Expected X.Y.Z, without "v" or suffixes, e.g. 1.2.3`);
     if (unknownFlags.length) throw new Error(`Unknown flag(s): ${unknownFlags.join(', ')}`);
 
     return { version, keepDefault };
@@ -164,6 +169,11 @@ async function main() {
     console.log('Cutoff completed.');
 }
 
-if (require.main === module) main().catch(e => fail(e.message || String(e)));
+if (require.main === module) {
+    main().catch(e => {
+        console.error(`[ERROR] ${e.message || String(e)}`);
+        process.exit(1);
+    });
+}
 
 module.exports = { parseArguments, hasMountForVersion, hasImportForVersion };
