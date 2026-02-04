@@ -11,10 +11,6 @@ languageCode = "en-US"
 rssLimit = 10
 summarylength = 20
 
-defaultContentVersionInSubdir = false
-defaultContentVersion = "legacy"
-
-# Multilingual
 defaultContentLanguage = "en"
 disableLanguages = ["de", "nl"]
 defaultContentLanguageInSubdir = false
