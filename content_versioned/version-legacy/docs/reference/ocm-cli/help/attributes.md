@@ -1,7 +1,7 @@
 ---
 title: attributes
 name: attributes
-url: /docs/reference/ocm-cli/help/attributes/
+url: docs/reference/ocm-cli/help/attributes/
 draft: false
 images: []
 weight: 55

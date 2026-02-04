@@ -1,7 +1,7 @@
 ---
 title: describe plugins
 name: plugins
-url: /docs/reference/ocm-cli/describe/plugins/
+url: docs/reference/ocm-cli/describe/plugins/
 draft: false
 images: []
 weight: 55

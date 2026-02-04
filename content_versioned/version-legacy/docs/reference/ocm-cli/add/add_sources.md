@@ -1,7 +1,7 @@
 ---
 title: add sources
 name: sources
-url: /docs/reference/ocm-cli/add/sources/
+url: docs/reference/ocm-cli/add/sources/
 draft: false
 images: []
 weight: 55

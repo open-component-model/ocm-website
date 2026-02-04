@@ -1,7 +1,7 @@
 ---
 title: clean
 name: clean
-url: /docs/reference/ocm-cli/clean/
+url: docs/reference/ocm-cli/clean/
 draft: false
 images: []
 weight: 55

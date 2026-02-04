@@ -1,7 +1,7 @@
 ---
 title: verify
 name: verify
-url: /docs/reference/ocm-cli/verify/
+url: docs/reference/ocm-cli/verify/
 draft: false
 images: []
 weight: 55

@@ -1,7 +1,7 @@
 ---
 title: add references
 name: references
-url: /docs/reference/ocm-cli/add/references/
+url: docs/reference/ocm-cli/add/references/
 draft: false
 images: []
 weight: 55

@@ -450,3 +450,5 @@ svg
 frontmatter
 subfolders
 monorepo
+callout
+diataxis

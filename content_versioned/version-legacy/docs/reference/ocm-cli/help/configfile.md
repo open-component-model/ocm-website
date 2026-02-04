@@ -1,7 +1,7 @@
 ---
 title: configfile
 name: configfile
-url: /docs/reference/ocm-cli/help/configfile/
+url: docs/reference/ocm-cli/help/configfile/
 draft: false
 images: []
 weight: 55

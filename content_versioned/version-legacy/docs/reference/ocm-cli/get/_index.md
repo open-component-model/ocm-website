@@ -1,7 +1,7 @@
 ---
 title: get
 name: get
-url: /docs/reference/ocm-cli/get/
+url: docs/reference/ocm-cli/get/
 draft: false
 images: []
 weight: 55

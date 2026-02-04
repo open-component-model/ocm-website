@@ -1,7 +1,7 @@
 ---
 title: set
 name: set
-url: /docs/reference/ocm-cli/set/
+url: docs/reference/ocm-cli/set/
 draft: false
 images: []
 weight: 55

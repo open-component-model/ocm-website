@@ -1,7 +1,7 @@
 ---
 title: get sources
 name: sources
-url: /docs/reference/ocm-cli/get/sources/
+url: docs/reference/ocm-cli/get/sources/
 draft: false
 images: []
 weight: 55

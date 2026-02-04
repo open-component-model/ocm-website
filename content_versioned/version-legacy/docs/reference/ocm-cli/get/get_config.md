@@ -1,7 +1,7 @@
 ---
 title: get config
 name: config
-url: /docs/reference/ocm-cli/get/config/
+url: docs/reference/ocm-cli/get/config/
 draft: false
 images: []
 weight: 55

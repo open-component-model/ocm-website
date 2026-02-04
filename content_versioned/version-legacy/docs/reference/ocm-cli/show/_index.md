@@ -1,7 +1,7 @@
 ---
 title: show
 name: show
-url: /docs/reference/ocm-cli/show/
+url: docs/reference/ocm-cli/show/
 draft: false
 images: []
 weight: 55

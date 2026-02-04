@@ -1,7 +1,7 @@
 ---
 title: toi-bootstrapping
 name: toi-bootstrapping
-url: /docs/reference/ocm-cli/help/toi-bootstrapping/
+url: docs/reference/ocm-cli/help/toi-bootstrapping/
 draft: false
 images: []
 weight: 55

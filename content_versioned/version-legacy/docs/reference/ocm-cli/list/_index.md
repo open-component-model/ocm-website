@@ -1,7 +1,7 @@
 ---
 title: list
 name: list
-url: /docs/reference/ocm-cli/list/
+url: docs/reference/ocm-cli/list/
 draft: false
 images: []
 weight: 55

@@ -1,7 +1,7 @@
 ---
 title: ocm-downloadhandlers
 name: ocm-downloadhandlers
-url: /docs/reference/ocm-cli/help/ocm-downloadhandlers/
+url: docs/reference/ocm-cli/help/ocm-downloadhandlers/
 draft: false
 images: []
 weight: 55

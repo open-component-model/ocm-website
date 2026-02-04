@@ -1,7 +1,7 @@
 ---
 title: help
 name: help
-url: /docs/reference/ocm-cli/help
+url: docs/reference/ocm-cli/help
 draft: false
 images: []
 weight: 55
