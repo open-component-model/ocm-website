@@ -26,6 +26,9 @@ docsRepoSubPath = ""
 editPage = false
 lastMod = false
 
+defaultContentVersionInSubdir = false
+defaultContentVersion = "legacy"
+
 [pagination]
   pagerSize = 10
 
