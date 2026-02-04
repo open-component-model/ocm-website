@@ -56,18 +56,20 @@ There is a template for frontmatter of [standard pages](content_templates/new-do
 We **always** use `relref` for internal links. The **default** for `relref` is to use the base filename of the target.
 
 **Example:**
-```md
+
+```sh
 [Create a Component Version]({{< relref "create-component-version.md" >}})
 ```
 
 If Hugo reports an ambiguity error during `npm run dev` or `npm run build`, such as:
 
-```
+```sh
 ERROR [en] REF_NOT_FOUND: Ref "create-component-version.md": "/.../content/docs/concepts/components.md:9:167": page reference "create-component-version.md" is ambiguous
 ```
+
 the filename is **not unique** across the content folder. In that case, you MUST use the **full path** of the target file relative to `content/`:
 
-```md
+```sh
 [Create a Component Version]({{< relref "docs/getting-started/create-component-version.md" >}})
 ```
 
