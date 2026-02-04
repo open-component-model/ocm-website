@@ -451,3 +451,5 @@ frontmatter
 subfolders
 monorepo
 repos
+callout
+diataxis
