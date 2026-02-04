@@ -61,6 +61,7 @@ We **always** use `relref` for internal links. The **default** for `relref` is t
 ```
 
 If Hugo reports an ambiguity error during `npm run dev` or `npm run build`, such as:
+
 ```
 ERROR [en] REF_NOT_FOUND: Ref "create-component-version.md": "/.../content/docs/concepts/components.md:9:167": page reference "create-component-version.md" is ambiguous
 ```
