@@ -3,6 +3,9 @@
 This guide helps contributors create and place new documentation content according to the [Diataxis framework](https://diataxis.fr/). 
 These guidelines apply to **all new content** and do not reorganize existing documentation.
 
+_NOTE: You may notice some inconsistencies with our current structure. You are encouraged to contribute improvements to this guide and
+to the existing documentation to make it conform to this guideline._
+
 ## Table of Contents
 
 - [Diataxis Overview](#diataxis-overview)
@@ -45,12 +48,14 @@ Each type serves a distinct purpose. Mixing types within a single document confu
 Explain the "why" behind OCM design decisions.
 
 **Characteristics:**
+
 - Provide context, rationale, and connections
 - Can include opinions and trade-off discussions
 - No step-by-step instructions
 - Link to OCM Specification for authoritative definitions
 
 **Example titles:**
+
 - "Understanding Component Versions"
 - "The OCM Security Model"
 
@@ -61,12 +66,14 @@ Explain the "why" behind OCM design decisions.
 Guide newcomers through complete learning experiences.
 
 **Characteristics:**
+
 - Every step produces a visible, verifiable result
 - Show destination upfront ("In this tutorial you will...")
 - Avoid explanation digressions - link to Concepts or how to instead
 - Perfect reliability: every command must work exactly as written
 
 **Example titles:**
+
 - "Create Your First Component Version"
 
 #### Other Tutorials (`tutorials/`)
@@ -74,12 +81,14 @@ Guide newcomers through complete learning experiences.
 Goal-oriented directions for specific tasks.
 
 **Characteristics:**
+
 - Assume reader knows OCM basics (completed Getting Started), reference as needed
 - Use conditional structure: "If you want X, do Y"
 - One focused task per guide
 - Link to Reference for parameter details
 
 **Example titles:**
+
 - "(How to) Configure Private Registry Authentication"
 - "(How to) Transfer Components Between Registries"
 
@@ -88,11 +97,13 @@ Goal-oriented directions for specific tasks.
 Factual, authoritative technical descriptions.
 
 **Characteristics:**
+
 - Structure mirrors the product (CLI commands, CRD fields, etc.)
 - Include usage examples, not tutorials
 - Auto-generated from source repos where possible
 
 **Example content:**
+
 - CLI command reference (imported via Hugo module)
 - Configuration schema documentation
 - CRD field specifications
@@ -103,7 +114,7 @@ Factual, authoritative technical descriptions.
 
 Use this flowchart to determine where new content belongs when contributing to the website:
 
-```
+```text
 New documentation content?
          |
          v
@@ -151,7 +162,7 @@ Documentation lives in different repositories depending on what it documents.
 
 ### Feature-Based Decision Tree
 
-```
+```text
 What are you documenting?
 
 CLI command/flag in old CLI (open-component-model/ocm)?
