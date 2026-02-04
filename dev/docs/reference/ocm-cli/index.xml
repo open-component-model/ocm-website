@@ -123,8 +123,8 @@ If it is not installed already, you can install it via your OS&amp;rsquo;s packa
 &lt;h3 id="synopsis"&gt;Synopsis&lt;/h3&gt;
 &lt;p&gt;Generate the autocompletion script for the zsh shell.&lt;/p&gt;
 &lt;p&gt;If shell completion is not already enabled in your environment you will need
-to enable it. You can execute the following once:&lt;/p&gt;</description></item><item><title>ocm download</title><link>https://ocm.software/dev/docs/reference/ocm-cli/ocm-download/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/dev/docs/reference/ocm-cli/ocm-download/</guid><description>&lt;h2 id="ocm-download"&gt;ocm download&lt;/h2&gt;
-&lt;p&gt;Download anything from OCM&lt;/p&gt;
+to enable it. You can execute the following once:&lt;/p&gt;</description></item><item><title>ocm describe</title><link>https://ocm.software/dev/docs/reference/ocm-cli/ocm-describe/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/dev/docs/reference/ocm-cli/ocm-describe/</guid><description>&lt;h2 id="ocm-describe"&gt;ocm describe&lt;/h2&gt;
+&lt;p&gt;Describe OCM entities or metadata&lt;/p&gt;
 
 
 
@@ -133,7 +133,7 @@ to enable it. You can execute the following once:&lt;/p&gt;</description></item>
  &lt;figcaption class="header"&gt;
  &lt;span class="title"&gt;&lt;/span&gt;
  &lt;/figcaption&gt;
- &lt;pre tabindex="0"&gt;&lt;code&gt;ocm download {resource|resources|plugin|plugins} [flags]&lt;/code&gt;&lt;/pre&gt;
+ &lt;pre tabindex="0"&gt;&lt;code&gt;ocm describe [flags]&lt;/code&gt;&lt;/pre&gt;
  &lt;/figure&gt;
 &lt;/div&gt;
 &lt;h3 id="options"&gt;Options&lt;/h3&gt;
@@ -145,7 +145,7 @@ to enable it. You can execute the following once:&lt;/p&gt;</description></item>
  &lt;figcaption class="header"&gt;
  &lt;span class="title"&gt;&lt;/span&gt;
  &lt;/figcaption&gt;
- &lt;pre tabindex="0"&gt;&lt;code&gt; -h, --help help for download&lt;/code&gt;&lt;/pre&gt;
+ &lt;pre tabindex="0"&gt;&lt;code&gt; -h, --help help for describe&lt;/code&gt;&lt;/pre&gt;
  &lt;/figure&gt;
 &lt;/div&gt;
 &lt;h3 id="options-inherited-from-parent-commands"&gt;Options inherited from parent commands&lt;/h3&gt;
@@ -217,19 +217,12 @@ to enable it. You can execute the following once:&lt;/p&gt;</description></item>
  
 
 
-&lt;a href="https://ocm.software/dev/docs/reference/ocm-cli/ocm-download-plugin/"&gt;ocm download plugin&lt;/a&gt;	 - Download plugin binaries from a component version.&lt;/li&gt;
-&lt;li&gt;
-
-
-
-
-
- 
- 
-
-
-&lt;a href="https://ocm.software/dev/docs/reference/ocm-cli/ocm-download-resource/"&gt;ocm download resource&lt;/a&gt;	 - Download resources described in a component version in an OCM Repository&lt;/li&gt;
-&lt;/ul&gt;</description></item><item><title>ocm download plugin</title><link>https://ocm.software/dev/docs/reference/ocm-cli/ocm-download-plugin/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/dev/docs/reference/ocm-cli/ocm-download-plugin/</guid><description>&lt;h2 id="ocm-download-plugin"&gt;ocm download plugin&lt;/h2&gt;
-&lt;p&gt;Download plugin binaries from a component version.&lt;/p&gt;
+&lt;a href="https://ocm.software/dev/docs/reference/ocm-cli/ocm-describe-types/"&gt;ocm describe types&lt;/a&gt;	 - Describe OCM types and their configuration schema&lt;/li&gt;
+&lt;/ul&gt;</description></item><item><title>ocm describe types</title><link>https://ocm.software/dev/docs/reference/ocm-cli/ocm-describe-types/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/dev/docs/reference/ocm-cli/ocm-describe-types/</guid><description>&lt;h2 id="ocm-describe-types"&gt;ocm describe types&lt;/h2&gt;
+&lt;p&gt;Describe OCM types and their configuration schema&lt;/p&gt;
 &lt;h3 id="synopsis"&gt;Synopsis&lt;/h3&gt;
-&lt;p&gt;Download a plugin binary from a component version located in a component version.&lt;/p&gt;</description></item></channel></rss>
+&lt;p&gt;Describe OCM types registered in various subsystems.&lt;/p&gt;
+&lt;p&gt;WHAT ARE SUBSYSTEMS?
+OCM uses a plugin-based architecture where different types of functionality are organized
+into subsystems. Each subsystem is a collection of related type implementations. When you
+use OCM commands or configure OCM resources, you specify types from these subsystems.&lt;/p&gt;</description></item></channel></rss>
