@@ -59,7 +59,7 @@ ocm transfer ctf ./ctf ghcr.io/<your-namespace>
 
 {{<callout context="note">}}
 If you are using a registry that requires authentication, you need to provide credentials for ocm. Please refer to
-the [OCM CLI credentials documentation]({{< relref "docs/tutorials/creds-in-ocmconfig.md" >}}) for more information on how to set up and use credentials.
+the [OCM CLI credentials documentation]({{< relref "creds-in-ocmconfig.md" >}}) for more information on how to set up and use credentials.
 {{</callout>}}
 
 If everything went well, you should see the following output:
@@ -194,13 +194,13 @@ spec:
 {{<callout context="note">}}
 If you pushed the OCM component version to a private registry, you need to set up the credentials for the OCM controller resources. You can do this by uncommenting the `ocmConfig` fields in the `Repository`, `Component`, and
 `Resource` resources and providing the necessary credentials. For more information on how to set up and pass the
-credentials, please check out the guide [configure credentials for OCM controller resources]({{< relref "../tutorials/configure-credentials-for-controllers.md" >}}).
+credentials, please check out the guide [configure credentials for OCM controller resources]({{< relref "configure-credentials-for-controllers.md" >}}).
 
 Be aware that FluxCD's `OCIRepository` also needs access to the OCI registry that contains the Helm chart. However,
 `OCIRepository` only accepts
 [`imagePullSecrets`](https://fluxcd.io/flux/components/source/ocirepositories/#secret-reference) in the same namespace.
 If you want to use the same credentials for FluxCD and for the OCM controller resources, create a
-[Kubernetes secret of type `dockerconfigjson`]({{< relref "../tutorials/configure-credentials-for-controllers.md#create-a-kubernetes-secret-of-type-dockerconfigjson-to-access-private-ocm-repositories" >}})
+[Kubernetes secret of type `dockerconfigjson`]({{< relref "configure-credentials-for-controllers.md#create-a-kubernetes-secret-of-type-dockerconfigjson-to-access-private-ocm-repositories" >}})
 and keep all the resources in the same namespace.
 {{</callout>}}
 

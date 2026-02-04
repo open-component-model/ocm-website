@@ -6,7 +6,7 @@ weight: 56
 toc: true
 ---
 
-The [OCM Components]({{< relref "../concepts/ocm-controllers.md#concept" >}}) page and the [Deploy a Helm Chart]({{< relref "../getting-started/deploy-helm-chart.md" >}}) guide showed a basic example of how to deploy a Helm chart from an OCM component.
+The [OCM Components]({{< relref "ocm-controllers.md#concept" >}}) page and the [Deploy a Helm Chart]({{< relref "deploy-helm-chart.md" >}}) guide showed a basic example of how to deploy a Helm chart from an OCM component.
 By defining a `ResourceGraphDefinition` that contains all the required resources to deploy the Helm chart into a
 Kubernetes cluster.
 
@@ -155,7 +155,7 @@ After applying the `ResourceGraphDefinition`, kro will reconcile it and create a
 Finally, we will check if the deployment was successful and if the localization was applied correctly.
 
 {{<callout context="note">}}
-Before starting, make sure you have set up your environment as described in the [setup guide]({{< relref "../getting-started/setup-controller-environment.md" >}}).
+Before starting, make sure you have set up your environment as described in the [setup guide]({{< relref "setup-controller-environment.md" >}}).
 {{</callout>}}
 
 ## Create the OCM Component Version
@@ -164,7 +164,7 @@ First, we will create an OCM component version containing a Helm chart, the appl
 chart, and the `ResourceGraphDefinition` that contains all required resource to deploy the Helm chart and configure the
 localization. For this example, we will use the `podinfo` Helm chart and image, which is a simple web application that
 serves a pod information page. For more details on how to create an OCM component version, please refer to 
-[Create Component Versions]({{< relref "../getting-started/create-component-version.md" >}})
+[Create Component Versions]({{< relref "create-component-version.md" >}})
 
 To create the OCM component version, we will use the following `component-constructor.yaml` file:
 

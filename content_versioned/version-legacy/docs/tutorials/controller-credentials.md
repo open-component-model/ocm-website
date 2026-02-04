@@ -182,4 +182,4 @@ spec:
       policy: DoNotPropagate
 ```
 
-[ocm-credentials]: {{< relref "docs/tutorials/creds-in-ocmconfig.md" >}}
+[ocm-credentials]: {{< relref "creds-in-ocmconfig.md" >}}

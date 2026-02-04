@@ -6,7 +6,7 @@ weight: 32
 toc: true
 ---
 
-This document describes how to set up a local environment for running examples from the [Deploy a Helm Chart]({{< relref "docs/getting-started/deploy-helm-chart.md" >}}) guide. You will create a local Kubernetes cluster with kind and then install kro, Flux, and the OCM controllers.
+This document describes how to set up a local environment for running examples from the [Deploy a Helm Chart]({{< relref "deploy-helm-chart.md" >}}) guide. You will create a local Kubernetes cluster with kind and then install kro, Flux, and the OCM controllers.
 
 ## Prerequisites
 
@@ -132,7 +132,7 @@ CLI, kubelet, and inside the cluster.)
 
 ---
 
-If you completed all of the above steps, you are ready to go. You can now start with the [Deploy a Helm Chart]({{< relref "docs/getting-started/deploy-helm-chart.md" >}}) guide or play around with the examples in the
+If you completed all of the above steps, you are ready to go. You can now start with the [Deploy a Helm Chart]({{< relref "deploy-helm-chart.md" >}}) guide or play around with the examples in the
 [`examples/` directory on GitHub](https://github.com/open-component-model/open-component-model/tree/main/kubernetes/controller/examples).
 
 [ghcr.io]: https://docs.github.com/en/packages/learn-github-packages/introduction-to-github-packages
