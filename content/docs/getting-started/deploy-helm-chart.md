@@ -295,4 +295,3 @@ failed to list versions: failed to list tags: GET "https://ghcr.io/v2...": respo
 
 You can resolve this issue by making the package public or by [providing credentials]({{< relref "configure-credentials-for-controllers.md" >}}) to the
 respective resources.
-
