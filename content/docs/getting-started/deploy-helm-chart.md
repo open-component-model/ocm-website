@@ -59,7 +59,7 @@ ocm transfer ctf ./ctf ghcr.io/<your-namespace>
 
 {{<callout context="note">}}
 If you are using a registry that requires authentication, you need to provide credentials for ocm. Please refer to
-the [OCM CLI credentials documentation]({{< relref "../tutorials/creds-in-ocmconfig.md" >}}) for more information on how to set up and use credentials.
+the [OCM CLI credentials documentation]({{< relref "docs/tutorials/creds-in-ocmconfig.md" >}}) for more information on how to set up and use credentials.
 {{</callout>}}
 
 If everything went well, you should see the following output:

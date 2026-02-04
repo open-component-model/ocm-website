@@ -164,8 +164,8 @@ Before starting, make sure you have set up your environment as described in the 
 First, we will create an OCM component version containing a Helm chart, the application image that is used in the Helm
 chart, and the `ResourceGraphDefinition` that contains all required resource to deploy the Helm chart and configure the
 localization. For this example, we will use the `podinfo` Helm chart and image, which is a simple web application that
-serves a pod information page. For more details on how to create an OCM component version, please refer to the
-[OCM documentation][ocm-doc].
+serves a pod information page. For more details on how to create an OCM component version, please refer to
+[Create Component Versions]({{< relref "../getting-started/create-component-version.md" >}})
 
 To create the OCM component version, we will use the following `component-constructor.yaml` file:
 
@@ -323,7 +323,7 @@ ocm transfer ctf --copy-resources ./ctf ghcr.io/<your-namespace>
 
 {{<callout context="note">}}
 If you are using a registry that requires authentication, you need to provide credentials for ocm. Please refer to
-the [OCM CLI credentials documentation][ocm-credentials] for more information on how to set up and use credentials.
+the [OCM CLI credentials documentation]({{< relref "creds-in-ocmconfig.md" >}}) for more information on how to set up and use credentials.
 {{</callout>}}
 
 If everything went well, you should see the following output:
@@ -559,5 +559,4 @@ and created the resulting CRD.
 Finally, you created an instance of the CRD which deployed the Helm chart and configured the localization using the OCM
 controllers, kro, and FluxCD.
 
-[ocm-doc]: https://ocm.software/docs/getting-started/create-component-version/
 [ocm-credentials]: https://ocm.software/docs/tutorials/creds-in-ocmconfig/

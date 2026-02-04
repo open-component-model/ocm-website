@@ -163,8 +163,8 @@ Before starting, make sure you have set up your environment as described in the 
 First, we will create an OCM component version containing a Helm chart, the application image that is used in the Helm
 chart, and the `ResourceGraphDefinition` that contains all required resource to deploy the Helm chart and configure the
 localization. For this example, we will use the `podinfo` Helm chart and image, which is a simple web application that
-serves a pod information page. For more details on how to create an OCM component version, please refer to the
-You can also read the [Create Component Versions]({{< relref "../getting-started/create-component-version.md" >}})
+serves a pod information page. For more details on how to create an OCM component version, please refer to 
+[Create Component Versions]({{< relref "../getting-started/create-component-version.md" >}})
 
 To create the OCM component version, we will use the following `component-constructor.yaml` file:
 

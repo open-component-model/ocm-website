@@ -142,4 +142,4 @@ ocm verify cv --signature prod transport-archive//github.com/acme.org/helloworld
 
 **Need more help?**
 
-- See [Troubleshooting]({{< relref "/docs/tutorials/signing-and-verification#troubleshooting" >}}).
+- See [Troubleshooting]({{< relref "docs/tutorials/signing-and-verification#troubleshooting" >}}).
