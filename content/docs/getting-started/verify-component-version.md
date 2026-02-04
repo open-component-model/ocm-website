@@ -1,6 +1,5 @@
 ---
 title: "Verify Component Versions"
-url: "docs/getting-started/verify-component-version/"
 description: "Learn how to verify signed component versions using public keys."
 icon: "🔍"
 weight: 27

@@ -1,7 +1,6 @@
 ---
 title: "Example of a Component Descriptor"
 description: "Example of a component descriptor using public-key-based signing."
-url: "docs/getting-started/component-descriptor-example/"
 weight: 46
 toc: true
 ---

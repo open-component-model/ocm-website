@@ -1,11 +1,11 @@
 [[main]]
   name = "Docs"
-  url = "/docs/"
+  url = "docs/"
   weight = 10
 
 [[main]]
   name = "Community"
-  url = "/community/engagement"
+  url = "community/engagement"
   weight = 20
 
 [[main]]

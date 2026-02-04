@@ -1,6 +1,5 @@
 ---
 title: "Sign Component Versions"
-url: "docs/getting-started/sign-component-version/"
 description: "Learn how to sign component versions using key pairs."
 icon: "✍️"
 weight: 26

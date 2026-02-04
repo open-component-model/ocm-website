@@ -6,7 +6,7 @@ weight: 32
 toc: true
 ---
 
-This document describes how to set up a local environment for running examples from the [Deploy a Helm Chart]({{< ref "docs/getting-started/deploy-helm-chart.md" >}}) guide. You will create a local Kubernetes cluster with kind and then install kro, Flux, and the OCM controllers.
+This document describes how to set up a local environment for running examples from the [Deploy a Helm Chart]({{< relref "docs/getting-started/deploy-helm-chart.md" >}}) guide. You will create a local Kubernetes cluster with kind and then install kro, Flux, and the OCM controllers.
 
 ## Prerequisites
 

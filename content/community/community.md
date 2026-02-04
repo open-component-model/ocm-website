@@ -1,7 +1,7 @@
 ---
 title: "The OCM Community"
 description: "The OCM Community"
-url: "/community/engagement"
+slug: "engagement"
 toc: true
 ---
 
