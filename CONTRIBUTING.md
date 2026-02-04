@@ -100,7 +100,7 @@ Factual, authoritative technical descriptions.
 
 - Structure mirrors the product (CLI commands, CRD fields, etc.)
 - Include usage examples, not tutorials
-- Auto-generated from source repos where possible
+- Auto-generated from source repositories where possible
 
 **Example content:**
 
