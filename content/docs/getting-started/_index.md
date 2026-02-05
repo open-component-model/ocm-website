@@ -5,6 +5,6 @@ icon: "🚀"
 weight: 20
 url: docs/getting-started/
 sidebar:
-  collapsed: true
+  collapsed: false
 ---
 

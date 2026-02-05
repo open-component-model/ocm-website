@@ -5,5 +5,5 @@ icon: "🏢"
 weight: 40
 url: docs/concepts/
 sidebar:
-  collapsed: true
+  collapsed: false
 ---
