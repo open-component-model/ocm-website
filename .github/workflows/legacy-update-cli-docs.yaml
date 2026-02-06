@@ -38,6 +38,7 @@ jobs:
         with:
           go-version-file: '${{ github.workspace }}/hack/generate-cli-docs/go.mod'
 
+      # Generate CLI docs for the new release and place them in the right folder
       - name: Regenerate CLI docs
         run: |
           cd ./hack/generate-cli-docs
