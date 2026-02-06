@@ -46,4 +46,4 @@ Our commitment to open source goes beyond OCM. We are active members of the open
 
 ## Try OCM Out
 
-Does OCM sound like the right fit for your project? Check out our [Getting Started]({{<relref "getting-started">}}) guides to see how easy a secure delivery can be.
+Does OCM sound like the right fit for your project? Check out our [Getting Started]({{< relref "docs/getting-started/_index.md" >}}) guides to see how easy a secure delivery can be.

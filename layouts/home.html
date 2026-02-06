@@ -14,8 +14,8 @@
         {{ with .Params.subheadline2 }}<p class="subheadline">{{ . }}</p>{{ end }}
       </div>
       <div class="hero-actions">
-        <a class="hero-button hero-button--brand" href='{{ "/docs/getting-started/" | relURL }}'>Get Started</a>
-        <a class="hero-button hero-button--alt" href='{{ "/docs/overview/" | relURL }}'>Overview</a>
+        <a class="hero-button hero-button--brand" href='{{ relref . "docs/getting-started/" }}'>Get Started</a>
+        <a class="hero-button hero-button--alt" href='{{ relref . "docs/overview/" }}'>Overview</a>
       </div>
     </div>
     <div class="image">
@@ -34,7 +34,7 @@
   <div class="container container--after-hero">
     <div class="ocm-card-grid ocm-card-grid--action">
       {{ range .Params.actions }}
-      <a href="{{ .link | relURL }}" class="ocm-card">
+      <a href="{{ relref $ .link }}" class="ocm-card">
         <div class="ocm-card-content">
           <div class="ocm-card-header">
             {{- $iconName := .icon -}}
@@ -61,7 +61,7 @@
     <div class="ocm-card-grid ocm-card-grid--benefit">
       {{ range .Params.benefits }}
       {{ if .link }}
-      <a href="{{ .link | relURL }}" class="ocm-card ocm-card--benefit">
+      <a href="{{ relref $ .link }}" class="ocm-card ocm-card--benefit">
         <div class="ocm-card-content">
           <div class="ocm-card-header">
             {{- $iconName := .icon -}}

@@ -22,7 +22,7 @@ Before starting, make sure you have set up your environment as described in the 
 
 First, we will create an OCM component version containing a Helm chart. For this example, we will use the `podinfo`
 Helm chart, which is a simple web application that serves a pod information page. For more details on how to create an
-OCM component version, please refer to the [OCM documentation][ocm-doc].
+OCM component version, please refer to the [OCM documentation]({{< relref "create-component-version.md" >}}).
 
 To create the OCM component version, we will use the following `component-constructor.yaml` file:
 
@@ -57,7 +57,7 @@ ocm transfer ctf ./ctf ghcr.io/<your-namespace>
 
 {{<callout context="note">}}
 If you are using a registry that requires authentication, you need to provide credentials for ocm. Please refer to
-the [OCM CLI credentials documentation][ocm-credentials] for more information on how to set up and use credentials.
+the [OCM CLI credentials documentation]({{< relref "creds-in-ocmconfig.md" >}}) for more information on how to set up and use credentials.
 {{</callout>}}
 
 If everything went well, you should see the following output:
@@ -198,7 +198,7 @@ Be aware that FluxCD's `OCIRepository` also needs access to the OCI registry tha
 `OCIRepository` only accepts
 [`imagePullSecrets`](https://fluxcd.io/flux/components/source/ocirepositories/#secret-reference) in the same namespace.
 If you want to use the same credentials for FluxCD and for the OCM controller resources, create a
-[Kubernetes secret of type `dockerconfigjson`]({{< relref "controller-credentials.md/#create-a-kubernetes-secret-of-type-dockerconfigjson-to-access-private-ocm-repositories" >}})
+[Kubernetes secret of type `dockerconfigjson`]({{< relref "controller-credentials.md#create-a-kubernetes-secret-of-type-dockerconfigjson-to-access-private-ocm-repositories" >}})
 and keep all the resources in the same namespace.
 {{</callout>}}
 
@@ -294,5 +294,3 @@ failed to list versions: failed to list tags: GET "https://ghcr.io/v2...": respo
 You can resolve this issue by making the package public or by [providing credentials]({{< relref "controller-credentials.md" >}}) to the
 respective resources.
 
-[ocm-doc]: https://ocm.software/docs/getting-started/create-component-version/
-[ocm-credentials]: https://ocm.software/docs/tutorials/creds-in-ocmconfig/

@@ -175,9 +175,9 @@ deployer. Please refer to the respective installation guides for these tools:
 
 ## Getting Started
 
-- [Setup your (test) environment with kind, kro, and FluxCD]({{< relref "setup.md" >}})
+- [Setup your (test) environment with kind, kro, and FluxCD]({{< relref "setup-controller-environment.md" >}})
 - [Deploying a Helm chart using a `ResourceGraphDefinition` with FluxCD]({{< relref "deploy-helm-chart.md" >}})
 - [Deploying a Helm chart using a `ResourceGraphDefinition` inside the OCM component version (bootstrap) with FluxCD]({{< relref "deploy-helm-chart-bootstrap.md" >}})
-- [Configuring credentials for OCM controller resources to access private OCM repositories]({{< relref "credentials.md" >}})
+- [Configuring credentials for OCM controller resources to access private OCM repositories]({{< relref "configure-credentials-for-controllers.md" >}})
 
 [controller-image]: https://github.com/open-component-model/open-component-model/pkgs/container/kubernetes%2Fcontroller

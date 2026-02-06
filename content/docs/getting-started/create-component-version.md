@@ -1,6 +1,5 @@
 ---
 title: "Create and Examine Component Versions"
-url: "docs/getting-started/create-component-version/"
 description: "Learn how to create and store component versions using the OCM CLI."
 icon: "📦"
 weight: 23

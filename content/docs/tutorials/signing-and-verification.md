@@ -1,7 +1,6 @@
 ---
 title: "Signing and Verification"
 description: "Complete guide to cryptographic signing and verification in OCM."
-url: "docs/tutorials/signing-and-verification"
 icon: "✍️"
 weight: 55
 toc: true
@@ -774,4 +773,4 @@ OCM's signing and verification system provides:
 ## Related Documentation
 
 - [Credentials in .ocmconfig File]({{< relref "creds-in-ocmconfig.md" >}}) - Practical credential configuration examples
-- [OCM CLI Reference]({{< relref "/docs/reference/ocm-cli" >}}) - Complete command-line options
+- [OCM CLI Reference]({{< relref "docs/reference/ocm-cli/_index.md" >}}) - Complete command-line options

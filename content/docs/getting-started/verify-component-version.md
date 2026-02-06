@@ -1,6 +1,5 @@
 ---
 title: "Verify Component Versions"
-url: "docs/getting-started/verify-component-version/"
 description: "Learn how to verify signed component versions using public keys."
 icon: "🔍"
 weight: 27
@@ -11,7 +10,7 @@ Verifying a component version ensures that a signature was created by a trusted 
 
 ## Prerequisites
 
-- [Install the OCM CLI]({{< relref "ocm-cli-installation" >}}).
+- [Install the OCM CLI]({{< relref "ocm-cli-installation.md" >}}).
 - You need a signed component version and the public key for the signature. The following examples use the signed component version from the [Sign Component Versions]({{< relref "sign-component-version.md" >}}) guide.
 
 ## Minimal .ocmconfig for Verification
@@ -143,4 +142,4 @@ ocm verify cv --signature prod transport-archive//github.com/acme.org/helloworld
 
 **Need more help?**
 
-- See [Troubleshooting]({{< relref "/docs/tutorials/signing-and-verification#troubleshooting" >}}).
+- See [Troubleshooting]({{< relref "docs/tutorials/signing-and-verification.md#troubleshooting" >}}).

@@ -3,7 +3,6 @@ title : "OCM Coordinates"
 description: "Discover how OCM components and artifacts are identified."
 icon: "🧭"
 weight: 42
-url: docs/concepts/ocm-coordinates
 toc: true
 ---
 
