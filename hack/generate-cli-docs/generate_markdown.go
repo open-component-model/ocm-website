@@ -14,12 +14,12 @@ import (
 	"ocm.software/ocm/api/utils/cobrautils"
 )
 
+// Defines the shared frontmatter template for generated CLI docs.
 const fmTmpl = `---
 title: %s
 name: %s
 url: %s
 draft: false
-images: []
 weight: 55
 toc: true
 sidebar:
@@ -27,14 +27,15 @@ sidebar:
 ---
 `
 
-func genMarkdownTreeCustom(cmd *cobra.Command, dir, urlPrefix, parentCmd string) error {
+// Walks the CLI command tree and writes markdown pages for each command.
+func genMarkdownTreeCustom(cmd *cobra.Command, dir, parentCmd string, cmdToLink map[string]string) error {
 	for _, c := range cmd.Commands() {
 		if !c.IsAvailableCommand() && !c.IsAdditionalHelpTopicCommand() {
 			continue
 		}
 
 		parent := commandToID(c.Parent().CommandPath())
-		if err := genMarkdownTreeCustom(c, dir, urlPrefix, parent); err != nil {
+		if err := genMarkdownTreeCustom(c, dir, parent, cmdToLink); err != nil {
 			return err
 		}
 	}
@@ -78,26 +79,23 @@ func genMarkdownTreeCustom(cmd *cobra.Command, dir, urlPrefix, parentCmd string)
 	}
 	defer f.Close()
 
-	linkHandler := func(path string) string {
-		return cmdToLink[path]
-	}
-
+	// Builds the page frontmatter for this command.
 	frontmatter := func() string {
 		cmdName := commandToID(cmd.Name())
 		title := strings.TrimSuffix(cmdName, path.Ext(cmdName))
 		var url, name string
 		if cmd.IsAdditionalHelpTopicCommand() {
-			url = urlPrefix + "help/" + strings.ToLower(title) + "/"
+			url = "docs/reference/ocm-cli/help/" + strings.ToLower(title) + "/"
 			name = title
 		} else if cmdName == "ocm-cli" {
-			url = urlPrefix
+			url = "docs/reference/ocm-cli/"
 			title = "OCM CLI"
 			name = "OCM CLI"
 		} else if parentCmd == "ocm-cli" {
-			url = urlPrefix + strings.ToLower(title) + "/"
+			url = "docs/reference/ocm-cli/" + strings.ToLower(title) + "/"
 			name = title
 		} else {
-			url = urlPrefix + parentCmd + "/" + strings.ToLower(title) + "/"
+			url = "docs/reference/ocm-cli/" + parentCmd + "/" + strings.ToLower(title) + "/"
 			name = fmt.Sprintf("%s %s", parentCmd, title)
 		}
 		return fmt.Sprintf(fmTmpl, title, name, url)
@@ -107,14 +105,15 @@ func genMarkdownTreeCustom(cmd *cobra.Command, dir, urlPrefix, parentCmd string)
 		return err
 	}
 
-	if err := genMarkdownCustom(cmd, f, linkHandler); err != nil {
+	if err := genMarkdownCustom(cmd, f, cmdToLink); err != nil {
 		return err
 	}
 
 	return nil
 }
 
-func genMarkdownCustom(cmd *cobra.Command, w io.Writer, linkHandler func(string) string) error {
+// Renders the markdown body for a single command.
+func genMarkdownCustom(cmd *cobra.Command, w io.Writer, cmdToLink map[string]string) error {
 	cmd.InitDefaultHelpCmd()
 	cmd.InitDefaultHelpFlag()
 
@@ -192,7 +191,7 @@ func genMarkdownCustom(cmd *cobra.Command, w io.Writer, linkHandler func(string)
 				subheader = true
 			}
 			cname := name + " " + "<b>" + child.Name() + "</b>"
-			buf.WriteString(fmt.Sprintf("* [%s](%s)\t &mdash; %s\n", cname, "/docs/reference/ocm-cli/help/"+child.Name(), child.Short))
+			buf.WriteString(fmt.Sprintf("* [%s](%s)\t &mdash; %s\n", cname, cmdToLink[child.CommandPath()], child.Short))
 		}
 		if subheader {
 			buf.WriteString("\n")
@@ -205,6 +204,7 @@ func genMarkdownCustom(cmd *cobra.Command, w io.Writer, linkHandler func(string)
 	return err
 }
 
+// Writes the options section for a command, including inherited flags.
 func printOptions(buf *bytes.Buffer, cmd *cobra.Command) error {
 	flags := cmd.NonInheritedFlags()
 
@@ -229,6 +229,7 @@ func printOptions(buf *bytes.Buffer, cmd *cobra.Command) error {
 	return nil
 }
 
+// Builds a formatted usage line for the command.
 func useLine(c *cobra.Command) string {
 	useline := c.Use
 	if !strings.Contains(useline, " ") {
@@ -259,6 +260,7 @@ func useLine(c *cobra.Command) string {
 	return useline
 }
 
+// Normalizes a command path into a stable page identifier.
 func commandToID(command string) string {
 	if command == "ocm" {
 		return "ocm-cli"
@@ -266,6 +268,7 @@ func commandToID(command string) string {
 	return strings.TrimPrefix(strings.Replace(command, " ", "_", -1), "ocm_")
 }
 
+// Normalizes a command path into its directory name.
 func commandToDir(command string) string {
 	return strings.TrimPrefix(strings.Replace(command, " ", "-", -1), "ocm-")
 }
