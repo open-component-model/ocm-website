@@ -9,7 +9,8 @@ import (
 	"strings"
 )
 
-func genIndexForRootHelpTopics(dir string, urlBase string) (err error) {
+// Builds the root help index page for additional topics.
+func genIndexForRootHelpTopics(dir string) (err error) {
 	var topics []string
 	if err := filepath.Walk(dir, func(path string, info fs.FileInfo, err error) error {
 		if !info.IsDir() {
@@ -33,11 +34,12 @@ func genIndexForRootHelpTopics(dir string, urlBase string) (err error) {
 		}
 	}()
 
-	f.WriteString(fmt.Sprintf(fmTmpl, "help", "help", urlBase+"help"))
+	f.WriteString(fmt.Sprintf(fmTmpl, "help", "help", "docs/reference/ocm-cli/help/"))
 	f.WriteString("### Additional Topics\n\n")
 
 	for _, topic := range topics {
-		f.WriteString(fmt.Sprintf("* [%s](%shelp/%s/) &mdash; %s\n", topic, urlBase, topic, topic))
+		relref := toRelref(fmt.Sprintf("docs/reference/ocm-cli/help/%s.md", topic))
+		f.WriteString(fmt.Sprintf("* [%s](%s) &mdash; %s\n", topic, relref, topic))
 	}
 
 	return nil
