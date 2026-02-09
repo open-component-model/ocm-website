@@ -1,6 +1,5 @@
 ---
 title: "Sign Component Versions"
-url: "docs/getting-started/sign-component-version/"
 description: "Learn how to sign component versions using key pairs."
 icon: "✍️"
 weight: 26
@@ -11,7 +10,7 @@ Signing ensures the **authenticity** and **integrity** of component versions in 
 
 ## Prerequisites
 
-- [Install the OCM CLI]({{< relref "ocm-cli-installation" >}}).
+- [Install the OCM CLI]({{< relref "ocm-cli-installation.md" >}}).
 - Get a key pair (private + public key). Don't have a key pair yet? Follow our guide: [Key Pair Generation]({{< relref "signing-and-verification.md#key-pair-generation" >}}).
 - To follow the examples, you need the component version from the  guide [Create and Examine Component Versions]({{< relref "create-component-version.md" >}}).
 
@@ -179,5 +178,5 @@ See the [Multi-Environment Configuration]({{< relref "signing-and-verification.m
 
 ## Troubleshooting
 
-For support with common issues, see the [Troubleshooting]({{< relref "/docs/tutorials/signing-and-verification#troubleshooting" >}})
+For support with common issues, see the [Troubleshooting]({{< relref "signing-and-verification.md#troubleshooting" >}})
 section of the Signing and Verification guide.

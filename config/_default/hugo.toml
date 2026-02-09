@@ -9,9 +9,8 @@ enableGitInfo = false
 enableRobotsTXT = true
 languageCode = "en-US"
 rssLimit = 10
-summarylength = 20 # 70 (default)
+summarylength = 20
 
-# Multilingual
 defaultContentLanguage = "en"
 disableLanguages = ["de", "nl"]
 defaultContentLanguageInSubdir = false
@@ -45,7 +44,6 @@ defaultContentVersion = "legacy"
   isPlainText = true
   notAlternative = true
 
-# Add output format for section sitemap.xml
 [outputFormats.SITEMAP]
   mediaType = "application/xml"
   baseName = "sitemap"
@@ -95,15 +93,6 @@ defaultContentVersion = "legacy"
   hint = "photo"
   quality = 85
   resampleFilter = "Lanczos"
-
-# Versions (Hugo >= 0.153.0)
-# Render the default version into its own subdirectory (e.g., /0.1.0/ when defaultContentVersion = "0.1.0")
-defaultContentVersionInSubdir = false
-
-# Default version is marked as "default" in version switcher. When holding a valid SemVer Hugo builds it into
-# the root of the website. BUT as long as we have non-SemVer version names, we have to rely on a "weight" attribute for every version.
-# Once we are on OCM v2, the latest release will become the new defaultContentVersion. "dev" will then get weight 1 to be listed first.
-defaultContentVersion = "legacy"
 
 [versions]
   [versions."legacy"]

@@ -6,7 +6,7 @@ weight: 56
 toc: true
 ---
 
-The [OCM Components]({{< relref "docs/concepts/ocm-controllers.md#concept" >}}) page and the [Deploy a Helm Chart]({{< relref "docs/getting-started/deploy-helm-chart.md" >}}) guide showed a basic example of how to deploy a Helm chart from an OCM component.
+The [OCM Components]({{< relref "ocm-controllers.md#concept" >}}) page and the [Deploy a Helm Chart]({{< relref "deploy-helm-chart.md" >}}) guide showed a basic example of how to deploy a Helm chart from an OCM component.
 By defining a `ResourceGraphDefinition` that contains all the required resources to deploy the Helm chart into a
 Kubernetes cluster.
 
@@ -155,7 +155,7 @@ After applying the `ResourceGraphDefinition`, kro will reconcile it and create a
 Finally, we will check if the deployment was successful and if the localization was applied correctly.
 
 {{<callout context="note">}}
-Before starting, make sure you have set up your environment as described in the [setup guide]({{< relref "setup.md" >}}).
+Before starting, make sure you have set up your environment as described in the [setup guide]({{< relref "setup-controller-environment.md" >}}).
 {{</callout>}}
 
 ## Create the OCM Component Version
@@ -163,8 +163,8 @@ Before starting, make sure you have set up your environment as described in the 
 First, we will create an OCM component version containing a Helm chart, the application image that is used in the Helm
 chart, and the `ResourceGraphDefinition` that contains all required resource to deploy the Helm chart and configure the
 localization. For this example, we will use the `podinfo` Helm chart and image, which is a simple web application that
-serves a pod information page. For more details on how to create an OCM component version, please refer to the
-[OCM documentation][ocm-doc].
+serves a pod information page. For more details on how to create an OCM component version, please refer to 
+[Create Component Versions]({{< relref "create-component-version.md" >}})
 
 To create the OCM component version, we will use the following `component-constructor.yaml` file:
 
@@ -300,7 +300,7 @@ controllers and FluxCDs `OCIRepository` (if the Helm chart is also stored in a p
 have to specify the `ocmConfig` field in the `Resource` resources and the `secretRef` field in the `OCIRepository`.
 
 If you want to use the same credentials for FluxCD and for the OCM controller resources, create a
-[Kubernetes secret of type `dockerconfigjson`]({{< relref "credentials.md#create-a-kubernetes-secret-of-type-dockerconfigjson-to-access-private-ocm-repositories" >}})
+[Kubernetes secret of type `dockerconfigjson`]({{< relref "configure-credentials-for-controllers.md#create-a-kubernetes-secret-of-type-dockerconfigjson-to-access-private-ocm-repositories" >}})
 and keep all the resources in the same namespace.
 {{</callout>}}
 
@@ -322,7 +322,7 @@ ocm transfer ctf --copy-resources ./ctf ghcr.io/<your-namespace>
 
 {{<callout context="note">}}
 If you are using a registry that requires authentication, you need to provide credentials for ocm. Please refer to
-the [OCM CLI credentials documentation][ocm-credentials] for more information on how to set up and use credentials.
+the [OCM CLI credentials documentation]({{< relref "creds-in-ocmconfig.md" >}}) for more information on how to set up and use credentials.
 {{</callout>}}
 
 If everything went well, you should see the following output:
@@ -448,7 +448,7 @@ spec:
 {{<callout context="note">}}
 Again, if your OCM component version is stored in a private registry, you need to provide credentials for the OCM controller resources to access the OCM repository. You can do so by specifying the `ocmConfig` field in the `Repository`,
 `Component`, `Resource`, and `Deployer` resources. For more information on how to set up credentials, please refer to
-the [OCM controller credentials guide]({{< relref "credentials.md" >}}).
+the [OCM controller credentials guide]({{< relref "configure-credentials-for-controllers.md" >}}).
 {{</callout>}}
 
 Afterwards, apply the `bootstrap.yaml` to the cluster:
@@ -493,7 +493,7 @@ private package. If so, you might see an error like the following:
 failed to list versions: failed to list tags: GET "https://ghcr.io/v2...": response status code 401: unauthorized: authentication required
 ```
 
-You can resolve this issue by making the package public or by [providing credentials]({{< relref "credentials.md" >}}) to the
+You can resolve this issue by making the package public or by [providing credentials]({{< relref "configure-credentials-for-controllers.md" >}}) to the
 respective resources.
 
 ### Create an Instance
@@ -557,6 +557,3 @@ By creating the required bootstrap-resources you bootstrapped the `ResourceGraph
 and created the resulting CRD.
 Finally, you created an instance of the CRD which deployed the Helm chart and configured the localization using the OCM
 controllers, kro, and FluxCD.
-
-[ocm-doc]: https://ocm.software/docs/getting-started/create-component-version/
-[ocm-credentials]: https://ocm.software/docs/tutorials/creds-in-ocmconfig/

@@ -1,6 +1,5 @@
 ---
 title: "Install the OCM CLI"
-url: "docs/getting-started/installation/"
 description: "Learn how to install the OCM CLI on various platforms."
 icon: "💻"
 weight: 22
@@ -136,15 +135,15 @@ Alternatively, you can use basic authentication. Create a file named `.ocmconfig
 type: generic.config.ocm.software/v1
 configurations:
 - type: credentials.config.ocm.software
-    consumers:
-      - identity:
-          type: ociRegistry
-          hostname: <YOUR-REGISTRY>/<YOUR-REPO> # e.g. ghcr.io/acme/acme
-        credentials:
-          - type: Credentials
-            properties:
-              username: <YOUR-USERNAME>
-              password: <YOUR-PASSWORD>
+  consumers:
+    - identity:
+        type: ociRegistry
+        hostname: <YOUR-REGISTRY>/<YOUR-REPO> # e.g. ghcr.io/acme/acme
+      credentials:
+        - type: Credentials
+          properties:
+            username: <YOUR-USERNAME>
+            password: <YOUR-PASSWORD>
 ```
 
 More information on how to deal with credentials can be found [in this guide]({{< relref "creds-in-ocmconfig.md" >}}) with many examples for different repository types.

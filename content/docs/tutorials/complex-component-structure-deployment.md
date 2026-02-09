@@ -3,7 +3,6 @@ title: "Structure Software Products with OCM"
 description: "Learn how to structure complex software products using OCM."
 icon: "🗂️"
 weight: 51
-url: "docs/tutorials/complex-component-structure-deployment/"
 toc: true
 ---
 
@@ -44,7 +43,7 @@ references, you could collect all artifacts belonging to this product version.
 
 ## Prerequisites
 
-We assume that you have already read the guides in the [Getting Started]({{< ref "docs/getting-started/_index.md" >}}) section, as this guide discusses a more complex scenario.
+We assume that you have already read the guides in the [Getting Started]({{< relref "docs/getting-started/_index.md" >}}) section, as this guide discusses a more complex scenario.
 
 ## Constructing the Component
 
