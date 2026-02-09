@@ -1,9 +1,8 @@
 ---
-title: get verified
-name: verified
+title: verified
+name: get verified
 url: docs/reference/ocm-cli/get/verified/
 draft: false
-images: []
 weight: 55
 toc: true
 sidebar:
@@ -50,5 +49,5 @@ $ ocm get verified -f verified.yaml acme.org/component -o yaml
 
 ### See Also
 
-* [ocm get](/docs/reference/ocm-cli/get/)	 &mdash; Get information about artifacts and components
+* [ocm get]({{< relref "docs/reference/ocm-cli/get/_index.md" >}})	 &mdash; Get information about artifacts and components
 

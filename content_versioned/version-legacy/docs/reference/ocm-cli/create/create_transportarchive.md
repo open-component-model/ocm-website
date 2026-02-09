@@ -1,9 +1,8 @@
 ---
-title: create transportarchive
-name: transportarchive
+title: transportarchive
+name: create transportarchive
 url: docs/reference/ocm-cli/create/transportarchive/
 draft: false
-images: []
 weight: 55
 toc: true
 sidebar:
@@ -32,5 +31,5 @@ to host artifact content or a tar/tgz file.
 
 ### See Also
 
-* [ocm create](/docs/reference/ocm-cli/create/)	 &mdash; Create transport or component archive
+* [ocm create]({{< relref "docs/reference/ocm-cli/create/_index.md" >}})	 &mdash; Create transport or component archive
 

@@ -3,7 +3,6 @@ title: create
 name: create
 url: docs/reference/ocm-cli/create/
 draft: false
-images: []
 weight: 55
 toc: true
 sidebar:
@@ -27,7 +26,7 @@ ocm create [<options>] <sub command> ...
 
 ##### Sub Commands
 
-* [ocm create <b>componentarchive</b>](/docs/reference/ocm-cli/create/componentarchive/)	 &mdash; (DEPRECATED) create new component archive
-* [ocm create <b>rsakeypair</b>](/docs/reference/ocm-cli/create/rsakeypair/)	 &mdash; create RSA public key pair
-* [ocm create <b>transportarchive</b>](/docs/reference/ocm-cli/create/transportarchive/)	 &mdash; create new OCI/OCM transport  archive
+* [ocm create <b>componentarchive</b>]({{< relref "docs/reference/ocm-cli/create/create_componentarchive.md" >}})	 &mdash; (DEPRECATED) create new component archive
+* [ocm create <b>rsakeypair</b>]({{< relref "docs/reference/ocm-cli/create/create_rsakeypair.md" >}})	 &mdash; create RSA public key pair
+* [ocm create <b>transportarchive</b>]({{< relref "docs/reference/ocm-cli/create/create_transportarchive.md" >}})	 &mdash; create new OCI/OCM transport  archive
 

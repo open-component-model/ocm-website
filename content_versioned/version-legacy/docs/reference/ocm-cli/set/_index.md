@@ -3,7 +3,6 @@ title: set
 name: set
 url: docs/reference/ocm-cli/set/
 draft: false
-images: []
 weight: 55
 toc: true
 sidebar:
@@ -27,5 +26,5 @@ ocm set [<options>] <sub command> ...
 
 ##### Sub Commands
 
-* [ocm set <b>pubsub</b>](/docs/reference/ocm-cli/set/pubsub/)	 &mdash; Set the pubsub spec for an ocm repository
+* [ocm set <b>pubsub</b>]({{< relref "docs/reference/ocm-cli/set/set_pubsub.md" >}})	 &mdash; Set the pubsub spec for an ocm repository
 

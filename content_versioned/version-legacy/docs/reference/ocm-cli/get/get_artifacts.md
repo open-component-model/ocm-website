@@ -1,9 +1,8 @@
 ---
-title: get artifacts
-name: artifacts
+title: artifacts
+name: get artifacts
 url: docs/reference/ocm-cli/get/artifacts/
 draft: false
-images: []
 weight: 55
 toc: true
 sidebar:
@@ -91,5 +90,5 @@ $ ocm get artifact ghcr.io/open-component-model/ocm/ocm.software/ocmcli/ocmcli-i
 
 ### See Also
 
-* [ocm get](/docs/reference/ocm-cli/get/)	 &mdash; Get information about artifacts and components
+* [ocm get]({{< relref "docs/reference/ocm-cli/get/_index.md" >}})	 &mdash; Get information about artifacts and components
 

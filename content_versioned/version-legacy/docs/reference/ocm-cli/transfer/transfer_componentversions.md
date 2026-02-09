@@ -1,9 +1,8 @@
 ---
-title: transfer componentversions
-name: componentversions
+title: componentversions
+name: transfer componentversions
 url: docs/reference/ocm-cli/transfer/componentversions/
 draft: false
-images: []
 weight: 55
 toc: true
 sidebar:
@@ -215,9 +214,12 @@ The uploader name may be a path expression with the following possibilities:
     
     sub namespace of the form <code>&lt;plugin name>/&lt;handler></code>
 
+  - <code>plugin/jfrog/JFrogHelm</code>: 
+    upload artifacts to JFrog HELM repositories by using the JFrog REST API.
 
 
-See [ocm ocm-uploadhandlers](/docs/reference/ocm-cli/help/ocm-uploadhandlers/) for further details on using
+
+See [ocm ocm-uploadhandlers]({{< relref "docs/reference/ocm-cli/help/ocm-uploadhandlers.md" >}}) for further details on using
 upload handlers.
 
 
@@ -253,5 +255,5 @@ $ ocm transfer components --latest --copy-resources --type directory ghcr.io/ope
 
 ### See Also
 
-* [ocm transfer](/docs/reference/ocm-cli/transfer/)	 &mdash; Transfer artifacts or components
+* [ocm transfer]({{< relref "docs/reference/ocm-cli/transfer/_index.md" >}})	 &mdash; Transfer artifacts or components
 

@@ -1,9 +1,8 @@
 ---
-title: download cli
-name: cli
+title: cli
+name: download cli
 url: docs/reference/ocm-cli/download/cli/
 draft: false
-images: []
 weight: 55
 toc: true
 sidebar:
@@ -106,5 +105,5 @@ specifying a verification file with <code>--verified</code>.
 
 ### See Also
 
-* [ocm download](/docs/reference/ocm-cli/download/)	 &mdash; Download oci artifacts, resources or complete components
+* [ocm download]({{< relref "docs/reference/ocm-cli/download/_index.md" >}})	 &mdash; Download oci artifacts, resources or complete components
 

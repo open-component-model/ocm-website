@@ -1,9 +1,8 @@
 ---
-title: download componentversions
-name: componentversions
+title: componentversions
+name: download componentversions
 url: docs/reference/ocm-cli/download/componentversions/
 draft: false
-images: []
 weight: 55
 toc: true
 sidebar:
@@ -86,5 +85,5 @@ The default format is <code>directory</code>.
 
 ### See Also
 
-* [ocm download](/docs/reference/ocm-cli/download/)	 &mdash; Download oci artifacts, resources or complete components
+* [ocm download]({{< relref "docs/reference/ocm-cli/download/_index.md" >}})	 &mdash; Download oci artifacts, resources or complete components
 

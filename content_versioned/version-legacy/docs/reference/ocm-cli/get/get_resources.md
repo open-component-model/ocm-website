@@ -1,9 +1,8 @@
 ---
-title: get resources
-name: resources
+title: resources
+name: get resources
 url: docs/reference/ocm-cli/get/resources/
 draft: false
-images: []
 weight: 55
 toc: true
 sidebar:
@@ -111,5 +110,5 @@ The following modes are supported:
 
 ### See Also
 
-* [ocm get](/docs/reference/ocm-cli/get/)	 &mdash; Get information about artifacts and components
+* [ocm get]({{< relref "docs/reference/ocm-cli/get/_index.md" >}})	 &mdash; Get information about artifacts and components
 

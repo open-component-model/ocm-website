@@ -3,7 +3,6 @@ title: configfile
 name: configfile
 url: docs/reference/ocm-cli/help/configfile/
 draft: false
-images: []
 weight: 55
 toc: true
 sidebar:
@@ -93,7 +92,7 @@ The following configuration types are supported:
   </pre>
 - <code>downloader.ocm.config.ocm.software</code>
   The config type <code>downloader.ocm.config.ocm.software</code> can be used to define a list
-  of preconfigured download handler registrations (see [ocm ocm-downloadhandlers](/docs/reference/ocm-cli/help/ocm-downloadhandlers/)),
+  of preconfigured download handler registrations (see [ocm ocm-downloadhandlers]({{< relref "docs/reference/ocm-cli/help/ocm-downloadhandlers.md" >}})),
   the default priority is 200:
   
   <pre>
@@ -371,7 +370,7 @@ The following configuration types are supported:
   </pre>
 - <code>uploader.ocm.config.ocm.software</code>
   The config type <code>uploader.ocm.config.ocm.software</code> can be used to define a list
-  of preconfigured upload handler registrations (see [ocm ocm-uploadhandlers](/docs/reference/ocm-cli/help/ocm-uploadhandlers/)),
+  of preconfigured upload handler registrations (see [ocm ocm-uploadhandlers]({{< relref "docs/reference/ocm-cli/help/ocm-uploadhandlers.md" >}})),
   the default priority is 200:
   
   <pre>

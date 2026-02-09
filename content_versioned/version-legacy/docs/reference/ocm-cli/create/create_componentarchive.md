@@ -1,9 +1,8 @@
 ---
-title: create componentarchive
-name: componentarchive
+title: componentarchive
+name: create componentarchive
 url: docs/reference/ocm-cli/create/componentarchive/
 draft: false
-images: []
 weight: 55
 toc: true
 sidebar:
@@ -62,5 +61,5 @@ $ ocm create componentarchive --file myfirst --provider acme.org --provider emai
 
 ### See Also
 
-* [ocm create](/docs/reference/ocm-cli/create/)	 &mdash; Create transport or component archive
+* [ocm create]({{< relref "docs/reference/ocm-cli/create/_index.md" >}})	 &mdash; Create transport or component archive
 

@@ -3,7 +3,6 @@ title: ocm-accessmethods
 name: ocm-accessmethods
 url: docs/reference/ocm-cli/help/ocm-accessmethods/
 draft: false
-images: []
 weight: 55
 toc: true
 sidebar:
@@ -103,7 +102,7 @@ shown below.
       An optional keyring used to verify the chart.
     
     It uses the consumer identity type HelmChartRepository with the fields
-    for a hostpath identity matcher (see [ocm get credentials](/docs/reference/ocm-cli/get/credentials/)).
+    for a hostpath identity matcher (see [ocm get credentials]({{< relref "docs/reference/ocm-cli/get/get_credentials.md" >}})).
   
   Options used to configure fields: <code>--accessRepository</code>, <code>--accessVersion</code>, <code>--package</code>
   

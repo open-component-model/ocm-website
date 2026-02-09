@@ -1,9 +1,8 @@
 ---
-title: describe cache
-name: cache
+title: cache
+name: describe cache
 url: docs/reference/ocm-cli/describe/cache/
 draft: false
-images: []
 weight: 55
 toc: true
 sidebar:
@@ -37,5 +36,5 @@ $ ocm cache info
 
 ### See Also
 
-* [ocm describe](/docs/reference/ocm-cli/describe/)	 &mdash; Describe various elements by using appropriate sub commands.
+* [ocm describe]({{< relref "docs/reference/ocm-cli/describe/_index.md" >}})	 &mdash; Describe various elements by using appropriate sub commands.
 

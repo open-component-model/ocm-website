@@ -3,7 +3,6 @@ title: OCM CLI
 name: OCM CLI
 url: docs/reference/ocm-cli/
 draft: false
-images: []
 weight: 55
 toc: true
 sidebar:
@@ -47,7 +46,7 @@ It can be used in two ways:
 
 The command accepts some top level options, they can only be given before the sub commands.
 
-A configuration according to [ocm configfile](/docs/reference/ocm-cli/help/configfile/) is read from a <code>.ocmconfig</code> file
+A configuration according to [ocm configfile]({{< relref "docs/reference/ocm-cli/help/configfile.md" >}}) is read from a <code>.ocmconfig</code> file
 located in the <code>HOME</code> directory. With the option <code>--config</code> other
 file locations can be specified. If nothing is specified and no file is found at the default
 location a default configuration is composed according to known type specific
@@ -98,7 +97,7 @@ form
 </center>
 
 The <code>--log*</code> options can be used to configure the logging behaviour.
-For details see [ocm logging](docs/reference/ocm-cli/help/logging/).
+For details see [ocm logging]({{< relref "docs/reference/ocm-cli/help/logging.md" >}}).
 
 There is a quick config option <code>--logkeys</code> to configure simple
 tag/realm based condition rules. The comma-separated names build an AND rule.
@@ -110,7 +109,7 @@ realm is affected. For example <code>/+ocm=trace</code> will enable all log outp
 OCM library.
 
 A tag directly matches the logging tags. Used tags and realms can be found under
-topic [ocm logging](docs/reference/ocm-cli/help/logging/). The ocm coding basically uses the realm <code>ocm</code>.
+topic [ocm logging]({{< relref "docs/reference/ocm-cli/help/logging.md" >}}). The ocm coding basically uses the realm <code>ocm</code>.
 The default level to enable is <code>info</code>. Separated by an equal sign (<code>=</code>)
 optionally a dedicated level can be specified. Log levels can be (<code>error</code>,
 <code>warn</code>, <code>info</code>, <code>debug</code> and <code>trace</code>.
@@ -120,7 +119,7 @@ logging configuration (yaml/json) via command line. If the argument starts with
 an <code>@</code>, the logging configuration is taken from a file.
 
 The value can be a simple type or a JSON/YAML string for complex values
-(see [ocm attributes](docs/reference/ocm-cli/help/attributes/)). The following attributes are supported:
+(see [ocm attributes]({{< relref "docs/reference/ocm-cli/help/attributes.md" >}})). The following attributes are supported:
 - <code>github.com/mandelsoft/logforward</code> [<code>logfwd</code>]: *logconfig* Logging config structure used for config forwarding
 
   This attribute is used to specify a logging configuration intended
@@ -369,34 +368,34 @@ by a certificate delivered with the signature.
 
 ##### Sub Commands
 
-* [ocm <b>add</b>](docs/reference/ocm-cli/add/)	 &mdash; Add elements to a component repository or component version
-* [ocm <b>check</b>](docs/reference/ocm-cli/check/)	 &mdash; check components in OCM repository
-* [ocm <b>clean</b>](docs/reference/ocm-cli/clean/)	 &mdash; Cleanup/re-organize elements
-* [ocm <b>create</b>](docs/reference/ocm-cli/create/)	 &mdash; Create transport or component archive
-* [ocm <b>describe</b>](docs/reference/ocm-cli/describe/)	 &mdash; Describe various elements by using appropriate sub commands.
-* [ocm <b>download</b>](docs/reference/ocm-cli/download/)	 &mdash; Download oci artifacts, resources or complete components
-* [ocm <b>get</b>](docs/reference/ocm-cli/get/)	 &mdash; Get information about artifacts and components
-* [ocm <b>list</b>](docs/reference/ocm-cli/list/)	 &mdash; List information about components
-* [ocm <b>set</b>](docs/reference/ocm-cli/set/)	 &mdash; Set information about OCM repositories
-* [ocm <b>show</b>](docs/reference/ocm-cli/show/)	 &mdash; Show tags or versions
-* [ocm <b>sign</b>](docs/reference/ocm-cli/sign/)	 &mdash; Sign components or hashes
-* [ocm <b>transfer</b>](docs/reference/ocm-cli/transfer/)	 &mdash; Transfer artifacts or components
-* [ocm <b>verify</b>](docs/reference/ocm-cli/verify/)	 &mdash; Verify component version signatures
+* [ocm <b>add</b>]({{< relref "docs/reference/ocm-cli/add/_index.md" >}})	 &mdash; Add elements to a component repository or component version
+* [ocm <b>check</b>]({{< relref "docs/reference/ocm-cli/check/_index.md" >}})	 &mdash; check components in OCM repository
+* [ocm <b>clean</b>]({{< relref "docs/reference/ocm-cli/clean/_index.md" >}})	 &mdash; Cleanup/re-organize elements
+* [ocm <b>create</b>]({{< relref "docs/reference/ocm-cli/create/_index.md" >}})	 &mdash; Create transport or component archive
+* [ocm <b>describe</b>]({{< relref "docs/reference/ocm-cli/describe/_index.md" >}})	 &mdash; Describe various elements by using appropriate sub commands.
+* [ocm <b>download</b>]({{< relref "docs/reference/ocm-cli/download/_index.md" >}})	 &mdash; Download oci artifacts, resources or complete components
+* [ocm <b>get</b>]({{< relref "docs/reference/ocm-cli/get/_index.md" >}})	 &mdash; Get information about artifacts and components
+* [ocm <b>list</b>]({{< relref "docs/reference/ocm-cli/list/_index.md" >}})	 &mdash; List information about components
+* [ocm <b>set</b>]({{< relref "docs/reference/ocm-cli/set/_index.md" >}})	 &mdash; Set information about OCM repositories
+* [ocm <b>show</b>]({{< relref "docs/reference/ocm-cli/show/_index.md" >}})	 &mdash; Show tags or versions
+* [ocm <b>sign</b>]({{< relref "docs/reference/ocm-cli/sign/_index.md" >}})	 &mdash; Sign components or hashes
+* [ocm <b>transfer</b>]({{< relref "docs/reference/ocm-cli/transfer/_index.md" >}})	 &mdash; Transfer artifacts or components
+* [ocm <b>verify</b>]({{< relref "docs/reference/ocm-cli/verify/_index.md" >}})	 &mdash; Verify component version signatures
 
 
 
 ##### Additional Help Topics
 
-* [ocm <b>attributes</b>](docs/reference/ocm-cli/help/attributes)	 &mdash; configuration attributes used to control the behaviour
-* [ocm <b>configfile</b>](docs/reference/ocm-cli/help/configfile)	 &mdash; configuration file
-* [ocm <b>credential-handling</b>](docs/reference/ocm-cli/help/credential-handling)	 &mdash; Provisioning of credentials for credential consumers
-* [ocm <b>logging</b>](docs/reference/ocm-cli/help/logging)	 &mdash; Configured logging keys
-* [ocm <b>oci-references</b>](docs/reference/ocm-cli/help/oci-references)	 &mdash; notation for OCI references
-* [ocm <b>ocm-accessmethods</b>](docs/reference/ocm-cli/help/ocm-accessmethods)	 &mdash; List of all supported access methods
-* [ocm <b>ocm-downloadhandlers</b>](docs/reference/ocm-cli/help/ocm-downloadhandlers)	 &mdash; List of all available download handlers
-* [ocm <b>ocm-labels</b>](docs/reference/ocm-cli/help/ocm-labels)	 &mdash; Labels and Label Merging
-* [ocm <b>ocm-pubsub</b>](docs/reference/ocm-cli/help/ocm-pubsub)	 &mdash; List of all supported publish/subscribe implementations
-* [ocm <b>ocm-references</b>](docs/reference/ocm-cli/help/ocm-references)	 &mdash; notation for OCM references
-* [ocm <b>ocm-uploadhandlers</b>](docs/reference/ocm-cli/help/ocm-uploadhandlers)	 &mdash; List of all available upload handlers
-* [ocm <b>toi-bootstrapping</b>](/docs/reference/ocm-cli/help/toi-bootstrapping)	 &mdash; Tiny OCM Installer based on component versions
+* [ocm <b>attributes</b>]({{< relref "docs/reference/ocm-cli/help/attributes.md" >}})	 &mdash; configuration attributes used to control the behaviour
+* [ocm <b>configfile</b>]({{< relref "docs/reference/ocm-cli/help/configfile.md" >}})	 &mdash; configuration file
+* [ocm <b>credential-handling</b>]({{< relref "docs/reference/ocm-cli/help/credential-handling.md" >}})	 &mdash; Provisioning of credentials for credential consumers
+* [ocm <b>logging</b>]({{< relref "docs/reference/ocm-cli/help/logging.md" >}})	 &mdash; Configured logging keys
+* [ocm <b>oci-references</b>]({{< relref "docs/reference/ocm-cli/help/oci-references.md" >}})	 &mdash; notation for OCI references
+* [ocm <b>ocm-accessmethods</b>]({{< relref "docs/reference/ocm-cli/help/ocm-accessmethods.md" >}})	 &mdash; List of all supported access methods
+* [ocm <b>ocm-downloadhandlers</b>]({{< relref "docs/reference/ocm-cli/help/ocm-downloadhandlers.md" >}})	 &mdash; List of all available download handlers
+* [ocm <b>ocm-labels</b>]({{< relref "docs/reference/ocm-cli/help/ocm-labels.md" >}})	 &mdash; Labels and Label Merging
+* [ocm <b>ocm-pubsub</b>]({{< relref "docs/reference/ocm-cli/help/ocm-pubsub.md" >}})	 &mdash; List of all supported publish/subscribe implementations
+* [ocm <b>ocm-references</b>]({{< relref "docs/reference/ocm-cli/help/ocm-references.md" >}})	 &mdash; notation for OCM references
+* [ocm <b>ocm-uploadhandlers</b>]({{< relref "docs/reference/ocm-cli/help/ocm-uploadhandlers.md" >}})	 &mdash; List of all available upload handlers
+* [ocm <b>toi-bootstrapping</b>]({{< relref "docs/reference/ocm-cli/help/toi-bootstrapping.md" >}})	 &mdash; Tiny OCM Installer based on component versions
 

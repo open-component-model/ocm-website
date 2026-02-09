@@ -1,9 +1,8 @@
 ---
-title: add references
-name: references
+title: references
+name: add references
 url: docs/reference/ocm-cli/add/references/
 draft: false
-images: []
 weight: 55
 toc: true
 sidebar:
@@ -178,5 +177,5 @@ $ ocm add references  path/to/ca  references.yaml VERSION=1.0.0
 
 ### See Also
 
-* [ocm add](/docs/reference/ocm-cli/add/)	 &mdash; Add elements to a component repository or component version
+* [ocm add]({{< relref "docs/reference/ocm-cli/add/_index.md" >}})	 &mdash; Add elements to a component repository or component version
 

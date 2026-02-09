@@ -1,9 +1,8 @@
 ---
-title: set pubsub
-name: pubsub
+title: pubsub
+name: set pubsub
 url: docs/reference/ocm-cli/set/pubsub/
 draft: false
-images: []
 weight: 55
 toc: true
 sidebar:
@@ -32,12 +31,12 @@ to set the pub/sub specification for a repository.
 If no specification is given an existing specification
 will be removed for the given repository.
 The specification
-can be queried with the [ocm get pubsub](/docs/reference/ocm-cli/get/pubsub/).
+can be queried with the [ocm get pubsub]({{< relref "docs/reference/ocm-cli/get/get_pubsub.md" >}}).
 Types and specification formats are shown for the topic
-[ocm ocm-pubsub](/docs/reference/ocm-cli/help/ocm-pubsub/).
+[ocm ocm-pubsub]({{< relref "docs/reference/ocm-cli/help/ocm-pubsub.md" >}}).
 
 
 ### See Also
 
-* [ocm set](/docs/reference/ocm-cli/set/)	 &mdash; Set information about OCM repositories
+* [ocm set]({{< relref "docs/reference/ocm-cli/set/_index.md" >}})	 &mdash; Set information about OCM repositories
 

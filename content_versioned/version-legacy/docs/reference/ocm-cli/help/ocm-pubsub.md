@@ -3,7 +3,6 @@ title: ocm-pubsub
 name: ocm-pubsub
 url: docs/reference/ocm-cli/help/ocm-pubsub/
 draft: false
-images: []
 weight: 55
 toc: true
 sidebar:
@@ -15,8 +14,8 @@ sidebar:
 An OCM repository can be configured to propagate change events via a 
 publish/subscribe system, if there is a persistence provider for the dedicated
 repository type. If available any known publish/subscribe system can
-be configured with [ocm set pubsub](/docs/reference/ocm-cli/set/pubsub/) and shown with
-[ocm get pubsub](/docs/reference/ocm-cli/get/pubsub/). Hereby, the pub/sub system 
+be configured with [ocm set pubsub]({{< relref "docs/reference/ocm-cli/set/set_pubsub.md" >}}) and shown with
+[ocm get pubsub]({{< relref "docs/reference/ocm-cli/get/get_pubsub.md" >}}). Hereby, the pub/sub system 
 is described by a typed specification.
 
 
