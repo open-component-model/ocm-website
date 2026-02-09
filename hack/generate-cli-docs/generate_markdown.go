@@ -2,7 +2,6 @@ package main
 
 import (
 	"bytes"
-	"errors"
 	"fmt"
 	"io"
 	"os"
@@ -29,7 +28,7 @@ sidebar:
 `
 
 // Walks the CLI command tree and writes markdown pages for each command.
-func genMarkdownTreeCustom(cmd *cobra.Command, dir, parentCmd string, cmdToLink map[string]string) (err error) {
+func genMarkdownTreeCustom(cmd *cobra.Command, dir, parentCmd string, cmdToLink map[string]string) error {
 	for _, c := range cmd.Commands() {
 		if !c.IsAvailableCommand() && !c.IsAdditionalHelpTopicCommand() {
 			continue
@@ -78,11 +77,7 @@ func genMarkdownTreeCustom(cmd *cobra.Command, dir, parentCmd string, cmdToLink 
 	if err != nil {
 		return err
 	}
-	defer func() {
-		if cerr := f.Close(); cerr != nil {
-			err = errors.Join(err, cerr)
-		}
-	}()
+	defer f.Close()
 
 	// Builds the page frontmatter for this command.
 	frontmatter := func() string {
@@ -124,9 +119,6 @@ func genMarkdownCustom(cmd *cobra.Command, w io.Writer, cmdToLink map[string]str
 
 	buf := new(bytes.Buffer)
 	name := cmd.CommandPath()
-	linkHandler := func(path string) string {
-		return cmdToLink[path]
-	}
 
 	if cmd.Runnable() || cmd.HasAvailableSubCommands() && name != "ocm" {
 		buf.WriteString("### Usage\n\n")
