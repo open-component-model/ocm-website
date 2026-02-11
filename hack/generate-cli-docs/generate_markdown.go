@@ -125,7 +125,7 @@ func genMarkdownCustom(cmd *cobra.Command, w io.Writer, cmdToLink map[string]str
 	buf := new(bytes.Buffer)
 	name := cmd.CommandPath()
 	linkHandler := func(path string) string {
-		return commandLink(path, cmdToLink)
+		return cmdToLink[path]
 	}
 
 	if cmd.Runnable() || cmd.HasAvailableSubCommands() && name != "ocm" {
@@ -279,9 +279,4 @@ func commandToID(command string) string {
 // Normalizes a command path into its directory name.
 func commandToDir(command string) string {
 	return strings.TrimPrefix(strings.Replace(command, " ", "-", -1), "ocm-")
-}
-
-// Resolves a command path to its generated markdown link.
-func commandLink(path string, cmdToLink map[string]string) string {
-	return cmdToLink[path]
 }
