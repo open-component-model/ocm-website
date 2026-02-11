@@ -1,4 +1,5 @@
 ---
+title: "Install the OCM CLI"
 description: "Learn how to install the OCM CLI on various platforms."
 icon: "💻"
 weight: 22
