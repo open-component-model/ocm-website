@@ -124,9 +124,8 @@ func genMarkdownCustom(cmd *cobra.Command, w io.Writer, cmdToLink map[string]str
 
 	buf := new(bytes.Buffer)
 	name := cmd.CommandPath()
-	linkHandler := func(path string) string {
-		return commandLink(path, cmdToLink)
-	}
+	links := commandLinks(cmdToLink)
+	linkHandler := links.handler
 
 	if cmd.Runnable() || cmd.HasAvailableSubCommands() && name != "ocm" {
 		buf.WriteString("### Usage\n\n")
@@ -199,7 +198,7 @@ func genMarkdownCustom(cmd *cobra.Command, w io.Writer, cmdToLink map[string]str
 				subheader = true
 			}
 			cname := name + " " + "<b>" + child.Name() + "</b>"
-			buf.WriteString(fmt.Sprintf("* [%s](%s)\t &mdash; %s\n", cname, cmdToLink[child.CommandPath()], child.Short))
+			buf.WriteString(fmt.Sprintf("* [%s](%s)\t &mdash; %s\n", cname, linkHandler(child.CommandPath()), child.Short))
 		}
 		if subheader {
 			buf.WriteString("\n")
@@ -281,7 +280,10 @@ func commandToDir(command string) string {
 	return strings.TrimPrefix(strings.Replace(command, " ", "-", -1), "ocm-")
 }
 
+// Provides a named handler for command path link lookups.
+type commandLinks map[string]string
+
 // Resolves a command path to its generated markdown link.
-func commandLink(path string, cmdToLink map[string]string) string {
-	return cmdToLink[path]
+func (links commandLinks) handler(path string) string {
+	return links[path]
 }
