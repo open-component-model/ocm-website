@@ -86,7 +86,7 @@
  
 
 
-&lt;a href="https://ocm.software/dev/docs/getting-started/deploy-a-helm-chart/"&gt;Deploy a Helm Chart&lt;/a&gt; guide. You will create a local Kubernetes cluster with kind and then install kro, Flux, and the OCM controllers.&lt;/p&gt;</description></item><item><title>Deploy a Helm Chart</title><link>https://ocm.software/dev/docs/getting-started/deploy-a-helm-chart/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/dev/docs/getting-started/deploy-a-helm-chart/</guid><description>&lt;p&gt;This guide demonstrates how to deploy a Helm chart from an OCM component version using OCM controllers, 
+&lt;a href="https://ocm.software/dev/docs/getting-started/deploy-helm-charts/"&gt;Deploy a Helm Chart&lt;/a&gt; guide. You will create a local Kubernetes cluster with kind and then install kro, Flux, and the OCM controllers.&lt;/p&gt;</description></item><item><title>Deploy Helm Charts</title><link>https://ocm.software/dev/docs/getting-started/deploy-helm-charts/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/dev/docs/getting-started/deploy-helm-charts/</guid><description>&lt;p&gt;This guide demonstrates how to deploy a Helm chart from an OCM component version using OCM controllers, 
 
 
 

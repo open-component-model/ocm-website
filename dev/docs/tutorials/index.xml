@@ -267,6 +267,6 @@ This guide covers the complete signing and verification workflow, from key pair 
  
 
 
-&lt;a href="https://ocm.software/dev/docs/getting-started/deploy-a-helm-chart/"&gt;Deploy a Helm Chart&lt;/a&gt; guide showed a basic example of how to deploy a Helm chart from an OCM component.
+&lt;a href="https://ocm.software/dev/docs/getting-started/deploy-helm-charts/"&gt;Deploy a Helm Chart&lt;/a&gt; guide showed a basic example of how to deploy a Helm chart from an OCM component.
 By defining a &lt;code&gt;ResourceGraphDefinition&lt;/code&gt; that contains all the required resources to deploy the Helm chart into a
 Kubernetes cluster.&lt;/p&gt;</description></item></channel></rss>

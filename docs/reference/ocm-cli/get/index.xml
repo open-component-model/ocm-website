@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>get on Open Component Model</title><link>https://ocm.software/docs/reference/ocm-cli/get/</link><description>Recent content in get on Open Component Model</description><generator>Hugo</generator><language>en-US</language><atom:link href="https://ocm.software/docs/reference/ocm-cli/get/index.xml" rel="self" type="application/rss+xml"/><item><title>get artifacts</title><link>https://ocm.software/docs/reference/ocm-cli/get/artifacts/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/get/artifacts/</guid><description>&lt;h3 id="usage"&gt;Usage&lt;/h3&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>get on Open Component Model</title><link>https://ocm.software/docs/reference/ocm-cli/get/</link><description>Recent content in get on Open Component Model</description><generator>Hugo</generator><language>en-US</language><atom:link href="https://ocm.software/docs/reference/ocm-cli/get/index.xml" rel="self" type="application/rss+xml"/><item><title>artifacts</title><link>https://ocm.software/docs/reference/ocm-cli/get/artifacts/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/get/artifacts/</guid><description>&lt;h3 id="usage"&gt;Usage&lt;/h3&gt;
 
 
 
@@ -29,7 +29,7 @@
 &lt;/div&gt;
 &lt;h3 id="description"&gt;Description&lt;/h3&gt;
 &lt;p&gt;Get lists all artifact versions specified, if only a repository is specified
-all tagged artifacts are listed.&lt;/p&gt;</description></item><item><title>get componentversions</title><link>https://ocm.software/docs/reference/ocm-cli/get/componentversions/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/get/componentversions/</guid><description>&lt;h3 id="usage"&gt;Usage&lt;/h3&gt;
+all tagged artifacts are listed.&lt;/p&gt;</description></item><item><title>componentversions</title><link>https://ocm.software/docs/reference/ocm-cli/get/componentversions/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/get/componentversions/</guid><description>&lt;h3 id="usage"&gt;Usage&lt;/h3&gt;
 
 
 
@@ -63,7 +63,7 @@ all tagged artifacts are listed.&lt;/p&gt;</description></item><item><title>get 
 &lt;/div&gt;
 &lt;h3 id="description"&gt;Description&lt;/h3&gt;
 &lt;p&gt;Get lists all component versions specified, if only a component is specified
-all versions are listed.&lt;/p&gt;</description></item><item><title>get config</title><link>https://ocm.software/docs/reference/ocm-cli/get/config/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/get/config/</guid><description>&lt;h3 id="usage"&gt;Usage&lt;/h3&gt;
+all versions are listed.&lt;/p&gt;</description></item><item><title>config</title><link>https://ocm.software/docs/reference/ocm-cli/get/config/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/get/config/</guid><description>&lt;h3 id="usage"&gt;Usage&lt;/h3&gt;
 
 
 
@@ -92,7 +92,7 @@ all versions are listed.&lt;/p&gt;</description></item><item><title>get config</
 &lt;h3 id="description"&gt;Description&lt;/h3&gt;
 &lt;p&gt;Evaluate the command line arguments and all explicitly
 or implicitly used configuration files and provide
-a single configuration object.&lt;/p&gt;</description></item><item><title>get credentials</title><link>https://ocm.software/docs/reference/ocm-cli/get/credentials/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/get/credentials/</guid><description>&lt;h3 id="usage"&gt;Usage&lt;/h3&gt;
+a single configuration object.&lt;/p&gt;</description></item><item><title>credentials</title><link>https://ocm.software/docs/reference/ocm-cli/get/credentials/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/get/credentials/</guid><description>&lt;h3 id="usage"&gt;Usage&lt;/h3&gt;
 
 
 
@@ -120,7 +120,7 @@ a single configuration object.&lt;/p&gt;</description></item><item><title>get cr
 &lt;/div&gt;
 &lt;h3 id="description"&gt;Description&lt;/h3&gt;
 &lt;p&gt;Try to resolve a given consumer specification against the configured credential
-settings and show the found credential attributes.&lt;/p&gt;</description></item><item><title>get plugins</title><link>https://ocm.software/docs/reference/ocm-cli/get/plugins/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/get/plugins/</guid><description>&lt;h3 id="usage"&gt;Usage&lt;/h3&gt;
+settings and show the found credential attributes.&lt;/p&gt;</description></item><item><title>plugins</title><link>https://ocm.software/docs/reference/ocm-cli/get/plugins/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/get/plugins/</guid><description>&lt;h3 id="usage"&gt;Usage&lt;/h3&gt;
 
 
 
@@ -148,7 +148,7 @@ settings and show the found credential attributes.&lt;/p&gt;</description></item
 &lt;/div&gt;
 &lt;h3 id="description"&gt;Description&lt;/h3&gt;
 &lt;p&gt;Get lists information for all plugins specified, if no plugin is specified
-all registered ones are listed.&lt;/p&gt;</description></item><item><title>get pubsub</title><link>https://ocm.software/docs/reference/ocm-cli/get/pubsub/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/get/pubsub/</guid><description>&lt;h3 id="usage"&gt;Usage&lt;/h3&gt;
+all registered ones are listed.&lt;/p&gt;</description></item><item><title>pubsub</title><link>https://ocm.software/docs/reference/ocm-cli/get/pubsub/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/get/pubsub/</guid><description>&lt;h3 id="usage"&gt;Usage&lt;/h3&gt;
 
 
 
@@ -189,7 +189,7 @@ can be set with the
  
 
 
-&lt;a href="https://ocm.software/docs/reference/ocm-cli/set/pubsub/"&gt;ocm set pubsub&lt;/a&gt;.&lt;/p&gt;</description></item><item><title>get references</title><link>https://ocm.software/docs/reference/ocm-cli/get/references/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/get/references/</guid><description>&lt;h3 id="usage"&gt;Usage&lt;/h3&gt;
+&lt;a href="https://ocm.software/docs/reference/ocm-cli/set/pubsub/"&gt;ocm set pubsub&lt;/a&gt;.&lt;/p&gt;</description></item><item><title>references</title><link>https://ocm.software/docs/reference/ocm-cli/get/references/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/get/references/</guid><description>&lt;h3 id="usage"&gt;Usage&lt;/h3&gt;
 
 
 
@@ -224,7 +224,7 @@ can be set with the
 &lt;p&gt;Get references of a component version. References are specified
 by identities. An identity consists of
 a name argument followed by optional &lt;code&gt;&amp;lt;key&amp;gt;=&amp;lt;value&amp;gt;&lt;/code&gt;
-arguments.&lt;/p&gt;</description></item><item><title>get resources</title><link>https://ocm.software/docs/reference/ocm-cli/get/resources/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/get/resources/</guid><description>&lt;h3 id="usage"&gt;Usage&lt;/h3&gt;
+arguments.&lt;/p&gt;</description></item><item><title>resources</title><link>https://ocm.software/docs/reference/ocm-cli/get/resources/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/get/resources/</guid><description>&lt;h3 id="usage"&gt;Usage&lt;/h3&gt;
 
 
 
@@ -259,7 +259,7 @@ arguments.&lt;/p&gt;</description></item><item><title>get resources</title><link
 &lt;p&gt;Get resources of a component version. Resources are specified
 by identities. An identity consists of
 a name argument followed by optional &lt;code&gt;&amp;lt;key&amp;gt;=&amp;lt;value&amp;gt;&lt;/code&gt;
-arguments.&lt;/p&gt;</description></item><item><title>get routingslips</title><link>https://ocm.software/docs/reference/ocm-cli/get/routingslips/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/get/routingslips/</guid><description>&lt;h3 id="usage"&gt;Usage&lt;/h3&gt;
+arguments.&lt;/p&gt;</description></item><item><title>routingslips</title><link>https://ocm.software/docs/reference/ocm-cli/get/routingslips/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/get/routingslips/</guid><description>&lt;h3 id="usage"&gt;Usage&lt;/h3&gt;
 
 
 
@@ -293,7 +293,7 @@ arguments.&lt;/p&gt;</description></item><item><title>get routingslips</title><l
  &lt;/figure&gt;
 &lt;/div&gt;
 &lt;h3 id="description"&gt;Description&lt;/h3&gt;
-&lt;p&gt;Get all or the selected routing slips for a component version specification.&lt;/p&gt;</description></item><item><title>get sources</title><link>https://ocm.software/docs/reference/ocm-cli/get/sources/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/get/sources/</guid><description>&lt;h3 id="usage"&gt;Usage&lt;/h3&gt;
+&lt;p&gt;Get all or the selected routing slips for a component version specification.&lt;/p&gt;</description></item><item><title>sources</title><link>https://ocm.software/docs/reference/ocm-cli/get/sources/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/get/sources/</guid><description>&lt;h3 id="usage"&gt;Usage&lt;/h3&gt;
 
 
 

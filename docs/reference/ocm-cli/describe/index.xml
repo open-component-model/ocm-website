@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>describe on Open Component Model</title><link>https://ocm.software/docs/reference/ocm-cli/describe/</link><description>Recent content in describe on Open Component Model</description><generator>Hugo</generator><language>en-US</language><atom:link href="https://ocm.software/docs/reference/ocm-cli/describe/index.xml" rel="self" type="application/rss+xml"/><item><title>describe artifacts</title><link>https://ocm.software/docs/reference/ocm-cli/describe/artifacts/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/describe/artifacts/</guid><description>&lt;h3 id="usage"&gt;Usage&lt;/h3&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>describe on Open Component Model</title><link>https://ocm.software/docs/reference/ocm-cli/describe/</link><description>Recent content in describe on Open Component Model</description><generator>Hugo</generator><language>en-US</language><atom:link href="https://ocm.software/docs/reference/ocm-cli/describe/index.xml" rel="self" type="application/rss+xml"/><item><title>artifacts</title><link>https://ocm.software/docs/reference/ocm-cli/describe/artifacts/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/describe/artifacts/</guid><description>&lt;h3 id="usage"&gt;Usage&lt;/h3&gt;
 
 
 
@@ -28,7 +28,7 @@
 &lt;h3 id="description"&gt;Description&lt;/h3&gt;
 &lt;p&gt;Describe lists all artifact versions specified, if only a repository is specified
 all tagged artifacts are listed.
-Per version a detailed, potentially recursive description is printed.&lt;/p&gt;</description></item><item><title>describe cache</title><link>https://ocm.software/docs/reference/ocm-cli/describe/cache/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/describe/cache/</guid><description>&lt;h3 id="usage"&gt;Usage&lt;/h3&gt;
+Per version a detailed, potentially recursive description is printed.&lt;/p&gt;</description></item><item><title>cache</title><link>https://ocm.software/docs/reference/ocm-cli/describe/cache/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/describe/cache/</guid><description>&lt;h3 id="usage"&gt;Usage&lt;/h3&gt;
 
 
 
@@ -53,7 +53,7 @@ Per version a detailed, potentially recursive description is printed.&lt;/p&gt;<
  &lt;/figure&gt;
 &lt;/div&gt;
 &lt;h3 id="description"&gt;Description&lt;/h3&gt;
-&lt;p&gt;Show details about the OCI blob cache (if given).&lt;/p&gt;</description></item><item><title>describe package</title><link>https://ocm.software/docs/reference/ocm-cli/describe/package/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/describe/package/</guid><description>&lt;h3 id="usage"&gt;Usage&lt;/h3&gt;
+&lt;p&gt;Show details about the OCI blob cache (if given).&lt;/p&gt;</description></item><item><title>package</title><link>https://ocm.software/docs/reference/ocm-cli/describe/package/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/describe/package/</guid><description>&lt;h3 id="usage"&gt;Usage&lt;/h3&gt;
 
 
 
@@ -80,7 +80,7 @@ Per version a detailed, potentially recursive description is printed.&lt;/p&gt;<
  &lt;/figure&gt;
 &lt;/div&gt;
 &lt;h3 id="description"&gt;Description&lt;/h3&gt;
-&lt;p&gt;Describe a TOI package provided by a resource of an OCM component version.&lt;/p&gt;</description></item><item><title>describe plugins</title><link>https://ocm.software/docs/reference/ocm-cli/describe/plugins/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/describe/plugins/</guid><description>&lt;h3 id="usage"&gt;Usage&lt;/h3&gt;
+&lt;p&gt;Describe a TOI package provided by a resource of an OCM component version.&lt;/p&gt;</description></item><item><title>plugins</title><link>https://ocm.software/docs/reference/ocm-cli/describe/plugins/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/describe/plugins/</guid><description>&lt;h3 id="usage"&gt;Usage&lt;/h3&gt;
 
 
 

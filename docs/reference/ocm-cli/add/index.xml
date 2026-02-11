@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>add on Open Component Model</title><link>https://ocm.software/docs/reference/ocm-cli/add/</link><description>Recent content in add on Open Component Model</description><generator>Hugo</generator><language>en-US</language><atom:link href="https://ocm.software/docs/reference/ocm-cli/add/index.xml" rel="self" type="application/rss+xml"/><item><title>add componentversions</title><link>https://ocm.software/docs/reference/ocm-cli/add/componentversions/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/add/componentversions/</guid><description>&lt;h3 id="usage"&gt;Usage&lt;/h3&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>add on Open Component Model</title><link>https://ocm.software/docs/reference/ocm-cli/add/</link><description>Recent content in add on Open Component Model</description><generator>Hugo</generator><language>en-US</language><atom:link href="https://ocm.software/docs/reference/ocm-cli/add/index.xml" rel="self" type="application/rss+xml"/><item><title>componentversions</title><link>https://ocm.software/docs/reference/ocm-cli/add/componentversions/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/add/componentversions/</guid><description>&lt;h3 id="usage"&gt;Usage&lt;/h3&gt;
 
 
 
@@ -44,7 +44,7 @@
 &lt;h3 id="description"&gt;Description&lt;/h3&gt;
 &lt;p&gt;Add component versions specified by a constructor file to a Common Transport
 Archive. The archive might be either a directory prepared to host component version
-content or a tar/tgz file (see option &amp;ndash;type).&lt;/p&gt;</description></item><item><title>add references</title><link>https://ocm.software/docs/reference/ocm-cli/add/references/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/add/references/</guid><description>&lt;h3 id="usage"&gt;Usage&lt;/h3&gt;
+content or a tar/tgz file (see option &amp;ndash;type).&lt;/p&gt;</description></item><item><title>references</title><link>https://ocm.software/docs/reference/ocm-cli/add/references/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/add/references/</guid><description>&lt;h3 id="usage"&gt;Usage&lt;/h3&gt;
 
 
 
@@ -84,7 +84,7 @@ content or a tar/tgz file (see option &amp;ndash;type).&lt;/p&gt;</description><
 &lt;/div&gt;
 &lt;h3 id="description"&gt;Description&lt;/h3&gt;
 &lt;p&gt;Add aggregation information specified in a reference file to a component version.
-So far only component archives are supported as target.&lt;/p&gt;</description></item><item><title>add resource-configuration</title><link>https://ocm.software/docs/reference/ocm-cli/add/resource-configuration/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/add/resource-configuration/</guid><description>&lt;h3 id="usage"&gt;Usage&lt;/h3&gt;
+So far only component archives are supported as target.&lt;/p&gt;</description></item><item><title>resource-configuration</title><link>https://ocm.software/docs/reference/ocm-cli/add/resource-configuration/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/add/resource-configuration/</guid><description>&lt;h3 id="usage"&gt;Usage&lt;/h3&gt;
 
 
 
@@ -174,7 +174,7 @@ So far only component archives are supported as target.&lt;/p&gt;</description><
  
 
 
-&lt;a href="https://ocm.software/docs/reference/ocm-cli/add/resources/"&gt;ocm add resources&lt;/a&gt;.&lt;/p&gt;</description></item><item><title>add resources</title><link>https://ocm.software/docs/reference/ocm-cli/add/resources/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/add/resources/</guid><description>&lt;h3 id="usage"&gt;Usage&lt;/h3&gt;
+&lt;a href="https://ocm.software/docs/reference/ocm-cli/add/resources/"&gt;ocm add resources&lt;/a&gt;.&lt;/p&gt;</description></item><item><title>resources</title><link>https://ocm.software/docs/reference/ocm-cli/add/resources/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/add/resources/</guid><description>&lt;h3 id="usage"&gt;Usage&lt;/h3&gt;
 
 
 
@@ -263,7 +263,7 @@ So far only component archives are supported as target.&lt;/p&gt;</description><
 &lt;/div&gt;
 &lt;h3 id="description"&gt;Description&lt;/h3&gt;
 &lt;p&gt;Adds resources specified in a resource file to a component version.
-So far, only component archives are supported as target.&lt;/p&gt;</description></item><item><title>add routingslips</title><link>https://ocm.software/docs/reference/ocm-cli/add/routingslips/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/add/routingslips/</guid><description>&lt;h3 id="usage"&gt;Usage&lt;/h3&gt;
+So far, only component archives are supported as target.&lt;/p&gt;</description></item><item><title>routingslips</title><link>https://ocm.software/docs/reference/ocm-cli/add/routingslips/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/add/routingslips/</guid><description>&lt;h3 id="usage"&gt;Usage&lt;/h3&gt;
 
 
 
@@ -300,7 +300,7 @@ component version. The name is typically a DNS domain name followed by some
 qualifiers separated by a slash (/). It is possible to use arbitrary types,
 the type is not checked, if it is not known. Accordingly, an arbitrary config
 given as JSON or YAML can be given to determine the attribute set of the new
-entry for unknown types.&lt;/p&gt;</description></item><item><title>add source-configuration</title><link>https://ocm.software/docs/reference/ocm-cli/add/source-configuration/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/add/source-configuration/</guid><description>&lt;h3 id="usage"&gt;Usage&lt;/h3&gt;
+entry for unknown types.&lt;/p&gt;</description></item><item><title>source-configuration</title><link>https://ocm.software/docs/reference/ocm-cli/add/source-configuration/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/add/source-configuration/</guid><description>&lt;h3 id="usage"&gt;Usage&lt;/h3&gt;
 
 
 
@@ -389,7 +389,7 @@ entry for unknown types.&lt;/p&gt;</description></item><item><title>add source-c
  
 
 
-&lt;a href="https://ocm.software/docs/reference/ocm-cli/add/sources/"&gt;ocm add sources&lt;/a&gt;.&lt;/p&gt;</description></item><item><title>add sources</title><link>https://ocm.software/docs/reference/ocm-cli/add/sources/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/add/sources/</guid><description>&lt;h3 id="usage"&gt;Usage&lt;/h3&gt;
+&lt;a href="https://ocm.software/docs/reference/ocm-cli/add/sources/"&gt;ocm add sources&lt;/a&gt;.&lt;/p&gt;</description></item><item><title>sources</title><link>https://ocm.software/docs/reference/ocm-cli/add/sources/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/add/sources/</guid><description>&lt;h3 id="usage"&gt;Usage&lt;/h3&gt;
 
 
 
