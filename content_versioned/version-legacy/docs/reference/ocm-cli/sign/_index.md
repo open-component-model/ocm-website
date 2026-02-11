@@ -3,7 +3,6 @@ title: sign
 name: sign
 url: docs/reference/ocm-cli/sign/
 draft: false
-images: []
 weight: 55
 toc: true
 sidebar:
@@ -27,6 +26,6 @@ ocm sign [<options>] <sub command> ...
 
 ##### Sub Commands
 
-* [ocm sign <b>componentversions</b>](/docs/reference/ocm-cli/sign/componentversions/)	 &mdash; Sign component version
-* [ocm sign <b>hash</b>](/docs/reference/ocm-cli/sign/hash/)	 &mdash; sign hash
+* [ocm sign <b>componentversions</b>]({{< relref "docs/reference/ocm-cli/sign/sign_componentversions.md" >}})	 &mdash; Sign component version
+* [ocm sign <b>hash</b>]({{< relref "docs/reference/ocm-cli/sign/sign_hash.md" >}})	 &mdash; sign hash
 

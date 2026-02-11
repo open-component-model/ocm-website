@@ -1,9 +1,8 @@
 ---
-title: check componentversions
-name: componentversions
+title: componentversions
+name: check componentversions
 url: docs/reference/ocm-cli/check/componentversions/
 draft: false
-images: []
 weight: 55
 toc: true
 sidebar:
@@ -100,5 +99,5 @@ $ ocm check componentversion --repo OCIRegistry::ghcr.io/open-component-model/oc
 
 ### See Also
 
-* [ocm check](/docs/reference/ocm-cli/check/)	 &mdash; check components in OCM repository
+* [ocm check]({{< relref "docs/reference/ocm-cli/check/_index.md" >}})	 &mdash; check components in OCM repository
 

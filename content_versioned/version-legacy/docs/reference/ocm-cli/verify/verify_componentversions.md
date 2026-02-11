@@ -1,9 +1,8 @@
 ---
-title: verify componentversions
-name: componentversions
+title: componentversions
+name: verify componentversions
 url: docs/reference/ocm-cli/verify/componentversions/
 draft: false
-images: []
 weight: 55
 toc: true
 sidebar:
@@ -129,5 +128,5 @@ $ ocm verify componentversion --signature mysig --public-key=pub.key ghcr.io/ope
 
 ### See Also
 
-* [ocm verify](/docs/reference/ocm-cli/verify/)	 &mdash; Verify component version signatures
+* [ocm verify]({{< relref "docs/reference/ocm-cli/verify/_index.md" >}})	 &mdash; Verify component version signatures
 

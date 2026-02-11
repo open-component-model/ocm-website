@@ -1,9 +1,8 @@
 ---
-title: show versions
-name: versions
+title: versions
+name: show versions
 url: docs/reference/ocm-cli/show/versions/
 draft: false
-images: []
 weight: 55
 toc: true
 sidebar:
@@ -81,5 +80,5 @@ $ ocm show versions ghcr.io/mandelsoft/cnudie//github.com/mandelsoft/playground
 
 ### See Also
 
-* [ocm show](/docs/reference/ocm-cli/show/)	 &mdash; Show tags or versions
+* [ocm show]({{< relref "docs/reference/ocm-cli/show/_index.md" >}})	 &mdash; Show tags or versions
 

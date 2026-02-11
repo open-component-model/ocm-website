@@ -3,7 +3,6 @@ title: ocm-labels
 name: ocm-labels
 url: docs/reference/ocm-cli/help/ocm-labels/
 draft: false
-images: []
 weight: 55
 toc: true
 sidebar:

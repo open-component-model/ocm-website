@@ -1,9 +1,8 @@
 ---
-title: get componentversions
-name: componentversions
+title: componentversions
+name: get componentversions
 url: docs/reference/ocm-cli/get/componentversions/
 draft: false
-images: []
 weight: 55
 toc: true
 sidebar:
@@ -128,5 +127,5 @@ $ ocm get componentversion --repo OCIRegistry::ghcr.io/open-component-model/ocm 
 
 ### See Also
 
-* [ocm get](/docs/reference/ocm-cli/get/)	 &mdash; Get information about artifacts and components
+* [ocm get]({{< relref "docs/reference/ocm-cli/get/_index.md" >}})	 &mdash; Get information about artifacts and components
 

@@ -1,9 +1,8 @@
 ---
-title: transfer componentarchive
-name: componentarchive
+title: componentarchive
+name: transfer componentarchive
 url: docs/reference/ocm-cli/transfer/componentarchive/
 draft: false
-images: []
 weight: 55
 toc: true
 sidebar:
@@ -94,5 +93,5 @@ with the <code>script</code> option family.
 
 ### See Also
 
-* [ocm transfer](/docs/reference/ocm-cli/transfer/)	 &mdash; Transfer artifacts or components
+* [ocm transfer]({{< relref "docs/reference/ocm-cli/transfer/_index.md" >}})	 &mdash; Transfer artifacts or components
 

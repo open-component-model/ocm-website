@@ -3,7 +3,6 @@ title: transfer
 name: transfer
 url: docs/reference/ocm-cli/transfer/
 draft: false
-images: []
 weight: 55
 toc: true
 sidebar:
@@ -27,8 +26,8 @@ ocm transfer [<options>] <sub command> ...
 
 ##### Sub Commands
 
-* [ocm transfer <b>artifacts</b>](/docs/reference/ocm-cli/transfer/artifacts/)	 &mdash; transfer OCI artifacts
-* [ocm transfer <b>commontransportarchive</b>](/docs/reference/ocm-cli/transfer/commontransportarchive/)	 &mdash; transfer transport archive
-* [ocm transfer <b>componentarchive</b>](/docs/reference/ocm-cli/transfer/componentarchive/)	 &mdash; (DEPRECATED) - Please use commontransportarchive instead
-* [ocm transfer <b>componentversions</b>](/docs/reference/ocm-cli/transfer/componentversions/)	 &mdash; transfer component version
+* [ocm transfer <b>artifacts</b>]({{< relref "docs/reference/ocm-cli/transfer/transfer_artifacts.md" >}})	 &mdash; transfer OCI artifacts
+* [ocm transfer <b>commontransportarchive</b>]({{< relref "docs/reference/ocm-cli/transfer/transfer_commontransportarchive.md" >}})	 &mdash; transfer transport archive
+* [ocm transfer <b>componentarchive</b>]({{< relref "docs/reference/ocm-cli/transfer/transfer_componentarchive.md" >}})	 &mdash; (DEPRECATED) - Please use commontransportarchive instead
+* [ocm transfer <b>componentversions</b>]({{< relref "docs/reference/ocm-cli/transfer/transfer_componentversions.md" >}})	 &mdash; transfer component version
 

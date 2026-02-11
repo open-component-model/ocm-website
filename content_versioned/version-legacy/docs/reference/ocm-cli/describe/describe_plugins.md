@@ -1,9 +1,8 @@
 ---
-title: describe plugins
-name: plugins
+title: plugins
+name: describe plugins
 url: docs/reference/ocm-cli/describe/plugins/
 draft: false
-images: []
 weight: 55
 toc: true
 sidebar:
@@ -39,5 +38,5 @@ $ ocm describe plugins demo
 
 ### See Also
 
-* [ocm describe](/docs/reference/ocm-cli/describe/)	 &mdash; Describe various elements by using appropriate sub commands.
+* [ocm describe]({{< relref "docs/reference/ocm-cli/describe/_index.md" >}})	 &mdash; Describe various elements by using appropriate sub commands.
 

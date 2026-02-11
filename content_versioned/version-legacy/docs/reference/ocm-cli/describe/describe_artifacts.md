@@ -1,9 +1,8 @@
 ---
-title: describe artifacts
-name: artifacts
+title: artifacts
+name: describe artifacts
 url: docs/reference/ocm-cli/describe/artifacts/
 draft: false
-images: []
 weight: 55
 toc: true
 sidebar:
@@ -86,5 +85,5 @@ $ ocm describe artifact ghcr.io/open-component-model/ocm/ocm.software/ocmcli/ocm
 
 ### See Also
 
-* [ocm describe](/docs/reference/ocm-cli/describe/)	 &mdash; Describe various elements by using appropriate sub commands.
+* [ocm describe]({{< relref "docs/reference/ocm-cli/describe/_index.md" >}})	 &mdash; Describe various elements by using appropriate sub commands.
 

@@ -3,7 +3,6 @@ title: ocm-downloadhandlers
 name: ocm-downloadhandlers
 url: docs/reference/ocm-cli/help/ocm-downloadhandlers/
 draft: false
-images: []
 weight: 55
 toc: true
 sidebar:
@@ -14,7 +13,7 @@ sidebar:
 
 A download handler can be used to process resources to be downloaded from
 on OCM repository. By default, the blobs provided from the access method
-(see [ocm ocm-accessmethods](/docs/reference/ocm-cli/help/ocm-accessmethods/)) are used to store the resource content
+(see [ocm ocm-accessmethods]({{< relref "docs/reference/ocm-cli/help/ocm-accessmethods.md" >}})) are used to store the resource content
 in the local filesystem. Download handlers can be used to tweak this process.
 They get access to the blob content and decide on their own what to do
 with it, or how to transform it into files stored in the file system.
@@ -31,7 +30,7 @@ New handlers can be provided by plugins. In general available handlers,
 plugin-based or as part of the CLI coding are nameable using an hierarchical
 namespace. Those names can be used by a <code>--downloader</code> option
 to register handlers for various conditions for CLI commands like
-[ocm download resources](/docs/reference/ocm-cli/download/resources/) (implicitly registered download handlers
+[ocm download resources]({{< relref "docs/reference/ocm-cli/download/download_resources.md" >}}) (implicitly registered download handlers
 can be enabled using the option <code>-d</code>).
 
 Besides the activation constraints (resource type and media type of the
@@ -137,7 +136,7 @@ The following handler names are possible:
 
 
 
-See [ocm ocm-downloadhandlers](/docs/reference/ocm-cli/help/ocm-downloadhandlers/) for further details on using
+See [ocm ocm-downloadhandlers]({{< relref "docs/reference/ocm-cli/help/ocm-downloadhandlers.md" >}}) for further details on using
 download handlers.
 
 

@@ -3,7 +3,6 @@ title: download
 name: download
 url: docs/reference/ocm-cli/download/
 draft: false
-images: []
 weight: 55
 toc: true
 sidebar:
@@ -27,8 +26,8 @@ ocm download [<options>] <sub command> ...
 
 ##### Sub Commands
 
-* [ocm download <b>artifacts</b>](/docs/reference/ocm-cli/download/artifacts/)	 &mdash; download oci artifacts
-* [ocm download <b>cli</b>](/docs/reference/ocm-cli/download/cli/)	 &mdash; download OCM CLI from an OCM repository
-* [ocm download <b>componentversions</b>](/docs/reference/ocm-cli/download/componentversions/)	 &mdash; download ocm component versions
-* [ocm download <b>resources</b>](/docs/reference/ocm-cli/download/resources/)	 &mdash; download resources of a component version
+* [ocm download <b>artifacts</b>]({{< relref "docs/reference/ocm-cli/download/download_artifacts.md" >}})	 &mdash; download oci artifacts
+* [ocm download <b>cli</b>]({{< relref "docs/reference/ocm-cli/download/download_cli.md" >}})	 &mdash; download OCM CLI from an OCM repository
+* [ocm download <b>componentversions</b>]({{< relref "docs/reference/ocm-cli/download/download_componentversions.md" >}})	 &mdash; download ocm component versions
+* [ocm download <b>resources</b>]({{< relref "docs/reference/ocm-cli/download/download_resources.md" >}})	 &mdash; download resources of a component version
 

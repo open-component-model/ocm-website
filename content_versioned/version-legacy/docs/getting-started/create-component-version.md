@@ -1,4 +1,5 @@
 ---
+title: "Create Component Versions"
 description: "Learn how to create and store component versions using the OCM CLI."
 icon: "📦"
 weight: 23

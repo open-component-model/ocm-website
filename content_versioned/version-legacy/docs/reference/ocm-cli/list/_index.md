@@ -3,7 +3,6 @@ title: list
 name: list
 url: docs/reference/ocm-cli/list/
 draft: false
-images: []
 weight: 55
 toc: true
 sidebar:
@@ -27,5 +26,5 @@ ocm list [<options>] <sub command> ...
 
 ##### Sub Commands
 
-* [ocm list <b>componentversions</b>](/docs/reference/ocm-cli/list/componentversions/)	 &mdash; list component version names
+* [ocm list <b>componentversions</b>]({{< relref "docs/reference/ocm-cli/list/list_componentversions.md" >}})	 &mdash; list component version names
 

@@ -3,7 +3,6 @@ title: credential-handling
 name: credential-handling
 url: docs/reference/ocm-cli/help/credential-handling/
 draft: false
-images: []
 weight: 55
 toc: true
 sidebar:
@@ -287,7 +286,7 @@ by the provider type).
 The type <code>Credentials</code> can be used to inline
 credentials in credential configuration objects
 to configure mappings of consumer identities to a credential
-set (see [ocm configfile](/docs/reference/ocm-cli/help/configfile/)).
+set (see [ocm configfile]({{< relref "docs/reference/ocm-cli/help/configfile.md" >}})).
 
 The following types are currently available:
 

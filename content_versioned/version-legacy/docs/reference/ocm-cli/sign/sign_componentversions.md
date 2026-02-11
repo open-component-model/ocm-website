@@ -1,9 +1,8 @@
 ---
-title: sign componentversions
-name: componentversions
+title: componentversions
+name: sign componentversions
 url: docs/reference/ocm-cli/sign/componentversions/
 draft: false
-images: []
 weight: 55
 toc: true
 sidebar:
@@ -155,5 +154,5 @@ $ ocm sign componentversion --signature mysignature --private-key=my.key ghcr.io
 
 ### See Also
 
-* [ocm sign](/docs/reference/ocm-cli/sign/)	 &mdash; Sign components or hashes
+* [ocm sign]({{< relref "docs/reference/ocm-cli/sign/_index.md" >}})	 &mdash; Sign components or hashes
 

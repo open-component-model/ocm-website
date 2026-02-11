@@ -3,7 +3,6 @@ title: show
 name: show
 url: docs/reference/ocm-cli/show/
 draft: false
-images: []
 weight: 55
 toc: true
 sidebar:
@@ -27,6 +26,6 @@ ocm show [<options>] <sub command> ...
 
 ##### Sub Commands
 
-* [ocm show <b>tags</b>](/docs/reference/ocm-cli/show/tags/)	 &mdash; show dedicated tags of OCI artifacts
-* [ocm show <b>versions</b>](/docs/reference/ocm-cli/show/versions/)	 &mdash; show dedicated versions (semver compliant)
+* [ocm show <b>tags</b>]({{< relref "docs/reference/ocm-cli/show/show_tags.md" >}})	 &mdash; show dedicated tags of OCI artifacts
+* [ocm show <b>versions</b>]({{< relref "docs/reference/ocm-cli/show/show_versions.md" >}})	 &mdash; show dedicated versions (semver compliant)
 

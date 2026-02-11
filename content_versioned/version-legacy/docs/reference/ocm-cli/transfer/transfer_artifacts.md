@@ -1,9 +1,8 @@
 ---
-title: transfer artifacts
-name: artifacts
+title: artifacts
+name: transfer artifacts
 url: docs/reference/ocm-cli/transfer/artifacts/
 draft: false
-images: []
 weight: 55
 toc: true
 sidebar:
@@ -106,5 +105,5 @@ $ ocm transfer artifact  CommonTransportFormat::$PATH_TO_CTF//component-descript
 
 ### See Also
 
-* [ocm transfer](/docs/reference/ocm-cli/transfer/)	 &mdash; Transfer artifacts or components
+* [ocm transfer]({{< relref "docs/reference/ocm-cli/transfer/_index.md" >}})	 &mdash; Transfer artifacts or components
 

@@ -1,9 +1,8 @@
 ---
-title: sign hash
-name: hash
+title: hash
+name: sign hash
 url: docs/reference/ocm-cli/sign/hash/
 draft: false
-images: []
 weight: 55
 toc: true
 sidebar:
@@ -41,5 +40,5 @@ $ ocm sign hash key.priv SHA-256:810ff2fb242a5dee4220f2cb0e6a519891fb67f2f828a6c
 
 ### See Also
 
-* [ocm sign](/docs/reference/ocm-cli/sign/)	 &mdash; Sign components or hashes
+* [ocm sign]({{< relref "docs/reference/ocm-cli/sign/_index.md" >}})	 &mdash; Sign components or hashes
 

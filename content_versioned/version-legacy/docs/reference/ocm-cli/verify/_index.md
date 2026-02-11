@@ -3,7 +3,6 @@ title: verify
 name: verify
 url: docs/reference/ocm-cli/verify/
 draft: false
-images: []
 weight: 55
 toc: true
 sidebar:
@@ -27,5 +26,5 @@ ocm verify [<options>] <sub command> ...
 
 ##### Sub Commands
 
-* [ocm verify <b>componentversions</b>](/docs/reference/ocm-cli/verify/componentversions/)	 &mdash; Verify signature of component version
+* [ocm verify <b>componentversions</b>]({{< relref "docs/reference/ocm-cli/verify/verify_componentversions.md" >}})	 &mdash; Verify signature of component version
 

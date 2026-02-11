@@ -1,9 +1,8 @@
 ---
-title: download resources
-name: resources
+title: resources
+name: download resources
 url: docs/reference/ocm-cli/download/resources/
 draft: false
-images: []
 weight: 55
 toc: true
 sidebar:
@@ -220,7 +219,7 @@ The downloader name may be a path expression with the following possibilities:
 
 
 
-See [ocm ocm-downloadhandlers](/docs/reference/ocm-cli/help/ocm-downloadhandlers/) for further details on using
+See [ocm ocm-downloadhandlers]({{< relref "docs/reference/ocm-cli/help/ocm-downloadhandlers.md" >}}) for further details on using
 download handlers.
 
 
@@ -255,5 +254,5 @@ specifying a verification file with <code>--verified</code>.
 
 ### See Also
 
-* [ocm download](/docs/reference/ocm-cli/download/)	 &mdash; Download oci artifacts, resources or complete components
+* [ocm download]({{< relref "docs/reference/ocm-cli/download/_index.md" >}})	 &mdash; Download oci artifacts, resources or complete components
 
