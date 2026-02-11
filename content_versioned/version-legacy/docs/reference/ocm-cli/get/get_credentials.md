@@ -1,9 +1,8 @@
 ---
-title: get credentials
-name: credentials
+title: credentials
+name: get credentials
 url: docs/reference/ocm-cli/get/credentials/
 draft: false
-images: []
 weight: 55
 toc: true
 sidebar:
@@ -202,5 +201,5 @@ The usage of a dedicated matcher can be enforced by the option <code>--matcher</
 
 ### See Also
 
-* [ocm get](/docs/reference/ocm-cli/get/)	 &mdash; Get information about artifacts and components
+* [ocm get]({{< relref "docs/reference/ocm-cli/get/_index.md" >}})	 &mdash; Get information about artifacts and components
 

@@ -3,7 +3,6 @@ title: ocm-references
 name: ocm-references
 url: docs/reference/ocm-cli/help/ocm-references/
 draft: false
-images: []
 weight: 55
 toc: true
 sidebar:

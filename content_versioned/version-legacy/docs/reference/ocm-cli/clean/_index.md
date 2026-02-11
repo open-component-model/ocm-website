@@ -3,7 +3,6 @@ title: clean
 name: clean
 url: docs/reference/ocm-cli/clean/
 draft: false
-images: []
 weight: 55
 toc: true
 sidebar:
@@ -27,5 +26,5 @@ ocm clean [<options>] <sub command> ...
 
 ##### Sub Commands
 
-* [ocm clean <b>cache</b>](/docs/reference/ocm-cli/clean/cache/)	 &mdash; cleanup oci blob cache
+* [ocm clean <b>cache</b>]({{< relref "docs/reference/ocm-cli/clean/clean_cache.md" >}})	 &mdash; cleanup oci blob cache
 

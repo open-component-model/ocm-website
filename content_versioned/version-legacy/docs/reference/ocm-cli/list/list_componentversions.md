@@ -1,9 +1,8 @@
 ---
-title: list componentversions
-name: componentversions
+title: componentversions
+name: list componentversions
 url: docs/reference/ocm-cli/list/componentversions/
 draft: false
-images: []
 weight: 55
 toc: true
 sidebar:
@@ -122,5 +121,5 @@ $ ocm list componentversion --repo OCIRegistry::ghcr.io/open-component-model/ocm
 
 ### See Also
 
-* [ocm list](/docs/reference/ocm-cli/list/)	 &mdash; List information about components
+* [ocm list]({{< relref "docs/reference/ocm-cli/list/_index.md" >}})	 &mdash; List information about components
 

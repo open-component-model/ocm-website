@@ -1,9 +1,8 @@
 ---
-title: add source-configuration
-name: source-configuration
+title: source-configuration
+name: add source-configuration
 url: docs/reference/ocm-cli/add/source-configuration/
 draft: false
-images: []
 weight: 55
 toc: true
 sidebar:
@@ -78,7 +77,7 @@ ocm add source-configuration [<options>] <target> {<configfile> | <var>=<value>}
 ### Description
 
 
-Add a source specification to a source config file used by [ocm add sources](/docs/reference/ocm-cli/add/sources/).
+Add a source specification to a source config file used by [ocm add sources]({{< relref "docs/reference/ocm-cli/add/add_sources.md" >}}).
 
 It is possible to describe a single source via command line options.
 The meta data of this element is described by the argument of option <code>--source</code>,
@@ -681,7 +680,7 @@ shown below.
       An optional keyring used to verify the chart.
     
     It uses the consumer identity type HelmChartRepository with the fields
-    for a hostpath identity matcher (see [ocm get credentials](/docs/reference/ocm-cli/get/credentials/)).
+    for a hostpath identity matcher (see [ocm get credentials]({{< relref "docs/reference/ocm-cli/get/get_credentials.md" >}})).
   
   Options used to configure fields: <code>--accessRepository</code>, <code>--accessVersion</code>, <code>--package</code>
   
@@ -1033,5 +1032,5 @@ $ ocm add source-config sources.yaml --name sources --type filesystem --access '
 
 ### See Also
 
-* [ocm add](/docs/reference/ocm-cli/add/)	 &mdash; Add elements to a component repository or component version
+* [ocm add]({{< relref "docs/reference/ocm-cli/add/_index.md" >}})	 &mdash; Add elements to a component repository or component version
 

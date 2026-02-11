@@ -1,9 +1,8 @@
 ---
 title: help
 name: help
-url: docs/reference/ocm-cli/help
+url: docs/reference/ocm-cli/help/
 draft: false
-images: []
 weight: 55
 toc: true
 sidebar:
@@ -11,15 +10,15 @@ sidebar:
 ---
 ### Additional Topics
 
-* [attributes](/docs/reference/ocm-cli/help/attributes/) &mdash; attributes
-* [configfile](/docs/reference/ocm-cli/help/configfile/) &mdash; configfile
-* [credential-handling](/docs/reference/ocm-cli/help/credential-handling/) &mdash; credential-handling
-* [logging](/docs/reference/ocm-cli/help/logging/) &mdash; logging
-* [oci-references](/docs/reference/ocm-cli/help/oci-references/) &mdash; oci-references
-* [ocm-accessmethods](/docs/reference/ocm-cli/help/ocm-accessmethods/) &mdash; ocm-accessmethods
-* [ocm-downloadhandlers](/docs/reference/ocm-cli/help/ocm-downloadhandlers/) &mdash; ocm-downloadhandlers
-* [ocm-labels](/docs/reference/ocm-cli/help/ocm-labels/) &mdash; ocm-labels
-* [ocm-pubsub](/docs/reference/ocm-cli/help/ocm-pubsub/) &mdash; ocm-pubsub
-* [ocm-references](/docs/reference/ocm-cli/help/ocm-references/) &mdash; ocm-references
-* [ocm-uploadhandlers](/docs/reference/ocm-cli/help/ocm-uploadhandlers/) &mdash; ocm-uploadhandlers
-* [toi-bootstrapping](/docs/reference/ocm-cli/help/toi-bootstrapping/) &mdash; toi-bootstrapping
+* [attributes]({{< relref "docs/reference/ocm-cli/help/attributes.md" >}}) &mdash; attributes
+* [configfile]({{< relref "docs/reference/ocm-cli/help/configfile.md" >}}) &mdash; configfile
+* [credential-handling]({{< relref "docs/reference/ocm-cli/help/credential-handling.md" >}}) &mdash; credential-handling
+* [logging]({{< relref "docs/reference/ocm-cli/help/logging.md" >}}) &mdash; logging
+* [oci-references]({{< relref "docs/reference/ocm-cli/help/oci-references.md" >}}) &mdash; oci-references
+* [ocm-accessmethods]({{< relref "docs/reference/ocm-cli/help/ocm-accessmethods.md" >}}) &mdash; ocm-accessmethods
+* [ocm-downloadhandlers]({{< relref "docs/reference/ocm-cli/help/ocm-downloadhandlers.md" >}}) &mdash; ocm-downloadhandlers
+* [ocm-labels]({{< relref "docs/reference/ocm-cli/help/ocm-labels.md" >}}) &mdash; ocm-labels
+* [ocm-pubsub]({{< relref "docs/reference/ocm-cli/help/ocm-pubsub.md" >}}) &mdash; ocm-pubsub
+* [ocm-references]({{< relref "docs/reference/ocm-cli/help/ocm-references.md" >}}) &mdash; ocm-references
+* [ocm-uploadhandlers]({{< relref "docs/reference/ocm-cli/help/ocm-uploadhandlers.md" >}}) &mdash; ocm-uploadhandlers
+* [toi-bootstrapping]({{< relref "docs/reference/ocm-cli/help/toi-bootstrapping.md" >}}) &mdash; toi-bootstrapping

@@ -1,9 +1,8 @@
 ---
-title: add componentversions
-name: componentversions
+title: componentversions
+name: add componentversions
 url: docs/reference/ocm-cli/add/componentversions/
 draft: false
-images: []
 weight: 55
 toc: true
 sidebar:
@@ -67,7 +66,7 @@ relevant elements.
 
 
 The source, resource and reference list can be composed according to the commands
-[ocm add sources](/docs/reference/ocm-cli/add/sources/), [ocm add resources](/docs/reference/ocm-cli/add/resources/), [ocm add references](/docs/reference/ocm-cli/add/references/),
+[ocm add sources]({{< relref "docs/reference/ocm-cli/add/add_sources.md" >}}), [ocm add resources]({{< relref "docs/reference/ocm-cli/add/add_resources.md" >}}), [ocm add references]({{< relref "docs/reference/ocm-cli/add/add_references.md" >}}),
 respectively.
 
 The description file might contain:
@@ -81,7 +80,7 @@ component descriptor. If given it overrides the <code>--schema</code> option
 of the command. By default, v2 is used.
 
 Various elements support to add arbitrary information by using labels
-(see [ocm ocm-labels](/docs/reference/ocm-cli/help/ocm-labels/)).
+(see [ocm ocm-labels]({{< relref "docs/reference/ocm-cli/help/ocm-labels.md" >}})).
 
 
 The <code>--type</code> option accepts a file format for the
@@ -208,9 +207,12 @@ The uploader name may be a path expression with the following possibilities:
     
     sub namespace of the form <code>&lt;plugin name>/&lt;handler></code>
 
+  - <code>plugin/jfrog/JFrogHelm</code>: 
+    upload artifacts to JFrog HELM repositories by using the JFrog REST API.
 
 
-See [ocm ocm-uploadhandlers](/docs/reference/ocm-cli/help/ocm-uploadhandlers/) for further details on using
+
+See [ocm ocm-uploadhandlers]({{< relref "docs/reference/ocm-cli/help/ocm-uploadhandlers.md" >}}) for further details on using
 upload handlers.
 
 
@@ -253,5 +255,5 @@ next to the description file.
 
 ### See Also
 
-* [ocm add](/docs/reference/ocm-cli/add/)	 &mdash; Add elements to a component repository or component version
+* [ocm add]({{< relref "docs/reference/ocm-cli/add/_index.md" >}})	 &mdash; Add elements to a component repository or component version
 

@@ -1,9 +1,8 @@
 ---
-title: get references
-name: references
+title: references
+name: get references
 url: docs/reference/ocm-cli/get/references/
 draft: false
-images: []
 weight: 55
 toc: true
 sidebar:
@@ -110,5 +109,5 @@ The following modes are supported:
 
 ### See Also
 
-* [ocm get](/docs/reference/ocm-cli/get/)	 &mdash; Get information about artifacts and components
+* [ocm get]({{< relref "docs/reference/ocm-cli/get/_index.md" >}})	 &mdash; Get information about artifacts and components
 

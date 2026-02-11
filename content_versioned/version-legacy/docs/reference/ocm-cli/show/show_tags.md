@@ -1,9 +1,8 @@
 ---
-title: show tags
-name: tags
+title: tags
+name: show tags
 url: docs/reference/ocm-cli/show/tags/
 draft: false
-images: []
 weight: 55
 toc: true
 sidebar:
@@ -76,5 +75,5 @@ $ ocm oci show tags ghcr.io/open-component-model/ocm/ocm.software/ocmcli/ocmcli-
 
 ### See Also
 
-* [ocm show](/docs/reference/ocm-cli/show/)	 &mdash; Show tags or versions
+* [ocm show]({{< relref "docs/reference/ocm-cli/show/_index.md" >}})	 &mdash; Show tags or versions
 

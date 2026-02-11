@@ -1,9 +1,8 @@
 ---
-title: get config
-name: config
+title: config
+name: get config
 url: docs/reference/ocm-cli/get/config/
 draft: false
-images: []
 weight: 55
 toc: true
 sidebar:
@@ -41,5 +40,5 @@ The following modes are supported:
 
 ### See Also
 
-* [ocm get](/docs/reference/ocm-cli/get/)	 &mdash; Get information about artifacts and components
+* [ocm get]({{< relref "docs/reference/ocm-cli/get/_index.md" >}})	 &mdash; Get information about artifacts and components
 

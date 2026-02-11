@@ -3,7 +3,6 @@ title: toi-bootstrapping
 name: toi-bootstrapping
 url: docs/reference/ocm-cli/help/toi-bootstrapping/
 draft: false
-images: []
 weight: 55
 toc: true
 sidebar:
@@ -359,7 +358,7 @@ It uses the following fields:
   in the OCM support library, if used by the executor. At least the field
   <code>type</code> and one additional field must be set.
 
-Credentials are provided in an ocm config file (see [ocm configfile](/docs/reference/ocm-cli/help/configfile/)).
+Credentials are provided in an ocm config file (see [ocm configfile]({{< relref "docs/reference/ocm-cli/help/configfile.md" >}})).
 It uses a memory credential repository with the name <code>default</code>
 to store the credentials under the given name. Additionally appropriate
 consumer ids will be propagated, if requested in the credentials request config.

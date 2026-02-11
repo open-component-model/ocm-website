@@ -3,7 +3,6 @@ title: logging
 name: logging
 url: docs/reference/ocm-cli/help/logging/
 draft: false
-images: []
 weight: 55
 toc: true
 sidebar:
@@ -12,8 +11,8 @@ sidebar:
 ### Description
 
 
-Logging can be configured as part of the ocm config file ([ocm configfile](/docs/reference/ocm-cli/help/configfile/))
-or by command line options of the [ocm](/docs/reference/ocm-cli/) command. Details about
+Logging can be configured as part of the ocm config file ([ocm configfile]({{< relref "docs/reference/ocm-cli/help/configfile.md" >}}))
+or by command line options of the [ocm]({{< relref "docs/reference/ocm-cli/_index.md" >}}) command. Details about
 the YAML structure of a logging settings can be found on https://github.com/mandelsoft/logging.
 
 The command line also supports some quick-config options for enabling log levels

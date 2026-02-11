@@ -1,9 +1,8 @@
 ---
-title: get plugins
-name: plugins
+title: plugins
+name: get plugins
 url: docs/reference/ocm-cli/get/plugins/
 draft: false
-images: []
 weight: 55
 toc: true
 sidebar:
@@ -50,5 +49,5 @@ $ ocm get plugins demo -o yaml
 
 ### See Also
 
-* [ocm get](/docs/reference/ocm-cli/get/)	 &mdash; Get information about artifacts and components
+* [ocm get]({{< relref "docs/reference/ocm-cli/get/_index.md" >}})	 &mdash; Get information about artifacts and components
 

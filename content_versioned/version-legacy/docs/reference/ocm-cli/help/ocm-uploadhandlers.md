@@ -3,7 +3,6 @@ title: ocm-uploadhandlers
 name: ocm-uploadhandlers
 url: docs/reference/ocm-cli/help/ocm-uploadhandlers/
 draft: false
-images: []
 weight: 55
 toc: true
 sidebar:
@@ -38,7 +37,7 @@ New handlers can be provided by plugins. In general available handlers,
 plugin-based or as part of the CLI coding are nameable using an hierarchical
 namespace. Those names can be used by a <code>--uploader</code> option
 to register handlers for various conditions for CLI commands like
-[ocm transfer componentversions](/docs/reference/ocm-cli/transfer/componentversions/) or [ocm transfer commontransportarchive](/docs/reference/ocm-cli/transfer/commontransportarchive/).
+[ocm transfer componentversions]({{< relref "docs/reference/ocm-cli/transfer/transfer_componentversions.md" >}}) or [ocm transfer commontransportarchive]({{< relref "docs/reference/ocm-cli/transfer/transfer_commontransportarchive.md" >}}).
 
 Besides the activation constraints (resource type and media type of the
 resource blob), it is possible to pass a target configuration controlling the
@@ -91,9 +90,12 @@ The following handler names are possible:
     
     sub namespace of the form <code>&lt;plugin name>/&lt;handler></code>
 
+  - <code>plugin/jfrog/JFrogHelm</code>: 
+    upload artifacts to JFrog HELM repositories by using the JFrog REST API.
 
 
-See [ocm ocm-uploadhandlers](/docs/reference/ocm-cli/help/ocm-uploadhandlers/) for further details on using
+
+See [ocm ocm-uploadhandlers]({{< relref "docs/reference/ocm-cli/help/ocm-uploadhandlers.md" >}}) for further details on using
 upload handlers.
 
 
