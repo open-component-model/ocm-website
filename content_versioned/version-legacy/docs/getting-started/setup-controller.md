@@ -82,7 +82,17 @@ kro                  kro-86d5b5b5bd-6gmvr                         1/1     Runnin
 To install the OCM controllers, execute the following command:
 
 ```bash
-kubectl apply -k https://github.com/open-component-model/open-component-model/kubernetes/controller/config/default?ref=main
+helm install ocm-k8s-toolkit oci://ghcr.io/open-component-model/charts/ocm-k8s-toolkit \
+  --namespace ocm-k8s-toolkit-system \
+  --create-namespace
+```
+
+For local development, you can install directly from the source:
+
+```bash
+# In the ocm mono-repo root directory
+cd kubernetes/controller
+task helm/install
 ```
 
 If the OCM controllers are installed correctly, you should see some similar output when running the
