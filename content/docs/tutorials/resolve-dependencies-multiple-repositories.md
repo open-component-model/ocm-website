@@ -8,7 +8,7 @@ toc: true
 
 ## Overview
 
-In [Resolve Dependencies from a Shared Repository]({{< relref "configure_resolvers.md" >}}), all
+In [Resolve Dependencies from a Shared Repository]({{< relref "configure-resolvers.md" >}}), all
 dependencies were stored in a single repository with one resolver entry. In practice, dependencies often come from
 **different repositories** — for example, when each team or project publishes their components independently.
 
@@ -17,9 +17,11 @@ repositories**, each with a separate resolver entry.
 
 {{<callout context="note" title="What You'll Learn">}}
 In this tutorial, you will:
+
 - Push each dependency component to its own dedicated OCI repository
 - Write per-component resolver entries that map specific names to specific repositories
 - Recursively resolve a component graph where each dependency lives in a different registry path
+
 {{</callout>}}
 
 ## Prerequisites
@@ -69,7 +71,7 @@ ocm add cv --repository ghcr.io/<your-github-username>/ocm-tutorial-backend \
 
 The expected output should look like this:
 
-```
+```bash
  COMPONENT                      │ VERSION │ PROVIDER
 ────────────────────────────────┼─────────┼──────────────
  ocm.software/tutorials/backend │ 1.0.0   │ ocm.software
@@ -103,7 +105,7 @@ ocm add cv --repository ghcr.io/<your-github-username>/ocm-tutorial-frontend \
 
 The expected output should look like this:
 
-```
+```bash
  COMPONENT                       │ VERSION │ PROVIDER
 ─────────────────────────────────┼─────────┼──────────────
  ocm.software/tutorials/frontend │ 1.0.0   │ ocm.software
@@ -144,7 +146,7 @@ ocm add cv --repository ghcr.io/<your-github-username>/ocm-tutorial-app \
 
 The expected output should look like this:
 
-```
+```bash
   COMPONENT                       │ VERSION │ PROVIDER
 ─────────────────────────────────┼─────────┼──────────────
  ocm.software/tutorials/app      │ 1.0.0   │ ocm.software
@@ -216,7 +218,7 @@ to match groups of components from the same repository.
 
 Now that you know how to configure resolvers for multiple repositories, you can:
 
-- **Start with a shared repository**: If you haven't already, see [Resolve Dependencies from a Shared Repository]({{< relref "configure_resolvers.md" >}}) for the fundamentals of resolver configuration, including glob patterns and repository types.
+- **Start with a shared repository**: If you haven't already, see [Resolve Dependencies from a Shared Repository]({{< relref "configure-resolvers.md" >}}) for the fundamentals of resolver configuration, including glob patterns and repository types.
 - **Learn more about component references**: Understand how components link together and how references are structured in a [Complex Component Structure]({{< relref "complex-component-structure-deployment.md" >}}).
 - **Explore credential configuration**: See [Credentials in an .ocmconfig File]({{< relref "creds-in-ocmconfig.md" >}}) for authentication options when working with registries.
 - **Transfer components between registries**: Use resolvers with `ocm transfer cv` to move component graphs across registries.
