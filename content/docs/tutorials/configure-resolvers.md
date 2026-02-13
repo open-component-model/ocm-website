@@ -26,10 +26,12 @@ fallback resolvers from earlier OCM versions with glob-based pattern matching.
 
 {{<callout context="note" title="What You'll Learn">}}
 In this tutorial, you will:
+
 - Create components with references and push them to OCI registries
 - Write a resolver configuration that maps component name patterns to repositories
 - Combine credentials and resolvers in a single `.ocmconfig` file
 - Use `--recursive` to resolve a component graph across repositories
+
 {{</callout>}}
 
 ## Prerequisites
@@ -152,7 +154,7 @@ Supported glob patterns:
 
 The syntax for the pattern recognition is defined like this:
 
-```
+```bash
 **Pattern syntax:**
 - `*` — Matches any sequence of characters within a path segment
 - `?` — Matches any single character
@@ -210,7 +212,7 @@ ocm add cv --repository ghcr.io/<your-github-username>/ocm-tutorial-deps \
 
 The expected output should look like this:
 
-```
+```bash
  COMPONENT                      │ VERSION │ PROVIDER     
 ────────────────────────────────┼─────────┼──────────────
  ocm.software/tutorials/backend │ 1.0.0   │ ocm.software 
@@ -244,7 +246,7 @@ ocm add cv --repository ghcr.io/<your-github-username>/ocm-tutorial-deps \
 
 The expected output should look like this:
 
-```
+```bash
  COMPONENT                       │ VERSION │ PROVIDER     
 ─────────────────────────────────┼─────────┼──────────────
  ocm.software/tutorials/frontend │ 1.0.0   │ ocm.software 
@@ -285,7 +287,7 @@ ocm add cv --repository ghcr.io/<your-github-username>/ocm-tutorial \
 
 The expected output should look like this:
 
-```
+```bash
   COMPONENT                       │ VERSION │ PROVIDER     
 ─────────────────────────────────┼─────────┼──────────────
  ocm.software/tutorials/app      │ 1.0.0   │ ocm.software 
