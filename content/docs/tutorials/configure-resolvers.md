@@ -11,16 +11,15 @@ toc: true
 When you retrieve a component version, you typically specify the repository directly:
 
 ```bash
-ocm get cv ghcr.io/<your-github-username>/ocm-tutorial-app//ocm.software/tutorials/app:1.0.0
+ocm get cv ghcr.io/<your-github-username>/ocm-tutorial//ocm.software/tutorials/app:1.0.0
 ```
 
-This works fine for the **main** component — you know where it lives. But what happens when that component has
-**references** to other components stored in different registries? For example, an app component might reference
-a backend and a frontend component that each live in their own repository. When you use `--recursive` to follow those
-references, the CLI needs to know where to find each referenced component.
+This works fine for a single component. But what happens when that component has **references** to other components?
+For example, an app component might reference a backend and a frontend component. When you use `--recursive` to follow
+those references, the CLI needs to know which repository contains the referenced components.
 
 **Resolvers** solve this problem. They map component names to repositories so the CLI can automatically locate
-referenced components across multiple registries during recursive operations.
+referenced components during recursive operations.
 
 Resolvers use the configuration type `resolvers.config.ocm.software/v1alpha1` and replace the deprecated priority-based
 fallback resolvers from earlier OCM versions with glob-based pattern matching.
@@ -36,7 +35,7 @@ fallback resolvers from earlier OCM versions with glob-based pattern matching.
 
 - The [OCM CLI](https://github.com/open-component-model/open-component-model) installed
 - Access to at least one OCI registry (e.g., `ghcr.io`, Docker Hub, or a private registry)
-- A GitHub account with a personal access token (for the hands-on examples using `ghcr.io`)
+- A GitHub account with a personal access token (for the hands-on examples we are using `ghcr.io`)
 
 ## What Are Resolvers?
 
@@ -46,9 +45,8 @@ repository to query for the referenced component.
 
 This is particularly useful when:
 
+- A component references other components and you need recursive resolution
 - Components are distributed across multiple OCI registries
-- A component references other components that live in different repositories
-- You need recursive resolution of component references that span multiple registries
 
 ## Configuration
 
@@ -69,8 +67,7 @@ Resolvers are configured in the OCM configuration file. By default, the CLI sear
 You can also specify a configuration file explicitly with the `--config` flag.
 
 {{<callout context="tip">}}
-If multiple configuration files are found, they are merged. This allows you to layer configurations — for example,
-a global config in your home directory and a project-specific config in the working directory.
+For more information about OCM configuration files, see [OCM Configuration Files]("content/docs/tutorials/creds-in-ocmconfig.md").
 {{</callout>}}
 
 ### Basic Configuration
@@ -85,12 +82,12 @@ configurations:
       - repository:
           type: OCIRegistry/v1
           baseUrl: ghcr.io
-          subPath: <your-github-username>/ocm-tutorial-backend
-        componentNamePattern: "ocm.software/tutorials/backend"
+          subPath: <your-github-username>/ocm-tutorial
+        componentNamePattern: "ocm.software/tutorials/*"
 ```
 
-This tells the CLI: "When looking for the component `ocm.software/tutorials/backend`, check the OCI registry at
-`ghcr.io/<your-github-username>/ocm-tutorial-backend`."
+This tells the CLI: "When looking for any component matching `ocm.software/tutorials/*`, check the OCI registry at
+`ghcr.io/<your-github-username>/ocm-tutorial`."
 
 ### Repository Types
 
@@ -102,7 +99,7 @@ The `repository` field accepts any OCM repository specification. The most common
 repository:
   type: OCIRegistry/v1
   baseUrl: ghcr.io
-  subPath: <your-github-username>/ocm-tutorial-backend
+  subPath: <your-github-username>/ocm-tutorial
 ```
 
 | Field     | Required | Description                                                                                     |
@@ -137,7 +134,7 @@ configurations:
       - repository:
           type: OCIRegistry/v1
           baseUrl: ghcr.io
-          subPath: <your-github-username>/ocm-tutorial-backend
+          subPath: <your-github-username>/ocm-tutorial
         componentNamePattern: "ocm.software/tutorials/*"
 ```
 
@@ -158,8 +155,8 @@ Resolvers are evaluated **in the order they are defined**. The first matching re
 ## Try It Out
 
 This section walks through a hands-on example with three components — a **backend**, a **frontend**, and an **app**
-that references both. Each component lives in its own repository. When you recursively resolve the app, the CLI needs
-resolvers to locate the referenced backend and frontend components.
+that references both — all stored in a single repository. When you recursively resolve the app, the CLI needs a
+resolver to locate the referenced backend and frontend components.
 
 ### Step 1: Authenticate with the Registry
 
@@ -188,10 +185,10 @@ components:
           text: "backend service configuration"
 ```
 
-Push it to its own repository:
+Push it to the repository:
 
 ```bash
-ocm add cv --repository ghcr.io/<your-github-username>/ocm-tutorial-backend \
+ocm add cv --repository ghcr.io/<your-github-username>/ocm-tutorial \
   --constructor backend-constructor.yaml
 ```
 
@@ -214,16 +211,16 @@ components:
           text: "frontend service configuration"
 ```
 
-Push it to its own repository:
+Push it to the same repository:
 
 ```bash
-ocm add cv --repository ghcr.io/<your-github-username>/ocm-tutorial-frontend \
+ocm add cv --repository ghcr.io/<your-github-username>/ocm-tutorial \
   --constructor frontend-constructor.yaml
 ```
 
 ### Step 4: Create and Push the App Component
 
-Create `app-constructor.yaml`. Notice the `references` section — it declares dependencies on both the backend and frontend components:
+Create `app-constructor.yaml`. Notice the `componentReferences` section — it declares dependencies on both the backend and frontend components:
 
 ```yaml
 components:
@@ -231,7 +228,7 @@ components:
     version: "1.0.0"
     provider:
       name: ocm.software
-    references:
+    componentReferences:
       - name: backend-service
         componentName: ocm.software/tutorials/backend
         version: "1.0.0"
@@ -247,38 +244,26 @@ components:
           text: "app deployment configuration"
 ```
 
-Push it to a **separate** repository:
+Push it to the same repository:
 
 ```bash
-ocm add cv --repository ghcr.io/<your-github-username>/ocm-tutorial-app \
+ocm add cv --repository ghcr.io/<your-github-username>/ocm-tutorial \
   --constructor app-constructor.yaml
 ```
 
-### Step 5: See Recursive Resolution Fail Without Resolvers
+### Step 5: Verify the Components
 
-Verify that all three components exist individually:
-
-```bash
-ocm get cv ghcr.io/<your-github-username>/ocm-tutorial-backend//ocm.software/tutorials/backend:1.0.0
-ocm get cv ghcr.io/<your-github-username>/ocm-tutorial-frontend//ocm.software/tutorials/frontend:1.0.0
-ocm get cv ghcr.io/<your-github-username>/ocm-tutorial-app//ocm.software/tutorials/app:1.0.0
-```
-
-Now try to recursively resolve the app. This **fails** because the CLI does not know where to find the
-referenced backend and frontend components:
+Check that all three components exist:
 
 ```bash
-ocm get cv ghcr.io/<your-github-username>/ocm-tutorial-app//ocm.software/tutorials/app:1.0.0 \
-  --recursive -1
+ocm get cv ghcr.io/<your-github-username>/ocm-tutorial//ocm.software/tutorials/backend:1.0.0
+ocm get cv ghcr.io/<your-github-username>/ocm-tutorial//ocm.software/tutorials/frontend:1.0.0
+ocm get cv ghcr.io/<your-github-username>/ocm-tutorial//ocm.software/tutorials/app:1.0.0
 ```
 
-The CLI finds the app in the specified repository, discovers the references to
-`ocm.software/tutorials/backend:1.0.0` and `ocm.software/tutorials/frontend:1.0.0`, but has no way to locate them —
-they live in different repositories.
+### Step 6: Recursively Resolve the App with a Resolver
 
-### Step 6: Add Resolvers and Succeed
-
-Create an `.ocmconfig` file with resolvers that map each referenced component to its repository:
+Create an `.ocmconfig` file with credentials and a resolver that maps all tutorial components to the repository:
 
 ```yaml
 type: generic.config.ocm.software/v1
@@ -293,29 +278,23 @@ configurations:
       - repository:
           type: OCIRegistry/v1
           baseUrl: ghcr.io
-          subPath: <your-github-username>/ocm-tutorial-backend
-        componentNamePattern: "ocm.software/tutorials/backend"
-      - repository:
-          type: OCIRegistry/v1
-          baseUrl: ghcr.io
-          subPath: <your-github-username>/ocm-tutorial-frontend
-        componentNamePattern: "ocm.software/tutorials/frontend"
+          subPath: <your-github-username>/ocm-tutorial
+        componentNamePattern: "ocm.software/tutorials/*"
 ```
 
-Now recursive resolution **succeeds**:
+Now recursively resolve the app:
 
 ```bash
-ocm get cv ghcr.io/<your-github-username>/ocm-tutorial-app//ocm.software/tutorials/app:1.0.0 \
-  --recursive -1 --config .ocmconfig
+ocm get cv ghcr.io/<your-github-username>/ocm-tutorial//ocm.software/tutorials/app:1.0.0 \
+  --recursive=-1 --config .ocmconfig
 ```
 
 The CLI:
 
 1. Finds `ocm.software/tutorials/app:1.0.0` in the specified repository
 2. Discovers the references to `ocm.software/tutorials/backend:1.0.0` and `ocm.software/tutorials/frontend:1.0.0`
-3. Consults the resolvers — each component name matches a configured pattern
-4. Looks up the backend in `ghcr.io/<your-github-username>/ocm-tutorial-backend`
-5. Looks up the frontend in `ghcr.io/<your-github-username>/ocm-tutorial-frontend`
+3. Consults the resolver — the pattern `ocm.software/tutorials/*` matches both
+4. Looks up backend and frontend in `ghcr.io/<your-github-username>/ocm-tutorial`
 
 ## Examples
 
@@ -332,7 +311,7 @@ configurations:
       - repository:
           type: OCIRegistry/v1
           baseUrl: ghcr.io
-          subPath: <your-github-username>/ocm-tutorials
+          subPath: <your-github-username>/ocm-tutorial
         componentNamePattern: "ocm.software/tutorials/*"
       # Internal components on a private registry
       - repository:
@@ -355,7 +334,7 @@ configurations:
       - repository:
           type: OCIRegistry/v1
           baseUrl: ghcr.io
-          subPath: <your-github-username>/ocm-tutorials
+          subPath: <your-github-username>/ocm-tutorial
         componentNamePattern: "ocm.software/tutorials/*"
       # Catch-all fallback
       - repository:
@@ -404,41 +383,31 @@ configurations:
       - repository:
           type: OCIRegistry/v1
           baseUrl: ghcr.io
-          subPath: <your-github-username>/ocm-tutorial-backend
-        componentNamePattern: "ocm.software/tutorials/backend"
-      - repository:
-          type: OCIRegistry/v1
-          baseUrl: ghcr.io
-          subPath: <your-github-username>/ocm-tutorial-frontend
-        componentNamePattern: "ocm.software/tutorials/frontend"
+          subPath: <your-github-username>/ocm-tutorial
+        componentNamePattern: "ocm.software/tutorials/*"
 ```
 
 This gives the CLI both the **routing** (which registry to use) and the **authentication** (how to log in) it needs.
 
-For more details on configuring credentials, see [Credentials in an .ocmconfig File]({{< relref "creds-in-ocmconfig.md" >}}).
+For more details on configuring credentials, see [Credentials in an .ocmconfig File]("content/docs/tutorials/creds-in-ocmconfig.md").
 
 ## Recursive Resolution
 
-Resolvers are especially valuable when working with components that **reference other components** stored in different
-registries. The `--recursive` flag on commands like `ocm get cv` or `ocm transfer cv` follows these references, and
-resolvers ensure each referenced component is looked up in the correct repository.
+Resolvers are especially valuable when working with components that **reference other components**. The `--recursive`
+flag on commands like `ocm get cv` or `ocm transfer cv` follows these references, and resolvers ensure each referenced
+component is looked up in the correct repository.
 
 As shown in the hands-on example above, the app component `ocm.software/tutorials/app:1.0.0` references both
-`ocm.software/tutorials/backend:1.0.0` and `ocm.software/tutorials/frontend:1.0.0`. With resolvers configured, the CLI will:
-
-1. Find `ocm.software/tutorials/app:1.0.0` in the specified repository
-2. Discover the references to the backend and frontend components
-3. Automatically look up each referenced component in its configured repository
+`ocm.software/tutorials/backend:1.0.0` and `ocm.software/tutorials/frontend:1.0.0`. With a resolver configured, the
+CLI automatically finds the referenced components:
 
 ```bash
-ocm get cv ghcr.io/<your-github-username>/ocm-tutorial-app//ocm.software/tutorials/app:1.0.0 \
-  --recursive -1 --config .ocmconfig
+ocm get cv ghcr.io/<your-github-username>/ocm-tutorial//ocm.software/tutorials/app:1.0.0 \
+  --recursive=-1 --config .ocmconfig
 ```
 
-Without resolvers, this fails because the CLI cannot locate the referenced components.
-
 {{<callout context="note">}}
-For `ocm get cv`, the `--recursive` flag accepts a depth value: `0` for no recursion (default), `-1` for unlimited depth, or any positive integer for a specific depth limit.
+For `ocm get cv`, the `--recursive` flag accepts a depth value: `0` for no recursion (default), `-1` for unlimited depth. Limiting the recursion depth with a `positive integer` it planned but not supported yet.
 {{</callout>}}
 
 ## CLI and Resolver Interaction
@@ -453,8 +422,8 @@ This means you can always override resolver behavior by specifying a repository 
 
 ```bash
 # Uses resolvers from config to find referenced components
-ocm get cv ghcr.io/<your-github-username>/ocm-tutorial-app//ocm.software/tutorials/app:1.0.0 \
-  --recursive -1
+ocm get cv ghcr.io/<your-github-username>/ocm-tutorial//ocm.software/tutorials/app:1.0.0 \
+  --recursive=-1
 
 # Explicitly targets a specific repository, ignoring resolvers
 ocm get cv ghcr.io/my-mirror//ocm.software/tutorials/app:1.0.0
@@ -462,14 +431,14 @@ ocm get cv ghcr.io/my-mirror//ocm.software/tutorials/app:1.0.0
 
 ## Transferring Components
 
-Resolvers work with transfer commands as well. When transferring component versions recursively, the resolver is used to locate **referenced** components across registries:
+Resolvers work with transfer commands as well. When transferring component versions recursively, the resolver is used to locate **referenced** components:
 
 ```bash
-ocm transfer cv ghcr.io/<your-github-username>/ocm-tutorial-app//ocm.software/tutorials/app:1.0.0 \
+ocm transfer cv ghcr.io/<your-github-username>/ocm-tutorial//ocm.software/tutorials/app:1.0.0 \
   myregistry.example.com/target --recursive --config .ocmconfig
 ```
 
-With resolvers configured, the CLI discovers the references to the backend and frontend components and automatically locates them in their respective source repositories before transferring everything to the target.
+With the resolver configured, the CLI discovers the references to the backend and frontend components and automatically locates them before transferring everything to the target.
 
 ## Configuration Reference
 
