@@ -2,7 +2,7 @@
 title: "Resolve Dependencies from Multiple Repositories"
 description: "Configure resolvers to recursively resolve component references when each dependency lives in its own repository."
 icon: "🔍"
-weight: 100
+weight: 81
 toc: true
 ---
 
@@ -21,6 +21,7 @@ In this tutorial, you will:
 - Push each dependency component to its own dedicated OCI repository
 - Write per-component resolver entries that map specific names to specific repositories
 - Recursively resolve a component graph where each dependency lives in a different registry path
+- Optional, but recommended: Read the tutorial [How to Configure Resolvers in OCM CLI]({{< relref "configure-resolvers.md" >}}) first to understand the basics of resolver configuration before diving into this more complex example.
 
 {{</callout>}}
 
@@ -41,7 +42,8 @@ echo $GITHUB_TOKEN | docker login ghcr.io -u <your-github-username> --password-s
 ```
 
 Your token needs to have write permissions for packages in order to push component versions to the registry.
-For more information on creating a personal access token, see [GitHub's documentation](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token).
+For more information on creating a personal access token,
+see [GitHub's documentation](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token).
 
 ### Step 2: Create and Push the Backend Component
 
@@ -113,7 +115,8 @@ The expected output should look like this:
 
 ### Step 4: Create and Push the App Component
 
-Create `app-constructor.yaml`. Notice the `componentReferences` section — it declares dependencies on both the backend and frontend components:
+Create `app-constructor.yaml`. Notice the `componentReferences` section — it declares dependencies on both the backend
+and frontend components:
 
 ```yaml
 components:
@@ -155,7 +158,8 @@ The expected output should look like this:
 ```
 
 {{<callout context="tip">}}
-If you are re-running this tutorial and the component versions already exist, add `--component-version-conflict-policy replace` to the `ocm add cv` commands to overwrite existing versions.
+If you are re-running this tutorial and the component versions already exist, add
+`--component-version-conflict-policy replace` to the `ocm add cv` commands to overwrite existing versions.
 {{</callout>}}
 
 ### Step 5: Configure Resolvers for Multiple Repositories
@@ -218,17 +222,29 @@ to match groups of components from the same repository.
 
 Now that you know how to configure resolvers for multiple repositories, you can:
 
-- **Start with a shared repository**: If you haven't already, see [Resolve Dependencies from a Shared Repository]({{< relref "configure-resolvers.md" >}}) for the fundamentals of resolver configuration, including glob patterns and repository types.
-- **Learn more about component references**: Understand how components link together and how references are structured in a [Complex Component Structure]({{< relref "complex-component-structure-deployment.md" >}}).
-- **Explore credential configuration**: See [Credentials in an .ocmconfig File]({{< relref "creds-in-ocmconfig.md" >}}) for authentication options when working with registries.
-- **Transfer components between registries**: Use resolvers with `ocm transfer cv` to move component graphs across registries.
-- **Set up air-gapped environments**: Use CTF archives with resolvers for offline component resolution. Learn about the Common Transport Format in [Creating a Component Version]({{< relref "docs/getting-started/create-component-version.md" >}}).
+- **Start with a shared repository**: If you haven't already, see [Resolve Dependencies from a Shared Repository]({{<
+  relref "configure-resolvers.md" >}}) for the fundamentals of resolver configuration, including glob patterns and
+  repository types.
+- **Learn more about component references**: Understand how components link together and how references are structured
+  in a [Complex Component Structure]({{< relref "complex-component-structure-deployment.md" >}}).
+- **Explore credential configuration**: See [Credentials in an .ocmconfig File]({{< relref "creds-in-ocmconfig.md" >}})
+  for authentication options when working with registries.
+- **Transfer components between registries**: Use resolvers with `ocm transfer cv` to move component graphs across
+  registries.
+- **Set up air-gapped environments**: Use CTF archives with resolvers for offline component resolution. Learn about the
+  Common Transport Format in [Creating a Component Version]({{< relref "docs/getting-started/create-component-version.md" >}}).
 
 ## Related Documentation
 
-- [Components]({{< relref "docs/concepts/components.md" >}}) — Core concepts behind component versions, identities, and references
-- [Credentials in an .ocmconfig File]({{< relref "creds-in-ocmconfig.md" >}}) — Configure credentials for OCI registries, Helm repositories, and more
-- [Creating a Component Version]({{< relref "docs/getting-started/create-component-version.md" >}}) — Build component versions and work with CTF archives
-- [Input and Access Types]({{< relref "input-and-access-types.md" >}}) — Reference for resource input types (by value) and access types (by reference)
-- [Signing and Verification]({{< relref "signing-and-verification.md" >}}) — Sign and verify component versions with cryptographic keys
-- [Configure Credentials for Controllers]({{< relref "configure-credentials-for-controllers.md" >}}) — Set up credentials for OCM controllers in Kubernetes
+- [Components]({{< relref "docs/concepts/components.md" >}}) — Core concepts behind component versions, identities, and
+  references
+- [Credentials in an .ocmconfig File]({{< relref "creds-in-ocmconfig.md" >}}) — Configure credentials for OCI
+  registries, Helm repositories, and more
+- [Creating a Component Version]({{< relref "docs/getting-started/create-component-version.md" >}}) — Build component
+  versions and work with CTF archives
+- [Input and Access Types]({{< relref "input-and-access-types.md" >}}) — Reference for resource input types (by value)
+  and access types (by reference)
+- [Signing and Verification]({{< relref "signing-and-verification.md" >}}) — Sign and verify component versions with
+  cryptographic keys
+- [Configure Credentials for Controllers]({{< relref "configure-credentials-for-controllers.md" >}}) — Set up
+  credentials for OCM controllers in Kubernetes
