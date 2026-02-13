@@ -80,7 +80,7 @@ configurations:
   - type: resolvers.config.ocm.software/v1alpha1
     resolvers:
       - repository:
-          type: OCIRegistry/v1
+          type: OCIRepository/v1
           baseUrl: ghcr.io
           subPath: <your-github-username>/ocm-tutorial
         componentNamePattern: "ocm.software/tutorials/*"
@@ -97,14 +97,14 @@ The `repository` field accepts any OCM repository specification. The most common
 
 ```yaml
 repository:
-  type: OCIRegistry/v1
+  type: OCIRepository/v1
   baseUrl: ghcr.io
   subPath: <your-github-username>/ocm-tutorial
 ```
 
 | Field     | Required | Description                                                                                     |
 |-----------|----------|-------------------------------------------------------------------------------------------------|
-| `type`    | Yes      | Repository type. Accepted values include `OCIRegistry/v1` and the canonical `OCIRepository/v1`. |
+| `type`    | Yes      | Repository type. Accepted values include `OCIRepository/v1` and the canonical `OCIRepository/v1`. |
 | `baseUrl` | Yes      | Registry host and optional port (e.g., `ghcr.io`, `localhost:5000`).                            |
 | `subPath` | No       | Repository prefix path within the registry.                                                     |
 
@@ -132,7 +132,7 @@ configurations:
   - type: resolvers.config.ocm.software/v1alpha1
     resolvers:
       - repository:
-          type: OCIRegistry/v1
+          type: OCIRepository/v1
           baseUrl: ghcr.io
           subPath: <your-github-username>/ocm-tutorial
         componentNamePattern: "ocm.software/tutorials/*"
@@ -276,7 +276,7 @@ configurations:
   - type: resolvers.config.ocm.software/v1alpha1
     resolvers:
       - repository:
-          type: OCIRegistry/v1
+          type: OCIRepository/v1
           baseUrl: ghcr.io
           subPath: <your-github-username>/ocm-tutorial
         componentNamePattern: "ocm.software/tutorials/*"
@@ -309,13 +309,13 @@ configurations:
     resolvers:
       # Tutorial components on GitHub
       - repository:
-          type: OCIRegistry/v1
+          type: OCIRepository/v1
           baseUrl: ghcr.io
           subPath: <your-github-username>/ocm-tutorial
         componentNamePattern: "ocm.software/tutorials/*"
       # Internal components on a private registry
       - repository:
-          type: OCIRegistry/v1
+          type: OCIRepository/v1
           baseUrl: myregistry.example.com
           subPath: my-org/components
         componentNamePattern: "mycompany.io/*"
@@ -332,13 +332,13 @@ configurations:
     resolvers:
       # Specific pattern first
       - repository:
-          type: OCIRegistry/v1
+          type: OCIRepository/v1
           baseUrl: ghcr.io
           subPath: <your-github-username>/ocm-tutorial
         componentNamePattern: "ocm.software/tutorials/*"
       # Catch-all fallback
       - repository:
-          type: OCIRegistry/v1
+          type: OCIRepository/v1
           baseUrl: myregistry.example.com
           subPath: components
         componentNamePattern: "*"
@@ -360,7 +360,7 @@ configurations:
         componentNamePattern: "dev.mycompany.io/*"
       # Production components from OCI registry
       - repository:
-          type: OCIRegistry/v1
+          type: OCIRepository/v1
           baseUrl: myregistry.example.com
           subPath: production/components
         componentNamePattern: "mycompany.io/*"
@@ -381,7 +381,7 @@ configurations:
   - type: resolvers.config.ocm.software/v1alpha1
     resolvers:
       - repository:
-          type: OCIRegistry/v1
+          type: OCIRepository/v1
           baseUrl: ghcr.io
           subPath: <your-github-username>/ocm-tutorial
         componentNamePattern: "ocm.software/tutorials/*"
