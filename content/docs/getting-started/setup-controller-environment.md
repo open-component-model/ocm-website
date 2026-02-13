@@ -82,7 +82,6 @@ kro                  kro-86d5b5b5bd-6gmvr                         1/1     Runnin
 
 Install the OCM controllers with one of the following commands:
 
-
 ```bash
 helm install ocm-k8s-toolkit oci://ghcr.io/open-component-model/charts/ocm-k8s-toolkit \
   --namespace ocm-k8s-toolkit-system \
