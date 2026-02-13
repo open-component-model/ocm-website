@@ -67,7 +67,7 @@ Resolvers are configured in the OCM configuration file. By default, the CLI sear
 You can also specify a configuration file explicitly with the `--config` flag.
 
 {{<callout context="tip">}}
-For more information about OCM configuration files, see [OCM Configuration Files]("content/docs/tutorials/creds-in-ocmconfig.md").
+For more information about OCM configuration files, see [OCM Configuration Files]({{< relref "creds-in-ocmconfig.md" >}}).
 {{</callout>}}
 
 ### Basic Configuration
@@ -389,7 +389,7 @@ configurations:
 
 This gives the CLI both the **routing** (which registry to use) and the **authentication** (how to log in) it needs.
 
-For more details on configuring credentials, see [Credentials in an .ocmconfig File]("content/docs/tutorials/creds-in-ocmconfig.md").
+For more details on configuring credentials, see [Credentials in an .ocmconfig File]({{< relref "creds-in-ocmconfig.md" >}}).
 
 ## Recursive Resolution
 
