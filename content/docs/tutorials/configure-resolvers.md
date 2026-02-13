@@ -1,8 +1,8 @@
 ---
-title: "Resolve Dependencies from a Shared Repository"
+title: "How to Configure Resolvers in OCM CLI"
 description: "Configure resolvers to recursively resolve component references from a shared dependencies repository."
 icon: "🔍"
-weight: 57
+weight: 80
 toc: true
 ---
 
