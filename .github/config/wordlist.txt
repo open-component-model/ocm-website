@@ -460,3 +460,4 @@ callouts
 shortcode
 shortcodes
 wsl
+XDG
