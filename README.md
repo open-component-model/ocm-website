@@ -27,9 +27,10 @@ All content lives under the `content` directory and is organized by section.
 | `content/_index.md`            | Site landing page content                                    |
 | `content/docs/concepts`        | Concept explanations                                         |
 | `content/docs/getting-started` | Getting Started guides                                       |
+| `content/docs/how-to`          | Task-focused how-to guides                                   |
 | `content/docs/overview`        | Overview and introductory information                        |
 | `content/docs/reference`       | Reference and CLI documentation (mounted via module imports) |
-| `content/docs/tutorials`       | Tutorials                                                    |
+| `content/docs/tutorials`       | Step-by-step tutorials                                       |
 | `content/community`            | Community information                                        |
 
 Versioned snapshot folders live under `content_versioned/`:
@@ -58,7 +59,15 @@ logo: "📄"
 weight: 92
 ```
 
-There are templates for frontmatter of [standard pages](content_templates/new-doc.md) and [_index.md](content_templates/_index.md) of overview pages.
+### Documentation Templates
+
+We follow the **Diataxis** documentation framework to structure our content. The following templates are available in `content_templates/`:
+
+- [**Tutorial Template**](content_templates/template-tutorial.md) – For learning-oriented, step-by-step guides
+- [**How-To Guide Template**](content_templates/template-how-to.md) – For task-focused, goal-oriented instructions
+- [**Section Overview Template**](content_templates/_index.md) – For section `_index.md` files
+
+Use these templates when creating new documentation to ensure consistency and best practices.
 
 ### Standard Content Pages
 

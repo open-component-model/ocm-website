@@ -126,4 +126,3 @@ If you want to remove the resources created in this tutorial:
 - [ ] Time estimate is realistic
 - [ ] Troubleshooting covers common issues
 - [ ] Related documentation links are complete
-
