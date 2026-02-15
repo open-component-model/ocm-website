@@ -156,7 +156,7 @@ If you want to remove the resources created in this tutorial:
 
 ```bash
 # Commands to clean up
-ocm <cleanup-command>
+<cleanup-commands>
 ```
 
 {{< callout type="warning" >}}

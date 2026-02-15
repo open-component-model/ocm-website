@@ -85,6 +85,19 @@ If none of these solutions work:
 - Ask in the community (Slack/Discord link)
 - [Open an issue](https://github.com/open-component-model/ocm/issues)
 
+## Cleanup (optional)
+
+If you want to remove the resources created in this tutorial:
+
+```bash
+# Commands to clean up
+<cleanup-commands>
+```
+
+{{< callout type="warning" >}}
+**⚠️ Warning:** This will delete [what will be deleted].
+{{< /callout >}}
+
 ## Next steps
 
 - Link to the related concept page for "why"
