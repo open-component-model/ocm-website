@@ -133,6 +133,7 @@ Before moving on, verify you can answer these questions:
 - **Question 1:** [Answer + brief explanation]
 - **Question 2:** [Answer + brief explanation]
 - **Question 3:** [Answer + brief explanation]
+
 </details>
 
 ## Troubleshooting
@@ -182,6 +183,7 @@ Give the learner 3–5 concrete next actions.
 ## ✓ Template completion checklist (remove before publishing)
 
 **Tutorial compliance:**
+
 - [ ] Title describes what the learner will achieve
 - [ ] Includes learning outcomes, not just task outcomes
 - [ ] Steps build knowledge progressively

@@ -75,12 +75,14 @@ Mention anything that would cause data loss or unexpected changes.
 ### Common issues
 
 **Symptom:** …
+
 - **Cause:** …
 - **Fix:** …
 
 ### Getting help
 
 If none of these solutions work:
+
 - Check the [OCM Troubleshooting Guide]({{< relref "docs/troubleshooting/_index.md" >}})
 - Ask in the community (Slack/Discord link)
 - [Open an issue](https://github.com/open-component-model/ocm/issues)
@@ -115,6 +117,7 @@ If you want to remove the resources created in this tutorial:
 ## ✓ Template completion checklist (remove before publishing)
 
 **How-to compliance:**
+
 - [ ] Title starts with action verb (e.g., "Configure", "Deploy", "Create")
 - [ ] Focus is on practical steps, not explanation
 - [ ] Each step is minimal and focused
@@ -123,3 +126,4 @@ If you want to remove the resources created in this tutorial:
 - [ ] Time estimate is realistic
 - [ ] Troubleshooting covers common issues
 - [ ] Related documentation links are complete
+
