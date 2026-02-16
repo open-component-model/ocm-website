@@ -70,7 +70,7 @@ Resolvers are configured in the OCM configuration file. By default, the CLI sear
 You can also specify a configuration file explicitly with the `--config` flag.
 
 {{<callout context="tip">}}
-For more information about OCM configuration files, see [OCM Configuration Files]({{< relref "creds-in-ocmconfig.md" >}}).
+For more information about configuring credentials, see [Credentials in an .ocmconfig File]({{< relref "creds-in-ocmconfig.md" >}}).
 {{</callout>}}
 
 ### Basic Configuration
@@ -107,7 +107,7 @@ repository:
 
 | Field     | Required | Description                                                                                       |
 |-----------|----------|---------------------------------------------------------------------------------------------------|
-| `type`    | Yes      | Repository type. Accepted values include `OCIRepository/v1` and the canonical `OCIRepository/v1`. |
+| `type`    | Yes      | Repository type. Must be `OCIRepository/v1`.                                                      |
 | `baseUrl` | Yes      | Registry host and optional port (e.g., `ghcr.io`, `localhost:5000`).                              |
 | `subPath` | No       | Repository prefix path within the registry.                                                       |
 
@@ -144,23 +144,22 @@ configurations:
 
 Supported glob patterns:
 
-| Pattern                      | Matches                                                 |
-|------------------------------|---------------------------------------------------------|
-| `ocm.software/tutorials/*`  | Any component directly under `ocm.software/tutorials/`  |
-| `ocm.software/core/*`       | Any component under `ocm.software/core/`                |
-| `*.software/*/test`         | Components named `test` in any `*.software` namespace   |
-| `ocm.software/core/[tc]est` | `ocm.software/core/test` or `ocm.software/core/cest`   |
-| `*`                         | All components (wildcard catch-all)                     |
+| Pattern                     | Matches                                                  |
+|-----------------------------|----------------------------------------------------------|
+| `ocm.software/tutorials/*`  | Any component directly under `ocm.software/tutorials/`   |
+| `ocm.software/core/*`       | Any component directly under `ocm.software/core/`        |
+| `ocm.software/core/**`      | Any component under `ocm.software/core/` or its subpaths |
+| `*.software/*/test`         | Components named `test` in any `*.software` namespace    |
+| `ocm.software/core/[tc]est` | `ocm.software/core/test` or `ocm.software/core/cest`     |
+| `*`                         | All components (wildcard catch-all)                      |
 
-The syntax for the pattern recognition is defined like this:
-
-```bash
 **Pattern syntax:**
+
 - `*` — Matches any sequence of characters within a path segment
+- `**` — Matches any sequence of characters in subpath segments
 - `?` — Matches any single character
 - `[abc]` — Matches any character in the set (a, b, or c)
 - `[a-z]` — Matches any character in the range
-```
 
 {{<callout context="note">}}
 Resolvers are evaluated **in the order they are defined**. The first matching resolver wins. Place more specific patterns before broader ones.
@@ -171,7 +170,7 @@ Resolvers are evaluated **in the order they are defined**. The first matching re
 This tutorial walks through a hands-on example with three components — a **backend**, a **frontend**, and an **app**
 that references both. The app lives in its own repository, while its component references (backend and frontend component) are stored in
 a shared repository. When you recursively resolve the app, the CLI needs resolvers to locate the referenced
-components in the their repositories..
+components in their repositories.
 
 ### Step 1: Authenticate with the Registry
 
@@ -313,7 +312,7 @@ The outputs of each command should show the respective component version with it
 
 ### Step 6: Recursively Resolve the App with Resolvers
 
-Create an `.ocmconfig` file with credentials and resolvers that map the referenced components to the dependencies repository:
+Create an `.ocmconfig` file with credentials and resolvers that map the component references to their repository:
 
 ```yaml
 type: generic.config.ocm.software/v1
@@ -350,6 +349,59 @@ The CLI:
 2. Discovers the references to `ocm.software/tutorials/backend:1.0.0` and `ocm.software/tutorials/frontend:1.0.0`
 3. Consults the resolvers — each component name matches a configured pattern
 4. Looks up backend and frontend in `ghcr.io/<your-github-username>/ocm-tutorial-deps`
+
+## Tutorial: Resolving from Multiple Repositories
+
+In the tutorial above, both component references share a single repository (`ocm-tutorial-deps`). In practice,
+components often live in **separate repositories** — for example, when different teams publish independently or
+components have different access control requirements.
+
+To set up this pattern, push each component to its own dedicated repository instead:
+
+```bash
+ocm add cv --repository ghcr.io/<your-github-username>/ocm-tutorial-backend \
+  --constructor backend-constructor.yaml
+
+ocm add cv --repository ghcr.io/<your-github-username>/ocm-tutorial-frontend \
+  --constructor frontend-constructor.yaml
+
+ocm add cv --repository ghcr.io/<your-github-username>/ocm-tutorial-app \
+  --constructor app-constructor.yaml
+```
+
+Then update the `.ocmconfig` so each resolver entry points to the correct repository:
+
+```yaml
+type: generic.config.ocm.software/v1
+configurations:
+  - type: credentials.config.ocm.software
+    repositories:
+      - repository:
+          type: DockerConfig/v1
+          dockerConfigFile: "~/.docker/config.json"
+  - type: resolvers.config.ocm.software/v1alpha1
+    resolvers:
+      - repository:
+          type: OCIRepository/v1
+          baseUrl: ghcr.io
+          subPath: <your-github-username>/ocm-tutorial-frontend
+        componentNamePattern: "ocm.software/tutorials/frontend"
+      - repository:
+          type: OCIRepository/v1
+          baseUrl: ghcr.io
+          subPath: <your-github-username>/ocm-tutorial-backend
+        componentNamePattern: "ocm.software/tutorials/backend"
+```
+
+Resolve the app recursively:
+
+```bash
+ocm get cv ghcr.io/<your-github-username>/ocm-tutorial-app//ocm.software/tutorials/app:1.0.0 \
+  --recursive=-1 --config .ocmconfig
+```
+
+This pattern scales to any number of repositories — simply add a resolver entry for each component or use glob patterns
+to match groups of components from the same repository.
 
 ## Recursive Resolution
 
@@ -404,7 +456,6 @@ With the resolver configured, the CLI discovers the references to the backend an
 
 Now that you know how to configure resolvers, you can:
 
-- **Resolve component references from multiple repositories**: In this tutorial, all component references shared a single repository. In practice, component references often come from different repositories. See [Resolve Component References from Multiple Repositories]({{< relref "resolve-dependencies-multiple-repositories.md" >}}) to learn how to configure resolvers when each dependency lives in its own repository.
 - **Learn more about component references**: Understand how components link together and how references are structured in a [Complex Component Structure]({{< relref "complex-component-structure-deployment.md" >}}).
 - **Explore credential configuration**: See [Credentials in an .ocmconfig File]({{< relref "creds-in-ocmconfig.md" >}}) for authentication options when working with registries.
 - **Transfer components between registries**: Use resolvers with `ocm transfer cv` to move component graphs across registries, as shown in the [Transferring Components](#transferring-components) section above.
