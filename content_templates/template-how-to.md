@@ -7,16 +7,16 @@ toc: true
 
 ## Goal
 
-One sentence: what the reader will achieve.
+One sentence: what you will achieve.
 
 {{< callout type="note" >}}
-**✅ You will end up with**
+**You will end up with**
 
 - A concrete outcome (artifact/config/state)
 - A verifiable success condition
 {{< /callout >}}
 
-**⏱️ Estimated time:** ~X minutes
+**Estimated time:** ~X minutes
 
 ## Prerequisites
 
@@ -25,18 +25,20 @@ One sentence: what the reader will achieve.
 - Required credentials/keys available
 
 {{< callout type="warning" >}}
-**⚠️ Preconditions**
-
-Mention anything that would cause data loss or unexpected changes.
+⚠️ **Preconditions:** Mention anything that would cause data loss or unexpected changes.
 {{< /callout >}}
 
 ## Steps
 
 1. **Do the first thing**
 
+   Brief explanation (1–2 sentences max). Link to concepts for "why"—don't explain inline.
+
    ```bash
    ocm <command> <args>
    ```
+
+   You should see: `[specific success indicator]`.
 
    <details>
      <summary>Output</summary>
@@ -48,10 +50,12 @@ Mention anything that would cause data loss or unexpected changes.
 
 2. **Do the next thing**
 
-   If you need a config file, show the minimal required snippet:
+   If needed, show the minimal config:
 
    ```yaml
+   # Key fields only
    key: value
+   required: field
    ```
 
 3. **Verify**
@@ -61,6 +65,8 @@ Mention anything that would cause data loss or unexpected changes.
    ```bash
    ocm <command> --check
    ```
+
+   You should see: `[expected output]`. This confirms your setup is correct.
 
    <details>
      <summary>Expected output</summary>
@@ -72,57 +78,63 @@ Mention anything that would cause data loss or unexpected changes.
 
 ## Troubleshooting
 
-### Common issues
+### Symptom: [Specific error message]
 
-**Symptom:** …
+**Cause:** One sentence explaining why.
 
-- **Cause:** …
-- **Fix:** …
+**Fix:**
+
+```bash
+# Fix command
+...
+```
+
+### Symptom: [Another issue]
+
+**Cause:** ...
+
+**Fix:** ...
 
 ### Getting help
 
-If none of these solutions work:
-
-- Check the [OCM Troubleshooting Guide]({{< relref "docs/troubleshooting/_index.md" >}})
-- Ask in the community (Slack/Discord link)
-- [Open an issue](https://github.com/open-component-model/ocm/issues)
+If these solutions don't work:
+- [OCM Troubleshooting Guide]({{< relref "docs/troubleshooting/_index.md" >}})
+- [Community Support](link)
+- [Open an Issue](https://github.com/open-component-model/ocm/issues)
 
 ## Cleanup (optional)
 
-If you want to remove the resources created in this tutorial:
+Remove resources created:
 
 ```bash
-# Commands to clean up
-<cleanup-commands>
+# Cleanup commands
+...
 ```
 
 {{< callout type="warning" >}}
-**⚠️ Warning:** This will delete [what will be deleted].
+⚠️ This will delete [what will be deleted].
 {{< /callout >}}
 
 ## Next steps
 
-- Link to the related concept page for "why"
-- Link to a tutorial for "learn by doing"
-- Link to reference docs for complete options
+- [Concept: Relevant Concept]({{< relref "docs/concepts/<file>.md" >}}) — understand why
+- [Tutorial: Related Tutorial]({{< relref "docs/tutorials/<file>.md" >}}) — learn by doing
+- [Reference: Command Docs]({{< relref "docs/reference/<file>.md" >}}) — complete details
 
 ## Related documentation
 
 - [Concept: <name>]({{< relref "docs/concepts/<file>.md" >}})
 - [Tutorial: <name>]({{< relref "docs/tutorials/<file>.md" >}})
-- [Reference: <command/page>]({{< relref "docs/reference/<file>.md" >}})
+- [Reference: <command>]({{< relref "docs/reference/<file>.md" >}})
 
 ---
 
-## ✓ Template completion checklist (remove before publishing)
+## ✓ Before publishing
 
-**How-to compliance:**
-
-- [ ] Title starts with action verb (e.g., "Configure", "Deploy", "Create")
-- [ ] Focus is on practical steps, not explanation
-- [ ] Each step is minimal and focused
-- [ ] Assumptions are explicitly stated in Prerequisites
-- [ ] Links to concepts for "why", not explained inline
-- [ ] Time estimate is realistic
-- [ ] Troubleshooting covers common issues
-- [ ] Related documentation links are complete
+- [ ] Action verb title (Configure/Deploy/Create)
+- [ ] Simple numbered lists (use `{{< steps >}}` only if 5+ complex steps)
+- [ ] Success indicators after each step
+- [ ] Links to concepts (never inline "why" explanations)
+- [ ] Troubleshooting with symptom-cause-fix
+- [ ] Working relref links
+- [ ] Realistic time estimate
