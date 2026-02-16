@@ -70,7 +70,7 @@ Resolvers are configured in the OCM configuration file. By default, the CLI sear
 You can also specify a configuration file explicitly with the `--config` flag.
 
 {{<callout context="tip">}}
-For more information about configuring credentials, see [Credentials in an .ocmconfig File]({{< relref "creds-in-ocmconfig.md" >}}).
+For more information about configuring credentials, see [.ocmconfig documentation](https://github.com/open-component-model/ocm/blob/main/docs/reference/ocm_configfile.md).
 {{</callout>}}
 
 ### Basic Configuration
@@ -428,7 +428,6 @@ When you provide both a repository reference on the command line and have resolv
 
 1. **Command-line reference** (highest priority) — the repository specified directly in the command
 2. **Configured resolvers** — resolvers from the configuration file, matched by component name pattern
-3. **Command-line repository as fallback** — if no resolver matches, the repository from the command line acts as a catch-all
 
 This means you can always override resolver behavior by specifying a repository explicitly:
 
