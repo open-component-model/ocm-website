@@ -1,6 +1,6 @@
 ---
 title: "Resolve Component References from Multiple Repositories"
-description: "Configure resolvers to recursively resolve component references when each dependency lives in its own repository."
+description: "Configure resolvers to recursively resolve component references when each lives in its own repository."
 icon: "🔍"
 weight: 81
 toc: true
