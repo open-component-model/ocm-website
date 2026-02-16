@@ -15,14 +15,21 @@ component references (the OCM term for dependencies between components) were sto
 This tutorial extends the previous example by storing the backend and frontend components in their **own dedicated
 repositories**, each with a separate resolver entry.
 
+**When to use this pattern:**
+- Different teams own different components and publish to their own registry namespaces
+- Components have different access control requirements (e.g., some are public, others private)
+- You're consuming components from external sources (e.g., third-party components from different registries)
+- You want to organize components by project, team, or lifecycle stage
 {{<callout context="note" title="What You'll Learn">}}
 In this tutorial, you will:
 
 - Push each referenced component to its own dedicated OCI repository
 - Write per-component resolver entries that map specific names to specific repositories
 - Recursively resolve a component graph where each component references lives in a different registry path
-- Optional, but recommended: Read the tutorial [How to Configure Resolvers in OCM CLI]({{< relref "configure-resolvers.md" >}}) first to understand the basics of resolver configuration before diving into this more complex example.
+{{</callout>}}
 
+{{<callout context="tip">}}
+This tutorial builds on [How to Configure Resolvers in OCM CLI]({{< relref "configure-resolvers.md" >}}). If you're new to resolvers, we recommend completing that tutorial first.
 {{</callout>}}
 
 ## Prerequisites
@@ -222,7 +229,7 @@ to match groups of components from the same repository.
 
 Now that you know how to configure resolvers for multiple repositories, you can:
 
-- **Start with a shared repository**: If you haven't already, see [Resolve Dependencies from a Shared Repository]({{<
+- **Start with a shared repository**: If you haven't already, see [Resolve Component references from a Shared Repository]({{<
   relref "configure-resolvers.md" >}}) for the fundamentals of resolver configuration, including glob patterns and
   repository types.
 - **Learn more about component references**: Understand how components link together and how references are structured
