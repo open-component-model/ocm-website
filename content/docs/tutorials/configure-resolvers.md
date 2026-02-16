@@ -404,7 +404,7 @@ With the resolver configured, the CLI discovers the references to the backend an
 
 Now that you know how to configure resolvers, you can:
 
-- **Resolve dependencies from multiple repositories**: In this tutorial, all dependencies shared a single repository. In practice, dependencies often come from different repositories. See [Resolve Dependencies from Multiple Repositories]({{< relref "resolve-dependencies-multiple-repositories.md" >}}) to learn how to configure resolvers when each dependency lives in its own repository.
+- **Resolve component references from multiple repositories**: In this tutorial, all component references shared a single repository. In practice, component references often come from different repositories. See [Resolve Component References from Multiple Repositories]({{< relref "resolve-dependencies-multiple-repositories.md" >}}) to learn how to configure resolvers when each dependency lives in its own repository.
 - **Learn more about component references**: Understand how components link together and how references are structured in a [Complex Component Structure]({{< relref "complex-component-structure-deployment.md" >}}).
 - **Explore credential configuration**: See [Credentials in an .ocmconfig File]({{< relref "creds-in-ocmconfig.md" >}}) for authentication options when working with registries.
 - **Transfer components between registries**: Use resolvers with `ocm transfer cv` to move component graphs across registries, as shown in the [Transferring Components](#transferring-components) section above.
