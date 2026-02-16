@@ -203,7 +203,7 @@ components:
           text: "backend service configuration"
 ```
 
-Push it to the dependencies repository:
+Push it to the repository where the component references are stored:
 
 ```bash
 ocm add cv --repository ghcr.io/<your-github-username>/ocm-tutorial-deps \
