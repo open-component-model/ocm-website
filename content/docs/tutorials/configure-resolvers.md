@@ -237,7 +237,7 @@ components:
           text: "frontend service configuration"
 ```
 
-Push it to the same dependencies repository:
+Push it to the same repository where the other component references are stored:
 
 ```bash
 ocm add cv --repository ghcr.io/<your-github-username>/ocm-tutorial-deps \
