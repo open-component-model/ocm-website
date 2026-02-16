@@ -454,3 +454,5 @@ repos
 callout
 diataxis
 callouts
+shortcode
+shortcodes
