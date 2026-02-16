@@ -170,8 +170,8 @@ Resolvers are evaluated **in the order they are defined**. The first matching re
 
 This tutorial walks through a hands-on example with three components — a **backend**, a **frontend**, and an **app**
 that references both. The app lives in its own repository, while its component references (backend and frontend component) are stored in
-a shared dependencies repository. When you recursively resolve the app, the CLI needs resolvers to locate the referenced
-components in the dependencies repository.
+a shared repository. When you recursively resolve the app, the CLI needs resolvers to locate the referenced
+components in the their repositories..
 
 ### Step 1: Authenticate with the Registry
 
@@ -181,7 +181,7 @@ Log in to `ghcr.io` using a GitHub personal access token:
 echo $GITHUB_TOKEN | docker login ghcr.io -u <your-github-username> --password-stdin
 ```
 
-You token needs to have write permissions for packages in order to push component versions to the registry. 
+Your token needs to have write permissions for packages in order to push component versions to the registry. 
 For more information on creating a personal access token, see [GitHub's documentation](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token).
 
 ### Step 2: Create and Push the Backend Component
@@ -278,7 +278,7 @@ components:
           text: "app deployment configuration"
 ```
 
-Push it to the **app repository** — a separate repository from the dependencies:
+Push it to the **app repository** — a separate repository from where the component references are stored:
 
 ```bash
 ocm add cv --repository ghcr.io/<your-github-username>/ocm-tutorial \
@@ -358,7 +358,7 @@ flag on commands like `ocm get cv` or `ocm transfer cv` follows these references
 component is looked up in the correct repository.
 
 As shown in the tutorial above, the app component `ocm.software/tutorials/app:1.0.0` references both
-`ocm.software/tutorials/backend:1.0.0` and `ocm.software/tutorials/frontend:1.0.0`. These dependencies live in a
+`ocm.software/tutorials/backend:1.0.0` and `ocm.software/tutorials/frontend:1.0.0`. These component references live in a
 separate repository. With resolvers configured, the CLI automatically finds the referenced components:
 
 ```bash
