@@ -169,7 +169,7 @@ Resolvers are evaluated **in the order they are defined**. The first matching re
 ## Tutorial
 
 This tutorial walks through a hands-on example with three components — a **backend**, a **frontend**, and an **app**
-that references both. The app lives in its own repository, while its dependencies (backend and frontend) are stored in
+that references both. The app lives in its own repository, while its component references (backend and frontend component) are stored in
 a shared dependencies repository. When you recursively resolve the app, the CLI needs resolvers to locate the referenced
 components in the dependencies repository.
 
