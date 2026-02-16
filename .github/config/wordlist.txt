@@ -461,3 +461,4 @@ shortcode
 shortcodes
 wsl
 XDG
+subpaths
