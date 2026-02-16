@@ -9,7 +9,7 @@ toc: true
 ## Overview
 
 In [Resolve Dependencies from a Shared Repository]({{< relref "configure-resolvers.md" >}}), all
-dependencies were stored in a single repository with one resolver entry. In practice, dependencies often come from
+component references (the OCM term for dependencies between components) were stored in a single repository with one resolver entry. In practice, component references often come from
 **different repositories** — for example, when each team or project publishes their components independently.
 
 This tutorial extends the previous example by storing the backend and frontend components in their **own dedicated
