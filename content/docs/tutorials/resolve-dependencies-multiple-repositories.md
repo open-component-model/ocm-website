@@ -164,7 +164,7 @@ If you are re-running this tutorial and the component versions already exist, ad
 
 ### Step 5: Configure Resolvers for Multiple Repositories
 
-Create an `.ocmconfig` file where each dependency points to its own repository:
+Create an `.ocmconfig` file where each component reference points to its own repository:
 
 ```yaml
 type: generic.config.ocm.software/v1
