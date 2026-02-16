@@ -137,6 +137,7 @@ Summarize key learning points in 3–6 bullets:
 - You verified your component structure using `ocm get cv`
 
 **For deeper understanding:**
+
 - [Concept: Component Descriptors]({{< relref "docs/concepts/component-descriptors.md" >}})
 - [Concept: Common Transfer Format]({{< relref "docs/concepts/ctf.md" >}})
 
