@@ -18,7 +18,7 @@ repositories**, each with a separate resolver entry.
 {{<callout context="note" title="What You'll Learn">}}
 In this tutorial, you will:
 
-- Push each dependency component to its own dedicated OCI repository
+- Push each referenced component to its own dedicated OCI repository
 - Write per-component resolver entries that map specific names to specific repositories
 - Recursively resolve a component graph where each dependency lives in a different registry path
 - Optional, but recommended: Read the tutorial [How to Configure Resolvers in OCM CLI]({{< relref "configure-resolvers.md" >}}) first to understand the basics of resolver configuration before diving into this more complex example.
