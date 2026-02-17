@@ -411,15 +411,20 @@ component is looked up in the correct repository.
 
 As shown in the tutorial above, the app component `ocm.software/tutorials/app:1.0.0` references both
 `ocm.software/tutorials/backend:1.0.0` and `ocm.software/tutorials/frontend:1.0.0`. These component references live in a
-separate repository. With resolvers configured, the CLI automatically finds the referenced components:
+separate repository. With resolvers configured, the CLI automatically finds the referenced components.
+
+**Transfer between repositories** also works with resolvers. 
+When you use `ocm transfer cv` with `--recursive`, the CLI uses the resolver configuration to locate all referenced components across repositories and transfer them together:
 
 ```bash
 ocm get cv ghcr.io/<your-github-username>/ocm-tutorial//ocm.software/tutorials/app:1.0.0 \
-  --recursive=-1 --config .ocmconfig
+    ghcr.io/<your-github-username>/ocm-tutorial-tranfer --recursive \
+  --config .ocmconfig
 ```
 
 {{<callout context="note">}}
 For `ocm get cv`, the `--recursive` flag accepts a depth value: `0` for no recursion (default), `-1` for unlimited depth. Limiting the recursion depth with a `positive integer` is planned but not supported yet.
+For the transfer command, `--recursive` is a boolean flag that enables unlimited recursion. Support for limiting recursion depth is planned but not supported yet.
 {{</callout>}}
 
 ## CLI and Resolver Interaction
