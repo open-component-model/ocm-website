@@ -16,7 +16,7 @@ ocm get cv ghcr.io/<your-namespace>/ocm-tutorial//ocm.software/tutorials/app:1.0
 
 This works fine for a single component. But what happens when that component has **references** to other components?
 For example, an app component might reference a backend and a frontend component that reside in different registries.
-When you use `--recursive` to follow those references, the CLI needs to know which repository contains the referenced components.
+When you use the option `--recursive` to follow those references, the CLI needs to know which repository contains the referenced components.
 
 **Resolvers** solve this problem. They map component names to repositories so the CLI can automatically locate
 referenced components during recursive operations.
