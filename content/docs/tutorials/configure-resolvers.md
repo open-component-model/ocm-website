@@ -11,7 +11,7 @@ toc: true
 When you retrieve a component version, you typically specify the repository where the component is located directly:
 
 ```bash
-ocm get cv ghcr.io/<your-github-username>/ocm-tutorial//ocm.software/tutorials/app:1.0.0
+ocm get cv ghcr.io/<your-namespace>/ocm-tutorial//ocm.software/tutorials/app:1.0.0
 ```
 
 This works fine for a single component. But what happens when that component has **references** to other components?
