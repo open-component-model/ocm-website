@@ -147,7 +147,6 @@ Supported glob patterns:
 | Pattern                     | Matches                                                  |
 |-----------------------------|----------------------------------------------------------|
 | `ocm.software/tutorials/*`  | Any component directly under `ocm.software/tutorials/`   |
-| `ocm.software/core/*`       | Any component directly under `ocm.software/core/`        |
 | `ocm.software/core/**`      | Any component under `ocm.software/core/` or its subpaths |
 | `*.software/*/test`         | Components named `test` in any `*.software` namespace    |
 | `ocm.software/core/[tc]est` | `ocm.software/core/test` or `ocm.software/core/cest`     |
