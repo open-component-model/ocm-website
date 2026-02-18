@@ -180,8 +180,13 @@ Log in to `ghcr.io` using a GitHub personal access token:
 echo $GITHUB_TOKEN | docker login ghcr.io -u <your-github-username> --password-stdin
 ```
 
-Your token needs to have write permissions for packages in order to push component versions to the registry. 
+Your token needs to have write permissions for packages in order to push component versions to the registry.
+
+{{<callout context="note">}}
 For more information on creating a personal access token, see [GitHub's documentation](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token).
+
+⚠️ The token must have the `write:packages` scope to allow pushing component versions to [GitHub Container Registry](https://ghcr.io).
+{{</callout>}}
 
 ### Step 2: Create and Push the Backend Component
 
@@ -202,7 +207,7 @@ components:
           text: "backend service configuration"
 ```
 
-Push it to the repository where the component references are stored:
+Push it to the repository to store the component in. We will reference this later when we create the app component:
 
 ```bash
 ocm add cv --repository ghcr.io/<your-github-username>/ocm-tutorial-deps \
@@ -236,7 +241,7 @@ components:
           text: "frontend service configuration"
 ```
 
-Push it to the same repository where the other component references are stored:
+Push it to the same repository:
 
 ```bash
 ocm add cv --repository ghcr.io/<your-github-username>/ocm-tutorial-deps \
@@ -413,15 +418,6 @@ As shown in the tutorial above, the app component `ocm.software/tutorials/app:1.
 `ocm.software/tutorials/backend:1.0.0` and `ocm.software/tutorials/frontend:1.0.0`. These component references live in a
 separate repository. With resolvers configured, the CLI automatically finds the referenced components.
 
-**Transfer between repositories** also works with resolvers. 
-When you use `ocm transfer cv` with `--recursive`, the CLI uses the resolver configuration to locate all referenced components across repositories and transfer them together:
-
-```bash
-ocm get cv ghcr.io/<your-github-username>/ocm-tutorial//ocm.software/tutorials/app:1.0.0 \
-    ghcr.io/<your-github-username>/ocm-tutorial-tranfer --recursive \
-  --config .ocmconfig
-```
-
 {{<callout context="note">}}
 For `ocm get cv`, the `--recursive` flag accepts a depth value: `0` for no recursion (default), `-1` for unlimited depth. Limiting the recursion depth with a `positive integer` is planned but not supported yet.
 For the transfer command, `--recursive` is a boolean flag that enables unlimited recursion. Support for limiting recursion depth is planned but not supported yet.
@@ -440,9 +436,6 @@ This means you can always override resolver behavior by specifying a repository 
 # Uses resolvers from config to find referenced components
 ocm get cv ghcr.io/<your-github-username>/ocm-tutorial//ocm.software/tutorials/app:1.0.0 \
   --recursive=-1
-
-# Explicitly targets a specific repository, ignoring resolvers
-ocm get cv ghcr.io/my-mirror//ocm.software/tutorials/app:1.0.0
 ```
 
 ## Transferring Components
@@ -455,24 +448,6 @@ ocm transfer cv ghcr.io/<your-github-username>/ocm-tutorial//ocm.software/tutori
 ```
 
 With the resolver configured, the CLI discovers the references to the backend and frontend components and automatically locates them before transferring everything to the target.
-
-## What Comes Next
-
-Now that you know how to configure resolvers, you can:
-
-- **Learn more about component references**: Understand how components link together and how references are structured in a [Complex Component Structure]({{< relref "complex-component-structure-deployment.md" >}}).
-- **Explore credential configuration**: See [Credentials in an .ocmconfig File]({{< relref "creds-in-ocmconfig.md" >}}) for authentication options when working with registries.
-- **Transfer components between registries**: Use resolvers with `ocm transfer cv` to move component graphs across registries, as shown in the [Transferring Components](#transferring-components) section above.
-- **Set up air-gapped environments**: Use CTF archives with resolvers for offline component resolution. Learn about the Common Transport Format in [Creating a Component Version]({{< relref "docs/getting-started/create-component-version.md" >}}).
-
-## Related Documentation
-
-- [Components]({{< relref "docs/concepts/components.md" >}}) — Core concepts behind component versions, identities, and references
-- [Credentials in an .ocmconfig File]({{< relref "creds-in-ocmconfig.md" >}}) — Configure credentials for OCI registries, Helm repositories, and more
-- [Creating a Component Version]({{< relref "docs/getting-started/create-component-version.md" >}}) — Build component versions and work with CTF archives
-- [Input and Access Types]({{< relref "input-and-access-types.md" >}}) — Reference for resource input types (by value) and access types (by reference)
-- [Signing and Verification]({{< relref "signing-and-verification.md" >}}) — Sign and verify component versions with cryptographic keys
-- [Configure Credentials for Controllers]({{< relref "configure-credentials-for-controllers.md" >}}) — Set up credentials for OCM controllers in Kubernetes
 
 ## Configuration Reference
 
@@ -491,3 +466,19 @@ The resolver configuration is defined by the `resolvers.config.ocm.software/v1al
 |------------------------|--------|----------|----------------------------------------------------------------------------------------------|
 | `repository`           | object | Yes      | An OCM repository specification (must include a `type` field).                               |
 | `componentNamePattern` | string | No       | Glob pattern for matching component names. If omitted, the resolver matches all components.  |
+
+## What Comes Next
+
+Now that you know how to configure resolvers, you can:
+
+- **Learn more about component references**: [Referencing Components]({{< relref "doc/02-processing/01-references.md" >}}).
+- **Explore credential configuration**: See [Credentials in an .ocmconfig File]({{< relref "creds-in-ocmconfig.md" >}}) for authentication options when working with registries.
+- **Set up air-gapped environments**: Use CTF archives with resolvers for offline component resolution. Learn about the Common Transport Format in [Creating a Component Version]({{< relref "docs/getting-started/create-component-version.md" >}}).
+
+## Related Documentation
+
+- [Components]({{< relref "docs/concepts/components.md" >}}) — Core concepts behind component versions, identities, and references
+- [Credentials in an .ocmconfig File]({{< relref "creds-in-ocmconfig.md" >}}) — Configure credentials for OCI registries, Helm repositories, and more
+- [Creating a Component Version]({{< relref "docs/getting-started/create-component-version.md" >}}) — Build component versions and work with CTF archives
+- [Input and Access Types]({{< relref "input-and-access-types.md" >}}) — Reference for resource input types (by value) and access types (by reference)
+- [Signing and Verification]({{< relref "signing-and-verification.md" >}}) — Sign and verify component versions with cryptographic keys
