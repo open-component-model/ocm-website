@@ -41,6 +41,29 @@ Describe the concrete scenario you'll use throughout. Use specific values consis
 - **Repository:** `ghcr.io/acme-ocm`
 - **Working directory:** `/tmp/ocm-tutorial`
 
+{{< callout type="tip" >}}
+**Handling variations:** If your tutorial covers multiple paths (e.g., different resource types or deployment targets), use tabs to keep the learning flow clear:
+
+{{< tabs "example-tabs" >}}
+{{< tab "Helm Chart" >}}
+```yaml
+type: helmChart
+input:
+  type: helm
+  path: ./chart
+```
+{{< /tab >}}
+{{< tab "OCI Image" >}}
+```yaml
+type: ociImage
+input:
+  type: dockermulti
+  repository: ghcr.io/myorg/myimage
+```
+{{< /tab >}}
+{{< /tabs >}}
+{{< /callout >}}
+
 ## Tutorial Steps
 
 {{< steps >}}
@@ -178,13 +201,22 @@ ocm add cv --file /path/to/component-constructor.yaml
 
 **Fix:** Update your `version` field to `MAJOR.MINOR.PATCH` format.
 
-## Cleanup (optional)
+### Getting help
 
-Remove resources created in this tutorial:
+If these solutions don't work:
+
+- [OCM Troubleshooting Guide]({{< relref "docs/troubleshooting/_index.md" >}})
+- [Community Support]({{< relref "docs/community/_index.md" >}})
+- [Open an Issue](https://github.com/open-component-model/ocm/issues)
+
+## Cleanup
+
+Remove the resources created in this tutorial:
 
 ```bash
 rm -rf transport-archive
 rm -rf /tmp/ocm-tutorial
+rm component-constructor.yaml
 ```
 
 {{< callout type="warning" >}}
@@ -211,6 +243,7 @@ rm -rf /tmp/ocm-tutorial
 - [ ] Consistent "you" voice throughout
 - [ ] Concrete scenario values used consistently
 - [ ] Success indicators after major steps
+- [ ] Use `{{< tabs >}}` for variants (resource types, platforms, options)
 - [ ] "What you've learned" summary
 - [ ] Troubleshooting for tutorial-specific issues
 - [ ] Working relref links

@@ -136,6 +136,7 @@ Remove resources created:
 - [ ] Simple numbered lists (use `{{< steps >}}` only if 5+ complex steps)
 - [ ] Success indicators after each step
 - [ ] Links to concepts (never inline "why" explanations)
+- [ ] Use `{{< tabs >}}` for variants (different approaches, platforms, configurations)
 - [ ] Troubleshooting with symptom-cause-fix
 - [ ] Working relref links
 - [ ] Realistic time estimate
