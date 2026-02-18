@@ -118,14 +118,14 @@ Factual, authoritative technical descriptions.
 To help you get started with writing documentation, we provide templates for each content type:
 
 - **[Tutorial Template](./content_templates/template-tutorial.md)** - Complete guide for creating learning-oriented tutorials
-    - Includes examples for Mermaid diagrams, `{{< steps >}}`, `{{< tabs >}}`, and `{{< details >}}` shortcodes
-    - Shows how to structure prerequisites, scenarios, and success indicators
-    - Provides checklist for publication readiness
+  - Includes examples for Mermaid diagrams, `{{< steps >}}`, `{{< tabs >}}`, and `{{< details >}}` shortcodes
+  - Shows how to structure prerequisites, scenarios, and success indicators
+  - Provides checklist for publication readiness
 
 - **[How-to Template](./content_templates/template-how-to.md)** - Task-focused guide template
-    - Demonstrates goal-oriented structure
-    - Shows troubleshooting format with symptom-cause-fix
-    - Includes examples for `{{< tabs >}}` and `{{< card-grid >}}` shortcodes
+  - Demonstrates goal-oriented structure
+  - Shows troubleshooting format with symptom-cause-fix
+  - Includes examples for `{{< tabs >}}` and `{{< card-grid >}}` shortcodes
 
 These templates include inline comments and examples to guide you through creating high-quality documentation that follows Diataxis principles.
 
