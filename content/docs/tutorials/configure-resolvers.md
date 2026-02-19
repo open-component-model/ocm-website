@@ -42,9 +42,9 @@ In this tutorial, you will:
 
 ## What Are Resolvers?
 
-A resolver maps a **component identity** (name + version) to an **OCM repository** where it is stored. When the CLI
-encounters a component reference during recursive resolution, it consults the configured resolvers to determine which
-repository to query for the referenced component.
+A resolver maps a **component name pattern** (glob) to an **OCM repository**. When the CLI
+encounters a component reference during recursive resolution, it consults the configured resolvers to find the first
+pattern that matches the component name and queries the associated repository.
 
 This is particularly useful when:
 
@@ -91,6 +91,10 @@ configurations:
 
 This tells the CLI: "When looking for any component matching `ocm.software/tutorials/*`, check the OCI registry at
 `ghcr.io/<your-github-username>/ocm-tutorial-deps`."
+
+{{<callout context="note">}}
+Resolvers are evaluated **in the order they are defined**. The first matching resolver wins. Place more specific patterns before broader ones.
+{{</callout>}}
 
 ### Repository Types
 
@@ -160,10 +164,6 @@ Supported glob patterns:
 - `[abc]` — Matches any character in the set (a, b, or c)
 - `[a-z]` — Matches any character in the range
 
-{{<callout context="note">}}
-Resolvers are evaluated **in the order they are defined**. The first matching resolver wins. Place more specific patterns before broader ones.
-{{</callout>}}
-
 ## Tutorial
 
 This tutorial walks through a hands-on example with three components — a **backend**, a **frontend**, and an **app**
@@ -171,7 +171,10 @@ that references both. The app lives in its own repository, while its component r
 a shared repository. When you recursively resolve the app, the CLI needs resolvers to locate the referenced
 components in their repositories.
 
-### Step 1: Authenticate with the Registry
+{{< steps >}}
+
+{{< step >}}
+**Authenticate with the Registry**
 
 Log in to `ghcr.io` using a GitHub personal access token:
 
@@ -186,8 +189,10 @@ For more information on creating a personal access token, see [GitHub's document
 
 ⚠️ The token must have the `write:packages` scope to allow pushing component versions to [GitHub Container Registry](https://ghcr.io).
 {{</callout>}}
+{{< /step >}}
 
-### Step 2: Create and Push the Backend Component
+{{< step >}}
+**Create and Push the Backend Component**
 
 Create `backend-constructor.yaml`:
 
@@ -213,15 +218,19 @@ ocm add cv --repository ghcr.io/<your-github-username>/ocm-tutorial-deps \
   --constructor backend-constructor.yaml
 ```
 
-The expected output should look like this:
+<details>
+  <summary>Expected output</summary>
 
-```bash
- COMPONENT                      │ VERSION │ PROVIDER     
+```text
+ COMPONENT                      │ VERSION │ PROVIDER
 ────────────────────────────────┼─────────┼──────────────
- ocm.software/tutorials/backend │ 1.0.0   │ ocm.software 
- ```
+ ocm.software/tutorials/backend │ 1.0.0   │ ocm.software
+```
+</details>
+{{< /step >}}
 
-### Step 3: Create and Push the Frontend Component
+{{< step >}}
+**Create and Push the Frontend Component**
 
 Create `frontend-constructor.yaml`:
 
@@ -247,15 +256,19 @@ ocm add cv --repository ghcr.io/<your-github-username>/ocm-tutorial-deps \
   --constructor frontend-constructor.yaml
 ```
 
-The expected output should look like this:
+<details>
+  <summary>Expected output</summary>
 
-```bash
- COMPONENT                       │ VERSION │ PROVIDER     
+```text
+ COMPONENT                       │ VERSION │ PROVIDER
 ─────────────────────────────────┼─────────┼──────────────
- ocm.software/tutorials/frontend │ 1.0.0   │ ocm.software 
- ```
+ ocm.software/tutorials/frontend │ 1.0.0   │ ocm.software
+```
+</details>
+{{< /step >}}
 
-### Step 4: Create and Push the App Component
+{{< step >}}
+**Create and Push the App Component**
 
 Create `app-constructor.yaml`. Notice the `componentReferences` section — it declares dependencies on both the backend and frontend components:
 
@@ -288,21 +301,25 @@ ocm add cv --repository ghcr.io/<your-github-username>/ocm-tutorial \
   --constructor app-constructor.yaml
 ```
 
-The expected output should look like this:
+<details>
+  <summary>Expected output</summary>
 
-```bash
-  COMPONENT                       │ VERSION │ PROVIDER     
+```text
+  COMPONENT                       │ VERSION │ PROVIDER
 ─────────────────────────────────┼─────────┼──────────────
- ocm.software/tutorials/app      │ 1.0.0   │ ocm.software 
- ocm.software/tutorials/backend  │ 1.0.0   │              
- ocm.software/tutorials/frontend │ 1.0.0   │     
+ ocm.software/tutorials/app      │ 1.0.0   │ ocm.software
+ ocm.software/tutorials/backend  │ 1.0.0   │
+ ocm.software/tutorials/frontend │ 1.0.0   │
 ```
+</details>
 
 {{<callout context="tip">}}
 If you are re-running this tutorial and the component versions already exist, add `--component-version-conflict-policy replace` to the `ocm add cv` commands to overwrite existing versions.
 {{</callout>}}
+{{< /step >}}
 
-### Step 5: Verify the Components
+{{< step >}}
+**Verify the Components**
 
 Check that all three components exist in their respective repositories:
 
@@ -313,8 +330,10 @@ ocm get cv ghcr.io/<your-github-username>/ocm-tutorial//ocm.software/tutorials/a
 ```
 
 The outputs of each command should show the respective component version with its provider.
+{{< /step >}}
 
-### Step 6: Recursively Resolve the App with Resolvers
+{{< step >}}
+**Recursively Resolve the App with Resolvers**
 
 Create an `.ocmconfig` file with credentials and resolvers that map the component references to their repository:
 
@@ -353,59 +372,13 @@ The CLI:
 2. Discovers the references to `ocm.software/tutorials/backend:1.0.0` and `ocm.software/tutorials/frontend:1.0.0`
 3. Consults the resolvers — each component name matches a configured pattern
 4. Looks up backend and frontend in `ghcr.io/<your-github-username>/ocm-tutorial-deps`
+{{< /step >}}
 
-## Tutorial: Resolving from Multiple Repositories
+{{< /steps >}}
 
-In the tutorial above, both component references share a single repository (`ocm-tutorial-deps`). In practice,
-components often live in **separate repositories** — for example, when different teams publish independently or
-components have different access control requirements.
-
-To set up this pattern, push each component to its own dedicated repository instead:
-
-```bash
-ocm add cv --repository ghcr.io/<your-github-username>/ocm-tutorial-backend \
-  --constructor backend-constructor.yaml
-
-ocm add cv --repository ghcr.io/<your-github-username>/ocm-tutorial-frontend \
-  --constructor frontend-constructor.yaml
-
-ocm add cv --repository ghcr.io/<your-github-username>/ocm-tutorial-app \
-  --constructor app-constructor.yaml
-```
-
-Then update the `.ocmconfig` so each resolver entry points to the correct repository:
-
-```yaml
-type: generic.config.ocm.software/v1
-configurations:
-  - type: credentials.config.ocm.software
-    repositories:
-      - repository:
-          type: DockerConfig/v1
-          dockerConfigFile: "~/.docker/config.json"
-  - type: resolvers.config.ocm.software/v1alpha1
-    resolvers:
-      - repository:
-          type: OCIRepository/v1
-          baseUrl: ghcr.io
-          subPath: <your-github-username>/ocm-tutorial-frontend
-        componentNamePattern: "ocm.software/tutorials/frontend"
-      - repository:
-          type: OCIRepository/v1
-          baseUrl: ghcr.io
-          subPath: <your-github-username>/ocm-tutorial-backend
-        componentNamePattern: "ocm.software/tutorials/backend"
-```
-
-Resolve the app recursively:
-
-```bash
-ocm get cv ghcr.io/<your-github-username>/ocm-tutorial-app//ocm.software/tutorials/app:1.0.0 \
-  --recursive=-1 --config .ocmconfig
-```
-
-This pattern scales to any number of repositories — simply add a resolver entry for each component or use glob patterns
-to match groups of components from the same repository.
+{{<callout context="tip" title="Resolving from Multiple Repositories">}}
+In the tutorial above, both component references share a single repository. In practice, components often live in **separate repositories**. See the how-to guide [How to Resolve Components from Multiple Repositories]({{< relref "docs/how-to/resolve-components-from-multiple-repositories.md" >}}) for a step-by-step recipe.
+{{</callout>}}
 
 ## Recursive Resolution
 
