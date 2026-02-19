@@ -123,7 +123,8 @@ To help you get started with writing documentation, we provide templates for eac
   - Shows how to structure prerequisites, scenarios, and success indicators
   - Provides checklist for publication readiness
 
-- **[How-to Template](./content_templates/template-how-to.md)** - Task-focused guide template
+- **[How-to Template](./content_templates/template-how-to.md)**
+- Task-focused guide template
   - Demonstrates goal-oriented structure
   - Shows troubleshooting format with symptom-cause-fix
   - Includes examples for `{{< tabs >}}` and `{{< card-grid >}}` shortcodes
