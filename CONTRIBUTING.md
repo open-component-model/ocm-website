@@ -118,7 +118,7 @@ Factual, authoritative technical descriptions.
 To help you get started with writing documentation, we provide templates for each content type:
 
 - **[Tutorial Template](./content_templates/template-tutorial.md)**
-- Complete guide for creating learning-oriented tutorials
+  - Complete guide for creating learning-oriented tutorials
   - Includes examples for Mermaid diagrams, `{{< steps >}}`, `{{< tabs >}}`, and `{{< details >}}` shortcodes
   - Shows how to structure prerequisites, scenarios, and success indicators
   - Provides checklist for publication readiness
