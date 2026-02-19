@@ -97,11 +97,8 @@ This pattern scales to any number of repositories — simply add a resolver entr
 
 ## Next steps
 
-{{< card-grid >}}
-{{< card link="docs/tutorials/configure-resolvers" title="Configure Resolvers Tutorial" icon="graduation-cap" >}}
-Learn resolver concepts, configuration options, and build components with references from scratch
-{{< /card >}}
-{{< /card-grid >}}
+- **Learn resolver concepts and patterns**: See the [Configure Resolvers tutorial]({{< relref "docs/tutorials/configure-resolvers.md" >}}) for a full walkthrough of building components with references from scratch.
+- **Explore credential configuration**: See [Credentials in an .ocmconfig File]({{< relref "creds-in-ocmconfig.md" >}}) for authentication options when working with registries.
 
 ## Related documentation
 
