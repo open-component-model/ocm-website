@@ -163,7 +163,7 @@ Supported glob patterns:
 - `[abc]` — Matches any character in the set (a, b, or c)
 - `[a-z]` — Matches any character in the range
 
-## Tutorial
+## Walkthrough
 
 This tutorial walks through a hands-on example with three components — a **backend**, a **frontend**, and an **app**
 that references both. The app lives in its own repository, while its component references (backend and frontend component) are stored in
