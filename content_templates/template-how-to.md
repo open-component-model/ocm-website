@@ -155,7 +155,7 @@ Build a complete signing workflow
 ## ✓ Before publishing
 
 Make sure to comply to our [CONTRIBUTING guide](../CONTRIBUTING.md),
-check the [Tutorial Writing Checklist](../CONTRIBUTING.md/how-to-guide-checklist),
+check the [Tutorial Writing Checklist](../CONTRIBUTING.md#how-to-guide-checklist),
 and ensure the following:
 
 - [ ] Title starts with "How to..." or action verb (Configure/Deploy/Create/...)
