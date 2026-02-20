@@ -182,8 +182,14 @@ This pattern scales to any number of repositories — simply add a resolver entr
 
 ## Next steps
 
-- **Learn resolver concepts and patterns**: See the [Configure Resolvers tutorial]({{< relref "docs/tutorials/configure-resolvers.md" >}}) for a full walkthrough of building components with references from scratch.
-- **Explore credential configuration**: See [Credentials in an .ocmconfig File]({{< relref "creds-in-ocmconfig.md" >}}) for authentication options when working with registries.
+{{< card-grid >}}
+{{< card link="docs/tutorials/configure-resolvers" title="Configure Resolvers Tutorial" icon="graduation-cap" >}}
+Full walkthrough of resolver concepts, patterns, and hands-on examples
+{{< /card >}}
+{{< card link="docs/how-to/creds-in-ocmconfig" title="Credentials in an .ocmconfig File" icon="lock-closed" >}}
+Configure credentials for OCI registries
+{{< /card >}}
+{{< /card-grid >}}
 
 ## Related documentation
 
