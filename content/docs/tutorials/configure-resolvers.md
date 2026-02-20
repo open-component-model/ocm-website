@@ -443,7 +443,6 @@ The resolver configuration is defined by the `resolvers.config.ocm.software/v1al
 | `repository`           | object | Yes      | An OCM repository specification (must include a `type` field).                               |
 | `componentNamePattern` | string | No       | Glob pattern for matching component names. If omitted, the resolver matches all components.  |
 
-
 ## What you've learned
 
 - How resolvers map component name patterns to OCI repositories
