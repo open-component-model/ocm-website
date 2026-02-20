@@ -99,7 +99,8 @@ Resolvers are evaluated **in the order they are defined**. The first matching re
 
 The `repository` field accepts any OCM repository specification. The most common types are:
 
-**OCI Registry** — for OCI-based registries (e.g., ghcr.io, Docker Hub):
+{{< tabs >}}
+{{< tab "OCI Registry" >}}
 
 ```yaml
 repository:
@@ -114,7 +115,8 @@ repository:
 | `baseUrl` | Yes      | Registry host and optional port (e.g., `ghcr.io`, `localhost:5000`).                              |
 | `subPath` | No       | Repository prefix path within the registry.                                                       |
 
-**Common Transport Format (CTF)** — for file-based archives:
+{{< /tab >}}
+{{< tab "CTF (File-based)" >}}
 
 ```yaml
 repository:
@@ -127,6 +129,9 @@ repository:
 | `type`       | Yes      | Repository type. Accepted values include `CommonTransportFormat/v1` and the short form `CTF/v1`. |
 | `filePath`   | Yes      | Path to the CTF archive file or directory.                                                       |
 | `accessMode` | No       | Access mode: `readonly`, `readwrite`, or `create`.                                               |
+
+{{< /tab >}}
+{{< /tabs >}}
 
 ### Component Name Patterns
 
