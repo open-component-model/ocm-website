@@ -284,7 +284,9 @@ See how to add Helm charts, images, and more
 
 ## ✓ Before publishing
 
-Make sure to comply to the [Tutorial Writing Checklist](../CONTRIBUTING.md) in the CONTRIBUTING guide and ensure the following:
+Make sure to comply to our [CONTRIBUTING guide](../CONTRIBUTING.md),
+check the [Tutorial Writing Checklist](../CONTRIBUTING.md/turorial-guide-checklist),
+and ensure the following:
 
 - [ ] Title describes what learner will accomplish
 - [ ] Consistent "you" voice throughout
