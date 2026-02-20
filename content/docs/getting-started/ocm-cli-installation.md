@@ -150,7 +150,9 @@ More information on how to deal with credentials can be found [in this guide]({{
 
 ## Windows Support
 
+{{< callout context="caution" title="Caution" icon="outline/alert-triangle" >}}
 Windows support for the OCM CLI is currently **best-effort** and not guaranteed.
+{{< /callout >}}
 
 While the CLI is designed to handle Windows-specific conventions such as drive-letter paths
 (e.g., `C:\path\to\archive`) and backslash path separators, there is no dedicated Windows CI
