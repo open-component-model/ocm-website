@@ -284,15 +284,18 @@ See how to add Helm charts, images, and more
 
 ## ✓ Before publishing
 
-- [ ] Uses `{{< steps >}}` with `{{< step >}}` shortcodes
+Make sure to comply to the [Tutorial Writing Checklist](../CONTRIBUTING.md) in the CONTRIBUTING guide and ensure the following:
+
+- [ ] Title describes what learner will accomplish
 - [ ] Consistent "you" voice throughout
-- [ ] Concrete scenario values used consistently
-- [ ] Success indicators after major steps
+- [ ] Realistic time estimate
+- [ ] Prerequisites section lists all requirements
+- [ ] Sequential `{{< steps >}}` using `{{< step >}}` shortcodes
 - [ ] Use `{{< tabs >}}` for variants (resource types, platforms, options)
-- [ ] Use `{{< details >}}` for optional technical deep-dives
-- [ ] Mermaid diagram for visual flow (if applicable)
+- [ ] Every command can be copy-pasted and works
+- [ ] Expected output shown after commands hidden in `<details>` blocks
+- [ ] Success indicators after major steps
 - [ ] "What you've learned" summary
 - [ ] Troubleshooting for tutorial-specific issues
 - [ ] `{{< card-grid >}}` for "Next steps" navigation
-- [ ] Working relref links
-- [ ] Realistic time estimate
+- [ ] Working `relref` links to Concepts for "why" questions
