@@ -30,17 +30,91 @@ Configure OCM resolvers so the CLI can recursively resolve component references 
 {{< steps >}}
 
 {{< step >}}
-**Push each component to its own repository**
+**Create and Push the Backend Component**
 
-If your referenced components need to live in separate repositories (e.g., different teams or access control requirements), push each to a dedicated repository:
+Create `backend-constructor.yaml`:
+
+```yaml
+components:
+  - name: ocm.software/tutorials/backend
+    version: "1.0.0"
+    provider:
+      name: ocm.software
+    resources:
+      - name: config
+        version: "1.0.0"
+        type: plainText
+        input:
+          type: utf8
+          text: "backend service configuration"
+```
+
+Push it to its own repository:
 
 ```bash
 ocm add cv --repository ghcr.io/<your-github-username>/ocm-tutorial-backend \
   --constructor backend-constructor.yaml
+```
+{{< /step >}}
 
+{{< step >}}
+**Create and Push the Frontend Component**
+
+Create `frontend-constructor.yaml`:
+
+```yaml
+components:
+  - name: ocm.software/tutorials/frontend
+    version: "1.0.0"
+    provider:
+      name: ocm.software
+    resources:
+      - name: config
+        version: "1.0.0"
+        type: plainText
+        input:
+          type: utf8
+          text: "frontend service configuration"
+```
+
+Push it to its own repository:
+
+```bash
 ocm add cv --repository ghcr.io/<your-github-username>/ocm-tutorial-frontend \
   --constructor frontend-constructor.yaml
+```
+{{< /step >}}
 
+{{< step >}}
+**Create and Push the App Component**
+
+Create `app-constructor.yaml`. The `componentReferences` section declares dependencies on both the backend and frontend components:
+
+```yaml
+components:
+  - name: ocm.software/tutorials/app
+    version: "1.0.0"
+    provider:
+      name: ocm.software
+    componentReferences:
+      - name: backend-service
+        componentName: ocm.software/tutorials/backend
+        version: "1.0.0"
+      - name: frontend-service
+        componentName: ocm.software/tutorials/frontend
+        version: "1.0.0"
+    resources:
+      - name: config
+        version: "1.0.0"
+        type: plainText
+        input:
+          type: utf8
+          text: "app deployment configuration"
+```
+
+Push it to its own repository — separate from the backend and frontend:
+
+```bash
 ocm add cv --repository ghcr.io/<your-github-username>/ocm-tutorial-app \
   --constructor app-constructor.yaml
 ```
@@ -73,10 +147,11 @@ configurations:
         componentNamePattern: "ocm.software/tutorials/backend"
 ```
 
+{{< /step >}}
+
 {{< callout type="tip" >}}
 If multiple components share a repository, use glob patterns (e.g., `ocm.software/tutorials/*`) to match them with a single resolver entry instead of listing each one individually. See [Component Name Patterns]({{< relref "docs/tutorials/configure-resolvers.md#component-name-patterns" >}}) for the full pattern syntax.
 {{< /callout >}}
-{{< /step >}}
 
 {{< step >}}
 **Resolve the app recursively**
