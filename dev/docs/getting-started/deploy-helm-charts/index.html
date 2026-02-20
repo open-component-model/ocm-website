@@ -111,6 +111,16 @@ with the example, create a file named <code>rgd.yaml</code> and add the followin
 </span></span></span><span class=line><span class=cl><span class=w>            </span><span class=nt>byReference</span><span class=p>:</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>              </span><span class=nt>resource</span><span class=p>:</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>                </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>helm-resource</span><span class=w> </span><span class=c># This must match the resource name set in the OCM component version (see above)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>additionalStatusFields</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=c># The additional status fields are useful for splitting the imageReference into its components, so that</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=c># they can be used in depending deployers</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=c># Example: ghcr.io/stefanprodan/charts/podinfo:6.7.1 would be</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=c># registry: ghcr.io</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=c># repository: stefanprodan/charts/podinfo</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=c># reference/tag: 6.7.1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=nt>registry</span><span class=p>:</span><span class=w> </span><span class=l>resource.access.imageReference.toOCI().registry</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=nt>repository</span><span class=p>:</span><span class=w> </span><span class=l>resource.access.imageReference.toOCI().repository</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=nt>tag</span><span class=p>:</span><span class=w> </span><span class=l>resource.access.imageReference.toOCI().tag</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>interval</span><span class=p>:</span><span class=w> </span><span class=l>1m</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>          </span><span class=c># ocmConfig is required, if the OCM repository requires credentials to access it.</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>          </span><span class=c># ocmConfig:</span><span class=w>
@@ -127,9 +137,9 @@ with the example, create a file named <code>rgd.yaml</code> and add the followin
 </span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>layerSelector</span><span class=p>:</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>            </span><span class=nt>mediaType</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;application/vnd.cncf.helm.chart.content.v1.tar+gzip&#34;</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>            </span><span class=nt>operation</span><span class=p>:</span><span class=w> </span><span class=l>copy</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>url</span><span class=p>:</span><span class=w> </span><span class=l>oci://${resourceChart.status.reference.registry}/${resourceChart.status.reference.repository}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>url</span><span class=p>:</span><span class=w> </span><span class=l>oci://${resourceChart.status.additional.registry}/${resourceChart.status.additional.repository}</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>ref</span><span class=p>:</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=nt>tag</span><span class=p>:</span><span class=w> </span><span class=l>${resourceChart.status.reference.tag}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=nt>tag</span><span class=p>:</span><span class=w> </span><span class=l>${resourceChart.status.additional.tag}</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>          </span><span class=c># secretRef is required, if the OCI repository requires credentials to access it.</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>          </span><span class=c># secretRef:</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=c># HelmRelease refers to the OCIRepository, lets you configure the Helm chart and deploys the Helm chart into the</span><span class=w>
