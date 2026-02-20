@@ -18,7 +18,7 @@ This works fine for a single component. But what happens when that component has
 For example, an app component might reference a backend and a frontend component that reside in different registries.
 When you use the option `--recursive` to follow those references, the CLI needs to know which repository contains the referenced components.
 
-**Resolvers** solve this problem. They map component names to repositories so the CLI can automatically locate
+**Resolvers** address this problem. They map component names to repositories so the CLI can automatically locate
 referenced components during recursive operations.
 
 Resolvers use the configuration type `resolvers.config.ocm.software/v1alpha1` and replace the deprecated priority-based
