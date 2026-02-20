@@ -183,13 +183,13 @@ echo $GITHUB_TOKEN | docker login ghcr.io -u <your-github-username> --password-s
 ```
 
 Your token needs to have write permissions for packages in order to push component versions to the registry.
+{{< /step >}}
 
 {{<callout context="note">}}
 For more information on creating a personal access token, see [GitHub's documentation](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token).
 
 ⚠️ The token must have the `write:packages` scope to allow pushing component versions to [GitHub Container Registry](https://ghcr.io).
 {{</callout>}}
-{{< /step >}}
 
 {{< step >}}
 **Create and Push the Backend Component**
