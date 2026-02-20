@@ -21,7 +21,7 @@ Configure OCM resolvers so the CLI can recursively resolve component references 
 ## Prerequisites
 
 - [Getting Started]({{< relref "docs/getting-started/_index.md" >}}) completed
-- [OCM CLI]({{< relref "docs/getting-started/install.md" >}}) installed
+- [OCM CLI]({{< relref "docs/getting-started/ocm-cli-installation.md" >}}) installed
 - Access to at least one OCI registry (e.g., `ghcr.io`)
 - Components with references already created (if you need to set these up first, follow the [Configure Resolvers tutorial]({{< relref "docs/tutorials/configure-resolvers.md" >}}))
 
