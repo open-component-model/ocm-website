@@ -25,7 +25,6 @@ Resolvers use the configuration type `resolvers.config.ocm.software/v1alpha1` an
 fallback resolvers from earlier OCM versions with glob-based pattern matching.
 
 {{<callout context="note" title="What You'll Learn">}}
-In this tutorial, you will:
 
 - Create components with references and push them to OCI registries
 - Write a resolver configuration that maps component name patterns to repositories
