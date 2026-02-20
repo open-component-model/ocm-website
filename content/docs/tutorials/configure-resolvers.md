@@ -37,7 +37,7 @@ fallback resolvers from earlier OCM versions with glob-based pattern matching.
 
 - The [OCM CLI](https://github.com/open-component-model/open-component-model) installed
 - Access to at least one OCI registry (e.g., `ghcr.io`, Docker Hub, or a private registry)
-- A GitHub account with a personal access token (for the hands-on examples we are using `ghcr.io`)
+- A GitHub account with a personal access token
 
 ## What Are Resolvers?
 
