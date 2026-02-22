@@ -1,12 +1,12 @@
 ---
 title: "Set up a Controller Environment"
-description: "Set up a local Kubernetes environment with the OCM K8s Toolkit, kro, and FluxCD for testing OCM deployments."
+description: "Set up a local Kubernetes environment with the OCM Controllers, kro, and FluxCD for testing OCM deployments."
 icon: "⚓"
 weight: 23
 toc: true
 ---
 
-This guide helps you set up a local Kubernetes environment for testing OCM controller-based deployments. You'll install the OCM K8s Toolkit, kro, and FluxCD to enable GitOps workflows with OCM component versions.
+This guide helps you set up a local Kubernetes environment for testing OCM controller-based deployments. You'll install the OCM Controllers, kro, and FluxCD to enable GitOps workflows with OCM component versions.
 
 ## Prerequisites
 
@@ -79,9 +79,9 @@ notification-controller-58ffd586f7-pr65t   1/1     Running   0          1m
 source-controller-6ff87cb475-2h2lv         1/1     Running   0          1m
 ```
 
-## Install the OCM K8s Toolkit
+## Install the OCM Controllers
 
-The OCM K8s Toolkit provides Kubernetes controllers for working with OCM component versions.
+The OCM Controllers provide Kubernetes controllers for working with OCM component versions.
 
 Install via Helm:
 
@@ -125,7 +125,7 @@ ocm-k8s-toolkit-system   ocm-k8s-toolkit-controller-manager-788f58d4bd-ntbx8   1
 
 ## Registry Access
 
-The OCM K8s Toolkit needs access to an OCI registry to fetch component versions.
+The OCM Controllers need access to an OCI registry to fetch component versions.
 
 {{< callout context="tip" >}}
 We recommend using a publicly accessible registry like [ghcr.io](https://docs.github.com/en/packages/learn-github-packages/introduction-to-github-packages). Using a local registry requires additional configuration to ensure it's accessible both from your CLI and from within the cluster.
@@ -135,7 +135,7 @@ For private registries, you'll need to configure credentials. See [Configure Cre
 
 ## Next Steps
 
-- [Deploy a Helm Chart]({{< relref "deploy-helm-chart.md" >}}) - Use the OCM K8s Toolkit to deploy applications from component versions
+- [Deploy a Helm Chart]({{< relref "deploy-helm-chart.md" >}}) - Use the OCM Controllers to deploy applications from component versions
 
 ## Cleanup
 

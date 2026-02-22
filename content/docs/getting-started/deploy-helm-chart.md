@@ -1,28 +1,28 @@
 ---
 title: "Deploy a Helm Chart"
-description: "Deploy a Helm chart from an OCM component version using the OCM K8s Toolkit, kro, and FluxCD."
+description: "Deploy a Helm chart from an OCM component version using the OCM Controllers, kro, and FluxCD."
 icon: "🚀"
 weight: 24
 toc: true
 ---
 
-This tutorial walks you through deploying a Helm chart from an OCM component version to a Kubernetes cluster. You'll use the OCM K8s Toolkit with kro and FluxCD to create a GitOps workflow.
+This tutorial walks you through deploying a Helm chart from an OCM component version to a Kubernetes cluster. You'll use the OCM Controllers with kro and FluxCD to create a GitOps workflow.
 
 ## How It Works
 
 ```mermaid
 flowchart LR
-    A[Component Version] --> B[OCM K8s Toolkit]
+    A[Component Version] --> B[OCM Controllers]
     B --> C[kro ResourceGraph]
     C --> D[FluxCD HelmRelease]
     D --> E[Deployed Application]
 ```
 
-The OCM K8s Toolkit fetches component versions from an OCI registry. kro orchestrates the resources, and FluxCD deploys the Helm chart to your cluster.
+The OCM Controllers fetch component versions from an OCI registry. kro orchestrates the resources, and FluxCD deploys the Helm chart to your cluster.
 
 ## Prerequisites
 
-- [Controller environment set up]({{< relref "setup-controller-environment.md" >}}) (OCM K8s Toolkit, kro, FluxCD)
+- [Controller environment set up]({{< relref "setup-controller-environment.md" >}}) (OCM Controllers, kro, FluxCD)
 - [OCM CLI installed]({{< relref "ocm-cli-installation.md" >}})
 - Access to an OCI registry (e.g., ghcr.io)
 
@@ -106,7 +106,7 @@ ocm.software/ocm-k8s-toolkit/simple 1.0.0   ocm.software
 
 {{< /steps >}}
 
-## Deploy with the OCM K8s Toolkit
+## Deploy with the OCM Controllers
 
 {{< steps >}}
 
@@ -317,7 +317,7 @@ failed to list versions: response status code 401: unauthorized
 
 Your registry package may be private. Either:
 - Make the package public in your registry settings
-- Configure credentials for the OCM K8s Toolkit resources
+- Configure credentials for the OCM Controller resources
 
 ### Resource Not Found
 
