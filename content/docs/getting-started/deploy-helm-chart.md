@@ -1,5 +1,5 @@
 ---
-title: "Deploy a Helm Chart"
+title: "Deploy Helm Charts using the OCM Controllers"
 description: "Deploy a Helm chart from an OCM component version using the OCM Controllers, kro, and FluxCD."
 icon: "🚀"
 weight: 24
