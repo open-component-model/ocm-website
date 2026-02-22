@@ -5,6 +5,15 @@ weight: 999
 toc: true
 ---
 
+{{< callout context="note" title="Enable Mermaid diagrams" >}}
+If your tutorial includes Mermaid diagrams, add this to the frontmatter:
+```yaml
+---
+hasMermaid: true
+---
+```
+{{< /callout >}}
+
 ## Overview
 
 Write 2–4 sentences that set the scene and explain *why* you would do this.
@@ -26,6 +35,19 @@ Avoid deep background. Link to the relevant concept(s) instead.
 - Who this tutorial is for (e.g., "You're an OCM CLI user who has already created a component version")
 - What we assume you already know
 {{< /callout >}}
+
+## How It Works
+
+Use a Mermaid diagram to visualize the workflow or architecture you'll be working with:
+
+```mermaid
+flowchart LR
+    A[Component Constructor] --> B[OCM CLI]
+    B --> C[CTF Archive]
+    C --> D[OCM Repository]
+```
+
+This gives learners a mental model before diving into steps.
 
 ## Prerequisites
 
@@ -115,6 +137,21 @@ component github.com/acme.org/helloworld/1.0.0 constructed ... done!
 </details>
 
 This indicates your component version was successfully created.
+
+{{< callout type="tip" >}}
+**Adding optional details:** Use the `{{< details >}}` shortcode to provide technical deep-dives without disrupting the learning flow:
+
+{{< details "Optional: Understanding CTF internals" >}}
+The CTF archive uses OCI artifact format internally. Each component version
+is stored as an OCI manifest with the component descriptor as a layer.
+
+```shell
+tree transport-archive
+```
+
+This allows CTF archives to be compatible with OCI registries and tools.
+{{< /details >}}
+{{< /callout >}}
 
 <details>
   <summary>What happened?</summary>
@@ -225,9 +262,17 @@ rm component-constructor.yaml
 
 ## Next steps
 
-- [Tutorial: Transfer a Component Version]({{< relref "docs/tutorials/transfer-component.md" >}})
-- [Concept: Component Versioning]({{< relref "docs/concepts/versioning.md" >}})
-- [How-to: Add Multiple Resources]({{< relref "docs/how-to/add-resources.md" >}})
+{{< card-grid >}}
+{{< card link="docs/tutorials/transfer-component" title="Transfer a Component Version" icon="arrow-right" >}}
+Learn how to transfer your component to remote repositories
+{{< /card >}}
+{{< card link="docs/concepts/versioning" title="Component Versioning" icon="book" >}}
+Understand OCM's versioning strategy
+{{< /card >}}
+{{< card link="docs/how-to/add-resources" title="Add Multiple Resources" icon="puzzle" >}}
+See how to add Helm charts, images, and more
+{{< /card >}}
+{{< /card-grid >}}
 
 ## Related documentation
 
@@ -239,12 +284,20 @@ rm component-constructor.yaml
 
 ## ✓ Before publishing
 
-- [ ] Uses `{{< steps >}}` with `{{< step >}}` shortcodes
+Make sure to comply to our [CONTRIBUTING guide](../CONTRIBUTING.md),
+check the [Tutorial Writing Checklist](../CONTRIBUTING.md#turorial-guide-checklist),
+and ensure the following:
+
+- [ ] Title describes what learner will accomplish
 - [ ] Consistent "you" voice throughout
-- [ ] Concrete scenario values used consistently
-- [ ] Success indicators after major steps
+- [ ] Realistic time estimate
+- [ ] Prerequisites section lists all requirements
+- [ ] Sequential `{{< steps >}}` using `{{< step >}}` shortcodes
 - [ ] Use `{{< tabs >}}` for variants (resource types, platforms, options)
+- [ ] Every command can be copy-pasted and works
+- [ ] Expected output shown after commands hidden in `<details>` blocks
+- [ ] Success indicators after major steps
 - [ ] "What you've learned" summary
 - [ ] Troubleshooting for tutorial-specific issues
-- [ ] Working relref links
-- [ ] Realistic time estimate
+- [ ] `{{< card-grid >}}` for "Next steps" navigation
+- [ ] Working `relref` links to Concepts for "why" questions

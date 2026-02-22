@@ -38,6 +38,23 @@ One sentence: what you will achieve.
    ocm <command> <args>
    ```
 
+   {{< callout type="tip" >}}
+   **Handling variants:** If your how-to covers multiple approaches or platforms, use tabs to show alternatives:
+
+   {{< tabs "signing-methods" >}}
+   {{< tab "RSA Key" >}}
+   ```bash
+   ocm sign cv --private-key private.key
+   ```
+   {{< /tab >}}
+   {{< tab "Sigstore" >}}
+   ```bash
+   ocm sign cv --sigstore
+   ```
+   {{< /tab >}}
+   {{< /tabs >}}
+   {{< /callout >}}
+
    You should see: `[specific success indicator]`.
 
    <details>
@@ -118,9 +135,14 @@ Remove resources created:
 
 ## Next steps
 
-- [Concept: Relevant Concept]({{< relref "docs/concepts/<file>.md" >}}) — understand why
-- [Tutorial: Related Tutorial]({{< relref "docs/tutorials/<file>.md" >}}) — learn by doing
-- [Reference: Command Docs]({{< relref "docs/reference/<file>.md" >}}) — complete details
+{{< card-grid >}}
+{{< card link="docs/concepts/signing" title="Signing Concept" icon="shield-check" >}}
+Understand signature verification in OCM
+{{< /card >}}
+{{< card link="docs/tutorials/secure-supply-chain" title="Secure Supply Chain Tutorial" icon="graduation-cap" >}}
+Build a complete signing workflow
+{{< /card >}}
+{{< /card-grid >}}
 
 ## Related documentation
 
@@ -132,11 +154,17 @@ Remove resources created:
 
 ## ✓ Before publishing
 
-- [ ] Action verb title (Configure/Deploy/Create)
-- [ ] Simple numbered lists (use `{{< steps >}}` only if 5+ complex steps)
+Make sure to comply to our [CONTRIBUTING guide](../CONTRIBUTING.md),
+check the [Tutorial Writing Checklist](../CONTRIBUTING.md#how-to-guide-checklist),
+and ensure the following:
+
+- [ ] Title starts with "How to..." or action verb (Configure/Deploy/Create/...)
+- [ ] States the goal in the first paragraph
+- [ ] Realistic time estimate
+- [ ] Simple numbered lists (use `{{< steps >}}` only if 3+ complex steps)
 - [ ] Success indicators after each step
 - [ ] Links to concepts (never inline "why" explanations)
 - [ ] Use `{{< tabs >}}` for variants (different approaches, platforms, configurations)
 - [ ] Troubleshooting with symptom-cause-fix
 - [ ] Working relref links
-- [ ] Realistic time estimate
+- [ ] `{{< card-grid >}}` for "Next steps" navigation

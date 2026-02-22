@@ -123,12 +123,17 @@ metadata:
 spec:
   schema:
     apiVersion: v1alpha1
+    # The name of the CRD that is created by this ResourceGraphDefinition when applied
     kind: Simple
     spec:
-      # Configurable message for the application
-      message: string | default="Hello from OCM!"
+      # This spec defines values that can be referenced in the ResourceGraphDefinition and that can be set in the
+      # instances of this ResourceGraphDefinition.
+      # We will use it to pass a value to the Helm chart and configure the message the application shows
+      # (see resource HelmRelease).
+      message: string | default="foo"
   resources:
-    # Repository: Points to the OCM repository
+    # Repository points to the OCM repository in which the OCM component version is stored and checks if it is
+    # reachable by pinging it.
     - id: repository
       template:
         apiVersion: delivery.ocm.software/v1alpha1
@@ -137,11 +142,12 @@ spec:
           name: simple-repository
         spec:
           repositorySpec:
-            baseUrl: ghcr.io/<your-namespace>
-            type: OCIRegistry
+              baseUrl: ghcr.io/<your-namespace>
+              type: OCIRegistry
           interval: 1m
-
-    # Component: References the component version
+          # ocmConfig is required, if the OCM repository requires credentials to access it.
+          # ocmConfig:
+    # Component refers to the Repository, downloads and verifies the OCM component version descriptor.
     - id: component
       template:
         apiVersion: delivery.ocm.software/v1alpha1
@@ -154,8 +160,10 @@ spec:
           component: ocm.software/ocm-k8s-toolkit/simple
           semver: 1.0.0
           interval: 1m
-
-    # Resource: Downloads and verifies the Helm chart
+          # ocmConfig is required, if the OCM repository requires credentials to access it.
+          # ocmConfig:
+    # Resource points to the Component, downloads the resource passed by reference-name and verifies it. It then
+    # publishes the location of the resource in its status.
     - id: resourceChart
       template:
         apiVersion: delivery.ocm.software/v1alpha1
@@ -168,14 +176,22 @@ spec:
           resource:
             byReference:
               resource:
-                name: helm-resource
+                name: helm-resource # This must match the resource name set in the OCM component version (see above)
           additionalStatusFields:
+            # The additional status fields are useful for splitting the imageReference into its components, so that
+            # they can be used in depending deployers
+            # Example: ghcr.io/stefanprodan/charts/podinfo:6.7.1 would be
+            # registry: ghcr.io
+            # repository: stefanprodan/charts/podinfo
+            # reference/tag: 6.7.1
             registry: resource.access.imageReference.toOCI().registry
             repository: resource.access.imageReference.toOCI().repository
             tag: resource.access.imageReference.toOCI().tag
           interval: 1m
-
-    # OCIRepository: FluxCD source pointing to the chart
+          # ocmConfig is required, if the OCM repository requires credentials to access it.
+          # ocmConfig:
+    # OCIRepository watches and downloads the resource from the location provided by the Resource status.
+    # The Helm chart location (url) refers to the status of the above resource.
     - id: ocirepository
       template:
         apiVersion: source.toolkit.fluxcd.io/v1beta2
@@ -190,8 +206,10 @@ spec:
           url: oci://${resourceChart.status.additional.registry}/${resourceChart.status.additional.repository}
           ref:
             tag: ${resourceChart.status.additional.tag}
-
-    # HelmRelease: Deploys the chart
+          # secretRef is required, if the OCI repository requires credentials to access it.
+          # secretRef:
+    # HelmRelease refers to the OCIRepository, lets you configure the Helm chart and deploys the Helm chart into the
+    # Kubernetes cluster.
     - id: helmrelease
       template:
         apiVersion: helm.toolkit.fluxcd.io/v2
@@ -207,6 +225,8 @@ spec:
             name: ${ocirepository.metadata.name}
             namespace: default
           values:
+            # We configure the Helm chart using FluxCDs HelmRelease 'values' field. We pass the value that we set in
+            # the instance of the CRD created by the ResourceGraphDefinition (see below).
             ui:
               message: ${schema.spec.message}
 ```
