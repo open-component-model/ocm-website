@@ -37,6 +37,12 @@ components in their repositories.
 
 {{< steps >}}
 
+{{<callout context="note">}}
+For more information on creating a personal access token, see [GitHub's documentation](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token).
+
+⚠️ The token must have the `write:packages` scope to allow pushing component versions to [GitHub Container Registry](https://ghcr.io).
+{{</callout>}}
+
 {{< step >}}
 **Authenticate with the Registry**
 
@@ -49,18 +55,12 @@ echo $GITHUB_TOKEN | docker login ghcr.io -u <your-github-username> --password-s
 Your token needs to have write permissions for packages in order to push component versions to the registry.
 {{< /step >}}
 
-{{<callout context="note">}}
-For more information on creating a personal access token, see [GitHub's documentation](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token).
-
-⚠️ The token must have the `write:packages` scope to allow pushing component versions to [GitHub Container Registry](https://ghcr.io).
+{{<callout context="tip">}}
+If you are re-running this tutorial and the component versions already exist, add `--component-version-conflict-policy replace` to the `ocm add cv` commands to overwrite existing versions.
 {{</callout>}}
 
 {{< step >}}
 **Create and Push the Backend Component**
-
-{{<callout context="tip">}}
-If you are re-running this tutorial and the component versions already exist, add `--component-version-conflict-policy replace` to the `ocm add cv` commands to overwrite existing versions.
-{{</callout>}}
 
 Create `backend-constructor.yaml`:
 
