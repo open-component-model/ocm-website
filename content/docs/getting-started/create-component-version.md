@@ -480,5 +480,4 @@ ocm get cv ghcr.io/open-component-model/ocm//ocm.software/ocmcli:0.35.0 --recurs
 
 ## Related Documentation
 
-- [Tutorial: Input and Access Types]({{< relref "/docs/tutorials/input-and-access-types.md" >}}) - Explore all supported resource types and how to use them
-- [Concept: Component Versions]({{< relref "/docs/concepts/component-versions.md" >}}) - Deep dive into the component version model and its features
+- [Tutorial: Input and Access Types]({{< relref "input-and-access-types.md" >}}) - Explore all supported resource types and how to use them
