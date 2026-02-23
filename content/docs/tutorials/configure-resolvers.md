@@ -15,14 +15,14 @@ ocm get cv ghcr.io/<your-namespace>/ocm-tutorial//ocm.software/tutorials/app:1.0
 ```
 
 This works fine for a single component. But what happens when that component has **references** to other components?
-For example, an app component might reference a backend and a frontend component that reside in different registries.
+For example, an app component might reference a backend and a frontend component that reside in different [ocm repositories](https://github.com/open-component-model/ocm-spec/blob/main/doc/01-model/01-model.md#component-repositories).
 When you use the option `--recursive` to follow those references, the CLI needs to know which repository contains the referenced components.
 
 **Resolvers** address this problem. They map component names to repositories so the CLI can automatically locate
 referenced components during recursive operations.
 
-Resolvers use the configuration type `resolvers.config.ocm.software/v1alpha1` and replace the deprecated priority-based
-fallback resolvers from earlier OCM versions with glob-based pattern matching.
+Resolvers use the configuration type `resolvers.config.ocm.software/v1alpha1`.
+The resolvers use glob-based pattern matching to determine which repository to query for a given component reference.
 
 {{<callout context="note" title="What You'll Learn">}}
 
@@ -52,20 +52,7 @@ This is particularly useful when:
 
 ## Configuration
 
-Resolvers are configured in the OCM configuration file. By default, the CLI searches for configuration in the following locations (in order):
-
-1. The path specified by the `OCM_CONFIG` environment variable
-2. XDG / Home directories:
-   - `$XDG_CONFIG_HOME/ocm/config`
-   - `$XDG_CONFIG_HOME/.ocmconfig`
-   - `$HOME/.config/ocm/config`
-   - `$HOME/.config/.ocmconfig`
-   - `$HOME/.ocm/config`
-   - `$HOME/.ocmconfig`
-3. Current working directory:
-   - `$PWD/ocm/config`
-   - `$PWD/.ocmconfig`
-
+Resolvers are configured in the OCM configuration file. By default, the CLI searches for configuration in `$HOME/.ocmconfig`.
 You can also specify a configuration file explicitly with the `--config` flag.
 
 {{<callout context="tip">}}
@@ -150,23 +137,28 @@ configurations:
         componentNamePattern: "ocm.software/tutorials/*"
 ```
 
-Supported glob patterns:
+**Excerpt of the supported glob patterns:**
+
+When configuring resolvers, you can use glob patterns to specify which component names should be resolved by which repositories.
+Here are some examples of supported patterns:
 
 | Pattern                     | Matches                                                  |
 |-----------------------------|----------------------------------------------------------|
 | `ocm.software/tutorials/*`  | Any component directly under `ocm.software/tutorials/`   |
 | `ocm.software/core/**`      | Any component under `ocm.software/core/` or its subpaths |
-| `*.software/*/test`         | Components named `test` in any `*.software` namespace    |
-| `ocm.software/core/[tc]est` | `ocm.software/core/test` or `ocm.software/core/cest`     |
 | `*`                         | All components (wildcard catch-all)                      |
 
-**Pattern syntax:**
+**Pattern syntax explanation:**
 
 - `*` — Matches any sequence of characters within a path segment
 - `**` — Matches any sequence of characters in subpath segments
 - `?` — Matches any single character
 - `[abc]` — Matches any character in the set (a, b, or c)
 - `[a-z]` — Matches any character in the range
+
+{{<callout context="note">}}
+For more information on the supported glob syntax, see the [glob package documentation](https://github.com/gobwas/glob).
+{{</callout>}}
 
 ## Walkthrough
 
@@ -197,6 +189,10 @@ For more information on creating a personal access token, see [GitHub's document
 
 {{< step >}}
 **Create and Push the Backend Component**
+
+{{<callout context="tip">}}
+If you are re-running this tutorial and the component versions already exist, add `--component-version-conflict-policy replace` to the `ocm add cv` commands to overwrite existing versions.
+{{</callout>}}
 
 Create `backend-constructor.yaml`:
 
@@ -316,10 +312,6 @@ ocm add cv --repository ghcr.io/<your-github-username>/ocm-tutorial \
  ocm.software/tutorials/frontend │ 1.0.0   │
 ```
 </details>
-
-{{<callout context="tip">}}
-If you are re-running this tutorial and the component versions already exist, add `--component-version-conflict-policy replace` to the `ocm add cv` commands to overwrite existing versions.
-{{</callout>}}
 {{< /step >}}
 
 {{< step >}}
