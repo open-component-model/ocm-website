@@ -154,12 +154,17 @@ Build a complete signing workflow
 
 ## ✓ Before publishing
 
-- [ ] Action verb title (Configure/Deploy/Create)
-- [ ] Simple numbered lists (use `{{< steps >}}` only if 5+ complex steps)
+Make sure to comply to our [CONTRIBUTING guide](../CONTRIBUTING.md),
+check the [Tutorial Writing Checklist](../CONTRIBUTING.md#how-to-guide-checklist),
+and ensure the following:
+
+- [ ] Title starts with "How to..." or action verb (Configure/Deploy/Create/...)
+- [ ] States the goal in the first paragraph
+- [ ] Realistic time estimate
+- [ ] Simple numbered lists (use `{{< steps >}}` only if 3+ complex steps)
 - [ ] Success indicators after each step
 - [ ] Links to concepts (never inline "why" explanations)
 - [ ] Use `{{< tabs >}}` for variants (different approaches, platforms, configurations)
-- [ ] `{{< card-grid >}}` for "Next steps" navigation
 - [ ] Troubleshooting with symptom-cause-fix
 - [ ] Working relref links
-- [ ] Realistic time estimate
+- [ ] `{{< card-grid >}}` for "Next steps" navigation

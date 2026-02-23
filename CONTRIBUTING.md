@@ -1,6 +1,6 @@
 # Contributing to OCM Documentation
 
-This guide helps contributors create and place new documentation content according to the [Diataxis framework](https://diataxis.fr/). 
+This guide helps contributors create and place new documentation content according to the [Diataxis framework](https://diataxis.fr/).
 These guidelines apply to **all new content** and do not reorganize existing documentation.
 
 _NOTE: You may notice some inconsistencies with our current structure. You are encouraged to contribute improvements to this guide and
@@ -10,6 +10,7 @@ to the existing documentation to make it conform to this guideline._
 
 - [Diataxis Overview](#diataxis-overview)
 - [OCM Section Mapping](#ocm-section-mapping)
+- [Content Templates](#content-templates)
 - [Content Decision Flowchart](#content-decision-flowchart)
 - [Repository Placement Guide](#repository-placement-guide)
 - [Writing Checklists](#writing-checklists)
@@ -61,6 +62,8 @@ Explain the "why" behind OCM design decisions.
 
 ### Tutorials (`content/docs/getting-started/` & `content/docs/tutorials/`)
 
+Guide newcomers through complete learning experiences. Use the [Tutorial Template](./content_templates/template-tutorial.md) to ensure consistency.
+
 #### Getting Started (`getting-started/`)
 
 Guide newcomers through complete learning experiences.
@@ -107,6 +110,26 @@ Factual, authoritative technical descriptions.
 - CLI command reference (imported via Hugo module)
 - Configuration schema documentation
 - CRD field specifications
+
+---
+
+## Content Templates
+
+To help you get started with writing documentation, we provide templates for each content type:
+
+- **[Tutorial Template](./content_templates/template-tutorial.md)**
+  - Complete guide for creating learning-oriented tutorials
+  - Includes examples for Mermaid diagrams, `{{< steps >}}`, `{{< tabs >}}`, and `{{< details >}}` shortcodes
+  - Shows how to structure prerequisites, scenarios, and success indicators
+  - Provides checklist for publication readiness
+
+- **[How-to Template](./content_templates/template-how-to.md)**
+  - Task-focused guide template
+  - Demonstrates goal-oriented structure
+  - Shows troubleshooting format with symptom-cause-fix
+  - Includes examples for `{{< tabs >}}` and `{{< card-grid >}}` shortcodes
+
+These templates include inline comments and examples to guide you through creating high-quality documentation that follows Diataxis principles.
 
 ---
 
@@ -212,6 +235,8 @@ This feature requires the new OCM library from `open-component-model/open-compon
 
 ### Tutorial Checklist
 
+Use the [Tutorial Template](./content_templates/template-tutorial.md) as a starting point.
+
 - [ ] Title describes what learner will accomplish
 - [ ] Prerequisites section lists all requirements
 - [ ] Steps are numbered and sequential
@@ -221,6 +246,8 @@ This feature requires the new OCM library from `open-component-model/open-compon
 - [ ] Links to Concepts for "why" questions
 
 ### How-to Guide Checklist
+
+Use the [How-to Template](./content_templates/template-how-to.md) as a starting point.
 
 - [ ] Title starts with "How to..." or action verb
 - [ ] States the goal in the first paragraph
