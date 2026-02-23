@@ -29,15 +29,15 @@
     "test": "node --test .github/scripts/cutoff-version.test.js"
   },
   "dependencies": {
-    "@tabler/icons": "^3.34.1",
-    "@thulite/doks-core": "^1.8.3",
-    "@thulite/images": "^3.3.1",
-    "@thulite/inline-svg": "^1.2.0",
-    "@thulite/seo": "^2.4.1",
-    "thulite": "^2.6.3"
+    "@tabler/icons": "^3.37.1",
+    "@thulite/doks-core": "^1.9.0",
+    "@thulite/images": "^3.3.4",
+    "@thulite/inline-svg": "^1.2.2",
+    "@thulite/seo": "^2.4.3",
+    "thulite": "^2.6.4"
   },
   "devDependencies": {
-    "hugo-extended": "^0.155.2",
+    "hugo-extended": "^0.156.0",
     "shx": "^0.4.0",
     "smol-toml": "^1.6.0"
   },
@@ -45,8 +45,8 @@
     "semver": "^7.5.4"
   },
   "engines": {
-    "node": ">=25.5.0",
-    "npm": ">=11.8.0"
+    "node": ">=25.6.0",
+    "npm": ">=11.9.0"
   },
-  "packageManager": "npm@11.1.0"
+  "packageManager": "npm@11.9.0"
 }
