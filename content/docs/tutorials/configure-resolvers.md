@@ -48,7 +48,7 @@ pattern that matches the component name and queries the associated repository.
 This is particularly useful when:
 
 - A component references other components and you need recursive resolution
-- Components are distributed across multiple OCI registries
+- Components are distributed across multiple ocm repositories
 
 ## Configuration
 
