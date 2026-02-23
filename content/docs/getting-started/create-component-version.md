@@ -474,5 +474,11 @@ ocm get cv ghcr.io/open-component-model/ocm//ocm.software/ocmcli:0.35.0 --recurs
 | [`ocm get cv`](../../reference/ocm-cli/ocm-get-component-version/) | List and inspect component versions            |
 
 ## Next Steps
-- [Sign Component Versions]({{< relref "../how-to/sign-component-version.md" >}}) - Ensure authenticity and integrity of your components with cryptographic signatures
-- [Download Resources]({{< relref "../how-to/download-resources-from-component-versions.md" >}})  - How to extract resources from component versions
+
+- [How-to: Sign Component Versions]({{< relref "sign-component-version.md" >}}) - Ensure authenticity and integrity of your components with cryptographic signatures
+- [How-to: Download Resources from OCM Components]({{< relref "../how-to/download-resources-from-component-versions.md" >}})  - How to extract resources from component versions
+
+## Related Documentation
+
+- [Tutorial: Input and Access Types]({{< relref "/docs/tutorials/input-and-access-types.md" >}}) - Explore all supported resource types and how to use them
+- [Concept: Component Versions]({{< relref "/docs/concepts/component-versions.md" >}}) - Deep dive into the component version model and its features
