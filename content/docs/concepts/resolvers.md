@@ -8,7 +8,7 @@ toc: true
 
 ## What Are Resolvers?
 
-A resolver maps a **component name pattern** (glob) to an **[OCM repository](https://github.com/open-component-model/ocm-spec/blob/main/doc/01-model/01-model.md#component-repositories)**. When the CLI
+A resolver maps a **component name pattern** (glob) to an **[OCM repository](https://github.com/open-component-model/ocm-spec/blob/main/doc/01-model/01-model.md#component-repositories)**. When OCM
 encounters a component reference during recursive resolution, it consults the configured resolvers to find the first
 pattern that matches the component name and queries the associated repository.
 
@@ -42,7 +42,7 @@ configurations:
         componentNamePattern: "example.com/services/*"
 ```
 
-This tells the CLI: "When looking for any component matching `example.com/services/*`, check the OCI registry at
+This tells OCM: "When looking for any component matching `example.com/services/*`, check the OCI registry at
 `ghcr.io/my-org/components`."
 
 ### Resolver Evaluation Order
@@ -152,7 +152,7 @@ When a component version has references to other component versions (via `compon
 
 For example, an app component might reference backend and frontend components stored in a separate repository. With resolvers configured, the CLI automatically finds and retrieves all referenced components.
 
-{{<callout context="note">}}
+{{<callout context="warning">}}
 For the `transfer cv` command, resolvers are currently not taking into account.
 {{</callout>}}
 
