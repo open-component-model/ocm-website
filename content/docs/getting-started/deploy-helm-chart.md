@@ -6,7 +6,8 @@ weight: 24
 toc: true
 ---
 
-This tutorial walks you through deploying a Helm chart from an OCM component version to a Kubernetes cluster. You'll use the OCM Controllers with kro and FluxCD to create a GitOps workflow.
+This tutorial walks you through deploying a Helm chart from an OCM component version to a Kubernetes cluster,
+using the OCM Controllers with kro and FluxCD.
 
 ## How It Works
 
@@ -356,5 +357,5 @@ kubectl delete -f rgd.yaml
 
 ## Next Steps
 
-- [Sign Component Versions]({{< relref "../how-to/sign-component-version.md" >}}) - Add cryptographic signatures for verification
-- [Input and Access Types]({{< relref "../tutorials/input-and-access-types.md" >}}) - Learn about different ways to include artifacts
+- [Tutorial: Structure Software Products with OCM]({{< relref "complex-component-structure-deployment.md" >}}) - Learn how to structure complex applications with multiple components and resources
+- [Tutorial: Deploy a Helm Chart (with Bootstrap)]({{< relref "deploy-helm-chart-bootstrap.md" >}}) - Use the OCM Controllers to deploy a Helm chart without manual bootstrapping, using a GitOps
