@@ -7,7 +7,8 @@ toc: true
 
 ## Goal
 
-Configure OCM resolvers so the CLI can recursively resolve component references that are stored in separate OCI repositories.
+Configure OCM resolvers so the CLI can recursively resolve component references that are stored in separate OCI repositories. 
+For background on how resolvers work, see the [Resolvers concept page]({{< relref "docs/concepts/resolvers.md" >}}).
 
 {{< callout type="note" >}}
 **You will end up with**
@@ -16,109 +17,26 @@ Configure OCM resolvers so the CLI can recursively resolve component references 
 - A working `ocm get cv --recursive` command that resolves components across repositories
 {{< /callout >}}
 
-**Estimated time:** ~10 minutes
+**Estimated time:** ~5 minutes
 
 ## Prerequisites
 
 - [Getting Started]({{< relref "docs/getting-started/_index.md" >}}) completed
 - [OCM CLI]({{< relref "docs/getting-started/ocm-cli-installation.md" >}}) installed
 - Access to at least one OCI registry (e.g., `ghcr.io`)
-- Components with references already created (if you need to set these up first, follow the [Configure Resolvers tutorial]({{< relref "docs/tutorials/configure-resolvers.md" >}}))
+- Components with references already pushed to separate repositories (if you need to set these up first, follow the [Configure Resolvers tutorial]({{< relref "docs/tutorials/configure-resolvers.md" >}}))
+
+This guide assumes you have the following components already pushed:
+
+| Component | Repository |
+|-----------|-----------|
+| `ocm.software/tutorials/backend` | `ghcr.io/<your-github-username>/ocm-tutorial-backend` |
+| `ocm.software/tutorials/frontend` | `ghcr.io/<your-github-username>/ocm-tutorial-frontend` |
+| `ocm.software/tutorials/app` (references backend and frontend) | `ghcr.io/<your-github-username>/ocm-tutorial-app` |
 
 ## Steps
 
 {{< steps >}}
-
-{{< step >}}
-**Create and Push the Backend Component**
-
-Create `backend-constructor.yaml`:
-
-```yaml
-components:
-  - name: ocm.software/tutorials/backend
-    version: "1.0.0"
-    provider:
-      name: ocm.software
-    resources:
-      - name: config
-        version: "1.0.0"
-        type: plainText
-        input:
-          type: utf8
-          text: "backend service configuration"
-```
-
-Push it to its own repository:
-
-```bash
-ocm add cv --repository ghcr.io/<your-github-username>/ocm-tutorial-backend \
-  --constructor backend-constructor.yaml
-```
-{{< /step >}}
-
-{{< step >}}
-**Create and Push the Frontend Component**
-
-Create `frontend-constructor.yaml`:
-
-```yaml
-components:
-  - name: ocm.software/tutorials/frontend
-    version: "1.0.0"
-    provider:
-      name: ocm.software
-    resources:
-      - name: config
-        version: "1.0.0"
-        type: plainText
-        input:
-          type: utf8
-          text: "frontend service configuration"
-```
-
-Push it to its own repository:
-
-```bash
-ocm add cv --repository ghcr.io/<your-github-username>/ocm-tutorial-frontend \
-  --constructor frontend-constructor.yaml
-```
-{{< /step >}}
-
-{{< step >}}
-**Create and Push the App Component**
-
-Create `app-constructor.yaml`. The `componentReferences` section declares dependencies on both the backend and frontend components:
-
-```yaml
-components:
-  - name: ocm.software/tutorials/app
-    version: "1.0.0"
-    provider:
-      name: ocm.software
-    componentReferences:
-      - name: backend-service
-        componentName: ocm.software/tutorials/backend
-        version: "1.0.0"
-      - name: frontend-service
-        componentName: ocm.software/tutorials/frontend
-        version: "1.0.0"
-    resources:
-      - name: config
-        version: "1.0.0"
-        type: plainText
-        input:
-          type: utf8
-          text: "app deployment configuration"
-```
-
-Push it to its own repository — separate from the backend and frontend:
-
-```bash
-ocm add cv --repository ghcr.io/<your-github-username>/ocm-tutorial-app \
-  --constructor app-constructor.yaml
-```
-{{< /step >}}
 
 {{< step >}}
 **Create an `.ocmconfig` with per-component resolvers**
@@ -150,7 +68,7 @@ configurations:
 {{< /step >}}
 
 {{< callout type="tip" >}}
-If multiple components share a repository, use glob patterns (e.g., `ocm.software/tutorials/*`) to match them with a single resolver entry instead of listing each one individually. See [Component Name Patterns]({{< relref "docs/tutorials/configure-resolvers.md#component-name-patterns" >}}) for the full pattern syntax.
+If multiple components share a repository, use glob patterns (e.g., `ocm.software/tutorials/*`) to match them with a single resolver entry instead of listing each one individually. See [Component Name Patterns]({{< relref "docs/concepts/resolvers.md#component-name-patterns" >}}) for the full pattern syntax.
 {{< /callout >}}
 
 {{< step >}}
@@ -182,11 +100,12 @@ This pattern scales to any number of repositories — simply add a resolver entr
 
 ## Next steps
 
-- **Learn resolver concepts and patterns**: See the [Configure Resolvers tutorial]({{< relref "docs/tutorials/configure-resolvers.md" >}}) for a full walkthrough of building components with references from scratch.
+- **Learn resolver concepts and patterns**: See the [Resolvers concept page]({{< relref "docs/concepts/resolvers.md" >}}) for configuration options, pattern syntax, and schema reference.
+- **Build components with references from scratch**: Follow the [Configure Resolvers tutorial]({{< relref "docs/tutorials/configure-resolvers.md" >}}) for a full walkthrough.
 - **Explore credential configuration**: See [Credentials in an .ocmconfig File]({{< relref "creds-in-ocmconfig.md" >}}) for authentication options when working with registries.
 
 ## Related documentation
 
-- [Configure Resolvers Tutorial]({{< relref "docs/tutorials/configure-resolvers.md" >}}) — Full tutorial covering resolver concepts, patterns, and hands-on examples
-- [Configuration Reference]({{< relref "docs/tutorials/configure-resolvers.md#configuration-reference" >}}) — Resolver and repository schema details
+- [Resolvers]({{< relref "docs/concepts/resolvers.md" >}}) — Resolver concepts, configuration options, pattern syntax, and schema reference
+- [Configure Resolvers Tutorial]({{< relref "docs/tutorials/configure-resolvers.md" >}}) — Full tutorial covering hands-on resolver setup
 - [Credentials in an .ocmconfig File]({{< relref "creds-in-ocmconfig.md" >}}) — Configure credentials for OCI registries
