@@ -241,10 +241,9 @@ If these solutions don't work:
 
 ## Next Steps
 
-- How-to: Transfer Components — Move components between repositories
-- [How-to: Sign Component Versions]({{< relref "sign-component-version.md" >}}) — Ensure authenticity and integrity
+- [How-to: Sign Component Versions]({{< relref "sign-component-version.md" >}}) - Ensure authenticity and integrity
 
 ## Related Documentation
 
-- [Concept: Component Versions]({{< relref "/docs/concepts/components.md" >}}) — Understanding component structure
-- [Tutorial: Create Component Versions]({{< relref "/docs/getting-started/create-component-version.md" >}}) — Learn how to create components
+- [Concept: Component Versions]({{< relref "/docs/concepts/components.md" >}}) -  Understanding component structure
+- [Tutorial: Create Component Versions]({{< relref "/docs/getting-started/create-component-version.md" >}}) - Learn how to create components
