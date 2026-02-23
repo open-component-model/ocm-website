@@ -386,17 +386,12 @@ In the tutorial above, both component references share a single repository. In p
 
 ## Recursive Resolution
 
-Resolvers are especially valuable when working with components that **reference other components**. The `--recursive`
-flag on commands like `ocm get cv` or `ocm transfer cv` follows these references, and resolvers ensure each referenced
-component is looked up in the correct repository.
-
 As shown in the tutorial above, the app component `ocm.software/tutorials/app:1.0.0` references both
 `ocm.software/tutorials/backend:1.0.0` and `ocm.software/tutorials/frontend:1.0.0`. These component references live in a
 separate repository. With resolvers configured, the CLI automatically finds the referenced components.
 
 {{<callout context="note">}}
-For `ocm get cv`, the `--recursive` flag accepts a depth value: `0` for no recursion (default), `-1` for unlimited depth. Limiting the recursion depth with a `positive integer` is planned but not supported yet.
-For the transfer command, `--recursive` is a boolean flag that enables unlimited recursion. Support for limiting recursion depth is planned but not supported yet.
+For the `transfer cv` command, resolvers are currently not taking into account.
 {{</callout>}}
 
 ## CLI and Resolver Interaction
@@ -412,15 +407,6 @@ This means you can always override resolver behavior by specifying a repository 
 # Uses resolvers from config to find referenced components
 ocm get cv ghcr.io/<your-github-username>/ocm-tutorial//ocm.software/tutorials/app:1.0.0 \
   --recursive=-1
-```
-
-## Transferring Components
-
-Resolvers work with transfer commands as well. When transferring component versions recursively, the resolver is used to locate **referenced** components:
-
-```bash
-ocm transfer cv ghcr.io/<your-github-username>/ocm-tutorial//ocm.software/tutorials/app:1.0.0 \
-  myregistry.example.com/target --recursive --config .ocmconfig
 ```
 
 With the resolver configured, the CLI discovers the references to the backend and frontend components and automatically locates them before transferring everything to the target.
