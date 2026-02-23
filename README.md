@@ -108,9 +108,9 @@ To test and develop the website locally, you can start a Hugo development server
 
 Requirements:
 
-- [Node.js](https://nodejs.org/en/download) ≥ 25.5.0
-- [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) ≥ 11.8.0
-- Hugo Extended ≥ 0.155.0 (provided via npm package `hugo-extended`, installed with `npm ci`)
+- [Node.js](https://nodejs.org/en/download) ≥ 25.6.0
+- [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) ≥ 11.9.0
+- Hugo Extended ≥ 0.156.0 (provided via npm package `hugo-extended`, installed with `npm ci`)
 
 Install dependencies and start Hugo server (npm-first, no local Hugo install needed):
 
