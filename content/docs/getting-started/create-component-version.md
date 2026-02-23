@@ -41,6 +41,7 @@ with `ocm transfer`.
 {{< steps >}}
 
 {{< step >}}
+
 ### Set up a working directory
 
 Create and enter a directory for this tutorial:
@@ -51,6 +52,7 @@ mkdir /tmp/helloworld && cd /tmp/helloworld
 {{< /step >}}
 
 {{< step >}}
+
 ### Create a local resource file
 
 Create a simple text file that will become part of your component:
@@ -61,6 +63,7 @@ echo "My first local Resource for an OCM component" > my-local-resource.txt
 {{< /step >}}
 
 {{< step >}}
+
 ### Define the component
 
 Create a `component-constructor.yaml` file that describes your component and its resources:
@@ -179,6 +182,7 @@ All files in the directory are archived together.
 {{< /step >}}
 
 {{< step >}}
+
 ### Build the component version
 
 Run the OCM CLI to create a CTF archive:
@@ -323,6 +327,7 @@ The other elements listed as `layers` describe the blobs for the local resources
 {{< /step >}}
 
 {{< step >}}
+
 ### Verify the result
 
 List the component version in the archive:
@@ -332,6 +337,7 @@ ocm get cv ./transport-archive//github.com/acme.org/helloworld
 ```
 
 Output:
+
 ```text
 COMPONENT                      │ VERSION │ PROVIDER
 ───────────────────────────────┼─────────┼──────────

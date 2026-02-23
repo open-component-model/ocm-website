@@ -146,7 +146,8 @@ For private registries, you'll need to configure credentials. See [Configure Cre
 
 ## Cleanup
 
-To remove the local kind cluster:
+Remove the local kind cluster:
 
 ```shell
 kind delete cluster
+```

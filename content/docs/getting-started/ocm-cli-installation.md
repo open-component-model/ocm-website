@@ -25,6 +25,7 @@ and installation scripts will be available with the first official release in Q2
 {{< tabs "installation-methods" >}}
 
 {{< tab "Build from Source" >}}
+
 ### Clone and build
 
 Build the OCM CLI from the `open-component-model/open-component-model` monorepo.

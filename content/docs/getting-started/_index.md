@@ -7,11 +7,13 @@ sidebar:
   collapsed: false
 ---
 
-Welcome to OCM! These tutorials guide you through essential OCM workflows, from creating your first component version to deploying applications with OCM controllers.
+Welcome to OCM! These tutorials guide you through essential OCM workflows,
+from creating your first component version to deploying applications with OCM controllers.
 
 ## What You'll Learn
 
-The getting-started tutorials are designed to be completed in sequence. Each tutorial builds on the previous one, teaching you fundamental OCM concepts through practical examples:
+The getting-started tutorials are designed to be completed in sequence.
+Each tutorial builds on the previous one, teaching you fundamental OCM concepts through practical examples:
 
 1. **[Install the OCM CLI](ocm-cli-installation/)** - Set up the OCM command-line tool
 2. **[Create Component Versions](create-component-version/)** - Bundle and store your software artifacts
@@ -28,6 +30,8 @@ Before starting, you should have:
 
 ## Learning Path
 
-These tutorials follow the **learning-oriented** approach from the [Diataxis framework](https://diataxis.fr/). Every step is designed to work exactly as written, producing visible, verifiable results. If you're new to OCM, start with the first tutorial and work through them in order.
+These tutorials follow the **learning-oriented** approach from the [Diataxis framework](https://diataxis.fr/).
+Every step is designed to work exactly as written, producing visible, verifiable results. If you're new to OCM, start with the first tutorial and work through them in order.
 
-For task-specific guidance after completing these tutorials, explore the [How-To Guides](../how-to/) section. To understand OCM concepts in depth, visit the [Concepts](../concepts/) section.
+For task-specific guidance after completing these tutorials, explore the [How-To Guides](../how-to/) section.
+To understand OCM concepts in depth, visit the [Concepts](../concepts/) section.
