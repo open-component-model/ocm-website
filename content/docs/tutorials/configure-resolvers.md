@@ -48,7 +48,7 @@ pattern that matches the component name and queries the associated repository.
 This is particularly useful when:
 
 - A component references other components and you need recursive resolution
-- Components are distributed across multiple OCI registries
+- Components are distributed across multiple ocm repositories
 
 ## Configuration
 
@@ -433,9 +433,9 @@ The resolver configuration is defined by the `resolvers.config.ocm.software/v1al
 
 Now that you know how to configure resolvers, you can:
 
-- **Learn more about component references**: [Referencing Components](https://github.com/open-component-model/ocm-spec/blob/main/doc/02-processing/01-references.md).
-- **Explore credential configuration**: See [Credentials in an .ocmconfig File]({{< relref "creds-in-ocmconfig.md" >}}) for authentication options when working with registries.
-- **Set up air-gapped environments**: Use CTF archives with resolvers for offline component resolution. Learn about the Common Transport Format in [Creating a Component Version]({{< relref "docs/getting-started/create-component-version.md" >}}).
+- Learn more about component references: [Referencing Components](https://github.com/open-component-model/ocm-spec/blob/main/doc/02-processing/01-references.md).
+- Explore credential configuration: See [Credentials in an .ocmconfig File]({{< relref "creds-in-ocmconfig.md" >}}) for authentication options when working with registries.
+- Set up air-gapped environments: Use CTF archives with resolvers for offline component resolution. Learn about the Common Transport Format in [Creating a Component Version]({{< relref "docs/getting-started/create-component-version.md" >}}).
 
 ## Related Documentation
 
