@@ -6,7 +6,14 @@ weight: 23
 toc: true
 ---
 
-This guide helps you set up a local Kubernetes environment for testing OCM controller-based deployments. You'll install the OCM Controllers, kro, and FluxCD to enable GitOps workflows with OCM component versions.
+This guide helps you set up a local Kubernetes environment for testing OCM controller-based deployments.
+You'll install the OCM Controllers, kro, and FluxCD to enable GitOps workflows with OCM component versions.
+
+## What You'll Learn
+
+By the end of this tutorial, you will:
+
+- Have a local or remote Kubernetes cluster with the OCM Controllers, kro, and FluxCD installed
 
 ## Prerequisites
 
@@ -18,7 +25,7 @@ This guide helps you set up a local Kubernetes environment for testing OCM contr
 
 ## Create a Local Kubernetes Cluster
 
-{{< callout context="note" >}}
+{{< callout context="note" title="Note" icon="outline/info-circle" >}}
 Skip this step if you're using a remote Kubernetes cluster.
 {{< /callout >}}
 
@@ -127,7 +134,7 @@ ocm-k8s-toolkit-system   ocm-k8s-toolkit-controller-manager-788f58d4bd-ntbx8   1
 
 The OCM Controllers need access to an OCI registry to fetch component versions.
 
-{{< callout context="tip" >}}
+{{< callout context="tip" title="Tip" icon="outline/info-circle" >}}
 We recommend using a publicly accessible registry like [ghcr.io](https://docs.github.com/en/packages/learn-github-packages/introduction-to-github-packages). Using a local registry requires additional configuration to ensure it's accessible both from your CLI and from within the cluster.
 {{< /callout >}}
 

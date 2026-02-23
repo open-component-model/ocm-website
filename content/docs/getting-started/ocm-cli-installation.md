@@ -25,10 +25,9 @@ and installation scripts will be available with the first official release in Q2
 {{< tabs "installation-methods" >}}
 
 {{< tab "Build from Source" >}}
+### Clone and build
 
 Build the OCM CLI from the `open-component-model/open-component-model` monorepo.
-
-### Clone and build
 
 ```shell
 git clone https://github.com/open-component-model/open-component-model.git
@@ -41,9 +40,7 @@ The CLI is installed to your `$GOPATH/bin` directory. Ensure this is in your `PA
 ```shell
 export PATH="$PATH:$(go env GOPATH)/bin"
 ```
-
 {{< /tab >}}
-
 {{< /tabs >}}
 
 ## Verify Installation

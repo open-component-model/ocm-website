@@ -1,13 +1,21 @@
 ---
-title: "Deploy Helm Charts using the OCM Controllers"
-description: "Deploy a Helm chart from an OCM component version using the OCM Controllers, kro, and FluxCD."
+title: "Deploy Helm Charts with OCM Controllers"
+description: "Deploy a Helm chart from an OCM component version with OCM Controllers, kro, and Flux."
 icon: "🚀"
 weight: 24
 toc: true
 ---
 
 This tutorial walks you through deploying a Helm chart from an OCM component version to a Kubernetes cluster,
-using the OCM Controllers with kro and FluxCD.
+using the OCM Controllers with kro and Flux.
+
+## What You'll Learn
+
+By the end of this tutorial, you will:
+
+- Create and publish an OCM component version that references a Helm chart
+- Define a ResourceGraphDefinition to orchestrate OCM and Flux resources
+- Deploy the Helm chart to your cluster using the OCM Controllers
 
 ## How It Works
 
@@ -15,15 +23,15 @@ using the OCM Controllers with kro and FluxCD.
 flowchart LR
     A[Component Version] --> B[OCM Controllers]
     B --> C[kro ResourceGraph]
-    C --> D[FluxCD HelmRelease]
+    C --> D[Flux HelmRelease]
     D --> E[Deployed Application]
 ```
 
-The OCM Controllers fetch component versions from an OCI registry. kro orchestrates the resources, and FluxCD deploys the Helm chart to your cluster.
+The OCM Controllers fetch component versions from an OCI registry. kro orchestrates the resources, and Flux deploys the Helm chart to your cluster.
 
 ## Prerequisites
 
-- [Controller environment set up]({{< relref "setup-controller-environment.md" >}}) (OCM Controllers, kro, FluxCD)
+- [Controller environment set up]({{< relref "setup-controller-environment.md" >}}) (OCM Controllers, kro and Flux in a kind cluster)
 - [OCM CLI installed]({{< relref "ocm-cli-installation.md" >}})
 - Access to an OCI registry (e.g., ghcr.io)
 
@@ -107,14 +115,14 @@ ocm.software/ocm-k8s-toolkit/simple 1.0.0   ocm.software
 
 {{< /steps >}}
 
-## Deploy with the OCM Controllers
+## Deploy Helm chart with OCM Controllers
 
 {{< steps >}}
 
 {{< step >}}
-**Create the ResourceGraphDefinition**
+**Create ResourceGraphDefinition**
 
-The ResourceGraphDefinition tells kro how to orchestrate the OCM and FluxCD resources. Create `rgd.yaml`:
+The ResourceGraphDefinition tells kro how to orchestrate the OCM and Flux resources. Create `rgd.yaml`:
 
 ```yaml
 apiVersion: kro.run/v1alpha1
@@ -226,7 +234,7 @@ spec:
             name: ${ocirepository.metadata.name}
             namespace: default
           values:
-            # We configure the Helm chart using FluxCDs HelmRelease 'values' field. We pass the value that we set in
+            # We configure the Helm chart using Fluxs HelmRelease 'values' field. We pass the value that we set in
             # the instance of the CRD created by the ResourceGraphDefinition (see below).
             ui:
               message: ${schema.spec.message}
@@ -255,7 +263,7 @@ NAME     APIVERSION   KIND     STATE    AGE
 simple   v1alpha1     Simple   Active   19s
 ```
 
-This creates a new Custom Resource Definition called `Simple` that you can instantiate.
+A new Custom Resource Definition called `Simple` that you can now instantiate has been created.
 {{< /step >}}
 
 {{< step >}}
@@ -310,7 +318,7 @@ NAME             READY   UP-TO-DATE   AVAILABLE   AGE
 simple-podinfo   1/1     1            1           3m
 ```
 
-Verify the configured message:
+Verify the custom message you configured in the HelmRelease values is showing up in the application:
 
 ```shell
 kubectl get pods -l app.kubernetes.io/name=simple-podinfo \
@@ -323,7 +331,6 @@ Output:
 Deployed with OCM!
 ```
 {{< /step >}}
-
 {{< /steps >}}
 
 ## Troubleshooting
@@ -337,14 +344,16 @@ failed to list versions: response status code 401: unauthorized
 ```
 
 Your registry package may be private. Either:
+
 - Make the package public in your registry settings
 - Configure credentials for the OCM Controller resources
 
 ### Resource Not Found
 
 If the component isn't found, verify:
-1. The component was transferred successfully: `ocm get cv ghcr.io/<your-namespace>//ocm.software/ocm-k8s-toolkit/simple:1.0.0`
-2. The `baseUrl` in the ResourceGraphDefinition matches your registry
+
+- The component was transferred successfully: `ocm get cv ghcr.io/<your-namespace>//ocm.software/ocm-k8s-toolkit/simple:1.0.0`
+- The `baseUrl` in the ResourceGraphDefinition matches your registry
 
 ## Cleanup
 
