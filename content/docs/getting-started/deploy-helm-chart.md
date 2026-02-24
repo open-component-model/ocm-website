@@ -17,17 +17,11 @@ By the end of this tutorial, you will:
 - Define a ResourceGraphDefinition to orchestrate OCM and Flux resources
 - Deploy the Helm chart to your cluster using the OCM Controllers
 
-## How It Works
+## Scenario
 
-```mermaid
-flowchart LR
-    A[Component Version] --> B[OCM Controllers]
-    B --> C[kro ResourceGraph]
-    C --> D[Flux HelmRelease]
-    D --> E[Deployed Application]
-```
-
-The OCM Controllers fetch component versions from an OCI registry. kro orchestrates the resources, and Flux deploys the Helm chart to your cluster.
+You as a developer create an application, packaged as a Helm chart, and publish it as OCM component version in an OCI registry.
+Then, you as an operator want to deploy the Helm chart into a Kubernetes cluster using the OCM Controllers.
+You define a ResourceGraphDefinition that tells kro how to orchestrate the OCM and Flux resources to deploy the Helm chart.
 
 ## Prerequisites
 
