@@ -22,8 +22,10 @@ You'll install the OCM Controllers, kro, and FluxCD to enable GitOps workflows w
 - Access to an OCI registry (e.g., [ghcr.io](https://docs.github.com/en/packages/learn-github-packages/introduction-to-github-packages))
 
 ## Setup Workflow
+
 {{< steps >}}
 {{< step >}}
+
 ### Create a Local Kubernetes Cluster
 
 > 📣 **Note:** 📣  
@@ -43,6 +45,7 @@ kubectl cluster-info
 
 {{< /step >}}
 {{< step >}}
+
 ## Install kro
 
 Install [kro](https://kro.run) following the [official installation guide](https://kro.run/docs/getting-started/Installation). Verify kro is running:
@@ -59,6 +62,7 @@ kro-86d5b5b5bd-6gmvr          1/1     Running            0               3h28m
 ```
 {{< /step >}}
 {{< step >}}
+
 ### Install a Deployer: FluxCD
 
 We use [FluxCD](https://fluxcd.io/) as deployer. In theory, you could use any other deployer
@@ -90,6 +94,7 @@ source-controller-6ff87cb475-2h2lv           1/1     Running     0              
 
 {{< /step >}}
 {{< step >}}
+
 ### Install the OCM Controllers
 
 Install the OCM controllers via Helm:
@@ -115,6 +120,7 @@ ocm-k8s-toolkit-controller-manager-788f58d4bd-ntbx8    1/1     Running   0      
 
 {{< /step >}}
 {{< step >}}
+
 ### Verify Complete Setup
 
 Check all components are running:

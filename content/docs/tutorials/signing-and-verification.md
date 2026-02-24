@@ -578,9 +578,11 @@ ocm verify cv \
 1. **Fetch component version** from repository
 2. **Locate signature** by name in component descriptor
 3. **Resolve public key** from:
-  - `.ocmconfig` credential system, OR
-  - `--public-key` flag, OR
-  - Certificate chain in signature (PEM encoding only)
+
+   - `.ocmconfig` credential system, OR
+   - `--public-key` flag, OR
+   - Certificate chain in signature (PEM encoding only)
+
 4. **Normalize component descriptor** using specified algorithm
 5. **Hash normalized descriptor**
 6. **Verify signature** using public key
