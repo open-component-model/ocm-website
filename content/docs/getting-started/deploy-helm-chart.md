@@ -84,7 +84,7 @@ component ocm.software/ocm-k8s-toolkit/simple/1.0.0 constructed ... done!
 ```
 {{< /step >}}
 
-{{% step %}}
+{{< step >}}
 **Transfer to your registry**
 
 Replace `<your-namespace>` with your registry namespace:
@@ -92,13 +92,11 @@ Replace `<your-namespace>` with your registry namespace:
 ```shell
 ocm transfer ctf ./ctf ghcr.io/<your-namespace>
 ```
+> 📄 **Note:** 📄
+> If your registry requires authentication, configure OCM credentials first.
+> See [Credentials config for OCM CLI] ({{< relref "creds-in-ocmconfig.md" >}}).
 
-{{< callout context="note" title="Note" icon="outline/info-circle" >}}
-If your registry requires authentication, configure OCM credentials first.
-See [Configure Credentials]({{< relref "../how-to/configure-signing-credentials.md" >}}).
-{{< /callout >}}
-
-{{% /step %}}
+{{< /step >}}
 
 {{< step >}}
 **Verify the upload**
