@@ -19,6 +19,7 @@ ocm download cli [<options>]  [<component> {<name> { <key>=<value> }}]
 ```
   -c, --constraints constraints   version constraint
   -h, --help                      help for cli
+      --oci-layout                download OCI artifacts in OCI Image Layout format (blobs/<algorithm>/<encoded>)
   -O, --outfile string            output file or directory
   -p, --path                      lookup executable in PATH
       --repo string               repository name or spec

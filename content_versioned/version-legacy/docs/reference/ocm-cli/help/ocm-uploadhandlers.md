@@ -90,9 +90,6 @@ The following handler names are possible:
     
     sub namespace of the form <code>&lt;plugin name>/&lt;handler></code>
 
-  - <code>plugin/jfrog/JFrogHelm</code>: 
-    upload artifacts to JFrog HELM repositories by using the JFrog REST API.
-
 
 
 See [ocm ocm-uploadhandlers]({{< relref "docs/reference/ocm-cli/help/ocm-uploadhandlers.md" >}}) for further details on using
