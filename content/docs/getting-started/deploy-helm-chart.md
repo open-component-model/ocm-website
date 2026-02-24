@@ -92,9 +92,8 @@ Replace `<your-namespace>` with your registry namespace:
 ```shell
 ocm transfer ctf ./ctf ghcr.io/<your-namespace>
 ```
-> 📄 **Note:** 📄
-> If your registry requires authentication, configure OCM credentials first.
-> See [Credentials config for OCM CLI] ({{< relref "creds-in-ocmconfig.md" >}}).
+> 📣 **Note:** 📣  
+> If your registry requires authentication, configure [Credentials for OCM CLI]({{< relref "creds-in-ocmconfig.md" >}}) first.
 
 {{< /step >}}
 

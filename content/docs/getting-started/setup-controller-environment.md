@@ -21,11 +21,13 @@ You'll install the OCM Controllers, kro, and FluxCD to enable GitOps workflows w
 - [Helm](https://helm.sh/docs/intro/install/) installed
 - Access to an OCI registry (e.g., [ghcr.io](https://docs.github.com/en/packages/learn-github-packages/introduction-to-github-packages))
 
-## Create a Local Kubernetes Cluster
+## Setup Workflow
+{{< steps >}}
+{{< step >}}
+### Create a Local Kubernetes Cluster
 
-{{< callout context="note" title="Note" icon="outline/info-circle" >}}
-Skip this step if you're using a remote Kubernetes cluster.
-{{< /callout >}}
+> 📣 **Note:** 📣  
+> Skip this step if you're using a remote Kubernetes cluster.
 
 Create a local kind cluster:
 
@@ -39,13 +41,11 @@ Verify the cluster is running:
 kubectl cluster-info
 ```
 
+{{< /step >}}
+{{< step >}}
 ## Install kro
 
-[kro](https://kro.run) is a Kubernetes Resource Orchestrator that helps define and manage complex resource relationships.
-
-Install kro following the [official installation guide](https://kro.run/docs/getting-started/Installation).
-
-Verify kro is running:
+Install [kro](https://kro.run) following the [official installation guide](https://kro.run/docs/getting-started/Installation). Verify kro is running:
 
 ```shell
 kubectl get pods -n kro
@@ -54,15 +54,19 @@ kubectl get pods -n kro
 Expected output:
 
 ```text
-NAME                   READY   STATUS    RESTARTS   AGE
-kro-86d5b5b5bd-6gmvr   1/1     Running   0          1m
+NAME                          READY   STATUS             RESTARTS        AGE
+kro-86d5b5b5bd-6gmvr          1/1     Running            0               3h28m
 ```
+{{< /step >}}
+{{< step >}}
+### Install a Deployer: FluxCD
 
-## Install FluxCD
+We use [FluxCD](https://fluxcd.io/) as deployer. In theory, you could use any other deployer
+that is able to apply a deployable resource to a Kubernetes cluster,
+for instance [Argo CD](https://argo-cd.readthedocs.io/en/stable/).
 
-FluxCD provides GitOps capabilities for deploying Helm charts and other resources.
-
-Install the Flux CLI following the [official installation guide](https://fluxcd.io/docs/installation/), then install the controllers:
+Install the Flux CLI following the [official installation guide](https://fluxcd.io/docs/installation/),
+then install the controllers using the CLI:
 
 ```shell
 flux install
@@ -77,18 +81,18 @@ kubectl get pods -n flux-system
 Expected output:
 
 ```text
-NAME                                       READY   STATUS    RESTARTS   AGE
-helm-controller-b6767d66-zbwws             1/1     Running   0          1m
-kustomize-controller-57c7ff5596-v6fvr      1/1     Running   0          1m
-notification-controller-58ffd586f7-pr65t   1/1     Running   0          1m
-source-controller-6ff87cb475-2h2lv         1/1     Running   0          1m
+NAME                                         READY   STATUS      RESTARTS        AGE
+helm-controller-b6767d66-zbwws               1/1     Running     0               3h29m
+kustomize-controller-57c7ff5596-v6fvr        1/1     Running     0               3h29m
+notification-controller-58ffd586f7-pr65t     1/1     Running     0               3h29m
+source-controller-6ff87cb475-2h2lv           1/1     Running     0               3h29m
 ```
 
-## Install the OCM Controllers
+{{< /step >}}
+{{< step >}}
+### Install the OCM Controllers
 
-The OCM Controllers provide Kubernetes controllers for working with OCM component versions.
-
-Install via Helm:
+Install the OCM controllers via Helm:
 
 ```shell
 helm install ocm-k8s-toolkit oci://ghcr.io/open-component-model/charts/ocm-k8s-toolkit \
@@ -96,7 +100,7 @@ helm install ocm-k8s-toolkit oci://ghcr.io/open-component-model/charts/ocm-k8s-t
   --create-namespace
 ```
 
-Verify the toolkit is running:
+Verify the OCM controller is running:
 
 ```shell
 kubectl get pods -n ocm-k8s-toolkit-system
@@ -105,28 +109,34 @@ kubectl get pods -n ocm-k8s-toolkit-system
 Expected output:
 
 ```text
-NAME                                                  READY   STATUS    RESTARTS   AGE
-ocm-k8s-toolkit-controller-manager-788f58d4bd-ntbx8   1/1     Running   0          1m
+NAME                                                   READY   STATUS    RESTARTS   AGE
+ocm-k8s-toolkit-controller-manager-788f58d4bd-ntbx8    1/1     Running   0          1m
 ```
 
-## Verify Complete Setup
+{{< /step >}}
+{{< step >}}
+### Verify Complete Setup
 
 Check all components are running:
 
 ```shell
-kubectl get pods --all-namespaces | grep -E '(kro|flux-system|ocm-k8s-toolkit)'
+kubectl get pods --all-namespaces | grep -E '(kro|flux-system|ocm-k8s-toolkit-system)'
 ```
 
 Expected output:
 
 ```text
-flux-system              helm-controller-b6767d66-zbwws                        1/1     Running   0   5m
-flux-system              kustomize-controller-57c7ff5596-v6fvr                 1/1     Running   0   5m
-flux-system              notification-controller-58ffd586f7-pr65t              1/1     Running   0   5m
-flux-system              source-controller-6ff87cb475-2h2lv                    1/1     Running   0   5m
-kro                      kro-86d5b5b5bd-6gmvr                                  1/1     Running   0   5m
-ocm-k8s-toolkit-system   ocm-k8s-toolkit-controller-manager-788f58d4bd-ntbx8   1/1     Running   0   5m
+NAMESPACE                NAME                                                 READY    STATUS             RESTARTS        AGE
+flux-system              helm-controller-b6767d66-zbwws                        1/1     Running            0               3h39m
+flux-system              kustomize-controller-57c7ff5596-v6fvr                 1/1     Running            0               3h39m
+flux-system              notification-controller-58ffd586f7-pr65t              1/1     Running            0               3h39m
+flux-system              source-controller-6ff87cb475-2h2lv                    1/1     Running            0               3h39m
+kro                      kro-86d5b5b5bd-6gmvr                                  1/1     Running            0               3h38m
+ocm-k8s-toolkit-system   ocm-k8s-toolkit-controller-manager-788f58d4bd-ntbx8   1/1     Running            0               57s
 ```
+
+{{< /step >}}
+{{< /steps >}}
 
 ## Registry Access
 
@@ -136,7 +146,7 @@ The OCM Controllers need access to an OCI registry to fetch component versions.
 We recommend using a publicly accessible registry like [ghcr.io](https://docs.github.com/en/packages/learn-github-packages/introduction-to-github-packages). Using a local registry requires additional configuration to ensure it's accessible both from your CLI and from within the cluster.
 {{< /callout >}}
 
-For private registries, you'll need to configure credentials. See [Configure Credentials for Private Registries]({{< relref "../how-to/configure-signing-credentials.md" >}}) for details.
+For private registries, you'll need to configure credentials. See [Configure Credentials for Private Registries]({{< relref "creds-in-ocmconfig.md" >}}) for details.
 
 ## Cleanup
 
@@ -148,7 +158,7 @@ kind delete cluster
 
 ## Next Steps
 
-- [Deploy a Helm Chart]({{< relref "deploy-helm-chart.md" >}}) - Use the OCM Controllers to deploy applications from component versions
+- [Tutorial: Deploy a Helm Chart]({{< relref "deploy-helm-chart.md" >}}) - Use the OCM Controllers to deploy applications from component versions
 
 ## Related Documentation
 

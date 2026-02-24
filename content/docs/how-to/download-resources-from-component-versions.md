@@ -6,20 +6,21 @@ weight: 10
 toc: true
 ---
 
-## Goal
+This guide shows you how to download resources from a component version using the OCM CLI. You'll learn how to fetch specific resources,
+optionally transform them to their native format, and save them to your local filesystem.
 
 ## You'll end up with
 
 - A resource file downloaded from a component version
-- Optionally transformed to its native format (e.g., Helm chart `.tgz`)
+- Optionally a resource transformed to its native format (e.g., Helm chart `.tgz`)
 
 **Estimated time:** ~5 minutes
 
-## Workflow
+## How it works
 
 ```mermaid
 flowchart LR
-    A[OCM Repository] --> B[ocm download resource] --> C[Local File]
+    A[Component Version] -- "ocm download resource" --> B[Resource as Local File]
 ```
 
 The OCM CLI fetches a specific resource from a component version and saves it to your local filesystem.
@@ -30,9 +31,11 @@ The OCM CLI fetches a specific resource from a component version and saves it to
 - [jq](https://jqlang.org) installed for JSON parsing (optional)
 - A component version with resources to download (see [Create Component Versions]({{< relref "create-component-version.md" >}}))
 
-## Steps
+## Download Workflow
 
-1. **List available resources**
+{{< steps >}}
+{{< step >}}
+### List available resources
 
    First, check which resources are available in the component version:
 
@@ -47,97 +50,103 @@ The OCM CLI fetches a specific resource from a component version and saves it to
    chart  6.8.0   helmChart external
    image  6.8.0   ociImage  external
    ```
+{{< /step >}}
+{{< step >}} 
+### Download the resource
 
-2. **Download the resource**
+Use the `ocm download resource` command with the `--identity` flag to specify which resource to download:
 
-   Use the `ocm download resource` command with the `--identity` flag to specify which resource to download:
+{{< tabs "download-source" >}}
 
-   {{< tabs "download-source" >}}
+{{< tab "Local CTF Archive" >}}
+Download from a local Common Transport Format archive:
 
-   {{< tab "Remote Registry" >}}
-   Download from an OCI registry:
+```shell
+ocm download resource ./transport-archive//github.com/acme.org/helloworld:1.0.0 \
+  --identity name=mylocalfile \
+  --output myfile.txt
+```
 
-   ```shell
-   ocm download resource ghcr.io/open-component-model//ocm.software/demos/podinfo:6.8.0 \
-     --identity name=chart \
-     --output helmchart.tgz
-   ```
+You should see:
 
-   You should see:
+```text
+time=2025-08-14T13:03:54.372+02:00 level=INFO msg="resource downloaded successfully" output=helmchart.tgz
+```
 
-   ```text
-   time=2025-08-14T13:03:54.372+02:00 level=INFO msg="resource downloaded successfully" output=helmchart.tgz
-   ```
-   {{< /tab >}}
+{{< /tab >}}
 
-   {{< tab "Local CTF Archive" >}}
-   Download from a local Common Transport Format archive:
+{{< tab "Remote Registry" >}}
+Download from an OCI registry:
 
-   ```shell
-   ocm download resource ./transport-archive//github.com/acme.org/helloworld:1.0.0 \
-     --identity name=mylocalfile \
-     --output myfile.txt
-   ```
+```shell
+ ocm download resource ghcr.io/open-component-model//ocm.software/demos/podinfo:6.8.0 \
+   --identity name=chart \
+    --output helmchart.tgz
+ ```
 
-   You should see confirmation that the file was written.
-   {{< /tab >}}
+You should see:
 
-   {{< /tabs >}}
+```text
+time=2025-08-14T13:03:54.372+02:00 level=INFO msg="resource downloaded successfully" output=helmchart.tgz
+```
+{{< /tab >}}
+{{< /tabs >}}
+{{< /step >}}
+{{< step >}}
+### Verify the download
 
-3. **Verify the download**
+Check that the file exists and has content:
 
-   Check that the file exists and has content:
+```shell
+ls -la helmchart.tgz
+```
 
-   ```shell
-   ls -la helmchart.tgz
-   ```
+You should see the file with a non-zero size. This confirms the download was successful.
 
-   You should see the file with a non-zero size. This confirms the download was successful.
+{{< details "Inspect the downloaded OCI artifact" >}}
+The downloaded file is in OCI blob format. Extract and inspect it:
 
-   {{< details "Inspect the downloaded OCI artifact" >}}
-   The downloaded file is in OCI blob format. Extract and inspect it:
+```shell
+tar xvf helmchart.tgz
+```
 
-   ```shell
-   tar xvf helmchart.tgz
-   ```
+```text
+blobs/sha256/ea8e5b44cd1aff1f3d9377d169ad795be20fbfcd58475a62341ed8fb74d4788c
+blobs/sha256/8702d8d550075e410f3aae545d1191df9e5ab8747e5c5a8eda5ed834fd135366
+blobs/sha256/8ab41f82c9a28535f1add8ffbcd6d625a19ece63c4e921f9c8358820019d1ec2
+index.json
+oci-layout
+```
 
-   ```text
-   blobs/sha256/ea8e5b44cd1aff1f3d9377d169ad795be20fbfcd58475a62341ed8fb74d4788c
-   blobs/sha256/8702d8d550075e410f3aae545d1191df9e5ab8747e5c5a8eda5ed834fd135366
-   blobs/sha256/8ab41f82c9a28535f1add8ffbcd6d625a19ece63c4e921f9c8358820019d1ec2
-   index.json
-   oci-layout
-   ```
+> 📣 **Note:** 📣  
+> File permissions may need adjustment after extraction: `chmod +r index.json`
 
-   {{< callout context="note" >}}
-   File permissions may need adjustment after extraction: `chmod +r index.json`
-   {{< /callout >}}
+```shell
+jq . index.json
+```
 
-   ```shell
-   jq . index.json
-   ```
+```json
+{
+  "schemaVersion": 2,
+  "manifests": [
+    {
+      "mediaType": "application/vnd.oci.image.manifest.v1+json",
+      "digest": "sha256:8ab41f82c9a28535f1add8ffbcd6d625a19ece63c4e921f9c8358820019d1ec2",
+      "size": 410
+    }
+  ]
+}
+```
+{{< /details >}}
 
-   ```json
-   {
-     "schemaVersion": 2,
-     "manifests": [
-       {
-         "mediaType": "application/vnd.oci.image.manifest.v1+json",
-         "digest": "sha256:8ab41f82c9a28535f1add8ffbcd6d625a19ece63c4e921f9c8358820019d1ec2",
-         "size": 410
-       }
-     ]
-   }
-   ```
-   {{< /details >}}
-
+{{< /step >}}
+{{< /steps >}}
 ## Using Transformers
 
-{{< callout context="note" >}}
-Transformers are in active development. See the [Transformer ADR](https://github.com/open-component-model/open-component-model/blob/main/docs/adr/0005_transformation.md) for design details.
-{{< /callout >}}
+To download resources in their native format instead of OCI blob format, use the `--transformer` flag.
 
-To download resources in their native format instead of OCI blob format, use the `--transformer` flag:
+In this example, we download the Helm chart resource using the `helm` transformer,
+which converts the OCI blob back into a standard Helm chart archive:
 
 ```shell
 ocm download resource ghcr.io/open-component-model//ocm.software/demos/podinfo:6.8.0 \
@@ -184,48 +193,6 @@ ocm download resource <repo>//<component>:<version> \
   --output image.tar
 ```
 
-## Troubleshooting
-
-### Symptom: Resource not found
-
-**Cause:** The resource name or identity attributes don't match exactly.
-
-**Fix:** List available resources and verify the exact name:
-
-```shell
-ocm get resources <repo>//<component>:<version>
-```
-
-### Symptom: Permission denied on extracted files
-
-**Cause:** OCI artifacts may have restrictive permissions after extraction.
-
-**Fix:** Add read permissions:
-
-```shell
-chmod +r <downloaded-file>
-```
-
-### Symptom: Downloaded file is in OCI blob format
-
-**Cause:** Without a transformer, resources are downloaded in their storage format.
-
-**Fix:** Use the `--transformer` flag for native format:
-
-```shell
-ocm download resource <repo>//<component>:<version> \
-  --identity name=chart \
-  --output chart.tgz \
-  --transformer helm
-```
-
-### Getting help
-
-If these solutions don't work:
-
-- [OCM GitHub Issues](https://github.com/open-component-model/ocm/issues)
-- [Community Support]({{< relref "/community/community.md" >}})
-
 ## CLI Reference
 
 | Command | Description |
@@ -234,8 +201,6 @@ If these solutions don't work:
 | [`ocm get cv`]({{< relref "/docs/reference/ocm-cli/ocm_get_component-version.md" >}}) | Get component versions and resources |
 
 ## Next Steps
-
-- [How-to: Sign Component Versions]({{< relref "sign-component-version.md" >}}) - Ensure authenticity and integrity
 
 ## Related Documentation
 

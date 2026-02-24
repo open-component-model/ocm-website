@@ -471,7 +471,6 @@ ocm get cv ghcr.io/open-component-model/ocm//ocm.software/ocmcli:0.35.0 --recurs
 
 ## Next Steps
 
-- [How-to: Sign Component Versions]({{< relref "sign-component-version.md" >}}) - Ensure authenticity and integrity of your components with cryptographic signatures
 - [How-to: Download Resources from OCM Components]({{< relref "../how-to/download-resources-from-component-versions.md" >}})  - How to extract resources from component versions
 
 ## Related Documentation

@@ -9,6 +9,11 @@ toc: true
 The OCM CLI is the primary tool for creating, managing, and transferring component versions.
 This guide covers installation options for different platforms.
 
+## You'll end up with
+
+- The OCM CLI installed and ready to use on your system
+- The ability to run `ocm` commands from your terminal
+
 ## Prerequisites
 
 - Build from Source method requires:
