@@ -1,19 +1,17 @@
 ---
-title: "Set up a Controller Environment"
+title: "Set up Controller Environments"
 description: "Set up a local Kubernetes environment with the OCM Controllers, kro, and FluxCD for testing OCM deployments."
 icon: "⚓"
-weight: 23
+weight: 25
 toc: true
 ---
 
 This guide helps you set up a local Kubernetes environment for testing OCM controller-based deployments.
 You'll install the OCM Controllers, kro, and FluxCD to enable GitOps workflows with OCM component versions.
 
-## What You'll Learn
+## You'll end up with
 
-By the end of this tutorial, you will:
-
-- Have a local or remote Kubernetes cluster with the OCM Controllers, kro, and FluxCD installed
+- A local or remote Kubernetes cluster with OCM Controllers, kro, and FluxCD installed
 
 ## Prerequisites
 
@@ -134,20 +132,24 @@ ocm-k8s-toolkit-system   ocm-k8s-toolkit-controller-manager-788f58d4bd-ntbx8   1
 
 The OCM Controllers need access to an OCI registry to fetch component versions.
 
-{{< callout context="tip" title="Tip" icon="outline/info-circle" >}}
+{{< callout context="tip" title="Tip" icon="outline/rocket" >}}
 We recommend using a publicly accessible registry like [ghcr.io](https://docs.github.com/en/packages/learn-github-packages/introduction-to-github-packages). Using a local registry requires additional configuration to ensure it's accessible both from your CLI and from within the cluster.
 {{< /callout >}}
 
 For private registries, you'll need to configure credentials. See [Configure Credentials for Private Registries]({{< relref "../how-to/configure-signing-credentials.md" >}}) for details.
 
-## Next Steps
-
-- [Deploy a Helm Chart]({{< relref "deploy-helm-chart.md" >}}) - Use the OCM Controllers to deploy applications from component versions
-
 ## Cleanup
 
-Remove the local kind cluster:
+To remove the local kind cluster after testing, run:
 
 ```shell
 kind delete cluster
 ```
+
+## Next Steps
+
+- [Deploy a Helm Chart]({{< relref "deploy-helm-chart.md" >}}) - Use the OCM Controllers to deploy applications from component versions
+
+## Related Documentation
+
+- [Concept: OCM Controllers]({{< relref "ocm-controllers.md" >}}) - Learn about the architecture and capabilities of the OCM Controllers

@@ -1,145 +1,147 @@
 ---
 title: "Verify Component Versions"
-description: "Learn how to verify signed component versions using public keys."
+description: "Validate component version signatures to ensure authenticity and integrity."
 icon: "🔍"
-weight: 27
+weight: 24
 toc: true
 ---
 
-Verifying a component version ensures that a signature was created by a trusted key and that the component descriptor has not been modified.
+## You'll end up with
+
+- Confidence that a component version is authentic and hasn't been tampered with
+
+**Estimated time:** ~3 minutes
 
 ## Prerequisites
 
-- [Install the OCM CLI]({{< relref "ocm-cli-installation.md" >}}).
-- You need a signed component version and the public key for the signature. The following examples use the signed component version from the [Sign Component Versions]({{< relref "sign-component-version.md" >}}) guide.
+- [OCM CLI installed]({{< relref "ocm-cli-installation.md" >}})
+- [Verification credentials configured]({{< relref "docs/how-to/configure-signing-credentials.md" >}}) with the public key
+- A signed component version to verify
 
-## Minimal .ocmconfig for Verification
+## Steps
 
-To verify a signature, OCM needs a public key.  
-We recommend referring to key files rather than embedding PEM blocks directly.
+{{< steps >}}
 
-Add the following to your `.ocmconfig`. If the file is present in your home directory (`~/.ocmconfig`), the OCM CLI will use it by default.
+{{< step >}}
+### Verify the component version
 
-```yaml
-type: generic.config.ocm.software/v1
-configurations:
-  - type: credentials.config.ocm.software
-    consumers:
-      - identity:
-          type: RSA/v1alpha1
-          algorithm: RSASSA-PSS
-          signature: default
-        credentials:
-          - type: Credentials/v1
-            properties:
-              public_key_pem_file: "<path-to-your-public-key>"
-```
-
-Replace `<path-to-your-public-key>` with the corresponding path. If you followed the [Key Pair Generation]({{< relref "signing-and-verification.md#key-pair-generation" >}}) guide, you can use the path `~/.ocm/keys/dev/public.pem`.
-
-The `identity` attributes define the consumer type for RSA verification:
-
-- `type` must be `RSA/v1alpha1` for RSA-based verification.
-- `algorithm` specifies the signing algorithm (`RSASSA-PSS` is recommended, `RSASSA-PKCS1V15` is legacy).
-- `signature` specifies the signature name/label for this configuration (default is `default`).
-
-The `credentials` properties contain the actual key material:
-
-- `public_key_pem_file` is the path to a public key file in PEM format.
-
-> 💡 Path Consistency: Use the same directory structure as for signing.  
-> If you signed with `~/.ocm/keys/dev/private.key`, verify with `~/.ocm/keys/dev/public.pem`.
-
-## Verify a Component Version
-
-Assuming you created and signed a component version in the previous steps, you can verify it with:
+Run the verify command against your signed component:
 
 ```bash
-ocm verify cv transport-archive//github.com/acme.org/helloworld:1.0.0
+ocm verify cv <repository>//<component>:<version>
 ```
 
-If the signature matches the public key specified in the `default` signature,
-the OCM CLI prints a verification success message and exits with status code `0`.
+**Local CTF Archive:**
 
 ```bash
-time=2025-11-19T15:58:22.421+01:00 level=INFO msg="no resolvers configured, using component reference as resolver"
-time=2025-11-19T15:58:22.421+01:00 level=INFO msg="Resolving credentials via repository" identity="path=transport-archive,type=OCIRepository" config=DockerConfig/v1(~/.docker/config.json)
-time=2025-11-19T15:58:22.425+01:00 level=INFO msg="fetching descriptor" descriptor.mediaType=application/vnd.oci.image.manifest.v1+json descriptor.digest=sha256:a01d26fdfde80d01b725d92a2c6aefe0a34ec1a98935e8fae13b422e816054f0 descriptor.size=1418
-time=2025-11-19T15:58:22.431+01:00 level=INFO msg="no verifier specification file given, using default RSASSA-PSS"
+ocm verify cv ./transport-archive//github.com/acme.org/helloworld:1.0.0
+```
+
+**Remote OCI Registry:**
+
+```bash
+ocm verify cv ghcr.io/myorg/components//github.com/acme.org/helloworld:1.0.0
+```
+
+<details>
+<summary>Expected output</summary>
+
+```text
 time=2025-11-19T15:58:22.431+01:00 level=INFO msg="verifying signature" name=default
 time=2025-11-19T15:58:22.435+01:00 level=INFO msg="signature verification completed" name=default duration=4.287541ms
 time=2025-11-19T15:58:22.435+01:00 level=INFO msg="SIGNATURE VERIFICATION SUCCESSFUL"
 ```
 
-## Verify a Specific Signature Name
+</details>
 
-If your component contains multiple signatures (e.g., `dev`, `prod`), you can explicitly specify the signature for verification.
-Your `.ocmconfig` must contain the corresponding public key for that signature. OCM then selects the credentials
-associated with the specified signature.
+The command exits with status code `0` on success.
 
-```bash
-# Verify specific signature
-ocm verify cv --signature dev transport-archive//github.com/acme.org/helloworld:1.0.0
-```
+{{< /step >}}
 
-## Multiple Signatures (Multi-Environment)
+{{< step >}}
+### Verify a specific signature (optional)
 
-For multi-environment setups with multiple different keys:
-
-```yaml
-type: generic.config.ocm.software/v1
-configurations:
-  - type: credentials.config.ocm.software
-    consumers:
-      - identity:
-          type: RSA/v1alpha1
-          signature: dev
-        credentials:
-          - type: Credentials/v1
-            properties:
-              public_key_pem_file: "<path-to-the-first-public-key>"
-      
-      - identity:
-          type: RSA/v1alpha1
-          signature: prod
-        credentials:
-          - type: Credentials/v1
-            properties:
-              public_key_pem_file: "<path-to-the-first-public-key>"
-```
-
-Replace `<path-to-the-first-public-key>` and `<path-to-the-second-public-key>` with the corresponding paths. If you followed the [Key Pair Generation]({{< relref "signing-and-verification.md#key-pair-generation" >}}) guide, you can use the following paths:
-
-- `~/.ocm/keys/dev/public.pem` for the `dev` signature
-- `~/.ocm/keys/prod/cert-chain.pem` for the `prod` signature
-
-Then verify the appropriate signature:
+If the component has multiple signatures, specify which one to verify:
 
 ```bash
-# Verify development signature
-ocm verify cv --signature dev transport-archive//github.com/acme.org/helloworld:1.0.0
-
-# Verify production signature
-ocm verify cv --signature prod transport-archive//github.com/acme.org/helloworld:1.0.0
+ocm verify cv --signature prod ghcr.io/myorg/components//github.com/acme.org/helloworld:1.0.0
 ```
 
-## Common Issues
+{{< callout context="tip" >}}
+Without the `--signature` flag, OCM uses the configuration named `default`.
+{{< /callout >}}
 
-**Verification fails?**
+{{< /step >}}
 
-- Ensure the public key matches the signature.
-- Check that you're verifying the correct signature name.
-- Verify the component hasn't been modified after signing.
+{{< step >}}
+### List available signatures (optional)
 
-**Public key not found?**
+View all signatures in a component version:
 
-- Check the file path in `public_key_pem_file` and the `signature` profile.
+```bash
+ocm get cv ./transport-archive//github.com/acme.org/helloworld:1.0.0 -o yaml | grep -A 10 signatures:
+```
 
-**Wrong signature name?**
+{{< /step >}}
 
-- List signatures: `ocm get cv ... --signatures`.
-- Use `--signature <name>` to specify the correct signature.
+{{< /steps >}}
 
-**Need more help?**
+## Troubleshooting
 
-- See [Troubleshooting]({{< relref "docs/tutorials/signing-and-verification.md#troubleshooting" >}}).
+### Symptom: "signature verification failed"
+
+**Cause:** Public key doesn't match the signing private key, or the component was modified after signing.
+
+**Fix:** Ensure you're using the correct public key that corresponds to the private key used for signing:
+
+```bash
+# Check which signature names exist
+ocm get cv ./transport-archive//github.com/acme.org/helloworld:1.0.0 -o yaml | grep -A 3 "signatures:"
+
+# Verify with the correct signature name
+ocm verify cv --signature <name> ./transport-archive//github.com/acme.org/helloworld:1.0.0
+```
+
+### Symptom: "no public key found"
+
+**Cause:** OCM cannot find a matching verification configuration in `.ocmconfig`.
+
+**Fix:** Ensure your `.ocmconfig` has a consumer entry with the matching `signature` name and `public_key_pem_file` path.
+
+See [Configure Signing Credentials]({{< relref "docs/how-to/configure-signing-credentials.md" >}}).
+
+### Symptom: "invalid key format"
+
+**Cause:** The public key file is not in PEM format.
+
+**Fix:** Verify the key starts with `-----BEGIN PUBLIC KEY-----`:
+
+```bash
+head -n 1 ~/.ocm/keys/public.pem
+```
+
+## CLI Reference
+
+| Command | Description |
+|---------|-------------|
+| [`ocm verify componentversions`]({{< relref "docs/reference/ocm-cli/ocm_verify_component-version.md" >}}) | Verify a component version signature |
+| [`ocm get componentversions`]({{< relref "docs/reference/ocm-cli/ocm_get_component-version.md" >}}) | View component with signatures |
+
+## Next Steps
+
+{{< card-grid >}}
+{{< link-card
+  title="Sign Component Versions"
+  description="Add cryptographic signatures to component versions."
+  href="sign-component-version"
+>}}
+{{< link-card
+  title="Signing & Verification Tutorial"
+  description="End-to-end walkthrough of the complete signing workflow."
+  href="../../tutorials/signing-and-verification"
+>}}
+{{< /card-grid >}}
+
+## Related Documentation
+
+- [Concept: Signing and Verification]({{< relref "docs/concepts/signing-and-verification-concept.md" >}}) - Understand how OCM signing works

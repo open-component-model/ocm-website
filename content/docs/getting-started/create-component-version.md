@@ -22,10 +22,6 @@ By the end of this tutorial, you will:
 flowchart LR
     A[component-constructor.yaml] -- "ocm add cv" --> B[CTF Archive]
     B -- "ocm transfer" --> C[(OCI Registry)]
-    
-    style A fill:#e1f5ff,color:#000
-    style B fill:#fff4e6,color:#000
-    style C fill:#e8f5e9,color:#000
 ```
 
 Component versions are created using a `component-constructor.yaml` file that describes components and their artifacts. The OCM CLI builds these into a [Common Transport Format (CTF)](https://github.com/open-component-model/ocm-spec/blob/main/doc/04-extensions/03-storage-backends/ctf.md) archive, which can then be transferred to any OCI registry

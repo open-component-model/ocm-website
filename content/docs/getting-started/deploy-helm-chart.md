@@ -2,7 +2,7 @@
 title: "Deploy Helm Charts"
 description: "Deploy a Helm chart from an OCM component version with OCM Controllers, kro, and Flux."
 icon: "🚀"
-weight: 24
+weight: 26
 toc: true
 ---
 
@@ -84,7 +84,7 @@ component ocm.software/ocm-k8s-toolkit/simple/1.0.0 constructed ... done!
 ```
 {{< /step >}}
 
-{{< step >}}
+{{% step %}}
 **Transfer to your registry**
 
 Replace `<your-namespace>` with your registry namespace:
@@ -93,10 +93,12 @@ Replace `<your-namespace>` with your registry namespace:
 ocm transfer ctf ./ctf ghcr.io/<your-namespace>
 ```
 
-> **Note:** If your registry requires authentication, configure OCM credentials first.
-> See [Configure Credentials]({{< relref "../how-to/configure-signing-credentials.md" >}}).
+{{< callout context="note" title="Note" icon="outline/info-circle" >}}
+If your registry requires authentication, configure OCM credentials first.
+See [Configure Credentials]({{< relref "../how-to/configure-signing-credentials.md" >}}).
+{{< /callout >}}
 
-{{< /step >}}
+{{% /step %}}
 
 {{< step >}}
 **Verify the upload**
@@ -368,3 +370,7 @@ kubectl delete -f rgd.yaml
 
 - [Tutorial: Structure Software Products with OCM]({{< relref "complex-component-structure-deployment.md" >}}) - Learn how to structure complex applications with multiple components and resources
 - [Tutorial: Deploy a Helm Chart (with Bootstrap)]({{< relref "deploy-helm-chart-bootstrap.md" >}}) - Use the OCM Controllers to deploy a Helm chart without manual bootstrapping, using a GitOps
+
+## Related Documentation
+
+- [Concept: OCM Controllers]({{< relref "ocm-controllers.md" >}}) - Learn about the architecture and capabilities of the OCM Controllers
