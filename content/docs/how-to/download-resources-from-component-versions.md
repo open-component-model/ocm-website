@@ -8,12 +8,10 @@ toc: true
 
 ## Goal
 
-{{< callout context="note" >}}
-**You will end up with**
+## You'll end up with
 
 - A resource file downloaded from a component version
 - Optionally transformed to its native format (e.g., Helm chart `.tgz`)
-{{< /callout >}}
 
 **Estimated time:** ~5 minutes
 
@@ -22,10 +20,6 @@ toc: true
 ```mermaid
 flowchart LR
     A[OCM Repository] --> B[ocm download resource] --> C[Local File]
-    
-    style A fill:#e1f5ff,color:#000
-    style B fill:#fff4e6,color:#000
-    style C fill:#e8f5e9,color:#000
 ```
 
 The OCM CLI fetches a specific resource from a component version and saves it to your local filesystem.
