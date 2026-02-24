@@ -35,6 +35,7 @@ The OCM CLI fetches a specific resource from a component version and saves it to
 
 {{< steps >}}
 {{< step >}}
+
 ### List available resources
 
    First, check which resources are available in the component version:
@@ -52,6 +53,7 @@ The OCM CLI fetches a specific resource from a component version and saves it to
    ```
 {{< /step >}}
 {{< step >}} 
+
 ### Download the resource
 
 Use the `ocm download resource` command with the `--identity` flag to specify which resource to download:
@@ -93,6 +95,7 @@ time=2025-08-14T13:03:54.372+02:00 level=INFO msg="resource downloaded successfu
 {{< /tabs >}}
 {{< /step >}}
 {{< step >}}
+
 ### Verify the download
 
 Check that the file exists and has content:
@@ -141,6 +144,7 @@ jq . index.json
 
 {{< /step >}}
 {{< /steps >}}
+
 ## Using Transformers
 
 To download resources in their native format instead of OCI blob format, use the `--transformer` flag.
@@ -181,6 +185,7 @@ tar tvf helmchart.tgz
 -rw-r--r--  0 0      0         385 Jul 19 16:32 echoserver/templates/tests/test-connection.yaml
 -rw-r--r--  0 0      0         349 Jul 19 16:32 echoserver/.helmignore
 ```
+
 {{< /details >}}
 
 ## Specifying Resource Identity
