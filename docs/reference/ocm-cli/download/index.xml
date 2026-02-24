@@ -22,6 +22,7 @@
  &lt;pre tabindex="0"&gt;&lt;code&gt; --dirtree extract as effective filesystem content
  -h, --help help for artifacts
  --layers ints extract dedicated layers
+ --oci-layout download as OCI Image Layout (blobs in blobs/&amp;lt;algorithm&amp;gt;/&amp;lt;encoded&amp;gt;)
  -O, --outfile string output file or directory
  --repo string repository name or spec
  -t, --type string archive format (directory, tar, tgz) (default &amp;#34;directory&amp;#34;)&lt;/code&gt;&lt;/pre&gt;
@@ -29,7 +30,7 @@
 &lt;/div&gt;
 &lt;h3 id="description"&gt;Description&lt;/h3&gt;
 &lt;p&gt;Download artifacts from an OCI registry. The result is stored in
-artifact set format, without the repository part&lt;/p&gt;</description></item><item><title>cli</title><link>https://ocm.software/docs/reference/ocm-cli/download/cli/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/download/cli/</guid><description>&lt;h3 id="usage"&gt;Usage&lt;/h3&gt;
+artifact set format, without the repository part.&lt;/p&gt;</description></item><item><title>cli</title><link>https://ocm.software/docs/reference/ocm-cli/download/cli/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/ocm-cli/download/cli/</guid><description>&lt;h3 id="usage"&gt;Usage&lt;/h3&gt;
 
 
 
@@ -52,6 +53,7 @@ artifact set format, without the repository part&lt;/p&gt;</description></item><
  &lt;/figcaption&gt;
  &lt;pre tabindex="0"&gt;&lt;code&gt; -c, --constraints constraints version constraint
  -h, --help help for cli
+ --oci-layout download OCI artifacts in OCI Image Layout format (blobs/&amp;lt;algorithm&amp;gt;/&amp;lt;encoded&amp;gt;)
  -O, --outfile string output file or directory
  -p, --path lookup executable in PATH
  --repo string repository name or spec
@@ -123,6 +125,7 @@ component archives.&lt;/p&gt;</description></item><item><title>resources</title>
  -h, --help help for resources
  --latest restrict component versions to latest
  --lookup stringArray repository name or spec for closure lookup fallback
+ --oci-layout download OCI artifacts in OCI Image Layout format (blobs/&amp;lt;algorithm&amp;gt;/&amp;lt;encoded&amp;gt;)
  -O, --outfile string output file or directory
  -r, --recursive follow component reference nesting
  --repo string repository name or spec
