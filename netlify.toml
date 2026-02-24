@@ -1,18 +1,16 @@
 [build.environment]
   NODE_VERSION = "25.6.1"
   NPM_VERSION = "11.9.0"
-  HUGO_VERSION = "0.156.0"
-  HUGO_EXTENDED = "true"
 
 [build]
   ignore = "exit 1"
 
 [context.deploy-preview]
-  command = "npm run build -- --baseURL=$DEPLOY_PRIME_URL"
+  command = "npm ci && npm run build -- --baseURL=$DEPLOY_PRIME_URL"
   publish = "public"
 
 [context.production]
-  command = "npm run build"
+  command = "npm ci && npm run build"
   publish = "public"
 
 [[plugins]]
