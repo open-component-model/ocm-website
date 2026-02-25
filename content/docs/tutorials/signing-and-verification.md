@@ -62,6 +62,7 @@ The producer signs the component version with a private key, creating a signed c
 {{< steps >}}
 
 {{< step >}}
+
 ### Create a sample component (if needed)
 
 If you already have a component version in a CTF archive, skip to the next step.
@@ -100,6 +101,7 @@ github.com/acme.org/helloworld  1.0.0   acme.org
 {{< /step >}}
 
 {{< step >}}
+
 ### Generate an RSA key pair
 
 Create a directory for your keys and generate a 4096-bit RSA key pair:
@@ -129,6 +131,7 @@ For more details, see [How-to: Generate Signing Keys]({{< relref "docs/how-to/ge
 {{< /step >}}
 
 {{< step >}}
+
 ### Configure signing credentials
 
 Create or update your `~/.ocmconfig` file to tell OCM where to find your keys:
@@ -158,6 +161,7 @@ For more details, see [How-to: Configure Signing Credentials]({{< relref "docs/h
 {{< /step >}}
 
 {{< step >}}
+
 ### Sign the component version
 
 Sign your component with the private key:
@@ -186,6 +190,7 @@ You should see a `signatures:` section with your signature.
 {{< /step >}}
 
 {{< step >}}
+
 ### Verify the signature
 
 Now verify the signature using the public key:
@@ -209,6 +214,7 @@ time=... level=INFO msg="SIGNATURE VERIFICATION SUCCESSFUL"
 {{< /step >}}
 
 {{< step >}}
+
 ### Test tampering detection (optional)
 
 To demonstrate that verification detects tampering, let's modify the component and try to verify again:

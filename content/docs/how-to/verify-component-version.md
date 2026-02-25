@@ -23,6 +23,7 @@ toc: true
 {{< steps >}}
 
 {{< step >}}
+
 ### Verify the component version
 
 Run the verify command against your signed component:
@@ -59,6 +60,7 @@ The command exits with status code `0` on success.
 {{< /step >}}
 
 {{< step >}}
+
 ### Verify a specific signature (optional)
 
 If the component has multiple signatures, specify which one to verify:
@@ -74,6 +76,7 @@ Without the `--signature` flag, OCM uses the configuration named `default`.
 {{< /step >}}
 
 {{< step >}}
+
 ### List available signatures (optional)
 
 View all signatures in a component version:

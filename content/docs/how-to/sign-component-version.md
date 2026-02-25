@@ -28,6 +28,7 @@ Sign a component version to certify its authenticity and enable downstream verif
 {{< steps >}}
 
 {{< step >}}
+
 ### Sign the component version
 
 Run the sign command against your component:
@@ -53,6 +54,7 @@ ocm sign cv ghcr.io/myorg/components//github.com/acme.org/helloworld:1.0.0
 {{< /step >}}
 
 {{< step >}}
+
 ### Use a named signature (optional)
 
 If you have multiple signing configurations in your `.ocmconfig`,
@@ -65,6 +67,7 @@ ocm sign cv --signature prod ghcr.io/myorg/components//github.com/acme.org/hello
 {{< /step >}}
 
 {{< step >}}
+
 ### Verify the signature was added
 
 Check that the signature is present in the component descriptor:
@@ -98,6 +101,7 @@ signatures:
 **Cause:** OCM cannot find a matching signing configuration in `.ocmconfig`.
 
 **Fix:** Ensure your `.ocmconfig` has a consumer entry with matching `signature` name:
+
 - Without `--signature` flag: must have `signature: default`
 - With `--signature prod`: must have `signature: prod`
 
@@ -119,28 +123,3 @@ See [Configure Signing Credentials]({{< relref "configure-signing-credentials.md
 docker login ghcr.io
 ```
 
-## CLI Reference
-
-| Command | Description |
-|---------|-------------|
-| [`ocm sign componentversions`]({{< relref "docs/reference/ocm-cli/ocm_sign_component-version.md" >}}) | Sign a component version |
-| [`ocm verify componentversions`]({{< relref "docs/reference/ocm-cli/ocm_verify_component-version.md" >}}) | Verify a component version signature |
-
-## Next Steps
-
-{{< card-grid >}}
-{{< link-card
-  title="Verify Component Versions"
-  description="Validate signatures before deployment."
-  href="verify-component-version"
->}}
-{{< link-card
-  title="Signing & Verification Tutorial"
-  description="End-to-end walkthrough of the complete signing workflow."
-  href="../../tutorials/signing-and-verification"
->}}
-{{< /card-grid >}}
-
-## Related Documentation
-
-- [Concept: Signing and Verification]({{< relref "docs/concepts/signing-and-verification-concept.md" >}}) - Understand how OCM signing works

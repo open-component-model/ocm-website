@@ -211,6 +211,7 @@ my-component   Applied version 1.0.0   2026-02-25T15:49:58Z
 </details>
 
 ### Credential propagation
+
 - Credentials are propagated by default when referencing other OCM Controller resources
 - You must still specify the `ocmConfig` field on each resource that needs credentials
 - Credentials are not automatically inherited across all resources in the cluster

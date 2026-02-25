@@ -21,9 +21,11 @@ Generate an RSA key pair that can be used to sign and verify OCM component versi
 - [OpenSSL](https://openssl-library.org) installed on your system (typically pre-installed on Linux/macOS)
 
 ## Steps
+
 {{< steps >}}
 
 {{< step >}}
+
 ### Generate the private key
 
 Create a 4096-bit RSA private key:
@@ -40,6 +42,7 @@ Store it in a secure location and never commit it to version control.
 {{< /step >}}
 
 {{< step >}}
+
 ### Extract the public key
 
 Derive the public key from your private key:
@@ -53,6 +56,7 @@ This creates `public-key.pem` which you can safely share with others.
 {{< /step >}}
 
 {{< step >}}
+
 ### Verify the keys were created
 
 ```bash
@@ -69,6 +73,7 @@ You should see both files:
 {{< /step >}}
 
 {{< /steps >}}
+
 ## Key management tips
 
 | Key | Who has it | Purpose |
@@ -85,6 +90,7 @@ You should see both files:
 ### Symptom: "command not found: openssl"
 
 **Fix:** Install OpenSSL:
+
 - macOS: `brew install openssl`
 - Ubuntu/Debian: `sudo apt-get install openssl`
 - RHEL/CentOS: `sudo yum install openssl`
