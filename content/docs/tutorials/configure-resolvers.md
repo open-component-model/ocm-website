@@ -316,7 +316,7 @@ Now that you know how to configure resolvers, you can:
 
 - Learn more about component
   references: [Referencing Components](https://github.com/open-component-model/ocm-spec/blob/main/doc/02-processing/01-references.md).
-- Explore credential configuration: See [Credentials in an .ocmconfig File]({{< relref "creds-in-ocmconfig.md" >}}) for
+- Explore credential configuration: See [Understand Credential Resolution]({{< relref "docs/tutorials/credential-resolution.md" >}}) for
   authentication options when working with registries.
 - Set up air-gapped environments: Use CTF archives with resolvers for offline component resolution. Learn about the
   Common Transport Format in [Creating a Component Version]({{< relref "docs/getting-started/create-component-version.md" >}}).
@@ -328,7 +328,7 @@ Now that you know how to configure resolvers, you can:
   schema, repository types, and pattern syntax
 - [Components]({{< relref "docs/concepts/components.md" >}}) — Core concepts behind component versions, identities, and
   references
-- [Credentials in an .ocmconfig File]({{< relref "creds-in-ocmconfig.md" >}}) — Configure credentials for OCI
+- [Understand Credential Resolution]({{< relref "docs/tutorials/credential-resolution.md" >}}) — Configure credentials for OCI
   registries, Helm repositories, and more
 - [Creating a Component Version]({{< relref "docs/getting-started/create-component-version.md" >}}) — Build component
   versions and work with CTF archives

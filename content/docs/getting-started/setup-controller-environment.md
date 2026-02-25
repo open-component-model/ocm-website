@@ -285,7 +285,7 @@ The OCM Controllers need access to an OCI registry to fetch component versions.
 We recommend using a publicly accessible registry like [ghcr.io](https://docs.github.com/en/packages/learn-github-packages/introduction-to-github-packages). Using a local registry requires additional configuration to ensure it's accessible both from your CLI and from within the cluster.
 {{< /callout >}}
 
-For private registries, you'll need to configure credentials. See [Configure Credentials for Private Registries]({{< relref "creds-in-ocmconfig.md" >}}) for details.
+For private registries, you'll need to configure credentials. See [Configure Credentials for Private Registries]({{< relref "/docs/how-to/configure-multiple-credentials.md" >}}) for details.
 
 ## Cleanup
 
