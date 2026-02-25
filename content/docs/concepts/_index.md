@@ -4,7 +4,7 @@ description: "Understand the fundamental principles and architecture of the Open
 icon: "🏢"
 weight: 40
 sidebar:
-  collapsed: false
+  collapsed: true
 ---
 
 Understand how OCM works through clear explanations of its core concepts, architecture, and design principles.
