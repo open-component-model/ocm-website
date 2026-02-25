@@ -255,12 +255,17 @@ This approach is:
 - **Efficient**: Verification doesn't require downloading large artifacts
 - **Complete**: Any change to any resource changes its digest, invalidating the signature
 - **Portable**: The descriptor can be verified independently of artifact storage
+
 {{< /details >}}
 
 {{< details "What's the difference between the private and public key?" >}}
+
 - **Private key**: Used to create signatures. Keep it secret — anyone with this key can sign components as you.
 - **Public key**: Used to verify signatures. Share it freely with anyone who needs to verify your components.
+
 {{< /details >}}
+
+
 
 {{< details "Can a component have multiple signatures?" >}}
 Yes! A component version can have multiple signatures from different parties. This enables:
@@ -290,6 +295,7 @@ rm -rf ~/ocm-signing-tutorial
 - [How-to: Verify a Component Version]({{< relref "verify-component-version.md" >}}) - Step-by-step verification instructions
 
 ## Related Documentation
+
 - [Concept: Signing and Verification]({{< relref "docs/concepts/signing-and-verification-concept.md" >}}) - Understand the theory behind OCM signing
 - [How-to: Generate Signing Keys]({{< relref "docs/how-to/generate-signing-keys.md" >}}) - Detailed key generation guide
 - [How-to: Configure Signing Credentials]({{< relref "docs/how-to/configure-signing-credentials.md" >}}) - Multi-environment and advanced configurations
