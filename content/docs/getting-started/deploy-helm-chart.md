@@ -20,21 +20,21 @@ By the end of this tutorial, you will:
 ## Scenario
 
 You as a developer create an application, packaged as a Helm chart, and publish it as OCM component version in an OCI registry.
-Then, you as an operator want to deploy the Helm chart into a Kubernetes cluster using the OCM Controllers.
+Then, you as an operator deploy the Helm chart into a Kubernetes cluster using the OCM Controllers.
 You define a ResourceGraphDefinition that tells kro how to orchestrate the OCM and Flux resources to deploy the Helm chart.
 
 ## Prerequisites
 
-- [Controller environment set up]({{< relref "setup-controller-environment.md" >}}) (OCM Controllers, kro and Flux in a kind cluster)
-- [OCM CLI installed]({{< relref "ocm-cli-installation.md" >}})
-- Access to an OCI registry (e.g., ghcr.io)
+- [Controller environment]({{< relref "setup-controller-environment.md" >}}) set up (OCM Controllers, kro and Flux in a Kubernetes cluster)
+- [OCM CLI]({{< relref "ocm-cli-installation.md" >}}) installed
+- Access to an OCI registry (e.g., [ghcr.io](https://docs.github.com/en/packages/learn-github-packages/introduction-to-github-packages))
 
 ## Create and Publish a Component Version
 
 {{< steps >}}
-
 {{< step >}}
-**Create a working directory**
+
+### Create a working directory
 
 ```shell
 mkdir /tmp/helm-deploy && cd /tmp/helm-deploy
@@ -42,7 +42,8 @@ mkdir /tmp/helm-deploy && cd /tmp/helm-deploy
 {{< /step >}}
 
 {{< step >}}
-**Define the component**
+
+### Define the component
 
 Create a `component-constructor.yaml` file that includes a Helm chart resource:
 
@@ -65,57 +66,88 @@ This component references the `podinfo` Helm chart, a simple web application tha
 {{< /step >}}
 
 {{< step >}}
-**Build the component version**
+
+### Build the component version
+
+Now add the component version to a local Common Transport Format (CTF) archive.
+By default, the `ocm add cv` command looks for a file called `component-constructor.yaml` in the current directory,
+and creates a CTF archive in a folder called `transport-archive`:
 
 ```shell
-ocm add cv --create --file ./ctf component-constructor.yaml
+ocm add cv
 ```
 
-Output:
+<details>
+<summary>You should see this output</summary>
 
 ```text
-component ocm.software/ocm-k8s-toolkit/simple/1.0.0 constructed ... done!
+time=2026-02-25T12:47:09.622+01:00 level=WARN msg="could not get credential consumer identity for component version repository" repository=transport-archive error="failed to get component version repository: cannot resolve consumer identity for ctf: credentials not supported"
+COMPONENT                           │ VERSION │ PROVIDER
+─────────────────────────────────────┼─────────┼──────────────
+ocm.software/ocm-k8s-toolkit/simple │ 1.0.0   │ ocm.software
 ```
+</details>
 {{< /step >}}
 
 {{< step >}}
-**Transfer to your registry**
 
+### Transfer to your registry
+
+Use `ocm transfer cv` and specify the correct reference (`<path-to-your-ctf>//<component>:<version>`) and target repository.
 Replace `<your-namespace>` with your registry namespace:
 
-```shell
-ocm transfer ctf ./ctf ghcr.io/<your-namespace>
-```
 > 📣 **Note:** 📣  
 > If your registry requires authentication, configure [Credentials for OCM CLI]({{< relref "creds-in-ocmconfig.md" >}}) first.
 
+```shell
+ocm transfer cv transport-archive//ocm.software/ocm-k8s-toolkit/simple:1.0.0 ghcr.io/<your-namespace>
+```
+
+<details>
+<summary>You should see this output</summary>
+
+```text
+Transferring component versions...
+  ✓ transformOcmSoftwareOcmK8sToolkitSimple100Upload [OCIAddComponentVersion]
+  [████████████████████████████████████████] 100% 1/1
+```
+</details>
+
+To make your component public in GitHub Container Registry, go to your [packages tab](https://github.com/morri-son?tab=packages),
+select the package `component-descriptors/ocm.software/ocm-k8s-toolkit/simple`, and under "Package settings" change the visibility to `public`.
+
 {{< /step >}}
 
 {{< step >}}
-**Verify the upload**
+
+### Verify the upload
 
 ```shell
 ocm get cv ghcr.io/<your-namespace>//ocm.software/ocm-k8s-toolkit/simple:1.0.0
 ```
 
-Output:
+<details>
+<summary>You should see this output</summary>
 
 ```text
-COMPONENT                           VERSION PROVIDER
-ocm.software/ocm-k8s-toolkit/simple 1.0.0   ocm.software
+ COMPONENT                           │ VERSION │ PROVIDER
+─────────────────────────────────────┼─────────┼──────────────
+ ocm.software/ocm-k8s-toolkit/simple │ 1.0.0   │ ocm.software
 ```
-{{< /step >}}
+</details>
 
+{{< /step >}}
 {{< /steps >}}
 
-## Deploy Helm chart with OCM Controllers
+## Deploy Helm chart using the OCM Controllers
 
 {{< steps >}}
-
 {{< step >}}
-**Create ResourceGraphDefinition**
 
-The ResourceGraphDefinition tells kro how to orchestrate the OCM and Flux resources. Create `rgd.yaml`:
+### Create ResourceGraphDefinition
+
+The ResourceGraphDefinition tells kro how to orchestrate the OCM and Flux resources.  
+Create `rgd.yaml` with the following content, replacing `<your-namespace>` with your registry namespace:
 
 ```yaml
 apiVersion: kro.run/v1alpha1
@@ -196,7 +228,7 @@ spec:
     # The Helm chart location (url) refers to the status of the above resource.
     - id: ocirepository
       template:
-        apiVersion: source.toolkit.fluxcd.io/v1beta2
+        apiVersion: source.toolkit.fluxcd.io/v1
         kind: OCIRepository
         metadata:
           name: simple-ocirepository
@@ -232,16 +264,23 @@ spec:
             ui:
               message: ${schema.spec.message}
 ```
-
-Replace `<your-namespace>` with your registry namespace.
 {{< /step >}}
 
 {{< step >}}
-**Apply the ResourceGraphDefinition**
+
+### Apply the ResourceGraphDefinition
 
 ```shell
 kubectl apply -f rgd.yaml
 ```
+
+<details>
+<summary>You should see this output</summary>
+
+```text
+resourcegraphdefinition.kro.run/simple created
+```
+</details>
 
 Verify it's active:
 
@@ -249,18 +288,21 @@ Verify it's active:
 kubectl get rgd
 ```
 
-Output:
+<details>
+<summary>You should see this output</summary>
 
 ```text
 NAME     APIVERSION   KIND     STATE    AGE
 simple   v1alpha1     Simple   Active   19s
 ```
+</details>
+<br>
 
 A new Custom Resource Definition called `Simple` that you can now instantiate has been created.
 {{< /step >}}
 
 {{< step >}}
-**Create an instance**
+### Create an instance
 
 Create `instance.yaml` to deploy the application:
 
@@ -281,22 +323,32 @@ spec:
 kubectl apply -f instance.yaml
 ```
 
+<details>
+<summary>You should see this output</summary>
+
+```text
+simple.kro.run/simple created
+```
+</details>
+
 Wait for the deployment to complete:
 
 ```shell
-kubectl get simple
+kubectl get simple -w
 ```
 
-Output:
+<details>
+<summary>You should see this output</summary>
 
 ```text
 NAME     STATE    SYNCED   AGE
 simple   ACTIVE   True     2m
 ```
+</details>
 {{< /step >}}
 
 {{< step >}}
-**Verify the deployment**
+### Verify the deployment
 
 Check that the pod is running:
 
