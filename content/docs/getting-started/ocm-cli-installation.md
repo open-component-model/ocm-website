@@ -14,6 +14,8 @@ This guide covers installation options for different platforms.
 - The OCM CLI installed and ready to use on your system
 - The ability to run `ocm` commands from your terminal
 
+## Estimated time: ~3 minutes
+
 ## Prerequisites
 
 - Build from Source method requires:

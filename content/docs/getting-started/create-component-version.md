@@ -16,6 +16,8 @@ By the end of this tutorial, you will:
 - Build a component version into a transportable CTF archive
 - Explore component versions in both local archives and remote registries
 
+## Estimated time: ~15 minutes
+
 ## How It Works
 
 ```mermaid
@@ -93,7 +95,7 @@ Use **`input`** to embed content directly, or **`access`** to reference external
 
 |              | `resource.input` (by value)               | `resource.access` (by reference)             |
 |--------------|-------------------------------------------|----------------------------------------------|
-| **Storage**  | Content embedded in Component Version     | Only reference stored                        |
+| **Storage**  | Content embedded in Component Version     | Only reference is stored                     |
 | **Use case** | Local files, directories, co-located data | Remote images, charts, resolution at runtime |
 | **Transfer** | Content travels with component            | Must be accessible at destination            |
 
@@ -181,7 +183,9 @@ All files in the directory are archived together.
 
 ### Build the component version
 
-Run the OCM CLI to create a CTF archive:
+Run the OCM CLI to create a CTF archive.
+By default, the CLI reads a `component-constructor.yaml` file in the current directory.
+
 
 ```shell
 ocm add cv
