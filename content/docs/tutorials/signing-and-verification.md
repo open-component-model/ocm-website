@@ -249,7 +249,9 @@ Congratulations! You've successfully:
 ## Check Your Understanding
 
 {{< details "Why does OCM sign the component descriptor instead of the artifacts directly?" >}}
-OCM signs the component descriptor because it contains **digests** (cryptographic hashes) of all resources. This approach is:
+OCM signs the component descriptor because it contains **digests** (cryptographic hashes) of all resources.
+This approach is:
+
 - **Efficient**: Verification doesn't require downloading large artifacts
 - **Complete**: Any change to any resource changes its digest, invalidating the signature
 - **Portable**: The descriptor can be verified independently of artifact storage
@@ -262,6 +264,7 @@ OCM signs the component descriptor because it contains **digests** (cryptographi
 
 {{< details "Can a component have multiple signatures?" >}}
 Yes! A component version can have multiple signatures from different parties. This enables:
+
 - Different signing identities (dev, staging, prod)
 - Multiple approval workflows
 - Cross-organizational trust chains
@@ -281,31 +284,12 @@ rm -rf ~/ocm-signing-tutorial
 
 ## Next Steps
 
-{{< card-grid >}}
-{{< link-card
-  title="Sign Component Versions"
-  description="Quick reference for signing commands."
-  href="../getting-started/sign-component-version"
->}}
-{{< link-card
-  title="Verify Component Versions"
-  description="Quick reference for verification commands."
-  href="../getting-started/verify-component-version"
->}}
-{{< link-card
-  title="Configure Signing Credentials"
-  description="Advanced credential configuration including multi-environment setups."
-  href="../how-to/configure-signing-credentials"
->}}
-{{< link-card
-  title="Signing Concept"
-  description="Deep dive into how OCM signing works."
-  href="../concepts/signing-and-verification-concept"
->}}
-{{< /card-grid >}}
+- [How-to: Generate Signing Keys]({{< relref "generate-signing-keys.md" >}}) - Step-by-step creating RSA key pairs.
+- [How-to: Configure Signing Credentials]({{< relref "configure-signing-credentials.md" >}}) - Set up OCM to use your keys for signing and verification
+- [How-to: Sign a Component Version]({{< relref "sign-component-version.md" >}}) - Step-by-step signing instructions
+- [How-to: Verify a Component Version]({{< relref "verify-component-version.md" >}}) - Step-by-step verification instructions
 
 ## Related Documentation
-
 - [Concept: Signing and Verification]({{< relref "docs/concepts/signing-and-verification-concept.md" >}}) - Understand the theory behind OCM signing
 - [How-to: Generate Signing Keys]({{< relref "docs/how-to/generate-signing-keys.md" >}}) - Detailed key generation guide
 - [How-to: Configure Signing Credentials]({{< relref "docs/how-to/configure-signing-credentials.md" >}}) - Multi-environment and advanced configurations

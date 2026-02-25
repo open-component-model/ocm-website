@@ -1,12 +1,10 @@
 ---
-title: "Configure Signing Credentials"
+title: "Configure Credentials for Signing"
 description: "Configure OCM signing and verification keys using .ocmconfig or signer specification files."
 icon: "🔑"
 weight: 35
 toc: true
 ---
-
-## Goal
 
 Set up credential configuration so OCM can find your signing keys when signing or verifying component versions.
 
@@ -65,12 +63,14 @@ configurations:
 ```
 
 **Key paths:**
+
 - `private_key_pem_file` - Required for **signing** operations
 - `public_key_pem_file` - Required for **verification** operations
 
 {{< /step >}}
 
 {{< step >}}
+
 **Test the configuration**
 
 ```bash
@@ -128,6 +128,7 @@ Use this method in CI/CD pipelines or when you need explicit control over key pa
 {{< steps >}}
 
 {{< step >}}
+
 **Create a signer specification file**
 
 Create `signer-config.yaml`:
@@ -154,11 +155,9 @@ ocm sign cv \
 This bypasses the `.ocmconfig` credential lookup and uses the specified key directly.
 
 {{< /step >}}
-
 {{< /steps >}}
 
 {{< /tab >}}
-
 {{< /tabs >}}
 
 ## Identity Attributes Reference
@@ -178,6 +177,7 @@ The consumer identity for RSA signing/verification supports these attributes:
 **Cause:** OCM cannot find a matching consumer entry in `.ocmconfig`.
 
 **Fix:** Ensure:
+
 - The file path `private_key_pem_file` is correct and the file exists
 - The `signature` name matches what you're using (or is `default` if not specified)
 - The file is valid YAML with correct indentation

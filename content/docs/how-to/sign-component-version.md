@@ -60,6 +60,7 @@ ocm sign cv ghcr.io/myorg/components//github.com/acme.org/helloworld:1.0.0
 If you have multiple signing configurations in your `.ocmconfig`,
 use `--signature` flag to specify which one to use.
 Without the flag, OCM uses the configuration named `default`.
+
 ```bash
 ocm sign cv --signature prod ghcr.io/myorg/components//github.com/acme.org/helloworld:1.0.0
 ```
@@ -105,7 +106,7 @@ signatures:
 - Without `--signature` flag: must have `signature: default`
 - With `--signature prod`: must have `signature: prod`
 
-See [Configure Signing Credentials]({{< relref "configure-signing-credentials.md" >}}).
+See [Configure Signing Credentials]({{< relref "configure-signing-credentials.md" >}}) guide.
 
 ### Symptom: "signature already exists"
 
@@ -122,4 +123,3 @@ See [Configure Signing Credentials]({{< relref "configure-signing-credentials.md
 ```bash
 docker login ghcr.io
 ```
-
