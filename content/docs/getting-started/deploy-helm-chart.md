@@ -17,8 +17,9 @@ By the end of this tutorial, you will:
 - Define a ResourceGraphDefinition to orchestrate OCM and Flux resources
 - Deploy the Helm chart to your cluster using the OCM Controllers
 
-## Estimated time: ~20 minutes
+## Estimated time
 
+~20 minutes
 
 ## Scenario
 

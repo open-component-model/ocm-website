@@ -16,7 +16,9 @@ By the end of this tutorial, you will:
 - Build a component version into a transportable CTF archive
 - Explore component versions in both local archives and remote registries
 
-## Estimated time: ~15 minutes
+## Estimated time
+
+~15 minutes
 
 ## How It Works
 

@@ -13,7 +13,9 @@ You'll install the OCM Controllers, kro, and FluxCD to enable GitOps workflows w
 
 - A local or remote Kubernetes cluster with OCM Controllers, kro, and FluxCD installed
 
-## Estimated time: ~15 minutes
+## Estimated time
+
+~15 minutes
 
 ## Prerequisites
 
