@@ -25,6 +25,7 @@ ocm download resources [<options>]  <component> {<name> { <key>=<value> }}
   -h, --help                        help for resources
       --latest                      restrict component versions to latest
       --lookup stringArray          repository name or spec for closure lookup fallback
+      --oci-layout                  download OCI artifacts in OCI Image Layout format (blobs/<algorithm>/<encoded>)
   -O, --outfile string              output file or directory
   -r, --recursive                   follow component reference nesting
       --repo string                 repository name or spec

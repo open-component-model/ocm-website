@@ -132,6 +132,7 @@ fluxvaluessource
 foldername
 forwardspec
 frontend
+fulcio
 gapped
 gav
 getinexpensivecontentversionidentity
@@ -307,6 +308,7 @@ reconciledversion
 reconciler
 refcount
 referencesconfig
+rekor
 relativeocireference
 releaser
 replicatedrepositoryurl
