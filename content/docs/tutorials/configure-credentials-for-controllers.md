@@ -58,7 +58,7 @@ We recommend to create a new `.ocmconfig` file that only contains the credential
 repository.
 
 For more information on how to create and use the `.ocmconfig` file, please refer to the
-[OCM CLI credentials guide]({{< relref "creds-in-ocmconfig.md" >}}).
+[OCM Credentials]({{< relref "../concepts/credential-system.md" >}}).
 {{</callout>}}
 
 For instance, consider you used the following command and `.ocmconfig` file to transfer the OCM component:

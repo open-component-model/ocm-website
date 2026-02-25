@@ -104,7 +104,7 @@ This should display the version information and confirm that the installation wa
 
 ## Configure the OCM Command Line Client
 
-Credentials to be used by the OCM CLI can be configured by supplying it with a [configuration file]({{< relref "creds-in-ocmconfig.md" >}}). By default, the CLI looks for the file in `$HOME/.ocmconfig`.
+Credentials to be used by the OCM CLI can be configured by supplying it with a [configuration file]({{< relref "../concepts/credential-system.md" >}}). By default, the CLI looks for the file in `$HOME/.ocmconfig`.
 
 ### Using the Docker Configuration File
 
@@ -146,7 +146,7 @@ configurations:
             password: <YOUR-PASSWORD>
 ```
 
-More information on how to deal with credentials can be found [in this guide]({{< relref "creds-in-ocmconfig.md" >}}) with many examples for different repository types.
+More information on how to deal with credentials can be found [in this guide]({{< relref "../concepts/credential-system.md" >}}) with many examples for different repository types.
 
 ## Windows Support
 
