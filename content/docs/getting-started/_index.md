@@ -31,7 +31,8 @@ Before starting, you should have:
 ## Learning Path
 
 These tutorials follow the **learning-oriented** approach from the [Diataxis framework](https://diataxis.fr/).
-Every step is designed to work exactly as written, producing visible, verifiable results. If you're new to OCM, start with the first tutorial and work through them in order.
+Every step is designed to work exactly as written, producing visible, verifiable results.
+If you're new to OCM, start with the first tutorial and work through them in order.
 
-For task-specific guidance after completing these tutorials, explore the [How-To Guides](../how-to/) section.
-To understand OCM concepts in depth, visit the [Concepts](../concepts/) section.
+For task-specific guidance after completing these tutorials, explore the [How-To Guides]({{< relref "docs/how-to/_index.md" >}}) section.
+To understand OCM concepts in depth, visit the [Concepts]({{< relref "docs/concepts/_index.md" >}}) section.
