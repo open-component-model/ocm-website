@@ -15,10 +15,10 @@ from creating your first component version to deploying applications with OCM co
 The getting-started tutorials are designed to be completed in sequence.
 Each tutorial builds on the previous one, teaching you fundamental OCM concepts through practical examples:
 
-1. **[Install the OCM CLI](ocm-cli-installation/)** - Set up the OCM command-line tool
-2. **[Create Component Versions](create-component-version/)** - Bundle and store your software artifacts
-3. **[Set Up a Controller Environment](setup-controller-environment/)** - Prepare a local Kubernetes cluster with OCM controllers
-4. **[Deploy a Helm Chart](deploy-helm-chart/)** - Deploy applications from component versions using controllers
+1. [Install the OCM CLI](ocm-cli-installation/) - Set up the OCM command-line tool
+2. [Create Component Versions](create-component-version/)*- Bundle and store your software artifacts
+3. [Set Up a Controller Environment](setup-controller-environment/) - Prepare a local Kubernetes cluster with OCM controllers
+4. [Deploy a Helm Chart](deploy-helm-chart/) - Deploy applications from component versions using controllers
 
 ## Prerequisites
 
