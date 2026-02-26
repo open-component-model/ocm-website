@@ -265,8 +265,6 @@ This approach is:
 
 {{< /details >}}
 
-
-
 {{< details "Can a component have multiple signatures?" >}}
 Yes! A component version can have multiple signatures from different parties. This enables:
 
