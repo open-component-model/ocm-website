@@ -1,144 +1,218 @@
 ---
-title: "Create and Examine Component Versions"
+title: "Create Component Versions"
 description: "Learn how to create and store component versions using the OCM CLI."
 icon: "📦"
-weight: 23
+weight: 22
 toc: true
 ---
 
+Component versions bundle your software artifacts with metadata, making them portable and verifiable. This guide walks you through creating your first component version.
+
+## What You'll Learn
+
+By the end of this tutorial, you will:
+
+- Create a component constructor file that defines your component and its resources
+- Build a component version into a transportable CTF archive
+- Explore component versions in both local archives and remote registries
+
+## Estimated time
+
+~15 minutes
+
 ## How It Works
 
-Component versions are created using a `component-constructor.yaml` file, which is a description file that contains one or multiple components. The file describes the components and their artifacts – resources and sources, metadata in form of labels, and references to other components.
+```mermaid
+flowchart LR
+    A[component-constructor.yaml] -- "ocm add cv" --> B[CTF Archive]
+    B -- "ocm transfer" --> C[(OCI Registry)]
+```
 
-Component versions are locally stored in archives using the [Common Transfer Format (CTF)](https://github.com/open-component-model/ocm-spec/blob/main/doc/04-extensions/03-storage-backends/ctf.md). A CTF archive may contain any number of component versions and is used to transfer components to and between component repositories.
-
-Note that a CTF archive itself is also an OCM repository, so it can be used as source or target for component transfer operations using the OCM CLI.
-
-The command [`ocm add component-version`]({{< relref "ocm_add_component-version.md" >}}) directly creates a component version from a `component-constructor.yaml` file and stores it in a local CTF archive.
+Component versions are created using a `component-constructor.yaml` file that describes components and their artifacts. The OCM CLI builds these into a [Common Transport Format (CTF)](https://github.com/open-component-model/ocm-spec/blob/main/doc/04-extensions/03-storage-backends/ctf.md) archive, which can then be transferred to any OCI registry
+with `ocm transfer`.
 
 ## Prerequisites
 
-- [Install the OCM CLI]({{< relref "ocm-cli-installation.md" >}}).
-- Install [jq](https://jqlang.org/).
+- [Install the OCM CLI]({{< relref "ocm-cli-installation.md" >}})
+- Install [jq](https://jqlang.org/) (optional, for inspecting archives)
 
-## Create a Component Version
+## Create Your First Component
 
-In this example, we will use the `ocm` CLI tool to create a very basic component version that contains a local resource and a resource that is accessed from a remote location. The local resource is an arbitrary file that we will create from scratch the remote resource is a Docker image stored in an OCI registry.
+{{< steps >}}
 
-OCM components can contain any kind of resource, including Helm charts, Docker images, any content from local file systems, and more. Take a look at the tutorial about [Input and Access Types]({{< relref "input-and-access-types.md" >}}) to see how to define and use different resource types.
+{{< step >}}
 
-Start by creating a test folder where we will execute all required steps for this example, and then navigate into it:
+### Set up a working directory
+
+Create and enter a directory for this tutorial:
 
 ```shell
-mkdir /tmp/helloworld
-cd /tmp/helloworld
+mkdir /tmp/helloworld && cd /tmp/helloworld
 ```
+{{< /step >}}
 
-Quickly create a simple test file with some content in:
+{{< step >}}
+
+### Create a local resource file
+
+Create a simple text file that will become part of your component:
 
 ```shell
 echo "My first local Resource for an OCM component" > my-local-resource.txt
 ```
+{{< /step >}}
 
-Now, create a file named `component-constructor.yaml`:
+{{< step >}}
 
-```shell
-touch component-constructor.yaml
-```
+### Define the component
 
-The `component-constructor.yaml` file will define all elements of your component. In our example, the component contains a local file and a remote Docker image as resources. 
-
-To create the example component, save the following YAML configuration to `component-constructor.yaml`:
+Create a `component-constructor.yaml` file that describes your component and its resources:
 
 ```yaml
-# specify a schema to validate the configuration and get auto-completion in your editor
 # yaml-language-server: $schema=https://ocm.software/schemas/configuration-schema.yaml
 components:
-- name: github.com/acme.org/helloworld
-  # version needs to follow "relaxed" SemVer
-  version: 1.0.0
+- name: github.com/acme.org/helloworld # Must at least be a DNS domain as per RFC 1123.
+  version: 1.0.0 # Version conforming to SemVer 2.0.
   provider:
-    name: acme.org
+    name: acme.org # You must declare a provider, who serves as the owner of the component.
   resources:
-    # local file resource
     - name: mylocalfile
       type: blob
-      input:
+      input: # Embed by value
         type: file
         path: ./my-local-resource.txt
-    # remote image resource
     - name: image
       type: ociImage
       version: 1.0.0
-      access:
+      access: # Reference externally
         type: ociArtifact
-        imageReference: ghcr.io/stefanprodan/podinfo:6.9.4
+        imageReference: ghcr.io/stefanprodan/podinfo:6.9.1
 ```
 
-You can use our public configuration schema to validate the configuration. The schema is available at [https://ocm.software/schemas/configuration-schema.yaml](https://ocm.software/schemas/configuration-schema.yaml) and can be used in your editor to validate the configuration (e.g., in Visual Studio Code).
+### Referencing Artifacts
 
-Component versions need to have at least a `name`, `version` and `provider` attribute. All other attributes are optional. Check out an [example component descriptor]({{< relref "component-descriptor-example.md" >}}) or the [OCM Specification](https://github.com/open-component-model/ocm-spec/blob/main/README.md) to see all available attributes. 
+OCM supports various ways to include resource artifacts in your components via `resources`.
 
-A resource is described either by its access information to a remote repository or by locally provided resources.
+Use **`input`** to embed content directly, or **`access`** to reference external artifacts.
 
-For remote access, the field `access` is used to describe the
-[access method](https://github.com/open-component-model/ocm-spec/blob/main/doc/04-extensions/02-access-types/README.md).
-The type field is used to specify the kind of access.
+|              | `resource.input` (by value)               | `resource.access` (by reference)             |
+|--------------|-------------------------------------------|----------------------------------------------|
+| **Storage**  | Content embedded in Component Version     | Only reference is stored                     |
+| **Use case** | Local files, directories, co-located data | Remote images, charts, resolution at runtime |
+| **Transfer** | Content travels with component            | Must be accessible at destination            |
 
-If the resource content is taken from local resources, the field `input` is used to specify the access to the local resources. Similarly to the `access` attribute, the kind of the input source is described by the field `type`.
+For a complete list of supported types, see [Input and Access Types]({{< relref "/docs/tutorials/input-and-access-types.md" >}}).
 
-Available access and input types are described in the tutorial about [Input and Access Types]({{< relref "input-and-access-types.md" >}}).
+{{< tabs "resource-types" >}}
 
-## Add a Component Version to a CTF Archive
+{{< tab "Local File" >}}
+Embed a file from your local filesystem:
 
-To store our component version locally and to make it transportable, add it to a CTF archive using the following command:
-
-```shell
-ocm add component-version
+```yaml
+resources:
+  - name: config
+    type: blob
+    input:
+      type: file
+      path: ./config.yaml
 ```
 
-or the short form (which we will use from now on):
+The file content is stored directly in the CTF archive.
+{{< /tab >}}
+
+{{< tab "OCI Image" >}}
+Reference a container image from an OCI registry:
+
+```yaml
+resources:
+  - name: backend
+    type: ociImage
+    version: 1.0.0
+    access:
+      type: ociArtifact
+      imageReference: ghcr.io/myorg/backend:v1.0.0
+```
+
+Only the reference is stored; the image remains in its registry.
+{{< /tab >}}
+
+{{< tab "Helm Chart" >}}
+Include a Helm chart from a registry:
+
+```yaml
+resources:
+  - name: chart
+    type: helmChart
+    version: 1.0.0
+    access:
+      type: ociArtifact
+      imageReference: ghcr.io/myorg/charts/myapp:1.0.0
+```
+
+Or embed a local Helm chart:
+
+```yaml
+resources:
+  - name: chart
+    type: helmChart
+    input:
+      type: helm
+      path: ./charts/myapp
+```
+{{< /tab >}}
+
+{{< tab "Directory" >}}
+Embed an entire directory as a compressed tarball:
+
+```yaml
+resources:
+  - name: manifests
+    type: blob
+    input:
+      type: dir
+      path: ./kubernetes/
+      compress: true
+```
+
+All files in the directory are archived together.
+{{< /tab >}}
+
+{{< /tabs >}}
+
+{{< /step >}}
+
+{{< step >}}
+
+### Build the component version
+
+Run the OCM CLI to create a CTF archive.
+By default, the CLI reads a `component-constructor.yaml` file in the current directory.
 
 ```shell
 ocm add cv
 ```
 
-This is the most basic form of the command. When executed, the OCM CLI defaults the constructor file name to `component-constructor.yaml` 
-and the CTF archive name to `transport-archive`. If the CTF archive doesn’t exist yet, it will be created automatically.
-
-If you want to specify a different constructor file name or CTF archive name, you can use the `--constructor` and `--repository` flags.
-
-```shell
-ocm add cv --repository /path/to/my-own-ctf -c /path/to/my-component-constructor.yaml
+Output:
+```text
+component github.com/acme.org/helloworld/1.0.0 constructed ... done!
 ```
 
-If the component version was created successfully, you will see the following output:
+This creates a `transport-archive` directory containing your component version.
 
-```shell
-...
-component github.com/acme.org/helloworld/1.0.0 constructed ... done! [1 component version in 482ms]
-```
+{{< details "What's inside the CTF archive?" >}}
+The CTF archive is a Content Addressable Storage (CAS) archive that maps descriptors and resources to digests:
 
-<details><summary>What happened?</summary>
-
-The command created a CTF archive and added the listed components with the described resources.
-
-```shell
-tree transport-archive
-
-transport-archive
+```text
+transport-archive/
 ├── artifact-index.json
-└── blobs
-    ├── sha256.096322a7affa6a26a4549e347399f835b2350454946b4967ffdc570dbed78066
-    ├── sha256.70a2577d7b649574cbbba99a2f2ebdf27904a4abf80c9729923ee67ea8d2d9d8
-    ├── sha256.74db132670ec370396ec10160c4e761591d0e9e6c5960c72d2e26c0f9d6f6a76
-    └── sha256.c8359dfaa6353b1b3166449f7ff3a8ef6f1d3a6c6f837cca9cd2ad7e8ef8546e
-
-2 directories, 5 files
+└── blobs/
+    ├── sha256.096322a7...  # Component config
+    ├── sha256.70a2577d...  # Local resource content
+    ├── sha256.74db1326...  # Component descriptor
+    └── sha256.c8359dfa...  # OCI manifest
 ```
 
-The transport archive's contents can be found in `artifact-index.json`. This file
-contains the list of component version artifacts to be transported.
+View the artifact index:
 
 ```shell
 jq . transport-archive/artifact-index.json
@@ -151,8 +225,7 @@ jq . transport-archive/artifact-index.json
     {
       "repository": "component-descriptors/github.com/acme.org/helloworld",
       "tag": "1.0.0",
-      "digest": "sha256:c8359dfaa6353b1b3166449f7ff3a8ef6f1d3a6c6f837cca9cd2ad7e8ef8546e",
-      "mediaType": "application/vnd.oci.image.manifest.v1+json"
+      "digest": "sha256:c8359dfaa6353b1b3166449f7ff3a8ef6f1d3a6c6f837cca9cd2ad7e8ef8546e"
     }
   ]
 }
@@ -250,47 +323,161 @@ meta:
 
 The other elements listed as `layers` describe the blobs for the local resources stored along with the component version. The digests can be seen in the `localReference` attributes of the component descriptor.
 
-</details>
+{{< /details >}}
 
-## Examine Component Versions
+{{< /step >}}
 
-To view a component version stored in an OCM repository or CTF archive (which is technically also an OCM repository), you can use the [`ocm get component-version`]({{< relref "ocm_get_component-version.md" >}}) command: 
+{{< step >}}
 
-```shell
-ocm get cv /tmp/helloworld/transport-archive//github.com/acme.org/helloworld:1.0.0
-```
+### Verify the result
 
-```shell
- COMPONENT                      │ VERSION │ PROVIDER
-────────────────────────────────┼─────────┼──────────
- github.com/acme.org/helloworld │ 1.0.0   │ acme.org
-```
-
-Notice the format of the specified component version: The component path starts with the OCM repository prefix (`/tmp/helloworld/transport-archive`), followed by `//`, then the component name and version (`github.com/acme.org/helloworld:1.0.0`).
-
-To list all versions of a component, only specify the component name and skip the version. Let us view all versions of the component with the name `ocm.software/demos/podinfo`, which is stored in the the OCM repository `ghcr.io/open-component-model`:
+List the component version in the archive:
 
 ```shell
-ocm get cv ghcr.io/open-component-model//ocm.software/demos/podinfo
+ocm get cv ./transport-archive//github.com/acme.org/helloworld
 ```
+
+Output:
+
+```text
+COMPONENT                      │ VERSION │ PROVIDER
+───────────────────────────────┼─────────┼──────────
+github.com/acme.org/helloworld │ 1.0.0   │ acme.org
+```
+{{< /step >}}
+
+{{< /steps >}}
+
+## Explore Repositories
+
+Component versions can be inspected in both local CTF archives and remote OCI registries.
 
 ```shell
- COMPONENT                  │ VERSION │ PROVIDER     
-────────────────────────────┼─────────┼──────────────
- ocm.software/demos/podinfo │ 6.8.0   │ ocm.software 
-                            │ 6.7.1   │              
-                            │ 6.7.0   │          
+ocm get cv <repository>//<component>:<version>
 ```
 
-To get the component descriptor of that component version, use the output format option `-o yaml`:
+OCM uses a double-slash (`//`) notation to separate the repository from the component path:
+
+- Local Archive (CTF): `./transport-archive//github.com/acme.org/helloworld:1.0.0`
+- Remote Registry (OCI): `ghcr.io/open-component-model/ocm//ocm.software/ocmcli:0.17.0`
+
+{{< tabs "explore-repos" >}}
+
+{{< tab "Local Archive (CTF)" >}}
+
+### List available versions in a CTF
 
 ```shell
-ocm get cv /tmp/helloworld/transport-archive//github.com/acme.org/helloworld:1.0.0 -o yaml
+ocm get cv ./transport-archive
 ```
 
-{{<callout context="caution" title="Under Construction">}}The following options are currently being implemented from scratch and are not yet available:
+Output:
 
-- `--recursive`: shows the complete component version, including the component versions it references
-- `-o tree`: outputs a tree view
+```text
+COMPONENT                      │ VERSION │ PROVIDER
+───────────────────────────────┼─────────┼──────────
+github.com/acme.org/helloworld │ 1.0.0   │ acme.org
+```
 
-Stay tuned for updates!{{</callout>}}
+#### View the component descriptor
+
+```shell
+ocm get cv ./transport-archive//github.com/acme.org/helloworld:1.0.0 -o yaml
+```
+
+Output:
+
+```yaml
+component:
+  name: github.com/acme.org/helloworld
+  provider: acme.org
+  resources:
+  - access:
+      localReference: sha256:70a2577d7b649574cbbba99a2f2ebdf27904a4abf80c9729923ee67ea8d2d9d8
+      mediaType: text/plain; charset=utf-8
+      type: localBlob/v1
+    name: mylocalfile
+    relation: local
+    type: blob
+    version: 1.0.0
+  - access:
+      imageReference: ghcr.io/stefanprodan/podinfo:6.9.1@sha256:262578cde928d5c9eba3bce079976444f624c13ed0afb741d90d5423877496cb
+      type: ociArtifact
+    name: image
+    relation: external
+    type: ociImage
+    version: 1.0.0
+  version: 1.0.0
+meta:
+  schemaVersion: v2
+```
+
+{{< /tab >}}
+
+{{< tab "Remote Registry (OCI)" >}}
+
+### List available versions in an OCI Registry
+
+```shell
+ocm get cv ghcr.io/open-component-model/ocm//ocm.software/ocmcli
+```
+
+Output:
+
+```text
+ COMPONENT           │ VERSION       │ PROVIDER     
+─────────────────────┼───────────────┼──────────────
+ ocm.software/ocmcli │ 0.36.0-rc.1   │ ocm.software 
+                     │ 0.35.0        │              
+                     │ 0.35.0-rc.3   │              
+                     │ 0.35.0-rc.2   │              
+                     │ 0.35.0-rc.1   │
+...
+```
+
+#### Get a specific version
+
+```shell
+ocm get cv ghcr.io/open-component-model/ocm//ocm.software/ocmcli:0.35.0
+```
+
+Output:
+
+```text
+COMPONENT            │ VERSION │ PROVIDER     
+─────────────────────┼─────────┼──────────────
+ ocm.software/ocmcli │ 0.35.0  │ ocm.software
+```
+
+#### View the full component descriptor
+
+```shell
+ocm get cv ghcr.io/open-component-model/ocm//ocm.software/ocmcli:0.35.0 -o yaml
+```
+
+#### Explore nested components recursively
+
+Components can reference other components. Use `--recursive` to see the full tree:
+
+```shell
+ocm get cv ghcr.io/open-component-model/ocm//ocm.software/ocmcli:0.35.0 --recursive -o tree
+```
+
+{{< /tab >}}
+
+{{< /tabs >}}
+
+## CLI Reference
+
+| Command                                                            | Description                                    |
+|--------------------------------------------------------------------|------------------------------------------------|
+| [`ocm add cv`](../../reference/ocm-cli/ocm-add-component-version/) | Create component version from constructor file |
+| [`ocm get cv`](../../reference/ocm-cli/ocm-get-component-version/) | List and inspect component versions            |
+
+## Next Steps
+
+- [How-to: Download Resources from OCM Components]({{< relref "../how-to/download-resources-from-component-versions.md" >}})  - How to extract resources from component versions
+
+## Related Documentation
+
+- [Tutorial: Input and Access Types]({{< relref "input-and-access-types.md" >}}) - Explore all supported resource types and how to use them
