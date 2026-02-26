@@ -1,32 +1,55 @@
 ---
-title: Deploy Helm Charts
-description: "Deploy a Helm chart from an OCM component version using OCM controllers."
+title: "Deploy Helm Charts"
+description: "Deploy a Helm chart from an OCM component version with OCM Controllers, kro, and Flux."
 icon: "🚀"
-weight: 33
+weight: 26
 toc: true
 ---
 
-This guide demonstrates how to deploy a Helm chart from an OCM component version using OCM controllers, [kro](https://kro.run/), and [Flux](https://fluxcd.io/).
+This tutorial walks you through deploying a Helm chart from an OCM component version to a Kubernetes cluster,
+using the OCM Controllers with kro and Flux.
 
-For the following example, it is assumed that a developer created an application, packaged it as a Helm
-chart, and publishes it as OCM component version in an OCI registry. Then, an operator who wants to deploy the
-application via Helm chart in a Kubernetes cluster, creates a `ResourceGraphDefinition` with resources that point to
-the OCM component version. Using CEL expressions inside the `ResourceGraphDefinition`, the information about the
-resource location will be passed to Flux, which will then configure the Helm chart and deploy it into the Kubernetes
-cluster.
+## What You'll Learn
+
+By the end of this tutorial, you will:
+
+- Create and publish an OCM component version that references a Helm chart
+- Define a ResourceGraphDefinition to orchestrate OCM and Flux resources
+- Deploy the Helm chart to your cluster using the OCM Controllers
+
+## Estimated time
+
+~20 minutes
+
+## Scenario
+
+You as a developer create an application, packaged as a Helm chart, and publish it as OCM component version in an OCI registry.
+Then, you as an operator deploy the Helm chart into a Kubernetes cluster using the OCM Controllers.
+You define a ResourceGraphDefinition that tells kro how to orchestrate the OCM and Flux resources to deploy the Helm chart.
 
 ## Prerequisites
 
-- [Install the OCM CLI]({{< relref "ocm-cli-installation.md" >}}).
-- [Set up an OCM controller environment]({{< relref "setup-controller-environment.md" >}}).
+- [Controller environment]({{< relref "setup-controller-environment.md" >}}) set up (OCM Controllers, kro and Flux in a Kubernetes cluster)
+- [OCM CLI]({{< relref "ocm-cli-installation.md" >}}) installed
+- Access to an OCI registry (e.g., [ghcr.io](https://docs.github.com/en/packages/learn-github-packages/introduction-to-github-packages))
 
-## Create the OCM Component Version
+## Create and Publish a Component Version
 
-First, we will create an OCM component version containing a Helm chart. For this example, we will use the `podinfo`
-Helm chart, which is a simple web application that serves a pod information page. For more details on how to create an
-OCM component version, please refer to the [OCM documentation]({{< relref "create-component-version.md" >}}).
+{{< steps >}}
+{{< step >}}
 
-To create the OCM component version, we will use the following `component-constructor.yaml` file:
+### Create a working directory
+
+```shell
+mkdir /tmp/helm-deploy && cd /tmp/helm-deploy
+```
+{{< /step >}}
+
+{{< step >}}
+
+### Define the component
+
+Create a `component-constructor.yaml` file that includes a Helm chart resource:
 
 ```yaml
 components:
@@ -43,47 +66,92 @@ components:
           imageReference: "ghcr.io/stefanprodan/charts/podinfo:6.9.1@sha256:565d310746f1fa4be7f93ba7965bb393153a2d57a15cfe5befc909b790a73f8a"
 ```
 
-After creating the file, we can create the OCM component version:
+This component references the `podinfo` Helm chart, a simple web application that displays pod information.
+{{< /step >}}
 
-```bash
-ocm add componentversion --create --file ./ctf component-constructor.yaml
+{{< step >}}
+
+### Build the component version
+
+Now add the component version to a local Common Transport Format (CTF) archive.
+By default, the `ocm add cv` command looks for a file called `component-constructor.yaml` in the current directory,
+and creates a CTF archive in a folder called `transport-archive`:
+
+```shell
+ocm add cv
 ```
 
-This will create a local CTF (Component Transfer Format) directory `./ctf` containing the OCM component version. Since
-the OCM component version must be accessible for the OCM controllers, we will transfer the CTF to a
-registry. For this example, we will use GitHub's container registry, but you can use any OCI registry:
+<details>
+<summary>You should see this output</summary>
 
-```bash
-ocm transfer ctf ./ctf ghcr.io/<your-namespace>
+```text
+time=2026-02-25T12:47:09.622+01:00 level=WARN msg="could not get credential consumer identity for component version repository" repository=transport-archive error="failed to get component version repository: cannot resolve consumer identity for ctf: credentials not supported"
+COMPONENT                           │ VERSION │ PROVIDER
+─────────────────────────────────────┼─────────┼──────────────
+ocm.software/ocm-k8s-toolkit/simple │ 1.0.0   │ ocm.software
+```
+</details>
+{{< /step >}}
+
+{{< step >}}
+
+### Transfer to your registry
+
+Use `ocm transfer cv` and specify the correct reference (`<path-to-your-ctf>//<component>:<version>`) and target repository.
+Replace `<your-namespace>` with your registry namespace:
+
+> 📣 **Note:** 📣  
+> If your registry requires authentication, configure [Credentials for OCM CLI]({{< relref "creds-in-ocmconfig.md" >}}) first.
+
+```shell
+ocm transfer cv transport-archive//ocm.software/ocm-k8s-toolkit/simple:1.0.0 ghcr.io/<your-namespace>
 ```
 
-{{<callout context="note">}}
-If you are using a registry that requires authentication, you need to provide credentials for ocm. Please refer to
-the [OCM CLI credentials documentation]({{< relref "creds-in-ocmconfig.md" >}}) for more information on how to set up and use credentials.
-{{</callout>}}
+<details>
+<summary>You should see this output</summary>
 
-If everything went well, you should see the following output:
+```text
+Transferring component versions...
+  ✓ transformOcmSoftwareOcmK8sToolkitSimple100Upload [OCIAddComponentVersion]
+  [████████████████████████████████████████] 100% 1/1
+```
+</details>
 
-```bash
-ocm get component-version ghcr.io/<your-namespace>//ocm.software/ocm-k8s-toolkit/simple:1.0.0
+To make your component public in GitHub Container Registry, go to your [packages tab](https://github.com/morri-son?tab=packages),
+select the package `component-descriptors/ocm.software/ocm-k8s-toolkit/simple`, and under "Package settings" change the visibility to `public`.
+
+{{< /step >}}
+
+{{< step >}}
+
+### Verify the upload
+
+```shell
+ocm get cv ghcr.io/<your-namespace>//ocm.software/ocm-k8s-toolkit/simple:1.0.0
 ```
 
-```console
-COMPONENT                           VERSION PROVIDER
-ocm.software/ocm-k8s-toolkit/simple 1.0.0   ocm.software
+<details>
+<summary>You should see this output</summary>
+
+```text
+ COMPONENT                           │ VERSION │ PROVIDER
+─────────────────────────────────────┼─────────┼──────────────
+ ocm.software/ocm-k8s-toolkit/simple │ 1.0.0   │ ocm.software
 ```
+</details>
 
-## Deploy the Helm Chart
+{{< /step >}}
+{{< /steps >}}
 
-To deploy the Helm chart from the OCM component version, we will first create a `ResourceGraphDefinition` that contains
-all required resources. Additionally, we will add a configuration to the `HelmRelease` resource that can be passed
-through the instance of that `ResourceGraphDefinition`. After the `ResourceGraphDefinition` is created and applied, we
-create the instance of the `ResourceGraphDefinition` that will deploy the Helm chart.
+## Deploy Helm chart using the OCM Controllers
 
-### Create and Apply the ResourceGraphDefinition
+{{< steps >}}
+{{< step >}}
 
-The `ResourceGraphDefinition` is a custom resource that defines all the resources that should be applied. To proceed
-with the example, create a file named `rgd.yaml` and add the following content:
+### Create ResourceGraphDefinition
+
+The ResourceGraphDefinition tells kro how to orchestrate the OCM and Flux resources.  
+Create `rgd.yaml` with the following content, replacing `<your-namespace>` with your registry namespace:
 
 ```yaml
 apiVersion: kro.run/v1alpha1
@@ -195,113 +263,163 @@ spec:
             name: ${ocirepository.metadata.name}
             namespace: default
           values:
-            # We configure the Helm chart using FluxCDs HelmRelease 'values' field. We pass the value that we set in
+            # We configure the Helm chart using Fluxs HelmRelease 'values' field. We pass the value that we set in
             # the instance of the CRD created by the ResourceGraphDefinition (see below).
             ui:
               message: ${schema.spec.message}
 ```
+{{< /step >}}
 
-{{<callout context="note">}}
-If you pushed the OCM component version to a private registry, you need to set up the credentials for the OCM controller resources. You can do this by uncommenting the `ocmConfig` fields in the `Repository`, `Component`, and
-`Resource` resources and providing the necessary credentials. For more information on how to set up and pass the
-credentials, please check out the guide [configure credentials for OCM controller resources]({{< relref "configure-credentials-for-controllers.md" >}}).
+{{< step >}}
 
-Be aware that FluxCD's `OCIRepository` also needs access to the OCI registry that contains the Helm chart. However,
-`OCIRepository` only accepts
-[`imagePullSecrets`](https://fluxcd.io/flux/components/source/ocirepositories/#secret-reference) in the same namespace.
-If you want to use the same credentials for FluxCD and for the OCM controller resources, create a
-[Kubernetes secret of type `dockerconfigjson`]({{< relref "configure-credentials-for-controllers.md#create-a-kubernetes-secret-of-type-dockerconfigjson-to-access-private-ocm-repositories" >}})
-and keep all the resources in the same namespace.
-{{</callout>}}
+### Apply the ResourceGraphDefinition
 
-After creating the file `rgd.yaml` with the above content and adjusting Repository's `baseUrl` to point to your OCM
-repository, you can apply the `ResourceGraphDefinition` to your Kubernetes cluster:
-
-```bash
+```shell
 kubectl apply -f rgd.yaml
 ```
 
-If everything went well, you should see the following output:
+<details>
+<summary>You should see this output</summary>
 
-```bash
+```text
+resourcegraphdefinition.kro.run/simple created
+```
+</details>
+
+Verify it's active:
+
+```shell
 kubectl get rgd
 ```
 
-```console
+<details>
+<summary>You should see this output</summary>
+
+```text
 NAME     APIVERSION   KIND     STATE    AGE
 simple   v1alpha1     Simple   Active   19s
 ```
+</details>
+<br>
 
-This creates a Kubernetes Custom Resource Definition (CRD) `Simple` that can be used to create instances. An applied
-instance of the CRD will create all resources defined in the `ResourceGraphDefinition`.
+A new Custom Resource Definition called `Simple` that you can now instantiate has been created.
+{{< /step >}}
 
-### Create an Instance of Simple
+{{< step >}}
 
-To create an instance of the `Simple` CRD, create a file named `instance.yaml` and add the following content:
+### Create an instance
+
+Create `instance.yaml` to deploy the application:
 
 ```yaml
 apiVersion: kro.run/v1alpha1
-# Kind is the CRD name that was created by the ResourceGraphDefinition
 kind: Simple
 metadata:
   name: simple
 spec:
-  # This field is passed to the Helm chart and configures the message that podinfo will show
-  message: "bar"
+  message: "Deployed with OCM!"
 ```
+{{< /step >}}
 
-Proceed by applying the instance which will create all the resources defined in the `ResourceGraphDefinition`:
+{{< step >}}
+**Deploy the application**
 
-```bash
+```shell
 kubectl apply -f instance.yaml
 ```
 
-This will take some time, but if everything went well, you should see the following output:
+<details>
+<summary>You should see this output</summary>
 
-```bash
-kubectl get simple
+```text
+simple.kro.run/simple created
+```
+</details>
+
+Wait for the deployment to complete:
+
+```shell
+kubectl get simple -w
 ```
 
-```console
+<details>
+<summary>You should see this output</summary>
+
+```text
 NAME     STATE    SYNCED   AGE
-simple   ACTIVE   True     5m28s
+simple   ACTIVE   True     2m
 ```
+</details>
+{{< /step >}}
 
-and the deployment should be in the state `Available`:
+{{< step >}}
 
-```bash
+### Verify the deployment
+
+Check that the pod is running:
+
+```shell
 kubectl get deployments
 ```
 
-```console
-NAME                  READY   UP-TO-DATE   AVAILABLE   AGE
-simple-podinfo        1/1     1            1           40m
+Output:
+
+```text
+NAME             READY   UP-TO-DATE   AVAILABLE   AGE
+simple-podinfo   1/1     1            1           3m
 ```
 
-To make sure that the deployment was configured successfully, take a look at the pod itself or execute the following
-command:
+Verify the custom message you configured in the HelmRelease values is showing up in the application:
 
-```bash
-kubectl get pods -l app.kubernetes.io/name=simple-podinfo -o jsonpath='{.items[0].spec.containers[0].env[?(@.name=="PODINFO_UI_MESSAGE")].value}'
+```shell
+kubectl get pods -l app.kubernetes.io/name=simple-podinfo \
+  -o jsonpath='{.items[0].spec.containers[0].env[?(@.name=="PODINFO_UI_MESSAGE")].value}'
 ```
 
-which should return the value you passed in the instance:
+Output:
 
-```console
-bar
+```text
+Deployed with OCM!
+```
+{{< /step >}}
+{{< /steps >}}
+
+## Troubleshooting
+
+### Authentication Errors
+
+If you see errors like:
+
+```text
+failed to list versions: response status code 401: unauthorized
 ```
 
-You now have successfully created an OCM component version containing a Helm chart and deployed as well as configured it
-using the OCM controllers, kro, and FluxCD.
+Your registry package may be private. Either:
 
-#### Troubleshooting
+- Make the package public in your registry settings
+- Configure credentials for the OCM Controller resources
 
-One common issue, when using GitHub's container registry, is that the transferred OCM component is by default a
-private package. If so, you might see an error like the following:
+### Resource Not Found
 
-```console
-failed to list versions: failed to list tags: GET "https://ghcr.io/v2...": response status code 401: unauthorized: authentication required
+If the component isn't found, verify:
+
+- The component was transferred successfully: `ocm get cv ghcr.io/<your-namespace>//ocm.software/ocm-k8s-toolkit/simple:1.0.0`
+- The `baseUrl` in the ResourceGraphDefinition matches your registry
+
+## Cleanup
+
+Remove the deployed resources:
+
+```shell
+kubectl delete -f instance.yaml
+kubectl delete -f rgd.yaml
 ```
 
-You can resolve this issue by making the package public or by [providing credentials]({{< relref "configure-credentials-for-controllers.md" >}}) to the
-respective resources.
+## Next Steps
+
+- [Tutorial: Structure Software Products with OCM]({{< relref "complex-component-structure-deployment.md" >}}) - Learn how to structure complex applications with multiple components and resources
+- [Tutorial: Deploy a Helm Chart (with Bootstrap)]({{< relref "deploy-helm-chart-bootstrap.md" >}}) - Use the OCM Controllers to deploy a Helm chart without manual bootstrapping, using a GitOps
+
+## Related Documentation
+
+- [Concept: OCM Controllers]({{< relref "ocm-controllers.md" >}}) - Learn about the architecture and capabilities of the OCM Controllers
