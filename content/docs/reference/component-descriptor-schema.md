@@ -9,7 +9,7 @@ The Component Descriptor is the central metadata document in the Open Component 
 It describes a component version with all its resources, sources, and references to other components.
 
 {{< callout context="note" title="Component Descriptor vs. Component Constructor" icon="outline/info-circle" >}}
-This schema is for **Component Descriptors** (the final output artifact stored in registries).
+This schema is for **Component Descriptors** (the final output artifact for components stored in registries).
 
 If you're looking for the schema to validate **Component Constructor files** (`component-constructor.yaml` used as input for `ocm add componentversion`), use the [Configuration Schema](/schemas/configuration-schema.yaml) instead.
 {{< /callout >}}
@@ -18,29 +18,16 @@ If you're looking for the schema to validate **Component Constructor files** (`c
 
 {{< callout context="tip" title="Download Schema" icon="outline/download" >}}
 [component-descriptor-v2-schema.json](/schemas/component-descriptor-v2-schema.json) — JSON Schema (version `Draft 2020-12`)
-
-Use this schema for editor validation and IDE autocompletion.
 {{< /callout >}}
 
-### Editor Integration
+### Use Cases
 
-{{< tabs "editor-integration" >}}
+Component Descriptors are typically generated automatically by the OCM CLI. This schema is useful for:
 
-{{< tab "VS Code (YAML)" >}}
-Add this comment at the top of your YAML file:
-
-```yaml
-# yaml-language-server: $schema=https://ocm.software/schemas/component-descriptor-v2-schema.json
-```
-{{< /tab >}}
-
-{{< tab "JetBrains IDEs" >}}
-1. Open **Settings** → **Languages & Frameworks** → **Schemas and DTDs** → **JSON Schema Mappings**
-2. Add a new mapping with URL: `https://ocm.software/schemas/component-descriptor-v2-schema.json`
-3. Associate it with your component descriptor files
-{{< /tab >}}
-
-{{< /tabs >}}
+- **Validation Tools** - Programmatically validate component descriptors in CI/CD pipelines
+- **API Development** - Generate types for applications that work with OCM component descriptors
+- **Documentation** - Understand the structure and fields of component descriptors
+- **Debugging** - Inspect and validate component descriptors retrieved from registries
 
 ## Structure Overview
 
@@ -91,12 +78,14 @@ The `component` object contains the core information about your software compone
 ### Component Name Format
 
 Component names must follow this pattern:
+
 - Start with a DNS-like domain (e.g., `github.com`, `my.company.io`)
 - Followed by path segments separated by `/`
 - Only lowercase letters, numbers, hyphens, and underscores allowed
 - Maximum 255 characters
 
 **Valid examples:**
+
 - `github.com/open-component-model/ocm`
 - `my.company.io/team/application`
 

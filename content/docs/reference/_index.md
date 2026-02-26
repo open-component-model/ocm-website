@@ -12,25 +12,21 @@ This section contains reference documentation for the Open Component Model.
 
 ## Schemas
 
-- [Component Descriptor Schema](component-descriptor-schema/) - JSON Schema for validating component descriptors
+- [Component Descriptor Schema]({{< relref "component-descriptor-schema.md" >}}) - JSON Schema for validating component descriptors
 
 ## Downloads
 
-The following schemas are available for download and editor validation:
+The following schemas are available for download:
 
-| Schema | Purpose | Description |
-|--------|---------|-------------|
-| [configuration-schema.yaml](/schemas/configuration-schema.yaml) | **Component Constructor Files** | Schema for `component-constructor.yaml` files (input for `ocm add componentversion`) |
-| [component-descriptor-v2-schema.json](/schemas/component-descriptor-v2-schema.json) | **Component Descriptors** | Schema for component descriptor files (output artifacts stored in registries) |
+| Schema | Purpose | Use For |
+|--------|---------|---------|
+| [configuration-schema.yaml](/schemas/configuration-schema.yaml) | **Component Constructor Files** | Creating component versions with `ocm add componentversion` |
+| [component-descriptor-v2-schema.json](/schemas/component-descriptor-v2-schema.json) | **Component Descriptors** | Validating output artifacts, API development, debugging |
 
-### Usage
+### Editor Integration for Constructor Files
 
-**For Component Constructor files:**
+Add this to the top of your `component-constructor.yaml` for validation and autocompletion:
+
 ```yaml
 # yaml-language-server: $schema=https://ocm.software/schemas/configuration-schema.yaml
-```
-
-**For Component Descriptor files:**
-```yaml
-# yaml-language-server: $schema=https://ocm.software/schemas/component-descriptor-v2-schema.json
 ```
