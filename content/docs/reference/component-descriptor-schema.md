@@ -11,8 +11,13 @@ It describes a component version with all its resources, sources, and references
 {{< callout context="note" title="Component Descriptor vs. Component Constructor" icon="outline/info-circle" >}}
 This schema is for **Component Descriptors** (the final output artifact for components stored in registries).
 
-If you're looking for the schema to validate **Component Constructor files** (`component-constructor.yaml` used as input for `ocm add componentversion`), use the [Configuration Schema](/schemas/configuration-schema.yaml) instead.
+If you're looking for the schema to validate **Component Constructor files** (`component-constructor.yaml` used as
+input for `ocm add componentversion`), use the [Configuration Schema](/schemas/configuration-schema.yaml) instead.
 {{< /callout >}}
+
+## Schema Source
+
+This schema is sourced from the [Open Component Model specification](https://github.com/open-component-model/open-component-model/blob/main/bindings/go/descriptor/v2/resources/schema-2020-12.json).
 
 ## Download
 
@@ -220,13 +225,9 @@ The `access` specification defines how to retrieve resources and sources. Common
 | `http` | HTTP/HTTPS URL |
 | `localBlob` | Local blob storage |
 
-## Related Resources
+## Related Documentation
 
 - [Component Descriptor Concepts]({{< relref "docs/concepts" >}})
 - [Creating Component Versions]({{< relref "create-component-version.md" >}})
 - [OCM CLI Reference]({{< relref "docs/reference/ocm-cli" >}})
 - [JSON Schema Specification](https://json-schema.org/)
-
-## Schema Source
-
-This schema is sourced from the [Open Component Model specification](https://github.com/open-component-model/open-component-model/blob/main/bindings/go/descriptor/v2/resources/schema-2020-12.json).
