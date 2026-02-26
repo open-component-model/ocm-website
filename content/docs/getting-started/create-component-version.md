@@ -188,7 +188,6 @@ All files in the directory are archived together.
 Run the OCM CLI to create a CTF archive.
 By default, the CLI reads a `component-constructor.yaml` file in the current directory.
 
-
 ```shell
 ocm add cv
 ```

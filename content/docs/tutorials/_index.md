@@ -40,4 +40,3 @@ If you're just starting out, complete the [Getting Started]({{< relref "docs/get
 
 For task-specific guidance, check the [How-to Guides]({{< relref "docs/how-to/_index.md" >}}) section.
 To understand OCM's architectural principles, visit the [Concepts]({{< relref "docs/concepts/_index.md" >}}) section.
-

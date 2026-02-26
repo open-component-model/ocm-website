@@ -94,7 +94,7 @@ helm install kro oci://registry.k8s.io/kro/charts/kro \
 <details>
 <summary>You should see this output</summary>
 
-```
+```text
 Pulled: registry.k8s.io/kro/charts/kro:0.8.5
 Digest: sha256:c9a9dc0133f43a25711f4bdbce1eeb4b6448015958f901c6fad61a049e54415e
 NAME: kro

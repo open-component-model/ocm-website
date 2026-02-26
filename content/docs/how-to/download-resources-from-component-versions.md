@@ -14,7 +14,7 @@ optionally transform them to their native format, and save them to your local fi
 - A resource file downloaded from a component version
 - Optionally a resource transformed to its native format (e.g., Helm chart `.tgz`)
 
-## Estimated time:
+## Estimated time
 
 ~5 minutes
 

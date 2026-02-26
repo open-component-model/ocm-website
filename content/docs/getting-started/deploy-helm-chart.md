@@ -306,6 +306,7 @@ A new Custom Resource Definition called `Simple` that you can now instantiate ha
 {{< /step >}}
 
 {{< step >}}
+
 ### Create an instance
 
 Create `instance.yaml` to deploy the application:
@@ -352,6 +353,7 @@ simple   ACTIVE   True     2m
 {{< /step >}}
 
 {{< step >}}
+
 ### Verify the deployment
 
 Check that the pod is running:
