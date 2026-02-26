@@ -458,3 +458,6 @@ diataxis
 callouts
 shortcode
 shortcodes
+dtds
+jetbrains
+autocompletion
