@@ -1,6 +1,6 @@
 ---
 title: "Overview"
-description: "Understand what OCM is, why it exists, and how supports your software delivery into sovereign clouds."
+description: "Understand what OCM is, why it exists, and how it supports your software delivery into sovereign clouds."
 icon: "🌐"
 weight: 10
 toc: true
@@ -8,8 +8,7 @@ sidebar:
   collapsed: true
 ---
 
-Discover the Open Component Model (OCM) - an open standard for secure, technology-agnostic software delivery.
-This overview introduces OCM's purpose, benefits, and the project's key components.
+Discover the Open Component Model (OCM) - a model and toolkit for a secure delivery for sovereign clouds.
 
 ## What is the Overview?
 
