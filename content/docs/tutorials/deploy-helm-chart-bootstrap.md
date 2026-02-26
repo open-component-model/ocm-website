@@ -229,6 +229,16 @@ spec:
             byReference:
               resource:
                 name: helm-resource
+          additionalStatusFields:
+            # The additional status fields are useful for splitting the imageReference into its components, so that
+            # they can be used in depending deployers
+            # Example: ghcr.io/stefanprodan/charts/podinfo:6.7.1 would be
+            # registry: ghcr.io
+            # repository: stefanprodan/charts/podinfo
+            # reference/tag: 6.7.1
+            registry: resource.access.imageReference.toOCI().registry
+            repository: resource.access.imageReference.toOCI().repository
+            tag: resource.access.imageReference.toOCI().tag
           interval: 1m
           # ocmConfig is required, if the OCM repository requires credentials to access it.
           # ocmConfig:
@@ -248,6 +258,10 @@ spec:
             byReference:
               resource:
                 name: image-resource
+          additionalStatusFields:
+            registry: resource.access.imageReference.toOCI().registry
+            repository: resource.access.imageReference.toOCI().repository
+            tag: resource.access.imageReference.toOCI().tag
           interval: 1m
           # ocmConfig is required, if the OCM repository requires credentials to access it.
           # ocmConfig:
@@ -255,7 +269,7 @@ spec:
     # The Helm chart location (url) refers to the status of the resource helm-resource.
     - id: ocirepository
       template:
-        apiVersion: source.toolkit.fluxcd.io/v1beta2
+        apiVersion: source.toolkit.fluxcd.io/v1
         kind: OCIRepository
         metadata:
           name: bootstrap-ocirepository
@@ -265,9 +279,9 @@ spec:
           layerSelector:
             mediaType: "application/vnd.cncf.helm.chart.content.v1.tar+gzip"
             operation: copy
-          url: oci://${resourceChart.status.reference.registry}/${resourceChart.status.reference.repository}
+          url: oci://${resourceChart.status.additional.registry}/${resourceChart.status.additional.repository}
           ref:
-            tag: ${resourceChart.status.reference.tag}
+            tag: ${resourceChart.status.additional.tag}
           # secretRef is required, if the OCI repository requires credentials to access it.
           # secretRef:
     # HelmRelease refers to the OCIRepository, lets you configure the helm chart and deploys the Helm Chart into the
@@ -290,8 +304,8 @@ spec:
             # This is the second step of the localization. We use the image reference from the resource "image-resource"
             # and insert it into the Helm chart values.
             image:
-              repository: ${resourceImage.status.reference.registry}/${resourceImage.status.reference.repository}
-              tag: ${resourceImage.status.reference.tag}
+              repository: ${resourceImage.status.additional.registry}/${resourceImage.status.additional.repository}
+              tag: ${resourceImage.status.additional.tag}
 ```
 
 {{<callout context="note">}}
