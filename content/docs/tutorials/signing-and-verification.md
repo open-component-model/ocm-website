@@ -29,7 +29,7 @@ A side-by-side comparison makes it clear how both flows mirror the same normaliz
 ### Workflow Comparison
 
 | Step | Signing Flow | Verification Flow |
-|------|--------------|-------------------|
+| --- | --- | --- |
 | 1 | Resolve signing credentials from `.ocmconfig` or signer spec | Resolve signature by name and load public key/certificate (config, CLI flag, or embedded PEM) |
 | 2 | Normalize component descriptor (selected algorithm) | Normalize component descriptor with the same algorithm |
 | 3 | Hash normalized descriptor (selected hash) | Hash normalized descriptor and compare against signature digest |
@@ -62,7 +62,7 @@ This section covers general RSA key pair generation and management. If you alrea
 Before generating keys, decide which approach fits your needs:
 
 | Your Situation | Recommended Approach |
-|----------------|---------------------|
+| --- | --- |
 | Local development or testing | **Self-Signed Keys** |
 | Production environment | **CA-Signed Keys** |
 | Enterprise/Multi-organization | **CA-Signed Keys** |
@@ -762,15 +762,15 @@ OCM's signing and verification system provides:
 
 **Choosing the right approach:**
 
-| Scenario                     | Recommended Approach               |
-|------------------------------|------------------------------------|
-| Local development            | Self-signed, Plain encoding        |
-| Small team                   | Self-signed, key pinning           |
-| Medium organization          | CA-signed, Plain, certificate pinning |
-| Enterprise                   | CA-signed, PEM, system trust store |
-| Compliance-driven            | CA-signed, PEM, HSM integration    |
+| Scenario | Recommended Approach |
+| --- | --- |
+| Local development | Self-signed, Plain encoding |
+| Small team | Self-signed, key pinning |
+| Medium organization | CA-signed, Plain, certificate pinning |
+| Enterprise | CA-signed, PEM, system trust store |
+| Compliance-driven | CA-signed, PEM, HSM integration |
 
 ## Related Documentation
 
-- [Credentials in .ocmconfig File]({{< relref "creds-in-ocmconfig.md" >}}) - Practical credential configuration examples
+- [OCM Credentials]({{< relref "../concepts/credential-system.md" >}}) - How OCM resolves credentials for registries and services
 - [OCM CLI Reference]({{< relref "docs/reference/ocm-cli/_index.md" >}}) - Complete command-line options
