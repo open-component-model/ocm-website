@@ -10,6 +10,7 @@
  * - Copies folder content/ to content_versioned/version-X.Y.Z
  * - Appends [versions."X.Y.Z"] to hugo.toml
  * - Appends mount/import blocks to module.toml
+ *   (version mount excludes blog/** because blog is mounted globally)
  * - Optional --keepDefault keeps defaultContentVersion unchanged. Required until first OCM v2 release.
  */
 
@@ -139,6 +140,7 @@ async function updateModuleToml(version) {
 
     parsed.mounts = parsed.mounts || [];
     parsed.mounts.push({
+        files: ['**', '!blog/**'],
         source: `content_versioned/version-${version}`,
         target: 'content',
         sites: { matrix: { versions: [version] } }
