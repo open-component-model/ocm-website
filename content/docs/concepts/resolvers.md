@@ -6,16 +6,23 @@ weight: 44
 toc: true
 ---
 
+## Why Resolvers?
+
+In OCM, a component can **reference** other components. For example, an `app` component might reference a `backend` and
+a `frontend` component. These referenced components don't have to live in the same repository as the app — and in
+practice, they often don't. Teams publish components independently, to different registries or repository paths.
+
+This creates a problem: when you ask the CLI to recursively resolve a component graph, it needs to know **where** to
+find each referenced component. The repository you pass on the command line only tells the CLI where to find the
+**root** component. For everything else, the CLI needs a mapping from component names to repositories.
+
+That's what resolvers provide.
+
 ## What Are Resolvers?
 
-A resolver maps a **component name pattern** (glob) to an **[OCM repository](https://github.com/open-component-model/ocm-spec/blob/main/doc/01-model/01-model.md#component-repositories)**. When OCM
-encounters a component reference during recursive resolution, it consults the configured resolvers to find the first
-pattern that matches the component name and queries the associated repository.
-
-This is particularly useful when:
-
-- A component references other components and you need recursive resolution
-- Components are distributed across multiple ocm repositories
+A resolver maps a **component name pattern** (glob) to an **[OCM repository](https://github.com/open-component-model/ocm-spec/blob/main/doc/01-model/01-model.md#component-repositories)**.
+When the CLI encounters a component reference during recursive operations, it walks the list of configured resolvers,
+finds the first pattern that matches the referenced component name, and queries the associated repository.
 
 ## Configuration
 
@@ -148,12 +155,12 @@ With the resolver configured, the CLI discovers the component references and aut
 
 ## Recursive Resolution
 
-When a component version has references to other component versions (via `componentReferences`), the CLI can follow these references recursively using the `--recursive` flag. Resolvers are essential for this: the CLI uses them to locate the referenced components in their respective repositories.
-
-For example, an app component might reference backend and frontend components stored in a separate repository. With resolvers configured, the CLI automatically finds and retrieves all referenced components.
+When a component version has references to other component versions (via `componentReferences`), the CLI can follow
+these references recursively using the `--recursive` flag. The CLI uses resolvers to locate each referenced component
+in its respective repository — without them, recursive resolution across multiple repositories is not possible.
 
 {{<callout context="tip">}}
-For the `transfer cv` command, resolvers are currently not taking into account.
+For the `transfer cv` command, resolvers are currently not taken into account.
 {{</callout>}}
 
 ## Configuration Reference
