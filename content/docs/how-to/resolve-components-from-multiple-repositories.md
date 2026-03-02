@@ -71,8 +71,9 @@ configurations:
 
 {{< callout type="tip" >}}
 If multiple components share a repository, use glob patterns (e.g., `ocm.software/tutorials/*`) to match them with a
-single resolver entry instead of listing each one individually. See [Component Name Patterns]({{< relref "
-docs/concepts/resolvers.md#component-name-patterns" >}}) for the full pattern syntax.
+single resolver entry instead of listing each one individually. See
+[Component Name Patterns]({{< relref "docs/concepts/resolvers.md#component-name-patterns" >}})
+for the full pattern syntax.
 {{< /callout >}}
 
 {{< step >}}
@@ -107,10 +108,11 @@ to match groups of components from the same repository.
 
 ## Next steps
 
-- **Learn resolver concepts and patterns**: See the [Resolvers concept page]({{< relref "
-  docs/concepts/resolvers.md" >}}) for configuration options, pattern syntax, and schema reference.
-- **Build components with references from scratch**: Follow the [Configure Resolvers tutorial]({{< relref "
-  docs/tutorials/configure-resolvers.md" >}}) for a full walkthrough.
+- **Learn resolver concepts and patterns**: See the
+[Resolvers concept page]({{< relref "docs/concepts/resolvers.md" >}}) for configuration options, pattern syntax, and
+  schema reference.
+- **Build components with references from scratch**: Follow the
+[Configure Resolvers tutorial]({{< relref "docs/tutorials/configure-resolvers.md" >}}) for a full walkthrough.
 - **Explore credential configuration**: See [Credentials in an .ocmconfig File]({{< relref "creds-in-ocmconfig.md" >}})
   for authentication options when working with registries.
 
