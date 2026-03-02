@@ -152,7 +152,7 @@ When a component version has references to other component versions (via `compon
 
 For example, an app component might reference backend and frontend components stored in a separate repository. With resolvers configured, the CLI automatically finds and retrieves all referenced components.
 
-{{<callout context="warning">}}
+{{<callout context="tip">}}
 For the `transfer cv` command, resolvers are currently not taking into account.
 {{</callout>}}
 
