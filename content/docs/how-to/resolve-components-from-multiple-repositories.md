@@ -88,8 +88,8 @@ You should see all three components listed in the output. This confirms that the
  COMPONENT                       │ VERSION │ PROVIDER
 ─────────────────────────────────┼─────────┼──────────────
  ocm.software/tutorials/app      │ 1.0.0   │ ocm.software
- ocm.software/tutorials/backend  │ 1.0.0   │ ocm.software
- ocm.software/tutorials/frontend │ 1.0.0   │ ocm.software
+ ocm.software/tutorials/backend  │ 1.0.0   │ 
+ ocm.software/tutorials/frontend │ 1.0.0   │ 
 ```
 </details>
 {{< /step >}}
