@@ -96,6 +96,14 @@
   source = "static"
   target = "static"
 
+# Import reference documentation for component descriptor schema
+[[imports]]
+  path = "ocm.software/open-component-model/bindings/go/descriptor/v2"
+  version = "latest"
+  [[imports.mounts]]
+    source = "resources/schema-2020-12.json"
+    target = "static/schemas/component-descriptor-v2-schema.json"
+
 # Versioning content with mounts and imports
 ## per-version mounts of content folders
 ## per-version imports of reference docs using module imports
