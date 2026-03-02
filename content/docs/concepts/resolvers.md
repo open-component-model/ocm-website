@@ -23,7 +23,7 @@ Resolvers are configured in the OCM configuration file. By default, the CLI sear
 You can also specify a configuration file explicitly with the `--config` flag.
 
 {{<callout context="tip">}}
-For more information about configuring credentials, see [.ocmconfig documentation](https://github.com/open-component-model/ocm/blob/main/docs/reference/ocm_configfile.md).
+For more information about OCM configurations, see [.ocmconfig documentation](https://github.com/open-component-model/ocm/blob/main/docs/reference/ocm_configfile.md).
 {{</callout>}}
 
 ### Basic Configuration
