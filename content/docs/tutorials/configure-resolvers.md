@@ -31,16 +31,32 @@ pattern syntax, see the [Resolvers concept page]({{< relref "docs/concepts/resol
 ## Walkthrough
 
 This tutorial walks through a hands-on example with three components — a **backend**, a **frontend**, and an **app**
-that references both. The app lives in its own repository, while its component references (backend and frontend component) are stored in
+that references both. The app lives in its own repository, while its component references (backend and frontend
+component) are stored in
 a shared repository. When you recursively resolve the app, the CLI needs resolvers to locate the referenced
 components in their repositories.
 
 {{< steps >}}
 
-{{<callout context="note">}}
-For more information on creating a personal access token, see [GitHub's documentation](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token).
+{{< step >}}
+**Set up your environment**
 
-⚠️ The token must have the `write:packages` scope to allow pushing component versions to [GitHub Container Registry](https://ghcr.io).
+Before starting, set an environment variable for your GitHub username to simplify command inputs:
+
+```bash
+export GITHUB_USERNAME=<your-github-username>
+```
+
+This variable will be used in repository paths throughout the tutorial.
+
+{{< /step >}}
+
+{{<callout context="note">}}
+For more information on creating a personal access token,
+see [GitHub's documentation](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token).
+
+⚠️ The token must have the `write:packages` scope to allow pushing component versions
+to [GitHub Container Registry](https://ghcr.io).
 {{</callout>}}
 
 {{< step >}}
@@ -49,14 +65,15 @@ For more information on creating a personal access token, see [GitHub's document
 Log in to `ghcr.io` using a GitHub personal access token:
 
 ```bash
-echo $GITHUB_TOKEN | docker login ghcr.io -u <your-github-username> --password-stdin
+echo $GITHUB_TOKEN | docker login ghcr.io -u $GITHUB_USERNAME --password-stdin
 ```
 
 Your token needs to have write permissions for packages in order to push component versions to the registry.
 {{< /step >}}
 
 {{<callout context="tip">}}
-If you are re-running this tutorial and the component versions already exist, add `--component-version-conflict-policy replace` to the `ocm add cv` commands to overwrite existing versions.
+If you are re-running this tutorial and the component versions already exist, add
+`--component-version-conflict-policy replace` to the `ocm add cv` commands to overwrite existing versions.
 {{</callout>}}
 
 {{< step >}}
@@ -82,7 +99,7 @@ components:
 Push it to the repository to store the component in. We will reference this later when we create the app component:
 
 ```bash
-ocm add cv --repository ghcr.io/<your-github-username>/ocm-tutorial-deps \
+ocm add cv --repository ghcr.io/$GITHUB_USERNAME/ocm-resolver-tutorial-deps \
   --constructor backend-constructor.yaml
 ```
 
@@ -94,6 +111,7 @@ ocm add cv --repository ghcr.io/<your-github-username>/ocm-tutorial-deps \
 ────────────────────────────────┼─────────┼──────────────
  ocm.software/tutorials/backend │ 1.0.0   │ ocm.software
 ```
+
 </details>
 {{< /step >}}
 
@@ -120,7 +138,7 @@ components:
 Push it to the same repository:
 
 ```bash
-ocm add cv --repository ghcr.io/<your-github-username>/ocm-tutorial-deps \
+ocm add cv --repository ghcr.io/$GITHUB_USERNAME/ocm-resolver-tutorial-deps \
   --constructor frontend-constructor.yaml
 ```
 
@@ -132,13 +150,15 @@ ocm add cv --repository ghcr.io/<your-github-username>/ocm-tutorial-deps \
 ─────────────────────────────────┼─────────┼──────────────
  ocm.software/tutorials/frontend │ 1.0.0   │ ocm.software
 ```
+
 </details>
 {{< /step >}}
 
 {{< step >}}
-**Create and Push the App Component**
+**Create the App Component**
 
-Create `app-constructor.yaml`. Notice the `componentReferences` section — it declares dependencies on both the backend and frontend components:
+Create `app-constructor.yaml`. Notice the `componentReferences` section — it declares dependencies on both the backend
+and frontend components:
 
 ```yaml
 components:
@@ -162,46 +182,25 @@ components:
           text: "app deployment configuration"
 ```
 
-Push it to the **app repository** — a separate repository from where the component references are stored:
-
-```bash
-ocm add cv --repository ghcr.io/<your-github-username>/ocm-tutorial \
-  --constructor app-constructor.yaml
-```
-
-<details>
-  <summary>Expected output</summary>
-
-```text
-  COMPONENT                       │ VERSION │ PROVIDER
-─────────────────────────────────┼─────────┼──────────────
- ocm.software/tutorials/app      │ 1.0.0   │ ocm.software
- ocm.software/tutorials/backend  │ 1.0.0   │
- ocm.software/tutorials/frontend │ 1.0.0   │
-```
-</details>
 {{< /step >}}
 
-{{< step >}}
-**Verify the Components**
-
-Check that all three components exist in their respective repositories:
-
-```bash
-ocm get cv ghcr.io/<your-github-username>/ocm-tutorial-deps//ocm.software/tutorials/backend:1.0.0
-ocm get cv ghcr.io/<your-github-username>/ocm-tutorial-deps//ocm.software/tutorials/frontend:1.0.0
-ocm get cv ghcr.io/<your-github-username>/ocm-tutorial//ocm.software/tutorials/app:1.0.0
-```
-
-The outputs of each command should show the respective component version with its provider.
-{{< /step >}}
+{{<callout context="note">}}
+⚠️ Do not caall `add cv` yet — we need to set up resolvers first so the CLI can find the referenced components during
+recursive resolution.
+If you'd try to push your app-component now, the CLI would reject it because it can't find the referenced backend and
+frontend components in the app repository.
+{{</callout>}}
 
 {{< step >}}
+
 **Recursively Resolve the App with Resolvers**
 
+Before we can push the app-component that references the backend and frontend components,
+we need to set up resolvers so the CLI can find the referenced components during recursive resolution.
 Create an `.ocmconfig` file with credentials and resolvers that map the component references to their repository:
 
-```yaml
+```bash
+cat <<EOF > .ocmconfig
 type: generic.config.ocm.software/v1
 configurations:
   - type: credentials.config.ocm.software
@@ -214,34 +213,72 @@ configurations:
       - repository:
           type: OCIRepository/v1
           baseUrl: ghcr.io
-          subPath: <your-github-username>/ocm-tutorial-deps
+          subPath: $GITHUB_USERNAME/ocm-resolver-tutorial-deps
         componentNamePattern: "ocm.software/tutorials/frontend"
       - repository:
           type: OCIRepository/v1
           baseUrl: ghcr.io
-          subPath: <your-github-username>/ocm-tutorial-deps
+          subPath: $GITHUB_USERNAME/ocm-resolver-tutorial-deps
         componentNamePattern: "ocm.software/tutorials/backend"
+EOF
 ```
 
-Now recursively resolve the app:
+{{< /step >}}
+
+{{< step >}}
+**Push the App Component**
+
+After declaring the resolvers pointing to backend and frontend, you can not push the **app component** to the **app
+repository** —
+a separate repository from where the component references are stored:
 
 ```bash
-ocm get cv ghcr.io/<your-github-username>/ocm-tutorial//ocm.software/tutorials/app:1.0.0 \
-  --recursive=-1 --config .ocmconfig
+ocm add cv --repository ghcr.io/$GITHUB_USERNAME/ocm-resolver-tutorial \
+  --constructor app-constructor.yaml --config .ocmconfig
 ```
+
+<details>
+  <summary>Expected output</summary>
+
+```text
+  COMPONENT                       │ VERSION │ PROVIDER
+─────────────────────────────────┼─────────┼──────────────
+ ocm.software/tutorials/app      │ 1.0.0   │ ocm.software
+ ocm.software/tutorials/backend  │ 1.0.0   │
+ ocm.software/tutorials/frontend │ 1.0.0   │
+```
+
+</details>
 
 The CLI:
 
 1. Finds `ocm.software/tutorials/app:1.0.0` in the specified app repository
 2. Discovers the references to `ocm.software/tutorials/backend:1.0.0` and `ocm.software/tutorials/frontend:1.0.0`
 3. Consults the resolvers — each component name matches a configured pattern
-4. Looks up backend and frontend in `ghcr.io/<your-github-username>/ocm-tutorial-deps`
+4. Looks up backend and frontend in `ghcr.io/$GITHUB_USERNAME/ocm-resolver-tutorial-deps`
+
+{{< /step >}}
+
+{{< step >}}
+**Verify the Components**
+
+Check that all three components exist in their respective repositories:
+
+```bash
+ocm get cv ghcr.io/$GITHUB_USERNAME/ocm-resolver-tutorial-deps//ocm.software/tutorials/backend:1.0.0
+ocm get cv ghcr.io/$GITHUB_USERNAME/ocm-resolver-tutorial-deps//ocm.software/tutorials/frontend:1.0.0
+ocm get cv ghcr.io/$GITHUB_USERNAME/ocm-resolver-tutorial//ocm.software/tutorials/app:1.0.0
+```
+
+The outputs of each command should show the respective component version with its provider.
 {{< /step >}}
 
 {{< /steps >}}
 
 {{<callout context="tip" title="Resolving from Multiple Repositories">}}
-In the tutorial above, both component references share a single repository. In practice, components often live in **separate repositories**. See the how-to guide [How to Resolve Components from Multiple Repositories]({{< relref "docs/how-to/resolve-components-from-multiple-repositories.md" >}}) for a step-by-step recipe.
+In the tutorial above, both component references share a single repository. In practice, components often live in *
+*separate repositories**. See the how-to guide [How to Resolve Components from Multiple Repositories]({{< relref "
+docs/how-to/resolve-components-from-multiple-repositories.md" >}}) for a step-by-step recipe.
 {{</callout>}}
 
 ## What you've learned
@@ -254,15 +291,25 @@ In the tutorial above, both component references share a single repository. In p
 
 Now that you know how to configure resolvers, you can:
 
-- Learn more about component references: [Referencing Components](https://github.com/open-component-model/ocm-spec/blob/main/doc/02-processing/01-references.md).
-- Explore credential configuration: See [Credentials in an .ocmconfig File]({{< relref "creds-in-ocmconfig.md" >}}) for authentication options when working with registries.
-- Set up air-gapped environments: Use CTF archives with resolvers for offline component resolution. Learn about the Common Transport Format in [Creating a Component Version]({{< relref "docs/getting-started/create-component-version.md" >}}).
+- Learn more about component
+  references: [Referencing Components](https://github.com/open-component-model/ocm-spec/blob/main/doc/02-processing/01-references.md).
+- Explore credential configuration: See [Credentials in an .ocmconfig File]({{< relref "creds-in-ocmconfig.md" >}}) for
+  authentication options when working with registries.
+- Set up air-gapped environments: Use CTF archives with resolvers for offline component resolution. Learn about the
+  Common Transport Format in [Creating a Component Version]({{< relref "
+  docs/getting-started/create-component-version.md" >}}).
 
 ## Related Documentation
 
-- [Resolvers]({{< relref "docs/concepts/resolvers.md" >}}) — Resolver concepts, configuration options, pattern syntax, and schema reference
-- [Components]({{< relref "docs/concepts/components.md" >}}) — Core concepts behind component versions, identities, and references
-- [Credentials in an .ocmconfig File]({{< relref "creds-in-ocmconfig.md" >}}) — Configure credentials for OCI registries, Helm repositories, and more
-- [Creating a Component Version]({{< relref "docs/getting-started/create-component-version.md" >}}) — Build component versions and work with CTF archives
-- [Input and Access Types]({{< relref "input-and-access-types.md" >}}) — Reference for resource input types (by value) and access types (by reference)
-- [Signing and Verification]({{< relref "signing-and-verification.md" >}}) — Sign and verify component versions with cryptographic keys
+- [Resolvers]({{< relref "docs/concepts/resolvers.md" >}}) — Resolver concepts, configuration options, pattern syntax,
+  and schema reference
+- [Components]({{< relref "docs/concepts/components.md" >}}) — Core concepts behind component versions, identities, and
+  references
+- [Credentials in an .ocmconfig File]({{< relref "creds-in-ocmconfig.md" >}}) — Configure credentials for OCI
+  registries, Helm repositories, and more
+- [Creating a Component Version]({{< relref "docs/getting-started/create-component-version.md" >}}) — Build component
+  versions and work with CTF archives
+- [Input and Access Types]({{< relref "input-and-access-types.md" >}}) — Reference for resource input types (by value)
+  and access types (by reference)
+- [Signing and Verification]({{< relref "signing-and-verification.md" >}}) — Sign and verify component versions with
+  cryptographic keys
