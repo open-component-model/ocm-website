@@ -185,7 +185,7 @@ components:
 {{< /step >}}
 
 {{<callout context="note">}}
-⚠️ Do not caall `add cv` yet — we need to set up resolvers first so the CLI can find the referenced components during
+⚠️ Do not call `add cv` yet — we need to set up resolvers first so the CLI can find the referenced components during
 recursive resolution.
 If you'd try to push your app-component now, the CLI would reject it because it can't find the referenced backend and
 frontend components in the app repository.
@@ -277,8 +277,10 @@ The outputs of each command should show the respective component version with it
 
 {{<callout context="tip" title="Resolving from Multiple Repositories">}}
 In the tutorial above, both component references share a single repository. In practice, components often live in *
-*separate repositories**. See the how-to guide [How to Resolve Components from Multiple Repositories]({{< relref "
-docs/how-to/resolve-components-from-multiple-repositories.md" >}}) for a step-by-step recipe.
+*separate repositories**. See the how-to guide
+[How to Resolve Components from Multiple Repositories]
+({{< relref "docs/how-to/resolve-components-from-multiple-repositories.md" >}})
+for a step-by-step recipe.
 {{</callout>}}
 
 ## What you've learned
@@ -296,8 +298,8 @@ Now that you know how to configure resolvers, you can:
 - Explore credential configuration: See [Credentials in an .ocmconfig File]({{< relref "creds-in-ocmconfig.md" >}}) for
   authentication options when working with registries.
 - Set up air-gapped environments: Use CTF archives with resolvers for offline component resolution. Learn about the
-  Common Transport Format in [Creating a Component Version]({{< relref "
-  docs/getting-started/create-component-version.md" >}}).
+  Common Transport Format in [Creating a Component Version]
+  ({{< relref "docs/getting-started/create-component-version.md" >}}).
 
 ## Related Documentation
 
