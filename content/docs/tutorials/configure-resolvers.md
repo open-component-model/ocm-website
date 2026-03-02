@@ -228,7 +228,7 @@ EOF
 {{< step >}}
 **Push the App Component**
 
-After declaring the resolvers pointing to backend and frontend, you can not push the **app component** to the **app
+After declaring the resolvers pointing to backend and frontend, you cannot push the **app component** to the **app
 repository** —
 a separate repository from where the component references are stored:
 
@@ -277,9 +277,10 @@ The outputs of each command should show the respective component version with it
 
 {{<callout context="tip" title="Resolving from Multiple Repositories">}}
 In the tutorial above, both component references share a single repository. In practice, components often live in *
-*separate repositories**. See the how-to guide
-[How to Resolve Components from Multiple Repositories]
-({{< relref "docs/how-to/resolve-components-from-multiple-repositories.md" >}})
+*separate repositories**.
+
+See the how-to guide:
+[How to Resolve Components from Multiple Repositories]({{< relref "docs/how-to/resolve-components-from-multiple-repositories.md" >}})
 for a step-by-step recipe.
 {{</callout>}}
 
@@ -298,8 +299,7 @@ Now that you know how to configure resolvers, you can:
 - Explore credential configuration: See [Credentials in an .ocmconfig File]({{< relref "creds-in-ocmconfig.md" >}}) for
   authentication options when working with registries.
 - Set up air-gapped environments: Use CTF archives with resolvers for offline component resolution. Learn about the
-  Common Transport Format in [Creating a Component Version]
-  ({{< relref "docs/getting-started/create-component-version.md" >}}).
+  Common Transport Format in [Creating a Component Version]({{< relref "docs/getting-started/create-component-version.md" >}}).
 
 ## Related Documentation
 
