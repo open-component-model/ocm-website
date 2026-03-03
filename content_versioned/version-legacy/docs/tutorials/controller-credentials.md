@@ -26,10 +26,12 @@ create a Kubernetes secret of type `dockerconfigjson` that contains the credenti
 kubectl create secret docker-registry ocm-secret --from-file=<path-to-your-docker-config-file>
 ```
 
-{{<callout context="caution">}}
-Be aware that Kubernetes secrets are only `base64` encoded and not encrypted. This means that anyone with access to the Kubernetes secret can access the credentials.
+{{<callout context="caution" title="Kubernetes secrets" icon="outline/lock-open">}}
+Be aware that Kubernetes secrets are only `base64` encoded and not encrypted. This means that anyone with access to the
+Kubernetes secret can access the credentials.
 
-Accordingly, you should make sure that the Docker configuration file only contains information required for accessing the private OCM repository.
+Accordingly, you should make sure that the Docker configuration file only contains information required for accessing
+the private OCM repository.
 {{</callout>}}
 
 In case you want to create the secret manually, you can use the following command to create a Kubernetes secret
@@ -48,7 +50,7 @@ To create a Kubernetes secret or configmap containing an OCM configuration that 
 to access private OCM repositories, you can use the `.ocmconfig` file used to transfer the OCM component in the
 first place.
 
-{{<callout context="caution">}}
+{{<callout context="caution" title="OCM Configuration File" icon="outline/lock-password">}}
 Usually, the `.ocmconfig` file is located in your HOME directory. However, this `.ocmconfig` could contain more
 configurations than just the credentials for accessing private OCM repositories. As this `.ocmconfig` will be used
 to create a Kubernetes secret or configmap to which other users might have access to, you have to make sure that it
@@ -90,7 +92,7 @@ You can now create a secret in the Kubernetes cluster that contains the `.ocmcon
 kubectl create secret generic ocm-secret --from-file=./.ocmconfig
 ```
 
-{{<callout context="caution">}}
+{{<callout context="note" title="OCM Config Key" icon="outline/menu-deep">}}
 Make sure that the secret or configmap containing an OCM config has the correct key to the OCM config file
 `.ocmconfig`. This is required for OCM controller resources to be able to read the OCM configuration.
 Using the filename `.ocmconfig` in the `--from-file` option takes care of that.

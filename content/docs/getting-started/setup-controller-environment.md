@@ -17,7 +17,7 @@ This document describes how to set up a local environment for running examples f
 
 ## Start a Local Kubernetes Cluster With kind
 
-{{<callout context="note">}}
+{{<callout context="note" title="Kubernetes Cluster" icon="outline/box">}}
 You don't need to run kind if you are using a remote Kubernetes cluster you have access to. If so, you can skip this.
 {{</callout>}}
 
@@ -122,7 +122,7 @@ As all examples and guides will create an OCM component version that will be con
 need access to a registry. You can either choose a public registry like [ghcr.io][ghcr.io] or deploy a registry (like
 [`registry`][registry], [`zot`][zot], ...) into your Kubernetes cluster.
 
-{{<callout context="caution">}}
+{{<callout context="caution" title="Registry Access" icon="outline/package-import">}}
 If you choose to deploy a registry into your Kubernetes cluster, you have to make sure it is accessible from outside
 the cluster (for `ocm transfer` to work) and inside the cluster (for the OCM controllers to work).
 
