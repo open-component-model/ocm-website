@@ -42,7 +42,8 @@ Build the OCM CLI from the `open-component-model/open-component-model` monorepo.
 ```shell
 git clone https://github.com/open-component-model/open-component-model.git
 cd open-component-model
-make install
+task cli:build   # builds to cli/tmp/bin/ocm
+task cli:install # installs to /usr/local/bin (requires sudo)
 ```
 
 The CLI is installed to your `$GOPATH/bin` directory. Ensure this is in your `PATH`:
