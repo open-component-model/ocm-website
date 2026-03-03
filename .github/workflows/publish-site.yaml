@@ -44,20 +44,42 @@ jobs:
           hugo-version: '0.155.0'
           extended: true
 
-      - name: Install deps and Build
-        run: |
-          npm ci
-          npm run build
-
       - name: Setup Python
         uses: actions/setup-python@e797f83bcb11b83ae66e0230d6156d7c80228e7c #v5
         with:
           python-version: '3.11'
 
-      - name: Generate Schema
+      - name: Install json-schema-for-humans
+        run: python3 -m pip install json-schema-for-humans
+
+      - name: Generate Component Descriptor Schema Markdown
         run: |
-          python3 -m pip install json-schema-for-humans
-          generate-schema-doc --config-file generate-schema.yaml static/schemas/component-descriptor-v2 schema-v2.html
+          # Fetch the latest schema JSON from upstream main branch
+          curl -sSfL \
+            "https://raw.githubusercontent.com/open-component-model/open-component-model/main/bindings/go/descriptor/v2/resources/schema-2020-12.json" \
+            -o static/schemas/component-descriptor-v2-schema.json
+
+          # Generate Markdown body from schema
+          generate-schema-doc \
+            --config-file .github/config/generate-schema-md.yaml \
+            static/schemas/component-descriptor-v2-schema.json \
+            /tmp/schema-body.md
+
+          # Strip the redundant "# Schema Docs" heading from generated output
+          sed -i '1s/^# Schema Docs$//' /tmp/schema-body.md
+
+          # Combine template header with generated schema reference
+          cat content_templates/component-descriptor-schema.md /tmp/schema-body.md \
+            > content/docs/reference/component-descriptor-schema.md
+
+      - name: Install deps and Build
+        run: |
+          npm ci
+          npm run build
+
+      - name: Generate Schema HTML
+        run: |
+          generate-schema-doc --config-file .github/config/generate-schema.yaml static/schemas/component-descriptor-v2-schema.json schema-v2.html
 
       - name: Copy Schema
         run: |
