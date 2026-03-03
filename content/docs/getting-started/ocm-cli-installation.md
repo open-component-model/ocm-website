@@ -62,12 +62,11 @@ After installing, verify the CLI is working:
 ocm version
 ```
 
-Expected output (example from dev version):
+Expected output:
 
 ```text
-{"major":"0","minor":"0","patch":"0","prerelease":"20260215172822-039e8853d19e",
-"gitVersion":"0.0.0-20260215172822-039e8853d19e","gitCommit":"039e8853d19e","buildDate":"20260215172822",
-"goVersion":"go1.25.6","compiler":"gc","platform":"darwin/arm64"}
+{"major":"0","minor":"0","patch":"0","prerelease":"20260303132328-a9d3fc14937a",
+"gitVersion":"0.0.0-20260303132328-a9d3fc14937a","gitCommit":"a9d3fc14937a","buildDate":"20260303132328","goVersion":"go1.26.0","compiler":"gc","platform":"darwin/arm64"}
 ```
 
 ## Windows Support

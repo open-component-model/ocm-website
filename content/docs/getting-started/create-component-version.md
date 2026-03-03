@@ -79,7 +79,7 @@ components:
     - name: mylocalfile
       type: blob
       input: # Embed by value
-        type: file
+        type: file/v1
         path: ./my-local-resource.txt
     - name: image
       type: ociImage

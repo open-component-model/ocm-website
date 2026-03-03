@@ -60,7 +60,6 @@ kubectl cluster-info --context kind-kind
 Have a nice day! 👋
 ```
 </details>
-<br></details>
 <br>
 
 Verify the cluster is running:
