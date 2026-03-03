@@ -30,12 +30,12 @@ Resolvers are configured in the OCM configuration file. By default, the CLI sear
 You can also specify a configuration file explicitly with the `--config` flag.
 
 {{<callout context="tip">}}
-For more information about OCM configurations, see [.ocmconfig documentation](https://github.com/open-component-model/ocm/blob/main/docs/reference/ocm_configfile.md).
+For more information about the OCM configuration file, see [.ocmconfig documentation](https://github.com/open-component-model/ocm/blob/main/docs/reference/ocm_configfile.md).
 {{</callout>}}
 
 ### Basic Configuration
 
-The resolver configuration uses the type `resolvers.config.ocm.software/v1alpha1` inside a generic OCM configuration file:
+The resolver configuration uses the type `resolvers.config.ocm.software/v1alpha1` inside a generic OCM configuration type:
 
 ```yaml
 type: generic.config.ocm.software/v1
@@ -115,7 +115,6 @@ configurations:
 
 **Excerpt of the supported glob patterns:**
 
-When configuring resolvers, you can use glob patterns to specify which component names should be resolved by which repositories.
 Here are some examples of supported patterns:
 
 | Pattern                     | Matches                                                  |
@@ -135,21 +134,6 @@ Here are some examples of supported patterns:
 {{<callout context="note">}}
 For more information on the supported glob syntax, see the [glob package documentation](https://github.com/gobwas/glob).
 {{</callout>}}
-
-## CLI and Resolver Interaction
-
-When you provide both a repository reference on the command line and have resolvers configured, the CLI uses the following priority order:
-
-1. **Command-line reference** (highest priority) — the repository specified directly in the command
-2. **Configured resolvers** — resolvers from the configuration file, matched by component name pattern
-
-This means you can always override resolver behavior by specifying a repository explicitly:
-
-```bash
-# Uses resolvers from config to find referenced components
-ocm get cv ghcr.io/my-org/components//example.com/services/app:1.0.0 \
-  --recursive=-1
-```
 
 With the resolver configured, the CLI discovers the component references and automatically locates them in the configured repositories.
 
