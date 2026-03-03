@@ -14,7 +14,7 @@ this OCM component version. Using CEL expressions inside the `ResourceGraphDefin
 resource location will be passed to FluxCD, which will then configure the Helm chart and deploy it into the Kubernetes
 cluster.
 
-{{<callout context="caution">}}
+{{<callout context="caution" title="Prerequisites" icon="outline/settings-check">}}
 Before starting, make sure you have set up your environment as described in the [setup guide]({{< relref "setup-controller.md" >}}).
 {{</callout>}}
 
@@ -55,7 +55,7 @@ registry. For this example, we will use GitHub's container registry, but you can
 ocm transfer ctf ./ctf ghcr.io/<your-namespace>
 ```
 
-{{<callout context="note">}}
+{{<callout context="note" title="Provide credentials to the OCM cli" icon="outline/key">}}
 If you are using a registry that requires authentication, you need to provide credentials for ocm. Please refer to
 the [OCM CLI credentials documentation]({{< relref "creds-in-ocmconfig.md" >}}) for more information on how to set up and use credentials.
 {{</callout>}}
@@ -199,8 +199,9 @@ spec:
               message: ${schema.spec.message}
 ```
 
-{{<callout context="note">}}
-If you pushed the OCM component version to a private registry, you need to set up the credentials for the OCM controller resources. You can do this by uncommenting the `ocmConfig` fields in the `Repository`, `Component`, and
+{{<callout context="note" title="Provide credentials for the deployment" icon="outline/key">}}
+If you pushed the OCM component version to a private registry, you need to set up the credentials for the OCM controller
+resources. You can do this by uncommenting the `ocmConfig` fields in the `Repository`, `Component`, and
 `Resource` resources and providing the necessary credentials. For more information on how to set up and pass the
 credentials, please check out the guide [configure credentials for OCM controller resources]({{< relref "controller-credentials.md" >}}).
 
