@@ -117,7 +117,7 @@ spec:
       name: ocm-secret
 ```
 
-{{<callout context="caution">}}
+{{<callout context="note" title="Config Propagation" icon="outline/file-settings" >}}
 `ocmConfig` is propagated by default and the `Component`, `Resource`, and `Deployer` custom resources will
 automatically consume the `ocmConfig` from the custom resource they are referencing if they do not specify their own
 `ocmConfig`.
