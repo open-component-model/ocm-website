@@ -117,13 +117,14 @@ spec:
       name: ocm-secret
 ```
 
-> [!IMPORTANT]
-> `ocmConfig` is propagated by default and the `Component`, `Resource`, and `Deployer` custom resources will
-> automatically consume the `ocmConfig` from the custom resource they are referencing if they do not specify their own
-> `ocmConfig`.
-> This means that if you specify the `ocmConfig` in a `Repository`, the `Component` that references this
-> `Repository` will automatically consume the same `ocmConfig` and you do not need to specify it again in the
-> `Component`.
+{{<callout context="caution">}}
+`ocmConfig` is propagated by default and the `Component`, `Resource`, and `Deployer` custom resources will
+automatically consume the `ocmConfig` from the custom resource they are referencing if they do not specify their own
+`ocmConfig`.
+This means that if you specify the `ocmConfig` in a `Repository`, the `Component` that references this
+`Repository` will automatically consume the same `ocmConfig` and you do not need to specify it again in the
+`Component`.
+{{</callout>}}
 
 If you want to consume the `ocmConfig` of a `Repository` in  a `Component` in addition to another `ocmConfig` that is
 specified in the `Component`, you need to specify the `ocmConfig` reference to the repository as well:
