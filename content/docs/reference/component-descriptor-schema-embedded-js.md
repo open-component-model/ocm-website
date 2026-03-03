@@ -47,7 +47,7 @@ The interactive schema viewer below lets you explore the full Component Descript
 with collapsible sections. Use the **Expand all / Collapse all** buttons to navigate.
 
 <iframe
-  src="/docs/overview/specification/schema-v2.html"
+  src="https://ocm.software/docs/overview/specification/schema-v2.html"
   title="Component Descriptor JSON Schema Viewer"
   style="width: 100%; height: 800px; border: 1px solid var(--bs-border-color); border-radius: 0.375rem;"
   loading="lazy"
