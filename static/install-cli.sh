@@ -88,18 +88,20 @@ setup_tmp() {
 # Find version from Github metadata
 get_release_version() {
     if [[ -n "${OCM_VERSION}" ]]; then
-      SUFFIX_URL="tags/${TAG_PREFIX}v${OCM_VERSION}"
+        METADATA_URL="https://api.github.com/repos/${GITHUB_REPO}/releases/tags/${TAG_PREFIX}v${OCM_VERSION}"
     else
-      SUFFIX_URL="latest"
+        # Use the list endpoint so we can filter by TAG_PREFIX; /releases/latest may
+        # point to a non-CLI release (e.g. a website or docs tag published more recently).
+        METADATA_URL="https://api.github.com/repos/${GITHUB_REPO}/releases"
     fi
-
-    METADATA_URL="https://api.github.com/repos/${GITHUB_REPO}/releases/${SUFFIX_URL}"
 
     info "Downloading metadata ${METADATA_URL}"
     download "${TMP_METADATA}" "${METADATA_URL}"
 
-    # tag_name has the format "cli/v0.1.0" – strip the prefix and leading "v"
-    VERSION_OCM=$(grep '"tag_name":' "${TMP_METADATA}" | sed -E 's|.*"cli/v([^"]+)".*|\1|')
+    # tag_name has the format "cli/v0.1.0" – strip the prefix and leading "v".
+    # When OCM_VERSION is unset the response is a JSON array; grep the first
+    # tag_name that starts with TAG_PREFIX to avoid picking a non-CLI release.
+    VERSION_OCM=$(grep '"tag_name":' "${TMP_METADATA}" | grep "\"${TAG_PREFIX}v" | head -1 | sed -E 's|.*"cli/v([^"]+)".*|\1|')
     if [[ -n "${VERSION_OCM}" ]]; then
         info "Using ${VERSION_OCM} as release"
     else
@@ -140,11 +142,10 @@ setup_binary() {
     chmod 755 "${TMP_BIN}"
     info "Installing ocm to ${BIN_DIR}/ocm"
 
-    local CMD_MOVE="mv -f \"${TMP_BIN}\" \"${BIN_DIR}/ocm\""
     if [[ -w "${BIN_DIR}" ]]; then
-        eval "${CMD_MOVE}"
+        mv -f -- "${TMP_BIN}" "${BIN_DIR}/ocm"
     else
-        eval "sudo ${CMD_MOVE}"
+        sudo mv -f -- "${TMP_BIN}" "${BIN_DIR}/ocm"
     fi
 }
 
