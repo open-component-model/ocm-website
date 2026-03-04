@@ -24,7 +24,10 @@ in different OCI registries.
 **Create an `.ocmconfig` with resolver entries**
 
 Add a resolver entry for each registry where referenced components are stored. Replace the placeholder values with your
-own registry, paths, and component names:
+own registry, paths, and component names.
+
+Assume you have a root component `<root-component>` that references `<component-a>` and `<component-b>`, each stored in
+a different repository:
 
 ```yaml
 type: generic.config.ocm.software/v1
@@ -40,12 +43,12 @@ configurations:
           type: OCIRepository/v1
           baseUrl: <registry>                 # e.g. ghcr.io
           subPath: <subpath-a>                # e.g. my-org/team-a
-        componentNamePattern: "<pattern-a>"   # e.g. my-org.example/component-a
+        componentNamePattern: "<component-a>" # e.g. my-org.example/component-a
       - repository:
           type: OCIRepository/v1
           baseUrl: <registry>                 # e.g. ghcr.io
           subPath: <subpath-b>                # e.g. my-org/team-b
-        componentNamePattern: "<pattern-b>"   # e.g. my-org.example/component-b
+        componentNamePattern: "<component-b>" # e.g. my-org.example/component-b
 ```
 
 {{< /step >}}
@@ -56,17 +59,32 @@ configurations:
 Point the CLI at the root component and pass your config file:
 
 ```bash
+ocm add cv --repository <registry>/<root-subpath> \
+  --constructor <constructor>.yaml \
+  --config .ocmconfig
+```
+
+or
+
+```bash
 ocm get cv <registry>/<root-subpath>//<root-component>:<version> \
   --recursive=-1 --config .ocmconfig
 ```
 
-The CLI follows every component reference in the graph and uses the resolver entries to locate each one.
+`add cv` uploads a component version to the registry using the resolver config to locate referenced components.
+`get cv --recursive` walks the full component graph and lists all transitively referenced components.
 
 <details>
 <summary>Example</summary>
 
 ```bash
-ocm get cv ghcr.io/my-org/components//example.com/services/app:1.0.0 \
+ocm add cv --repository ghcr.io/my-org/components \
+  --constructor root-constructor.yaml \
+  --config .ocmconfig
+```
+
+```bash
+ocm get cv ghcr.io/my-org/components//my-org.example/root-component:1.0.0 \
   --recursive=-1 --config .ocmconfig
 ```
 
@@ -84,11 +102,11 @@ missing, check that there is a matching resolver entry for it.
 <summary>Example output</summary>
 
 ```text
-COMPONENT          │ VERSION │ PROVIDER
-───────────────────┼─────────┼──────────
-<root-component>   │ x.y.z   │ <provider>
-<component-a>      │ x.y.z   │
-<component-b>      │ x.y.z   │
+COMPONENT                          │ VERSION │ PROVIDER
+───────────────────────────────────┼─────────┼──────────
+my-org.example/root-component      │ 1.0.0   │ my-org
+my-org.example/component-a         │ 1.0.0   │
+my-org.example/component-b         │ 1.0.0   │
 ```
 
 </details>
