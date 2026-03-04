@@ -160,7 +160,7 @@ ocm transfer cv ghcr.io/my-org/components//example.com/services/app:1.0.0 \
 
 {{<callout context="tip">}}
 For more information about the `transfer` command, see the
-[OCM CLI Transfer reference]({{< relref "docs/reference/ocm-cli/ocm-transfer.md" >}}).
+[OCM CLI Transfer reference](https://ocm.software/docs/reference/ocm-cli/transfer/).
 {{</callout>}}
 
 ## Configuration Reference
