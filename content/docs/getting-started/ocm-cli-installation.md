@@ -46,11 +46,6 @@ task cli:build   # builds to cli/tmp/bin/ocm
 task cli:install # installs to /usr/local/bin (requires sudo)
 ```
 
-The CLI is installed to your `$GOPATH/bin` directory. Ensure this is in your `PATH`:
-
-```shell
-export PATH="$PATH:$(go env GOPATH)/bin"
-```
 {{< /tab >}}
 {{< /tabs >}}
 

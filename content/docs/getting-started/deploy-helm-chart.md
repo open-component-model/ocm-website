@@ -117,7 +117,7 @@ Transferring component versions...
 ```
 </details>
 
-To make your component public in GitHub Container Registry, go to your [packages tab](https://github.com/morri-son?tab=packages),
+To make your component public in GitHub Container Registry, go to the `packages` tab in your GitHub repository https://github.com/<your-namespace>?tab=packages,
 select the package `component-descriptors/ocm.software/ocm-k8s-toolkit/simple`, and under "Package settings" change the visibility to `public`.
 
 {{< /step >}}
@@ -263,7 +263,7 @@ spec:
             name: ${ocirepository.metadata.name}
             namespace: default
           values:
-            # We configure the Helm chart using Fluxs HelmRelease 'values' field. We pass the value that we set in
+            # We configure the Helm chart using Flux's HelmRelease 'values' field. We pass the value that we set in
             # the instance of the CRD created by the ResourceGraphDefinition (see below).
             ui:
               message: ${schema.spec.message}
