@@ -1,49 +1,30 @@
 ---
-title: "How to Resolve Components from Multiple Repositories"
-description: "Configure resolvers to recursively resolve component references distributed across multiple registries."
+title: "How to Resolve Components Across Multiple Registries"
+description: "Configure resolvers to recursively resolve component references distributed across multiple OCI registries."
 weight: 10
 toc: true
 ---
 
 ## Goal
 
-Configure OCM resolvers so the CLI can recursively resolve component references that are stored in separate OCI
-repositories.
-For background on how resolvers work, see the [Resolvers concept page]({{< relref "docs/concepts/resolvers.md" >}}).
-
-{{< callout type="note" >}}
-**You will end up with**
-
-- An `.ocmconfig` file with resolver entries pointing to different repositories
-- A working `ocm get cv --recursive` command that resolves components across repositories
-  {{< /callout >}}
-
-**Estimated time:** ~5 minutes
+Configure an `.ocmconfig` file with resolver entries so the OCM CLI can recursively resolve component references stored
+in different OCI registries.
 
 ## Prerequisites
 
-- [Getting Started]({{< relref "docs/getting-started/_index.md" >}}) completed
 - [OCM CLI]({{< relref "docs/getting-started/ocm-cli-installation.md" >}}) installed
-- Access to at least one OCI registry (e.g., `ghcr.io`)
-- Components with references already pushed to separate repositories (if you need to set these up first, follow
-  the [Configure Resolvers tutorial]({{< relref "docs/tutorials/configure-resolvers.md" >}}))
-
-This guide assumes you have the following components already pushed:
-
-| Component                                                      | Repository                                                      |
-|----------------------------------------------------------------|-----------------------------------------------------------------|
-| `ocm.software/tutorials/backend`                               | `ghcr.io/<your-github-username>/ocm-resolver-tutorial-backend`  |
-| `ocm.software/tutorials/frontend`                              | `ghcr.io/<your-github-username>/ocm-resolver-tutorial-frontend` |
-| `ocm.software/tutorials/app` (references backend and frontend) | `ghcr.io/<your-github-username>/ocm-resolver-tutorial-app`      |
+- [Components]({{< relref "docs/getting-started/create-component-version.md" >}}) already pushed to separate OCI registries
+- An OCM configuration file (see [.ocmconfig documentation](https://github.com/open-component-model/ocm/blob/main/docs/reference/ocm_configfile.md)
 
 ## Steps
 
 {{< steps >}}
 
 {{< step >}}
-**Create an `.ocmconfig` with per-component resolvers**
+**Create an `.ocmconfig` with resolver entries**
 
-Each resolver entry points to the repository where a specific component is stored:
+Add a resolver entry for each registry where referenced components are stored. Replace the placeholder values with your
+own registry, paths, and component names:
 
 ```yaml
 type: generic.config.ocm.software/v1
@@ -57,69 +38,80 @@ configurations:
     resolvers:
       - repository:
           type: OCIRepository/v1
-          baseUrl: ghcr.io
-          subPath: <your-github-username>/ocm-resolver-tutorial-frontend
-        componentNamePattern: "ocm.software/tutorials/frontend"
+          baseUrl: <registry>                 # e.g. ghcr.io
+          subPath: <subpath-a>                # e.g. my-org/team-a
+        componentNamePattern: "<pattern-a>"   # e.g. my-org.example/component-a
       - repository:
           type: OCIRepository/v1
-          baseUrl: ghcr.io
-          subPath: <your-github-username>/ocm-resolver-tutorial-backend
-        componentNamePattern: "ocm.software/tutorials/backend"
+          baseUrl: <registry>                 # e.g. ghcr.io
+          subPath: <subpath-b>                # e.g. my-org/team-b
+        componentNamePattern: "<pattern-b>"   # e.g. my-org.example/component-b
 ```
 
 {{< /step >}}
 
-{{< callout type="tip" >}}
-If multiple components share a repository, use glob patterns (e.g., `ocm.software/tutorials/*`) to match them with a
-single resolver entry instead of listing each one individually. See
-[Component Name Patterns]({{< relref "docs/concepts/resolvers.md#component-name-patterns" >}})
-for the full pattern syntax.
-{{< /callout >}}
-
 {{< step >}}
-**Resolve the app recursively**
+**Resolve the root component recursively**
+
+Point the CLI at the root component and pass your config file:
 
 ```bash
-ocm get cv ghcr.io/<your-github-username>/ocm-resolver-tutorial-app//ocm.software/tutorials/app:1.0.0 \
+ocm get cv <registry>/<root-subpath>//<root-component>:<version> \
   --recursive=-1 --config .ocmconfig
 ```
 
-You should see all three components listed in the output. This confirms that the CLI resolved the backend and frontend
-references from their respective repositories.
+The CLI follows every component reference in the graph and uses the resolver entries to locate each one.
 
 <details>
-  <summary>Expected output</summary>
+<summary>Example</summary>
 
-```text
- COMPONENT                       │ VERSION │ PROVIDER
-─────────────────────────────────┼─────────┼──────────────
- ocm.software/tutorials/app      │ 1.0.0   │ ocm.software
- ocm.software/tutorials/backend  │ 1.0.0   │ 
- ocm.software/tutorials/frontend │ 1.0.0   │ 
+```bash
+ocm get cv ghcr.io/my-org/components//example.com/services/app:1.0.0 \
+  --recursive=-1 --config .ocmconfig
 ```
 
 </details>
+
+{{< /step >}}
+
+{{< step >}}
+**Verify the output**
+
+The output should list the root component and all transitively referenced components. If a referenced component is
+missing, check that there is a matching resolver entry for it.
+
+<details>
+<summary>Example output</summary>
+
+```text
+COMPONENT          │ VERSION │ PROVIDER
+───────────────────┼─────────┼──────────
+<root-component>   │ x.y.z   │ <provider>
+<component-a>      │ x.y.z   │
+<component-b>      │ x.y.z   │
+```
+
+</details>
+
 {{< /step >}}
 
 {{< /steps >}}
 
-This pattern scales to any number of repositories — simply add a resolver entry for each component or use glob patterns
-to match groups of components from the same repository.
+## Tips
 
-## Next steps
-
-- **Learn resolver concepts and patterns**: See the
-[Resolvers concept page]({{< relref "docs/concepts/resolvers.md" >}}) for configuration options, pattern syntax, and
-  schema reference.
-- **Build components with references from scratch**: Follow the
-[Configure Resolvers tutorial]({{< relref "docs/tutorials/configure-resolvers.md" >}}) for a full walkthrough.
-- **Explore credential configuration**: See [Credentials in an .ocmconfig File]({{< relref "creds-in-ocmconfig.md" >}})
-  for authentication options when working with registries.
+- **If multiple components share a registry path**, use a glob pattern (e.g. `example.com/services/*`) instead of
+  listing each component individually. See
+  [Component Name Patterns]({{< relref "docs/concepts/resolvers.md#component-name-patterns" >}}) for the full syntax.
+- **If you need to transfer components to another registry**, use `ocm transfer cv --recursive --copy-resources` with
+  the same config file. See
+  [OCM Transfer]({{< relref "docs/concepts/resolvers.md#ocm-transfer" >}}) for details.
+- **Resolvers are evaluated in order** — place more specific patterns before broader ones so the right repository is
+  matched first.
 
 ## Related documentation
 
-- [Resolvers]({{< relref "docs/concepts/resolvers.md" >}}) — Resolver concepts, configuration options, pattern syntax,
-  and schema reference
-- [Configure Resolvers Tutorial]({{< relref "docs/tutorials/configure-resolvers.md" >}}) — Full tutorial covering
-  hands-on resolver setup
-- [Credentials in an .ocmconfig File]({{< relref "creds-in-ocmconfig.md" >}}) — Configure credentials for OCI registries
+- [Resolvers]({{< relref "docs/concepts/resolvers.md" >}}) — Concept page with configuration schema, pattern syntax,
+  and transfer details
+- [Working with Resolvers Tutorial]({{< relref "docs/tutorials/configure-resolvers.md" >}}) — Hands-on tutorial for
+  building and pushing components with resolvers
+- [Credentials in an .ocmconfig File]({{< relref "creds-in-ocmconfig.md" >}}) — Configure registry credentials

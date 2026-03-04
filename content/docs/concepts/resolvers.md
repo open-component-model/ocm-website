@@ -1,5 +1,5 @@
 ---
-title: "Resolvers"
+title: "OCM Resolvers"
 description: "Learn how OCM resolvers map component name patterns to repositories for recursive resolution."
 icon: "🔍"
 weight: 44
@@ -185,7 +185,7 @@ the [OCM specification](https://github.com/open-component-model/open-component-m
 ## Related Documentation
 
 - [Components]({{< relref "components.md" >}}) — Core concepts behind component versions, identities, and references
-- [Configure Resolvers Tutorial]({{< relref "docs/tutorials/configure-resolvers.md" >}}) — Hands-on walkthrough for setting up resolvers
-- [Resolve Components from Multiple Repositories]({{< relref "docs/how-to/resolve-components-from-multiple-repositories.md" >}}) — Step-by-step recipe
-  for multi-repository resolution
+- [Working with Resolvers Tutorial]({{< relref "docs/tutorials/configure-resolvers.md" >}}) — Hands-on walkthrough for setting up resolvers
+- [How to Resolve Components Across Multiple Registries]({{< relref "docs/how-to/resolve-components-from-multiple-repositories.md" >}}) — Recipe for
+  multi-registry resolution
 - [Credentials in an .ocmconfig File]({{< relref "creds-in-ocmconfig.md" >}}) — Configure credentials for OCI registries

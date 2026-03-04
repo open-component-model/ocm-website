@@ -1,5 +1,5 @@
 ---
-title: "Configure Resolvers in OCM CLI"
+title: "Working with Resolvers"
 description: "Configure resolvers to recursively resolve component references from a shared repository."
 icon: "🔍"
 weight: 80
@@ -280,8 +280,8 @@ In the tutorial above, both component references share a single repository. In p
 **separate repositories**.
 
 See the how-to guide:
-[How to Resolve Components from Multiple Repositories]({{< relref "docs/how-to/resolve-components-from-multiple-repositories.md" >}})
-for a step-by-step recipe.
+[How to Resolve Components Across Multiple Registries]({{< relref "docs/how-to/resolve-components-from-multiple-repositories.md" >}})
+for a guide on how to configure resolvers with multiple repositories.
 {{</callout>}}
 
 ## What you've learned
