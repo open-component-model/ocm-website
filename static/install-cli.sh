@@ -105,7 +105,7 @@ get_release_version() {
     # tag_name has the format "cli/v0.1.0" – strip the prefix and leading "v".
     # When OCM_VERSION is unset the response is a JSON array; grep the first
     # tag_name that starts with TAG_PREFIX to avoid picking a non-CLI release.
-    VERSION_OCM=$(grep '"tag_name":' "${TMP_METADATA}" | grep "\"${TAG_PREFIX}v" | head -1 | sed -E 's|.*"cli/v([^"]+)".*|\1|')
+    VERSION_OCM=$(grep '"tag_name":' "${TMP_METADATA}" | grep "\"${TAG_PREFIX}v" | head -1 | sed -E "s|.*\"${TAG_PREFIX}v([^\"]+)\".*|\1|")
     if [[ -n "${VERSION_OCM}" ]]; then
         info "Using ${VERSION_OCM} as release"
     else
