@@ -65,6 +65,7 @@ to [GitHub Container Registry](https://ghcr.io).
 Log in to `ghcr.io` using a GitHub personal access token:
 
 ```bash
+export GITHUB_TOKEN=<your-github-token>
 echo $GITHUB_TOKEN | docker login ghcr.io -u $GITHUB_USERNAME --password-stdin
 ```
 
@@ -228,8 +229,8 @@ EOF
 {{< step >}}
 **Push the App Component**
 
-After declaring the resolvers pointing to backend and frontend, you are able to push the **app component** to the **app
-repository**:
+After declaring the resolvers pointing to backend and frontend, you are able to push the **app component** 
+to the **app repository**:
 
 ```bash
 ocm add cv --repository ghcr.io/$GITHUB_USERNAME/ocm-resolver-tutorial \
@@ -275,8 +276,8 @@ The outputs of each command should show the respective component version with it
 {{< /steps >}}
 
 {{<callout context="tip" title="Resolving from Multiple Repositories">}}
-In the tutorial above, both component references share a single repository. In practice, components often live in *
-*separate repositories**.
+In the tutorial above, both component references share a single repository. In practice, components often live in 
+**separate repositories**.
 
 See the how-to guide:
 [How to Resolve Components from Multiple Repositories]({{< relref "docs/how-to/resolve-components-from-multiple-repositories.md" >}})

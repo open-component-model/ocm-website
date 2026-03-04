@@ -20,8 +20,8 @@ That's what resolvers provide.
 
 ## What Are Resolvers?
 
-A resolver maps a **component name pattern** (glob) to an *
-*[OCM repository](https://github.com/open-component-model/ocm-spec/blob/main/doc/01-model/01-model.md#component-repositories)**.
+A resolver maps a **component name pattern** (glob) to an 
+**[OCM repository](https://github.com/open-component-model/ocm-spec/blob/main/doc/01-model/01-model.md#component-repositories)**.
 When the CLI encounters a component reference during recursive operations, it walks the list of configured resolvers,
 finds the first pattern that matches the referenced component name, and queries the associated repository.
 
