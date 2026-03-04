@@ -1,17 +1,17 @@
 ---
 title: "Set up Controller Environments"
-description: "Set up a local Kubernetes environment with the OCM Controllers, kro, and FluxCD for testing OCM deployments."
+description: "Set up a local Kubernetes environment with the OCM Controllers, kro, and Flux for testing OCM deployments."
 icon: "⚓"
 weight: 25
 toc: true
 ---
 
 This guide helps you set up a local Kubernetes environment for testing OCM controller-based deployments.
-You'll install the OCM Controllers, kro, and FluxCD to enable GitOps workflows with OCM component versions.
+You'll install the OCM Controllers, kro, and Flux to enable GitOps workflows with OCM component versions.
 
 ## You'll end up with
 
-- A local or remote Kubernetes cluster with OCM Controllers, kro, and FluxCD installed
+- A local or remote Kubernetes cluster with OCM Controllers, kro, and Flux installed
 
 ## Estimated time
 
