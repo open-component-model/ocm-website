@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
+
+# This is a script to install the OCM CLI v2 by downloading the latest release from GitHub.
+# https://github.com/open-component-model/open-component-model/releases
+
 set -e
 
 DEFAULT_BIN_DIR="/usr/local/bin"
@@ -109,16 +113,16 @@ get_release_version() {
     fi
 }
 
-# Download from file from URL
+# Download file from URL
 download() {
     [[ $# -eq 2 ]] || fatal 'download needs exactly 2 arguments'
 
     case $DOWNLOADER in
         curl)
-            curl -o "$1" -sfL "$2"
+            curl -o "$1" -sfL "$2" || fatal "Download with curl failed: RC $?"
             ;;
         wget)
-            wget -qO "$1" "$2"
+            wget -qO "$1" "$2" || fatal "Download with wget failed: RC $?"
             ;;
         *)
             fatal "Incorrect executable '${DOWNLOADER}'"
@@ -135,6 +139,31 @@ download_binary() {
     BIN_URL="https://github.com/${GITHUB_REPO}/releases/download/${TAG_PREFIX}v${VERSION_OCM}/ocm-${OS}-${ARCH}"
     info "Downloading binary ${BIN_URL}"
     download "${TMP_BIN}" "${BIN_URL}"
+}
+
+# Verify the downloaded binary using GitHub attestations
+# Requires the GitHub CLI (gh) to be installed
+verify_binary() {
+    # Skip verification if explicitly disabled
+    if [[ "${OCM_SKIP_VERIFY}" == "true" ]]; then
+        warn "Skipping attestation verification (OCM_SKIP_VERIFY=true)"
+        return 0
+    fi
+
+    # Check if gh CLI is available
+    if ! command -v gh &> /dev/null; then
+        warn "GitHub CLI (gh) not found. Skipping attestation verification."
+        warn "To verify the binary, install gh: https://cli.github.com/"
+        warn "Or set OCM_SKIP_VERIFY=true to suppress this warning."
+        return 0
+    fi
+
+    info "Verifying binary attestation..."
+    if gh attestation verify "${TMP_BIN}" --repo "${GITHUB_REPO}" 2>/dev/null; then
+        info "Attestation verification successful"
+    else
+        fatal "Attestation verification failed. The binary may have been tampered with."
+    fi
 }
 
 # Setup permissions and move binary
@@ -157,5 +186,6 @@ setup_binary() {
     setup_tmp
     get_release_version
     download_binary
+    verify_binary
     setup_binary
 }
