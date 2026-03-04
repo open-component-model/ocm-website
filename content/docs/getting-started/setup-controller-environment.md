@@ -183,7 +183,7 @@ NetworkPolicy/flux-system/allow-webhooks created
 ✔ source-controller: deployment ready
 ✔ install finished
 ```
-</details>`
+</details>
 <br>
 
 Verify Flux is running:

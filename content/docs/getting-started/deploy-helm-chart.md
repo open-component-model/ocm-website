@@ -117,7 +117,7 @@ Transferring component versions...
 ```
 </details>
 
-To make your component public in GitHub Container Registry, go to the `packages` tab in your GitHub repository https://github.com/<your-namespace>?tab=packages,
+To make your component public in GitHub Container Registry, go to the `packages` tab in your GitHub repository `https://github.com/<your-namespace>?tab=packages`,
 select the package `component-descriptors/ocm.software/ocm-k8s-toolkit/simple`, and under "Package settings" change the visibility to `public`.
 
 {{< /step >}}
@@ -418,7 +418,7 @@ kubectl delete -f rgd.yaml
 ## Next Steps
 
 - [Tutorial: Structure Software Products with OCM]({{< relref "complex-component-structure-deployment.md" >}}) - Learn how to structure complex applications with multiple components and resources
-- [Tutorial: Deploy a Helm Chart (with Bootstrap)]({{< relref "deploy-helm-chart-bootstrap.md" >}}) - Use the OCM Controllers to deploy a Helm chart without manual bootstrapping, using a GitOps
+- [Tutorial: Deploy a Helm Chart (with Bootstrap)]({{< relref "deploy-helm-chart-bootstrap.md" >}}) - Use the OCM Controllers to deploy a Helm chart without manual bootstrapping, using GitOps
 
 ## Related Documentation
 
