@@ -471,8 +471,8 @@ ocm get cv ghcr.io/open-component-model/ocm//ocm.software/ocmcli:0.35.0 --recurs
 
 | Command                                                            | Description                                    |
 |--------------------------------------------------------------------|------------------------------------------------|
-| [`ocm add cv`](../../reference/ocm-cli/ocm-add-component-version/) | Create component version from constructor file |
-| [`ocm get cv`](../../reference/ocm-cli/ocm-get-component-version/) | List and inspect component versions            |
+| [`ocm add cv`]({{< relref "docs/reference/ocm-cli/ocm_add_component-version.md" >}}) | Create component version from constructor file |
+| [`ocm get cv`]({{< relref "docs/reference/ocm-cli/ocm_get_component-version.md" >}}) | List and inspect component versions            |
 
 ## Next Steps
 
