@@ -332,7 +332,7 @@ Now that you know how to configure resolvers, you can:
   registries, Helm repositories, and more
 - [Creating a Component Version]({{< relref "docs/getting-started/create-component-version.md" >}}) — Build component
   versions and work with CTF archives
-- [Input and Access Types]({{< relref "input-and-access-types.md" >}}) — Reference for resource input types (by value)
+- [Input and Access Types]({{< relref "docs/reference/input-and-access-types.md" >}}) — Reference for resource input types (by value)
   and access types (by reference)
 - [Signing and Verification]({{< relref "signing-and-verification.md" >}}) — Sign and verify component versions with
   cryptographic keys
