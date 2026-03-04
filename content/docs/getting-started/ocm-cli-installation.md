@@ -65,8 +65,7 @@ ocm version
 Expected output:
 
 ```text
-{"major":"0","minor":"0","patch":"0","prerelease":"20260303132328-a9d3fc14937a",
-"gitVersion":"0.0.0-20260303132328-a9d3fc14937a","gitCommit":"a9d3fc14937a","buildDate":"20260303132328","goVersion":"go1.26.0","compiler":"gc","platform":"darwin/arm64"}
+{"major":"0","minor":"1","patch":"0","gitVersion":"0.1.0","goVersion":"go1.26.0","compiler":"gc","platform":"darwin/arm64"}
 ```
 
 ## Windows Support
