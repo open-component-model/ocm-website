@@ -158,6 +158,11 @@ ocm transfer cv ghcr.io/my-org/components//example.com/services/app:1.0.0 \
   --config .ocmconfig
 ```
 
+{{<callout context="tip">}}
+For more information about the `transfer` command, see the
+[OCM CLI Transfer reference]({{< relref "docs/reference/ocm-cli/ocm-transfer.md" >}}).
+{{</callout>}}
+
 ## Configuration Reference
 
 The resolver configuration is defined by the `resolvers.config.ocm.software/v1alpha1` type in
