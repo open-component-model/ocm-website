@@ -20,7 +20,8 @@ That's what resolvers provide.
 
 ## What Are Resolvers?
 
-A resolver maps a **component name pattern** (glob) to an **[OCM repository](https://github.com/open-component-model/ocm-spec/blob/main/doc/01-model/01-model.md#component-repositories)**.
+A resolver maps a **component name pattern** (glob) to an *
+*[OCM repository](https://github.com/open-component-model/ocm-spec/blob/main/doc/01-model/01-model.md#component-repositories)**.
 When the CLI encounters a component reference during recursive operations, it walks the list of configured resolvers,
 finds the first pattern that matches the referenced component name, and queries the associated repository.
 
@@ -30,7 +31,8 @@ Resolvers are configured in the OCM configuration file. By default, the CLI sear
 You can also specify a configuration file explicitly with the `--config` flag.
 
 {{<callout context="tip">}}
-For more information about the OCM configuration file, see [.ocmconfig documentation](https://github.com/open-component-model/ocm/blob/main/docs/reference/ocm_configfile.md).
+For more information about the OCM configuration file,
+see [.ocmconfig documentation](https://github.com/open-component-model/ocm/blob/main/docs/reference/ocm_configfile.md).
 {{</callout>}}
 
 ### Basic Configuration
@@ -72,11 +74,11 @@ repository:
   subPath: my-org/components
 ```
 
-| Field     | Required | Description                                                                                       |
-|-----------|----------|---------------------------------------------------------------------------------------------------|
-| `type`    | Yes      | Repository type. Must be `OCIRepository/v1`.                                                      |
-| `baseUrl` | Yes      | Registry host and optional port (e.g., `ghcr.io`, `localhost:5000`).                              |
-| `subPath` | No       | Repository prefix path within the registry.                                                       |
+| Field     | Required | Description                                                          |
+|-----------|----------|----------------------------------------------------------------------|
+| `type`    | Yes      | Repository type. Must be `OCIRepository/v1`.                         |
+| `baseUrl` | Yes      | Registry host and optional port (e.g., `ghcr.io`, `localhost:5000`). |
+| `subPath` | No       | Repository prefix path within the registry.                          |
 
 {{< /tab >}}
 {{< tab "CTF (File-based)" >}}
@@ -117,11 +119,11 @@ configurations:
 
 Here are some examples of supported patterns:
 
-| Pattern                     | Matches                                                  |
-|-----------------------------|----------------------------------------------------------|
-| `example.com/services/*`    | Any component directly under `example.com/services/`     |
-| `example.com/core/**`       | Any component under `example.com/core/` or its subpaths  |
-| `*`                         | All components (wildcard catch-all)                      |
+| Pattern                  | Matches                                                 |
+|--------------------------|---------------------------------------------------------|
+| `example.com/services/*` | Any component directly under `example.com/services/`    |
+| `example.com/core/**`    | Any component under `example.com/core/` or its subpaths |
+| `*`                      | All components (wildcard catch-all)                     |
 
 **Pattern syntax explanation:**
 
@@ -143,31 +145,42 @@ When a component version has references to other component versions (via `compon
 these references recursively using the `--recursive` flag. The CLI uses resolvers to locate each referenced component
 in its respective repository — without them, recursive resolution across multiple repositories is not possible.
 
-{{<callout context="tip">}}
-For the `transfer cv` command, resolvers are currently not taken into account.
-{{</callout>}}
+## OCM Transfer
+
+The `transfer cv` command supports resolvers, allowing you to move component versions (e.g., an OCI image) from one OCI repository to another.
+Combined with `--recursive` and a resolver configuration, the CLI can transfer entire component graphs across registries.
+If you want to copy all referenced resources, use the `--copy-resources` flag to also transfer the resources linked in the component versions as well.
+
+```bash
+ocm transfer cv ghcr.io/my-org/components//example.com/services/app:1.0.0 \
+  ghcr.io/my-org/target-repo --recursive \
+  --copy-resources \
+  --config .ocmconfig
+```
 
 ## Configuration Reference
 
-The resolver configuration is defined by the `resolvers.config.ocm.software/v1alpha1` type in the [OCM specification](https://github.com/open-component-model/open-component-model/tree/main/bindings/go/configuration/resolvers/v1alpha1/spec).
+The resolver configuration is defined by the `resolvers.config.ocm.software/v1alpha1` type in
+the [OCM specification](https://github.com/open-component-model/open-component-model/tree/main/bindings/go/configuration/resolvers/v1alpha1/spec).
 
 ### Config Schema
 
-| Field       | Type   | Required | Description                                        |
-|-------------|--------|----------|----------------------------------------------------|
-| `type`      | string | Yes      | Must be `resolvers.config.ocm.software/v1alpha1`.  |
-| `resolvers` | array  | No       | List of resolver entries.                          |
+| Field       | Type   | Required | Description                                       |
+|-------------|--------|----------|---------------------------------------------------|
+| `type`      | string | Yes      | Must be `resolvers.config.ocm.software/v1alpha1`. |
+| `resolvers` | array  | No       | List of resolver entries.                         |
 
 ### Resolver Schema
 
-| Field                  | Type   | Required | Description                                                                                  |
-|------------------------|--------|----------|----------------------------------------------------------------------------------------------|
-| `repository`           | object | Yes      | An OCM repository specification (must include a `type` field).                               |
-| `componentNamePattern` | string | No       | Glob pattern for matching component names. If omitted, the resolver matches all components.  |
+| Field                  | Type   | Required | Description                                                                                 |
+|------------------------|--------|----------|---------------------------------------------------------------------------------------------|
+| `repository`           | object | Yes      | An OCM repository specification (must include a `type` field).                              |
+| `componentNamePattern` | string | No       | Glob pattern for matching component names. If omitted, the resolver matches all components. |
 
 ## Related Documentation
 
 - [Components]({{< relref "components.md" >}}) — Core concepts behind component versions, identities, and references
 - [Configure Resolvers Tutorial]({{< relref "docs/tutorials/configure-resolvers.md" >}}) — Hands-on walkthrough for setting up resolvers
-- [Resolve Components from Multiple Repositories]({{< relref "docs/how-to/resolve-components-from-multiple-repositories.md" >}}) — Step-by-step recipe for multi-repository resolution
+- [Resolve Components from Multiple Repositories]({{< relref "docs/how-to/resolve-components-from-multiple-repositories.md" >}}) — Step-by-step recipe
+  for multi-repository resolution
 - [Credentials in an .ocmconfig File]({{< relref "creds-in-ocmconfig.md" >}}) — Configure credentials for OCI registries
