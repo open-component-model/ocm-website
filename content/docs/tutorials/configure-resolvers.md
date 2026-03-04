@@ -228,9 +228,8 @@ EOF
 {{< step >}}
 **Push the App Component**
 
-After declaring the resolvers pointing to backend and frontend, you cannot push the **app component** to the **app
-repository** —
-a separate repository from where the component references are stored:
+After declaring the resolvers pointing to backend and frontend, you are able to push the **app component** to the **app
+repository**:
 
 ```bash
 ocm add cv --repository ghcr.io/$GITHUB_USERNAME/ocm-resolver-tutorial \
