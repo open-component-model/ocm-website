@@ -14,7 +14,7 @@ in different OCI registries.
 
 - [OCM CLI]({{< relref "docs/getting-started/ocm-cli-installation.md" >}}) installed
 - [Components]({{< relref "docs/getting-started/create-component-version.md" >}}) already pushed to separate OCI registries
-- An OCM configuration file (see [.ocmconfig documentation](https://github.com/open-component-model/ocm/blob/main/docs/reference/ocm_configfile.md)
+- An OCM configuration file (see [.ocmconfig documentation](https://github.com/open-component-model/ocm/blob/main/docs/reference/ocm_configfile.md))
 
 ## Steps
 

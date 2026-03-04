@@ -149,7 +149,7 @@ in its respective repository — without them, recursive resolution across multi
 
 The `transfer cv` command supports resolvers, allowing you to move component versions (e.g., an OCI image) from one OCI repository to another.
 Combined with `--recursive` and a resolver configuration, the CLI can transfer entire component graphs across registries.
-If you want to copy all referenced resources, use the `--copy-resources` flag to also transfer the resources linked in the component versions as well.
+If you want to copy all referenced resources, use the `--copy-resources` flag to transfer resources linked in those component versions.
 
 ```bash
 ocm transfer cv ghcr.io/my-org/components//example.com/services/app:1.0.0 \
