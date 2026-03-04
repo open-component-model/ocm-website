@@ -32,7 +32,7 @@ pattern syntax, see the [Resolvers concept page]({{< relref "docs/concepts/resol
 
 This tutorial walks through a hands-on example with three components — a **backend**, a **frontend**, and an **app**
 that references both. The app lives in its own repository, while its component references (backend and frontend
-component) are stored in
+components) are stored in
 a shared repository. When you recursively resolve the app, the CLI needs resolvers to locate the referenced
 components in their repositories.
 
