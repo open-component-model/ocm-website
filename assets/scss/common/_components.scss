@@ -108,3 +108,10 @@
     margin-top: 1.75rem; /* align with TOC baseline on docs pages */
   }
 }
+
+/* --------------------------------------------
+   Details/Summary Elements (expandable sections)
+   -------------------------------------------- */
+.docs-content details summary {
+  font-size: 0.95rem;  /* Kleinerer Text als normaler Absatz */
+}
