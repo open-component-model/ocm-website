@@ -100,7 +100,7 @@ repository:
 
 ## Component Name Patterns
 
-Each resolver entry can include a `componentNamePattern` field that uses **glob patterns** to match component names.
+Each resolver entry can include a `componentNamePattern` field that uses **glob patterns** to filter for certain component names.
 Only components matching the pattern will be routed to that repository.
 
 ```yaml
