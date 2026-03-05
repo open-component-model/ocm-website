@@ -107,7 +107,7 @@ This How-To will show you how to use the OCM CLI container to create and get a c
 
    {{<callout type="note">}}
    You can also mount certificates to the container by adding `-v /etc/ssl/certs/:/etc/ssl/certs/:ro` to your
-   command (Depending on you OS, the path to the certificates may be different).
+   command (Depending on your OS, the path to the certificates may be different).
    {{< /callout >}}
 
 4. **Get the component version using the OCM CLI container**
