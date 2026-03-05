@@ -21,9 +21,9 @@ This How-To will show you how to use the OCM CLI container to create and get a c
 ## Prerequisites
 
 - [OCM CLI]({{< relref "docs/getting-started/ocm-cli-installation.md" >}}) installed.
-- Access to a repository. We will use GitHub Container Registry (GHCR) in this example.
+- Access to an OCI registry. We will use GitHub Container Registry (GHCR) in this example.
 - Required credentials/keys available.
-- Docker CLI installed ([Docker Engine](https://docs.docker.com/engine/install/)/[Docker Desktop](https://docs.docker.com/desktop/)) .
+- Docker CLI installed ([Docker Engine](https://docs.docker.com/engine/install/)/[Docker Desktop](https://docs.docker.com/desktop/)).
 - Internet access to pull the OCM CLI container and the image used in the example.
 
 ## Steps
@@ -82,7 +82,7 @@ This How-To will show you how to use the OCM CLI container to create and get a c
 3. **Create the component version using the OCM CLI container**
 
    Now we can use the OCM CLI container to create the component version in the repository. We will mount the current
-   directory containing the `component-constructor` and `.ocmconfig` to the container and run the `ocm add cv` command.
+   directory containing the `component-constructor` and `.ocmconfig` to the container and run the `add cv` command.
 
    ```bash
    docker run --rm \
@@ -106,7 +106,7 @@ This How-To will show you how to use the OCM CLI container to create and get a c
    </details>
 
    {{<callout type="note">}}
-   You can also mount certificates to the container by adding `-v /etc/ssl/certs/:/etc/ssl/certs/:ro \` to your
+   You can also mount certificates to the container by adding `-v /etc/ssl/certs/:/etc/ssl/certs/:ro` to your
    command (Depending on you OS, the path to the certificates may be different).
    {{< /callout >}}
 
@@ -155,5 +155,5 @@ This How-To will show you how to use the OCM CLI container to create and get a c
 
 ### Getting help
 
-- [Community Support]({{< relref "community/community.md" >}}))
+- [Community Support]({{< relref "community/community.md" >}})
 - [Open an Issue](https://github.com/open-component-model/open-component-model/issues)
