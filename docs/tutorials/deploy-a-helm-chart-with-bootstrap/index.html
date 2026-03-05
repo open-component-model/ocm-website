@@ -408,6 +408,41 @@ By creating the required bootstrap-resources you bootstrapped the <code>Resource
 and created the resulting CRD.
 Finally, you created an instance of the CRD which deployed the Helm chart and configured the localization using the OCM
 controllers, kro, and FluxCD.</p><div class="page-footer-meta d-flex flex-column flex-md-row justify-content-between"></div><div class="page-nav d-flex flex-column flex-sm-row"><div class="card w-100"><div class="card-body d-flex"><div class="d-flex flex-column justify-content-center"><svg class="icon icon-tabler icon-tabler-arrow-left" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12h14"/><path d="M5 12l6 6"/><path d="M5 12l6-6"/></svg></div><div class="d-flex flex-column"><div class=text-body-secondary>Prev</div><a href=/docs/tutorials/example-of-a-component-descriptor/ class="stretched-link text-reset text-decoration-none">Example of a Component Descriptor</a></div></div></div><div class=m-2></div><div class="card text-end w-100"><div class="card-body d-flex justify-content-end"><div class="d-flex flex-column"><div class=text-body-secondary>Next</div><a href=/docs/tutorials/transport-to-air-gapped-environments/ class="stretched-link text-reset text-decoration-none">Transport to Air-Gapped Environments</a></div><div class="d-flex flex-column justify-content-center"><svg class="icon icon-tabler icon-tabler-arrow-right" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12h14"/><path d="M13 18l6-6"/><path d="M13 6l6 6"/></svg></div></div></div></div></main></div></div></div></div><script async src=/js/app.27b67eaa7e52eb35e03d2775ac98891eccc93dd4d7fcfe07f7b55c52c6824247.js integrity="sha256-J7Z+qn5S6zXgPSd1rJiJHszJPdTX/P4H97VcUsaCQkc="></script><script async src=/js/flexsearch.113b7edaabeb04644a4b0da964854226f135a5e10d3341884f25bd0ad1ee4def.js integrity="sha256-ETt+2qvrBGRKSw2pZIVCJvE1peENM0GITyW9CtHuTe8="></script><script async src=/js/search-modal.96e662d8f691fe25c859a3437074b485f2d7bed0bca612725028c6cf4322e2f2.js integrity="sha256-luZi2PaR/iXIWaNDcHS0hfLXvtC8phJyUCjGz0Mi4vI="></script><script type=module src=/js/mermaid-init.js></script><script type=module>
-    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.esm.min.mjs';
-    mermaid.initialize({ startOnLoad: true });
-  </script></body></html>
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.esm.min.mjs';
+
+  function getMermaidTheme() {
+    const htmlTheme = document.documentElement.getAttribute('data-bs-theme');
+    if (htmlTheme === 'dark') return 'dark';
+    if (htmlTheme === 'light') return 'default';
+    
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'default';
+  }
+
+  
+  document.querySelectorAll('.mermaid').forEach((el) => {
+    el.setAttribute('data-mermaid-source', el.textContent);
+  });
+
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: getMermaidTheme()
+  });
+
+  
+  const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      if (mutation.attributeName === 'data-bs-theme') {
+        document.querySelectorAll('.mermaid').forEach((el) => {
+          const source = el.getAttribute('data-mermaid-source');
+          if (source) {
+            el.removeAttribute('data-processed');
+            el.innerHTML = source;
+          }
+        });
+        mermaid.initialize({ theme: getMermaidTheme() });
+        mermaid.run();
+      }
+    });
+  });
+  observer.observe(document.documentElement, { attributes: true });
+</script></body></html>
