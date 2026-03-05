@@ -1,6 +1,6 @@
 ---
-title: "How to use the OCM CLI container"
-description: "Use the OCM CLI container to create and get a component version."
+title: "How to use the OCM CLI container image"
+description: "Use the OCM CLI container image to create and get a component version."
 icon: "📦"
 weight: 999
 toc: true
@@ -8,12 +8,12 @@ toc: true
 
 ## Goal
 
-This How-To will show you how to use the OCM CLI container to create and get a component version.
+This How-To will show you how to use the OCM CLI container image to create and get a component version.
 
 {{<callout type="note">}}
 **You will end up with**
 
-- A component version created in an OCM repository using the OCM CLI container
+- A component version created in an OCM repository using the OCM CLI container image.
 {{< /callout >}}
 
 **Estimated time:** ~5 minutes
@@ -24,7 +24,7 @@ This How-To will show you how to use the OCM CLI container to create and get a c
 - Access to an OCI registry. We will use GitHub Container Registry (GHCR) in this example.
 - Required credentials/keys available.
 - Docker CLI installed ([Docker Engine](https://docs.docker.com/engine/install/)/[Docker Desktop](https://docs.docker.com/desktop/)).
-- Internet access to pull the OCM CLI container and the image used in the example.
+- Internet access to pull the OCM CLI container image and the application image used in the example.
 
 ## Steps
 
@@ -36,7 +36,7 @@ This How-To will show you how to use the OCM CLI container to create and get a c
    ```bash
    cat > component-constructor.yaml << EOF
    components:
-   - name: ocm.software/how-to-container-usage
+   - name: ocm.software/how-to-container-image-usage
      version: 1.0.0
      provider:
        name: test.domain
@@ -79,10 +79,10 @@ This How-To will show you how to use the OCM CLI container to create and get a c
    accordingly.
    {{< /callout >}}
 
-3. **Create the component version using the OCM CLI container**
+3. **Create the component version using the OCM CLI container image**
 
-   Now we can use the OCM CLI container to create the component version in the repository. We will mount the current
-   directory containing the `component-constructor` and `.ocmconfig` to the container and run the `add cv` command.
+   Now we can use the OCM CLI container image to create the component version in the repository. We will mount the current
+   directory containing the `component-constructor` and `.ocmconfig` to the container image and run the `add cv` command.
 
    ```bash
    docker run --rm \
@@ -99,20 +99,20 @@ This How-To will show you how to use the OCM CLI container to create and get a c
      <summary>Expected output</summary>
 
    ```text
-    COMPONENT                           │ VERSION │ PROVIDER
-   ─────────────────────────────────────┼─────────┼─────────────
-    ocm.software/how-to-container-usage │ 1.0.0   │ test.domain
+    COMPONENT                                 │ VERSION │ PROVIDER
+   ───────────────────────────────────────────┼─────────┼─────────────
+    ocm.software/how-to-container-image-usage │ 1.0.0   │ test.domain
    ```
    </details>
 
    {{<callout type="note">}}
-   You can also mount certificates to the container by adding `-v /etc/ssl/certs/:/etc/ssl/certs/:ro` to your
+   You can also mount certificates to the container image by adding `-v /etc/ssl/certs/:/etc/ssl/certs/:ro` to your
    command (Depending on your OS, the path to the certificates may be different).
    {{< /callout >}}
 
-4. **Get the component version using the OCM CLI container**
+4. **Get the component version using the OCM CLI container image**
 
-   After we created the component version, we can use the OCM CLI container to get the component version from the
+   After we created the component version, we can use the OCM CLI container image to get the component version from the
    repository.
 
    ```bash
@@ -121,7 +121,7 @@ This How-To will show you how to use the OCM CLI container to create and get a c
      -w /workspace \
      ghcr.io/open-component-model/cli:latest \
      get cv \
-     ghcr.io/<user>//ocm.software/how-to-container-usage:1.0.0 -oyaml \
+     ghcr.io/<user>//ocm.software/how-to-container-image-usage:1.0.0 -oyaml \
      --config ".ocmconfig"
    ```
 
@@ -131,7 +131,7 @@ This How-To will show you how to use the OCM CLI container to create and get a c
    ```text
    - component:
        componentReferences: null
-       name: ocm.software/how-to-container-usage
+       name: ocm.software/how-to-container-image-usage
        provider: test.domain
        repositoryContexts: null
        resources:
