@@ -6,7 +6,7 @@ weight: 43
 toc: true
 ---
 
-{{<callout context="danger">}}
+{{<callout context="danger" title="Caution" icon="outline/alert-triangle">}}
 This project is in early development and not yet ready for production use.
 {{</callout>}}
 
@@ -27,7 +27,7 @@ You should be familiar with the following concepts:
 
 ## Concept
 
-{{<callout context="note">}}
+{{<callout context="note" title="Overview" icon="outline/info-circle">}}
 The following section provides a high-level overview of the OCM controllers and their components regarding the
 deployment of an OCM resource in a very basic scenario. To learn more about the *transfer* of OCM component versions,
 please take a look at its [architecture document](https://github.com/open-component-model/open-component-model/blob/main/kubernetes/controller/docs/adr/replication.md).
@@ -135,7 +135,7 @@ of this CRD (`Instance: Simple`), the resources are created and reconciled by th
 of the OCM resource. It then downloads the resource to verify its signature (optional) and publishes the location of the
 resource in its status.
 
-{{<callout context="caution">}}
+{{<callout context="caution" title="OCM resource access required" icon="outline/alert-triangle">}}
 With FluxCD, this only works if the OCM resource has an access for which FluxCD has a corresponding Source type (e.g.
 an OCI or a GitHub repository)
 {{</callout>}}
@@ -164,7 +164,7 @@ or
 kubectl apply -k https://github.com/open-component-model/open-component-model/kubernetes/controller/config/default?ref=main
 ```
 
-{{<callout context="caution">}}
+{{<callout context="caution" title="Deployer tools" icon="outline/alert-triangle">}}
 While the OCM controllers technically can be used standalone, it requires kro and a deployer, e.g. FluxCD, to deploy
 an OCM resource into a Kubernetes cluster. The OCM controllers deployment, however, does not contain kro or any
 deployer. Please refer to the respective installation guides for these tools:

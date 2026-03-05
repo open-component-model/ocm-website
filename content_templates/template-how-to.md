@@ -117,8 +117,8 @@ One sentence: what you will achieve.
 If these solutions don't work:
 
 - [OCM Troubleshooting Guide]({{< relref "docs/troubleshooting/_index.md" >}})
-- [Community Support](link)
-- [Open an Issue](https://github.com/open-component-model/ocm/issues)
+- [Community Support]({{< relref "community/community.md" >}})
+- [Open an Issue](https://github.com/open-component-model/open-component-model/issues)
 
 ## Cleanup (optional)
 

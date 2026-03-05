@@ -218,16 +218,18 @@ Conceptual explanation of OCM?
 When content applies to a specific version or repository, add a callout:
 
 ```markdown
-{{<callout context="note">}}
+{{<callout context="note" title="" icon="">}}
 This guide applies to OCM CLI v0.x. See [link] for the new library.
 {{</callout>}}
 ```
 
 ```markdown
-{{<callout context="note">}}
+{{<callout context="note" title="" icon="">}}
 This feature requires the new OCM library from `open-component-model/open-component-model`.
 {{</callout>}}
 ```
+
+You can find appropriate icons on this [website](https://tabler.io/icons).
 
 ---
 
