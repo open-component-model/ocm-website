@@ -24,6 +24,8 @@ This How-To will show you how to use the OCM CLI container image to create and g
 - Access to an OCI registry. We will use GitHub Container Registry (GHCR) in this example.
 - Required credentials/keys available.
 - Docker CLI installed ([Docker Engine](https://docs.docker.com/engine/install/)/[Docker Desktop](https://docs.docker.com/desktop/)).
+- A container image CLI installed, e.g. [Docker](https://docs.docker.com/engine/install/),
+  [Podman](https://podman.io/docs/installation), or [nerdctl](https://github.com/containerd/nerdctl).
 - Internet access to pull the OCM CLI container image and the application image used in the example.
 
 ## Steps
