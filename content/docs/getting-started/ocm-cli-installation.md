@@ -47,6 +47,15 @@ task cli:install # installs to /usr/local/bin (requires sudo)
 ```
 
 {{< /tab >}}
+{{< tab "Bash" >}}
+
+To install the latest release of the OCM CLI with bash for macOS or Linux, execute the following command:
+
+```shell
+curl -s https://ocm.software/install-cli.sh | sudo bash
+```
+
+{{< /tab >}}
 {{< /tabs >}}
 
 ## Verify Installation
