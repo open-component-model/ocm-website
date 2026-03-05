@@ -228,7 +228,7 @@ Remote Registry (OCI)</button></div></nav><div class=tab-content id=nav-tabConte
           const source = el.getAttribute('data-mermaid-source');
           if (source) {
             el.removeAttribute('data-processed');
-            el.innerHTML = source;
+            el.textContent = source;
           }
         });
         mermaid.initialize({ theme: getMermaidTheme() });

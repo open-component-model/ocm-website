@@ -436,7 +436,7 @@ controllers, kro, and FluxCD.</p><div class="page-footer-meta d-flex flex-column
           const source = el.getAttribute('data-mermaid-source');
           if (source) {
             el.removeAttribute('data-processed');
-            el.innerHTML = source;
+            el.textContent = source;
           }
         });
         mermaid.initialize({ theme: getMermaidTheme() });

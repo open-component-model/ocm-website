@@ -148,7 +148,7 @@ deployer. Please refer to the respective installation guides for these tools:</p
           const source = el.getAttribute('data-mermaid-source');
           if (source) {
             el.removeAttribute('data-processed');
-            el.innerHTML = source;
+            el.textContent = source;
           }
         });
         mermaid.initialize({ theme: getMermaidTheme() });
