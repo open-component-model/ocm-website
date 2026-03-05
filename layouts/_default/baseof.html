@@ -58,7 +58,7 @@
           const source = el.getAttribute('data-mermaid-source');
           if (source) {
             el.removeAttribute('data-processed');
-            el.innerHTML = source;
+            el.textContent = source;
           }
         });
         mermaid.initialize({ theme: getMermaidTheme() });
