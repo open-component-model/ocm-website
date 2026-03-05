@@ -17,5 +17,6 @@ Which section does this PR target? See CONTRIBUTING.md for guidance.
 - [ ] Other (infrastructure, config, fixes)
 
 #### Checklist
+
 - [ ] I have read and followed the [Contributing Guide](https://github.com/open-component-model/ocm-website/blob/main/CONTRIBUTING.md)
 - [ ] All commands/code snippets are tested and can be copy-pasted
