@@ -28,4 +28,4 @@
 &lt;/svg&gt;
  &lt;div class="callout-content"&gt;
  &lt;div class="callout-title"&gt;
- &lt;p&gt;Caution&lt;/p&gt;</description></item></channel></rss>
+ &lt;p&gt;Caution&lt;/p&gt;</description></item><item><title>Transfer and Transport</title><link>https://ocm.software/dev/docs/concepts/transfer-and-transport/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/dev/docs/concepts/transfer-and-transport/</guid><description>&lt;p&gt;Transfer is the mechanism that moves component versions from one OCM repository to another. During transfer, the component&amp;rsquo;s identity, integrity, and signatures are preserved so that consumers can verify provenance at every stage of the delivery pipeline.&lt;/p&gt;</description></item></channel></rss>
