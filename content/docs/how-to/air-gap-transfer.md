@@ -7,7 +7,7 @@ toc: true
 
 ## Goal
 
-Transfer a signed component version from a source registry into an air-gapped target registry using a CTF archive as the transport medium.
+Transfer a signed component version from a source registry into an air-gapped target registry using a CTF archive as the transport medium. An air-gapped environment is a network that is physically isolated from untrusted networks such as the public internet.
 
 {{< callout context="note" title="You will end up with" >}}
 
@@ -27,115 +27,133 @@ Transfer a signed component version from a source registry into an air-gapped ta
 
 ## Steps
 
-1. **Verify the source component**
+{{< steps >}}
+{{< step >}}
 
-   Confirm integrity and provenance before transferring. The OCM CLI resolves verification credentials from your [`.ocmconfig`]({{< relref "docs/getting-started/ocm-cli-installation.md" >}}) automatically. For background on how signing works, see [Signing and Verification]({{< relref "docs/tutorials/signing-and-verification.md" >}}).
+### Verify the source component
 
-   ```bash
-   ocm verify cv <source-repository>//<component-name>:<version>
-   ```
+Confirm integrity and provenance before transferring. The OCM CLI resolves verification credentials from your [`.ocmconfig`]({{< relref "docs/getting-started/ocm-cli-installation.md" >}}) automatically. For background on how signing works, see [Signing and Verification]({{< relref "docs/tutorials/signing-and-verification.md" >}}).
 
-   To verify a specific signature by name:
+```bash
+ocm verify cv <source-repository>//<component-name>:<version>
+```
 
-   ```bash
-   ocm verify cv --signature <signature-name> <source-repository>//<component-name>:<version>
-   ```
+To verify a specific signature by name:
 
-   You should see: `SIGNATURE VERIFICATION SUCCESSFUL` and exit code `0`. For detailed verification options, see [Signing and Verification]({{< relref "docs/tutorials/signing-and-verification.md" >}}).
+```bash
+ocm verify cv --signature <signature-name> <source-repository>//<component-name>:<version>
+```
 
-   {{< callout context="tip" title="CTF as source" >}}
-   If your source is a [CTF archive]({{< relref "docs/concepts/transfer-concept.md" >}}) rather than a registry, use the archive path:
+You should see: `SIGNATURE VERIFICATION SUCCESSFUL` and exit code `0`. For detailed verification options, see [Signing and Verification]({{< relref "docs/tutorials/signing-and-verification.md" >}}).
 
-   ```bash
-   ocm verify cv ctf::<path/to/source.ctf>//<component-name>:<version>
-   ```
-   {{< /callout >}}
+> **Tip: CTF as source**
+>
+> If your source is a [CTF archive]({{< relref "docs/concepts/transfer-concept.md" >}}) rather than a registry, use the archive path:
+>
+> ```bash
+> ocm verify cv ctf::<path/to/source.ctf>//<component-name>:<version>
+> ```
 
-2. **Transfer to a CTF archive**
+{{< /step >}}
+{{< step >}}
 
-   Create a self-contained [CTF archive]({{< relref "docs/concepts/transfer-concept.md" >}}) that bundles all resource artifacts and transitively referenced [component versions]({{< relref "docs/concepts/components.md" >}}). See [Transfer and Transport]({{< relref "docs/concepts/transfer-concept.md" >}}) for details on the `--copy-resources` flag.
+### Transfer to a CTF archive
 
-   ```bash
-   ocm transfer cv \
-     --copy-resources \
-     --recursive \
-     <source-repository>//<component-name>:<version> \
-     ctf::<path/to/airgap-transport.ctf>
-   ```
+Create a self-contained [CTF archive]({{< relref "docs/concepts/transfer-concept.md" >}}) that bundles all resource artifacts and transitively referenced [component versions]({{< relref "docs/concepts/components.md" >}}). See [Transfer and Transport]({{< relref "docs/concepts/transfer-concept.md" >}}) for details on the `--copy-resources` flag.
 
-   You should see:
+```bash
+ocm transfer cv \
+  --copy-resources \
+  --recursive \
+  <source-repository>//<component-name>:<version> \
+  ctf::<path/to/airgap-transport.ctf>
+```
 
-   - A progress bar while artifacts are downloaded
-   - Exit code `0` and the CTF archive created at the specified path
+You should see:
 
-   {{< callout context="tip" title="Working with the archive directly" >}}
-   The CTF archive is a fully functional OCM repository. You can inspect component versions or [download resources]({{< relref "docs/how-to/download-resources-from-component-versions.md" >}}) directly from it without importing into a registry first:
+- A progress bar while artifacts are downloaded
+- Exit code `0` and the CTF archive created at the specified path
 
-   ```bash
-   ocm get cv ctf::<path/to/airgap-transport.ctf>
-   ocm download resource ctf::<path/to/airgap-transport.ctf>//<component-name>:<version> \
-     --identity name=<resource-name> --output <output-path>
-   ```
-   {{< /callout >}}
+> **Tip: Working with the archive directly**
+>
+> The CTF archive is a fully functional OCM repository. You can inspect component versions or [download resources]({{< relref "docs/how-to/download-resources-from-component-versions.md" >}}) directly from it without importing into a registry first:
+>
+> ```bash
+> ocm get cv ctf::<path/to/airgap-transport.ctf>
+> ocm download resource ctf::<path/to/airgap-transport.ctf>//<component-name>:<version> \
+>   --identity name=<resource-name> --output <output-path>
+> ```
 
-3. **Move the archive across the air gap**
+{{< /step >}}
+{{< step >}}
 
-   Move the CTF archive to the air-gapped environment using whatever mechanism is available. This step does not involve the OCM CLI.
+### Move the archive across the air gap
 
-   ```bash
-   # Examples - use whatever method your environment allows:
-   scp -r airgap-transport.ctf user@jumphost:/transfer/
-   # or copy to USB media
-   cp -r airgap-transport.ctf /media/usb-drive/
-   # or create a compressed archive first
-   tar czf airgap-transport.ctf.tar.gz airgap-transport.ctf
-   ```
+Move the CTF archive to the air-gapped environment using whatever mechanism is available. This step does not involve the OCM CLI.
 
-4. **Import into the target registry**
+```bash
+# Examples - use whatever method your environment allows:
+scp -r airgap-transport.ctf user@jumphost:/transfer/
+# or copy to USB media
+cp -r airgap-transport.ctf /media/usb-drive/
+# or create a compressed archive first
+tar czf airgap-transport.ctf.tar.gz airgap-transport.ctf
+```
 
-   On the air-gapped side, transfer the CTF archive into the target registry. The target registry must have [credentials configured]({{< relref "docs/tutorials/creds-in-ocmconfig.md" >}}) in your `.ocmconfig`.
+{{< /step >}}
+{{< step >}}
 
-   ```bash
-   ocm transfer cv \
-     --copy-resources \
-     --recursive \
-     ctf::<path/to/airgap-transport.ctf>//<component-name>:<version> \
-     <target-registry>
-   ```
+### Import into the target registry
 
-   You should see:
+On the air-gapped side, transfer the CTF archive into the target registry. The target registry must have [credentials configured]({{< relref "docs/tutorials/creds-in-ocmconfig.md" >}}) in your `.ocmconfig`.
 
-   - A progress bar while artifacts are uploaded
-   - Exit code `0` and the component available in the target registry
+```bash
+ocm transfer cv \
+  --copy-resources \
+  --recursive \
+  ctf::<path/to/airgap-transport.ctf>//<component-name>:<version> \
+  <target-registry>
+```
 
-5. **Verify in the target registry**
+You should see:
 
-   Confirm the [component version]({{< relref "docs/concepts/components.md" >}}) is available in the target registry:
+- A progress bar while artifacts are uploaded
+- Exit code `0` and the component available in the target registry
 
-   ```bash
-   ocm get cv <target-registry>//<component-name>:<version>
-   ```
+{{< /step >}}
+{{< step >}}
 
-   <details>
-     <summary>Expected output</summary>
+### Verify in the target registry
 
-   ```text
-    COMPONENT        VERSION   PROVIDER
-    <component-name> <version> <provider>
-   ```
-   </details>
+Confirm the [component version]({{< relref "docs/concepts/components.md" >}}) is available in the target registry:
 
-   Then verify the signature to confirm it survived the [transfer]({{< relref "docs/concepts/transfer-concept.md" >}}) intact:
+```bash
+ocm get cv <target-registry>//<component-name>:<version>
+```
 
-   ```bash
-   ocm verify cv <target-registry>//<component-name>:<version>
-   ```
+<details>
+  <summary>Expected output</summary>
 
-   You should see: `SIGNATURE VERIFICATION SUCCESSFUL`.
+```text
+ COMPONENT        VERSION   PROVIDER
+ <component-name> <version> <provider>
+```
+</details>
+
+Then verify the signature to confirm it survived the [transfer]({{< relref "docs/concepts/transfer-concept.md" >}}) intact:
+
+```bash
+ocm verify cv <target-registry>//<component-name>:<version>
+```
+
+You should see: `SIGNATURE VERIFICATION SUCCESSFUL`.
+
+{{< /step >}}
+{{< /steps >}}
 
 ## Troubleshooting
 
-If you encounter authentication or credential errors during transfer or verification, see [Configuring Credentials for Controllers]({{< relref "docs/tutorials/configure-credentials-for-controllers.md" >}}) and [Credentials in .ocmconfig]({{< relref "docs/tutorials/creds-in-ocmconfig.md" >}}).
+If you encounter authentication or credential errors during transfer or verification, see [Credentials in .ocmconfig]({{< relref "docs/tutorials/creds-in-ocmconfig.md" >}}) and [Configuring Credentials for Controllers]({{< relref "docs/tutorials/configure-credentials-for-controllers.md" >}}).
 
 If signature verification fails after transfer, ensure the public key in your `.ocmconfig` matches the key used to sign the component. See [Signing and Verification]({{< relref "docs/tutorials/signing-and-verification.md" >}}).
 

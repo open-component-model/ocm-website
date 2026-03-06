@@ -46,13 +46,13 @@ With the `--copy-resources` flag, transfer creates a self-contained copy: all re
 ```mermaid
 flowchart TB
     subgraph metadataOnly["Metadata Only (default)"]
-        direction LR
+        direction TB
+        subgraph T1["Target Registry"]
+            T1CD["Component Descriptor"]
+        end
         subgraph S1["Source Registry"]
             S1CD["Component Descriptor"]
             S1R["Resources"]
-        end
-        subgraph T1["Target Registry"]
-            T1CD["Component Descriptor"]
         end
         S1CD -->|"copied"| T1CD
         T1CD -.->|"references point back"| S1R
@@ -83,7 +83,7 @@ Use `--copy-resources` when:
 
 When resources are copied with `--copy-resources`, the component descriptor access coordinates are updated to point to the target registry. However, deployment instructions **embedded inside** resources are not modified. For example, a Helm chart's `values.yaml` may still reference `registry-a.example.com/app:1.0` even after the image has been copied to the target registry. Resources are transferred byte-for-byte to preserve digest integrity, so these internal references remain unchanged.
 
-**Localization** solves this at deploy time, not at transfer time. In a Kubernetes environment, the OCM controller's Resource CR resolves the actual artifact location from the component descriptor and publishes it in its status. Deployment tools like kro or FluxCD then consume that published location instead of the stale reference embedded in the deployment manifest.
+**Localization** solves this at deploy time, not at transfer time. In a Kubernetes environment, the OCM controller's Resource CR resolves the actual artifact location from the component descriptor and publishes it in its status. Deployment tools like kro or Flux then consume that published location instead of the stale reference embedded in the deployment manifest.
 
 ```mermaid
 flowchart LR
@@ -117,7 +117,7 @@ OCM supports several transfer patterns, depending on your infrastructure:
 
 ## Signatures Across Boundaries
 
-Signatures are stored within the component descriptor and travel with it during transfer. This means you can sign a component version in one environment and verify the signature in a completely different environment, even across an air gap.
+Signatures are stored within the component descriptor and travel with it during transfer. This means you can sign a component version in one environment and verify the signature in a different environment, even across an air gap.
 
 A typical sovereign delivery flow:
 
