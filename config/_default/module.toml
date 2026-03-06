@@ -103,8 +103,14 @@
 ### dev: uses latest
 ### x.y.z uses version x.y.z of ref docs module
 
+# Shared blog content (single source of truth across all site versions)
+[[mounts]]
+  source = "content/blog"
+  target = "content/blog"
+
 # legacy (only mount, no imports)
 [[mounts]]
+  files = ["**", "!blog/**"]
   source = "content_versioned/version-legacy"
   target = "content"
 [mounts.sites.matrix]
@@ -112,6 +118,7 @@
 
 # dev
 [[mounts]]
+  files = ["**", "!blog/**"]
   source = "content"
   target = "content"
   [mounts.sites.matrix]
