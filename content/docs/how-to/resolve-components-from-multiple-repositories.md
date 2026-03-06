@@ -1,5 +1,5 @@
 ---
-title: "How to Resolve Components Across Multiple Registries"
+title: "Resolving Components Across Multiple Registries"
 description: "Configure resolvers to recursively resolve component references distributed across multiple OCI registries."
 weight: 10
 toc: true
@@ -119,7 +119,7 @@ my-org.example/component-b         │ 1.0.0   │
 
 - **If multiple components share a registry path**, use a glob pattern (e.g. `example.com/services/*`) instead of
   listing each component individually. See
-  [Component Name Patterns]({{< relref "docs/concepts/resolvers.md#component-name-patterns" >}}) for the full syntax.
+  [Component Name Patterns]({{< relref "docs/reference/resolver-configuration.md#component-name-patterns" >}}) for the full syntax.
 - **If you need to transfer components to another registry**, use `ocm transfer cv --recursive --copy-resources` with
   the same config file. See
   [OCM Transfer]({{< relref "docs/concepts/resolvers.md#ocm-transfer" >}}) for details.
@@ -128,8 +128,8 @@ my-org.example/component-b         │ 1.0.0   │
 
 ## Related documentation
 
-- [Resolvers]({{< relref "docs/concepts/resolvers.md" >}}) — Concept page with configuration schema, pattern syntax,
-  and transfer details
+- [Resolvers]({{< relref "docs/concepts/resolvers.md" >}}) — High-level introduction to resolvers
+- [Resolver Configuration Reference]({{< relref "docs/reference/resolver-configuration.md" >}}) — Full configuration schema, repository types, and pattern syntax
 - [Working with Resolvers Tutorial]({{< relref "docs/tutorials/configure-resolvers.md" >}}) — Hands-on tutorial for
   building and pushing components with resolvers
 - [Credentials in an .ocmconfig File]({{< relref "creds-in-ocmconfig.md" >}}) — Configure registry credentials

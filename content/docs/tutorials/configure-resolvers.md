@@ -10,8 +10,8 @@ toc: true
 
 When a component has **references** to other components stored in different repositories, the CLI needs to know where to
 find them. **Resolvers** map component name patterns to repositories so the CLI can automatically locate referenced
-components during recursive operations. For a detailed explanation of resolver concepts, configuration options, and
-pattern syntax, see the [Resolvers concept page]({{< relref "docs/concepts/resolvers.md" >}}).
+components during recursive operations. For a high-level introduction, see the [Resolvers concept page]({{< relref "docs/concepts/resolvers.md" >}}).
+For configuration details and pattern syntax, see the [Resolver Configuration Reference]({{< relref "docs/reference/resolver-configuration.md" >}}).
 
 {{<callout context="note" title="What You'll Learn">}}
 
@@ -72,6 +72,26 @@ echo $GITHUB_TOKEN | docker login ghcr.io -u $GITHUB_USERNAME --password-stdin
 Your token needs to have write permissions for packages in order to push component versions to the registry.
 {{< /step >}}
 
+{{< step >}}
+**Create the .ocmconfig**
+
+Create an `.ocmconfig` next to the `constructor.yaml` files in the directory you will be working in with credentials for `ghcr.io`.
+This file will be used in subsequent steps when pushing components and configuring resolvers:
+
+```yaml
+type: generic.config.ocm.software/v1
+configurations:
+  - type: credentials.config.ocm.software
+    repositories:
+      - repository:
+          type: DockerConfig/v1
+          dockerConfigFile: "~/.docker/config.json"
+```
+
+For more information about the OCM configuration file,
+see [.ocmconfig documentation](https://github.com/open-component-model/ocm/blob/main/docs/reference/ocm_configfile.md).
+{{< /step >}}
+
 {{<callout context="tip">}}
 If you are re-running this tutorial and the component versions already exist, add
 `--component-version-conflict-policy replace` to the `ocm add cv` commands to overwrite existing versions.
@@ -101,7 +121,7 @@ Push it to the repository to store the component in. We will reference this late
 
 ```bash
 ocm add cv --repository ghcr.io/$GITHUB_USERNAME/ocm-resolver-tutorial-deps \
-  --constructor backend-constructor.yaml
+  --constructor backend-constructor.yaml --config .ocmconfig
 ```
 
 <details>
@@ -140,7 +160,7 @@ Push it to the same repository:
 
 ```bash
 ocm add cv --repository ghcr.io/$GITHUB_USERNAME/ocm-resolver-tutorial-deps \
-  --constructor frontend-constructor.yaml
+  --constructor frontend-constructor.yaml --config .ocmconfig
 ```
 
 <details>
@@ -198,7 +218,7 @@ frontend components in the app repository.
 
 Before we can push the app-component that references the backend and frontend components,
 we need to set up resolvers so the CLI can find the referenced components during recursive resolution.
-Create an `.ocmconfig` file with credentials and resolvers that map the component references to their repository:
+Update your `.ocmconfig` file with resolvers that map the component references to their repository:
 
 ```bash
 cat <<EOF > .ocmconfig
@@ -229,7 +249,7 @@ EOF
 {{< step >}}
 **Push the App Component**
 
-After declaring the resolvers pointing to backend and frontend, you are able to push the **app component** 
+After declaring the resolvers pointing to backend and frontend, you are able to push the **app component**
 to the **app repository**:
 
 ```bash
@@ -265,9 +285,9 @@ The CLI:
 Check that all three components exist in their respective repositories:
 
 ```bash
-ocm get cv ghcr.io/$GITHUB_USERNAME/ocm-resolver-tutorial-deps//ocm.software/tutorials/backend:1.0.0
-ocm get cv ghcr.io/$GITHUB_USERNAME/ocm-resolver-tutorial-deps//ocm.software/tutorials/frontend:1.0.0
-ocm get cv ghcr.io/$GITHUB_USERNAME/ocm-resolver-tutorial//ocm.software/tutorials/app:1.0.0
+ocm get cv ghcr.io/$GITHUB_USERNAME/ocm-resolver-tutorial-deps//ocm.software/tutorials/backend:1.0.0 --config .ocmconfig
+ocm get cv ghcr.io/$GITHUB_USERNAME/ocm-resolver-tutorial-deps//ocm.software/tutorials/frontend:1.0.0 --config .ocmconfig
+ocm get cv ghcr.io/$GITHUB_USERNAME/ocm-resolver-tutorial//ocm.software/tutorials/app:1.0.0 --config .ocmconfig
 ```
 
 The outputs of each command should show the respective component version with its provider.
@@ -276,7 +296,7 @@ The outputs of each command should show the respective component version with it
 {{< /steps >}}
 
 {{<callout context="tip" title="Resolving from Multiple Repositories">}}
-In the tutorial above, both component references share a single repository. In practice, components often live in 
+In the tutorial above, both component references share a single repository. In practice, components often live in
 **separate repositories**.
 
 See the how-to guide:
@@ -303,8 +323,9 @@ Now that you know how to configure resolvers, you can:
 
 ## Related Documentation
 
-- [Resolvers]({{< relref "docs/concepts/resolvers.md" >}}) — Resolver concepts, configuration options, pattern syntax,
-  and schema reference
+- [Resolvers]({{< relref "docs/concepts/resolvers.md" >}}) — High-level introduction to resolvers
+- [Resolver Configuration Reference]({{< relref "docs/reference/resolver-configuration.md" >}}) — Full configuration
+  schema, repository types, and pattern syntax
 - [Components]({{< relref "docs/concepts/components.md" >}}) — Core concepts behind component versions, identities, and
   references
 - [Credentials in an .ocmconfig File]({{< relref "creds-in-ocmconfig.md" >}}) — Configure credentials for OCI
