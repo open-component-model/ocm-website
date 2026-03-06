@@ -336,7 +336,7 @@ ocm transfer ctf --copy-resources ./ctf ghcr.io/<your-namespace>
 
 {{<callout context="note" title="Provide credentials to the OCM cli" icon="outline/key">}}
 If you are using a registry that requires authentication, you need to provide credentials for ocm. Please refer to
-the [OCM CLI credentials documentation]({{< relref "creds-in-ocmconfig.md" >}}) for more information on how to set up
+the [OCM CLI credentials documentation]({{< relref "/docs/concepts/credential-system.md" >}}) for more information on how to set up
 and use credentials.
 {{</callout>}}
 

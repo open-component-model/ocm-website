@@ -462,3 +462,5 @@ shortcodes
 wsl
 auditable
 hasmermaid
+XDG
+IAM
