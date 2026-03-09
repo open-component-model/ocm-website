@@ -269,4 +269,28 @@ This guide covers the complete signing and verification workflow, from key pair 
 
 &lt;a href="https://ocm.software/dev/docs/getting-started/deploy-helm-charts/"&gt;Deploy a Helm Chart&lt;/a&gt; guide showed a basic example of how to deploy a Helm chart from an OCM component.
 By defining a &lt;code&gt;ResourceGraphDefinition&lt;/code&gt; that contains all the required resources to deploy the Helm chart into a
-Kubernetes cluster.&lt;/p&gt;</description></item></channel></rss>
+Kubernetes cluster.&lt;/p&gt;</description></item><item><title>Working with Resolvers</title><link>https://ocm.software/dev/docs/tutorials/working-with-resolvers/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/dev/docs/tutorials/working-with-resolvers/</guid><description>&lt;h2 id="overview"&gt;Overview&lt;/h2&gt;
+&lt;p&gt;When a component has &lt;strong&gt;references&lt;/strong&gt; to other components stored in different repositories, the CLI needs to know where to
+find them. &lt;strong&gt;Resolvers&lt;/strong&gt; map component name patterns to repositories so the CLI can automatically locate referenced
+components during recursive operations. For a high-level introduction, see the 
+
+
+
+
+
+ 
+ 
+
+
+&lt;a href="https://ocm.software/dev/docs/concepts/resolvers/"&gt;Resolvers concept page&lt;/a&gt;.
+For configuration details and pattern syntax, see the 
+
+
+
+
+
+ 
+ 
+
+
+&lt;a href="https://ocm.software/dev/docs/reference/resolver-configuration/"&gt;Resolver Configuration Reference&lt;/a&gt;.&lt;/p&gt;</description></item></channel></rss>
