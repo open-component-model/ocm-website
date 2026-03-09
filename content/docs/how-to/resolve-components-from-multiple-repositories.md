@@ -132,4 +132,4 @@ my-org.example/component-b         │ 1.0.0   │
 - [Resolver Configuration Reference]({{< relref "docs/reference/resolver-configuration.md" >}}) — Full configuration schema, repository types, and pattern syntax
 - [Working with Resolvers Tutorial]({{< relref "docs/tutorials/configure-resolvers.md" >}}) — Hands-on tutorial for
   building and pushing components with resolvers
-- [Credentials in an .ocmconfig File]({{< relref "creds-in-ocmconfig.md" >}}) — Configure registry credentials
+- [Understand Credential Resolution]({{< relref "docs/tutorials/credential-resolution.md" >}}) — Configure registry credentials

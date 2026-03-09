@@ -101,7 +101,7 @@ Use `ocm transfer cv` and specify the correct reference (`<path-to-your-ctf>//<c
 Replace `<your-namespace>` with your registry namespace:
 
 > 📣 **Note:** 📣  
-> If your registry requires authentication, configure [Credentials for OCM CLI]({{< relref "creds-in-ocmconfig.md" >}}) first.
+> If your registry requires authentication, configure [Credentials for OCM CLI]({{< relref "/docs/how-to/configure-multiple-credentials.md" >}}) first.
 
 ```shell
 ocm transfer cv transport-archive//ocm.software/ocm-k8s-toolkit/simple:1.0.0 ghcr.io/<your-namespace>
