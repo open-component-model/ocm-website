@@ -245,6 +245,7 @@ mvnrepository
 namespace
 namespaces
 neonephos
+nerdctl
 newcomponentaccess
 newcomponentversionaccess
 newrepository
@@ -458,3 +459,9 @@ diataxis
 callouts
 shortcode
 shortcodes
+wsl
+auditable
+hasmermaid
+XDG
+subpaths
+IAM

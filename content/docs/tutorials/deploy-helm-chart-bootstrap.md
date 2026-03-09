@@ -25,7 +25,7 @@ cluster.
 The following guide demonstrates how to deploy a Helm chart using a `ResourceGraphDefinition` that is also delivered
 with the same OCM component. Additionally, it shows how to **localize** a Helm chart.
 
-{{<callout context="note">}}
+{{<callout context="note" title="Localization" icon="outline/current-location">}}
 **Localization** describes the process of inserting a new image reference into the deployment instructions, e.g. a
 Helm chart. It is a two-step process:
 
@@ -154,7 +154,7 @@ After applying the `ResourceGraphDefinition`, kro will reconcile it and create a
 
 Finally, we will check if the deployment was successful and if the localization was applied correctly.
 
-{{<callout context="note">}}
+{{<callout context="note" title="Set up your environment" icon="outline/settings-check">}}
 Before starting, make sure you have set up your environment as described in the [setup guide]({{< relref "setup-controller-environment.md" >}}).
 {{</callout>}}
 
@@ -308,7 +308,7 @@ spec:
               tag: ${resourceImage.status.additional.tag}
 ```
 
-{{<callout context="note">}}
+{{<callout context="note" title="Provide credentials for the deployment" icon="outline/key">}}
 If you plan to push your OCM component version to a private registry, you need to provide credentials for the OCM
 controllers and FluxCDs `OCIRepository` (if the Helm chart is also stored in a private registry). Accordingly, you
 have to specify the `ocmConfig` field in the `Resource` resources and the `secretRef` field in the `OCIRepository`.
@@ -334,9 +334,10 @@ be localized in the first step - so, the image reference is updated to the new r
 ocm transfer ctf --copy-resources ./ctf ghcr.io/<your-namespace>
 ```
 
-{{<callout context="note">}}
+{{<callout context="note" title="Provide credentials to the OCM cli" icon="outline/key">}}
 If you are using a registry that requires authentication, you need to provide credentials for ocm. Please refer to
-the [OCM CLI credentials documentation]({{< relref "creds-in-ocmconfig.md" >}}) for more information on how to set up and use credentials.
+the [OCM CLI credentials documentation]({{< relref "/docs/concepts/credential-system.md" >}}) for more information on how to set up
+and use credentials.
 {{</callout>}}
 
 If everything went well, you should see the following output:
@@ -459,8 +460,9 @@ spec:
   # ocmConfig:
 ```
 
-{{<callout context="note">}}
-Again, if your OCM component version is stored in a private registry, you need to provide credentials for the OCM controller resources to access the OCM repository. You can do so by specifying the `ocmConfig` field in the `Repository`,
+{{<callout context="note" title="Provide credentials for the deployment" icon="outline/key">}}
+Again, if your OCM component version is stored in a private registry, you need to provide credentials for the OCM
+controller resources to access the OCM repository. You can do so by specifying the `ocmConfig` field in the `Repository`,
 `Component`, `Resource`, and `Deployer` resources. For more information on how to set up credentials, please refer to
 the [OCM controller credentials guide]({{< relref "configure-credentials-for-controllers.md" >}}).
 {{</callout>}}
