@@ -115,9 +115,8 @@ For more information on the supported glob syntax, see the [glob package documen
 
 ## Resolver Evaluation Order
 
-{{<callout context="note">}}
-Resolvers are evaluated **in the order they are defined**. The first matching resolver wins. Place more specific patterns before broader ones.
-{{</callout>}}
+Resolvers are evaluated **in the order they are defined**. 
+The first matching resolver wins. Place more specific patterns before broader ones.
 
 ## Related Documentation
 

@@ -20,7 +20,7 @@ That's what resolvers provide.
 
 ## What Are Resolvers?
 
-A resolver maps a **component name pattern** (glob) to an 
+A resolver maps a **component name pattern** (glob) to an
 **[OCM repository](https://github.com/open-component-model/ocm-spec/blob/main/doc/01-model/01-model.md#component-repositories)**.
 When the CLI encounters a component reference during recursive operations, it walks the list of configured resolvers,
 finds the first pattern that matches the referenced component name, and queries the associated repository.
@@ -64,6 +64,7 @@ in its respective repository — without them, recursive resolution across multi
 The `transfer cv` command supports resolvers, allowing you to move component versions (e.g., an OCI image) from one OCI repository to another.
 Combined with `--recursive` and a resolver configuration, the CLI can transfer entire component graphs across registries.
 If you want to copy all referenced resources, use the `--copy-resources` flag to transfer resources linked in those component versions.
+For more information about OCM transfer, see the [Transfer and Transport]({{< relref "docs/concepts/transfer-concept.md" >}})
 
 ```bash
 ocm transfer cv ghcr.io/my-org/components//example.com/services/app:1.0.0 \
@@ -85,3 +86,5 @@ For more information about the `transfer` command, see the
 - [How to Resolve Components Across Multiple Registries]({{< relref "docs/how-to/resolve-components-from-multiple-repositories.md" >}}) — Recipe for
   multi-registry resolution
 - [Credentials in an .ocmconfig File]({{< relref "creds-in-ocmconfig.md" >}}) — Configure credentials for OCI registries
+- [How to Transfer Components Across an Air Gap]({{< relref "docs/how-to/air-gap-transfer.md" >}}) — Use OCM Transfer to move components between
+  air-gapped environments
