@@ -132,7 +132,7 @@ configurations:
 
 {{< /steps >}}
 
-## Complete Example
+## Complete Example Configuration
 
 Here's a complete configuration combining all identity types:
 
