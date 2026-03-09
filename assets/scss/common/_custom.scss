@@ -13,3 +13,8 @@
 @import "pages"; // Page-specific overrides
 @import "version-warning"; // Version warning banner
 @import "landing-ord"; // Landing page & footer
+
+// Dart Sass compatibility fixes (replaces @extend rules from doks-core that
+// reference Bootstrap 4 selectors removed in Bootstrap 5)
+@import "forms-dart-sass-compat";
+
