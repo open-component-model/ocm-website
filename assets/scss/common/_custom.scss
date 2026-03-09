@@ -14,7 +14,7 @@
 @import "version-warning"; // Version warning banner
 @import "landing-ord"; // Landing page & footer
 
-// Dart Sass compatibility fixes (replaces @extend rules from doks-core that
-// reference Bootstrap 4 selectors removed in Bootstrap 5)
-@import "forms-dart-sass-compat";
+// Note: Dart Sass compatibility fixes for the theme's search form @extend
+// rules are applied via assets/scss/components/_forms.scss (overrides
+// @thulite/doks-core's original) and defined in _forms-dart-sass-compat.scss.
 
