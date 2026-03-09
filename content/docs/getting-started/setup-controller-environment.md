@@ -211,20 +211,23 @@ source-controller-6ff87cb475-2h2lv           1/1     Running     0              
 
 Use Helm to install the OCM controllers:
 
-```shell
-helm install ocm-k8s-toolkit oci://ghcr.io/open-component-model/charts/ocm-k8s-toolkit \
+```bash
+helm install ocm-k8s-toolkit oci://ghcr.io/open-component-model/kubernetes/controller/chart:<pre-release> \
   --namespace ocm-k8s-toolkit-system \
   --create-namespace
 ```
+
+You can check out this [list](https://github.com/open-component-model/open-component-model/pkgs/container/kubernetes%2Fcontroller%2Fchart/versions?filters%5Bversion_type%5D=tagged)
+to pick the latest pre-release version until an official release was published.
 
 <details>
 <summary>You should see this output</summary>
 
 ```text
-Pulled: ghcr.io/open-component-model/charts/ocm-k8s-toolkit:0.1.0
-Digest: sha256:6e793847cef1d765f1dfd9fa9ab400a4043b21f86c8b39bb13f3206c3000a956
+Pulled: ghcr.io/open-component-model/kubernetes/controller/chart:0.0.0-66b9926
+Digest: sha256:cfa13f5c98fc41c3d318471241e431479d2f35c492431c82e76b14dc6dcfcd9a
 NAME: ocm-k8s-toolkit
-LAST DEPLOYED: Wed Feb 25 12:21:44 2026
+LAST DEPLOYED: Mon Mar  9 11:59:18 2026
 NAMESPACE: ocm-k8s-toolkit-system
 STATUS: deployed
 REVISION: 1
