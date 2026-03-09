@@ -25,27 +25,25 @@ A resolver maps a **component name pattern** (glob) to an
 When the CLI encounters a component reference during recursive operations, it walks the list of configured resolvers,
 finds the first pattern that matches the referenced component name, and queries the associated repository.
 
+```mermaid
+flowchart TD
+    Start["CLI encounters a component reference"] --> Resolvers["Walk resolver list (in order)"]
+    Resolvers --> Match{"Component name matched the next resolver's pattern?"}
+    Match -- Yes --> Query["Query the resolver's configured repository"]
+    Match -- No --> More{"More resolvers in the list?"}
+    More -- Yes --> Resolvers
+    More -- No --> Fail["Resolution fails: no matching resolver"]
+    Query --> Found{"Component version found?"}
+    Found -- Yes --> Done["Use this component version"]
+    Found -- No --> Fail
+```
+
 ## Configuration
 
 Resolvers are configured in the OCM configuration file (by default `$HOME/.ocmconfig`). Each resolver entry maps a
-component name pattern to a repository:
+component name pattern to a repository. Resolvers are evaluated in order — the first matching entry wins.
 
-```yaml
-type: generic.config.ocm.software/v1
-configurations:
-  - type: resolvers.config.ocm.software/v1alpha1
-    resolvers:
-      - repository:
-          type: OCIRepository/v1
-          baseUrl: ghcr.io
-          subPath: my-org/components
-        componentNamePattern: "example.com/services/*"
-```
-
-This tells OCM: "When looking for any component matching `example.com/services/*`, check the OCI registry at
-`ghcr.io/my-org/components`." Resolvers are evaluated in order — the first matching entry wins.
-
-The `repository` field supports different repository types, including OCI registries and file-based CTF archives.
+The repository field supports different repository types, including OCI registries and file-based CTF archives.
 Component name patterns use common glob syntax (e.g., `*` for single-level, `**` for multi-level matching).
 
 {{<callout context="tip">}}
@@ -61,22 +59,12 @@ in its respective repository — without them, recursive resolution across multi
 
 ## OCM Transfer
 
-The `transfer cv` command supports resolvers, allowing you to move component versions (e.g., an OCI image) from one OCI repository to another.
-Combined with `--recursive` and a resolver configuration, the CLI can transfer entire component graphs across registries.
-If you want to copy all referenced resources, use the `--copy-resources` flag to transfer resources linked in those component versions.
-For more information about OCM transfer, see the [Transfer and Transport]({{< relref "docs/concepts/transfer-concept.md" >}})
+Resolvers play an important role in transferring component versions across registries. When transferring a component
+graph with `--recursive`, the CLI uses resolvers to locate each referenced component so it can copy the entire graph
+to the target repository. Combined with `--copy-resources`, this enables full transfers of component graphs —
+including all referenced resources — across registry boundaries or even air-gapped environments.
 
-```bash
-ocm transfer cv ghcr.io/my-org/components//example.com/services/app:1.0.0 \
-  ghcr.io/my-org/target-repo --recursive \
-  --copy-resources \
-  --config .ocmconfig
-```
-
-{{<callout context="tip">}}
-For more information about the `transfer` command, see the
-[OCM CLI Transfer reference](https://ocm.software/docs/reference/ocm-cli/transfer/).
-{{</callout>}}
+For more information about OCM transfer, see the [Transfer and Transport]({{< relref "docs/concepts/transfer-concept.md" >}}) concept.
 
 ## Related Documentation
 
