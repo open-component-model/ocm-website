@@ -1,7 +1,7 @@
 ---
 title: "Migrate from Deprecated Resolvers"
 description: "Replace deprecated fallback resolvers with glob-based resolvers for deterministic and efficient component resolution."
-weight: 11
+weight: 100
 toc: true
 ---
 
@@ -11,9 +11,9 @@ Replace the deprecated `ocm.config.ocm.software` fallback resolver configuration
 resolvers.
 
 {{< callout context="caution" >}}
-The fallback resolver (`ocm.config.ocm.software`) is deprecated. It uses priority-based ordering with prefix matching,
-which can produce non-deterministic results when multiple repositories match.
-The glob-based resolver (`resolvers.config.ocm.software/v1alpha1`) replaces it with deterministic glob-based matching against component names.
+The fallback resolver (`ocm.config.ocm.software`) is deprecated. It uses priority-based ordering with prefix matching and probes multiple
+repositories until one succeeds. The glob-based resolver (`resolvers.config.ocm.software/v1alpha1`) replaces it with first-match glob-based matching
+against component names, which is simpler and more efficient.
 {{< /callout >}}
 
 ## Prerequisites
@@ -71,7 +71,9 @@ configurations:
 
 The fallback resolver uses `prefix` to match component names by string prefix. The glob-based resolver uses `componentNamePattern`,
 which supports [glob patterns]({{< relref "docs/reference/resolver-configuration.md#component-name-patterns" >}}).
-Append `/*` to your old prefix to get the same matching behaviour, or use more specific patterns.
+In most cases, appending `/*` to the old prefix is the closest equivalent. Note that the old `prefix` also matched the bare prefix itself as an exact
+component name (e.g. `prefix: my-org.example/services` matched both `my-org.example/services` and `my-org.example/services/foo`). If you have
+components that match the bare prefix, use `{,/*}` instead:
 
 ```yaml
     resolvers:
@@ -79,6 +81,13 @@ Append `/*` to your old prefix to get the same matching behaviour, or use more s
           type: OCIRepository/v1
           baseUrl: ghcr.io
           subPath: my-org/team-a
+        # matches my-org.example/services and my-org.example/services/*
+        componentNamePattern: "my-org.example/services{,/*}"  # was: prefix: my-org.example/services
+```
+
+If no component uses the bare prefix as its name (which is the common case), `/*` is sufficient:
+
+```yaml
         componentNamePattern: "my-org.example/services/*"  # was: prefix: my-org.example/services
 ```
 
@@ -161,6 +170,17 @@ warning.
 
 {{< /steps >}}
 
+## Key Differences
+
+|                      | Fallback (`ocm.config.ocm.software`)                              | Glob-based (`resolvers.config.ocm.software/v1alpha1`)   |
+|----------------------|-------------------------------------------------------------------|---------------------------------------------------------|
+| **Matching**         | String prefix on component name                                   | Glob pattern (`*`, `?`, `[...]`) on component name      |
+| **Resolution order** | Priority-based (highest first), then fallback through all matches | First match wins (list order)                           |
+| **Get behaviour**    | Tries all matching repos until one succeeds                       | Returns the first matching repo deterministically       |
+| **Add behaviour**    | Adds to the first matching repo by priority                       | Adds to the first matching repo by list order           |
+| **Status**           | Deprecated                                                        | Active                                                  |
+
+
 ## When You Cannot Migrate Yet
 
 The fallback resolver has a **probe-and-retry** behaviour that the glob-based resolver does not replicate.
@@ -226,17 +246,6 @@ The same applies to **listing component versions**: the fallback resolver accumu
 resolver only queries the first match.
 
 If either case applies, consolidate all versions of the affected components into a single repository before migrating your resolver config.
-
-## Key Differences
-
-|                      | Fallback (`ocm.config.ocm.software`)                              | Glob-based (`resolvers.config.ocm.software/v1alpha1`)   |
-|----------------------|-------------------------------------------------------------------|---------------------------------------------------------|
-| **Matching**         | String prefix on component name                                   | Glob pattern (`*`, `?`, `[...]`) on component name      |
-| **Resolution order** | Priority-based (highest first), then fallback through all matches | First match wins (list order)                           |
-| **Get behaviour**    | Tries all matching repos until one succeeds                       | Returns the first matching repo deterministically       |
-| **Add behaviour**    | Adds to the first matching repo by priority                       | Adds to the first matching repo by list order           |
-| **Status**           | Deprecated                                                        | Active                                                  |
-
 ## What's Next?
 
 - [How-To: Resolving Components Across Multiple Registries]({{< relref "resolve-components-from-multiple-repositories.md" >}}) — Configure resolver
