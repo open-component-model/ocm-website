@@ -172,14 +172,13 @@ warning.
 
 ## Key Differences
 
-|                      | Fallback (`ocm.config.ocm.software`)                              | Glob-based (`resolvers.config.ocm.software/v1alpha1`)   |
-|----------------------|-------------------------------------------------------------------|---------------------------------------------------------|
-| **Matching**         | String prefix on component name                                   | Glob pattern (`*`, `?`, `[...]`) on component name      |
-| **Resolution order** | Priority-based (highest first), then fallback through all matches | First match wins (list order)                           |
-| **Get behaviour**    | Tries all matching repos until one succeeds                       | Returns the first matching repo deterministically       |
-| **Add behaviour**    | Adds to the first matching repo by priority                       | Adds to the first matching repo by list order           |
-| **Status**           | Deprecated                                                        | Active                                                  |
-
+|                      | Fallback (`ocm.config.ocm.software`)                              | Glob-based (`resolvers.config.ocm.software/v1alpha1`) |
+|----------------------|-------------------------------------------------------------------|-------------------------------------------------------|
+| **Matching**         | String prefix on component name                                   | Glob pattern (`*`, `?`, `[...]`) on component name    |
+| **Resolution order** | Priority-based (highest first), then fallback through all matches | First match wins (list order)                         |
+| **Get behaviour**    | Tries all matching repos until one succeeds                       | Returns the first matching repo deterministically     |
+| **Add behaviour**    | Adds to the first matching repo by priority                       | Adds to the first matching repo by list order         |
+| **Status**           | Deprecated                                                        | Active                                                |
 
 ## When You Cannot Migrate Yet
 
@@ -187,8 +186,8 @@ The fallback resolver has a **probe-and-retry** behaviour that the glob-based re
 
 Consider a registry migration where the same component has versions spread across multiple repositories:
 
-| Version                              | Repository                     |
-|--------------------------------------|--------------------------------|
+| Version                             | Repository                     |
+|-------------------------------------|--------------------------------|
 | `my-org.example/my-component:1.0.0` | `old-registry.example/legacy`  |
 | `my-org.example/my-component:1.5.0` | `old-registry.example/legacy`  |
 | `my-org.example/my-component:2.0.0` | `new-registry.example/current` |
@@ -246,6 +245,7 @@ The same applies to **listing component versions**: the fallback resolver accumu
 resolver only queries the first match.
 
 If either case applies, consolidate all versions of the affected components into a single repository before migrating your resolver config.
+
 ## What's Next?
 
 - [How-To: Resolving Components Across Multiple Registries]({{< relref "resolve-components-from-multiple-repositories.md" >}}) — Configure resolver
