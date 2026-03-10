@@ -2,41 +2,69 @@
 title: "OCM v2: A Fresh Foundation for Secure Software Delivery"
 description: "OCM v2 is a complete reboot — a new CLI, Kubernetes controllers, and Go library built from the ground up for modularity, security, and community."
 date: 2026-03-30T10:00:00+01:00
-contributors:
-  - OCM Team
+contributors: []
 tags: ["release", "community", "v2", "supply-chain", "kubernetes"]
 draft: false
 slug: "ocmv2"
 ---
 
-We are excited to announce **OCM v2** — a ground-up rebuild of the Open Component Model tooling stack. The new CLI, Kubernetes controllers, and Go library all live in a single monorepo at [github.com/open-component-model/open-component-model](https://github.com/open-component-model/open-component-model), designed from the start for modularity, security, and community contribution.
+We are excited to announce **OCM v2** — a ground-up rebuild of the Open Component Model tooling stack. A new CLI, Kubernetes controllers, and Go library — designed from the start for modularity, security, and community contribution. The entire stack continues to implement the [OCM Specification v2](https://ocm.software/spec/), ensuring full compatibility with the standard that defines how components, resources, and signatures are represented.
+
+{{< callout context="tip" title="One monorepo for everything" >}}
+All of OCM v2 lives in a single repository: [github.com/open-component-model/open-component-model](https://github.com/open-component-model/open-component-model)
+{{< /callout >}}
 
 ## Why a Reboot?
 
-The original OCM libraries served the project well, but several issues made it clear that incremental fixes were not enough:
+The original OCM libraries served the project well, but incremental fixes were not enough.
 
-- **Supply chain concerns from monolithic design.** The legacy library's monolithic architecture meant that pulling in OCM pulled in everything — even parts you did not need. This created unnecessary supply chain exposure for consumers who only wanted a subset of functionality.
-- **Contributability barriers.** The codebase was difficult for new contributors to navigate, understand, and extend. The high barrier to entry worked against our goal of building a community-driven project.
-- **Extensibility and maintainability.** Adding new features cleanly or maintaining existing ones without risking regressions across unrelated areas became increasingly difficult.
+{{< callout context="note" title="What needed to change" >}}
+- **Supply chain exposure** — The monolithic architecture meant pulling in OCM pulled in everything, even parts you did not need
+- **Contributability barriers** — The codebase was difficult for new contributors to navigate, understand, and extend
+- **Extensibility limits** — Adding new features or maintaining existing ones risked regressions across unrelated areas
+{{< /callout >}}
 
-OCM v2 is the result: a modular design, less coupled APIs, a smaller dependency footprint, and a codebase built for community contribution from day one. 
-
-Learn more about the project's evolution in [About the OCM Project](/dev/docs/concepts/about-the-ocm-project/).
+OCM v2 is the result: modular design, decoupled APIs, a smaller dependency footprint, and a codebase built for community contribution from day one. Learn more in [About the OCM Project](/dev/docs/concepts/about-the-ocm-project/).
 
 ## What's in v2
 
-All three pillars of the OCM tooling stack have been rebuilt and are released together.
+OCM v2 ships three components — a CLI for interactive and CI/CD use, Kubernetes controllers for GitOps-native deployment, and a Go library that underpins both. All three are developed, versioned, and released together from a single monorepo, sharing one dependency tree and one test suite.
+
+```mermaid
+flowchart TD
+    subgraph mono["Monorepo"]
+        subgraph cli["CLI"]
+            direction LR
+            Pack["Pack"] --> Sign["Sign"] --> Transport["Transport"]
+        end
+
+        subgraph ctrl["Kubernetes Controllers"]
+            direction LR
+            Repo["Repository CR"] --> Comp["Component CR"] --> Res["Resource CR"] --> Deployer["Deployer API"]
+        end
+
+        subgraph lib["Go Bindings"]
+            direction LR
+            Bindings["Bindings"] --- Deps["Shared Deps"]
+        end
+
+        cli --- lib
+        ctrl --- lib
+    end
+```
 
 ### A New CLI
 
-The v2 CLI implements the full **Pack, Sign, Transport, Deploy** workflow that OCM users rely on:
+The v2 CLI implements the full **Pack, Sign, Transport, Deploy** workflow:
 
-- **Pack** software artifacts into component versions — see [Create Component Versions](/dev/docs/getting-started/create-component-versions/)
-- **Sign** component versions with RSA-based PKI signatures — see [Signing and Verification](/dev/docs/tutorials/signing-and-verification/)
-- **Transport** components between registries, including reference transport and air-gapped delivery via CTF archives — see [Transfer and Transport](/dev/docs/concepts/transfer-and-transport/) and [Air-Gap Transfer](/dev/docs/how-to/transfer-components-across-an-air-gap/)
-- **Deploy** applications from component versions using controllers — see [Deploy a Helm Chart](/dev/docs/getting-started/deploy-helm-charts/) and [OCM Controllers](/dev/docs/concepts/ocm-controllers/)
+{{< card-grid >}}
+{{< link-card title="Pack" href="/dev/docs/getting-started/create-component-versions/" description="Bundle software artifacts into component versions." >}}
+{{< link-card title="Sign" href="/dev/docs/tutorials/signing-and-verification/" description="Establish provenance with RSA-based PKI signatures." >}}
+{{< link-card title="Transport" href="/dev/docs/concepts/transfer-and-transport/" description="Move components between registries or across air gaps." >}}
+{{< link-card title="Deploy" href="/dev/docs/getting-started/deploy-helm-charts/" description="Deploy applications using OCM controllers." >}}
+{{< /card-grid >}}
 
-Here is a taste of how the CLI feels in practice:
+{{< details "See the CLI in action" >}}
 
 ```bash
 # Create a component version from a constructor file
@@ -59,46 +87,58 @@ ocm transfer cv --copy-resources --recursive \
 ocm verify cv --signature release target-registry.internal//acme.org/product:1.0.0
 ```
 
+{{< /details >}}
+
 Get started by [installing the CLI](/dev/docs/getting-started/install-the-ocm-cli/).
 
 ### Kubernetes Controllers
 
-The new Kubernetes controllers bring GitOps-native deployment of OCM component versions to Kubernetes. The controller stack introduces three core custom resources that map directly to OCM concepts:
+The new controllers bring GitOps-native deployment of OCM component versions to Kubernetes with three core custom resources:
+
+```mermaid
+flowchart LR
+    Repo["Repository"] --> Comp["Component"] --> Res["Resource"]
+    Res --> Deploy["kro + FluxCD"]
+```
 
 - **Repository** — points to an OCM repository and verifies reachability
-- **Component** — references a Repository, downloads and verifies the component version descriptor
-- **Resource** — resolves individual resources from a component version, verifies signatures, and publishes artifact locations for downstream consumers
+- **Component** — downloads and verifies the component version descriptor
+- **Resource** — resolves individual resources, verifies signatures, publishes artifact locations
 
-Today, deployment orchestration is handled through [kro](https://kro.run) ResourceGraphDefinitions combined with [FluxCD](https://fluxcd.io/) as the deployer. A ResourceGraphDefinition wires the OCM resources together with Flux's HelmRelease or Kustomization resources, giving you a declarative, auditable deployment pipeline.
+Deployment orchestration is handled through [kro](https://kro.run) ResourceGraphDefinitions combined with [FluxCD](https://fluxcd.io/) as the deployer.
 
-We are actively working on a **new deployment engine abstraction** that will simplify this further. The goal is to provide a streamlined, opinionated deployment experience directly within the OCM controller stack — reducing the number of moving parts while preserving the flexibility to plug in different deployers for advanced use cases. Stay tuned for more on this in the coming months.
+{{< callout context="tip" title="Coming soon: new deployment engine" >}}
+We are working on a **deployment engine abstraction** directly within the OCM controller stack — reducing moving parts while preserving flexibility to plug in different deployers.
+{{< /callout >}}
 
-Get started with the controllers:
-
-- [OCM Controllers Concept](/dev/docs/concepts/ocm-controllers/) — understand the architecture
-- [Set Up a Controller Environment](/dev/docs/getting-started/set-up-controller-environments/) — prepare a local Kubernetes cluster with kro and Flux
-- [Deploy a Helm Chart](/dev/docs/getting-started/deploy-helm-charts/) — deploy your first application from a component version
+{{< card-grid >}}
+{{< link-card title="Controller Architecture" href="/dev/docs/concepts/ocm-controllers/" description="Understand the OCM controller design." >}}
+{{< link-card title="Set Up Controllers" href="/dev/docs/getting-started/set-up-controller-environments/" description="Prepare a local cluster with kro and Flux." >}}
+{{< link-card title="Deploy a Helm Chart" href="/dev/docs/getting-started/deploy-helm-charts/" description="Your first controller-based deployment." >}}
+{{< /card-grid >}}
 
 ### Go Library and Bindings
 
-The new Go library provides clean, well-documented bindings for programmatic interaction with OCM. Because the library, CLI, and controllers all live in the same [monorepo](https://github.com/open-component-model/open-component-model), they share a single set of dependencies and are versioned together — eliminating the compatibility issues that could arise from separate release cycles.
+Clean, well-documented Go bindings for programmatic OCM interaction. Library, CLI, and controllers share a single set of dependencies and are versioned together — no more compatibility issues from separate release cycles.
 
-The bindings are already seeing adoption across the [Apeiro](https://apeirora.eu/) ecosystem:
+{{< callout context="note" title="Already in use across the Apeiro ecosystem" >}}
+- **[Konfidence](https://github.com/search?q=org%3Akonfidence-project%20ocm.software&type=code)** — Image Vector concept with OCM resources
+- **[Gardener](https://github.com/gardener/gardener-landscape-kit)** — gitops tooling for component-based lifecycle management
+- **[openMCP](https://github.com/open-component-model/service-provider-ocm)** — bootstrap and delivery across managed control planes
+- **[Platform Mesh](https://github.com/search?q=org%3Aplatform-mesh%20ocm.software&type=code)** — cross-platform artifact distribution
+{{< /callout >}}
 
-- **[Konfidence](https://github.com/search?q=org%3Akonfidence-project%20ocm.software&type=code)** — uses the OCM library for their Image Vector concept, managing container image references as first-class OCM resources
-- **[Gardener](https://github.com/gardener/gardener-landscape-kit)** — building their new gitops tooling on top of the OCM bindings for component-based lifecycle management
-- **[openMCP](https://github.com/open-component-model/service-provider-ocm)** — leveraging the library for bootstrap and delivery procedures across managed control planes via the OCM service provider
-- **[Platform Mesh](https://github.com/search?q=org%3Aplatform-mesh%20ocm.software&type=code)** — integrating OCM into their delivery workflow for cross-platform artifact distribution
-
-We are excited to see more projects adopt the bindings as the ecosystem grows and are welcoming everyone to contribute.
+We welcome everyone to adopt the bindings and contribute as the [Apeiro](https://apeirora.eu/) ecosystem grows.
 
 ## Conformance Testing
 
-The CLI and controllers are not tested in isolation. They are validated through **conformance scenarios** that exercise the entire product stack end-to-end.
+The CLI and controllers are validated through **conformance scenarios** that exercise the entire stack end-to-end.
 
-The first conformance scenario is the [Sovereign Cloud Delivery](https://github.com/open-component-model/open-component-model/tree/main/conformance/scenarios/sovereign) scenario. It builds a product as OCM components, signs them, transfers them through a simulated air gap using CTF archives, imports them into an isolated cluster registry, and deploys them using OCM controllers. This validates that signatures, resources, and references survive the entire journey intact — across registry boundaries, network gaps, and into live Kubernetes environments.
+{{< callout context="note" title="Sovereign Cloud Delivery scenario" >}}
+The first [conformance scenario](https://github.com/open-component-model/open-component-model/tree/main/conformance/scenarios/sovereign) builds OCM components, signs them, transfers them through a simulated air gap via CTF archives, imports them into an isolated cluster registry, and deploys them using OCM controllers — validating that signatures, resources, and references survive the entire journey intact.
+{{< /callout >}}
 
-This is just the beginning. We plan to add more conformance scenarios covering additional delivery patterns and integration points, ensuring that every release of the OCM stack meets a growing baseline of real-world validation.
+We plan to add more conformance scenarios covering additional delivery patterns, ensuring every release meets a growing baseline of real-world validation.
 
 ## A Community-First Project
 
@@ -114,7 +154,7 @@ The [SIG Runtime](https://github.com/open-component-model/open-component-model/b
 
 ### How to Get Involved
 
-There are multiple ways to participate in the OCM community:
+There are multiple ways to participate in the OCM community (see our [community engagement page](/community/engagement/) for the full overview):
 
 - **Zulip Channel:** `neonephos-ocm-support` — primary communication channel
 - **Mailing list:** [open-component-model-sig-runtime@lists.neonephos.org](mailto:open-component-model-sig-runtime@lists.neonephos.org)
@@ -135,27 +175,40 @@ We are working on [Sigstore integration](https://github.com/open-component-model
 
 ### Expanding the Ecosystem
 
-The v2 release is the foundation. Here is what we are building on top of it:
+#### Integrations & Deployment
 
 - **Apeiro integration:** Konfidence Image Vector System and openMCP Provider for enabling OCM APIs
 - **Simpler deployment workflows** for Cloud Native Kubernetes environments
-- **New integrations:** Examples include OCI Artifact Input Type and GitHub Source Support in the library
+- **New library integrations:** OCI Artifact Input, GitHub Source Access, and many more! 
+
+#### Developer Experience
+
 - **Language bindings beyond Go:** We are exploring bindings for other languages such as Python, broadening OCM's accessibility to a wider developer audience
-- **Compliance tooling with ODG (Open Delivery Gear):** Deeper integration with ODG to streamline compliance workflows — automating security scans, license checks, and policy enforcement as part of the OCM delivery pipeline
-- **Software Bill of Delivery:** OCM already provides the foundation for a true [Software Bill of Delivery (SBOD)](https://documentation.apeirora.eu/docs/best-practices/lcm/sbod/) — a comprehensive, machine-readable record of everything that was delivered, how it was built, signed, transported, and deployed. We are building on this vision to make SBOD a first-class concern across the entire toolchain
+- **Terminal UIs:** Exploring richer terminal interfaces for interactive workflows
+- **AI-native tooling:** Integrating OCM into AI-native development environments and assistants
+- **Library usability:** Expanding examples, usage guides, and documentation to lower the barrier for programmatic OCM adoption
+
+#### Compliance & Supply Chain
+
+- **ODG (Open Delivery Gear):** Deeper integration to streamline compliance workflows — automating security scans, license checks, and policy enforcement as part of the OCM delivery pipeline
+- **Software Bill of Delivery:** OCM already provides the foundation for a true [SBOD](https://documentation.apeirora.eu/docs/best-practices/lcm/sbod/) — a comprehensive, machine-readable record of everything that was delivered, how it was built, signed, transported, and deployed. We are building on this vision to make SBOD a first-class concern across the entire toolchain
 
 These improvements will steadily close the feature gap with our previous implementation, and we want to achieve parity.
 
 ## Documentation and Migration
 
+{{< callout context="note" title="Legacy support" >}}
+The legacy OCM stack will be supported until at least **the end of 2026**. Existing users can migrate at their own pace.
+{{< /callout >}}
+
 The documentation site now serves two versions:
 
-- **Legacy** — documentation for the original OCM stack. This is currently the default and the legacy stack will be supported until at least **the end of 2026**.
+- **Legacy** — documentation for the original OCM stack. This is currently the default.
 - **v2 docs** (currently labeled "dev") — documentation for the new stack you are reading about here.
 
-**Migration should be affordable.** Many CLI commands are cross-compatible between legacy and v2. We made a deliberate effort to keep the `.ocmconfig` structure and command syntax consistent, so existing users and CI/CD pipelines should find the transition straightforward.
-
-If you are new to OCM, start directly with the v2 docs. If you are an existing user, you can migrate at your own pace while the legacy stack remains fully supported.
+{{< callout context="tip" title="Migration should be affordable" >}}
+Both v1 and v2 implement the same [OCM Specification](https://ocm.software/spec/), so component versions created with either stack are fully interoperable. Many CLI commands are cross-compatible and we made a deliberate effort to keep the `.ocmconfig` structure and command syntax consistent, so existing users and CI/CD pipelines should find the transition straightforward.
+{{< /callout >}}
 
 ## Get Started
 
@@ -165,6 +218,43 @@ Ready to try OCM v2? Pick your path:
 {{< link-card title="Get Started with the CLI" href="/dev/docs/getting-started/install-the-ocm-cli/" description="Install the OCM CLI and learn the Pack, Sign, Transport, Deploy workflow." >}}
 {{< link-card title="Get Started with Controllers" href="/dev/docs/getting-started/set-up-controller-environments/" description="Set up a Kubernetes environment with OCM controllers, kro, and Flux." >}}
 {{< /card-grid >}}
+
+### Pack, Sign, Transport, Deploy
+
+{{< steps >}}
+{{< step >}}
+**Install the OCM CLI**
+
+[Download or build from source](/dev/docs/getting-started/install-the-ocm-cli/)
+{{< /step >}}
+{{< step >}}
+**Create Component Versions**
+
+[Bundle your software artifacts](/dev/docs/getting-started/create-component-versions/)
+{{< /step >}}
+{{< step >}}
+**Sign and Verify**
+
+[Establish provenance with RSA signatures](/dev/docs/tutorials/signing-and-verification/)
+{{< /step >}}
+{{< step >}}
+**Transfer across an Air Gap**
+
+[Deliver to isolated environments](/dev/docs/how-to/transfer-components-across-an-air-gap/)
+{{< /step >}}
+{{< step >}}
+**Setup your Runtime**
+
+[Prepare a kind cluster with kro and Flux](/dev/docs/getting-started/set-up-controller-environments/)
+{{< /step >}}
+{{< step >}}
+**Deploy a Helm Chart**
+
+[Learn about OCM Controllers](/dev/docs/concepts/ocm-controllers/)
+[Your first controller-based deployment](/dev/docs/getting-started/deploy-helm-charts/)
+{{< /step >}}
+
+{{< /steps >}}
 
 ## Get Involved
 
