@@ -176,23 +176,11 @@ Consider a registry migration where the same component has versions spread acros
 {{< tabs >}}
 {{< tab "Fallback (works)" >}}
 
-The fallback resolver tries all prefix-matching repositories in priority order until one succeeds:
+The fallback resolver matches repositories by **prefix** and tries them in **priority order**. If the requested version is not found in the
+highest-priority repository, it falls back to the next one until it finds a match or exhausts the list.
 
-```mermaid
-flowchart TD
-    Start["Get component version"] --> Match["Find all resolvers with matching prefix"]
-    Match --> Sort["Sort by priority (highest first)"]
-    Sort --> Try["Try first matching repository"]
-    Try --> Found{"Version found?"}
-    Found -- Yes --> Return["Return component version"]
-    Found -- No --> More{"More repositories?"}
-    More -- Yes --> Next["Try next repository"]
-    Next --> Found
-    More -- No --> Fail["Error: not found in any repository"]
-```
-
-Both registries share the same prefix and both are probed automatically. A request for `my-component:2.0.0` finds it in the new registry. A request
-for `my-component:1.0.0` misses in the new registry, falls back to the old one, and succeeds.
+In this example, both resolvers share the prefix `my-org.example`. A request for `my-component:2.0.0` finds it in the new registry (priority 10). A
+request for `my-component:1.0.0` misses in the new registry, falls back to the old one (priority 1), and succeeds.
 
 ```yaml
   - type: ocm.config.ocm.software
@@ -214,19 +202,11 @@ for `my-component:1.0.0` misses in the new registry, falls back to the old one, 
 {{< /tab >}}
 {{< tab "Glob-based (breaks)" >}}
 
-The glob-based resolver returns the first pattern match deterministically, with no retry:
+The glob-based resolver matches the component name against patterns in list order and returns the **first match** — it does not probe the repository
+or retry with the next resolver if the version is missing.
 
-```mermaid
-flowchart TD
-    Start["Get component version"] --> Walk["Walk resolver list (in order)"]
-    Walk --> Check{"Pattern matches\ncomponent name?"}
-    Check -- No --> More{"More resolvers?"}
-    More -- Yes --> Walk
-    More -- No --> Fail["Error: no matching resolver"]
-    Check -- Yes --> Return["Return matched repository"]
-```
-
-`componentNamePattern: "my-org.example/*"` can only point to **one** repository — whichever you choose, the versions in the other become unreachable.
+In this example, `componentNamePattern: "my-org.example/*"` points to the new registry only. Requesting `my-component:2.0.0` succeeds, but requesting
+`my-component:1.0.0` fails because the old registry is not configured and there is no fallback.
 
 ```yaml
   - type: resolvers.config.ocm.software/v1alpha1
