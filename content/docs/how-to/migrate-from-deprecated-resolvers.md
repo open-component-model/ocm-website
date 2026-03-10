@@ -1,19 +1,19 @@
 ---
-title: "Migrate to Path Matcher Resolvers"
-description: "Replace deprecated fallback resolvers with the new path matcher resolvers for deterministic and efficient component resolution."
+title: "Migrate from Deprecated Resolvers"
+description: "Replace deprecated fallback resolvers with glob-based resolvers for deterministic and efficient component resolution."
 weight: 11
 toc: true
 ---
 
 ## Goal
 
-Replace the deprecated `ocm.config.ocm.software` fallback resolver configuration with the new `resolvers.config.ocm.software/v1alpha1` path matcher
+Replace the deprecated `ocm.config.ocm.software` fallback resolver configuration with the new `resolvers.config.ocm.software/v1alpha1` glob-based
 resolvers.
 
 {{< callout context="caution" >}}
 The fallback resolver (`ocm.config.ocm.software`) is deprecated. It uses priority-based ordering with prefix matching,
 which can produce non-deterministic results when multiple repositories match.
-The path matcher resolver (`resolvers.config.ocm.software/v1alpha1`) replaces it with deterministic glob-based matching against component names.
+The glob-based resolver (`resolvers.config.ocm.software/v1alpha1`) replaces it with deterministic glob-based matching against component names.
 {{< /callout >}}
 
 ## Prerequisites
@@ -48,7 +48,7 @@ configurations:
         priority: 1
 ```
 
-The following steps walk you through each change needed to migrate to path matcher resolvers.
+The following steps walk you through each change needed to migrate to glob-based resolvers.
 
 {{< steps >}}
 
@@ -69,7 +69,7 @@ configurations:
 {{< step >}}
 **Replace `prefix` with `componentNamePattern`**
 
-The fallback resolver uses `prefix` to match component names by string prefix. The path matcher resolver uses `componentNamePattern`,
+The fallback resolver uses `prefix` to match component names by string prefix. The glob-based resolver uses `componentNamePattern`,
 which supports [glob patterns]({{< relref "docs/reference/resolver-configuration.md#component-name-patterns" >}}).
 Append `/*` to your old prefix to get the same matching behaviour, or use more specific patterns.
 
@@ -93,7 +93,7 @@ If a resolver had an empty prefix (matching all components), use `*` as the patt
 {{< step >}}
 **Remove the `priority` field**
 
-Path matcher resolvers do not use priorities. Instead, resolvers are evaluated in the order they appear in the list, and the **first match wins**.
+Glob-based resolvers do not use priorities. Instead, resolvers are evaluated in the order they appear in the list, and the **first match wins**.
 That's one of the key differences from the fallback resolver, which tries all matching resolvers in priority order until one succeeds.
 Place more specific patterns before broader ones:
 
@@ -152,7 +152,7 @@ ocm get cv ghcr.io/my-org/team-a//my-org.example/services/my-service:1.0.0 \
   --recursive=-1 --config .ocmconfig
 ```
 
-If you still see the warning `using deprecated fallback resolvers, consider switching to path matcher resolvers`, check that you removed all
+If you still see the warning `using deprecated fallback resolvers, consider switching to glob-based resolvers`, check that you removed all
 `ocm.config.ocm.software` configuration blocks.
 Both resolver types can coexist in the same config file during migration — the fallback resolvers will still work but will emit the deprecation
 warning.
@@ -163,10 +163,20 @@ warning.
 
 ## When You Cannot Migrate Yet
 
-The fallback resolver has a **probe-and-retry** behaviour that the path matcher resolver does not replicate. The two diagrams below illustrate the
-difference.
+The fallback resolver has a **probe-and-retry** behaviour that the glob-based resolver does not replicate.
 
-**Fallback resolver** — tries all prefix-matching repositories in priority order until one succeeds:
+Consider a registry migration where the same component has versions spread across multiple repositories:
+
+| Version                              | Repository                     |
+|--------------------------------------|--------------------------------|
+| `my-org.example/my-component:1.0.0` | `old-registry.example/legacy`  |
+| `my-org.example/my-component:1.5.0` | `old-registry.example/legacy`  |
+| `my-org.example/my-component:2.0.0` | `new-registry.example/current` |
+
+{{< tabs >}}
+{{< tab "Fallback (works)" >}}
+
+The fallback resolver tries all prefix-matching repositories in priority order until one succeeds:
 
 ```mermaid
 flowchart TD
@@ -180,30 +190,6 @@ flowchart TD
     Next --> Found
     More -- No --> Fail["Error: not found in any repository"]
 ```
-
-**Path matcher resolver** — returns the first pattern match deterministically, no retry:
-
-```mermaid
-flowchart TD
-    Start["Get component version"] --> Walk["Walk resolver list (in order)"]
-    Walk --> Check{"Pattern matches\ncomponent name?"}
-    Check -- No --> More{"More resolvers?"}
-    More -- Yes --> Walk
-    More -- No --> Fail["Error: no matching resolver"]
-    Check -- Yes --> Return["Return matched repository"]
-```
-
-This difference matters when the **same component has versions spread across multiple repositories**. Consider a registry migration where old versions
-remain in the original registry:
-
-| Version                              | Repository                     |
-|--------------------------------------|--------------------------------|
-| `my-org.example/my-component:1.0.0` | `old-registry.example/legacy`  |
-| `my-org.example/my-component:1.5.0` | `old-registry.example/legacy`  |
-| `my-org.example/my-component:2.0.0` | `new-registry.example/current` |
-
-{{< tabs >}}
-{{< tab "Fallback (works)" >}}
 
 Both registries share the same prefix and both are probed automatically. A request for `my-component:2.0.0` finds it in the new registry. A request
 for `my-component:1.0.0` misses in the new registry, falls back to the old one, and succeeds.
@@ -226,7 +212,19 @@ for `my-component:1.0.0` misses in the new registry, falls back to the old one, 
 ```
 
 {{< /tab >}}
-{{< tab "Path Matcher (breaks)" >}}
+{{< tab "Glob-based (breaks)" >}}
+
+The glob-based resolver returns the first pattern match deterministically, with no retry:
+
+```mermaid
+flowchart TD
+    Start["Get component version"] --> Walk["Walk resolver list (in order)"]
+    Walk --> Check{"Pattern matches\ncomponent name?"}
+    Check -- No --> More{"More resolvers?"}
+    More -- Yes --> Walk
+    More -- No --> Fail["Error: no matching resolver"]
+    Check -- Yes --> Return["Return matched repository"]
+```
 
 `componentNamePattern: "my-org.example/*"` can only point to **one** repository — whichever you choose, the versions in the other become unreachable.
 
@@ -244,14 +242,14 @@ for `my-component:1.0.0` misses in the new registry, falls back to the old one, 
 {{< /tab >}}
 {{< /tabs >}}
 
-The same applies to **listing component versions**: the fallback resolver accumulates versions from all matching repositories, while the path matcher
-only queries the first match.
+The same applies to **listing component versions**: the fallback resolver accumulates versions from all matching repositories, while the glob-based
+resolver only queries the first match.
 
 If either case applies, consolidate all versions of the affected components into a single repository before migrating your resolver config.
 
 ## Key Differences
 
-|                      | Fallback (`ocm.config.ocm.software`)                              | Path Matcher (`resolvers.config.ocm.software/v1alpha1`) |
+|                      | Fallback (`ocm.config.ocm.software`)                              | Glob-based (`resolvers.config.ocm.software/v1alpha1`)   |
 |----------------------|-------------------------------------------------------------------|---------------------------------------------------------|
 | **Matching**         | String prefix on component name                                   | Glob pattern (`*`, `?`, `[...]`) on component name      |
 | **Resolution order** | Priority-based (highest first), then fallback through all matches | First match wins (list order)                           |
