@@ -33,7 +33,7 @@ from an OCM component version into a Kubernetes cluster.
 The diagram below provides an overview of the architecture of the OCM
 Controllers.
 
-![Architecture of OCM Controllers](./static/images/controller-tam.svg)
+![Architecture of OCM Controllers](/images/controller-tam.svg)
 
 ## Installation
 
