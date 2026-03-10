@@ -14,7 +14,6 @@ The OCM controllers
 
 - support the deployment of an OCM component and its resources, like Helm charts or other manifests,
 into a Kubernetes cluster with the help of kro and a deployer, e.g. FluxCD.
-- provide a controller to transfer OCM components.
 
 ### Before You Begin
 
@@ -33,7 +32,7 @@ from an OCM component version into a Kubernetes cluster.
 The diagram below provides an overview of the architecture of the OCM
 Controllers.
 
-![Architecture of OCM Controllers](/images/controller-tam.svg)
+![Architecture of OCM Controllers](svg/controller-tam.svg)
 
 ## Installation
 
