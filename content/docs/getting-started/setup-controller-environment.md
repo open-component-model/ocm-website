@@ -212,7 +212,7 @@ source-controller-6ff87cb475-2h2lv           1/1     Running     0              
 Use Helm to install the OCM controllers:
 
 ```bash
-helm install ocm-k8s-toolkit oci://ghcr.io/open-component-model/kubernetes/controller/chart:<pre-release> \
+helm install ocm-k8s-toolkit "oci://ghcr.io/open-component-model/kubernetes/controller/chart:<pre-release>" \
   --namespace ocm-k8s-toolkit-system \
   --create-namespace
 ```

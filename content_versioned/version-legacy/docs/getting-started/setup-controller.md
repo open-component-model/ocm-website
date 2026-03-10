@@ -82,7 +82,7 @@ kro                  kro-86d5b5b5bd-6gmvr                         1/1     Runnin
 To install the OCM controllers, execute the following command:
 
 ```bash
-helm install ocm-k8s-toolkit oci://ghcr.io/open-component-model/kubernetes/controller/chart:<pre-release> \
+helm install ocm-k8s-toolkit "oci://ghcr.io/open-component-model/kubernetes/controller/chart:<pre-release>" \
   --namespace ocm-k8s-toolkit-system \
   --create-namespace
 ```
