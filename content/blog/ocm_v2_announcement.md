@@ -8,7 +8,7 @@ draft: false
 slug: "ocmv2"
 ---
 
-We are excited to announce **OCM v2** — a ground-up rebuild of the Open Component Model tooling stack. A new CLI, Kubernetes controllers, and Go library — designed from the start for modularity, security, and community contribution. The entire stack continues to implement the [OCM Specification v2](https://ocm.software/spec/), ensuring full compatibility with the standard that defines how components, resources, and signatures are represented.
+We are excited to announce **OCM v2** — a ground-up rebuild of the Open Component Model tooling stack. A new CLI, Kubernetes controllers, and Go library — designed from the start for modularity, security, and community contribution. The entire stack continues to implement the [OCM Specification v2](https://github.com/open-component-model/ocm-spec/blob/main/doc/04-extensions/00-component-descriptor/v2.md), ensuring full compatibility with the standard that defines how components, resources, and signatures are represented.
 
 {{< callout context="tip" title="One monorepo for everything" >}}
 All of OCM v2 lives in a single repository: [github.com/open-component-model/open-component-model](https://github.com/open-component-model/open-component-model)
@@ -207,7 +207,7 @@ The documentation site now serves two versions:
 - **v2 docs** (currently labeled "dev") — documentation for the new stack you are reading about here.
 
 {{< callout context="tip" title="Migration should be affordable" >}}
-Both v1 and v2 implement the same [OCM Specification](https://ocm.software/spec/), so component versions created with either stack are fully interoperable. Many CLI commands are cross-compatible and we made a deliberate effort to keep the `.ocmconfig` structure and command syntax consistent, so existing users and CI/CD pipelines should find the transition straightforward.
+Both v1 and v2 implement the same [OCM Specification](https://github.com/open-component-model/ocm-spec/blob/main/doc/04-extensions/00-component-descriptor/v2.md), so component versions created with either stack are fully interoperable. Many CLI commands are cross-compatible and we made a deliberate effort to keep the `.ocmconfig` structure and command syntax consistent, so existing users and CI/CD pipelines should find the transition straightforward.
 {{< /callout >}}
 
 ## Get Started
