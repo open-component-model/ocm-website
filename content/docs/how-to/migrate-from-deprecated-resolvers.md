@@ -16,6 +16,12 @@ repositories until one succeeds. The glob-based resolver (`resolvers.config.ocm.
 against component names, which is simpler and more efficient.
 {{< /callout >}}
 
+## Why Migrate?
+
+- The fallback resolver (`ocm.config.ocm.software`) is **deprecated** and will be removed in a future release.
+- The fallback resolver probes multiple repositories on every lookup, which adds latency and makes it harder to reason about which repository is used.
+- Glob-based resolvers use first-match semantics — the outcome is determined by list order alone, making configurations simpler to understand and debug.
+
 ## Prerequisites
 
 - [OCM CLI]({{< relref "/docs/getting-started/ocm-cli-installation.md" >}}) installed
@@ -104,7 +110,9 @@ If a resolver had an empty prefix (matching all components), use `*` as the patt
 
 Glob-based resolvers do not use priorities. Instead, resolvers are evaluated in the order they appear in the list, and the **first match wins**.
 That's one of the key differences from the fallback resolver, which tries all matching resolvers in priority order until one succeeds.
-Place more specific patterns before broader ones:
+If your legacy resolvers had equal `priority` values, keep their original list order to preserve the same resolution behaviour (the fallback resolver uses a stable sort, so equal-priority entries were tried in insertion order).
+
+For new configs, place more specific patterns before broader ones:
 
 ```yaml
     resolvers:
@@ -244,7 +252,7 @@ In this example, `componentNamePattern: "my-org.example/*"` points to the new re
 The same applies to **listing component versions**: the fallback resolver accumulates versions from all matching repositories, while the glob-based
 resolver only queries the first match.
 
-If either case applies, consolidate all versions of the affected components into a single repository before migrating your resolver config.
+If either case applies, consolidate all versions of the affected components into a single repository before migrating your resolver config. Version-based matching is being tracked as a future feature in [ocm-project#941](https://github.com/open-component-model/ocm-project/issues/941).
 
 ## What's Next?
 
