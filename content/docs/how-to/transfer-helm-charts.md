@@ -7,8 +7,7 @@ toc: true
 
 ## Goal
 
-Transfer a component version that contains a Helm chart resource (type `helmChart` with `helm/v1` access) to an OCI registry, 
-controlling how the chart is stored in the target.
+Transfer a component version that contains a Helm chart resource (type `helmChart` with `helm/v1` access) to an OCI registry.
 
 ## Prerequisites
 
@@ -63,37 +62,7 @@ Full Helm support is being tracked as a future feature in [ocm-project#911](http
 
 ### Transfer the component version
 
-Transfer the component version to the target registry with `--copy-resources` so the Helm chart artifact is included:
-
-```bash
-ocm transfer cv \
-  --copy-resources \
-  ctf::<path/to/archive>//<component-name>:<version> \
-  <target-registry>
-```
-
-By default, the chart is stored as a local blob in the component version.
-
-{{< /step >}}
-{{< step >}}
-
-### Choose how the chart is stored in the target
-
-During transfer, the Helm chart is always converted to an OCI artifact first. The `--upload-as` flag controls how this converted artifact is then stored in the target registry:
-
-**As a local blob** (default behavior with `--copy-resources`):
-
-```bash
-ocm transfer cv \
-  --copy-resources \
-  --upload-as localBlob \
-  ctf::<path/to/archive>//<component-name>:<version> \
-  <target-registry>
-```
-
-The converted OCI artifact is embedded directly inside the component version as a blob layer. The resource access type in the component descriptor becomes `localBlob`. This keeps everything self-contained and transfers atomically, but the chart is not independently pullable from the registry.
-
-**As a standalone OCI artifact**:
+Transfer the component version to the target registry. Use `--copy-resources` to include the Helm chart and `--upload-as ociArtifact` to store it as a standalone OCI artifact in the target registry:
 
 ```bash
 ocm transfer cv \
@@ -103,7 +72,19 @@ ocm transfer cv \
   <target-registry>
 ```
 
-The converted OCI artifact is uploaded as a separate image in the target registry. The component descriptor references it via an `imageReference` (e.g., `<registry>/<repo>:<tag>`). Use this when you need the chart to be independently addressable and pullable from the registry, for example with `helm pull oci://`.
+During transfer, the Helm chart is always converted to an OCI artifact. With `--upload-as ociArtifact`, this artifact is uploaded as a separate image in the target registry. The component descriptor references it via an `imageReference` (e.g., `ghcr.io/my-org/charts/my-chart:1.0.0`), making it independently addressable and pullable. For more details on how transfers and resource handling work, see [Transfer and Transport]({{< relref "docs/concepts/transfer-concept.md" >}}).
+
+You can find the `imageReference` in the component descriptor's resource access section and use it directly with Helm's OCI support:
+
+```bash
+helm pull oci://<registry>/<repo>/<chart-name> --version <tag>
+```
+
+For example, if the `imageReference` is `ghcr.io/my-org/charts/my-chart:1.0.0`:
+
+```bash
+helm pull oci://ghcr.io/my-org/charts/my-chart --version 1.0.0
+```
 
 {{< /step >}}
 {{< step >}}
