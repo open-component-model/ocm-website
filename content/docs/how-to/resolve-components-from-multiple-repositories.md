@@ -115,6 +115,10 @@ my-org.example/component-b         │ 1.0.0   │
 
 {{< /steps >}}
 
+{{< callout context="tip" >}}
+If you are migrating from the deprecated `ocm.config.ocm.software` fallback resolvers, see [Migrate from Deprecated Resolvers]({{< relref "migrate-from-deprecated-resolvers.md" >}}) for a step-by-step guide.
+{{< /callout >}}
+
 ## Tips
 
 - **If multiple components share a registry path**, use a glob pattern (e.g. `example.com/services/*`) instead of
@@ -133,3 +137,5 @@ my-org.example/component-b         │ 1.0.0   │
 - [Working with Resolvers Tutorial]({{< relref "docs/tutorials/configure-resolvers.md" >}}) — Hands-on tutorial for
   building and pushing components with resolvers
 - [Understand Credential Resolution]({{< relref "docs/tutorials/credential-resolution.md" >}}) — Configure registry credentials
+- [Migrate from Deprecated Resolvers]({{< relref "migrate-from-deprecated-resolvers.md" >}}) — Replace deprecated fallback
+  resolvers with glob-based resolvers
