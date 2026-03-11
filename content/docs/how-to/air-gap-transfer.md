@@ -105,7 +105,7 @@ tar czf airgap-transport.ctf.tar.gz airgap-transport.ctf
 
 ### Import into the target registry
 
-On the air-gapped side, transfer the CTF archive into the target registry. The target registry must have [credentials configured]({{< relref "docs/tutorials/creds-in-ocmconfig.md" >}}) in your `.ocmconfig`.
+On the air-gapped side, transfer the CTF archive into the target registry. The target registry must have [credentials configured]({{< relref "docs/how-to/configure-multiple-credentials.md" >}}) in your `.ocmconfig`.
 
 ```bash
 ocm transfer cv \
@@ -153,7 +153,7 @@ You should see: `SIGNATURE VERIFICATION SUCCESSFUL`.
 
 ## Troubleshooting
 
-If you encounter authentication or credential errors during transfer or verification, see [Credentials in .ocmconfig]({{< relref "docs/tutorials/creds-in-ocmconfig.md" >}}) and [Configuring Credentials for Controllers]({{< relref "docs/tutorials/configure-credentials-for-controllers.md" >}}).
+If you encounter authentication or credential errors during transfer or verification, see [Credentials in .ocmconfig]({{< relref "docs/how-to/configure-multiple-credentials.md" >}}) and [Configuring Credentials for Controllers]({{< relref "docs/tutorials/configure-credentials-for-controllers.md" >}}).
 
 If signature verification fails after transfer, ensure the public key in your `.ocmconfig` matches the key used to sign the component. See [Signing and Verification]({{< relref "docs/tutorials/signing-and-verification.md" >}}).
 
