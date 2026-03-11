@@ -11,5 +11,15 @@ in different OCI registries.&lt;/p&gt;</description></item><item><title>Transfer
  &lt;div class="callout-content"&gt;
  
  &lt;div class="callout-body"&gt;
- &lt;p&gt;&lt;code&gt;HashiCorpVault/v1&lt;/code&gt;, &lt;code&gt;GardenerConfig/v1&lt;/code&gt;, and &lt;code&gt;NPMConfig/v1&lt;/code&gt; are not yet available in the new OCM. If you rely on these, stay on legacy OCM for now.&lt;/p&gt;</description></item><item><title>How to use the OCM CLI container image</title><link>https://ocm.software/dev/docs/how-to/how-to-use-the-ocm-cli-container-image/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/dev/docs/how-to/how-to-use-the-ocm-cli-container-image/</guid><description>&lt;h2 id="goal"&gt;Goal&lt;/h2&gt;
+ &lt;p&gt;&lt;code&gt;HashiCorpVault/v1&lt;/code&gt;, &lt;code&gt;GardenerConfig/v1&lt;/code&gt;, and &lt;code&gt;NPMConfig/v1&lt;/code&gt; are not yet available in the new OCM. If you rely on these, stay on legacy OCM for now.&lt;/p&gt;</description></item><item><title>Migrate from Fallback to Deterministic Repository Resolvers</title><link>https://ocm.software/dev/docs/how-to/migrate-from-fallback-to-deterministic-repository-resolvers/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/dev/docs/how-to/migrate-from-fallback-to-deterministic-repository-resolvers/</guid><description>&lt;h2 id="goal"&gt;Goal&lt;/h2&gt;
+&lt;p&gt;Replace the deprecated &lt;code&gt;ocm.config.ocm.software&lt;/code&gt; fallback resolver configuration with the new &lt;code&gt;resolvers.config.ocm.software/v1alpha1&lt;/code&gt; glob-based
+resolvers.&lt;/p&gt;
+&lt;div class="callout callout-caution d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3"&gt;
+ 
+ &lt;div class="callout-content"&gt;
+ 
+ &lt;div class="callout-body"&gt;
+ &lt;p&gt;The fallback resolver (&lt;code&gt;ocm.config.ocm.software&lt;/code&gt;) is deprecated. It uses priority-based ordering with prefix matching and probes multiple
+repositories until one succeeds. The glob-based resolver (&lt;code&gt;resolvers.config.ocm.software/v1alpha1&lt;/code&gt;) replaces it with first-match glob-based matching
+against component names, which is simpler and more efficient.&lt;/p&gt;</description></item><item><title>How to use the OCM CLI container image</title><link>https://ocm.software/dev/docs/how-to/how-to-use-the-ocm-cli-container-image/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/dev/docs/how-to/how-to-use-the-ocm-cli-container-image/</guid><description>&lt;h2 id="goal"&gt;Goal&lt;/h2&gt;
 &lt;p&gt;This How-To will show you how to use the OCM CLI container image to create and get a component version.&lt;/p&gt;</description></item></channel></rss>
