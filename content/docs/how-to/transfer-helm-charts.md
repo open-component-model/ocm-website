@@ -54,8 +54,9 @@ ocm add cv --repository ctf::<path/to/archive> \
 {{< /step >}}
 
 {{<callout context="caution" title="Why --skip-reference-digest-processing?" icon="outline/alert-triangle">}}
-The `--skip-reference-digest-processing` flag is required because the `helm/v1` access type cannot be fully resolved during `add cv`.
+The `--skip-reference-digest-processing` flag is required because the `helm/v1` access type currently cannot be fully resolved during `add cv`.
 The chart is not downloaded at this stage, so digest calculation is not possible. The digests are computed later during transfer when the chart is actually fetched.
+Full Helm support is being tracked as a future feature in [ocm-project#911](https://github.com/open-component-model/ocm-project/issues/911).
 {{< /callout >}}
 
 {{< step >}}
@@ -90,7 +91,7 @@ ocm transfer cv \
   <target-registry>
 ```
 
-The chart is embedded inside the component version. This keeps everything self-contained but means the chart is not independently addressable as an OCI artifact.
+The chart data is embedded directly inside the component version as a blob layer. The resource access type in the component descriptor becomes `localBlob`. This keeps everything self-contained and transfers atomically, but the chart is not independently pullable from the registry.
 
 **As a standalone OCI artifact**:
 
@@ -102,7 +103,7 @@ ocm transfer cv \
   <target-registry>
 ```
 
-The chart is converted to an OCI image and stored as a separate artifact in the registry. Use this when you need to pull the chart independently of the component version.
+The chart is converted to an OCI artifact and uploaded as a separate image in the target registry. The component descriptor references it via an `imageReference` (e.g., `<registry>/<repo>:<tag>`). Use this when you need the chart to be independently addressable and pullable from the registry, for example by tools like `helm pull` or container runtimes.
 
 {{< /step >}}
 {{< step >}}
