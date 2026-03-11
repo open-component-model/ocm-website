@@ -79,7 +79,7 @@ By default, the chart is stored as a local blob in the component version.
 
 ### Choose how the chart is stored in the target
 
-Use the `--upload-as` flag to control the storage format of the Helm chart in the target registry:
+During transfer, the Helm chart is always converted to an OCI artifact first. The `--upload-as` flag controls how this converted artifact is then stored in the target registry:
 
 **As a local blob** (default behavior with `--copy-resources`):
 
@@ -91,7 +91,7 @@ ocm transfer cv \
   <target-registry>
 ```
 
-The chart data is embedded directly inside the component version as a blob layer. The resource access type in the component descriptor becomes `localBlob`. This keeps everything self-contained and transfers atomically, but the chart is not independently pullable from the registry.
+The converted OCI artifact is embedded directly inside the component version as a blob layer. The resource access type in the component descriptor becomes `localBlob`. This keeps everything self-contained and transfers atomically, but the chart is not independently pullable from the registry.
 
 **As a standalone OCI artifact**:
 
@@ -103,7 +103,7 @@ ocm transfer cv \
   <target-registry>
 ```
 
-The chart is converted to an OCI artifact and uploaded as a separate image in the target registry. The component descriptor references it via an `imageReference` (e.g., `<registry>/<repo>:<tag>`). Use this when you need the chart to be independently addressable and pullable from the registry, for example by tools like `helm pull` or container runtimes.
+The converted OCI artifact is uploaded as a separate image in the target registry. The component descriptor references it via an `imageReference` (e.g., `<registry>/<repo>:<tag>`). Use this when you need the chart to be independently addressable and pullable from the registry, for example with `helm pull oci://`.
 
 {{< /step >}}
 {{< step >}}
