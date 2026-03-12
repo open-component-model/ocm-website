@@ -1,6 +1,6 @@
-# What's Changed in the OCM Kubernetes Controller
+# What's Changed Between `ocm-controller` and `ocm-k8s-toolkit
 
-The OCM Kubernetes controller has been rebuilt from the ground up. The new version is simpler to operate, has fewer moving parts, and removes the need for external dependencies like Flux. This guide walks through every major change and what it means for you.
+`ocm-k8s-toolkit` is the ground-up rebuild of `ocm-controller`. It is simpler to operate, has fewer moving parts, and removes the need for external dependencies like Flux. This guide walks through the major differences between `ocm-controller` and `ocm-k8s-toolkit` and what they mean for you.
 
 ---
 
@@ -45,6 +45,8 @@ spec:
   interval: 10m
 ```
 
+The `ocmConfig` entries support both Secrets and ConfigMaps. The `policy` field controls whether configuration is inherited by child resources (Resources and Deployers that reference this Component). `Propagate` is the default — set it to `DoNotPropagate` if the credentials should not flow downstream.
+
 Multiple Components can now reference this single Repository by name, keeping credentials and connection details in one place.
 
 ---
@@ -64,7 +66,7 @@ The resource formerly known as `ComponentVersion` has been renamed to `Component
   - *Allow*: permit downgrades, but only if the component is explicitly labeled as downgradable.
   - *Enforce*: always allow downgrades, no questions asked.
 
-- **Async resolution.** Version lookups no longer block the reconciliation loop. The controller hands off resolution to a background worker pool and picks up the result when it's ready. This makes the controller more responsive when dealing with slow or large registries. The component is updated via an event queue once resolution finishes. This means, no interval value is required for that resolution to be picked up. It's immediate upon done.
+- **Async resolution.** Version lookups no longer block the reconciliation loop. The controller hands off resolution to a background worker pool and picks up the result when it's ready. This makes the controller more responsive when dealing with slow or large registries. The component is updated via an event queue once resolution finishes. This means, no `RequeueAfter` is required for that resolution to be picked up. It's immediate upon done.
 
 Here is an example showing the new Component with signature verification and a downgrade policy:
 
@@ -84,14 +86,12 @@ spec:
     - signature: ocm.software
       secretRef:
         name: signing-key
-  ocmConfig:
-    - kind: Secret
-      name: registry-credentials
-      policy: Propagate
+  # ocmConfig: # this is now taken from the `repositoryRef` since that object already contains this configuration.
+  #   - kind: Secret
+  #     name: registry-credentials
+  #     policy: Propagate
   interval: 10m
 ```
-
-The `ocmConfig` entries support both Secrets and ConfigMaps. The `policy` field controls whether configuration is inherited by child resources (Resources and Deployers that reference this Component). `Propagate` is the default — set it to `DoNotPropagate` if the credentials should not flow downstream.
 
 The verification secret contains the public key used to validate the component's signature:
 
@@ -194,7 +194,7 @@ metadata:
   name: my-deployer
 spec:
   resourceRef:
-    name: my-helm-chart
+    name: my-manifests
     namespace: ocm-system
 ```
 
@@ -218,7 +218,7 @@ That's it. No templates, no intermediate resources. The Deployer fetches the man
 
 The old controller provided two mutation resources: `Configuration` (for applying value overrides and patches) and `Localization` (for applying environment-specific transformations). Both operated on Snapshots and produced new Snapshots with the modifications applied.
 
-These resources no longer exist. The new controller takes the position that mutations should happen at build time, not deploy time. Prepare your manifests with the right configuration and localization before publishing them as OCM resources, and the controller will deliver them as-is. Otherwise, you can use operators like `Kro` and it's `RGD` to do certain operations yourself. To read up more about how to do things with Kro and use it to deploy applications, please check the following document: [Deploy Helm Chart]({{< relref "docs/getting-started/deploy-helm-chart.md" >}}).
+These resources no longer exist. The new controller takes the position that mutations should happen at build time, not deploy time. Prepare your manifests with the right configuration and localization before publishing them as OCM resources, and the controller will deliver them as-is. Otherwise, you can use operators like [Kro](https://github.com/kubernetes-sigs/kro/) and its `ResourceGraphDefinition` to do certain operations. To read up more about how to do things with Kro and use it to deploy applications, please check the following document: [Deploy Helm Chart]({{< relref "docs/getting-started/deploy-helm-chart.md" >}}).
 
 ---
 
