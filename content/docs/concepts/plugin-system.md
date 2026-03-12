@@ -25,6 +25,18 @@ each plugin for its capabilities, and makes them available to the system. From t
 perspective, once a plugin is installed, its features are available transparently. No
 additional configuration is required beyond installation.
 
+This does not mean that configuration cannot be provided! Plugins can have their own
+configuration requirements that is provided to them through the ocmconfig configuration
+file using a specific `type`. For example:
+
+```yaml
+type: generic.config.ocm.software/v1
+configurations:
+  - type: my-plugin.config.ocm.software/v1
+    apiEndpoint: https://internal.registry.example.com
+    timeout: 30s
+```
+
 ## Internal vs. External Plugins
 
 OCM distinguishes between two kinds of plugins:
@@ -106,18 +118,6 @@ component version that contains references to all available plugins. This means 
 from all of OCM's existing infrastructure: authentication, signing, verification, and
 distribution.
 
-### Configuring a Registry
-
-Registries are configured in your OCM configuration file:
-
-```yaml
-type: generic.config.ocm.software/v1
-configurations:
-  - type: plugin.registry.config.ocm.software
-    registries:
-      - ocm.software/plugin-registry
-```
-
 The official public registry is hosted at:
 
 ```text
@@ -128,40 +128,9 @@ Organizations can host their own private registries alongside the public one. Ea
 is just an OCM component version containing references to a plugin binary with certain annotations
 and extra identity information.
 
-### Discovering Plugins
-
-Once a registry is configured, you can browse available plugins:
-
-```bash
-ocm plugin registry list
-NAME                             VERSION   DESCRIPTION                     REGISTRY
-ocm.software/plugin/ecrplugin   0.27.0    AWS ECR repository plugin       ocm.software/plugin-registry
-ocm.software/plugin/helminput   0.5.2     Helm input method plugin        ocm.software/plugin-registry
-```
-
-You can also filter by registry if you have multiple configured:
-
-```bash
-ocm plugin registry list --registry ocm.software/plugin-registry
-```
-
-### Installing Plugins
-
-Install a plugin by name:
-
-```bash
-ocm plugin registry install ocm.software/plugin/ecrplugin
-```
-
-Or pin a specific version:
-
-```bash
-ocm plugin registry install ocm.software/plugin/ecrplugin@0.26.0
-```
-
-OCM automatically selects the correct binary for your platform and architecture. Since
-plugins are OCM component versions, they can be signed and verified, giving you the same
-supply chain guarantees as any other OCM artifact.
+Since plugins are OCM component versions, they can be signed and verified, giving you the
+same supply chain guarantees as any other OCM artifact. OCM automatically selects the
+correct binary for your platform and architecture during installation.
 
 ## Use Cases
 
