@@ -218,7 +218,7 @@ That's it. No templates, no intermediate resources. The Deployer fetches the man
 
 The old controller provided two mutation resources: `Configuration` (for applying value overrides and patches) and `Localization` (for applying environment-specific transformations). Both operated on Snapshots and produced new Snapshots with the modifications applied.
 
-These resources no longer exist. The new controller takes the position that mutations should happen at build time, not deploy time. Prepare your manifests with the right configuration and localization before publishing them as OCM resources, and the controller will deliver them as-is. Otherwise, you can use operators like `Kro` and it's `RGD` to do certain operations yourself.
+These resources no longer exist. The new controller takes the position that mutations should happen at build time, not deploy time. Prepare your manifests with the right configuration and localization before publishing them as OCM resources, and the controller will deliver them as-is. Otherwise, you can use operators like `Kro` and it's `RGD` to do certain operations yourself. To read up more about how to do things with Kro and use it to deploy applications, please check the following document: [Deploy Helm Chart]({{< relref "docs/getting-started/deploy-helm-chart.md" >}}).
 
 ---
 
