@@ -7,7 +7,8 @@ toc: true
 
 ## Goal
 
-Transfer a component version that contains a Helm chart resource (type `helmChart` with `helm/v1` access) to an OCI registry.
+Transfer a component version that contains a Helm chart resource sourced from a **Helm repository** (type `helmChart` with `helm/v1` access)
+to an OCI registry. This guide does not cover charts that are already stored as OCI artifacts.
 
 ## Prerequisites
 
@@ -18,28 +19,35 @@ Transfer a component version that contains a Helm chart resource (type `helmChar
 ## Steps
 
 {{< steps >}}
+
+{{<callout context="note" title="Helm charts stored as ociImage" icon="outline/info-circle">}}
+If your existing component version contains a Helm chart stored as an `ociImage` resource rather than a `helmChart` with `helm/v1` access, you need to
+create a new component version using the `helmChart` type as shown below. This guide only covers the transfer of Helm charts sourced from Helm
+repositories.
+{{< /callout >}}
+
 {{< step >}}
 
 ### Create a component version with a Helm chart resource
 
-If you already have a component version containing a Helm chart, skip to the next step.
+If you already have a component version containing a Helm chart with `helm/v1` access, skip to the next step.
 
 Create a `constructor.yaml` that references a chart from a Helm repository:
 
 ```yaml
 components:
-- name: example.com/my-app
-  version: 1.0.0
-  provider:
-    name: example.com
-  resources:
-  - name: my-chart
+  - name: example.com/my-app
     version: 1.0.0
-    type: helmChart
-    access:
-      type: helm/v1
-      helmRepository: https://charts.example.com
-      helmChart: my-chart-1.0.0.tgz
+    provider:
+      name: example.com
+    resources:
+      - name: my-chart
+        version: 1.0.0
+        type: helmChart
+        access:
+          type: helm/v1
+          helmRepository: https://charts.example.com
+          helmChart: my-chart-1.0.0.tgz
 ```
 
 Add the component version to a CTF archive:
@@ -54,7 +62,8 @@ ocm add cv --repository ctf::<path/to/archive> \
 
 {{<callout context="caution" title="Why --skip-reference-digest-processing?" icon="outline/alert-triangle">}}
 The `--skip-reference-digest-processing` flag is required because the `helm/v1` access type currently cannot be fully resolved during `add cv`.
-The chart is not downloaded at this stage, so digest calculation is not possible. The digests are computed later during transfer when the chart is actually fetched.
+The chart is not downloaded at this stage, so digest calculation is not possible. The digests are computed later during transfer when the chart is
+actually fetched.
 Full Helm support is being tracked as a future feature in [ocm-project#911](https://github.com/open-component-model/ocm-project/issues/911).
 {{< /callout >}}
 
@@ -62,7 +71,11 @@ Full Helm support is being tracked as a future feature in [ocm-project#911](http
 
 ### Transfer the component version
 
-Transfer the component version to the target registry. Use `--copy-resources` to include the Helm chart and `--upload-as ociArtifact` to store it as a standalone OCI artifact in the target registry:
+Transfer the component version to the target registry. Use `--copy-resources` to include the Helm chart and `--upload-as ociArtifact` to store it as a
+standalone OCI artifact in the target registry.
+
+> **Note:** The `--upload-as` flag is a temporary solution. It will be superseded by the upcoming transfer specification.
+> See [ocm-project#925](https://github.com/open-component-model/ocm-project/issues/925) for details.
 
 ```bash
 ocm transfer cv \
@@ -72,15 +85,34 @@ ocm transfer cv \
   <target-registry>
 ```
 
-During transfer, the Helm chart is always converted to an OCI artifact. With `--upload-as ociArtifact`, this artifact is uploaded as a separate image in the target registry. The component descriptor references it via an `imageReference` (e.g., `ghcr.io/my-org/charts/my-chart:1.0.0`), making it independently addressable and pullable. For more details on how transfers and resource handling work, see [Transfer and Transport]({{< relref "docs/concepts/transfer-concept.md" >}}).
+During transfer, the Helm chart is always converted to an OCI artifact. With `--upload-as ociArtifact`,
+this artifact is uploaded as a separate image in the target registry.
+The component descriptor references it via an `imageReference` (e.g., `ghcr.io/my-org/charts/my-chart:1.0.0`),
+making it independently addressable and pullable with `helm pull`. For more details on how transfers and resource handling work,
+see [Transfer and Transport]({{< relref "docs/concepts/transfer-concept.md" >}}).
 
-You can find the `imageReference` in the component descriptor's resource access section and use it directly with Helm's OCI support:
+Alternatively, `--upload-as localBlob` embeds the chart directly in the component version's blob store.
+This keeps the chart coupled to the component version but means it is not independently addressable in the registry and cannot be pulled with the Helm
+CLI.
+
+To find the `imageReference`, inspect the component descriptor:
 
 ```bash
-helm pull oci://<registry>/<repo>/<chart-name> --version <tag>
+ocm get cv <target-registry>//<component-name>:<version> -o yaml
 ```
 
-For example, if the `imageReference` is `ghcr.io/my-org/charts/my-chart:1.0.0`:
+In the output, look for the `resources[].access.imageReference` field:
+
+```yaml
+resources:
+  - name: my-chart
+    type: helmChart
+    access:
+      type: ociArtifact/v1
+      imageReference: ghcr.io/my-org/charts/my-chart:1.0.0
+```
+
+Use the `imageReference` value with Helm's OCI support:
 
 ```bash
 helm pull oci://ghcr.io/my-org/charts/my-chart --version 1.0.0
@@ -125,10 +157,12 @@ ocm transfer cv \
 
 - **If provenance files (`.prov`) are present** in the Helm repository, they are automatically included in the transfer.
 - **If you need to transfer recursively**, add `--recursive` to include all transitively referenced component versions.
-- **For air-gapped environments**, first transfer to a CTF archive, move it across the boundary, then import into the target registry. See [Transfer Components Across an Air Gap]({{< relref "docs/how-to/air-gap-transfer.md" >}}).
+- **For air-gapped environments**, first transfer to a CTF archive, move it across the boundary, then import into the target registry.
+  See [Transfer Components Across an Air Gap]({{< relref "docs/how-to/air-gap-transfer.md" >}}).
 
 ## Related documentation
 
 - [Transfer and Transport]({{< relref "docs/concepts/transfer-concept.md" >}}) -- Understand the transfer model and resource handling
 - [Transfer Components Across an Air Gap]({{< relref "docs/how-to/air-gap-transfer.md" >}}) -- Air-gapped transfer workflows
-- [Download Resources from Component Versions]({{< relref "docs/how-to/download-resources-from-component-versions.md" >}}) -- Download individual resources
+- [Download Resources from Component Versions]({{< relref "docs/how-to/download-resources-from-component-versions.md" >}}) -- Download individual
+  resources
