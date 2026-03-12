@@ -44,7 +44,7 @@ You do not need to manage internal plugins. They are part of the OCM distributio
 ### External Plugins
 
 External plugins are standalone binaries that you install separately. They extend OCM with
-additional capabilities such as, new repository types, credential backends, signing providers, and
+additional capabilities such as new repository types, credential backends, signing providers, and
 so on.
 
 External plugins follow a standard lifecycle:
