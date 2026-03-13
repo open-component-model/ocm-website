@@ -465,3 +465,5 @@ hasmermaid
 XDG
 subpaths
 IAM
+pullable
+descriptor's
