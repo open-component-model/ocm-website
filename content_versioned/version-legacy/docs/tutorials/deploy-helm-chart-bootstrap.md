@@ -25,7 +25,7 @@ cluster.
 The following guide demonstrates how to deploy a Helm chart using a `ResourceGraphDefinition` that is also delivered
 with the same OCM component. Additionally, it shows how to **localize** a Helm chart.
 
-{{<callout context="note">}}
+{{<callout context="note" title="Localization" icon="outline/current-location">}}
 **Localization** describes the process of inserting a new image reference into the deployment instructions, e.g. a
 Helm chart. It is a two-step process:
 
@@ -154,7 +154,7 @@ After applying the `ResourceGraphDefinition`, kro will reconcile it and create a
 
 Finally, we will check if the deployment was successful and if the localization was applied correctly.
 
-{{<callout context="note">}}
+{{<callout context="note" title="Set up your environment" icon="outline/settings-check">}}
 Before starting, make sure you have set up your environment as described in the [setup guide]({{< relref "setup-controller.md" >}}).
 {{</callout>}}
 
@@ -229,6 +229,16 @@ spec:
             byReference:
               resource:
                 name: helm-resource
+          additionalStatusFields:
+            # The additional status fields are useful for splitting the imageReference into its components, so that
+            # they can be used in depending deployers
+            # Example: ghcr.io/stefanprodan/charts/podinfo:6.7.1 would be
+            # registry: ghcr.io
+            # repository: stefanprodan/charts/podinfo
+            # reference/tag: 6.7.1
+            registry: resource.access.imageReference.toOCI().registry
+            repository: resource.access.imageReference.toOCI().repository
+            tag: resource.access.imageReference.toOCI().tag
           interval: 1m
           # ocmConfig is required, if the OCM repository requires credentials to access it.
           # ocmConfig:
@@ -248,6 +258,10 @@ spec:
             byReference:
               resource:
                 name: image-resource
+          additionalStatusFields:
+            registry: resource.access.imageReference.toOCI().registry
+            repository: resource.access.imageReference.toOCI().repository
+            tag: resource.access.imageReference.toOCI().tag
           interval: 1m
           # ocmConfig is required, if the OCM repository requires credentials to access it.
           # ocmConfig:
@@ -255,7 +269,7 @@ spec:
     # The Helm chart location (url) refers to the status of the resource helm-resource.
     - id: ocirepository
       template:
-        apiVersion: source.toolkit.fluxcd.io/v1beta2
+        apiVersion: source.toolkit.fluxcd.io/v1
         kind: OCIRepository
         metadata:
           name: bootstrap-ocirepository
@@ -265,9 +279,9 @@ spec:
           layerSelector:
             mediaType: "application/vnd.cncf.helm.chart.content.v1.tar+gzip"
             operation: copy
-          url: oci://${resourceChart.status.reference.registry}/${resourceChart.status.reference.repository}
+          url: oci://${resourceChart.status.additional.registry}/${resourceChart.status.additional.repository}
           ref:
-            tag: ${resourceChart.status.reference.tag}
+            tag: ${resourceChart.status.additional.tag}
           # secretRef is required, if the OCI repository requires credentials to access it.
           # secretRef:
     # HelmRelease refers to the OCIRepository, lets you configure the helm chart and deploys the Helm Chart into the
@@ -290,11 +304,11 @@ spec:
             # This is the second step of the localization. We use the image reference from the resource "image-resource"
             # and insert it into the Helm chart values.
             image:
-              repository: ${resourceImage.status.reference.registry}/${resourceImage.status.reference.repository}
-              tag: ${resourceImage.status.reference.tag}
+              repository: ${resourceImage.status.additional.registry}/${resourceImage.status.additional.repository}
+              tag: ${resourceImage.status.additional.tag}
 ```
 
-{{<callout context="note">}}
+{{<callout context="note" title="Provide credentials for the deployment" icon="outline/key">}}
 If you plan to push your OCM component version to a private registry, you need to provide credentials for the OCM
 controllers and FluxCDs `OCIRepository` (if the Helm chart is also stored in a private registry). Accordingly, you
 have to specify the `ocmConfig` field in the `Resource` resources and the `secretRef` field in the `OCIRepository`.
@@ -320,9 +334,10 @@ be localized in the first step - so, the image reference is updated to the new r
 ocm transfer ctf --copy-resources ./ctf ghcr.io/<your-namespace>
 ```
 
-{{<callout context="note">}}
+{{<callout context="note" title="Provide credentials to the OCM cli" icon="outline/key">}}
 If you are using a registry that requires authentication, you need to provide credentials for ocm. Please refer to
-the [OCM CLI credentials documentation]({{< relref "creds-in-ocmconfig.md" >}}) for more information on how to set up and use credentials.
+the [OCM CLI credentials documentation]({{< relref "creds-in-ocmconfig.md" >}}) for more information on how to set up
+and use credentials.
 {{</callout>}}
 
 If everything went well, you should see the following output:
@@ -445,8 +460,9 @@ spec:
   # ocmConfig:
 ```
 
-{{<callout context="note">}}
-Again, if your OCM component version is stored in a private registry, you need to provide credentials for the OCM controller resources to access the OCM repository. You can do so by specifying the `ocmConfig` field in the `Repository`,
+{{<callout context="note" title="Provide credentials for the deployment" icon="outline/key">}}
+Again, if your OCM component version is stored in a private registry, you need to provide credentials for the OCM
+controller resources to access the OCM repository. You can do so by specifying the `ocmConfig` field in the `Repository`,
 `Component`, `Resource`, and `Deployer` resources. For more information on how to set up credentials, please refer to
 the [OCM controller credentials guide]({{< relref "controller-credentials.md" >}}).
 {{</callout>}}

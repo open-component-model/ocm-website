@@ -26,10 +26,12 @@ create a Kubernetes secret of type `dockerconfigjson` that contains the credenti
 kubectl create secret docker-registry ocm-secret --from-file=<path-to-your-docker-config-file>
 ```
 
-{{<callout context="caution">}}
-Be aware that Kubernetes secrets are only `base64` encoded and not encrypted. This means that anyone with access to the Kubernetes secret can access the credentials.
+{{<callout context="caution" title="Kubernetes secrets" icon="outline/lock-open">}}
+Be aware that Kubernetes secrets are only `base64` encoded and not encrypted. This means that anyone with access to the
+Kubernetes secret can access the credentials.
 
-Accordingly, you should make sure that the Docker configuration file only contains information required for accessing the private OCM repository.
+Accordingly, you should make sure that the Docker configuration file only contains information required for accessing
+the private OCM repository.
 {{</callout>}}
 
 In case you want to create the secret manually, you can use the following command to create a Kubernetes secret
@@ -48,7 +50,7 @@ To create a Kubernetes secret or configmap containing an OCM configuration that 
 to access private OCM repositories, you can use the `.ocmconfig` file used to transfer the OCM component in the
 first place.
 
-{{<callout context="caution">}}
+{{<callout context="caution" title="OCM Configuration File" icon="outline/lock-password">}}
 Usually, the `.ocmconfig` file is located in your HOME directory. However, this `.ocmconfig` could contain more
 configurations than just the credentials for accessing private OCM repositories. As this `.ocmconfig` will be used
 to create a Kubernetes secret or configmap to which other users might have access to, you have to make sure that it
@@ -58,7 +60,7 @@ We recommend to create a new `.ocmconfig` file that only contains the credential
 repository.
 
 For more information on how to create and use the `.ocmconfig` file, please refer to the
-[OCM CLI credentials guide]({{< relref "creds-in-ocmconfig.md" >}}).
+[Configure Credentials for Multiple Registries]({{< relref "/docs/how-to/configure-multiple-credentials.md" >}}).
 {{</callout>}}
 
 For instance, consider you used the following command and `.ocmconfig` file to transfer the OCM component:
@@ -90,7 +92,7 @@ You can now create a secret in the Kubernetes cluster that contains the `.ocmcon
 kubectl create secret generic ocm-secret --from-file=./.ocmconfig
 ```
 
-{{<callout context="caution">}}
+{{<callout context="note" title="OCM Config Key" icon="outline/menu-deep">}}
 Make sure that the secret or configmap containing an OCM config has the correct key to the OCM config file
 `.ocmconfig`. This is required for OCM controller resources to be able to read the OCM configuration.
 Using the filename `.ocmconfig` in the `--from-file` option takes care of that.
@@ -113,12 +115,21 @@ spec:
     type: OCIRegistry
   interval: 1m
   ocmConfig:
-    - kind: secret
+    - kind: Secret
       name: ocm-secret
 ```
 
-By default, the `ocmConfig` of a resource is propagated and can be consumed by other resources. So, instead of
-specifying the secret or configmap again, you can reference the resource in the `ocmConfig` field:
+{{<callout context="note" title="Config Propagation" icon="outline/file-settings" >}}
+`ocmConfig` is propagated by default and the `Component`, `Resource`, and `Deployer` custom resources will
+automatically consume the `ocmConfig` from the custom resource they are referencing if they do not specify their own
+`ocmConfig`.
+This means that if you specify the `ocmConfig` in a `Repository`, the `Component` that references this
+`Repository` will automatically consume the same `ocmConfig` and you do not need to specify it again in the
+`Component`.
+{{</callout>}}
+
+If you want to consume the `ocmConfig` of a `Repository` in  a `Component` in addition to another `ocmConfig` that is
+specified in the `Component`, you need to specify the `ocmConfig` reference to the repository as well:
 
 ```yaml
 apiVersion: delivery.ocm.software/v1alpha1
@@ -146,38 +157,30 @@ spec:
   semver: 1.0.0
   interval: 1m
   ocmConfig:
+    - kind: Secret
+      name: another-ocm-secret
     - kind: Repository
       apiVersion: delivery.ocm.software/v1alpha1
       name: guide-repository
       namespace: default
 ```
 
-The above example shows how to use the `ocmConfig` field in an `Repository` and a `Component`. The `Repository`
-references a secret named `ocm-secret` that contains the credentials for accessing the private OCM repository.
-The `Component` then references the `Repository` in `ocmConfig`and uses the same credentials.
-
-However, you always need to specify a reference to the credentials either as secret, configmap, or as OCM controller
-resource for *each resource*. The credentials will not be propagated automatically to all OCM controller resources in
-the cluster.
-
-In some cases, you do not want to propagate the `ocmConfig` of a resource. To do so, you can set the `policy` to
+In some cases, you do not want to propagate the `ocmConfig` of a custom resource. To do so, you can set the `policy` to
 `DoNotPropagate`:
 
 ```yaml
 apiVersion: delivery.ocm.software/v1alpha1
-kind: Component
+kind: Repository
 metadata:
-  name: guide-component
+  name: guide-repository
+  namespace: default
 spec:
-  component: ocm.software/ocm-k8s-toolkit/guide-component
-  repositoryRef:
-    name: guide-repository
-  semver: 1.0.0
+  repositorySpec:
+    baseUrl: ghcr.io/<your-namespace>
+    type: OCIRegistry
   interval: 1m
   ocmConfig:
-    - kind: Repository
-      apiVersion: delivery.ocm.software/v1alpha1
-      name: guide-repository
-      namespace: default
+    - kind: Secret
+      name: ocm-secret
       policy: DoNotPropagate
 ```

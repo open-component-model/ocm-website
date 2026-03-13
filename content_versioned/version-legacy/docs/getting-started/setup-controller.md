@@ -14,7 +14,7 @@ This document describes how to set up a local environment to [Deploy a Helm Char
 
 ## Start a Local Kubernetes Cluster with kind
 
-{{<callout context="note">}}
+{{<callout context="note" title="Kubernetes Cluster" icon="outline/box">}}
 You don't need to run kind if you are using a remote Kubernetes cluster you have access to. If so, you can skip this.
 {{</callout>}}
 
@@ -82,10 +82,13 @@ kro                  kro-86d5b5b5bd-6gmvr                         1/1     Runnin
 To install the OCM controllers, execute the following command:
 
 ```bash
-helm install ocm-k8s-toolkit oci://ghcr.io/open-component-model/charts/ocm-k8s-toolkit \
+helm install ocm-k8s-toolkit "oci://ghcr.io/open-component-model/kubernetes/controller/chart:<pre-release>" \
   --namespace ocm-k8s-toolkit-system \
   --create-namespace
 ```
+
+You can check out this [list](https://github.com/open-component-model/open-component-model/pkgs/container/kubernetes%2Fcontroller%2Fchart/versions?filters%5Bversion_type%5D=tagged)
+to pick the latest pre-release version until an official release was published.
 
 For local development, you can install directly from the source:
 
@@ -122,7 +125,7 @@ As all examples and guides will create an OCM component version that will be con
 need access to a registry. You can either choose a public registry like [ghcr.io][ghcr.io] or deploy a registry (like
 [`registry`][registry], [`zot`][zot], ...) into your Kubernetes cluster.
 
-{{<callout context="caution">}}
+{{<callout context="caution" title="Registry Access" icon="outline/package-import">}}
 If you choose to deploy a registry into your Kubernetes cluster, you have to make sure it is accessible from outside
 the cluster (for `ocm transfer` to work) and inside the cluster (for the OCM controllers to work).
 
