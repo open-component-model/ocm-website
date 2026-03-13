@@ -12,7 +12,10 @@ Write 2–4 sentences answering: *What is this? What problem does it solve? Wher
 
 Avoid "how to configure" or step-by-step instructions here. This section builds the mental model.
 
-> **Example:** A resolver maps component name patterns to OCM repositories. When OCM encounters a component reference during recursive resolution, it consults the configured resolvers to locate the right repository — without requiring the caller to know where each component lives.
+> **Example:** A resolver maps component name patterns to OCM repositories.
+> When OCM encounters a component reference during recursive resolution,
+> it consults the configured resolvers to locate the right repository — without
+> requiring the caller to know where each component lives.
 
 ## Why does it exist?
 
@@ -81,20 +84,23 @@ If this concept has common misconceptions, address them here briefly.
 
 ## Next steps
 
-- [How-to: <name>]({{< relref "docs/how-to/<file>.md" >}})
+Add links to related guides where you DO or LEARN more about the topic.
+
+- [How-To: <name>]({{< relref "docs/how-to/<file>.md" >}})
+- [Tutorial: <name>]({{< relref "docs/tutorials/<file>.md" >}})
 
 ## Related documentation
 
+Add links to related concepts and references that explain the WHY and provide more details.
+
 - [Concept: <name>]({{< relref "docs/concepts/<file>.md" >}})
-- [Tutorial: <name>]({{< relref "docs/tutorials/<file>.md" >}})
 - [Reference: <command>]({{< relref "docs/reference/<file>.md" >}})
 
 ---
 
 ## ✓ Before publishing
 
-Make sure to comply with our [CONTRIBUTING guide](../CONTRIBUTING.md),
-check the [Concept Writing Checklist](../CONTRIBUTING.md#concept-checklist),
+Make sure to comply with our [CONTRIBUTING guide](../CONTRIBUTING.md)
 and ensure the following:
 
 - [ ] Title is a noun or noun phrase — not a verb or task (e.g., "Resolvers", not "How to use resolvers")
@@ -105,5 +111,4 @@ and ensure the following:
 - [ ] Subsections address distinct orthogonal aspects
 - [ ] "Relationship to other concepts" section with relref links
 - [ ] "When to use it" section helps readers self-identify relevance
-- [ ] No CLI commands that constitute a workflow (short illustrative snippets are OK)
 - [ ] Working `relref` links throughout
