@@ -12,10 +12,10 @@ signing mechanisms, input formats, and more, without modifying OCM itself.
 
 ## Architecture Overview
 
-OCM uses a process-based plugin architecture. Each plugin runs as a standalone binary,
+OCM uses a process based plugin architecture. Each plugin runs as a standalone binary,
 separate from the main OCM process. When OCM needs a capability provided by a plugin, it
-starts the plugin on demand, communicates with it over a local connection (either domain socket or TCP)
-, and shuts it down when it's no longer needed.
+starts the plugin on demand, communicates with it over a local connection (either domain socket or TCP),
+and shuts it down when it's no longer needed.
 
 The benefits of this design are isolation, language independence (although Go is heavily preferred and supported by
 an SDK) and lazy loading.
@@ -26,7 +26,7 @@ perspective, once a plugin is installed, its features are available transparentl
 additional configuration is required beyond installation.
 
 This does not mean that configuration cannot be provided! Plugins can have their own
-configuration requirements that is provided to them through the ocmconfig configuration
+configuration requirements that are provided to them through the `ocmconfig` configuration
 file using a specific `type`. For example:
 
 ```yaml
@@ -41,7 +41,7 @@ configurations:
 
 OCM distinguishes between two kinds of plugins:
 
-### Internal (Built-in) Plugins
+### Internal (Built in) Plugins
 
 Internal plugins are compiled directly into the OCM binary. They provide core functionality
 such as OCI registry support. These plugins are always available and require no installation
@@ -59,12 +59,13 @@ External plugins are standalone binaries that you install separately. They exten
 additional capabilities such as new repository types, credential backends, signing providers, and
 so on.
 
-External plugins follow a standard lifecycle:
+External plugins follow this lifecycle:
 
-1. **Install** the plugin binary into OCM's plugin directory.
-2. **OCM discovers** the plugin automatically on next use.
-3. **On demand**, OCM starts the plugin, queries its capabilities, and routes requests to it.
-4. **After idle timeout**, the plugin shuts itself down to free resources.
+- install the plugin binary into OCM's plugin directory
+- OCM discovers the plugin automatically on next use
+- OCM lazy starts the plugin, queries its capabilities, and routes requests to it
+- after idle timeout (the plugin isn't doing anything), it shuts itself down to free resources
+- if a new request comes in, the cycle starts again from the beginning
 
 ## Plugin Types
 
@@ -73,7 +74,7 @@ OCM supports several categories of plugins, each extending a different part of t
 ### Component Version Repository
 
 Adds support for storing and retrieving component versions from new repository backends.
-For example, a plugin could add support for a proprietary artifact store or a cloud-specific
+For example, a plugin could add support for a proprietary artifact store or a cloud specific
 registry.
 
 ### Credential Repository
@@ -110,8 +111,8 @@ Extends the ability to list components in repositories that require custom enume
 
 ## Plugin Registry
 
-Finding and installing plugins manually — by knowing exact component names and resource
-identifiers — is not practical at scale. The OCM plugin registry solves this.
+Finding and installing plugins manually, by knowing exact component names and resource
+identifiers, impractical at scale. The OCM plugin registry solves this.
 
 The plugin registry works like a package manager for OCM plugins. It is itself an OCM
 component version that contains references to all available plugins. This means it benefits
@@ -155,10 +156,10 @@ enforcing your organization's policies without manual steps.
 ### Specialized Build Inputs
 
 Your CI pipeline produces Helm charts that need to be packaged into component versions. An
-**input plugin** handles the Helm-specific packaging during `ocm add resources`, so the
+**input plugin** handles the Helm specific packaging during `ocm add resources`, so the
 chart is correctly processed before being stored.
 
-### Multi-Registry Plugin Management
+### Multi Registry Plugin Management
 
 Your organization maintains a private plugin registry for internal tools alongside the
 public OCM registry. Both are configured in your OCM config, and `ocm plugin registry list`
