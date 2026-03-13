@@ -18,7 +18,10 @@ starts the plugin on demand, communicates with it over a local connection (eithe
 and shuts it down when it's no longer needed.
 
 The benefits of this design are isolation, language independence (although Go is heavily preferred and supported by
-an SDK) and lazy loading.
+an SDK) and lazy loading. But the main reason for a separate binary shows itself really
+in OCM's dependency chain. With this solution, technology specific dependencies no longer
+have to pollute OCM's own dependency chain. OCM's chain stays clean and lean so those who
+would like to use it as a library, do not have to import the entire Go eco-system.
 
 Plugins are discovered from a configured directory. OCM scans this directory, queries
 each plugin for its capabilities, and makes them available to the system. From the user's
