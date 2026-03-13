@@ -115,7 +115,7 @@ Extends the ability to list components in repositories that require custom enume
 ## Plugin Registry
 
 Finding and installing plugins manually, by knowing exact component names and resource
-identifiers, impractical at scale. The OCM plugin registry solves this.
+identifiers, is impractical at scale. The OCM plugin registry solves this.
 
 The plugin registry works like a package manager for OCM plugins. It is itself an OCM
 component version that contains references to all available plugins. This means it benefits
