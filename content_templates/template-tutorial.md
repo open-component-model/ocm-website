@@ -82,6 +82,7 @@ input:
 
 {{< steps >}}
 {{< step >}}
+
 ### Create the component constructor file
 
 Explain *what* you're doing and *why* in 1–2 sentences.
