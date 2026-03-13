@@ -45,7 +45,7 @@ jobs:
           extended: true
 
       - name: Install Dart Sass
-        run: sudo snap install dart-sass
+        run: sudo snap install dart-sass --channel=1.97.3
 
       - name: Install deps and Build
         run: |
