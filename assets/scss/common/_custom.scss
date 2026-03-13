@@ -13,3 +13,8 @@
 @import "pages"; // Page-specific overrides
 @import "version-warning"; // Version warning banner
 @import "landing-ord"; // Landing page & footer
+
+// Note: Dart Sass compatibility fixes for the theme's search form @extend
+// rules are applied via assets/scss/components/_forms.scss (overrides
+// @thulite/doks-core's original) and defined in _forms-dart-sass-compat.scss.
+

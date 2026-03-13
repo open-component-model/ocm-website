@@ -1,4 +1,5 @@
 [build.environment]
+  DART_SASS_VERSION = "1.97.3"
   NODE_VERSION = "25.6.1"
   NPM_VERSION = "11.9.0"
 
@@ -6,7 +7,13 @@
   ignore = "exit 1"
 
 [context.deploy-preview]
-  command = "npm ci && npm run build -- --baseURL=$DEPLOY_PRIME_URL"
+  command = """\
+    curl -sLJO "https://github.com/sass/dart-sass/releases/download/${DART_SASS_VERSION}/dart-sass-${DART_SASS_VERSION}-linux-x64.tar.gz" && \
+    tar -C "${HOME}/.local" -xf "dart-sass-${DART_SASS_VERSION}-linux-x64.tar.gz" && \
+    rm "dart-sass-${DART_SASS_VERSION}-linux-x64.tar.gz" && \
+    export PATH="${HOME}/.local/dart-sass:${PATH}" && \
+    npm ci && npm run build -- --baseURL=$DEPLOY_PRIME_URL \
+    """
   publish = "public"
 
 [context.production]

@@ -44,6 +44,9 @@ jobs:
           hugo-version: '0.155.0'
           extended: true
 
+      - name: Install Dart Sass
+        run: sudo snap install dart-sass
+
       - name: Install deps and Build
         run: |
           npm ci
