@@ -1,7 +1,7 @@
 ---
-title: "Transfer Components Across an Air Gap"
+title: "Transfer Components across an Air Gap"
 description: "Transfer a signed OCM component version into an air-gapped registry via a CTF archive."
-weight: 10
+weight: 1
 toc: true
 ---
 
@@ -9,12 +9,10 @@ toc: true
 
 Transfer a signed component version from a source registry into an air-gapped target registry using a CTF archive as the transport medium. An air-gapped environment is a network that is physically isolated from untrusted networks such as the public internet.
 
-{{< callout context="note" title="You will end up with" >}}
+## You'll end up with
 
 - A verified, signed component version available in your air-gapped registry
 - All resource artifacts (container images, Helm charts) copied into the target registry
-
-{{< /callout >}}
 
 **Estimated time:** ~10 minutes
 
