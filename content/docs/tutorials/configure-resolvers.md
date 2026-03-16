@@ -336,3 +336,5 @@ Now that you know how to configure resolvers, you can:
   and access types (by reference)
 - [Signing and Verification]({{< relref "signing-and-verification.md" >}}) — Sign and verify component versions with
   cryptographic keys
+- [Migrate from Deprecated Resolvers]({{< relref "docs/how-to/migrate-from-deprecated-resolvers.md" >}}) — Replace deprecated fallback
+  resolvers with glob-based resolvers

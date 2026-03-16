@@ -467,3 +467,11 @@ subpaths
 IAM
 pullable
 descriptor's
+Brautigam
+Gergely
+ConfigMaps
+Deployers
+downgradable
+Async
+ApplySet
+stateful
