@@ -6,7 +6,7 @@ description: "Learn about the differences in concept and architecture of legacy 
 summary: "A walkthrough of the major architectural changes between the legacy ocm-controller and the new ground-up rebuild."
 weight: 50
 categories: ["controllers"]
-tags: ["kubernetes", "ocm-controller"]
+tags: ["kubernetes"]
 contributors: []
 ---
 
