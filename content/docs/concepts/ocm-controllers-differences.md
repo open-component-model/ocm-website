@@ -1,6 +1,14 @@
-# What's Changed Between `ocm-controller` and `ocm-k8s-toolkit
+---
+title: "What changed between legacy and new OCM Controllers"
+description: "Learn about the differences in concept and architecture of legacy and new OCM Controllers "
+weight: 7
+toc: true 
+hasMermaid: true
+---
 
-`ocm-k8s-toolkit` is the ground-up rebuild of `ocm-controller`. It is simpler to operate, has fewer moving parts, and removes the need for external dependencies like Flux. This guide walks through the major differences between `ocm-controller` and `ocm-k8s-toolkit` and what they mean for you.
+# What's Changed Between legacy and new ocm controller
+
+The [new controller](https://github.com/open-component-model/open-component-model/tree/main/kubernetes/controller) is the ground-up rebuild of [legacy](https://github.com/open-component-model/ocm-controller/) controller. It is simpler to operate, has fewer moving parts, and removes the need for external dependencies like Flux. This guide walks through the major differences between the legacy controller and new controller and what they mean for you.
 
 ---
 
