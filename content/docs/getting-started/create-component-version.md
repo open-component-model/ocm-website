@@ -194,7 +194,9 @@ ocm add cv
 
 Output:
 ```text
-component github.com/acme.org/helloworld/1.0.0 constructed ... done!
+ COMPONENT                      │ VERSION │ PROVIDER
+────────────────────────────────┼─────────┼──────────
+ github.com/acme.org/helloworld │ 1.0.0   │ acme.org
 ```
 
 This creates a `transport-archive` directory containing your component version.
