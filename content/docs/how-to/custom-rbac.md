@@ -92,8 +92,9 @@ Apply it to your cluster:
 kubectl apply -f custom-rbac.yaml
 ```
 
-> [!IMPORTANT]
-> Follow the principle of least privilege. Only grant the verbs and resources your deployers actually need.
+{{<callout context="caution" title="Least Privilege" icon="outline/alert-triangle">}}
+Follow the principle of least privilege. Only grant the verbs and resources your deployers actually need.
+{{</callout>}}
 
 ## Verifying permissions
 
