@@ -28,7 +28,21 @@
 {{- $rowId := printf "sf-%d" $currentCount -}}
 {{- $scratch.Set "n" (add $currentCount 1) -}}
 
-{{- $hasChildren := or $field.properties $field.variants -}}
+{{/* Check if this field has renderable children:
+     - direct properties always count
+     - variants only count if at least one option has properties
+       (prevents showing a toggle for oneOf[string|null] which has no expandable content) */}}
+{{- $hasDirectProps := false -}}
+{{- with $field.properties }}{{ $hasDirectProps = true }}{{ end -}}
+
+{{- $hasVariantProps := false -}}
+{{- with $field.variants }}
+  {{- range .options }}
+    {{- if .properties }}{{ $hasVariantProps = true }}{{ end }}
+  {{- end }}
+{{- end -}}
+
+{{- $hasChildren := or $hasDirectProps $hasVariantProps -}}
 {{- $depthClass := printf "ocm-schema-depth-%d" $depth -}}
 
 {{/* Determine type class for badge coloring */}}
@@ -44,12 +58,15 @@
 {{- else if or (eq $baseType "oneOf") (eq $baseType "anyOf") (eq $baseType "allOf") }}{{ $typeClass = "ocm-type-composition" }}
 {{- end -}}
 
-<tr class="ocm-schema-field-row" id="{{ $fieldPath }}" data-schema-id="{{ $rowId }}" data-schema-depth="{{ $depth }}" {{ with $parentId }}data-schema-parent="{{ . }}"{{ end }} {{ if and $hasChildren (gt $depth 0) }}data-schema-collapsed="true"{{ end }}>
+{{/* Expand levels: depth 0 and 1 start expanded, deeper levels start collapsed */}}
+{{- $startExpanded := le $depth 1 -}}
+
+<tr class="ocm-schema-field-row" id="{{ $fieldPath }}" data-schema-id="{{ $rowId }}" data-schema-depth="{{ $depth }}" {{ with $parentId }}data-schema-parent="{{ . }}"{{ end }} {{ if and $hasChildren (not $startExpanded) }}data-schema-collapsed="true"{{ end }}>
   <td class="ocm-schema-field-name {{ $depthClass }}">
     <div class="ocm-schema-field-name-content">
       {{- if $hasChildren }}
-      <button class="ocm-schema-toggle {{ if le $depth 0 }}ocm-schema-expanded{{ end }}" aria-label="Toggle" data-schema-toggle="{{ $rowId }}">
-        <span class="ocm-schema-toggle-icon">{{ if le $depth 0 }}&minus;{{ else }}+{{ end }}</span>
+      <button class="ocm-schema-toggle {{ if $startExpanded }}ocm-schema-expanded{{ end }}" aria-label="Toggle" data-schema-toggle="{{ $rowId }}">
+        <span class="ocm-schema-toggle-icon">{{ if $startExpanded }}&minus;{{ else }}+{{ end }}</span>
       </button>
       {{- else }}
       <span class="ocm-schema-expand-space"></span>
@@ -68,6 +85,14 @@
   <td class="ocm-schema-field-desc">
     {{- with $field.description }}
     <span>{{ . }}</span>
+    {{- end }}
+    {{/* Show variant type info inline when variants have no expandable properties */}}
+    {{- if and $field.variants (not $hasVariantProps) }}
+    <div class="ocm-schema-variant-inline">
+      {{- range $field.variants.options }}
+        <span class="ocm-schema-variant-option">{{ .label }}</span>
+      {{- end }}
+    </div>
     {{- end }}
     {{- with $field.constraints }}
     <div class="ocm-schema-constraints">
@@ -119,7 +144,7 @@
   {{- end }}
 {{- end }}
 
-{{/* Render variants (oneOf/anyOf/allOf) */}}
+{{/* Render variants (oneOf/anyOf/allOf) — only those with expandable properties */}}
 {{- with $field.variants }}
   {{- range .options }}
     {{- if .properties }}

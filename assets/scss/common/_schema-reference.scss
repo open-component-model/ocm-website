@@ -5,7 +5,12 @@
 
 // -- Variables ----------------------------------------------------------------
 :root {
-  --ocm-schema-indent-color: var(--bs-border-color, #dee2e6);
+  --ocm-schema-indent-color: rgba(0, 0, 0, 0.15);
+}
+
+[data-bs-theme="dark"],
+[data-theme="dark"] {
+  --ocm-schema-indent-color: rgba(255, 255, 255, 0.15);
 }
 
 // -- Main container -----------------------------------------------------------
@@ -120,20 +125,27 @@
 }
 
 // Depth-based indentation classes (avoids Hugo's ZgotmplZ inline style escaping)
-// depth-0: top-level, no indent, no border
-// depth-1+: increasing indent + left border for visual hierarchy
-$schema-indent-step: 28px;
+// Mirrors Kro's approach: 16px base, 48px per level, border-left for child levels.
+// depth-0: top-level (16px), no border
+// depth-1: 64px + border  (clear visual offset from parent)
+// depth-2: 112px + border, etc.
+//
+// Scoped under .ocm-schema-table td to beat the Doks theme rule
+// `.docs-content table td { padding: 0.5rem }` (specificity 0-1-2).
+$schema-indent-step: 48px;
 $schema-base-padding: 16px;
 $schema-max-depth: 8;
 
-@for $i from 0 through $schema-max-depth {
-  .ocm-schema-depth-#{$i} {
-    padding-left: $schema-base-padding + ($i * $schema-indent-step);
+.ocm-schema-table td {
+  @for $i from 0 through $schema-max-depth {
+    &.ocm-schema-depth-#{$i} {
+      padding-left: $schema-base-padding + ($i * $schema-indent-step);
 
-    @if $i > 0 {
-      border-left: 2px solid var(--ocm-schema-indent-color);
-    } @else {
-      border-left: none;
+      @if $i > 0 {
+        border-left: 2px solid var(--ocm-schema-indent-color);
+      } @else {
+        border-left: none;
+      }
     }
   }
 }
@@ -388,6 +400,33 @@ $schema-max-depth: 8;
   font-size: 0.75rem;
   font-style: italic;
   color: var(--bs-secondary-color);
+}
+
+// Inline variant display for oneOf/anyOf with simple types (e.g. string | null)
+// Shown instead of a toggle button when variants have no expandable properties
+.ocm-schema-variant-inline {
+  margin-top: 0.25rem;
+  display: flex;
+  gap: 0.375rem;
+  align-items: center;
+  flex-wrap: wrap;
+
+  &::before {
+    content: 'One of:';
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--bs-secondary-color);
+  }
+}
+
+.ocm-schema-variant-option {
+  display: inline-block;
+  padding: 0.1rem 0.4rem;
+  font-size: 0.75rem;
+  font-family: var(--bs-font-monospace);
+  border-radius: 3px;
+  background-color: var(--bs-tertiary-bg, rgba(0, 0, 0, 0.05));
+  color: var(--bs-body-color);
 }
 
 // -- Variant containers -------------------------------------------------------

@@ -668,18 +668,21 @@ test('integration: descriptor HTML has stable anchor IDs', async () => {
   const htmlPath = path.join(REPO_ROOT, 'public/dev/docs/reference/ocm-descriptor/index.html');
   const content = await fsp.readFile(htmlPath, 'utf8');
 
+  // Helper: match both quoted and unquoted HTML attribute forms
+  const hasAttr = (attr, val) => content.includes(`${attr}="${val}"`) || content.includes(`${attr}=${val}`);
+
   // Top-level fields: simple name as ID
-  assert.ok(content.includes('id=meta'), 'should have id="meta"');
-  assert.ok(content.includes('id=component'), 'should have id="component"');
+  assert.ok(hasAttr('id', 'meta'), 'should have id="meta"');
+  assert.ok(hasAttr('id', 'component'), 'should have id="component"');
 
   // Nested fields: dot-separated path as ID
-  assert.ok(content.includes('id=component.name'), 'should have id="component.name"');
-  assert.ok(content.includes('id=component.version'), 'should have id="component.version"');
-  assert.ok(content.includes('id=component.provider'), 'should have id="component.provider"');
+  assert.ok(hasAttr('id', 'component.name'), 'should have id="component.name"');
+  assert.ok(hasAttr('id', 'component.version'), 'should have id="component.version"');
+  assert.ok(hasAttr('id', 'component.provider'), 'should have id="component.provider"');
 
   // Anchor href links match the IDs
-  assert.ok(content.includes('href=#meta'), 'should have anchor href to #meta');
-  assert.ok(content.includes('href=#component.name'), 'should have anchor href to #component.name');
+  assert.ok(hasAttr('href', '#meta'), 'should have anchor href to #meta');
+  assert.ok(hasAttr('href', '#component.name'), 'should have anchor href to #component.name');
 
   // Anchor links use the correct class
   assert.ok(content.includes('ocm-schema-anchor'), 'should have ocm-schema-anchor class');
@@ -713,7 +716,7 @@ test('integration: constructor HTML page structure', async () => {
 
   // Anchor links present
   assert.ok(content.includes('ocm-schema-anchor'), 'should have anchor links');
-  assert.ok(content.includes('id=components'), 'should have id for components field');
+  assert.ok(content.match(/id="?components"?/), 'should have id for components field');
 });
 
 test('integration: raw JSON schemas served in static/', async () => {
@@ -729,4 +732,55 @@ test('integration: raw JSON schemas served in static/', async () => {
   const consJson = JSON.parse(consContent);
   assert.equal(consJson.$schema, 'https://json-schema.org/draft/2020-12/schema');
   assert.ok(consJson.$defs, 'raw constructor should have $defs (not resolved)');
+});
+
+// ===========================================================================
+// Bugfix regression tests
+// ===========================================================================
+
+test('bugfix: depth 0 and depth 1 fields start expanded', async () => {
+  const htmlPath = path.join(REPO_ROOT, 'public/dev/docs/reference/ocm-descriptor/index.html');
+  const content = await fsp.readFile(htmlPath, 'utf8');
+
+  // No depth-1 row should have data-schema-collapsed
+  const depth1Collapsed = (content.match(/data-schema-depth="?1"?[^>]*data-schema-collapsed/g) || []);
+  assert.equal(depth1Collapsed.length, 0, 'no depth-1 row should be collapsed');
+
+  // Depth-2 rows that are expandable should have data-schema-collapsed
+  const depth2Collapsed = (content.match(/data-schema-depth="?2"?[^>]*data-schema-collapsed/g) || []);
+  assert.ok(depth2Collapsed.length > 0, 'some depth-2 rows should start collapsed');
+});
+
+test('bugfix: oneOf with simple types has no toggle button', async () => {
+  const htmlPath = path.join(REPO_ROOT, 'public/dev/docs/reference/ocm-descriptor/index.html');
+  const content = await fsp.readFile(htmlPath, 'utf8');
+
+  // component.labels.version is oneOf(string|null) — should NOT have a toggle.
+  // Extract the row by finding the id and its surrounding <tr>...</tr>.
+  // The id attribute may be quoted or unquoted depending on Hugo minification.
+  const versionRowMatch = content.match(/id="?component\.labels\.version"?[\s\S]*?<\/tr>/);
+  assert.ok(versionRowMatch, 'should find component.labels.version row');
+  const versionRow = versionRowMatch[0];
+  assert.ok(versionRow.includes('ocm-schema-expand-space'), 'oneOf(string|null) should have expand-space, not toggle');
+  assert.ok(!versionRow.includes('ocm-schema-toggle'), 'oneOf(string|null) should NOT have toggle button');
+
+  // It should show inline variant options instead
+  assert.ok(versionRow.includes('ocm-schema-variant-inline'), 'should show inline variant type info');
+  assert.ok(versionRow.includes('ocm-schema-variant-option'), 'should list variant options (string, null)');
+});
+
+test('bugfix: no orphan toggle buttons (every toggle has children)', async () => {
+  const htmlPath = path.join(REPO_ROOT, 'public/dev/docs/reference/ocm-descriptor/index.html');
+  const content = await fsp.readFile(htmlPath, 'utf8');
+
+  // Extract all toggle target IDs (handle both quoted and unquoted attributes)
+  const toggleMatches = content.match(/data-schema-toggle="?([a-z0-9-]+)"?/g) || [];
+  const toggleIds = toggleMatches.map((m) => m.replace(/data-schema-toggle="?/, '').replace(/"$/, ''));
+
+  // Each toggle ID should have at least one child row
+  for (const id of toggleIds) {
+    // Handle both quoted and unquoted attribute forms
+    const hasChild = content.includes(`data-schema-parent="${id}"`) || content.includes(`data-schema-parent=${id}`);
+    assert.ok(hasChild, `toggle ${id} should have at least one child row`);
+  }
 });
