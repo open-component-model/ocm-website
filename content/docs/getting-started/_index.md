@@ -18,7 +18,7 @@ Each tutorial builds on the previous one, teaching you fundamental OCM concepts 
 1. [Install the OCM CLI]({{< relref "ocm-cli-installation.md" >}}) - Set up the OCM command-line tool
 2. [Create Component Versions]({{< relref "create-component-version.md" >}})*- Bundle and store your software artifacts
 3. [Set Up a Controller Environment]({{< relref "setup-controller-environment.md" >}}) - Prepare a local Kubernetes cluster with OCM controllers
-4. [Deploy a Helm Chart]({{< relref "deploy-helm-chart.md" >}}) - Deploy applications from component versions using controllers
+4. [Deploy a Helm Chart]({{< relref "deploy-helm-chart.md" >}}) - Overview of deploying applications from component versions using controllers
 
 ## Prerequisites
 

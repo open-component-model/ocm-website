@@ -4,17 +4,16 @@ description: "Learn about the OCM controllers and their capabilities."
 icon: "🏁"
 weight: 43
 toc: true
+hasMermaid: true
 ---
 
 {{<callout context="danger" title="Caution" icon="outline/alert-triangle">}}
 This project is in early development and not yet ready for production use.
 {{</callout>}}
 
-The OCM controllers
+The OCM controllers bridge the gap between OCM repositories and running Kubernetes clusters. They resolve OCM component versions, download resources, and hand them off to deployment tooling such as FluxCD or the built-in [Deployer]({{< relref "deployer.md" >}}).
 
-- support the deployment of an OCM component and its resources, like Helm charts or other manifests,
-into a Kubernetes cluster with the help of kro and a deployer, e.g. FluxCD.
-- provide a controller to transfer OCM components.
+A separate controller handles the transfer of OCM components between registries. For details on that, see the [transfer architecture document](https://github.com/open-component-model/open-component-model/blob/main/kubernetes/controller/docs/adr/replication.md).
 
 ### Before You Begin
 
@@ -23,30 +22,40 @@ You should be familiar with the following concepts:
 - [Open Component Model](https://ocm.software/)
 - [Kubernetes](https://kubernetes.io/) ecosystem
 - [kro](https://kro.run)
-- Kubernetes resource deployer such as [FluxCD](https://fluxcd.io/).
+- Kubernetes resource deployer such as [FluxCD](https://fluxcd.io/)
 
-## Concept
+## Architecture
 
-{{<callout context="note" title="Overview" icon="outline/info-circle">}}
-The following section provides a high-level overview of the OCM controllers and their components regarding the
-deployment of an OCM resource in a very basic scenario. To learn more about the *transfer* of OCM component versions,
-please take a look at its [architecture document](https://github.com/open-component-model/open-component-model/blob/main/kubernetes/controller/docs/adr/replication.md).
-{{</callout>}}
+Every deployment starts with the same chain of three controller resources:
 
-The primary purpose of OCM controllers is simple: Deploy an OCM resource from an OCM component version into a Kubernetes
-cluster.
+```mermaid
+flowchart LR
+    classDef k8sObject fill:#b3b3b3,color:black,stroke:black;
+    classDef ocm fill:white,stroke:black,color:black;
 
-The implementation, however, is a bit more complex as deployments must be secure and configurable. Additionally, an
-OCM Resource can, in theory, contain any form of deployable resource, for instance a Helm chart, a Kustomization, or
-plain Kubernetes manifests. Each of these resources has its own way of being deployed or
-configured. So, instead of creating a generic deployer that offers all these functionalities, we decided to use existing
-tools that are already available in the Kubernetes ecosystem.
+    subgraph OCM Repository
+        CV[Component Version]
+    end
 
-The following diagram describes a basic scenario in which an OCM resource containing a Helm chart is deployed into a
-Kubernetes cluster using the OCM controllers as well as kro and FluxCD.
-kro is used to orchestrate the deployment and to transport information about the location of the OCM resource to FluxCD.
-FluxCD takes the location of the OCM resource, downloads the chart, configures it if necessary,
-and deploys it into the Kubernetes cluster.
+    subgraph Kubernetes Cluster
+        Repo[Repository] --> Comp[Component] --> Res[Resource]
+    end
+
+    CV -.->|resolves| Repo
+
+    class Repo,Comp,Res k8sObject
+    class CV ocm
+```
+
+The **Repository** validates that the OCM repository is reachable. The **Component** downloads and verifies the component version descriptor. The **Resource** resolves a specific artifact within that component and publishes its location in its status.
+
+From here, what happens next depends on the deployment pattern.
+
+## Deployment Patterns
+
+### Using FluxCD (or other external deployers)
+
+An OCM resource with an OCI-based access type can be consumed directly by FluxCD. A `ResourceGraphDefinition` (RGD) wires the OCM controller resources to FluxCD's `OCIRepository` and `HelmRelease`, letting kro orchestrate the full chain.
 
 ```mermaid
 flowchart TB
@@ -121,30 +130,27 @@ flowchart TB
     class legend legendStyle;
 ```
 
-The above diagram shows an OCM resource of type `helmChart`. This resource is part of an OCM component version,
-which is located in an OCM repository.
-
-In the `Kubernetes Cluster` we can see several Kubernetes (custom) resources. The `ResourceGraphDefintion`
-(`RGD: Simple`) contains the template of all the resources for deploying the Helm chart into the Kubernetes cluster.
-kro creates a Custom Resource Definition (CRD) `Simple` based on that `ResourceGraphDefinition`. By creating an instance
-of this CRD (`Instance: Simple`), the resources are created and reconciled by the respective controllers:
-
-- `Repository`: Points to the OCM repository and checks if it is reachable by pinging it.
-- `Component`: Refers to the `Repository` and downloads and verifies the OCM component version descriptor.
-- `Resource`: Points to the `Component`, downloads the OCM component version descriptor from which it gets the location
-of the OCM resource. It then downloads the resource to verify its signature (optional) and publishes the location of the
-resource in its status.
+The RGD defines templates for all the resources needed. kro reconciles the RGD into a CRD, and creating an instance of that CRD spins up the actual resources: Repository, Component, and Resource on the OCM side, plus OCIRepository and HelmRelease on the FluxCD side.
 
 {{<callout context="caution" title="OCM resource access required" icon="outline/alert-triangle">}}
-With FluxCD, this only works if the OCM resource has an access for which FluxCD has a corresponding Source type (e.g.
-an OCI or a GitHub repository)
+With FluxCD, this only works if the OCM resource has an access type for which FluxCD has a corresponding Source (e.g. an OCI or GitHub repository).
 {{</callout>}}
 
-As a result, FluxCD can now consume the information of the `Resource` and deploy the Helm chart:
+### Using the Deployer
 
-- `OCIRepository`: Watches and downloads the resource from the location provided by the `Resource` status.
-- `HelmRelease`: Refers to the `OCIRepository`, lets you configure the Helm chart, and creates the deployment into the
-Kubernetes cluster.
+For resources that contain plain Kubernetes manifests, such as an RGD, a Kustomization, or raw YAML, the built-in [Deployer]({{< relref "deployer.md" >}}) can apply them directly using server-side apply. No external deployment tooling is required.
+
+A common pattern is packaging an RGD inside the OCM component itself and using the Deployer to bootstrap it into the cluster. This lets developers ship deployment instructions alongside the software.
+
+For details on how the Deployer works, including ApplySet semantics, drift detection, and caching, see the [Deployer concept]({{< relref "deployer.md" >}}).
+
+## ResourceGraphDefinitions
+
+A `ResourceGraphDefinition` (RGD) is a kro resource that defines templates for a set of Kubernetes resources and the dependencies between them. When applied to a cluster, kro creates a CRD from the RGD. Instances of that CRD trigger the actual resource creation.
+
+RGDs are central to how the OCM controllers orchestrate deployments. They allow you to express the full dependency chain, from OCM repository access through to the final deployment, as a single declarative unit. Values can be passed from one resource's status into another resource's spec using kro's template expressions.
+
+For more on kro and RGDs, see the [kro documentation](https://kro.run).
 
 ## Installation
 
@@ -165,9 +171,7 @@ kubectl apply -k https://github.com/open-component-model/open-component-model/ku
 ```
 
 {{<callout context="caution" title="Deployer tools" icon="outline/alert-triangle">}}
-While the OCM controllers technically can be used standalone, it requires kro and a deployer, e.g. FluxCD, to deploy
-an OCM resource into a Kubernetes cluster. The OCM controllers deployment, however, does not contain kro or any
-deployer. Please refer to the respective installation guides for these tools:
+If you plan to use FluxCD or another external deployer alongside the OCM controllers, you need to install them separately. The OCM controllers deployment does not include kro or any deployer.
 
 - [kro](https://kro.run/docs/getting-started/Installation/)
 - [FluxCD](https://fluxcd.io/docs/installation/)
@@ -176,8 +180,7 @@ deployer. Please refer to the respective installation guides for these tools:
 ## Getting Started
 
 - [Setup your (test) environment with kind, kro, and FluxCD]({{< relref "setup-controller-environment.md" >}})
-- [Deploying a Helm chart using a `ResourceGraphDefinition` with FluxCD]({{< relref "deploy-helm-chart.md" >}})
-- [Deploying a Helm chart using a `ResourceGraphDefinition` inside the OCM component version (bootstrap) with FluxCD]({{< relref "deploy-helm-chart-bootstrap.md" >}})
+- [Deploying a Helm chart using a `ResourceGraphDefinition` with FluxCD]({{< relref "deploy-with-controllers.md" >}})
 - [Configuring credentials for OCM controller resources to access private OCM repositories]({{< relref "configure-credentials-for-controllers.md" >}})
 
 [controller-image]: https://github.com/open-component-model/open-component-model/pkgs/container/kubernetes%2Fcontroller

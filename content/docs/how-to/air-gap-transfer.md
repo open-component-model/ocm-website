@@ -173,4 +173,4 @@ Only delete the archive after you have verified the component in the target regi
 
 - [Transfer and Transport]({{< relref "docs/concepts/transfer-concept.md" >}}) -- Understand the transfer model, resource handling, and signature preservation
 - [Signing and Verification]({{< relref "docs/tutorials/signing-and-verification.md" >}}) -- Learn how to sign and verify component versions
-- [Deploy a Helm Chart (Bootstrap)]({{< relref "docs/tutorials/deploy-helm-chart-bootstrap.md" >}}) -- Deploy component resources into a Kubernetes cluster
+- [Deploy with Controllers]({{< relref "docs/tutorials/deploy-with-controllers.md" >}}) -- Deploy component resources into a Kubernetes cluster

@@ -309,7 +309,7 @@ Deleted nodes: ["kind-control-plane"]
 
 ## Next Steps
 
-- [Tutorial: Deploy a Helm Chart]({{< relref "deploy-helm-chart.md" >}}) - Use the OCM Controllers to deploy applications from component versions
+- [Tutorial: Deploy with Controllers]({{< relref "deploy-with-controllers.md" >}}) - Deploy applications from component versions using the OCM Controllers
 
 ## Related Documentation
 
