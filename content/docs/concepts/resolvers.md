@@ -76,3 +76,5 @@ For more information about OCM transfer, see the [Transfer and Transport]({{< re
 - [Understand Credential Resolution]({{< relref "docs/tutorials/credential-resolution.md" >}}) — Configure credentials for OCI registries
 - [How to Transfer Components Across an Air Gap]({{< relref "docs/how-to/air-gap-transfer.md" >}}) — Use OCM Transfer to move components between
   air-gapped environments
+- [Migrate from Deprecated Resolvers]({{< relref "docs/how-to/migrate-from-deprecated-resolvers.md" >}}) — Replace deprecated fallback
+  resolvers with glob-based resolvers
