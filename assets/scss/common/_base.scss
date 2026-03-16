@@ -14,6 +14,23 @@ html, body {
   font-family: 'Inter var', 'Inter', system-ui, sans-serif;
   font-optical-sizing: auto;
 }
+
+/* COLOR SCHEME FOR SVG DARK MODE
+ * ------------------------------
+ * Sets color-scheme based on data-bs-theme attribute
+ * This enables CSS light-dark() function in inline SVGs
+ */
+html[data-bs-theme="light"] {
+  color-scheme: light;
+}
+
+html[data-bs-theme="dark"] {
+  color-scheme: dark;
+}
+
+html[data-bs-theme="auto"] {
+  color-scheme: light dark;
+}
 /* FULL-WIDTH CONTAINER
  * --------------------
  * .container-fw = Full Width Container
