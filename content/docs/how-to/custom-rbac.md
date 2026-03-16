@@ -143,4 +143,4 @@ rules:
 
 ## Related Documentation
 
-- [Concept: Component Versions]({{< relref "/docs/concepts/ocm-controllers.md" >}}) - OCM Controllers
+- [Concept: OCM controllers]({{< relref "/docs/concepts/ocm-controllers.md" >}}) - OCM Controllers
