@@ -1,0 +1,131 @@
+{{/*
+  Partial: schema-field-row.html
+  Renders a single field row in the schema table with data attributes
+  for JS-driven collapse/expand (like Kro's +/- buttons).
+
+  Context:
+    .field    - The field object from data/schemas/*.json
+    .depth    - Current nesting depth (0 = top level)
+    .parentId - Unique ID of the parent field (for grouping children)
+    .path     - Dot-separated field path for stable anchor IDs (e.g. "component.name")
+    .scratch  - Hugo Scratch for mutable counter (unique row IDs)
+*/}}
+
+{{- $field := .field -}}
+{{- $depth := .depth -}}
+{{- $parentId := .parentId | default "" -}}
+{{- $parentPath := .path | default "" -}}
+{{- $scratch := .scratch -}}
+
+{{/* Build the dot-separated field path for this node */}}
+{{- $fieldPath := $field.name -}}
+{{- if $parentPath }}
+  {{- $fieldPath = printf "%s.%s" $parentPath $field.name -}}
+{{- end -}}
+
+{{/* Generate a unique row ID (numeric, for collapse/expand JS) */}}
+{{- $currentCount := $scratch.Get "n" | default 0 -}}
+{{- $rowId := printf "sf-%d" $currentCount -}}
+{{- $scratch.Set "n" (add $currentCount 1) -}}
+
+{{- $hasChildren := or $field.properties $field.variants -}}
+{{- $depthClass := printf "ocm-schema-depth-%d" $depth -}}
+
+{{/* Determine type class for badge coloring */}}
+{{- $baseType := $field.type -}}
+{{- $typeClass := "ocm-type-object" -}}
+{{- if hasPrefix $baseType "string" }}{{ $typeClass = "ocm-type-string" }}
+{{- else if eq $baseType "integer" }}{{ $typeClass = "ocm-type-number" }}
+{{- else if eq $baseType "number" }}{{ $typeClass = "ocm-type-number" }}
+{{- else if eq $baseType "boolean" }}{{ $typeClass = "ocm-type-boolean" }}
+{{- else if hasPrefix $baseType "[]" }}{{ $typeClass = "ocm-type-array" }}
+{{- else if hasPrefix $baseType "enum" }}{{ $typeClass = "ocm-type-enum" }}
+{{- else if hasPrefix $baseType "const" }}{{ $typeClass = "ocm-type-enum" }}
+{{- else if or (eq $baseType "oneOf") (eq $baseType "anyOf") (eq $baseType "allOf") }}{{ $typeClass = "ocm-type-composition" }}
+{{- end -}}
+
+<tr class="ocm-schema-field-row" id="{{ $fieldPath }}" data-schema-id="{{ $rowId }}" data-schema-depth="{{ $depth }}" {{ with $parentId }}data-schema-parent="{{ . }}"{{ end }} {{ if and $hasChildren (gt $depth 0) }}data-schema-collapsed="true"{{ end }}>
+  <td class="ocm-schema-field-name {{ $depthClass }}">
+    <div class="ocm-schema-field-name-content">
+      {{- if $hasChildren }}
+      <button class="ocm-schema-toggle {{ if le $depth 0 }}ocm-schema-expanded{{ end }}" aria-label="Toggle" data-schema-toggle="{{ $rowId }}">
+        <span class="ocm-schema-toggle-icon">{{ if le $depth 0 }}&minus;{{ else }}+{{ end }}</span>
+      </button>
+      {{- else }}
+      <span class="ocm-schema-expand-space"></span>
+      {{- end }}
+      <a href="#{{ $fieldPath }}" class="ocm-schema-anchor" title="Link to {{ $fieldPath }}">
+        <code class="ocm-schema-field-code">{{ $field.name }}</code>
+      </a>
+      {{- if $field.required }}
+      <span class="ocm-schema-badge ocm-schema-badge-required">required</span>
+      {{- end }}
+    </div>
+  </td>
+  <td class="ocm-schema-field-type">
+    <span class="ocm-schema-type-badge {{ $typeClass }}">{{ $field.type }}</span>
+  </td>
+  <td class="ocm-schema-field-desc">
+    {{- with $field.description }}
+    <span>{{ . }}</span>
+    {{- end }}
+    {{- with $field.constraints }}
+    <div class="ocm-schema-constraints">
+      {{- with .pattern }}<span class="ocm-schema-constraint" title="Regex pattern"><code>pattern: {{ . }}</code></span>{{- end }}
+      {{- with .format }}<span class="ocm-schema-constraint"><code>format: {{ . }}</code></span>{{- end }}
+      {{- with .minLength }}<span class="ocm-schema-constraint"><code>minLength: {{ . }}</code></span>{{- end }}
+      {{- with .maxLength }}<span class="ocm-schema-constraint"><code>maxLength: {{ . }}</code></span>{{- end }}
+      {{- with .minimum }}<span class="ocm-schema-constraint"><code>min: {{ . }}</code></span>{{- end }}
+      {{- with .maximum }}<span class="ocm-schema-constraint"><code>max: {{ . }}</code></span>{{- end }}
+      {{- with .minItems }}<span class="ocm-schema-constraint"><code>minItems: {{ . }}</code></span>{{- end }}
+      {{- with .maxItems }}<span class="ocm-schema-constraint"><code>maxItems: {{ . }}</code></span>{{- end }}
+      {{- with .minProperties }}<span class="ocm-schema-constraint"><code>minProperties: {{ . }}</code></span>{{- end }}
+    </div>
+    {{- end }}
+    {{- with $field.enumValues }}
+    <div class="ocm-schema-enum-values">
+      <span class="ocm-schema-constraint-label">Allowed:</span>
+      {{- range . }} <code class="ocm-schema-enum-value">{{ . }}</code>{{ end }}
+    </div>
+    {{- end }}
+    {{- with $field.examples }}
+      {{- $hasSimple := false -}}
+      {{- range . }}
+        {{- if or (eq (printf "%T" .) "string") (eq (printf "%T" .) "float64") (eq (printf "%T" .) "int") (eq (printf "%T" .) "bool") }}
+          {{- $hasSimple = true -}}
+        {{- end }}
+      {{- end }}
+      {{- if $hasSimple }}
+    <div class="ocm-schema-examples">
+      <span class="ocm-schema-constraint-label">Examples:</span>
+        {{- range . }}
+          {{- if or (eq (printf "%T" .) "string") (eq (printf "%T" .) "float64") (eq (printf "%T" .) "int") (eq (printf "%T" .) "bool") }}
+       <code class="ocm-schema-enum-value">{{ . }}</code>
+          {{- end }}
+        {{- end }}
+    </div>
+      {{- end }}
+    {{- end }}
+    {{- if $field.circular }}
+    <span class="ocm-schema-circular">(circular reference)</span>
+    {{- end }}
+  </td>
+</tr>
+
+{{/* Render child properties */}}
+{{- with $field.properties }}
+  {{- range . }}
+    {{- partial "schema-field-row.html" (dict "field" . "depth" (add $depth 1) "parentId" $rowId "path" $fieldPath "scratch" $scratch) }}
+  {{- end }}
+{{- end }}
+
+{{/* Render variants (oneOf/anyOf/allOf) */}}
+{{- with $field.variants }}
+  {{- range .options }}
+    {{- if .properties }}
+      {{- range .properties }}
+        {{- partial "schema-field-row.html" (dict "field" . "depth" (add $depth 1) "parentId" $rowId "path" $fieldPath "scratch" $scratch) }}
+      {{- end }}
+    {{- end }}
+  {{- end }}
+{{- end }}

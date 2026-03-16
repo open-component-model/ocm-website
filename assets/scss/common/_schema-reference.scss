@@ -1,0 +1,424 @@
+// =============================================================================
+// Schema Reference Styles
+// Kro-inspired interactive JSON Schema documentation
+// =============================================================================
+
+// -- Variables ----------------------------------------------------------------
+:root {
+  --ocm-schema-indent-color: var(--bs-border-color, #dee2e6);
+}
+
+// -- Main container -----------------------------------------------------------
+.ocm-schema-reference {
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+// -- Metadata header ----------------------------------------------------------
+.ocm-schema-meta {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.ocm-schema-meta-item {
+  flex: 1;
+  min-width: 200px;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--bs-border-color);
+  border-radius: 0.5rem;
+  background: var(--bs-body-bg);
+}
+
+.ocm-schema-meta-label {
+  font-size: 0.8rem;
+  color: var(--bs-secondary-color);
+  margin-bottom: 0.375rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.ocm-schema-meta-value {
+  font-size: 0.875rem;
+  font-weight: 600;
+  word-break: break-all;
+}
+
+// -- Sections -----------------------------------------------------------------
+.ocm-schema-section {
+  margin-bottom: 2.5rem;
+
+  h3 {
+    font-size: 1.35rem;
+    font-weight: 600;
+    margin: 0 0 1rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    &::before {
+      content: '';
+      width: 4px;
+      height: 1.35rem;
+      background: var(--bs-primary);
+      border-radius: 2px;
+    }
+  }
+}
+
+// -- Table wrapper + table ----------------------------------------------------
+.ocm-schema-table-wrapper {
+  overflow-x: auto;
+  border: 1px solid var(--bs-border-color);
+  border-radius: 0.5rem;
+  background-color: var(--bs-body-bg);
+}
+
+.ocm-schema-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+  margin-bottom: 0; // override Bootstrap table margin
+
+  thead {
+    background: var(--bs-tertiary-bg, var(--bs-light));
+  }
+
+  th {
+    text-align: left;
+    padding: 0.75rem 1rem;
+    font-weight: 600;
+    border-bottom: 2px solid var(--bs-border-color);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+}
+
+// -- Field rows ---------------------------------------------------------------
+.ocm-schema-field-row {
+  border-bottom: 1px solid var(--bs-border-color);
+  transition: background-color 0.15s ease;
+
+  &:hover {
+    background-color: var(--bs-tertiary-bg, rgba(0, 0, 0, 0.02));
+  }
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+// -- Field name column --------------------------------------------------------
+.ocm-schema-field-name {
+  padding: 0.625rem 0.75rem;
+  vertical-align: top;
+  position: relative;
+}
+
+// Depth-based indentation classes (avoids Hugo's ZgotmplZ inline style escaping)
+// depth-0: top-level, no indent, no border
+// depth-1+: increasing indent + left border for visual hierarchy
+$schema-indent-step: 28px;
+$schema-base-padding: 16px;
+$schema-max-depth: 8;
+
+@for $i from 0 through $schema-max-depth {
+  .ocm-schema-depth-#{$i} {
+    padding-left: $schema-base-padding + ($i * $schema-indent-step);
+
+    @if $i > 0 {
+      border-left: 2px solid var(--ocm-schema-indent-color);
+    } @else {
+      border-left: none;
+    }
+  }
+}
+
+.ocm-schema-field-name-content {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+// Toggle button (replaces details/summary for table-row-level collapse/expand)
+.ocm-schema-toggle {
+  background: none;
+  border: 1px solid var(--bs-border-color);
+  border-radius: 3px;
+  cursor: pointer;
+  padding: 0;
+  width: 18px;
+  height: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-right: 0.375rem;
+  transition: all 0.15s ease;
+
+  &:hover {
+    color: var(--bs-primary);
+    border-color: var(--bs-primary);
+    background-color: var(--bs-tertiary-bg, rgba(0, 0, 0, 0.03));
+  }
+
+  .ocm-schema-toggle-icon {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--bs-secondary-color);
+    line-height: 1;
+  }
+
+  &:hover .ocm-schema-toggle-icon {
+    color: var(--bs-primary);
+  }
+}
+
+.ocm-schema-expand-space {
+  display: inline-block;
+  width: calc(18px + 0.375rem); // match the details marker width + gap
+  flex-shrink: 0;
+}
+
+.ocm-schema-field-code {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  background-color: var(--bs-tertiary-bg, rgba(0, 0, 0, 0.05));
+  padding: 0.125rem 0.5rem;
+  border-radius: 4px;
+}
+
+// -- Anchor links (per-field deep linking) ------------------------------------
+.ocm-schema-anchor {
+  text-decoration: none;
+  color: inherit;
+  position: relative;
+
+  &:hover {
+    text-decoration: none;
+
+    // Show a link icon on hover
+    &::after {
+      content: '#';
+      display: inline-block;
+      margin-left: 0.35rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--bs-primary);
+      opacity: 0.7;
+    }
+  }
+}
+
+// Smooth scroll offset so the fixed header doesn't cover the target
+.ocm-schema-field-row[id] {
+  scroll-margin-top: 5rem;
+}
+
+// Highlight animation when navigating to a field via hash
+.ocm-schema-highlight {
+  animation: ocm-schema-flash 2s ease-out;
+}
+
+@keyframes ocm-schema-flash {
+  0% {
+    background-color: rgba(var(--bs-primary-rgb, 13, 110, 253), 0.15);
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
+// -- Badges -------------------------------------------------------------------
+.ocm-schema-badge {
+  display: inline-block;
+  margin-left: 0.5rem;
+  padding: 0.1rem 0.4rem;
+  font-size: 0.6rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  border-radius: 3px;
+  vertical-align: middle;
+}
+
+.ocm-schema-badge-required {
+  background-color: #1e8e3e;
+  color: #fff;
+}
+
+// -- Type badges (Kro-inspired color coding) ----------------------------------
+.ocm-schema-field-type {
+  padding: 0.625rem 0.75rem;
+  vertical-align: top;
+  width: 15%;
+}
+
+.ocm-schema-type-badge {
+  display: inline-block;
+  padding: 0.2rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 4px;
+  font-family: var(--bs-font-monospace);
+  white-space: nowrap;
+}
+
+.ocm-type-string {
+  background-color: #dbeafe;
+  color: #1e40af;
+}
+
+.ocm-type-number {
+  background-color: #fce7f3;
+  color: #9f1239;
+}
+
+.ocm-type-boolean {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.ocm-type-object {
+  background-color: #e0e7ff;
+  color: #3730a3;
+}
+
+.ocm-type-array {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+.ocm-type-enum {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.ocm-type-composition {
+  background-color: #f3e8ff;
+  color: #6b21a8;
+}
+
+// Dark mode overrides
+[data-bs-theme="dark"],
+[data-theme="dark"] {
+  .ocm-type-string {
+    background-color: #1e3a5f;
+    color: #93c5fd;
+  }
+
+  .ocm-type-number {
+    background-color: #4a1942;
+    color: #f9a8d4;
+  }
+
+  .ocm-type-boolean {
+    background-color: #4a3728;
+    color: #fde68a;
+  }
+
+  .ocm-type-object {
+    background-color: #2e2b5f;
+    color: #c7d2fe;
+  }
+
+  .ocm-type-array {
+    background-color: #1a3a2a;
+    color: #6ee7b7;
+  }
+
+  .ocm-type-enum {
+    background-color: #4a3728;
+    color: #fde68a;
+  }
+
+  .ocm-type-composition {
+    background-color: #3b1f5e;
+    color: #d8b4fe;
+  }
+}
+
+// -- Description column -------------------------------------------------------
+.ocm-schema-field-desc {
+  padding: 0.625rem 0.75rem;
+  vertical-align: top;
+  line-height: 1.5;
+}
+
+// -- Constraints / enum / examples badges -------------------------------------
+.ocm-schema-constraints,
+.ocm-schema-enum-values,
+.ocm-schema-examples {
+  margin-top: 0.375rem;
+}
+
+.ocm-schema-constraint-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--bs-secondary-color);
+}
+
+.ocm-schema-constraint {
+  display: inline-block;
+  margin-right: 0.5rem;
+  margin-top: 0.125rem;
+
+  code {
+    font-size: 0.75rem;
+    padding: 0.1rem 0.35rem;
+    border-radius: 3px;
+    background-color: var(--bs-tertiary-bg, rgba(0, 0, 0, 0.05));
+    word-break: break-all;
+  }
+}
+
+.ocm-schema-enum-value {
+  font-size: 0.75rem;
+  padding: 0.1rem 0.35rem;
+  border-radius: 3px;
+  background-color: var(--bs-tertiary-bg, rgba(0, 0, 0, 0.05));
+  margin-right: 0.25rem;
+}
+
+.ocm-schema-circular {
+  font-size: 0.75rem;
+  font-style: italic;
+  color: var(--bs-secondary-color);
+}
+
+// -- Variant containers -------------------------------------------------------
+.ocm-schema-variant {
+  margin-bottom: 2rem;
+
+  h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+  }
+}
+
+.ocm-schema-variants-intro {
+  color: var(--bs-secondary-color);
+  margin-bottom: 1.5rem;
+}
+
+// -- Responsive ---------------------------------------------------------------
+@media (max-width: 768px) {
+  .ocm-schema-table {
+    font-size: 0.8125rem;
+  }
+
+  .ocm-schema-meta {
+    flex-direction: column;
+  }
+
+  // Hide type column on narrow screens
+  .ocm-schema-table th:nth-child(2),
+  .ocm-schema-table td:nth-child(2) {
+    display: none;
+  }
+}

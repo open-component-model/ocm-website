@@ -12,6 +12,7 @@
     "clean": "npm run clean:build && npm run clean:lint && npm run clean:install",
     "create": "./node_modules/.bin/hugo new",
     "cutoff": "node .github/scripts/cutoff-version.js",
+    "schemas:resolve": "node .github/scripts/resolve-schema.js static/schemas/ocm-descriptor.json descriptor && node .github/scripts/resolve-schema.js static/schemas/ocm-constructor.json constructor",
     "dev:drafts": "./node_modules/.bin/hugo server --bind=0.0.0.0 --disableFastRender --baseURL=http://localhost --noHTTPCache --buildDrafts",
     "dev": "./node_modules/.bin/hugo server --bind=0.0.0.0 --disableFastRender --noHTTPCache",
     "hugo": "./node_modules/.bin/hugo",
@@ -26,7 +27,7 @@
     "postinfo": "./node_modules/.bin/hugo version",
     "preinfo": "npm version",
     "preview": "http-server --gzip --brotli --ext=html --cors",
-    "test": "node --test .github/scripts/cutoff-version.test.js"
+    "test": "node --test .github/scripts/cutoff-version.test.js .github/scripts/resolve-schema.test.js"
   },
   "dependencies": {
     "@tabler/icons": "^3.37.1",
@@ -37,6 +38,7 @@
     "thulite": "^2.6.5"
   },
   "devDependencies": {
+    "@apidevtools/json-schema-ref-parser": "^15.3.1",
     "hugo-extended": "^0.156.0",
     "shx": "^0.4.0",
     "smol-toml": "^1.6.0"

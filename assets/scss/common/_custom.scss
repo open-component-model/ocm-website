@@ -13,6 +13,7 @@
 @import "pages"; // Page-specific overrides
 @import "version-warning"; // Version warning banner
 @import "landing-ord"; // Landing page & footer
+@import "schema-reference"; // JSON Schema reference documentation
 
 // Note: Dart Sass compatibility fixes for the theme's search form @extend
 // rules are applied via assets/scss/components/_forms.scss (overrides
