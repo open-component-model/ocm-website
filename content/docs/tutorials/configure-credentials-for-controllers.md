@@ -74,7 +74,7 @@ configurations:
           type: OCIRegistry
           scheme: https
           hostname: ghcr.io
-          pathprefix: <your-namespace>
+          path: <your-namespace>
         credentials:
           - type: Credentials
             properties:

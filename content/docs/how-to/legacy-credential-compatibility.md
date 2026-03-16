@@ -48,32 +48,21 @@ The following steps walk you through each change needed to make this config work
 {{< steps >}}
 
 {{< step >}}
-**Change `OCIRegistry` to `OCIRepository`**
+**Change `pathprefix` to `path` with a glob pattern**
 
-The consumer identity type was renamed in the new OCM. Find `type: OCIRegistry` and replace it:
-
-```yaml
-    consumers:
-      - identity:
-          type: OCIRepository  # was: OCIRegistry
-          hostname: ghcr.io
-          pathprefix: open-component-model
-```
-
-{{< /step >}}
-
-{{< step >}}
-**Change `pathprefix` to `path`**
-
-The field for matching repository paths was renamed. Find `pathprefix` and replace it:
+The field for matching repository paths was renamed from `pathprefix` to `path`. Because `pathprefix` matched any path starting with the given prefix, you need to append a glob pattern (`/*`) to preserve the same matching behavior:
 
 ```yaml
     consumers:
       - identity:
-          type: OCIRepository
+          type: OCIRegistry
           hostname: ghcr.io
-          path: open-component-model  # was: pathprefix
+          path: open-component-model/*  # was: pathprefix: open-component-model
 ```
+
+{{< callout context="note" >}}
+`path` does **not** do prefix matching — `path: open-component-model` would only match the exact path `open-component-model`, not `open-component-model/my-repo`. Use `open-component-model/*` to match any single segment after the prefix, or `open-component-model/*/*` for two levels.
+{{< /callout >}}
 
 {{< /step >}}
 
@@ -85,9 +74,9 @@ The new OCM still accepts the singular `identity` field, so this step is optiona
 ```yaml
     consumers:
       - identities:  # was: identity (now a list)
-          - type: OCIRepository
+          - type: OCIRegistry
             hostname: ghcr.io
-            path: open-component-model
+            path: open-component-model/*
 ```
 
 {{< /step >}}
@@ -97,6 +86,7 @@ The new OCM still accepts the singular `identity` field, so this step is optiona
 
 The following parts of your legacy config work unchanged in the new OCM:
 
+- `OCIRegistry` consumer identity type (unchanged)
 - `Credentials/v1` type and `properties` field
 - `DockerConfig/v1` repository entries
 - `dockerConfigFile` and `dockerConfig` fields
@@ -110,9 +100,9 @@ configurations:
   - type: credentials.config.ocm.software
     consumers:
       - identities:
-          - type: OCIRepository
+          - type: OCIRegistry
             hostname: ghcr.io
-            path: open-component-model
+            path: open-component-model/*
         credentials:
           - type: Credentials/v1
             properties:
@@ -137,7 +127,7 @@ ocm get cv ghcr.io/my-org/my-component
 
 If you get `unknown credential repository type`, you may be using a repository type not yet supported in the new OCM (`HashiCorpVault/v1`, `NPMConfig/v1`, `GardenerConfig/v1`). Remove the unsupported entry or stay on legacy OCM until support is added.
 
-If you get `401 Unauthorized`, check that you renamed `OCIRegistry` → `OCIRepository` and `pathprefix` → `path` in all consumer entries.
+If you get `401 Unauthorized`, check that you renamed `pathprefix` → `path` (with a glob pattern) in all consumer entries.
 
 {{< /step >}}
 
