@@ -1,12 +1,15 @@
 ---
 title: "What changed between legacy and new OCM Controllers"
-description: "Learn about the differences in concept and architecture of legacy and new OCM Controllers "
-weight: 7
-toc: true 
-hasMermaid: true
+date: 2026-03-16
+lastmod: 2026-03-16
+draft: false
+description: "Learn about the differences in concept and architecture of legacy and new OCM Controllers"
+summary: "A walkthrough of the major architectural changes between the legacy ocm-controller and the new ground-up rebuild."
+weight: 50
+categories: ["controllers"]
+tags: ["kubernetes", "ocm-controller"]
+contributors: ["Gergely Brautigam"]
 ---
-
-# What's Changed Between legacy and new ocm controller
 
 The [new controller](https://github.com/open-component-model/open-component-model/tree/main/kubernetes/controller) is the ground-up rebuild of [legacy](https://github.com/open-component-model/ocm-controller/) controller. It is simpler to operate, has fewer moving parts, and removes the need for external dependencies like Flux. This guide walks through the major differences between the legacy controller and new controller and what they mean for you.
 
