@@ -1,7 +1,7 @@
 ---
 title: "Migrate from Fallback to Deterministic Repository Resolvers"
 description: "Replace deprecated fallback resolvers with glob-based resolvers for deterministic and efficient component resolution."
-weight: 100
+weight: 10
 toc: true
 ---
 
@@ -29,7 +29,7 @@ against component names, which is simpler and more efficient.
 
 ## Steps
 
-Suppose you have the following legacy resolver config in `~/.ocmconfig`:
+Suppose you have the following legacy resolver config in `$HOME/.ocmconfig`:
 
 ```yaml
 type: generic.config.ocm.software/v1

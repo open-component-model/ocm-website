@@ -2,7 +2,7 @@
 title: OCM Controllers
 description: "Learn about the OCM controllers and their capabilities."
 icon: "🏁"
-weight: 43
+weight: 3
 toc: true
 ---
 

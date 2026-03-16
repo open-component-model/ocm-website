@@ -2,7 +2,7 @@
 title: "Credential System"
 description: "Why OCM manages credentials centrally and how its resolution model works."
 icon: "🔑"
-weight: 43
+weight: 6
 toc: true
 ---
 
@@ -91,3 +91,7 @@ To see resolution in action, try the [Understand Credential Resolution]({{< relr
 - [Tutorial: Credential Resolution]({{< relref "/docs/tutorials/credential-resolution.md" >}}) — Learn how OCM picks the right credentials by experimenting with a config
 - [How-To: Configure Credentials for Multiple Registries]({{< relref "/docs/how-to/configure-multiple-credentials.md" >}}) — Quick task-oriented setup
 - [Tutorial: Credentials for OCM Controllers]({{< relref "/docs/tutorials/configure-credentials-for-controllers.md" >}}) — How to provide credentials in Kubernetes environments
+
+## Related Documentation
+
+- [Reference: Consumer Identities]({{< relref "/docs/reference/credential-consumer-identities.md" >}}) — Complete list of identity types, attributes, and credential properties
