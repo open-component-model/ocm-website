@@ -70,6 +70,24 @@ External plugins follow this lifecycle:
 - after idle timeout (the plugin isn't doing anything), it shuts itself down to free resources
 - if a new request comes in, the cycle starts again from the beginning
 
+```mermaid
+sequenceDiagram
+    participant OCM as OCM Process
+    participant P as Plugin Binary
+    Note over OCM: discover plugins from<br/>configured directory
+    OCM->>P: query capabilities
+    P-->>OCM: capabilities
+    Note over P: process exits
+    Note over OCM: capabilities registered,<br/>plugin not yet running
+    Note over OCM,P: when OCM needs a capability
+    OCM->>P: start on demand
+    loop HTTP + JSON (via UDS/TCP)
+        OCM->>P: request
+        P-->>OCM: response
+    end
+    Note over P: idle timeout → self-shutdown
+```
+
 ## Plugin Types
 
 OCM supports several categories of plugins, each extending a different part of the system:

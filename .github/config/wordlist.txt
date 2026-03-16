@@ -11,10 +11,8 @@ anchore
 api
 archlinux
 argocd
-argocd
 argocds
 artifactid
-auditable
 auditable
 aur
 auth
@@ -24,7 +22,6 @@ backend
 backends
 basename
 bashrc
-bashrc
 bindata
 blobaccess
 blobhandler
@@ -32,13 +29,10 @@ bool
 boolean
 buildx
 callout
-callout
-callouts
 callouts
 cas
 cel
 cest
-cet
 cet
 cicd
 cli
@@ -92,8 +86,6 @@ crossplatform
 crypto
 cryptographic
 cryptographically
-cryptographically
-csr
 csr
 cta
 ctf
@@ -115,13 +107,10 @@ deserialize
 deserialized
 dest
 dev
-dev
-diataxis
 diataxis
 digesters
 directorytree
 dirtree
-dn
 dn
 dns
 docker's
@@ -162,7 +151,6 @@ foldername
 forwardspec
 frontend
 frontmatter
-frontmatter
 fulcio
 gapped
 gav
@@ -193,7 +181,6 @@ hashers
 hashicorp
 hashicorpvault
 hasmermaid
-hasmermaid
 helmchart
 helmchartrepository
 helmdemo
@@ -207,12 +194,10 @@ homebrew
 hostname
 hostpath
 hsm
-hsm
 html
 http
 https
 iaas
-IAM
 IAM
 ical
 ics
@@ -277,7 +262,6 @@ mimetype
 mimetypes
 mm
 monorepo
-monorepo
 mpas
 multiarch
 mutationobject
@@ -319,7 +303,6 @@ omponentsubscription's
 oncefunc
 oo
 openssl
-openssl
 oras
 os
 oss
@@ -335,7 +318,6 @@ pflag
 pipelinespec
 pkcs
 pkgs
-pki
 pki
 podinfo
 podman
@@ -362,11 +344,9 @@ rekor
 relativeocireference
 releaser
 relref
-relref
 replicatedrepositoryurl
 repo
 repocpi
-repos
 repos
 repositoryimpl
 repositoryspec
@@ -391,7 +371,6 @@ routingslips
 rsa
 rsakeypair
 rsassa
-rsassa
 runtime
 sbod
 sbom
@@ -406,15 +385,10 @@ serviceaccountname
 sexualized
 sha
 shortcode
-shortcode
-shortcodes
 shortcodes
 sig
-sig
-sig's
 sig's
 signingserver
-sigs
 sigs
 sigstore
 simplemapmerge
@@ -433,14 +407,11 @@ struct
 subchart
 subcharts
 subfolders
-subfolders
 subheadline
 subpath
 subpaths
-subpaths
 subresource
 subst
-svg
 svg
 TCP
 tekton
@@ -480,7 +451,6 @@ valuemergehandlerdescriptor
 valueset
 valuessource
 verifiers
-verifiers
 versionedtypedobjects
 walkthrough
 wasm
@@ -489,8 +459,6 @@ wget
 winget
 withocm
 wsl
-wsl
-XDG
 XDG
 xml
 yaml
