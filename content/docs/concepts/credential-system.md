@@ -16,7 +16,7 @@ OCM's credential system is built around three ideas:
 
 ### Consumer-Based Matching
 
-Every service that requires authentication is modeled as a **consumer** — described by a set of identity attributes such as a type (e.g., `OCIRepository`), a hostname, and optionally a path or port. When an OCM operation needs to authenticate, it constructs a consumer identity from the target it is accessing and asks the credential system for a match.
+Every service that requires authentication is modeled as a **consumer** — described by a set of identity attributes such as a type (e.g., `OCIRegistry`), a hostname, and optionally a path or port. When an OCM operation needs to authenticate, it constructs a consumer identity from the target it is accessing and asks the credential system for a match.
 
 This design means credentials are tied to *what you are accessing*, not to *which command you are running*. A push and a pull to the same registry use the same consumer entry.
 
@@ -25,8 +25,8 @@ flowchart TB
     subgraph consumer ["Consumer"]
         direction LR
         subgraph identities ["Identities"]
-            id1["Identity 1<br>type: OCIRepository<br>hostname: ghcr.io<br>path: my-org"]
-            id2["Identity 2<br>type: OCIRepository<br>hostname: ghcr.io<br>path: my-org/my-repo"]
+            id1["Identity 1<br>type: OCIRegistry<br>hostname: ghcr.io<br>path: my-org"]
+            id2["Identity 2<br>type: OCIRegistry<br>hostname: ghcr.io<br>path: my-org/my-repo"]
         end
         subgraph credentials ["Credentials"]
             cred["type: Credentials/v1<br>username / password"]
