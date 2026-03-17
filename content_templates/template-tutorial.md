@@ -110,6 +110,7 @@ components:
 {{< /step >}}
 
 {{< step >}}
+
 ### Build the component version
 
 Run the OCM CLI to create a CTF archive:
