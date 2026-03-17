@@ -91,14 +91,17 @@ This creates a **complete integrity chain** — verifying the root component aut
 
 ### What Gets Signed?
 
-OCM signs a **digest** of the component descriptor, which includes:
+OCM signs a **digest** of the normalized component descriptor, which includes:
 
 - Component metadata (name, version, provider)
 - Resource descriptors (including digest, if available)
 - Source descriptors (including digest, if available)
 - Component references (including digest, if available)
+- Labels marked with `signing: true` (at any level)
 
-The signature does **not** cover the raw resource content directly — instead, it covers the **digests** of those resources as recorded in the component descriptor. Crucially, the `access` field (which describes *where* a resource is stored) is **excluded** from the signed digest by the normalization process. This is a key design principle:
+Labels without `signing: true` are excluded from the digest and do not affect the signature. Storage-related fields like `access` and `repositoryContexts` are also excluded — see [Normalization and Digest Calculation](#normalization-and-digest-calculation) above.
+
+The signature does **not** cover the raw resource content directly — instead, it covers the **digests** of those resources as recorded in the component descriptor. The `access` field (which describes *where* a resource is stored) is **excluded** from the signed digest. This is a key design principle:
 
 - **Location-independent integrity** — a component version can be transferred to a different registry (changing all `access` references) without invalidating its signature. The digest remains stable because it depends only on *what* the artifacts contain, not *where* they are stored.
 - Any change to resource content changes its digest, invalidating the signature.
