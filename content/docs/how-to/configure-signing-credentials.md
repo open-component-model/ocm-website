@@ -136,8 +136,8 @@ configurations:
 Specify the signature name when signing:
 
 ```bash
-ocm sign cv --signature dev /tmp/helloworld/transport-archive//github.com/acme.org/helloworld:1.0.0
-ocm sign cv --signature prod /tmp/helloworld/transport-archive//github.com/acme.org/helloworld:1.0.0
+ocm sign cv --dry-run --signature dev /tmp/helloworld/transport-archive//github.com/acme.org/helloworld:1.0.0
+ocm sign cv --dry-run --signature prod /tmp/helloworld/transport-archive//github.com/acme.org/helloworld:1.0.0
 ```
 
 ## Identity Attributes Reference

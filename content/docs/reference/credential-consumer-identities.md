@@ -28,12 +28,15 @@ configurations:
               # ... key-value credential properties
 ```
 
-OCM currently defines two consumer identity types:
+The consumer identity type is extensible — any string in `Name` or `Name/Version` format can be used.
+Plugins and integrations can introduce additional types (e.g. `AWSSecretsManager`, `HashiCorpVault`, `MavenRepository`).
+The following types are defined by the core OCM modules:
 
-| Identity Type                  | Used For |
-|--------------------------------|---|
-| [`OCIRegistry`](#ociregistry)  | Authenticating against OCI registries |
-| [`RSA/v1alpha1`](#rsav1alpha1) | Providing signing and verification keys |
+| Identity Type                                    | Used For |
+|--------------------------------------------------|---|
+| [`OCIRegistry`](#ociregistry)                    | Authenticating against OCI registries |
+| [`HelmChartRepository`](#helmchartrepository)    | Authenticating against Helm chart repositories |
+| [`RSA/v1alpha1`](#rsav1alpha1)                   | Providing signing and verification keys |
 
 ---
 
@@ -110,6 +113,59 @@ For detailed matching examples and edge cases, see [Tutorial: Understand Credent
       properties:
         username: internal-user
         password: internal_pass
+```
+
+---
+
+## HelmChartRepository
+
+Used when OCM accesses a remote Helm chart repository — pulling or resolving Helm charts referenced as resources. The identity is derived from the Helm repository URL using the same URL-based attributes as `OCIRegistry`.
+
+### Identity Attributes
+
+| Attribute | Required | Description |
+|---|---|---|
+| `type` | Yes | Must be `HelmChartRepository` |
+| `hostname` | Yes | Repository hostname (e.g. `charts.example.com`, `registry.example.com`) |
+| `path` | No | Repository path (e.g. `stable`). If omitted, matches any path on the hostname. |
+| `scheme` | No | URL scheme (`https`, `http`, `oci`). If omitted, matches any scheme. |
+| `port` | No | Port number as string. If omitted, matches any port. |
+
+### Credential Properties
+
+| Property | Description |
+|---|---|
+| `username` | Repository username |
+| `password` | Repository password or token |
+
+### Examples
+
+**HTTPS Helm repository:**
+
+```yaml
+- identity:
+    type: HelmChartRepository
+    hostname: charts.example.com
+    path: stable
+  credentials:
+    - type: Credentials/v1
+      properties:
+        username: helm-user
+        password: helm-token
+```
+
+**OCI-based Helm repository:**
+
+```yaml
+- identity:
+    type: HelmChartRepository
+    hostname: registry.example.com
+    scheme: oci
+  credentials:
+    - type: Credentials/v1
+      properties:
+        username: registry-user
+        password: registry-token
 ```
 
 ---
