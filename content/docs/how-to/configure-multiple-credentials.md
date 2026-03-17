@@ -38,7 +38,7 @@ configurations:
     consumers:
       # Hostname-only identity
       - identities:
-          - type: OCIRepository
+          - type: OCIRegistry
             hostname: ghcr.io  # No path = matches all paths
         credentials:
           - type: Credentials/v1
@@ -64,7 +64,7 @@ configurations:
       # ... other consumers
       # Hostname + exact path identity
       - identities:
-          - type: OCIRepository
+          - type: OCIRegistry
             hostname: ghcr.io
             path: my-org/production  # Exact path match
         credentials:
@@ -92,7 +92,7 @@ configurations:
       # ... other consumers
       # Hostname + path glob identity
       - identities:
-          - type: OCIRepository
+          - type: OCIRegistry
             hostname: ghcr.io
             path: my-org/*  # Glob — matches one segment after my-org/
         credentials:
@@ -143,7 +143,7 @@ configurations:
     consumers:
       # Path glob: matches ghcr.io/my-org/staging, ghcr.io/my-org/dev, etc.
       - identities:
-          - type: OCIRepository
+          - type: OCIRegistry
             hostname: ghcr.io
             path: my-org/*
         credentials:
@@ -153,7 +153,7 @@ configurations:
               password: ghp_org_token
       # Exact path: matches only ghcr.io/my-org/production (takes precedence over glob)
       - identities:
-          - type: OCIRepository
+          - type: OCIRegistry
             hostname: ghcr.io
             path: my-org/production
         credentials:
@@ -163,7 +163,7 @@ configurations:
               password: ghp_production_token
       # Hostname only: matches all other paths on ghcr.io
       - identities:
-          - type: OCIRepository
+          - type: OCIRegistry
             hostname: ghcr.io
         credentials:
           - type: Credentials/v1
