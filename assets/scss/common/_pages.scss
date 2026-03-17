@@ -41,6 +41,22 @@
       padding: 1rem !important;
     }
   }
+
+  /* Schema Reference Pages — wide layout for the interactive table.
+   * Uses :has() to target only pages containing the json-schema shortcode,
+   * so other reference pages (e.g. resolver-configuration) are unaffected.
+   * Sidebar stays for navigation; TOC is hidden since the schema table
+   * has its own expand/collapse UI and deep-link anchors. */
+  body:has(.ocm-schema-reference) {
+    .docs-toc {
+      display: none !important;
+    }
+
+    .docs-content {
+      flex: 1 1 0% !important;
+      max-width: 100% !important;
+    }
+  }
 }
 
 /* Mobile layout adjustments for special pages */
