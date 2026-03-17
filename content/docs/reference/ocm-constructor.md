@@ -1,8 +1,8 @@
 ---
 title: OCM Constructor
 description: "Reference documentation for the OCM Component Constructor format (v1, JSON Schema 2020-12)."
-weight: 20
-toc: true
+weight: 1
+toc: false
 ---
 
 The **OCM Component Constructor** defines the input format for building component versions.

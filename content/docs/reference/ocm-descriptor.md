@@ -1,8 +1,8 @@
 ---
 title: OCM Descriptor
 description: "Reference documentation for the OCM Component Descriptor format (v2, JSON Schema 2020-12)."
-weight: 10
-toc: true
+weight: 2
+toc: false
 ---
 
 The **OCM Component Descriptor** is the central data structure of the Open Component Model.

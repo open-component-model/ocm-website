@@ -18,5 +18,7 @@ matrix:
             - code
             - pre
     sources:
-      - '**/*.md'
+      - 'content/**/*.md'
+      - 'README.md'
+      - 'CONTRIBUTING.md'
     default_encoding: utf-8
