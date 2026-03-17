@@ -152,7 +152,7 @@ Add links to related concepts and references that explain the WHY and provide mo
 
 ## ✓ Before publishing
 
-Make sure to comply to our [CONTRIBUTING guide](../CONTRIBUTING.md)
+Make sure to comply with our [CONTRIBUTING guide](../CONTRIBUTING.md)
 and ensure the following:
 
 - [ ] Title starts with "How to..." or action verb (Configure/Deploy/Create/...)

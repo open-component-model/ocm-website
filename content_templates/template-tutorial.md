@@ -110,7 +110,7 @@ components:
 {{< /step >}}
 
 {{< step >}}
-**Build the component version**
+### Build the component version
 
 Run the OCM CLI to create a CTF archive:
 
@@ -129,9 +129,7 @@ component github.com/acme.org/helloworld/1.0.0 constructed ... done!
 
 This indicates your component version was successfully created.
 
-{{< callout type="tip" >}}
 **Adding optional details:** Use the `{{< details >}}` shortcode to provide technical deep-dives without disrupting the learning flow:
-{{< /callout >}}
 
 {{< details "Optional: Understanding CTF internals" >}}
 The CTF archive uses OCI artifact format internally. Each component version
@@ -250,7 +248,7 @@ Add links to related concepts and references that explain the WHY and provide mo
 
 ## ✓ Before publishing
 
-Make sure to comply to our [CONTRIBUTING guide](../CONTRIBUTING.md)
+Make sure to comply with our [CONTRIBUTING guide](../CONTRIBUTING.md)
 and ensure the following:
 
 - [ ] Title describes what learner will accomplish
