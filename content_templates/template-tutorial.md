@@ -14,57 +14,50 @@ hasMermaid: true
 ```
 {{< /callout >}}
 
-## Overview
-
-Write 2–4 sentences that set the scene and explain *why* you would do this.
+Write 1–2 sentences that set the scene and explain *why* you would do this.
 Avoid deep background. Link to the relevant concept(s) instead.
 
-**Estimated time:** ~X minutes
+## What You'll Learn
 
-{{< callout type="note" >}}
-**What you'll learn**
+By the end of this tutorial, you will:
 
 - What you can do by the end (outcome #1)
 - One key concept you will understand (outcome #2)
 - How to validate your success (outcome #3)
-{{< /callout >}}
-
-{{< callout type="note" >}}
-**Audience & assumptions**
-
-- Who this tutorial is for (e.g., "You're an OCM CLI user who has already created a component version")
-- What we assume you already know
-{{< /callout >}}
 
 ## How It Works
 
-Use a Mermaid diagram to visualize the workflow or architecture you'll be working with:
+Use a Mermaid diagram to visualize the workflow or architecture you'll be working with.
+This gives learners a mental model before diving into steps.
 
 ```mermaid
 flowchart LR
-    A[Component Constructor] --> B[OCM CLI]
-    B --> C[CTF Archive]
-    C --> D[OCM Repository]
+    A[Input/Start] -- "command" --> B[OCM Artifact]
+    B -- "command" --> C[(Output/Registry)]
 ```
 
-This gives learners a mental model before diving into steps.
+Write 1–2 sentences explaining the workflow shown in the diagram.
+
+**Estimated time:** ~X minutes
 
 ## Prerequisites
 
-- [OCM CLI]({{< relref "docs/getting-started/install.md" >}}) installed
+- [OCM CLI]({{< relref "docs/getting-started/ocm-cli-installation.md" >}}) installed
 - Access to required repositories/services (example: `ghcr.io`)
 - Any required credentials (example: GitHub token with package write access)
 
 ## Scenario
 
-Describe the concrete scenario you'll use throughout. Use specific values consistently—readers will copy/paste these.
+Describe the concrete scenario you'll use throughout. Use specific values consistently. Readers will copy/paste these.
 
 - **Component:** `github.com/acme.org/helloworld:1.0.0`
 - **Repository:** `ghcr.io/acme-ocm`
 - **Working directory:** `/tmp/ocm-tutorial`
 
 {{< callout type="tip" >}}
-**Handling variations:** If your tutorial covers multiple paths (e.g., different resource types or deployment targets), use tabs to keep the learning flow clear:
+**Handling variations:** If your tutorial covers multiple paths (e.g., different resource types or deployment targets),
+use tabs to keep the learning flow clear:
+{{< /callout >}}
 
 {{< tabs "example-tabs" >}}
 {{< tab "Helm Chart" >}}
@@ -84,14 +77,13 @@ input:
 ```
 {{< /tab >}}
 {{< /tabs >}}
-{{< /callout >}}
 
 ## Tutorial Steps
 
 {{< steps >}}
-
 {{< step >}}
-**Create the component constructor file**
+
+### Create the component constructor file
 
 Explain *what* you're doing and *why* in 1–2 sentences.
 
@@ -118,7 +110,8 @@ components:
 {{< /step >}}
 
 {{< step >}}
-**Build the component version**
+
+### Build the component version
 
 Run the OCM CLI to create a CTF archive:
 
@@ -127,20 +120,18 @@ ocm add cv
 ```
 
 You should see:
+Hide complex output behind a details block:
 
-<details>
-  <summary>Expected output</summary>
-
+{{< details "Expected output">}}
 ```text
  COMPONENT                      │ VERSION │ PROVIDER
 ────────────────────────────────┼─────────┼──────────
  github.com/acme.org/helloworld │ 1.0.0   │ acme.org
 ```
-</details>
+{{< /details >}}
 
 This indicates your component version was successfully created.
 
-{{< callout type="tip" >}}
 **Adding optional details:** Use the `{{< details >}}` shortcode to provide technical deep-dives without disrupting the learning flow:
 
 {{< details "Optional: Understanding CTF internals" >}}
@@ -153,20 +144,12 @@ tree transport-archive
 
 This allows CTF archives to be compatible with OCI registries and tools.
 {{< /details >}}
-{{< /callout >}}
-
-<details>
-  <summary>What happened?</summary>
-
-Optional: Explain *how* OCM processed your command.
-
-The command created a CTF archive and added the component with its resources. The archive is now ready for transfer to any OCM repository.
-</details>
 
 {{< /step >}}
 
 {{< step >}}
-**Verify the result**
+
+### Verify the result**
 
 Check that your component was created correctly:
 
@@ -176,18 +159,15 @@ ocm get cv ./transport-archive//github.com/acme.org/helloworld:1.0.0
 
 You should see your component listed with version 1.0.0.
 
-<details>
-  <summary>Expected output</summary>
-
+{{< details "Expected output">}}
 ```text
 COMPONENT                      │ VERSION │ PROVIDER
 ───────────────────────────────┼─────────┼──────────
 github.com/acme.org/helloworld │ 1.0.0   │ acme.org
 ```
-</details>
+{{< /details >}}
 
 {{< /step >}}
-
 {{< /steps >}}
 
 ## What you've learned
@@ -200,8 +180,8 @@ Summarize key learning points in 3–6 bullets:
 
 **For deeper understanding:**
 
-- [Concept: Component Descriptors]({{< relref "docs/concepts/component-descriptors.md" >}})
-- [Concept: Common Transfer Format]({{< relref "docs/concepts/ctf.md" >}})
+- [Concept: <name>]({{< relref "docs/concepts/<file>.md" >}})
+- [Concept: <name>]({{< relref "docs/concepts/<file>.md" >}})
 
 ## Check your understanding
 
@@ -211,14 +191,13 @@ Before moving on:
 - [ ] Why do we store component versions in CTF archives?
 - [ ] How would you add a second resource?
 
-<details>
-  <summary>Answers & Explanations</summary>
+{{< details "Answers & Explanations">}}
 
 - **Question 1:** Brief answer with explanation
 - **Question 2:** Brief answer with explanation  
 - **Question 3:** Brief answer with explanation
 
-</details>
+{{< /details >}}
 
 ## Troubleshooting
 
@@ -240,14 +219,6 @@ ocm add cv --file /path/to/component-constructor.yaml
 
 **Fix:** Update your `version` field to `MAJOR.MINOR.PATCH` format.
 
-### Getting help
-
-If these solutions don't work:
-
-- [OCM Troubleshooting Guide]({{< relref "docs/troubleshooting/_index.md" >}})
-- [Community Support]({{< relref "docs/community/_index.md" >}})
-- [Open an Issue](https://github.com/open-component-model/ocm/issues)
-
 ## Cleanup
 
 Remove the resources created in this tutorial:
@@ -264,30 +235,23 @@ rm component-constructor.yaml
 
 ## Next steps
 
-{{< card-grid >}}
-{{< card link="docs/tutorials/transfer-component" title="Transfer a Component Version" icon="arrow-right" >}}
-Learn how to transfer your component to remote repositories
-{{< /card >}}
-{{< card link="docs/concepts/versioning" title="Component Versioning" icon="book" >}}
-Understand OCM's versioning strategy
-{{< /card >}}
-{{< card link="docs/how-to/add-resources" title="Add Multiple Resources" icon="puzzle" >}}
-See how to add Helm charts, images, and more
-{{< /card >}}
-{{< /card-grid >}}
+Add links to related guides where you DO or LEARN more about the topic.
+
+- [How-to: <name>]({{< relref "docs/how-to/<file>.md" >}})
+- [Tutorial: <name>]({{< relref "docs/tutorials/<file>.md" >}})
 
 ## Related documentation
 
+Add links to related concepts and references that explain the WHY and provide more details.
+
 - [Concept: <name>]({{< relref "docs/concepts/<file>.md" >}})
-- [How-to: <name>]({{< relref "docs/how-to/<file>.md" >}})
 - [Reference: <command>]({{< relref "docs/reference/<file>.md" >}})
 
 ---
 
 ## ✓ Before publishing
 
-Make sure to comply to our [CONTRIBUTING guide](../CONTRIBUTING.md),
-check the [Tutorial Writing Checklist](../CONTRIBUTING.md#turorial-guide-checklist),
+Make sure to comply with our [CONTRIBUTING guide](../CONTRIBUTING.md)
 and ensure the following:
 
 - [ ] Title describes what learner will accomplish
@@ -301,5 +265,4 @@ and ensure the following:
 - [ ] Success indicators after major steps
 - [ ] "What you've learned" summary
 - [ ] Troubleshooting for tutorial-specific issues
-- [ ] `{{< card-grid >}}` for "Next steps" navigation
 - [ ] Working `relref` links to Concepts for "why" questions
