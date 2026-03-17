@@ -75,7 +75,7 @@
         <code class="ocm-schema-field-code">{{ $field.name }}</code>
       </a>
       {{- if $field.required }}
-      <span class="ocm-schema-badge ocm-schema-badge-required">required</span>
+      <span class="badge ocm-schema-badge-required">required</span>
       {{- end }}
     </div>
   </td>
@@ -96,15 +96,10 @@
     {{- end }}
     {{- with $field.constraints }}
     <div class="ocm-schema-constraints">
-      {{- with .pattern }}<span class="ocm-schema-constraint" title="Regex pattern"><code>pattern: {{ . }}</code></span>{{- end }}
-      {{- with .format }}<span class="ocm-schema-constraint"><code>format: {{ . }}</code></span>{{- end }}
-      {{- with .minLength }}<span class="ocm-schema-constraint"><code>minLength: {{ . }}</code></span>{{- end }}
-      {{- with .maxLength }}<span class="ocm-schema-constraint"><code>maxLength: {{ . }}</code></span>{{- end }}
-      {{- with .minimum }}<span class="ocm-schema-constraint"><code>min: {{ . }}</code></span>{{- end }}
-      {{- with .maximum }}<span class="ocm-schema-constraint"><code>max: {{ . }}</code></span>{{- end }}
-      {{- with .minItems }}<span class="ocm-schema-constraint"><code>minItems: {{ . }}</code></span>{{- end }}
-      {{- with .maxItems }}<span class="ocm-schema-constraint"><code>maxItems: {{ . }}</code></span>{{- end }}
-      {{- with .minProperties }}<span class="ocm-schema-constraint"><code>minProperties: {{ . }}</code></span>{{- end }}
+      {{- $c := . -}}
+      {{- range $key := (slice "pattern" "format" "minLength" "maxLength" "minimum" "maximum" "minItems" "maxItems" "minProperties") }}
+        {{- with index $c $key }}<span class="ocm-schema-constraint"><code>{{ $key }}: {{ . }}</code></span>{{ end }}
+      {{- end }}
     </div>
     {{- end }}
     {{- with $field.enumValues }}
@@ -114,22 +109,10 @@
     </div>
     {{- end }}
     {{- with $field.examples }}
-      {{- $hasSimple := false -}}
-      {{- range . }}
-        {{- if or (eq (printf "%T" .) "string") (eq (printf "%T" .) "float64") (eq (printf "%T" .) "int") (eq (printf "%T" .) "bool") }}
-          {{- $hasSimple = true -}}
-        {{- end }}
-      {{- end }}
-      {{- if $hasSimple }}
     <div class="ocm-schema-examples">
       <span class="ocm-schema-constraint-label">Examples:</span>
-        {{- range . }}
-          {{- if or (eq (printf "%T" .) "string") (eq (printf "%T" .) "float64") (eq (printf "%T" .) "int") (eq (printf "%T" .) "bool") }}
-       <code class="ocm-schema-enum-value">{{ . }}</code>
-          {{- end }}
-        {{- end }}
+      {{- range . }} <code class="ocm-schema-enum-value">{{ . }}</code>{{ end }}
     </div>
-      {{- end }}
     {{- end }}
     {{- if $field.circular }}
     <span class="ocm-schema-circular">(circular reference)</span>

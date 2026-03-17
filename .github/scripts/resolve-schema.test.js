@@ -147,17 +147,16 @@ test('transformField: field with enum', () => {
 test('transformField: field with const', () => {
   const result = transformField('relation', { const: 'local' });
   assert.match(result.type, /^const/);
-  assert.equal(result.constValue, 'local');
 });
 
-test('transformField: field with examples', () => {
-  const result = transformField('version', { type: 'string', examples: ['v1.0.0', 'v2.0.0'] });
+test('transformField: field with examples (pre-filtered to simple types)', () => {
+  const result = transformField('version', { type: 'string', examples: ['v1.0.0', { nested: true }, 'v2.0.0'] });
   assert.deepEqual(result.examples, ['v1.0.0', 'v2.0.0']);
 });
 
-test('transformField: field with default value', () => {
-  const result = transformField('replicas', { type: 'integer', default: 1 });
-  assert.equal(result.defaultValue, 1);
+test('transformField: field with only complex examples produces no examples', () => {
+  const result = transformField('config', { type: 'object', examples: [{ nested: true }] });
+  assert.equal(result.examples, undefined);
 });
 
 // ===========================================================================
@@ -260,22 +259,6 @@ test('transformField: variant label falls back to description then default', () 
 });
 
 // ===========================================================================
-// transformField — propertyNames
-// ===========================================================================
-
-test('transformField: propertyNames', () => {
-  const schema = {
-    type: 'object',
-    description: 'Extra identity',
-    propertyNames: { description: 'Key format', pattern: '^[a-z]+$', minLength: 2 },
-  };
-  const result = transformField('extraId', schema);
-  assert.ok(result.propertyNames);
-  assert.equal(result.propertyNames.description, 'Key format');
-  assert.deepEqual(result.propertyNames.constraints, { pattern: '^[a-z]+$', minLength: 2 });
-});
-
-// ===========================================================================
 // transformField — circular reference guard
 // ===========================================================================
 
@@ -344,15 +327,7 @@ test('transformSchema: handles top-level oneOf (constructor pattern)', () => {
   assert.equal(doc.variants.options[0].label, 'object');
 });
 
-test('transformSchema: collects $defs names from original schema', () => {
-  const original = {
-    $defs: { componentName: { type: 'string' }, label: { type: 'object' }, access: { type: 'object' } },
-  };
-  const doc = transformSchema({}, original);
-  assert.deepEqual(doc.definitionNames, ['componentName', 'label', 'access']);
-});
-
-test('transformSchema: no $defs means no definitionNames', () => {
+test('transformSchema: no $defs means no definitionNames (removed feature)', () => {
   const doc = transformSchema({}, {});
   assert.equal(doc.definitionNames, undefined);
 });
@@ -433,7 +408,6 @@ test('transformSchema: handles OCM descriptor-like structure', () => {
 
   // Metadata
   assert.equal(doc.schemaId, 'descriptor.json');
-  assert.deepEqual(doc.definitionNames, ['meta', 'component', 'signature']);
 
   // Top-level fields
   assert.equal(doc.fields.length, 3);
@@ -548,12 +522,6 @@ test('integration: descriptor schema resolves without error', async () => {
   const sigs = doc.fields.find((f) => f.name === 'signatures');
   assert.ok(sigs);
   assert.equal(sigs.required, false);
-
-  // definitionNames
-  assert.ok(Array.isArray(doc.definitionNames));
-  assert.ok(doc.definitionNames.includes('component'));
-  assert.ok(doc.definitionNames.includes('label'));
-  assert.ok(doc.definitionNames.includes('signature'));
 });
 
 test('integration: constructor schema resolves without error', async () => {
@@ -688,14 +656,13 @@ test('integration: descriptor HTML has stable anchor IDs', async () => {
   assert.ok(content.includes('ocm-schema-anchor'), 'should have ocm-schema-anchor class');
 });
 
-test('integration: descriptor HTML has hash-navigation JS', async () => {
+test('integration: descriptor HTML loads external schema-reference.js', async () => {
   const htmlPath = path.join(REPO_ROOT, 'public/dev/docs/reference/ocm-descriptor/index.html');
   const content = await fsp.readFile(htmlPath, 'utf8');
 
-  // Hash navigation: auto-expand ancestors + scroll + highlight
-  assert.ok(content.includes('hashchange'), 'should listen for hashchange events');
-  assert.ok(content.includes('scrollIntoView'), 'should scroll to anchored field');
-  assert.ok(content.includes('ocm-schema-highlight'), 'should apply highlight class');
+  // JS is externalized: page should reference the fingerprinted asset, not contain inline logic
+  assert.ok(content.includes('schema-reference'), 'should reference external schema-reference.js');
+  assert.ok(!content.includes('hashchange'), 'should NOT contain inline hashchange JS');
 });
 
 test('integration: constructor HTML page structure', async () => {

@@ -27,6 +27,10 @@
 
 {{ partial "footer/script-footer" . }}
 
+{{ if .Store.Get "hasSchemaReference" }}
+{{ $schemaJS := resources.Get "js/schema-reference.js" | minify | fingerprint }}
+<script src="{{ $schemaJS.RelPermalink }}" defer></script>
+{{ end }}
 
 {{ if .Store.Get "hasMermaid" }}
 <script type="module">

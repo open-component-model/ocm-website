@@ -1,0 +1,28 @@
+{{/*
+  Partial: schema-table.html
+  Renders a schema fields table with standard thead and tbody.
+
+  Context:
+    .fields  - Slice of field objects to render
+    .scratch - Hugo Scratch for mutable counter (unique row IDs)
+*/}}
+
+{{- $fields := .fields -}}
+{{- $scratch := .scratch -}}
+
+<div class="ocm-schema-table-wrapper table-responsive border rounded">
+  <table class="ocm-schema-table">
+    <thead>
+      <tr>
+        <th style="width:40%">Field</th>
+        <th style="width:15%">Type</th>
+        <th style="width:45%">Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{- range $fields }}
+        {{- partial "schema-field-row.html" (dict "field" . "depth" 0 "parentId" "" "path" "" "scratch" $scratch) }}
+      {{- end }}
+    </tbody>
+  </table>
+</div>

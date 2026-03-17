@@ -789,68 +789,6 @@
         "type": "object",
         "description": "A component containing sources, resources, and references to other components",
         "required": false,
-        "examples": [
-          {
-            "name": "github.com/open-component-model/podinfo",
-            "version": "v1.0.0",
-            "provider": {
-              "name": "open-component-model"
-            },
-            "labels": [
-              {
-                "name": "link-to-documentation",
-                "value": "https://ocm.software/"
-              }
-            ],
-            "resources": [
-              {
-                "name": "data",
-                "type": "blob",
-                "relation": "local",
-                "input": {
-                  "type": "file",
-                  "path": "./testdata/text.txt"
-                }
-              },
-              {
-                "name": "podinfo",
-                "relation": "external",
-                "type": "ociImage",
-                "version": "6.8.0",
-                "access": {
-                  "type": "ociArtifact",
-                  "imageReference": "ghcr.io/stefanprodan/podinfo:6.8.0"
-                },
-                "digest": {
-                  "hashAlgorithm": "SHA-256",
-                  "normalisationAlgorithm": "ociArtifactDigest/v1",
-                  "value": "6c1975b871efb327528c84d46d38e6dd7906eecee6402bc270eeb7f1b1a506df"
-                },
-                "srcRefs": [
-                  {
-                    "identitySelector": {
-                      "name": "podinfo",
-                      "version": "6.8.0"
-                    }
-                  }
-                ]
-              }
-            ],
-            "sources": [
-              {
-                "name": "podinfo",
-                "type": "git",
-                "version": "6.8.0",
-                "access": {
-                  "commit": "b3396adb98a6a0f5eeedd1a600beaf5e954a1f28",
-                  "ref": "refs/tags/v6.8.0",
-                  "repoUrl": "github.com/stefanprodan/podinfo",
-                  "type": "gitHub"
-                }
-              }
-            ]
-          }
-        ],
         "properties": [
           {
             "name": "name",
@@ -1617,27 +1555,5 @@
         "label": "object"
       }
     ]
-  },
-  "definitionNames": [
-    "meta",
-    "merge",
-    "label",
-    "componentName",
-    "identityAttributeKey",
-    "relaxedSemver",
-    "ocmType",
-    "nonEmptyString",
-    "identityAttribute",
-    "access",
-    "input",
-    "commonSourceProperties",
-    "commonResourceProperties",
-    "sourceDefinition",
-    "digestSpec",
-    "signatureSpec",
-    "srcRef",
-    "componentReference",
-    "resourceDefinition",
-    "component"
-  ]
+  }
 }

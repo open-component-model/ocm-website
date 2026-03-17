@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Resolve JSON Schema $ref/$defs and transform into a Hugo-friendly data structure.
+ * Resolve JSON Schema $ref/$defs and transform into a Hugo-friendly flat data structure.
  *
  * Usage:
  *   node .github/scripts/resolve-schema.js <input.json> <output-key>
@@ -11,6 +11,10 @@
  *
  * The output is a flat tree structure that Hugo templates can iterate
  * to render an interactive, collapsible schema reference page.
+ *
+ * The script uses @apidevtools/json-schema-ref-parser to resolve all references
+ * and then transforms the schema into a format that captures types, descriptions,
+ * constraints, and variants in a way that's easy to render in the documentation.
  */
 
 const fsp = require('node:fs/promises');
@@ -58,6 +62,15 @@ function getConstraints(schema) {
 }
 
 /**
+ * Derive a readable label for a variant (oneOf/anyOf/allOf option).
+ */
+function getVariantLabel(variant, index) {
+  if (variant.type) return Array.isArray(variant.type) ? variant.type.join(' | ') : variant.type;
+  if (variant.description) return variant.description.slice(0, 60);
+  return `Option ${index + 1}`;
+}
+
+/**
  * Recursively transform a resolved JSON Schema node into a Hugo-friendly field tree.
  *
  * @param {string} name - Field name
@@ -93,9 +106,11 @@ function transformField(name, schema, requiredList = [], depth = 0, visited = ne
   const constraints = getConstraints(schema);
   if (constraints) field.constraints = constraints;
   if (schema.enum) field.enumValues = schema.enum;
-  if (schema.const !== undefined) field.constValue = schema.const;
-  if (schema.examples && schema.examples.length > 0) field.examples = schema.examples;
-  if (schema.default !== undefined) field.defaultValue = schema.default;
+  if (schema.examples && schema.examples.length > 0) {
+    // Pre-filter to only simple types that the Hugo template can render
+    const simple = schema.examples.filter((e) => ['string', 'number', 'boolean'].includes(typeof e));
+    if (simple.length > 0) field.examples = simple;
+  }
 
   // Handle object properties
   if (schema.properties) {
@@ -129,11 +144,7 @@ function transformField(name, schema, requiredList = [], depth = 0, visited = ne
             new Set(visited)
           );
           // Promote a readable label
-          variantField.label = variant.type
-            ? (Array.isArray(variant.type) ? variant.type.join(' | ') : variant.type)
-            : variant.description
-              ? variant.description.slice(0, 60)
-              : `Option ${i + 1}`;
+          variantField.label = getVariantLabel(variant, i);
           return variantField;
         }),
       };
@@ -187,19 +198,10 @@ function transformSchema(schema, originalSchema) {
           0,
           new Set()
         );
-        variantField.label = variant.type
-          ? (Array.isArray(variant.type) ? variant.type.join(' | ') : variant.type)
-          : variant.description
-            ? variant.description.slice(0, 60)
-            : `Option ${i + 1}`;
+        variantField.label = getVariantLabel(variant, i);
         return variantField;
       }),
     };
-  }
-
-  // Collect $defs names for reference (from original, pre-resolved schema)
-  if (originalSchema.$defs) {
-    doc.definitionNames = Object.keys(originalSchema.$defs);
   }
 
   return doc;
@@ -244,4 +246,4 @@ if (require.main === module) {
   });
 }
 
-module.exports = { getDisplayType, getConstraints, transformField, transformSchema };
+module.exports = { getDisplayType, getConstraints, getVariantLabel, transformField, transformSchema };
