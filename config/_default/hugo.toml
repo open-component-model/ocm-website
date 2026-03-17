@@ -72,6 +72,11 @@ defaultContentVersion = "legacy"
 
 [minify.tdewolff.html]
   keepWhitespace = false
+  keepCSS2 = true
+  keepDefaultAttrVals = true
+
+[minify.tdewolff.svg]
+  keepComments = false
 
 [related]
   threshold = 80
