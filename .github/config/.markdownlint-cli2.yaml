@@ -1,6 +1,7 @@
 #yaml-language-server: $schema=https://raw.githubusercontent.com/DavidAnson/markdownlint-cli2/refs/heads/main/schema/markdownlint-cli2-config-schema.json
 ignores:
   - "content_versioned/version-legacy/**"
+  - "layouts/README.md"
 config:
   default: true
   MD001: false #Heading style - Allow heading levels to be incremented by multiple levels at a time
