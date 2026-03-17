@@ -64,7 +64,7 @@ This How-To will show you how to use the OCM CLI container image to create and g
    - type: credentials.config.ocm.software
      consumers:
       - identity:
-          type: OCIRepository
+          type: OCIRegistry
           hostname: ghcr.io
           port: "443"
           scheme: https

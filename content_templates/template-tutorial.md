@@ -123,7 +123,9 @@ Hide complex output behind a details block:
 
 {{< details "Expected output">}}
 ```text
-component github.com/acme.org/helloworld/1.0.0 constructed ... done!
+ COMPONENT                      │ VERSION │ PROVIDER
+────────────────────────────────┼─────────┼──────────
+ github.com/acme.org/helloworld │ 1.0.0   │ acme.org
 ```
 {{< /details >}}
 
