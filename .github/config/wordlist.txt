@@ -9,6 +9,7 @@ aggregative
 aml
 anchore
 api
+ApplySet
 archlinux
 argocd
 argocds
@@ -99,6 +100,7 @@ deliveryspec
 dependabot
 deployable
 deployer
+deployers
 deployscript
 descriptor's
 deserializable
@@ -217,6 +219,7 @@ keyless
 keypair
 keyring
 kro
+kro's
 kubebuilder
 kubeconfig
 kubectl
@@ -293,6 +296,7 @@ ociblob
 ociimage
 ocireg
 ociregistry
+OCIRepository
 ocm
 ocm's
 ocmbot
@@ -355,6 +359,7 @@ requeues
 resendbuffer
 resolvers
 resourcegraphdefinition
+ResourceGraphDefinitions
 resourcepipeline
 resourcepipelines
 resourcepipelinesource
@@ -364,6 +369,7 @@ resourcereference
 resourcespec
 resourcestatus
 rgd
+RGDs
 roadmap
 rollout
 routings
