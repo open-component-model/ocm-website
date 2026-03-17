@@ -183,7 +183,7 @@ OCM currently only supports RSA-based signing algorithms:
 | RSASSA-PSS (default) | Asymmetric | Probabilistic, stronger security guarantees, recommended for new implementations |
 | RSA-PKCS#1 v1.5      | Asymmetric | Deterministic, widely supported, compatible with legacy systems |
 
-To override the default signing algorithm or encoding policy, see the --signer-spec flag in the [CLI reference]({{< relref "/docs/reference/ocm-cli/ocm_sign_component-version.md" >}}).
+To override the default signing algorithm or encoding policy, see the `--signer-spec` flag in the [CLI reference]({{< relref "/docs/reference/ocm-cli/ocm_sign_component-version.md" >}}).
 The signer spec file configures only the algorithm and encoding policy — credentials are always resolved separately via the [`.ocmconfig`]({{< relref "configure-multiple-credentials.md" >}}) file.
 
 For key management, OCM uses PEM-encoded key files configured in the `.ocmconfig`:
