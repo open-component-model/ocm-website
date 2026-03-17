@@ -158,11 +158,13 @@ my-repository   Successfully reconciled OCM repository   2026-02-25T15:45:49Z
 
 {{< step >}}
 
-### Propagate credentials to dependent resources (optional)
+### Credential inheritance for dependent resources
 
-OCM Controller resources can inherit credentials from referenced resources, reducing duplication.
-Create a `component.yaml` with a component referencing the OCM config from the `Repository` resource you just created.
-Specify the component reference to an existing component in your registry.
+`ocmConfig` is propagated by default. A `Component`, `Resource`, or `Deployer` resource will automatically
+inherit the `ocmConfig` from the resource it references (e.g. a `Repository`) if it does not specify its own
+`ocmConfig`. This means you do not need to repeat the credential configuration in every dependent resource.
+
+Create a `component.yaml` that references the `Repository` you just created:
 
 ```yaml
 apiVersion: delivery.ocm.software/v1alpha1
@@ -175,13 +177,9 @@ spec:
     name: my-repository
   semver: 1.0.0
   interval: 1m
-  ocmConfig:
-    - kind: Repository
-      apiVersion: delivery.ocm.software/v1alpha1
-      name: my-repository
 ```
 
-The `Component` resource inherits credentials from the `Repository` resource named `my-repository`.
+The `Component` automatically inherits the `ocmConfig` from `my-repository` — no explicit `ocmConfig` field needed.
 
 Apply the resource:
 
@@ -213,11 +211,19 @@ my-component   Applied version 1.0.0   2026-02-25T15:49:58Z
 ```
 </details>
 
-### Credential propagation
+If you need the `Component` to use **additional** credentials on top of those from the `Repository`, specify both
+in `ocmConfig`:
 
-- Credentials are propagated by default when referencing other OCM Controller resources
-- You must still specify the `ocmConfig` field on each resource that needs credentials
-- Credentials are not automatically inherited across all resources in the cluster
+```yaml
+spec:
+  # ...existing configuration...
+  ocmConfig:
+    - kind: Secret
+      name: another-ocm-secret
+    - kind: Repository
+      apiVersion: delivery.ocm.software/v1alpha1
+      name: my-repository
+```
 
 {{< /step >}}
 
@@ -225,23 +231,22 @@ my-component   Applied version 1.0.0   2026-02-25T15:49:58Z
 
 ## Advanced: Prevent credential propagation
 
-To prevent a resource from propagating its credentials to dependent resources, set the `policy` to `DoNotPropagate`:
+To prevent a resource from propagating its credentials to dependent resources, set `policy: DoNotPropagate` on
+the relevant `ocmConfig` entry of that resource:
 
 ```yaml
 apiVersion: delivery.ocm.software/v1alpha1
-kind: Component
+kind: Repository
 metadata:
-  name: my-component
+  name: my-repository
 spec:
-  component: <your-namespace>/my-component
-  repositoryRef:
-    name: my-repository
-  semver: 1.0.0
+  repositorySpec:
+    baseUrl: ghcr.io/<your-namespace>
+    type: OCIRegistry
   interval: 1m
   ocmConfig:
-    - kind: Repository
-      apiVersion: delivery.ocm.software/v1alpha1
-      name: my-repository
+    - kind: Secret
+      name: ocm-secret
       policy: DoNotPropagate
 ```
 
@@ -282,22 +287,13 @@ The filename in `--from-file` must be `.ocmconfig` (with the dot).
 
 ### Symptom: "Component shows `Not Ready` with credential errors"
 
-**Cause:** The `ocmConfig` is not specified or references a non-existent resource.
+**Cause:** The referenced `Repository` has no `ocmConfig`, or the `Component` specifies its own `ocmConfig` that is
+missing or references a non-existent resource.
 
 **Fix:**
 
-Add the `ocmConfig` field to your Component resource:
-
-```yaml
-spec:
-  # ...existing configuration...
-  ocmConfig:
-    - kind: Repository
-      apiVersion: delivery.ocm.software/v1alpha1
-      name: my-repository
-```
-
-Or reference the secret directly:
+Ensure the `Repository` the `Component` references has a valid `ocmConfig` — the `Component` will inherit it
+automatically. If the `Component` needs additional credentials, add them explicitly:
 
 ```yaml
 spec:

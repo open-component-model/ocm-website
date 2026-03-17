@@ -16,7 +16,7 @@ toc: true
 
 - [OCM CLI installed]({{< relref "ocm-cli-installation.md" >}})
 - [Verification credentials configured]({{< relref "docs/how-to/configure-signing-credentials.md" >}}) with the public key
-- A signed component version to verify in your current directory, e.g. the `helloworld` component version from the [getting started guide]({{< relref "create-component-version.md" >}}) that you've signed in the [How-To: Sign Component Versions]({{< relref "sign-component-version.md" >}}) guide.
+- A signed component version to verify in your current directory, here we use the `helloworld` component version from the [getting started guide]({{< relref "create-component-version.md" >}}) that you've signed in the [How-To: Sign Component Versions]({{< relref "sign-component-version.md" >}}) guide.
 
 ## Steps
 
@@ -35,7 +35,7 @@ ocm verify cv <repository>//<component>:<version>
 **Local CTF Archive:**
 
 ```bash
-ocm verify cv ./transport-archive//github.com/acme.org/helloworld:1.0.0
+ocm verify cv /tmp/helloworld/transport-archive//github.com/acme.org/helloworld:1.0.0
 ```
 
 **Remote OCI Registry:**
@@ -80,7 +80,7 @@ ocm verify cv --signature prod ghcr.io/myorg/components//github.com/acme.org/hel
 View all signatures in a component version:
 
 ```bash
-ocm get cv ./transport-archive//github.com/acme.org/helloworld:1.0.0 -o yaml | grep -A 10 signatures:
+ocm get cv ./tmp/helloworld/transport-archive//github.com/acme.org/helloworld:1.0.0 -o yaml | grep -A 10 signatures:
 ```
 
 {{< /step >}}
@@ -97,10 +97,10 @@ ocm get cv ./transport-archive//github.com/acme.org/helloworld:1.0.0 -o yaml | g
 
 ```bash
 # Check which signature names exist
-ocm get cv ./transport-archive//github.com/acme.org/helloworld:1.0.0 -o yaml | grep -A 3 "signatures:"
+ocm get cv /tmp/helloworld/transport-archive//github.com/acme.org/helloworld:1.0.0 -o yaml | grep -A 3 "signatures:"
 
 # Verify with the correct signature name
-ocm verify cv --signature <name> ./transport-archive//github.com/acme.org/helloworld:1.0.0
+ocm verify cv --signature <name> /tmp/helloworld/transport-archive//github.com/acme.org/helloworld:1.0.0
 ```
 
 ### Symptom: "no public key found"
