@@ -55,7 +55,7 @@ spec:
   interval: 10m
 ```
 
-The `ocmConfig` entries support both Secrets and ConfigMaps. The `policy` field controls whether configuration is inherited by child resources (Resources and Deployers that reference this Component). `Propagate` is the default — set it to `DoNotPropagate` if the credentials should not flow downstream.
+The `ocmConfig` entries support both Secrets and ConfigMaps. The `policy` field controls whether configuration is inherited by child resources. `Propagate` is the default, set it to `DoNotPropagate` if the credentials should not flow downstream.
 
 Multiple Components can now reference this single Repository by name, keeping credentials and connection details in one place.
 
@@ -76,7 +76,7 @@ The resource formerly known as `ComponentVersion` has been renamed to `Component
   - *Allow*: permit downgrades, but only if the component is explicitly labeled as downgradable.
   - *Enforce*: always allow downgrades, no questions asked.
 
-- **Async resolution.** Version lookups no longer block the reconciliation loop. The controller hands off resolution to a background worker pool and picks up the result when it's ready. This makes the controller more responsive when dealing with slow or large registries. The component is updated via an event queue once resolution finishes. This means, no `RequeueAfter` is required for that resolution to be picked up. It's immediate upon done.
+- **Async resolution.** Version lookups no longer block the reconciliation loop. The controller hands off resolution to a background worker pool and picks up the result when it's ready. This makes the controller more responsive when dealing with slow or large registries. The component is updated via an event queue once resolution finishes. This means, no `RequeueAfter` is required for that resolution to be picked up by the component again.
 
 Here is an example showing the new Component with signature verification and a downgrade policy:
 
@@ -119,7 +119,7 @@ The key name in the Secret's `data` field must match the `signature` value in th
 
 **What was removed:**
 
-- **Component transfer.** The old `destination` field let you mirror a component to a secondary registry during reconciliation. This feature is no longer built in — use an external mirroring tool if needed.
+- **Component transfer.** The old `destination` field let you mirror a component to a secondary registry during reconciliation. This feature is no longer built in, use an external mirroring tool if needed.
 
 - **ComponentDescriptor resources.** The old controller created a separate `ComponentDescriptor` custom resource for every component and its transitive references. These are gone. The resolved descriptor data now lives directly in the Component's status, which means fewer resources in your cluster and less noise when listing objects.
 
@@ -131,11 +131,11 @@ The `Resource` still represents a specific artifact (a Helm chart, a set of mani
 
 **Key changes:**
 
-- **No more Snapshots.** The old controller extracted each resource into a `Snapshot`, which was stored in a local OCI registry running inside the cluster. That entire layer — the Snapshot custom resource, the in-cluster registry, the caching logic — is gone. Resources are now fetched on-demand when needed, with an in-memory cache to avoid redundant downloads.
+- **No more Snapshots.** The old controller extracted each resource into a `Snapshot`, which was stored in a local OCI registry running inside the cluster. That entire layer with the Snapshot custom resource, the in-cluster registry and the caching logic, is gone. Resources are now fetched on-demand when needed, with an in-memory cache to avoid redundant downloads.
 
 - **Optional digest verification.** By default, the controller verifies the integrity of every resource it fetches. The new `skipVerify` option lets you skip this step for resources where the download cost is high and you trust the source. Use with care.
 
-- **Custom status fields via CEL expressions.** You can define expressions that extract values from resource metadata and surface them in the Resource's status — without writing a custom controller.
+- **Custom status fields via CEL expressions.** You can define expressions that extract values from resource metadata and surface them in the Resource's status without writing a custom controller.
 
 - **Namespace-local references only.** The old controller allowed cross-namespace references. The new controller requires that a Resource and its parent Component live in the same namespace.
 
@@ -162,7 +162,7 @@ spec:
   interval: 10m
 ```
 
-The CEL expressions run against the resolved OCM resource descriptor. The built-in `toOCI()` function parses OCI image references into their components (`host`, `registry`, `repository`, `reference`, `tag`, `digest`). You can also access any field on the resource directly — for example, `resource.access.repoUrl` or `resource.access.helmChart`.
+The CEL expressions run against the resolved OCM resource descriptor. The built-in `toOCI()` function parses OCI image references into their components (`host`, `registry`, `repository`, `reference`, `tag`, `digest`). You can also access any field on the resource directly. For example, `resource.access.repoUrl` or `resource.access.helmChart`.
 
 The results appear in the Resource's status:
 
@@ -193,7 +193,7 @@ spec:
 
 This is the biggest architectural shift.
 
-The old `FluxDeployer` didn't actually deploy anything itself. It created Flux resources — an `OCIRepository` plus either a `Kustomization` or a `HelmRelease` — and let Flux handle the actual deployment. This meant your cluster needed the full Flux suite installed and running.
+The old `FluxDeployer` didn't actually deploy anything itself. It created Flux resources, an `OCIRepository` plus either a `Kustomization` or a `HelmRelease`, and let Flux handle the actual deployment. This meant your cluster needed the full Flux suite installed and running.
 
 The new `Deployer` handles deployment directly. It downloads the manifests from the OCM resource and applies them to the cluster using Kubernetes server-side apply with ApplySet tracking. No Flux required.
 
@@ -220,7 +220,7 @@ That's it. No templates, no intermediate resources. The Deployer fetches the man
 
 **What was removed:**
 
-- **Kustomization and Helm support.** The old controller could template deployments through Flux's Kustomization or HelmRelease. The new Deployer applies raw manifests only. If you need Kustomize overlays or Helm rendering, do that before publishing your component — the controller expects ready-to-apply YAML.
+- **Kustomization and Helm support.** The old controller could template deployments through Flux's Kustomization or HelmRelease. The new Deployer applies raw manifests only. If you need Kustomize overlays or Helm rendering, do that before publishing your component. The controller expects ready-to-apply YAML.
 
 ---
 
@@ -242,7 +242,7 @@ The operational footprint is significantly smaller:
 | Flux controllers | Required (for deployment) | Not needed |
 | Performance tuning | No exposed knobs | Configurable concurrency, cache sizes, worker counts |
 
-The removal of the local OCI registry alone simplifies operations — that's one fewer stateful component to monitor, back up, and secure with TLS certificates.
+The removal of the local OCI registry alone simplifies operations, that's one fewer stateful component to monitor, back up, and secure with TLS certificates.
 
 ---
 
