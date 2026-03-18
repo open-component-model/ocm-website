@@ -465,21 +465,19 @@ test('transformSchema: handles OCM descriptor-like structure', () => {
 // ===========================================================================
 
 const REPO_ROOT = path.resolve(__dirname, '../..');
-const DESCRIPTOR_PATH = path.join(REPO_ROOT, 'static/schemas/ocm-descriptor.json');
-const CONSTRUCTOR_PATH = path.join(REPO_ROOT, 'static/schemas/ocm-constructor.json');
 const DESCRIPTOR_DATA = path.join(REPO_ROOT, 'data/schemas/descriptor.json');
 const CONSTRUCTOR_DATA = path.join(REPO_ROOT, 'data/schemas/constructor.json');
+const DESCRIPTOR_RAW_URL = 'https://raw.githubusercontent.com/open-component-model/open-component-model/main/bindings/go/descriptor/v2/resources/schema-2020-12.json';
+const CONSTRUCTOR_RAW_URL = 'https://raw.githubusercontent.com/open-component-model/open-component-model/main/bindings/go/constructor/spec/v1/resources/schema-2020-12.json';
+const DESCRIPTOR_BLOB_URL = 'https://github.com/open-component-model/open-component-model/blob/main/bindings/go/descriptor/v2/resources/schema-2020-12.json';
 
 test('integration: descriptor schema resolves without error', async () => {
-  await assert.doesNotReject(fsp.access(DESCRIPTOR_PATH));
-
   const { execFile } = require('node:child_process');
   const { promisify } = require('node:util');
   const execFileAsync = promisify(execFile);
 
   await execFileAsync('node', [
     path.join(__dirname, 'resolve-schema.js'),
-    'static/schemas/ocm-descriptor.json',
     'descriptor',
   ], { cwd: REPO_ROOT });
 
@@ -525,15 +523,12 @@ test('integration: descriptor schema resolves without error', async () => {
 });
 
 test('integration: constructor schema resolves without error', async () => {
-  await assert.doesNotReject(fsp.access(CONSTRUCTOR_PATH));
-
   const { execFile } = require('node:child_process');
   const { promisify } = require('node:util');
   const execFileAsync = promisify(execFile);
 
   await execFileAsync('node', [
     path.join(__dirname, 'resolve-schema.js'),
-    'static/schemas/ocm-constructor.json',
     'constructor',
   ], { cwd: REPO_ROOT });
 
@@ -600,7 +595,8 @@ test('integration: descriptor HTML page structure', async () => {
 
   // Metadata
   assert.ok(content.includes('json-schema.org/draft/2020-12/schema'), 'should show schema version');
-  assert.ok(content.includes('ocm-descriptor.json'), 'should have download link');
+  assert.ok(content.includes(DESCRIPTOR_RAW_URL), 'should have download link to upstream raw schema');
+  assert.ok(!content.includes('Schema ID'), 'should not render Schema ID metadata label');
 
   // Fields
   assert.ok(content.includes('ocm-schema-field-code'), 'should have field code elements');
@@ -686,19 +682,27 @@ test('integration: constructor HTML page structure', async () => {
   assert.ok(content.match(/id="?components"?/), 'should have id for components field');
 });
 
-test('integration: raw JSON schemas served in static/', async () => {
-  const descriptorRaw = path.join(REPO_ROOT, 'public/schemas/ocm-descriptor.json');
-  const constructorRaw = path.join(REPO_ROOT, 'public/schemas/ocm-constructor.json');
+test('integration: constructor HTML contains upstream raw download link', async () => {
+  const htmlPath = path.join(REPO_ROOT, 'public/dev/docs/reference/ocm-constructor/index.html');
+  const content = await fsp.readFile(htmlPath, 'utf8');
+  assert.ok(content.includes(CONSTRUCTOR_RAW_URL), 'constructor page should link to upstream raw schema');
+});
 
-  const descContent = await fsp.readFile(descriptorRaw, 'utf8');
-  const descJson = JSON.parse(descContent);
-  assert.equal(descJson.$schema, 'https://json-schema.org/draft/2020-12/schema');
-  assert.ok(descJson.$defs, 'raw descriptor should have $defs (not resolved)');
+test('integration: script accepts blob URL input and resolves via raw content', async () => {
+  const { execFile } = require('node:child_process');
+  const { promisify } = require('node:util');
+  const execFileAsync = promisify(execFile);
 
-  const consContent = await fsp.readFile(constructorRaw, 'utf8');
-  const consJson = JSON.parse(consContent);
-  assert.equal(consJson.$schema, 'https://json-schema.org/draft/2020-12/schema');
-  assert.ok(consJson.$defs, 'raw constructor should have $defs (not resolved)');
+  await execFileAsync('node', [
+    path.join(__dirname, 'resolve-schema.js'),
+    'descriptor',
+    DESCRIPTOR_BLOB_URL,
+  ], { cwd: REPO_ROOT });
+
+  const content = await fsp.readFile(DESCRIPTOR_DATA, 'utf8');
+  const doc = JSON.parse(content);
+  assert.equal(doc.schemaVersion, 'https://json-schema.org/draft/2020-12/schema');
+  assert.ok(doc.schemaId.includes('descriptor'));
 });
 
 // ===========================================================================

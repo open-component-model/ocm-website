@@ -12,7 +12,7 @@
     "clean": "npm run clean:build && npm run clean:lint && npm run clean:install",
     "create": "./node_modules/.bin/hugo new",
     "cutoff": "node .github/scripts/cutoff-version.js",
-    "schemas:resolve": "node .github/scripts/resolve-schema.js static/schemas/ocm-descriptor.json descriptor && node .github/scripts/resolve-schema.js static/schemas/ocm-constructor.json constructor",
+    "schemas:resolve": "node .github/scripts/resolve-schema.js descriptor && node .github/scripts/resolve-schema.js constructor",
     "dev:drafts": "./node_modules/.bin/hugo server --bind=0.0.0.0 --disableFastRender --baseURL=http://localhost --noHTTPCache --buildDrafts",
     "dev": "./node_modules/.bin/hugo server --bind=0.0.0.0 --disableFastRender --noHTTPCache",
     "hugo": "./node_modules/.bin/hugo",

@@ -3,10 +3,13 @@
  * Resolve JSON Schema $ref/$defs and transform into a Hugo-friendly flat data structure.
  *
  * Usage:
- *   node .github/scripts/resolve-schema.js <input.json> <output-key>
+ *   node .github/scripts/resolve-schema.js <key> [input]
  *
  * Example:
- *   node .github/scripts/resolve-schema.js static/schemas/ocm-descriptor.json descriptor
+ *   node .github/scripts/resolve-schema.js descriptor
+ *   node .github/scripts/resolve-schema.js constructor
+ *   node .github/scripts/resolve-schema.js descriptor static/schemas/component-descriptor-v2
+ *   node .github/scripts/resolve-schema.js constructor https://raw.githubusercontent.com/open-component-model/open-component-model/main/bindings/go/constructor/spec/v1/resources/schema-2020-12.json
  *   -> writes data/schemas/descriptor.json
  *
  * The output is a flat tree structure that Hugo templates can iterate
@@ -23,6 +26,10 @@ const $RefParser = require('@apidevtools/json-schema-ref-parser');
 
 const REPO_ROOT = path.resolve(__dirname, '../..');
 const OUTPUT_DIR = path.join(REPO_ROOT, 'data', 'schemas');
+const DEFAULT_INPUTS = {
+  descriptor: 'https://github.com/open-component-model/open-component-model/blob/main/bindings/go/descriptor/v2/resources/schema-2020-12.json',
+  constructor: 'https://github.com/open-component-model/open-component-model/blob/main/bindings/go/constructor/spec/v1/resources/schema-2020-12.json',
+};
 
 // Track visited schemas during recursion to prevent infinite loops from circular $ref
 const MAX_DEPTH = 12;
@@ -207,36 +214,106 @@ function transformSchema(schema, originalSchema) {
   return doc;
 }
 
-async function main() {
-  const args = process.argv.slice(2);
-  if (args.length < 2) {
-    throw new Error('Usage: resolve-schema.js <input.json> <output-key>\n  Example: resolve-schema.js static/schemas/ocm-descriptor.json descriptor');
+function isHttpUrl(value) {
+  try {
+    const url = new URL(value);
+    return url.protocol === 'http:' || url.protocol === 'https:';
+  } catch {
+    return false;
+  }
+}
+
+function normalizeGitHubBlobUrl(value) {
+  let url;
+  try {
+    url = new URL(value);
+  } catch {
+    return value;
   }
 
-  const [inputRelative, outputKey] = args;
-  const inputPath = path.resolve(REPO_ROOT, inputRelative);
+  if (url.hostname !== 'github.com') return value;
+
+  const parts = url.pathname.split('/').filter(Boolean);
+  if (parts.length < 5 || parts[2] !== 'blob') return value;
+
+  const owner = parts[0];
+  const repo = parts[1];
+  const ref = parts[3];
+  const filePath = parts.slice(4).join('/');
+
+  if (!owner || !repo || !ref || !filePath) return value;
+  return `https://raw.githubusercontent.com/${owner}/${repo}/${ref}/${filePath}`;
+}
+
+async function loadSchemaFromUrl(inputUrl) {
+  const resolvedUrl = normalizeGitHubBlobUrl(inputUrl);
+  const response = await fetch(resolvedUrl);
+
+  if (!response.ok) {
+    throw new Error(`Failed to download schema from ${resolvedUrl}: HTTP ${response.status}`);
+  }
+
+  const content = await response.text();
+  const schema = JSON.parse(content);
+
+  return { schema, resolvedUrl };
+}
+
+function getUsageText() {
+  return [
+    'Usage: resolve-schema.js <key> [input]',
+    '  key: descriptor | constructor',
+    '  input: Optional local path or http(s) URL. If omitted, default upstream URL is used.',
+    'Examples:',
+    '  resolve-schema.js descriptor',
+    '  resolve-schema.js constructor',
+    '  resolve-schema.js descriptor static/schemas/component-descriptor-v2',
+    '  resolve-schema.js constructor https://raw.githubusercontent.com/open-component-model/open-component-model/main/bindings/go/constructor/spec/v1/resources/schema-2020-12.json',
+  ].join('\n');
+}
+
+async function main() {
+  const args = process.argv.slice(2);
+  if (args.length < 1 || args.length > 2) {
+    throw new Error(getUsageText());
+  }
+
+  const [outputKey, inputArg] = args;
+  if (!Object.prototype.hasOwnProperty.call(DEFAULT_INPUTS, outputKey)) {
+    throw new Error(`Unknown key '${outputKey}'.\n${getUsageText()}`);
+  }
+
+  const inputValue = inputArg || DEFAULT_INPUTS[outputKey];
   const outputPath = path.join(OUTPUT_DIR, `${outputKey}.json`);
-
-  // Read original schema (before resolution) for metadata
-  const originalContent = await fsp.readFile(inputPath, 'utf8');
-  const originalSchema = JSON.parse(originalContent);
-
-  // Resolve all $ref/$defs
-  const resolved = await $RefParser.dereference(inputPath, {
+  const dereferenceOptions = {
     dereference: {
-      circular: 'ignore', // prevent infinite expansion of circular refs
+      circular: 'ignore',
     },
-  });
+  };
 
-  // Transform into Hugo-friendly structure
+  let originalSchema;
+  let resolved;
+  let sourceLabel;
+
+  if (isHttpUrl(inputValue)) {
+    const { schema, resolvedUrl } = await loadSchemaFromUrl(inputValue);
+    originalSchema = schema;
+    resolved = await $RefParser.dereference(resolvedUrl, dereferenceOptions);
+    sourceLabel = resolvedUrl;
+  } else {
+    const inputPath = path.resolve(REPO_ROOT, inputValue);
+    const originalContent = await fsp.readFile(inputPath, 'utf8');
+    originalSchema = JSON.parse(originalContent);
+    resolved = await $RefParser.dereference(inputPath, dereferenceOptions);
+    sourceLabel = path.relative(REPO_ROOT, inputPath);
+  }
+
   const doc = transformSchema(resolved, originalSchema);
-
-  // Ensure output directory exists
   await fsp.mkdir(OUTPUT_DIR, { recursive: true });
-
-  // Write output
-  await fsp.writeFile(outputPath, JSON.stringify(doc, null, 2), 'utf8');
-  console.log(`Schema resolved and written to ${path.relative(REPO_ROOT, outputPath)}`);
+  const tempPath = `${outputPath}.tmp-${process.pid}-${Date.now()}`;
+  await fsp.writeFile(tempPath, JSON.stringify(doc, null, 2), 'utf8');
+  await fsp.rename(tempPath, outputPath);
+  console.log(`Schema '${outputKey}' resolved from ${sourceLabel} and written to ${path.relative(REPO_ROOT, outputPath)}`);
 }
 
 if (require.main === module) {
