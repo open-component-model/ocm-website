@@ -9,10 +9,12 @@ aggregative
 aml
 anchore
 api
+applyset
 archlinux
 argocd
 argocds
 artifactid
+async
 auditable
 aur
 auth
@@ -32,6 +34,7 @@ callout
 callouts
 cas
 cel
+centos
 cest
 cet
 cicd
@@ -41,6 +44,9 @@ cliconfig
 clis
 closable
 closeable
+clusterrole
+clusterroles
+clusterrolebinding
 cmds
 cncf
 codebase
@@ -60,7 +66,6 @@ componentsubscriptionspec
 componentsubscriptionstatus
 componentversion
 componentversion's
-componentversion’s
 componentversionaccess
 componentversionaccessimpl
 componentversions
@@ -71,7 +76,7 @@ compvers
 config
 configfile
 configmap
-ConfigMap
+configmaps
 configmapsource
 configs
 consumerid
@@ -99,6 +104,7 @@ deliveryspec
 dependabot
 deployable
 deployer
+deployers
 deployscript
 descriptor's
 deserializable
@@ -115,7 +121,9 @@ dn
 dns
 docker's
 dockerconfig
+dockerconfigjson
 dockermulti
+downgradable
 downloadconstraint
 downloader
 downloaderdescriptor
@@ -181,6 +189,7 @@ hashers
 hashicorp
 hashicorpvault
 hasmermaid
+helloworld
 helmchart
 helmchartrepository
 helmdemo
@@ -193,18 +202,21 @@ hoc
 homebrew
 hostname
 hostpath
+href
 hsm
+hsms
 html
 http
 https
 iaas
-IAM
+iam
 ical
 ics
 imagemapping
 inlined
 installable
 instantiation
+integrations
 io
 ioutils
 iterable
@@ -260,6 +272,7 @@ microservice
 microservices
 mimetype
 mimetypes
+misattributed
 mm
 monorepo
 mpas
@@ -293,6 +306,7 @@ ociblob
 ociimage
 ocireg
 ociregistry
+ocirepository
 ocm
 ocm's
 ocmbot
@@ -355,6 +369,7 @@ requeues
 resendbuffer
 resolvers
 resourcegraphdefinition
+resourcegraphdefinitions
 resourcepipeline
 resourcepipelines
 resourcepipelinesource
@@ -364,6 +379,7 @@ resourcereference
 resourcespec
 resourcestatus
 rgd
+rhel
 roadmap
 rollout
 routings
@@ -398,7 +414,9 @@ socio
 sonatype
 sourceref
 spdx
+src
 srcrefs
+stateful
 stderr
 stdin
 stdout
@@ -413,7 +431,7 @@ subpaths
 subresource
 subst
 svg
-TCP
+tcp
 tekton
 tempfile
 templated
@@ -428,6 +446,7 @@ toi
 toiexecutor
 toolkits
 toolset
+tos
 transportarchive
 typehandler
 typename
@@ -456,10 +475,11 @@ walkthrough
 wasm
 wasmstep
 wget
+whitespace
 winget
 withocm
 wsl
-XDG
+xdg
 xml
 yaml
 yitsushi

@@ -70,6 +70,8 @@ defaultContentVersion = "legacy"
 [permalinks]
   docs = "/docs/:sections[1:]/:title/"
 
+[minify]
+  disableSVG = true
 [minify.tdewolff.html]
   keepWhitespace = false
 

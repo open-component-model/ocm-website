@@ -2,7 +2,7 @@
 title: "Resolver Configuration"
 description: "Complete reference for OCM resolver configuration: schema, repository types, and component name patterns."
 icon: "🔍"
-weight: 10
+weight: 1
 toc: true
 ---
 

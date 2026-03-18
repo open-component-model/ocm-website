@@ -1,7 +1,7 @@
 ---
 title: "Transfer Helm Charts with OCM"
 description: "Transfer component versions containing Helm chart resources between OCI registries using the OCM CLI."
-weight: 110
+weight: 12
 toc: true
 ---
 
