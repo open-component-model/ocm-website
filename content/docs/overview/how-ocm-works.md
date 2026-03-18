@@ -22,7 +22,7 @@ that belongs to a deliverable — container images, Helm charts, config files, b
 Each component carries a **component descriptor** that acts like a packing list: what's inside, where it came from,
 and how to access it. This descriptor is the foundation that makes signing, transport, and deployment work.
 
-The beauty is that OCM doesn't care what kind of artifacts you're shipping. OCI images, Terraform modules, ML models —
+The beauty is that OCM doesn't care what kind of artifacts you're shipping. OCI images, Terraform modules, binaries, or documentation  —
 they all get the same uniform treatment.
 
 ## Pack
@@ -65,9 +65,6 @@ The three basic patterns:
 
 At every step, signatures and metadata travel with the content. Nothing is lost, nothing needs to be re-signed.
 
-[Resolvers]({{< relref "resolvers.md" >}}) figure out where referenced components live, and the [credential system]({{< relref "credential-system.md" >}})
-handles authentication across registries — so you don't hard-code secrets per endpoint.
-
 ## Deploy
 
 Once your component arrives, [OCM controllers]({{< relref "ocm-controllers.md" >}}) take over on Kubernetes.
@@ -95,9 +92,8 @@ OCM adapts to your infrastructure. Not the other way around.
 
 - **[Getting Started]({{< relref "getting-started.md" >}})** — hands-on with the OCM CLI.
 - **[Components]({{< relref "components.md" >}})** & **[Coordinates]({{< relref "coordinates.md" >}})** — the data model in detail.
+- **[Signing] -- relref signing-and-verification-concept.md" ** — cryptographic integrity, explained.
 - **[Transfer]({{< relref "transfer-concept.md" >}})** — how content moves across boundaries.
 - **[Controllers]({{< relref "ocm-controllers.md" >}})** — automated deployment on Kubernetes.
 - **[Plugins]({{< relref "plugin-system.md" >}})** — extending OCM for your stack.
 - **[Benefits]({{< relref "benefits.md" >}})** — why OCM matters.
-
-// needs to be added later again once links can work - **[Signing] -- relref signing-and-verification-concept.md" ** — cryptographic integrity, explained.
