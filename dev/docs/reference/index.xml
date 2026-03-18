@@ -12,4 +12,14 @@
 &lt;a href="https://ocm.software/dev/docs/concepts/resolvers/"&gt;OCM Resolvers&lt;/a&gt;.&lt;/p&gt;
 &lt;h2 id="configuration-file"&gt;Configuration File&lt;/h2&gt;
 &lt;p&gt;Resolvers are configured in the OCM configuration file. By default, the CLI searches for configuration in
-&lt;code&gt;$HOME/.ocmconfig&lt;/code&gt;. You can also specify a configuration file explicitly with the &lt;code&gt;--config&lt;/code&gt; flag.&lt;/p&gt;</description></item></channel></rss>
+&lt;code&gt;$HOME/.ocmconfig&lt;/code&gt;. You can also specify a configuration file explicitly with the &lt;code&gt;--config&lt;/code&gt; flag.&lt;/p&gt;</description></item><item><title>Credential Consumer Identities</title><link>https://ocm.software/dev/docs/reference/credential-consumer-identities/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/dev/docs/reference/credential-consumer-identities/</guid><description>&lt;p&gt;This page is the technical reference for credential consumer identities — the key-value maps OCM uses to look up credentials for a given operation. For a high-level introduction, see 
+
+
+
+
+
+ 
+ 
+
+
+&lt;a href="https://ocm.software/dev/docs/concepts/credential-system/"&gt;Credential System&lt;/a&gt;.&lt;/p&gt;</description></item></channel></rss>
