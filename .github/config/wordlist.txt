@@ -45,6 +45,7 @@ clis
 closable
 closeable
 clusterrole
+clusterroles
 clusterrolebinding
 cmds
 cncf
