@@ -9,12 +9,12 @@ aggregative
 aml
 anchore
 api
-ApplySet
+applyset
 archlinux
 argocd
 argocds
 artifactid
-Async
+async
 auditable
 aur
 auth
@@ -34,6 +34,7 @@ callout
 callouts
 cas
 cel
+centos
 cest
 cet
 cicd
@@ -43,8 +44,9 @@ cliconfig
 clis
 closable
 closeable
-ClusterRole
-ClusterRoleBinding
+clusterrole
+clusterroles
+clusterrolebinding
 cmds
 cncf
 codebase
@@ -64,7 +66,6 @@ componentsubscriptionspec
 componentsubscriptionstatus
 componentversion
 componentversion's
-componentversion’s
 componentversionaccess
 componentversionaccessimpl
 componentversions
@@ -75,8 +76,7 @@ compvers
 config
 configfile
 configmap
-ConfigMap
-ConfigMaps
+configmaps
 configmapsource
 configs
 consumerid
@@ -105,7 +105,6 @@ dependabot
 deployable
 deployer
 deployers
-Deployers
 deployscript
 descriptor's
 deserializable
@@ -122,6 +121,7 @@ dn
 dns
 docker's
 dockerconfig
+dockerconfigjson
 dockermulti
 downgradable
 downloadconstraint
@@ -189,6 +189,7 @@ hashers
 hashicorp
 hashicorpvault
 hasmermaid
+helloworld
 helmchart
 helmchartrepository
 helmdemo
@@ -201,18 +202,21 @@ hoc
 homebrew
 hostname
 hostpath
+href
 hsm
+hsms
 html
 http
 https
 iaas
-IAM
+iam
 ical
 ics
 imagemapping
 inlined
 installable
 instantiation
+integrations
 io
 ioutils
 iterable
@@ -268,6 +272,7 @@ microservice
 microservices
 mimetype
 mimetypes
+misattributed
 mm
 monorepo
 mpas
@@ -301,6 +306,7 @@ ociblob
 ociimage
 ocireg
 ociregistry
+ocirepository
 ocm
 ocm's
 ocmbot
@@ -363,7 +369,7 @@ requeues
 resendbuffer
 resolvers
 resourcegraphdefinition
-ResourceGraphDefinitions
+resourcegraphdefinitions
 resourcepipeline
 resourcepipelines
 resourcepipelinesource
@@ -373,6 +379,7 @@ resourcereference
 resourcespec
 resourcestatus
 rgd
+rhel
 roadmap
 rollout
 routings
@@ -424,7 +431,7 @@ subpaths
 subresource
 subst
 svg
-TCP
+tcp
 tekton
 tempfile
 templated
@@ -468,10 +475,11 @@ walkthrough
 wasm
 wasmstep
 wget
+whitespace
 winget
 withocm
 wsl
-XDG
+xdg
 xml
 yaml
 yitsushi

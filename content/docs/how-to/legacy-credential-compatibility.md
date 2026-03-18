@@ -2,7 +2,7 @@
 title: "Migrate Legacy Credentials"
 description: "Update your legacy OCM credential configuration to work with the new OCM."
 icon: "🔑"
-weight: 46
+weight: 9
 toc: true
 ---
 
@@ -21,7 +21,7 @@ Migrate an existing legacy OCM `.ocmconfig` file so it works with the new OCM.
 
 ## Steps
 
-Suppose you have the following legacy config in `~/.ocmconfig`:
+Suppose you have the following legacy config in `$HOME/.ocmconfig`:
 
 ```yaml
 type: generic.config.ocm.software/v1
@@ -90,7 +90,7 @@ The following parts of your legacy config work unchanged in the new OCM:
 - `Credentials/v1` type and `properties` field
 - `DockerConfig/v1` repository entries
 - `dockerConfigFile` and `dockerConfig` fields
-- Config file locations (`~/.ocmconfig`, `$OCM_CONFIG`)
+- Config file locations (`$HOME/.ocmconfig`, `$OCM_CONFIG`)
 
 Your migrated config now looks like this:
 

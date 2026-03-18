@@ -2,7 +2,7 @@
 title : "OCM Coordinates"
 description: "Discover how OCM components and artifacts are identified."
 icon: "🧭"
-weight: 42
+weight: 2
 toc: true
 ---
 
