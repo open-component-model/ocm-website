@@ -212,6 +212,7 @@ imagemapping
 inlined
 installable
 instantiation
+integrations
 io
 ioutils
 iterable
