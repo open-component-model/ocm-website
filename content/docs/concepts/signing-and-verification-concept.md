@@ -212,7 +212,8 @@ The `signatureEncodingPolicy` in the [signer spec]({{< relref "/docs/reference/o
 
 #### Plain Encoding (Default)
 
-The raw RSA signature bytes are hex-encoded and stored directly. This is the most compact representation. Verification always requires the public key to be provided separately via `.ocmconfig` credentials.
+The raw RSA signature bytes are hex-encoded and stored directly. This is the most compact representation.
+Verification always requires the public key to be provided separately via `.ocmconfig` credentials.
 
 Example signature in a component descriptor:
 
@@ -225,21 +226,28 @@ signature:
 
 #### PEM Encoding (Experimental)
 
-The signature is wrapped in a PEM block of type `SIGNATURE`, optionally followed by the signer's X.509 certificate chain. This makes the signature **self-contained**: verifiers can extract and validate the public key from the embedded chain without needing a separately distributed key.
+The signature is wrapped in a PEM block of type `SIGNATURE`, optionally followed by the signer's X.509 certificate chain.
+This makes the signature **self-contained**: verifiers can extract and validate the public key from the embedded chain
+without needing a separately distributed key.
 
 Example of a PEM-encoded signature value:
 
-```text
------BEGIN SIGNATURE-----
-Signature Algorithm: RSASSA-PSS
-<base64-encoded signature bytes>
------END SIGNATURE-----
------BEGIN CERTIFICATE-----
-<leaf certificate>
------END CERTIFICATE-----
------BEGIN CERTIFICATE-----
-<intermediate CA>
------END CERTIFICATE-----
+```yaml
+signature:
+      algorithm: RSASSA-PSS
+      mediaType: application/x-pem-file
+      value: |
+        -----BEGIN SIGNATURE-----
+        Signature Algorithm: RSASSA-PSS
+        
+        <base64-encoded signature bytes>
+        -----END SIGNATURE-----
+        -----BEGIN CERTIFICATE-----
+        <leaf certificate>
+        -----END CERTIFICATE-----
+        -----BEGIN CERTIFICATE-----
+        <intermediate CA, if applicable>
+        -----END CERTIFICATE-----
 ```
 
 {{< callout context="caution" title="PEM encoding is experimental" icon="outline/alert-triangle" >}}
