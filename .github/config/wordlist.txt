@@ -403,6 +403,7 @@ socio
 sonatype
 sourceref
 spdx
+src
 srcrefs
 stateful
 stderr
