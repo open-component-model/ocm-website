@@ -43,7 +43,7 @@ one signature covers everything.
 
 The key property: **signatures are location-independent**. They stay valid no matter where the component ends up —
 a different registry, a different continent, or the other side of an air gap.
-Read more about [how signing works]({{< relref "signing-and-verification-concept.md" >}}).
+Read more about [how signing works](--- relref "signing-and-verification-concept.md" ---).
 
 This creates a **Software Bill of Delivery** (SBoD): a signed, verifiable record of exactly what was shipped.
 For regulated industries that demand proof of what's running in production, this is essential.
@@ -95,9 +95,9 @@ OCM adapts to your infrastructure. Not the other way around.
 
 - **[Getting Started]({{< relref "getting-started.md" >}})** — hands-on with the OCM CLI.
 - **[Components]({{< relref "components.md" >}})** & **[Coordinates]({{< relref "coordinates.md" >}})** — the data model in detail.
-- **[Signing]({{< relref "signing-and-verification-concept.md" >}})** — cryptographic integrity, explained.
 - **[Transfer]({{< relref "transfer-concept.md" >}})** — how content moves across boundaries.
 - **[Controllers]({{< relref "ocm-controllers.md" >}})** — automated deployment on Kubernetes.
 - **[Plugins]({{< relref "plugin-system.md" >}})** — extending OCM for your stack.
 - **[Benefits]({{< relref "benefits.md" >}})** — why OCM matters.
-- **[The Project]({{< relref "project.md" >}})** — spec, repos, and community.
+
+// needs to be added later again once links can work - **[Signing] -- relref signing-and-verification-concept.md" ** — cryptographic integrity, explained.

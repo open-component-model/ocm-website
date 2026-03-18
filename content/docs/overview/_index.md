@@ -33,4 +33,4 @@ It provides high-level context and motivation before you explore technical detai
 Start here to understand OCM's purpose and value.
 
 To begin working with OCM hands-on, try the [Getting Started]({{< relref "docs/getting-started/_index.md" >}}) guides.
-For deeper technical understanding, explore the [Concepts]({{< relref "docs/concepts/_index.md" >}}) section. For information about the project structure, see the [About the OCM Project]({{< relref "docs/overview/project.md" >}}) page.
+For deeper technical understanding, explore the [Concepts]({{< relref "docs/concepts/_index.md" >}}) section.
