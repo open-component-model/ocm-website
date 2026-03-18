@@ -89,7 +89,12 @@ function getVariantLabel(variant, index) {
  */
 function transformField(name, schema, requiredList = [], depth = 0, visited = new Set()) {
   if (!schema || typeof schema !== 'object') {
-    return { name, type: 'any', description: '' };
+    return {
+      name,
+      type: 'any',
+      description: '',
+      required: requiredList.includes(name),
+    };
   }
 
   // Circular reference guard
@@ -129,6 +134,14 @@ function transformField(name, schema, requiredList = [], depth = 0, visited = ne
 
   // Handle array items
   if (schema.type === 'array' && schema.items) {
+    const itemConstraints = getConstraints(schema.items);
+    if (itemConstraints) {
+      field.constraints = {
+        ...(field.constraints || {}),
+        ...itemConstraints,
+      };
+    }
+
     if (schema.items.properties) {
       const req = schema.items.required || [];
       field.properties = Object.entries(schema.items.properties).map(

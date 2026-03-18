@@ -9,10 +9,12 @@ aggregative
 aml
 anchore
 api
+ApplySet
 archlinux
 argocd
 argocds
 artifactid
+Async
 auditable
 aur
 auth
@@ -72,6 +74,7 @@ config
 configfile
 configmap
 ConfigMap
+ConfigMaps
 configmapsource
 configs
 consumerid
@@ -99,6 +102,7 @@ deliveryspec
 dependabot
 deployable
 deployer
+Deployers
 deployscript
 descriptor's
 deserializable
@@ -116,6 +120,7 @@ dns
 docker's
 dockerconfig
 dockermulti
+downgradable
 downloadconstraint
 downloader
 downloaderdescriptor
@@ -398,7 +403,9 @@ socio
 sonatype
 sourceref
 spdx
+src
 srcrefs
+stateful
 stderr
 stdin
 stdout
@@ -428,6 +435,7 @@ toi
 toiexecutor
 toolkits
 toolset
+tos
 transportarchive
 typehandler
 typename
