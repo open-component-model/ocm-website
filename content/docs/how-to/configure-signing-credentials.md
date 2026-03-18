@@ -48,6 +48,8 @@ If you already have a key pair that is located in a different location, simply u
 All three identity attributes (`type`, `algorithm`, `signature`) are required for credential matching.
 See the [Consumer Identities Reference]({{< relref "docs/reference/credential-consumer-identities.md" >}}) for details.
 
+The most convinient way to configure signing credentials is to add a consumer block to your `.ocmconfig` with the key file paths:
+
 ```yaml
 type: generic.config.ocm.software/v1
 configurations:
@@ -69,6 +71,33 @@ configurations:
 - `private_key_pem_file` - Required for **signing** operations
 - `public_key_pem_file` - Required for **verification** operations
 
+<br>
+It is also possible to configure the keys inline using `private_key_pem` and `public_key_pem` properties instead of file paths,
+but using file paths is more common and avoids having sensitive key material directly in the config file.
+
+{{< details "Example .ocmconfig with inline keys" >}}
+```yaml
+type: generic.config.ocm.software/v1
+configurations:
+  - type: credentials.config.ocm.software
+    consumers:
+      - identity:
+          type: RSA/v1alpha1
+          algorithm: RSASSA-PSS
+          signature: default
+        credentials:
+          - type: Credentials/v1
+            properties:
+              private_key_pem: |
+                -----BEGIN RSA PRIVATE KEY-----
+                MIIEpAIBAAKCAQEA...
+                -----END RSA PRIVATE KEY-----
+              public_key_pem: |
+                -----BEGIN PUBLIC KEY-----
+                MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8A...
+                -----END PUBLIC KEY-----
+```
+{{< /details >}}
 {{< /step >}}
 
 {{< step >}}
