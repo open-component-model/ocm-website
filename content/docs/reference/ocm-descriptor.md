@@ -13,4 +13,5 @@ The schema below defines the full structure of a component descriptor as specifi
 
 ---
 
+<!-- markdownlint-disable-next-line MD034 -->
 {{< json-schema key="descriptor" raw="https://raw.githubusercontent.com/open-component-model/open-component-model/main/bindings/go/descriptor/v2/resources/schema-2020-12.json" >}}

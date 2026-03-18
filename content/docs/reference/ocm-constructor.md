@@ -15,4 +15,5 @@ The schema below defines the full structure as specified by
 
 ---
 
+<!-- markdownlint-disable-next-line MD034 -->
 {{< json-schema key="constructor" raw="https://raw.githubusercontent.com/open-component-model/open-component-model/main/bindings/go/constructor/spec/v1/resources/schema-2020-12.json" >}}
