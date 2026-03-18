@@ -157,7 +157,8 @@
                   {
                     "name": "value",
                     "type": "any",
-                    "description": ""
+                    "description": "",
+                    "required": true
                   },
                   {
                     "name": "version",
@@ -325,7 +326,8 @@
                             {
                               "name": "value",
                               "type": "any",
-                              "description": ""
+                              "description": "",
+                              "required": true
                             },
                             {
                               "name": "version",
@@ -452,6 +454,9 @@
                 "type": "[]object",
                 "description": "",
                 "required": false,
+                "constraints": {
+                  "additionalProperties": false
+                },
                 "properties": [
                   {
                     "name": "componentName",
@@ -527,7 +532,8 @@
                             {
                               "name": "value",
                               "type": "any",
-                              "description": ""
+                              "description": "",
+                              "required": true
                             },
                             {
                               "name": "version",
@@ -740,6 +746,9 @@
                           "type": "[]object",
                           "description": "",
                           "required": false,
+                          "constraints": {
+                            "additionalProperties": false
+                          },
                           "properties": [
                             {
                               "name": "identitySelector",
@@ -780,7 +789,8 @@
                                       {
                                         "name": "value",
                                         "type": "any",
-                                        "description": ""
+                                        "description": "",
+                                        "required": true
                                       },
                                       {
                                         "name": "version",
@@ -904,7 +914,8 @@
                             {
                               "name": "value",
                               "type": "any",
-                              "description": ""
+                              "description": "",
+                              "required": true
                             },
                             {
                               "name": "version",
@@ -1078,6 +1089,9 @@
             "type": "[]object",
             "description": "",
             "required": false,
+            "constraints": {
+              "additionalProperties": false
+            },
             "properties": [
               {
                 "name": "name",

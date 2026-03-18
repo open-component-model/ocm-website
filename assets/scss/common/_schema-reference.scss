@@ -123,7 +123,6 @@ $schema-subtle-bg: var(--bs-tertiary-bg, rgba(0, 0, 0, 0.05));
 // depth-0: top-level (16px), no border
 // depth-1: 64px + border  (clear visual offset from parent)
 // depth-2: 112px + border, etc.
-//
 // Scoped under .ocm-schema-table td to beat the Doks theme rule
 // `.docs-content table td { padding: 0.5rem }` (specificity 0-1-2).
 $schema-indent-step: 48px;
@@ -370,7 +369,7 @@ $schema-type-colors: (
   flex-wrap: wrap;
 
   &::before {
-    content: 'One of:';
+    content: 'Variants:';
     font-size: $schema-small-font;
     font-weight: 600;
     color: var(--bs-secondary-color);
