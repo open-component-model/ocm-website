@@ -12,6 +12,13 @@ that your deployers may create or manage.
 If your `Deployer` resources produce custom resources (e.g. kro `ResourceGraphDefinitions`), you must grant the
 controller's service account the necessary permissions yourself.
 
+## Prerequisites
+
+This guide assumes that you are already familiar with the concepts described in the following documents:
+
+- [Concept: OCM controllers]({{< relref "/docs/concepts/ocm-controllers.md" >}}) - OCM Controllers
+- [Installed Kro](https://kro.run/docs/getting-started/Installation/)
+
 ## When is this needed?
 
 The controller uses [server-side apply](https://kubernetes.io/docs/reference/using-api/server-side-apply/) to create
@@ -140,7 +147,3 @@ rules:
       - update
       - watch
 ```
-
-## Related Documentation
-
-- [Concept: OCM controllers]({{< relref "/docs/concepts/ocm-controllers.md" >}}) - OCM Controllers
