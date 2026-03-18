@@ -124,13 +124,13 @@ See [Configure Signing Credentials]({{< relref "configure-signing-credentials.md
 
 **Cause:** The component version already has a signature with this name.
 
-**Fix:** Use a different signature name with `--signature newname`, or remove the existing signature first.
+**Fix:** Use a different signature name with `--signature newname`.
 
 ### Symptom: Permission denied on registry
 
 **Cause:** Missing write access to the OCI registry.
 
-**Fix:** Ensure you're `.ocmconfig` file is configure with credentials for the registry.  
+**Fix:** Ensure you're `.ocmconfig` file is configured with credentials for the registry.  
 See [How-To: Configure Credentials for Multiple Registries]({{< relref "configure-multiple-credentials.md" >}}) for details.
 
 ## Next Steps

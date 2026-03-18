@@ -9,7 +9,7 @@ OCM uses cryptographic signatures to guarantee that component versions are authe
 
 ## Why Sign Components?
 
-Software supply chains involve multiple stages: development, build, packaging, distribution, and deployment. At each stage, components could potentially be:
+The software lifecycle involves  multiple stages: development, build, packaging, distribution, and deployment. At each stage, components could potentially be:
 
 - **Modified** — malicious actors could inject code or alter resources
 - **Replaced** — components could be swapped for compromised versions
@@ -59,22 +59,29 @@ that could cause the same logical descriptor to produce different digests. The d
 algorithm ([`jsonNormalisation/v4alpha1`](https://github.com/open-component-model/ocm-spec/blob/main/doc/04-extensions/04-algorithms/component-descriptor-normalization-algorithms.md#normalization-algorithms)) defines exactly how this canonical form is derived, ensuring
 identical component descriptors always yield the same digest.
 
+This entire approach relies on the fact that **content digests** are preserved across transfers.
+Each resource's digest is computed from its actual content (not from where it is stored),
+and this digest is recorded in the component descriptor. When a component version is transported to a different registry,
+the `access` references change, but the content — and therefore its digest — remains the same.
+This is why the signature remains valid after transfer.
+
 #### Artifact Digest Normalization
 
-Each artifact's digest is calculated using a type-specific normalization algorithm:
+OCM supports different digest algorithms for different artifact types.
+The algorithm determines how a resource's content is hashed to produce its digest:
 
-| Artifact Type | Algorithm | Description |
-|---------------|-----------|-------------|
-| OCI artifact | `ociArtifactDigest/v1` | Digest of the OCI manifest (used for container images, Helm charts, and other OCI-native content) |
-| Generic blob | `genericBlobDigest/v1` | Direct hash of blob content (used for executables, blueprints, and other non-OCI content) |
+| Algorithm | Description |
+|-----------|-------------|
+| `genericBlobDigest/v1` | Direct hash of blob content. For OCI artifacts (container images, Helm charts), this is the hash of the top-level OCI manifest, ensuring consistency with OCI registry behavior. For non-OCI content (executables, blueprints), it is the direct hash of the raw blob. |
+| `ociArtifactDigest/v1` | Computes the digest of the OCI manifest specifically. Effectively equivalent to `genericBlobDigest/v1` for OCI content. You may encounter this algorithm in older component descriptors. |
 
-This allows OCM to use the most appropriate digest mechanism for each artifact type.
-OCI artifacts use their manifest digest rather than re-hashing the blob,
-improving performance and ensuring consistency with OCI registry behavior. Generic blobs are hashed directly.
+While the architecture allows for multiple digest algorithms, in practice **`genericBlobDigest/v1` is the only algorithm currently used** across all artifact types.
 
 #### Recursive Component References
 
-When a component references other components, their digests are calculated and embedded:
+When a component version is **signed**, the digests of referenced components are calculated and embedded into the component descriptor.
+This does **not** happen automatically when references are created — without signing, references can exist without digests,
+and in that case there is no integrity guarantee for the referenced components.
 
 ```yaml
 references:
@@ -87,11 +94,12 @@ references:
       value: 01c211f5c9cfd7c40e5b84d66a2fb7d19cb0...
 ```
 
-This creates a **complete integrity chain** — verifying the root component automatically verifies all transitive dependencies.
+Once signed, this creates a **complete integrity chain** — verifying the root component automatically verifies all transitive dependencies.
 
 ### What Gets Signed?
 
-OCM signs a **digest** of the normalized component descriptor, which includes:
+OCM signs a **digest** of the normalized component descriptor (see [Normalization and Digest Calculation](#normalization-and-digest-calculation)
+for how the canonical form is derived). The signed digest covers:
 
 - Component metadata (name, version, provider)
 - Resource descriptors (including digest, if available)
@@ -99,7 +107,8 @@ OCM signs a **digest** of the normalized component descriptor, which includes:
 - Component references (including digest, if available)
 - Labels marked with `signing: true` (at any level)
 
-Labels without `signing: true` are excluded from the digest and do not affect the signature. Storage-related fields like `access` and `repositoryContexts` are also excluded — see [Normalization and Digest Calculation](#normalization-and-digest-calculation) above.
+Labels without `signing: true` are excluded from the digest and do not affect the signature.
+Storage-related fields like `access` and `repositoryContexts` are also excluded — see [Normalization and Digest Calculation](#normalization-and-digest-calculation) above.
 
 The signature does **not** cover the raw resource content directly — instead, it covers the **digests** of those resources as recorded in the component descriptor. The `access` field (which describes *where* a resource is stored) is **excluded** from the signed digest. This is a key design principle:
 

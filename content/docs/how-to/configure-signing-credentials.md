@@ -48,7 +48,12 @@ If you already have a key pair that is located in a different location, simply u
 All three identity attributes (`type`, `algorithm`, `signature`) are required for credential matching.
 See the [Consumer Identities Reference]({{< relref "docs/reference/credential-consumer-identities.md" >}}) for details.
 
-The most convinient way to configure signing credentials is to add a consumer block to your `.ocmconfig` with the key file paths:
+There are two ways to configure signing credentials, either using file paths that point to your key files,
+or by including the key material directly in the config file.
+Check out the [Credential Consumer Identities Reference]({{< relref "docs/reference/credential-consumer-identities.md" >}})
+for more details on the supported attributes and configuration options.
+
+The most convenient way to configure signing credentials is to add a consumer block to your `.ocmconfig` with the key file paths:
 
 ```yaml
 type: generic.config.ocm.software/v1
@@ -72,8 +77,7 @@ configurations:
 - `public_key_pem_file` - Required for **verification** operations
 
 <br>
-It is also possible to configure the keys inline using `private_key_pem` and `public_key_pem` properties instead of file paths,
-but using file paths is more common and avoids having sensitive key material directly in the config file.
+It is also possible to configure the keys inline using `private_key_pem` and `public_key_pem` properties instead of file paths.
 
 {{< details "Example .ocmconfig with inline keys" >}}
 ```yaml
