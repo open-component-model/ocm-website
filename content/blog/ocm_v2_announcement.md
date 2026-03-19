@@ -19,12 +19,14 @@ All of OCM v2 lives in a single repository: [github.com/open-component-model/ope
 The original OCM libraries served the project well, but incremental fixes were not enough.
 
 {{< callout context="note" title="What needed to change" >}}
+
 - **Supply chain exposure** — The monolithic architecture meant pulling in OCM pulled in everything, even parts you did not need
 - **Contributability barriers** — The codebase was difficult for new contributors to navigate, understand, and extend
 - **Extensibility limits** — Adding new features or maintaining existing ones risked regressions across unrelated areas
+
 {{< /callout >}}
 
-OCM v2 is the result: modular design, decoupled APIs, a smaller dependency footprint, and a codebase built for community contribution from day one. Learn more in [About the OCM Project](/dev/docs/concepts/about-the-ocm-project/).
+OCM v2 is the result: modular design, decoupled APIs, a smaller dependency footprint, and a codebase built for community contribution from day one. Learn more in [About the OCM Project](/dev/docs/overview/project/).
 
 ## What's in v2
 
@@ -91,7 +93,7 @@ ocm verify cv --signature release target-registry.internal//acme.org/product:1.0
 
 Get started by [installing the CLI](/dev/docs/getting-started/install-the-ocm-cli/).
 
-### Kubernetes Controllers
+### New Kubernetes Controllers
 
 The new controllers bring GitOps-native deployment of OCM component versions to Kubernetes with three core custom resources:
 
@@ -117,15 +119,17 @@ We are working on a **deployment engine abstraction** directly within the OCM co
 {{< link-card title="Deploy a Helm Chart" href="/dev/docs/getting-started/deploy-helm-charts/" description="Your first controller-based deployment." >}}
 {{< /card-grid >}}
 
-### Go Library and Bindings
+### New Go Library and Bindings
 
 Clean, well-documented Go bindings for programmatic OCM interaction. Library, CLI, and controllers share a single set of dependencies and are versioned together — no more compatibility issues from separate release cycles.
 
 {{< callout context="note" title="Already in use across the Apeiro ecosystem" >}}
+
 - **[Konfidence](https://github.com/search?q=org%3Akonfidence-project%20ocm.software&type=code)** — Image Vector concept with OCM resources
 - **[Gardener](https://github.com/gardener/gardener-landscape-kit)** — gitops tooling for component-based lifecycle management
 - **[openMCP](https://github.com/open-component-model/service-provider-ocm)** — bootstrap and delivery across managed control planes
 - **[Platform Mesh](https://github.com/search?q=org%3Aplatform-mesh%20ocm.software&type=code)** — cross-platform artifact distribution
+
 {{< /callout >}}
 
 We welcome everyone to adopt the bindings and contribute as the [Apeiro](https://apeirora.eu/) ecosystem grows.
@@ -142,11 +146,11 @@ We plan to add more conformance scenarios covering additional delivery patterns,
 
 ## A Community-First Project
 
-OCM v2 is not just a technical reboot — it is a community reboot. Since the adoption of OCM by [Neonephos](https://neonephos.org), we have established new governance structures and communication channels to make collaboration easier and more transparent.
+OCM v2 is not just a technical reboot — it is a community reboot. Since the adoption of OCM by [NeoNephos](https://neonephos.org), we have established new governance structures and communication channels to make collaboration easier and more transparent.
 
 ### OCM Technical Steering Committee
 
-The [OCM TSC](https://github.com/open-component-model/open-component-model/blob/main/docs/steering/CHARTER.md) operates as part of Neonephos and provides strategic oversight for the OCM project. It sets the technical direction, coordinates across SIGs, and ensures that the project evolves in alignment with the needs of its growing community.
+The [OCM TSC](https://github.com/open-component-model/open-component-model/blob/main/docs/steering/CHARTER.md) operates as part of NeoNephos and provides strategic oversight for the OCM project. It sets the technical direction, coordinates across SIGs, and ensures that the project evolves in alignment with the needs of its growing community.
 
 ### SIG Runtime
 
@@ -158,7 +162,7 @@ There are multiple ways to participate in the OCM community (see our [community 
 
 - **Zulip Channel:** `neonephos-ocm-support` — primary communication channel
 - **Mailing list:** [open-component-model-sig-runtime@lists.neonephos.org](mailto:open-component-model-sig-runtime@lists.neonephos.org)
-- **Slack Channel** (Kubernetes Slack, deprecated): `#open-component-model-sig-runtime`
+- **Slack Channel** (Kubernetes Slack, deprecated): `#open-component-model`
 - **Docs and meeting notes:** under `docs/community/SIGs/Runtime/` in the [monorepo](https://github.com/open-component-model/open-component-model)
 
 ### SIG Spec and Community Specification License
@@ -265,4 +269,4 @@ OCM is open source and we welcome contributions of all kinds — code, documenta
 - Read the [SIG Runtime Charter](https://github.com/open-component-model/open-component-model/blob/main/docs/community/SIGs/Runtime/SIG-Runtime-CHARTER.md)
 - Try the new CLI and [get started](/dev/docs/getting-started/)
 
-We are looking forward to building the future of secure software delivery together.
+We are looking forward to building the future of sovereign cloud delivery together.
