@@ -347,9 +347,9 @@ spec:
               resource:
                 name: helm-resource
           additionalStatusFields:
-            registry: resource.access.globalAccess.imageReference.toOCI().registry
-            repository: resource.access.globalAccess.imageReference.toOCI().repository
-            digest: resource.access.globalAccess.imageReference.toOCI().digest
+            registry: resource.access.globalAccess.toOCI().registry
+            repository: resource.access.globalAccess.toOCI().repository
+            digest: resource.access.globalAccess.toOCI().digest
           interval: 1m
     - id: resourceImage
       template:
@@ -365,9 +365,10 @@ spec:
               resource:
                 name: image-resource
           additionalStatusFields:
-            registry: resource.access.globalAccess.imageReference.toOCI().registry
-            repository: resource.access.globalAccess.imageReference.toOCI().repository
-            tag: resource.access.globalAccess.imageReference.toOCI().tag
+            registry: resource.access.globalAccess.toOCI().registry
+            repository: resource.access.globalAccess.toOCI().repository
+            tag: resource.access.globalAccess.toOCI().tag
+            digest: resource.access.globalAccess.toOCI().digest
           interval: 1m
     - id: ocirepository
       template:
@@ -401,7 +402,7 @@ spec:
           values:
             image:
               repository: ${resourceImage.status.additional.registry}/${resourceImage.status.additional.repository}
-              tag: ${resourceImage.status.additional.tag}
+              tag: ${resourceImage.status.additional.tag}@${resourceImage.status.additional.digest}
 ```
 
 This RGD assumes the `Repository` and `Component` resources already exist in the cluster (they will be created as part of the bootstrap resources below).
@@ -609,7 +610,7 @@ kubectl get pods -l app.kubernetes.io/name=bootstrap-release-podinfo \
 ```
 
 ```text
-ghcr.io/<your-namespace>/stefanprodan/podinfo:6.9.1
+ghcr.io/<namespace>/component-descriptors/ocm.software/ocm-k8s-toolkit/bootstrap:1.0.0@sha256:262578cde928d5c9eba3bce079976444f624c13ed0afb741d90d5423877496cb
 ```
 {{< /step >}}
 {{< /steps >}}
