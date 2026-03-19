@@ -61,7 +61,7 @@ We welcome community contributions! Please see the [Contributing Guideline](http
 
 ## Code of Conduct
 
-To make OCM a welcoming and harassment-free experience for everyone, we follow the [CNCF Code of Conduct](https://github.com/cncf/foundation/blob/main/code-of-conduct.md).
+To make OCM a welcoming and harassment-free experience for everyone, we follow the [NeoNephos Code of Conduct](https://github.com/neonephos/.github/blob/main/CODE_OF_CONDUCT.md).
 
 ## Special Interest Groups (SIGs)
 
