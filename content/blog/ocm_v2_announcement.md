@@ -1,7 +1,7 @@
 ---
 title: "OCM v2: A Fresh Foundation for Secure Software Delivery"
 description: "OCM v2 is a complete reboot — a new CLI, Kubernetes controllers, and Go library built from the ground up for modularity, security, and community."
-date: 2026-03-30T10:00:00+01:00
+date: 2026-03-30T10:00:00+02:00
 contributors: []
 tags: ["release", "community", "v2", "supply-chain", "kubernetes"]
 draft: false
@@ -26,7 +26,7 @@ The original OCM libraries served the project well, but incremental fixes were n
 
 {{< /callout >}}
 
-OCM v2 is the result: modular design, decoupled APIs, a smaller dependency footprint, and a codebase built for community contribution from day one. Learn more in [About the OCM Project](/dev/docs/overview/project/).
+OCM v2 is the result: modular design, decoupled APIs, a smaller dependency footprint, and a codebase built for community contribution from day one. Learn more in our [Overview](/dev/docs/overview/).
 
 ## What's in v2
 
@@ -42,7 +42,7 @@ flowchart TD
 
         subgraph ctrl["Kubernetes Controllers"]
             direction LR
-            Repo["Repository CR"] --> Comp["Component CR"] --> Res["Resource CR"] --> Deployer["Deployer API"]
+            Repo["Repository CR"] --> Comp["Component CR"] --> Res["Resource CR"] --> Deployer["Deployer CR"]
         end
 
         subgraph lib["Go Bindings"]
@@ -125,10 +125,10 @@ Clean, well-documented Go bindings for programmatic OCM interaction. Library, CL
 
 {{< callout context="note" title="Already in use across the Apeiro ecosystem" >}}
 
-- **[Konfidence](https://github.com/search?q=org%3Akonfidence-project%20ocm.software&type=code)** — Image Vector concept with OCM resources
 - **[Gardener](https://github.com/gardener/gardener-landscape-kit)** — gitops tooling for component-based lifecycle management
 - **[openMCP](https://github.com/open-component-model/service-provider-ocm)** — bootstrap and delivery across managed control planes
 - **[Platform Mesh](https://github.com/search?q=org%3Aplatform-mesh%20ocm.software&type=code)** — cross-platform artifact distribution
+- **[Konfidence](https://konfidence.cloud/)** — Image Vector concept with OCM resources (stay tuned for more)
 
 {{< /callout >}}
 
@@ -160,10 +160,10 @@ The [SIG Runtime](https://github.com/open-component-model/open-component-model/b
 
 There are multiple ways to participate in the OCM community (see our [community engagement page](/community/engagement/) for the full overview):
 
-- **Zulip Channel:** `neonephos-ocm-support` — primary communication channel
+- **Zulip Channel:** [neonephos-ocm-support](https://linuxfoundation.zulipchat.com/#narrow/channel/532975-neonephos-ocm-support) — primary communication channel
 - **Mailing list:** [open-component-model-sig-runtime@lists.neonephos.org](mailto:open-component-model-sig-runtime@lists.neonephos.org)
-- **Slack Channel** (Kubernetes Slack, deprecated): `#open-component-model`
-- **Docs and meeting notes:** under `docs/community/SIGs/Runtime/` in the [monorepo](https://github.com/open-component-model/open-component-model)
+- **Slack Channel** ([Kubernetes Slack](https://slack.k8s.io/), deprecated): `#open-component-model`
+- **Docs:** under `docs/community/` in the [monorepo](https://github.com/open-component-model/open-component-model/tree/main/docs/community)
 
 ### SIG Spec and Community Specification License
 
@@ -239,7 +239,7 @@ Ready to try OCM v2? Pick your path:
 {{< step >}}
 **Sign and Verify**
 
-[Establish provenance with RSA signatures](/dev/docs/tutorials/signing-and-verification/)
+[Establish provenance with RSA signatures](/dev/docs/tutorials/sign-and-verify-components/)
 {{< /step >}}
 {{< step >}}
 **Transfer across an Air Gap**
@@ -247,15 +247,16 @@ Ready to try OCM v2? Pick your path:
 [Deliver to isolated environments](/dev/docs/how-to/transfer-components-across-an-air-gap/)
 {{< /step >}}
 {{< step >}}
-**Setup your Runtime**
+**Set Up your Runtime**
 
 [Prepare a kind cluster with kro and Flux](/dev/docs/getting-started/set-up-controller-environments/)
 {{< /step >}}
 {{< step >}}
 **Deploy a Helm Chart**
 
-[Learn about OCM Controllers](/dev/docs/concepts/ocm-controllers/)
-[Your first controller-based deployment](/dev/docs/getting-started/deploy-helm-charts/)
+- [Learn about OCM Controllers](/dev/docs/concepts/ocm-controllers/)
+- [Your first controller-based deployment](/dev/docs/getting-started/deploy-helm-charts/)
+
 {{< /step >}}
 
 {{< /steps >}}
@@ -265,7 +266,7 @@ Ready to try OCM v2? Pick your path:
 OCM is open source and we welcome contributions of all kinds — code, documentation, bug reports, and feature requests.
 
 - Browse the code and contribute: [github.com/open-component-model/open-component-model](https://github.com/open-component-model/open-component-model)
-- Join the conversation on Zulip: `neonephos-ocm-support`
+- Join the conversation on Zulip: [neonephos-ocm-support](https://linuxfoundation.zulipchat.com/#narrow/channel/532975-neonephos-ocm-support)
 - Read the [SIG Runtime Charter](https://github.com/open-component-model/open-component-model/blob/main/docs/community/SIGs/Runtime/SIG-Runtime-CHARTER.md)
 - Try the new CLI and [get started](/dev/docs/getting-started/)
 

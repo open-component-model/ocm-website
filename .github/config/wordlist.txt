@@ -233,6 +233,7 @@ jsonschema
 keyless
 keypair
 keyring
+kickstart
 konfidence
 kro
 kubebuilder
@@ -321,6 +322,7 @@ ocmconfig
 ocmrepository
 ocm's
 ocmv
+odg
 omponentsubscription's
 oncefunc
 oo
@@ -455,6 +457,7 @@ toc
 todo
 toi
 toiexecutor
+toolchain
 toolkits
 toolset
 tos
