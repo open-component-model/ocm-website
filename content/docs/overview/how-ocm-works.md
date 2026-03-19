@@ -92,7 +92,7 @@ OCM adapts to your infrastructure. Not the other way around.
 
 - **[Getting Started]({{< relref "getting-started.md" >}})** — hands-on with the OCM CLI.
 - **[Components]({{< relref "components.md" >}})** & **[Coordinates]({{< relref "coordinates.md" >}})** — the data model in detail.
-- **[Signing]({{< relref "signing-and-verification-concept.md" <}})** — cryptographic integrity, explained.
+- **[Signing]({{< relref "signing-and-verification-concept.md" >}})** — cryptographic integrity, explained.
 - **[Transfer]({{< relref "transfer-concept.md" >}})** — how content moves across boundaries.
 - **[Controllers]({{< relref "ocm-controllers.md" >}})** — automated deployment on Kubernetes.
 - **[Plugins]({{< relref "plugin-system.md" >}})** — extending OCM for your stack.
