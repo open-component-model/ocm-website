@@ -45,8 +45,8 @@ cest
 cet
 cicd
 cli
-cliconfig
 cli's
+cliconfig
 clis
 closable
 closeable
@@ -71,9 +71,9 @@ componentsubscriptions
 componentsubscriptionspec
 componentsubscriptionstatus
 componentversion
+componentversion's
 componentversionaccess
 componentversionaccessimpl
-componentversion's
 componentversions
 componentversionspec
 componentversionstatus
@@ -126,10 +126,10 @@ directorytree
 dirtree
 dn
 dns
+docker's
 dockerconfig
 dockerconfigjson
 dockermulti
-docker's
 downgradable
 downloadconstraint
 downloader
@@ -304,10 +304,10 @@ newcomponentversionaccess
 newrepository
 newrepositoryspec
 npm
+npm's
 npmjs
 npmrc
 npmregistry
-npm's
 oauth
 objectmeta
 objectreference
@@ -320,11 +320,11 @@ ocireg
 ociregistry
 ocirepository
 ocm
+ocm's
 ocmbot
 ocmcli
 ocmconfig
 ocmrepository
-ocm's
 ocmv
 odg
 omponentsubscription's
@@ -374,6 +374,7 @@ rekor
 relativeocireference
 releaser
 relref
+renderer
 replicatedrepositoryurl
 repo
 repocpi
@@ -419,8 +420,8 @@ sha
 shortcode
 shortcodes
 sig
-signingserver
 sig's
+signingserver
 sigs
 sigstore
 simplemapmerge
@@ -454,6 +455,7 @@ templated
 templater
 templaters
 templating
+terraform
 terraform
 tgz
 tls
