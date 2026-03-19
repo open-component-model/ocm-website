@@ -1,0 +1,15 @@
+{{- $schemaUrl := .Get "url" | default "" -}}
+<div class="sr-root" data-schema-renderer data-schema-url="{{ $schemaUrl }}"></div>
+
+{{- with resources.Get "js/schema-renderer.jsx" -}}
+  {{- $opts := dict
+    "minify" (not hugo.IsDevelopment)
+    "sourceMap" (cond hugo.IsDevelopment "inline" "none")
+    "target" "es2020"
+    "JSX" "automatic"
+    "JSXImportSource" "preact"
+  -}}
+  {{- with . | js.Build $opts -}}
+    <script src="{{ .RelPermalink }}"></script>
+  {{- end -}}
+{{- end -}}

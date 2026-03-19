@@ -1,0 +1,18 @@
+---
+title: OCM Constructor
+description: "Reference documentation for the OCM Component Constructor format (v1, JSON Schema 2020-12)."
+weight: 1
+toc: false
+---
+
+The **OCM Component Constructor** defines the input format for building component versions.
+It describes how resources and sources are provided -- either via access specifications
+(referencing existing artifacts) or via input specifications (providing content directly).
+
+The constructor schema accepts either a single component or a list of components.
+The schema below defines the full structure as specified by
+[JSON Schema 2020-12](https://json-schema.org/draft/2020-12/schema).
+
+---
+
+{{< schema-renderer url="https://raw.githubusercontent.com/open-component-model/open-component-model/main/bindings/go/constructor/spec/v1/resources/schema-2020-12.json" >}}
