@@ -587,10 +587,6 @@ bootstrap   ACTIVE   True     3m23s
 
 #### Verify
 
----
-TODO: This part will be filled in once https://github.com/open-component-model/open-component-model/pull/1943 is done.
----
-
 Check the deployment:
 
 ```shell
@@ -634,9 +630,15 @@ Your registry package may be private. Either make it public or [configure creden
 
 ### Resource Not Found
 
-Verify:
-- The component was transferred: `ocm get cv ghcr.io/<your-namespace>//<component>:<version>`
-- The `baseUrl` in the Repository matches your registry
+Verify the following:
+
+The component was transferred to your repository with:
+
+```shell
+ocm get cv ghcr.io/<your-namespace>//<component>:<version>
+```
+
+The `baseUrl` in the Repository matches your registry.
 
 ## Next Steps
 
