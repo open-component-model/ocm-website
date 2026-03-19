@@ -2,12 +2,14 @@
 title: "Download Resources from Component Versions"
 description: "Extract resources from OCM component versions to your local filesystem."
 icon: "📥"
-weight: 10
+weight: 8
 toc: true
 ---
 
-This guide shows you how to download resources from a component version using the OCM CLI.
-You'll learn how to fetch specific resources, optionally transform them to their native format,
+## Goal
+
+Download resources from a component version using the OCM CLI.
+Learn how to fetch specific resources, optionally transform them to their native format,
 and save them to your local filesystem.
 
 ## You'll end up with
@@ -15,9 +17,7 @@ and save them to your local filesystem.
 - A resource file downloaded from a component version
 - Optionally a resource transformed to its native format (e.g., Helm chart `.tgz`)
 
-## Estimated time
-
-~5 minutes
+**Estimated time:** ~5 minutes
 
 ## How it works
 

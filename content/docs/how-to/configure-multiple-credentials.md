@@ -2,7 +2,7 @@
 title: "Configure Credentials for Multiple Registries"
 description: "Set up OCM credentials to authenticate against multiple OCI registries with explicit entries and Docker config fallback."
 icon: "🔑"
-weight: 45
+weight: 3
 toc: true
 ---
 
@@ -10,12 +10,10 @@ toc: true
 
 Configure OCM to authenticate against multiple OCI registries — pinning explicit credentials for specific registries while using Docker config as a catch-all fallback.
 
-{{< callout context="note" >}}
-**You will end up with**
+## You'll end up with
 
 - An OCM config file that resolves credentials automatically for every `ocm` command
 - Explicit control over specific registry paths with Docker config covering the rest
-{{< /callout >}}
 
 ## Prerequisites
 
@@ -29,7 +27,7 @@ Configure OCM to authenticate against multiple OCI registries — pinning explic
 {{< step >}}
 **Identity by hostname only**
 
-Create `~/.ocmconfig` with an identity that matches **any path** on a hostname:
+Create `$HOME/.ocmconfig` with an identity that matches **any path** on a hostname:
 
 ```yaml
 type: generic.config.ocm.software/v1
