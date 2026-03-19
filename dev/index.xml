@@ -1,4 +1,6 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Open Component Model</title><link>https://ocm.software/dev/</link><description>Recent content on Open Component Model</description><generator>Hugo</generator><language>en-US</language><lastBuildDate>Mon, 01 Jan 0001 00:00:00 +0000</lastBuildDate><atom:link href="https://ocm.software/dev/index.xml" rel="self" type="application/rss+xml"/><item><title>OCM Components</title><link>https://ocm.software/dev/docs/concepts/ocm-components/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/dev/docs/concepts/ocm-components/</guid><description>&lt;p&gt;In OCM, &lt;em&gt;components&lt;/em&gt; group a set of semantically related &lt;em&gt;component versions&lt;/em&gt;. Each component version is uniquely and globally identified by a 
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Open Component Model</title><link>https://ocm.software/dev/</link><description>Recent content on Open Component Model</description><generator>Hugo</generator><language>en-US</language><lastBuildDate>Mon, 01 Jan 0001 00:00:00 +0000</lastBuildDate><atom:link href="https://ocm.software/dev/index.xml" rel="self" type="application/rss+xml"/><item><title>How OCM Works</title><link>https://ocm.software/dev/docs/overview/how-ocm-works/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/dev/docs/overview/how-ocm-works/</guid><description>&lt;p&gt;Modern software doesn&amp;rsquo;t just run — it travels. From a developer&amp;rsquo;s laptop to a CI pipeline,
+from a public cloud to a sovereign data center that has no connection to the internet.
+Along the way, it crosses organizational boundaries, trust boundaries, and sometimes physical ones.&lt;/p&gt;</description></item><item><title>OCM Components</title><link>https://ocm.software/dev/docs/concepts/ocm-components/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/dev/docs/concepts/ocm-components/</guid><description>&lt;p&gt;In OCM, &lt;em&gt;components&lt;/em&gt; group a set of semantically related &lt;em&gt;component versions&lt;/em&gt;. Each component version is uniquely and globally identified by a 
 
 
 
@@ -23,7 +25,13 @@
 &lt;h2 id="configuration-file"&gt;Configuration File&lt;/h2&gt;
 &lt;p&gt;Resolvers are configured in the OCM configuration file. By default, the CLI searches for configuration in
 &lt;code&gt;$HOME/.ocmconfig&lt;/code&gt;. You can also specify a configuration file explicitly with the &lt;code&gt;--config&lt;/code&gt; flag.&lt;/p&gt;</description></item><item><title>Transfer Components across an Air Gap</title><link>https://ocm.software/dev/docs/how-to/transfer-components-across-an-air-gap/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/dev/docs/how-to/transfer-components-across-an-air-gap/</guid><description>&lt;h2 id="goal"&gt;Goal&lt;/h2&gt;
-&lt;p&gt;Transfer a signed component version from a source registry into an air-gapped target registry using a CTF archive as the transport medium. An air-gapped environment is a network that is physically isolated from untrusted networks such as the public internet.&lt;/p&gt;</description></item><item><title>Configure Credentials for OCM Controllers</title><link>https://ocm.software/dev/docs/how-to/configure-credentials-for-ocm-controllers/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/dev/docs/how-to/configure-credentials-for-ocm-controllers/</guid><description>&lt;h2 id="goal"&gt;Goal&lt;/h2&gt;
+&lt;p&gt;Transfer a signed component version from a source registry into an air-gapped target registry using a CTF archive as the transport medium. An air-gapped environment is a network that is physically isolated from untrusted networks such as the public internet.&lt;/p&gt;</description></item><item><title>Benefits of OCM</title><link>https://ocm.software/dev/docs/overview/benefits-of-ocm/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/dev/docs/overview/benefits-of-ocm/</guid><description>&lt;p&gt;The Open Component Model (OCM) is an open-source toolset for secure software delivery.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;OCM gives you full visibility and control across the supply chain, streamlining compliance checks, security scans, and deployments.&lt;/li&gt;
+&lt;li&gt;OCM works everywhere — cloud, on-premises, hybrid, and air-gapped environments.&lt;/li&gt;
+&lt;li&gt;OCM integrates seamlessly with your existing tools and is easy to extend.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;With OCM, you gain control, reduce risk, and keep your delivery approach adaptable.&lt;/p&gt;</description></item><item><title>Configure Credentials for OCM Controllers</title><link>https://ocm.software/dev/docs/how-to/configure-credentials-for-ocm-controllers/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/dev/docs/how-to/configure-credentials-for-ocm-controllers/</guid><description>&lt;h2 id="goal"&gt;Goal&lt;/h2&gt;
 &lt;p&gt;Configure credentials to allow OCM Controllers to access OCM components stored in private OCI registries.&lt;/p&gt;
 &lt;h2 id="you-will-end-up-with"&gt;You will end up with&lt;/h2&gt;
 &lt;ul&gt;
@@ -62,11 +70,4 @@
 &lt;/svg&gt;
  &lt;div class="callout-content"&gt;
  &lt;div class="callout-title"&gt;
- &lt;p&gt;Caution&lt;/p&gt;</description></item><item><title>Generate Signing Keys</title><link>https://ocm.software/dev/docs/how-to/generate-signing-keys/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/dev/docs/how-to/generate-signing-keys/</guid><description>&lt;h2 id="goal"&gt;Goal&lt;/h2&gt;
-&lt;p&gt;Generate an RSA key pair that can be used to sign and verify OCM component versions.&lt;/p&gt;
-&lt;h2 id="youll-end-up-with"&gt;You&amp;rsquo;ll end up with&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;A private key file for signing component versions&lt;/li&gt;
-&lt;li&gt;A public key file for sharing with consumers who need to verify signatures&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;Estimated time:&lt;/strong&gt; ~2 minutes&lt;/p&gt;</description></item><item><title>Transfer and Transport</title><link>https://ocm.software/dev/docs/concepts/transfer-and-transport/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/dev/docs/concepts/transfer-and-transport/</guid><description>&lt;p&gt;Transfer is the mechanism that moves component versions from one OCM repository to another. During transfer, the component&amp;rsquo;s identity, integrity, and signatures are preserved so that consumers can verify provenance at every stage of the delivery pipeline.&lt;/p&gt;</description></item></channel></rss>
+ &lt;p&gt;Caution&lt;/p&gt;</description></item></channel></rss>
