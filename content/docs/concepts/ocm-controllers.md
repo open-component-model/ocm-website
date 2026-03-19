@@ -11,10 +11,9 @@ hasMermaid: true
 This project is in early development and not yet ready for production use.
 {{</callout>}}
 
-The OCM controllers bridge the gap between OCM repositories and running Kubernetes clusters. They resolve OCM component versions, download resources, and hand them off to deployment tooling such as FluxCD or the built-in [Deployer]({{< relref "deployer.md" >}}).
+The OCM controllers bridge the gap between OCM repositories and running Kubernetes clusters. They resolve OCM component versions, download resources, and deploy them using the built-in [Deployer]({{< relref "deployer.md" >}}) and [kro](https://kro.run).
 
-- support the deployment of an OCM component and its resources, like Helm charts or other manifests,
-into a Kubernetes cluster with the help of kro and a deployer, e.g. FluxCD.
+The controller chain — `Repository` → `Component` → `Resource` → `Deployer` — reconciles OCM content into a cluster. The Deployer applies Kubernetes manifests (including `ResourceGraphDefinitions`) using server-side apply, while kro turns those RGDs into concrete resources.
 
 ### Before You Begin
 
@@ -23,17 +22,33 @@ You should be familiar with the following concepts:
 - [Open Component Model](https://ocm.software/)
 - [Kubernetes](https://kubernetes.io/) ecosystem
 - [kro](https://kro.run)
-- Kubernetes resource deployer such as [FluxCD](https://fluxcd.io/)
 
 ## Architecture
 
-The primary purpose of OCM Controllers is simple: Deploy an OCM resource
-from an OCM component version into a Kubernetes cluster.
+The primary purpose of the OCM controllers is to deploy OCM resources from component versions into a Kubernetes cluster.
 
-The diagram below provides an overview of the architecture of the OCM
-Controllers.
+```mermaid
+flowchart LR
+    classDef k8sObject fill:#b3b3b3,color:black,stroke:black;
+    classDef ocm fill:white,stroke:black,color:black;
 
-{{< inline-svg src="images/controller-tam.svg" >}}
+    subgraph OCM Repository
+        CV[Component Version] --> Blob[Resource Blob]
+    end
+
+    subgraph Kubernetes Cluster
+        Repo[Repository] --> Comp[Component] --> Res[Resource]
+        Res --> Deployer
+        Deployer -->|server-side apply| Manifests[Deployed Resources]
+        Deployer -->|applies| RGD[ResourceGraphDefinition]
+        RGD -->|kro reconciles| CRD[Custom Resource]
+    end
+
+    Blob -.->|download| Deployer
+
+    class Repo,Comp,Res,Deployer,Manifests,RGD,CRD k8sObject
+    class CV,Blob ocm
+```
 
 ## Installation
 
@@ -53,17 +68,16 @@ or
 kubectl apply -k https://github.com/open-component-model/open-component-model/kubernetes/controller/config/default?ref=main
 ```
 
-{{<callout context="caution" title="Deployer tools" icon="outline/alert-triangle">}}
-If you plan to use FluxCD or another external deployer alongside the OCM controllers, you need to install them separately. The OCM controllers deployment does not include kro or any deployer.
+{{<callout context="caution" title="kro" icon="outline/alert-triangle">}}
+The OCM controllers deployment does not include kro. If you plan to use `ResourceGraphDefinitions`, install kro separately:
 
-- [kro](https://kro.run/docs/getting-started/Installation/)
-- [FluxCD](https://fluxcd.io/docs/installation/)
+- [kro installation](https://kro.run/docs/getting-started/Installation/)
 {{</callout>}}
 
 ## Getting Started
 
-- [Setup your (test) environment with kind, kro, and FluxCD]({{< relref "setup-controller-environment.md" >}})
-- [Deploying a Helm chart using a `ResourceGraphDefinition` with FluxCD]({{< relref "deploy-with-controllers.md" >}})
+- [Setup your (test) environment]({{< relref "setup-controller-environment.md" >}})
+- [Deploy with Controllers]({{< relref "deploy-with-controllers.md" >}})
 - [Configuring credentials for OCM controller resources to access private OCM repositories]({{< relref "configure-credentials-for-controllers.md" >}})
 
 [controller-image]: https://github.com/open-component-model/open-component-model/pkgs/container/kubernetes%2Fcontroller
