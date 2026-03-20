@@ -489,3 +489,7 @@ yyyy
 zsh
 zshrc
 terraform
+autocompletion
+URI
+versionable
+Untyped
