@@ -33,7 +33,7 @@ flowchart LR
     class CV,Blob ocm
 ```
 
-To reach deployment, the following chain of objects has to be reconciled. `Repository` -> `Component` -> `Resource` -> `Deployer`.
+To reach the successful deployment status, the following chain of objects has to be reconciled. `Repository` -> `Component` -> `Resource` -> `Deployer`.
 
 The `Repository` validates that the OCM repository is reachable. The `Component` downloads and verifies the component version descriptor from that repository. Once the component is `Ready`, the `Resource` will fetch the resource descriptor and store it in its status. The Deployer watches for this and when the Resource is `Ready`, it downloads the content and applies it to the cluster.
 
@@ -41,7 +41,7 @@ The `Repository` validates that the OCM repository is reachable. The `Component`
 
 The Deployer uses [ApplySet](https://kubernetes.io/docs/reference/labels-annotations-taints/#kubectl-applyset) (KEP-3659) for resource lifecycle management.
 
-Every apply operation goes through Kubernetes server-side apply, which means updates are atomic and conflict-free. When a manifest no longer includes a resource that was previously applied, the Deployer automatically prunes it. Ownership is tracked through the `applyset.k8s.io/part-of` label, which ties each deployed resource back to the Deployer instance that created it.
+Every apply operation goes through Kubernetes server-side apply, which means updates are atomic and conflict-free. When a manifest no longer includes a resource that was previously applied, the `Deployer` automatically prunes it. Ownership is tracked through the `applyset.kubernetes.io/part-of` label, which ties each deployed resource back to the `Deployer` instance that created it.
 
 The Deployer manages the full lifecycle of what it deploys: creation, updates, and cleanup.
 
