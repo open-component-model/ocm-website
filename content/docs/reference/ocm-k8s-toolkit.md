@@ -12,16 +12,16 @@ All resources belong to the API group **`delivery.ocm.software/v1alpha1`**.
 
 ---
 
-{{< schema-renderer url="/dev/schemas/kubernetes/controller/delivery.ocm.software_components.yaml" >}}
+{{< schema-renderer url="/schemas/kubernetes/controller/delivery.ocm.software_components.yaml" >}}
 
 ---
 
-{{< schema-renderer url="/dev/schemas/kubernetes/controller/delivery.ocm.software_deployers.yaml" >}}
+{{< schema-renderer url="/schemas/kubernetes/controller/delivery.ocm.software_deployers.yaml" >}}
 
 ---
 
-{{< schema-renderer url="/dev/schemas/kubernetes/controller/delivery.ocm.software_repositories.yaml" >}}
+{{< schema-renderer url="/schemas/kubernetes/controller/delivery.ocm.software_repositories.yaml" >}}
 
 ---
 
-{{< schema-renderer url="/dev/schemas/kubernetes/controller/delivery.ocm.software_resources.yaml" >}}
+{{< schema-renderer url="/schemas/kubernetes/controller/delivery.ocm.software_resources.yaml" >}}

@@ -13,4 +13,4 @@ The schema below defines the full structure of a component descriptor as specifi
 
 ---
 
-{{< schema-renderer url="/dev/schemas/bindings/go/descriptor/v2/schema-2020-12.json" >}}
+{{< schema-renderer url="/schemas/bindings/go/descriptor/v2/schema-2020-12.json" >}}
