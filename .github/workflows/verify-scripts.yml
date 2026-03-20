@@ -6,6 +6,7 @@ on:
       - main
       - website/**
     paths:
+      - '.github/workflows/verify-scripts.yml'
       - 'assets/js/**'
       - 'eslint.config.*'
       - 'package.json'

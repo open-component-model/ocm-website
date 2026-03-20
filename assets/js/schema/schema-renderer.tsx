@@ -227,8 +227,8 @@ function SchemaRenderer({schemaUrl}: {schemaUrl: string}) {
                 </div>
             )}
 
-            {state === "done" && models.map((model) => (
-                <SchemaView key={model.meta.kind + model.meta.apiVersions[0]}
+            {state === "done" && models.map((model, i) => (
+                <SchemaView key={`${model.meta.kind}-${model.meta.apiVersions[0] ?? i}`}
                             model={model} schemaUrl={schemaUrl}/>
             ))}
         </div>

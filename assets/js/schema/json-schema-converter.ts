@@ -14,7 +14,8 @@ function resolveRef(node: SchemaNode, root: SchemaNode, seen = new Set<string>()
         seen.add(node.$ref);
 
         let target: Record<string, unknown> = root as Record<string, unknown>;
-        for (const p of node.$ref.replace("#/", "").split("/")) {
+        for (const raw of node.$ref.replace("#/", "").split("/")) {
+            const p = raw.replace(/~1/g, "/").replace(/~0/g, "~");
             target = target?.[p] as Record<string, unknown>;
             if (!target) return {};
         }
