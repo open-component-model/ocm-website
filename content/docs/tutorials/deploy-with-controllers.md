@@ -124,9 +124,9 @@ ocm.software/ocm-k8s-toolkit/simple │ 1.0.0   │ ocm.software
 {{< /step >}}
 {{< /steps >}}
 
-{{< callout context="note" >}}
-By default, packages created in GitHub Container Registry are _private_. Either make them public or [configure credentials]({{< relref "configure-credentials-for-controllers.md" >}}) for the OCM controller resources.
-{{< /callout >}}
+{{<callout context="note">}}
+By default, packages created in GitHub Container Registry are _private_. Either make them public or [configure credentials]({{<relref "configure-credentials-for-controllers.md">}}) for the OCM controller resources.
+{{</callout>}}
 
 ### Deploy the Helm Chart
 
@@ -432,10 +432,11 @@ spec:
 
 This RGD assumes the `Repository` and `Component` resources already exist in the cluster (they will be created as part of the bootstrap resources below).
 
-{{< callout context="note" title="globalAccess vs direct access" icon="outline/info-circle" >}}
-Unlike Part 1, this RGD uses `resource.access.globalAccess.toOCI()` instead of `resource.access.toOCI()`. When the component is transferred with `--copy-resources`, the resources are copied into the target registry and the component descriptor records a _local_ reference to them. The `globalAccess` field resolves the resource through its relocated OCI reference, which is required for the HelmRelease to pull the artifact ( the podinfo image ) from the correct registry.
-{{< /callout >}}
 {{< /step >}}
+
+{{<callout context="note" title="globalAccess vs direct access" icon="outline/info-circle">}}
+Unlike Part 1, this RGD uses `resource.access.globalAccess.toOCI()` instead of `resource.access.toOCI()`. When the component is transferred with `--copy-resources`, the resources are copied into the target registry and the component descriptor records a _local_ reference to them. The `globalAccess` field resolves the resource through its relocated OCI reference, which is required for the HelmRelease to pull the artifact ( the podinfo image ) from the correct registry.
+{{</callout>}}
 
 {{< step >}}
 
@@ -488,10 +489,6 @@ ocm transfer cv ctf::./transport-archive//ocm.software/ocm-k8s-toolkit/bootstrap
   $OCM_REPO --copy-resources
 ```
 
-{{< callout context="note" >}}
-If using a private registry, see the [OCM CLI credentials documentation]({{< relref "/docs/concepts/credential-system.md" >}}).
-{{< /callout >}}
-
 Verify:
 
 ```shell
@@ -499,6 +496,10 @@ ocm get componentversion $OCM_REPO//ocm.software/ocm-k8s-toolkit/bootstrap:1.0.0
 ```
 {{< /step >}}
 {{< /steps >}}
+
+{{<callout context="note">}}
+If using a private registry, see the [OCM CLI credentials documentation]({{<relref "/docs/concepts/credential-system.md">}}).
+{{</callout>}}
 
 ### Bootstrap the ResourceGraphDefinition
 
@@ -566,11 +567,11 @@ sed -i'' -e "s|OCM_REPO_PLACEHOLDER|$OCM_REPO|" bootstrap.yaml
 
 The `Deployer` references the `Resource` containing the RGD. Once that resource is ready, the Deployer downloads the RGD manifest and applies it to the cluster using server-side apply.
 
-{{< callout context="note" title="Credentials" icon="outline/key" >}}
-For private registries, add `ocmConfig` to the Repository, Component, Resource, and Deployer specs. See [Configure Credentials for Controllers]({{< relref "configure-credentials-for-controllers.md" >}}).
-{{< /callout >}}
-
 {{< /step >}}
+
+{{<callout context="note" title="Credentials" icon="outline/key">}}
+For private registries, add `ocmConfig` to the Repository, Component, Resource, and Deployer specs. See [Configure Credentials for Controllers]({{<relref "configure-credentials-for-controllers.md">}}).
+{{</callout>}}
 
 {{< step >}}
 

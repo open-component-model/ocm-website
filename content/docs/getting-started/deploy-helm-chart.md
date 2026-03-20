@@ -30,7 +30,7 @@ For an automated approach where the RGD is packaged inside the OCM component its
 
 ## Quick Start
 
-Create a component referencing a Helm chart:
+Create a `component-constructor.yaml` file that includes a Helm chart resource:
 
 ```yaml
 components:
