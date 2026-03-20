@@ -12,7 +12,6 @@ All resources belong to the API group **`delivery.ocm.software/v1alpha1`**.
 
 ---
 
-<!-- markdownlint-disable-next-line MD034 -->
 {{< schema-renderer url="/dev/schemas/kubernetes/controller/delivery.ocm.software_components.yaml" >}}
 
 ---

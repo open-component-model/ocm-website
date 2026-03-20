@@ -15,5 +15,4 @@ The schema below defines the full structure as specified by
 
 ---
 
-<!-- markdownlint-disable-next-line MD034 -->
 {{< schema-renderer url="/dev/schemas/bindings/go/constructor/schema-2020-12.json" >}}
