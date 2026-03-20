@@ -6,66 +6,64 @@ weight: 3
 toc: true
 ---
 
-{{<callout context="danger" title="Caution" icon="outline/alert-triangle">}}
-This project is in early development and not yet ready for production use.
-{{</callout>}}
+The OCM controllers reconcile OCM component versions into a Kubernetes cluster. They form a chain of four custom resources, each depending on the previous one becoming `Ready`:
 
-The OCM controllers
-
-- support the deployment of an OCM component and its resources, like Helm charts or other manifests,
-into a Kubernetes cluster with the help of kro and a deployer, e.g. FluxCD.
-
-### Before You Begin
-
-You should be familiar with the following concepts:
-
-- [Open Component Model](https://ocm.software/)
-- [Kubernetes](https://kubernetes.io/) ecosystem
-- [kro](https://kro.run)
-- Kubernetes resource deployer such as [FluxCD](https://fluxcd.io/).
+**Repository** validates that an OCM repository is reachable. **Component** resolves and verifies a component version from that repository. **Resource** fetches a specific resource from the component version. **[Deployer]({{< relref "kubernetes-deployer.md" >}})** downloads the resource content and applies it to the cluster.
 
 ## Architecture
 
-The primary purpose of OCM Controllers is simple: Deploy an OCM resource
-from an OCM component version into a Kubernetes cluster.
+The primary purpose of OCM Controllers is simple: Deploy an OCM resource from an OCM component version into a Kubernetes cluster.
 
-The diagram below provides an overview of the architecture of the OCM
-Controllers.
+The diagram below provides an overview of the architecture of the OCM Controllers.
 
 {{< inline-svg src="images/controller-tam.svg" >}}
 
+## Asynchronous Component Resolution
+
+Component version resolution happens in a background worker pool. When a controller needs a component version, it submits a request and receives a sentinel error (`ErrResolutionInProgress`). The controller returns early without blocking. Once the worker finishes, it broadcasts an event that re-triggers reconciliation for all waiting objects.
+
+Requests for the same component version are deduplicated across multiple subscribers.
+
+## Configuration Propagation
+
+OCM configuration such as credentials and resolvers flows through the reconciliation chain. Each object can declare its own config references and inherit configs from its parent:
+
+```yaml
+spec:
+  configRefs:
+    - kind: Secret
+      name: registry-credentials
+      policy: Propagate
+```
+
+`Propagate` makes the config available to child objects in the chain. `DoNotPropagate` scopes it to that object only. Supported sources are Kubernetes `Secrets`, `ConfigMaps`, and `OCMConfiguration` objects.
+
+## Additional Status Fields
+
+The `Resource` object supports `additionalStatusFields`, a map of field names to [CEL](https://github.com/google/cel-spec) expressions evaluated against the resource descriptor:
+
+```yaml
+spec:
+  additionalStatusFields:
+    registry: "resource.access.globalAccess.imageReference.split('/')[0]"
+```
+
+Results are stored under `status.additional.<fieldName>` and can be consumed by downstream tools like [Kro](https://kro.run/) to wire values between resources in a `ResourceGraphDefinition`.
+
 ## Installation
 
-Currently, the OCM controllers are available as [image][controller-image] and
-[Kustomization](https://github.com/open-component-model/open-component-model/blob/main/kubernetes/controller/config/default/kustomization.yaml). A Helm chart is planned for the future.
-
-To install the OCM controllers into your running Kubernetes cluster, you can use the following commands:
+The OCM controllers are distributed as an OCI Helm chart:
 
 ```console
-# In the open-component-model repository, folder kubernetes/controller
-task deploy
+helm install ocm-k8s-toolkit oci://ghcr.io/open-component-model/kubernetes/controller/chart \
+  --namespace ocm-system \
+  --create-namespace
 ```
 
-or
+CRDs are retained by default on uninstall. The chart requires Kubernetes 1.26 or later.
 
-```console
-kubectl apply -k https://github.com/open-component-model/open-component-model/kubernetes/controller/config/default?ref=main
-```
+## Related Documentation
 
-{{<callout context="caution" title="Deployer tools" icon="outline/alert-triangle">}}
-While the OCM controllers technically can be used standalone, it requires kro and a deployer, e.g. FluxCD, to deploy
-an OCM resource into a Kubernetes cluster. The OCM controllers deployment, however, does not contain kro or any
-deployer. Please refer to the respective installation guides for these tools:
-
-- [kro](https://kro.run/docs/getting-started/Installation/)
-- [FluxCD](https://fluxcd.io/docs/installation/)
-{{</callout>}}
-
-## Getting Started
-
-- [Setup your (test) environment with kind, kro, and FluxCD]({{< relref "setup-controller-environment.md" >}})
-- [Deploying a Helm chart using a `ResourceGraphDefinition` with FluxCD]({{< relref "deploy-helm-chart.md" >}})
-- [Deploying a Helm chart using a `ResourceGraphDefinition` inside the OCM component version (bootstrap) with FluxCD]({{< relref "deploy-helm-chart-bootstrap.md" >}})
-- [Configuring credentials for OCM controller resources to access private OCM repositories]({{< relref "configure-credentials-for-controllers.md" >}})
-
-[controller-image]: https://github.com/open-component-model/open-component-model/pkgs/container/kubernetes%2Fcontroller
+- [Kubernetes Deployer](`<kubernetes-deploy.md doc placeholder>`), how the Deployer applies and manages resources
+- [Setup Controller Environment]({{< relref "setup-controller-environment.md" >}}), prerequisites for running the controllers
+- [Configuring Credentials]({{< relref "configure-credentials-for-controllers.md" >}}), setting up access to private OCM repositories
