@@ -1,12 +1,13 @@
 import { describe, it, before } from "node:test";
 import assert from "node:assert/strict";
-import { jsonSchemaToModel } from "./json-schema-converter.js";
+import { jsonSchemaToModel } from "./json-schema-converter.ts";
+import type { SchemaField } from "./schema-model.types.ts";
 
 const DESCRIPTOR_URL = "https://raw.githubusercontent.com/open-component-model/open-component-model/main/bindings/go/descriptor/v2/resources/schema-2020-12.json";
 const CONSTRUCTOR_URL = "https://raw.githubusercontent.com/open-component-model/open-component-model/main/bindings/go/constructor/spec/v1/resources/schema-2020-12.json";
 
-let descriptorModel;
-let constructorModel;
+let descriptorModel: ReturnType<typeof jsonSchemaToModel>;
+let constructorModel: ReturnType<typeof jsonSchemaToModel>;
 
 before(async () => {
   const [descResp, consResp] = await Promise.all([fetch(DESCRIPTOR_URL), fetch(CONSTRUCTOR_URL)]);
@@ -17,7 +18,7 @@ before(async () => {
 });
 
 /** Recursively assert all fields match the SchemaField shape. */
-function checkFieldShape(field) {
+function checkFieldShape(field: SchemaField) {
   assert.equal(typeof field.name, "string");
   assert.equal(typeof field.type, "string");
   assert.equal(typeof field.description, "string");
@@ -45,22 +46,22 @@ describe("descriptor schema", () => {
   });
 
   it("resolves nested $ref (meta.schemaVersion, component.resources)", () => {
-    const meta = descriptorModel.sections[0].fields.find((f) => f.name === "meta");
-    assert.ok(meta.properties?.length > 0);
-    assert.ok(meta.properties.some((f) => f.name === "schemaVersion"));
+    const meta = descriptorModel.sections[0].fields.find((f) => f.name === "meta")!;
+    assert.ok(meta.properties!.length > 0);
+    assert.ok(meta.properties!.some((f) => f.name === "schemaVersion"));
 
-    const component = descriptorModel.sections[0].fields.find((f) => f.name === "component");
-    const resources = component.properties.find((f) => f.name === "resources");
+    const component = descriptorModel.sections[0].fields.find((f) => f.name === "component")!;
+    const resources = component.properties!.find((f) => f.name === "resources")!;
     assert.match(resources.type, /\[\]/);
-    assert.ok(resources.properties?.length > 0);
+    assert.ok(resources.properties!.length > 0);
   });
 
   it("nullable oneOf collapses without variants (digest)", () => {
-    const component = descriptorModel.sections[0].fields.find((f) => f.name === "component");
-    const digest = component.properties.find((f) => f.name === "resources")
-      .properties.find((f) => f.name === "digest");
+    const component = descriptorModel.sections[0].fields.find((f) => f.name === "component")!;
+    const digest = component.properties!.find((f) => f.name === "resources")!
+      .properties!.find((f) => f.name === "digest")!;
     assert.equal(digest.type, "object");
-    assert.ok(digest.properties?.length > 0);
+    assert.ok(digest.properties!.length > 0);
     assert.equal(digest.variants, null);
   });
 
@@ -93,17 +94,17 @@ describe("constructor schema", () => {
       assert.ok(names.includes(f), `missing: ${f}`);
     }
 
-    const resources = constructorModel.sections[1].fields.find((f) => f.name === "resources");
-    assert.ok(resources.variants?.length >= 2, "resources should have access/input variants");
+    const resources = constructorModel.sections[1].fields.find((f) => f.name === "resources")!;
+    assert.ok(resources.variants!.length >= 2, "resources should have access/input variants");
 
-    const sources = constructorModel.sections[1].fields.find((f) => f.name === "sources");
-    assert.ok(sources.variants?.length >= 2, "sources should have access/input variants");
+    const sources = constructorModel.sections[1].fields.find((f) => f.name === "sources")!;
+    assert.ok(sources.variants!.length >= 2, "sources should have access/input variants");
   });
 
   it("variants include shared fields from parent", () => {
-    const sources = constructorModel.sections[1].fields.find((f) => f.name === "sources");
-    for (const v of sources.variants) {
-      const names = v.properties.map((f) => f.name);
+    const sources = constructorModel.sections[1].fields.find((f) => f.name === "sources")!;
+    for (const v of sources.variants!) {
+      const names = v.properties!.map((f) => f.name);
       assert.ok(names.includes("name"), `variant "${v.title}" missing shared "name"`);
       assert.ok(names.includes("type"), `variant "${v.title}" missing shared "type"`);
     }
@@ -145,8 +146,8 @@ describe("edge cases", () => {
       type: "object", required: ["a"],
       properties: { a: { type: "string" }, b: { type: "string" } },
     });
-    assert.equal(model.sections[0].fields.find((f) => f.name === "a").required, true);
-    assert.equal(model.sections[0].fields.find((f) => f.name === "b").required, false);
+    assert.equal(model.sections[0].fields.find((f) => f.name === "a")!.required, true);
+    assert.equal(model.sections[0].fields.find((f) => f.name === "b")!.required, false);
   });
 
   it("circular $ref", () => {
@@ -155,7 +156,7 @@ describe("edge cases", () => {
       $defs: { loop: { $ref: "#/$defs/loop" } },
       properties: { x: { $ref: "#/$defs/loop" } },
     });
-    assert.equal(model.sections[0].fields.find((f) => f.name === "x").type, "object");
+    assert.equal(model.sections[0].fields.find((f) => f.name === "x")!.type, "object");
   });
 
   it("polymorphic oneOf → variants (no shared props)", () => {
@@ -170,11 +171,11 @@ describe("edge cases", () => {
         },
       },
     });
-    const access = model.sections[0].fields.find((f) => f.name === "access");
+    const access = model.sections[0].fields.find((f) => f.name === "access")!;
     assert.equal(access.properties, null);
-    assert.equal(access.variants.length, 2);
-    assert.equal(access.variants[0].title, "localPath");
-    assert.equal(access.variants[1].title, "imageRef");
+    assert.equal(access.variants!.length, 2);
+    assert.equal(access.variants![0].title, "localPath");
+    assert.equal(access.variants![1].title, "imageRef");
   });
 
   it("polymorphic oneOf with shared parent props merges and filters", () => {
@@ -192,16 +193,16 @@ describe("edge cases", () => {
         },
       },
     });
-    const source = model.sections[0].fields.find((f) => f.name === "source");
-    assert.equal(source.variants.length, 2);
-    for (const v of source.variants) {
-      const names = v.properties.map((f) => f.name);
+    const source = model.sections[0].fields.find((f) => f.name === "source")!;
+    assert.equal(source.variants!.length, 2);
+    for (const v of source.variants!) {
+      const names = v.properties!.map((f) => f.name);
       assert.ok(names.includes("name"), `shared "name" missing in ${v.title}`);
       assert.ok(names.includes("type"), `shared "type" missing in ${v.title}`);
     }
     // Distinguishing props filtered out (redundant with tab title)
-    assert.ok(!source.variants[0].properties.some((f) => f.name === "access"));
-    assert.ok(!source.variants[1].properties.some((f) => f.name === "input"));
+    assert.ok(!source.variants![0].properties!.some((f) => f.name === "access"));
+    assert.ok(!source.variants![1].properties!.some((f) => f.name === "input"));
   });
 
   it("nullable oneOf collapses without variants", () => {
@@ -211,7 +212,7 @@ describe("edge cases", () => {
         label: { oneOf: [{ type: "null" }, { type: "string", description: "a label" }] },
       },
     });
-    const label = model.sections[0].fields.find((f) => f.name === "label");
+    const label = model.sections[0].fields.find((f) => f.name === "label")!;
     assert.equal(label.type, "string");
     assert.equal(label.description, "a label");
     assert.equal(label.variants, null);

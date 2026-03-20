@@ -1,43 +1,44 @@
 import {render} from "preact";
 import {useState, useEffect} from "preact/hooks";
-import {jsonSchemaToModel} from "./json-schema-converter.js";
-import {crdYamlToModels, isYamlUrl} from "./crd-yaml-converter.js";
+import {jsonSchemaToModel} from "./json-schema-converter.ts";
+import {crdYamlToModels, isYamlUrl} from "./crd-yaml-converter.ts";
+import type {SchemaField as SchemaFieldType, SchemaModel as SchemaModelType, FieldVariant as FieldVariantType} from "./schema-model.types.ts";
 
 // --- Helpers -----------------------------------------------------------------
 
-const TYPE_CLASSES = {
+const TYPE_CLASSES: Record<string, string> = {
     string: "sr-type--string",
     integer: "sr-type--number",
     number: "sr-type--number",
     boolean: "sr-type--boolean",
 };
 
-function typeClass(type) {
+function typeClass(type: string): string {
     const base = type.replace("[]", "").toLowerCase();
     return TYPE_CLASSES[base] || (type.includes("[]") ? "sr-type--array" : "sr-type--object");
 }
 
 // --- Components --------------------------------------------------------------
 
-function SchemaHeader({meta}) {
+function SchemaHeader({meta}: {meta: SchemaModelType["meta"]}) {
     const hasGrid = meta.apiVersions?.length > 0 || meta.kind;
     return (
-        <div class="sr-header">
-            {meta.description && <p class="sr-header__desc">{meta.description}</p>}
+        <div className="sr-header">
+            {meta.description && <p className="sr-header__desc">{meta.description}</p>}
             {hasGrid && (
-                <div class="sr-header__grid">
+                <div className="sr-header__grid">
                     {meta.apiVersions?.length > 0 && (
-                        <div class="sr-header__item">
-                            <span class="sr-header__label">API Version</span>
+                        <div className="sr-header__item">
+                            <span className="sr-header__label">API Version</span>
                             {meta.apiVersions.map((v) => (
-                                <code key={v} class="sr-header__value">{v}</code>
+                                <code key={v} className="sr-header__value">{v}</code>
                             ))}
                         </div>
                     )}
                     {meta.kind && (
-                        <div class="sr-header__item">
-                            <span class="sr-header__label">Kind</span>
-                            <code class="sr-header__value">{meta.kind}</code>
+                        <div className="sr-header__item">
+                            <span className="sr-header__label">Kind</span>
+                            <code className="sr-header__value">{meta.kind}</code>
                         </div>
                     )}
                 </div>
@@ -46,68 +47,68 @@ function SchemaHeader({meta}) {
     );
 }
 
-function FieldRow({field, depth = 0}) {
+function FieldRow({field, depth = 0}: {field: SchemaFieldType; depth?: number}) {
     const [expanded, setExpanded] = useState(depth < 1);
-    const hasNested = field.properties?.length > 0;
-    const hasVariants = field.variants?.length > 0;
+    const hasNested = (field.properties?.length || 0) > 0;
+    const hasVariants = (field.variants?.length || 0) > 0;
     const expandable = hasNested || hasVariants;
 
     const descContent = field.description
         ? <span>{field.description}</span>
-        : <span class="sr-no-desc">No description</span>;
+        : <span className="sr-no-desc">No description</span>;
 
     return (
         <>
-            <tr class="sr-field-row">
-                <td class={`sr-field-name sr-depth-${Math.min(depth, 8)}`}>
-                    <div class="sr-field-name-inner">
-            <span class="sr-expand-space">
+            <tr className="sr-field-row">
+                <td className={`sr-field-name sr-depth-${Math.min(depth, 8)}`}>
+                    <div className="sr-field-name-inner">
+            <span className="sr-expand-space">
               {expandable && (
-                  <button class="sr-expand-btn" onClick={() => setExpanded(!expanded)}
+                  <button className="sr-expand-btn" onClick={() => setExpanded(!expanded)}
                           aria-label={expanded ? "Collapse" : "Expand"}>
                       {expanded ? "−" : "+"}
                   </button>
               )}
             </span>
-                        <code class="sr-field-code">{field.name}</code>
-                        {field.required && <span class="badge sr-badge--required">required</span>}
-                        {field.immutable && <span class="badge sr-badge--immutable">immutable</span>}
+                        <code className="sr-field-code">{field.name}</code>
+                        {field.required && <span className="badge sr-badge--required">required</span>}
+                        {field.immutable && <span className="badge sr-badge--immutable">immutable</span>}
                     </div>
                 </td>
-                <td class="sr-field-type">
-                    <span class={`sr-type-badge ${typeClass(field.type)}`}>{field.type}</span>
+                <td className="sr-field-type">
+                    <span className={`sr-type-badge ${typeClass(field.type)}`}>{field.type}</span>
                 </td>
-                <td class="sr-field-desc sr-field-desc--col">
+                <td className="sr-field-desc sr-field-desc--col">
                     {descContent}
                 </td>
             </tr>
-            <tr class="sr-field-row sr-field-desc-row">
-                <td class="sr-field-desc" colspan="2">
+            <tr className="sr-field-row sr-field-desc-row">
+                <td className="sr-field-desc" colSpan={2}>
                     {descContent}
                 </td>
             </tr>
-            {expanded && hasNested && field.properties.map((sub) => (
+            {expanded && hasNested && field.properties!.map((sub) => (
                 <FieldRow key={sub.name} field={sub} depth={depth + 1}/>
             ))}
             {expanded && hasVariants && (
-                <VariantRows variants={field.variants} depth={depth + 1}/>
+                <VariantRows variants={field.variants!} depth={depth + 1}/>
             )}
         </>
     );
 }
 
-function VariantRows({variants, depth}) {
+function VariantRows({variants, depth}: {variants: FieldVariantType[]; depth: number}) {
     const [active, setActive] = useState(0);
     const variant = variants[active];
 
     return (
         <>
-            <tr class="sr-variant-tabs-row">
-                <td colspan="3" class={`sr-variant-tabs sr-depth-${Math.min(depth, 8)}`}>
+            <tr className="sr-variant-tabs-row">
+                <td colSpan={3} className={`sr-variant-tabs sr-depth-${Math.min(depth, 8)}`}>
                     {variants.map((v, i) => (
                         <button
                             key={v.title}
-                            class={`sr-variant-tab ${i === active ? "sr-variant-tab--active" : ""}`}
+                            className={`sr-variant-tab ${i === active ? "sr-variant-tab--active" : ""}`}
                             onClick={() => setActive(i)}
                         >
                             {v.title}
@@ -116,8 +117,8 @@ function VariantRows({variants, depth}) {
                 </td>
             </tr>
             {variant.description && (
-                <tr class="sr-variant-desc-row">
-                    <td colspan="3" class={`sr-variant-desc sr-depth-${Math.min(depth, 8)}`}>
+                <tr className="sr-variant-desc-row">
+                    <td colSpan={3} className={`sr-variant-desc sr-depth-${Math.min(depth, 8)}`}>
                         {variant.description}
                     </td>
                 </tr>
@@ -129,19 +130,19 @@ function VariantRows({variants, depth}) {
     );
 }
 
-function FieldTable({title, description, fields}) {
+function FieldTable({title, description, fields}: {title: string; description: string; fields: SchemaFieldType[]}) {
     if (!fields?.length) return null;
     return (
-        <div class="sr-section">
+        <div className="sr-section">
             <h3>{title}</h3>
-            {description && <p class="sr-section__desc">{description}</p>}
-            <div class="sr-table-wrap">
-                <table class="sr-table">
+            {description && <p className="sr-section__desc">{description}</p>}
+            <div className="sr-table-wrap">
+                <table className="sr-table">
                     <thead>
                     <tr>
                         <th>Field</th>
                         <th>Type</th>
-                        <th class="sr-col-hidden">Description</th>
+                        <th className="sr-col-hidden">Description</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -153,7 +154,7 @@ function FieldTable({title, description, fields}) {
     );
 }
 
-function SchemaView({model, schemaUrl}) {
+function SchemaView({model, schemaUrl}: {model: SchemaModelType; schemaUrl: string}) {
     return (
         <>
             <SchemaHeader meta={model.meta}/>
@@ -161,7 +162,7 @@ function SchemaView({model, schemaUrl}) {
                 <FieldTable key={section.title} title={section.title}
                             description={section.description} fields={section.fields}/>
             ))}
-            <div class="sr-footer">
+            <div className="sr-footer">
                 <ul>
                     <li>
                         <a href={schemaUrl} target="_blank" rel="noopener noreferrer">
@@ -174,17 +175,17 @@ function SchemaView({model, schemaUrl}) {
     );
 }
 
-function parseResponse(text, url) {
+function parseResponse(text: string, url: string): SchemaModelType[] {
     if (isYamlUrl(url)) {
         return crdYamlToModels(text);
     }
     return [jsonSchemaToModel(JSON.parse(text))];
 }
 
-function SchemaRenderer({schemaUrl}) {
-    const [state, setState] = useState("loading");
-    const [models, setModels] = useState([]);
-    const [error, setError] = useState(null);
+function SchemaRenderer({schemaUrl}: {schemaUrl: string}) {
+    const [state, setState] = useState<"loading" | "done" | "error">("loading");
+    const [models, setModels] = useState<SchemaModelType[]>([]);
+    const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
         if (!schemaUrl) {
@@ -209,18 +210,18 @@ function SchemaRenderer({schemaUrl}) {
     }, [schemaUrl]);
 
     return (
-        <div class="sr-root">
+        <div className="sr-root">
             {state === "loading" && (
-                <div class="sr-section">
+                <div className="sr-section">
                     <h3>Schema</h3>
-                    <div class="sr-skeleton sr-skeleton--block"/>
+                    <div className="sr-skeleton sr-skeleton--block"/>
                 </div>
             )}
 
             {state === "error" && (
-                <div class="sr-section">
+                <div className="sr-section">
                     <h3>Schema</h3>
-                    <div class="alert alert-danger" role="alert">
+                    <div className="alert alert-danger" role="alert">
                         Failed to load schema: {error}
                     </div>
                 </div>
@@ -235,5 +236,5 @@ function SchemaRenderer({schemaUrl}) {
 }
 
 document.querySelectorAll("[data-schema-renderer]").forEach((el) => {
-    render(<SchemaRenderer schemaUrl={el.dataset.schemaUrl || ""}/>, el);
+    render(<SchemaRenderer schemaUrl={(el as HTMLElement).dataset.schemaUrl || ""}/>, el);
 });
