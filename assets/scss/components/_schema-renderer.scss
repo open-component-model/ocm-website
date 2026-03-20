@@ -318,6 +318,7 @@ $schema-type-colors: (
   padding: 0.625rem 0.75rem;
   vertical-align: top;
   line-height: 1.5;
+  max-width: 15rem;
 }
 
 .sr-no-desc {
@@ -325,20 +326,61 @@ $schema-type-colors: (
   font-style: italic;
 }
 
+// -- Variant tabs (nested oneOf/anyOf) ----------------------------------------
+.sr-variant-tabs-row {
+  border-bottom: 1px solid var(--bs-border-color);
+}
+
+.sr-variant-tabs {
+  padding: 0.5rem 0.75rem;
+  display: flex;
+  gap: 0.25rem;
+  flex-wrap: wrap;
+}
+
+.sr-variant-tab {
+  background: none;
+  border: 1px solid var(--bs-border-color);
+  border-radius: 4px;
+  padding: 0.25rem 0.625rem;
+  font-size: $schema-small-font;
+  font-weight: 600;
+  font-family: var(--bs-font-monospace);
+  cursor: pointer;
+  color: var(--bs-secondary-color);
+  transition: all 0.15s ease;
+
+  &:hover {
+    color: var(--bs-primary);
+    border-color: var(--bs-primary);
+  }
+
+  &--active {
+    background-color: var(--bs-primary);
+    border-color: var(--bs-primary);
+    color: #fff;
+
+    &:hover {
+      color: #fff;
+    }
+  }
+}
+
+.sr-variant-desc-row {
+  border-bottom: 1px solid var(--bs-border-color);
+}
+
+.sr-variant-desc {
+  padding: 0.375rem 0.75rem 0.5rem;
+  font-size: 0.8125rem;
+  color: var(--bs-secondary-color);
+  font-style: italic;
+}
+
 // -- Footer -------------------------------------------------------------------
 .sr-footer {
   margin-top: 1.5rem;
-  font-size: 0.8125rem;
-  color: var(--bs-secondary-color);
-
-  a {
-    color: var(--bs-primary);
-    text-decoration: none;
-
-    &:hover {
-      text-decoration: underline;
-    }
-  }
+  font-size: 1rem;
 }
 
 // -- Mobile description row (hidden on desktop) ------------------------------

@@ -35,6 +35,7 @@
     "@thulite/images": "^3.3.4",
     "@thulite/inline-svg": "^1.2.2",
     "@thulite/seo": "^2.4.3",
+    "js-yaml": "^4.1.1",
     "preact": "^10.29.0",
     "sass-embedded": "^1.98.0",
     "thulite": "^2.6.5"
