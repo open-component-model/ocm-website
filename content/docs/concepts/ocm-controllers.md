@@ -10,7 +10,7 @@ toc: true
 This project is in early development and not yet ready for production use.
 {{</callout>}}
 
-The OCM controllers bridge the gap between OCM repositories and running Kubernetes clusters. They resolve OCM component versions, download resources, and deploy them using the built-in [Deployer]({{< relref "deployer.md" >}}) and [kro](https://kro.run).
+The OCM controllers bridge the gap between OCM repositories and running Kubernetes clusters. They resolve OCM component versions, download resources, and deploy them using the built-in [Deployer]({{< relref "kubernetes-deployer.md" >}}) and [kro](https://kro.run).
 
 The controller chain — `Repository` → `Component` → `Resource` → `Deployer` — reconciles OCM content into a cluster. The Deployer applies Kubernetes manifests (including `ResourceGraphDefinitions`) using server-side apply, while kro turns those RGDs into concrete resources.
 

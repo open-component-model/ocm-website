@@ -10,7 +10,7 @@ This tutorial walks you through deploying a Helm chart from an OCM component ver
 using the OCM Controllers with kro and Flux. It covers two approaches:
 
 1. **Manual RGD**: you define the `ResourceGraphDefinition` yourself and apply it to the cluster.
-2. **Bootstrap**: the `ResourceGraphDefinition` is packaged inside the OCM component and applied automatically by the [Deployer]({{< relref "deployer.md" >}}).
+2. **Bootstrap**: the `ResourceGraphDefinition` is packaged inside the OCM component and applied automatically by the [Deployer]({{< relref "kubernetes-deployer.md" >}}).
 
 ## What You'll Learn
 
@@ -28,6 +28,18 @@ using the OCM Controllers with kro and Flux. It covers two approaches:
 - [Controller environment]({{< relref "setup-controller-environment.md" >}}) set up (OCM Controllers, kro, and Flux)
 - [OCM CLI]({{< relref "ocm-cli-installation.md" >}}) installed
 - Access to an OCI registry (e.g., [ghcr.io](https://docs.github.com/en/packages/learn-github-packages/introduction-to-github-packages))
+- A GitHub account with a personal access token
+
+## Environment Setup
+
+Before starting, set environment variables for your GitHub username and OCM repository name:
+
+```bash
+export GITHUB_USERNAME=<your-github-username>
+export OCM_REPO=ghcr.io/$GITHUB_USERNAME/ocm-tutorial
+```
+
+These variables will be used in registry paths throughout the tutorial.
 
 ## Part 1: Manual RGD
 
@@ -49,7 +61,7 @@ mkdir /tmp/helm-deploy && cd /tmp/helm-deploy
 
 #### Define the component
 
-Create a `component-constructor.yaml` file that includes a Helm chart resource:
+Create a `component-constructor.yaml` file that includes a Helm chart resource. This tells OCM what software artifact (in this case a Helm chart) to track as part of this component version:
 
 ```yaml
 components:
@@ -71,14 +83,15 @@ This component references the `podinfo` Helm chart, a simple web application tha
 
 {{< step >}}
 
-#### Build the component version
+#### Build and push the component version
+
+The `--repository` flag pushes the component version directly to the OCI registry, so no separate transfer step is needed:
 
 ```shell
-ocm add cv --repository ghcr.io/<your-namespace>/repository \
-           --component-version-conflict-policy replace
+ocm add cv --repository $OCM_REPO
 ```
 
-By default, this looks for `component-constructor.yaml` in the current directory. The output will be under `./transport-archive`.
+By default, this looks for `component-constructor.yaml` in the current directory.
 
 <details>
 <summary>Expected output</summary>
@@ -96,7 +109,7 @@ ocm.software/ocm-k8s-toolkit/simple │ 1.0.0   │ ocm.software
 #### Verify the upload
 
 ```shell
-ocm get cv ghcr.io/<your-namespace>//ocm.software/ocm-k8s-toolkit/simple:1.0.0
+ocm get cv $OCM_REPO//ocm.software/ocm-k8s-toolkit/simple:1.0.0
 ```
 <details>
 <summary>Expected output</summary>
@@ -111,16 +124,20 @@ ocm.software/ocm-k8s-toolkit/simple │ 1.0.0   │ ocm.software
 {{< /step >}}
 {{< /steps >}}
 
-Note, that by default, the created OCI repository is _private_.
+{{< callout context="note" >}}
+By default, packages created in GitHub Container Registry are _private_. Either make them public or [configure credentials]({{< relref "configure-credentials-for-controllers.md" >}}) for the OCM controller resources.
+{{< /callout >}}
 
 ### Deploy the Helm Chart
+
+The deployment uses a chain of OCM controller resources. The `ResourceGraphDefinition` (RGD) tells kro how to wire them together: `Repository` validates the registry is reachable, `Component` resolves the component version, `Resource` fetches the Helm chart location, and Flux's `OCIRepository` + `HelmRelease` handle the actual deployment.
 
 {{< steps >}}
 {{< step >}}
 
 #### Create the ResourceGraphDefinition
 
-Create `rgd.yaml`, replacing `<your-namespace>` with your registry namespace:
+Create `rgd.yaml`:
 
 ```yaml
 apiVersion: kro.run/v1alpha1
@@ -142,7 +159,7 @@ spec:
           name: simple-repository
         spec:
           repositorySpec:
-              baseUrl: ghcr.io/<your-namespace>
+              baseUrl: OCM_REPO_PLACEHOLDER
               type: OCIRegistry
           interval: 1m
     - id: component
@@ -207,11 +224,19 @@ spec:
             ui:
               message: ${schema.spec.message}
 ```
+
+Replace the `baseUrl` placeholder with your repository:
+
+```shell
+sed -i'' -e "s|OCM_REPO_PLACEHOLDER|$OCM_REPO|" rgd.yaml
+```
 {{< /step >}}
 
 {{< step >}}
 
 #### Apply the ResourceGraphDefinition
+
+When kro processes the RGD, it generates a new Custom Resource Definition (CRD), in this case, a `Simple` kind that you can instantiate later:
 
 ```shell
 kubectl apply -f rgd.yaml
@@ -233,7 +258,7 @@ simple   v1alpha1     Simple   Active   19s
 
 #### Create an instance
 
-Create `instance.yaml`:
+Create `instance.yaml`. This creates a `Simple` resource, kro sees it and instantiates all the resources defined in the RGD, wiring them together automatically:
 
 ```yaml
 apiVersion: kro.run/v1alpha1
@@ -250,7 +275,7 @@ Apply it:
 kubectl apply -f instance.yaml
 ```
 
-Wait for the deployment:
+Wait for the deployment. kro reconciles the full chain. OCM repository, component, resource, Flux source, and Helm release:
 
 ```shell
 kubectl get simple -w
@@ -299,7 +324,7 @@ kubectl delete -f rgd.yaml
 
 ## Part 2: Bootstrap with the Deployer
 
-In this approach, the `ResourceGraphDefinition` is packaged inside the OCM component. The [Deployer]({{< relref "deployer.md" >}}) extracts and applies it automatically. This also demonstrates **localization**, injecting an updated image reference into the Helm chart values.
+In this approach, the `ResourceGraphDefinition` is packaged inside the OCM component. The [Deployer]({{< relref "kubernetes-deployer.md" >}}) extracts and applies it automatically. This also demonstrates **localization**, injecting an updated image reference into the Helm chart values.
 
 {{<callout context="note" title="Localization" icon="outline/current-location">}}
 **Localization** inserts a new image reference into the deployment instructions. When an OCM component is transferred with `--copy-resources`, referential resources update their image references to the new registry. The Deployer and FluxCD's `HelmRelease` values field propagate this change into the actual deployment.
@@ -321,7 +346,7 @@ mkdir /tmp/helm-bootstrap && cd /tmp/helm-bootstrap
 
 #### Create the ResourceGraphDefinition file
 
-Create `resourceGraphDefinition.yaml`:
+Create `resourceGraphDefinition.yaml`. This RGD will be stored as a blob inside the OCM component and later extracted by the Deployer:
 
 ```yaml
 apiVersion: kro.run/v1alpha1
@@ -406,13 +431,17 @@ spec:
 ```
 
 This RGD assumes the `Repository` and `Component` resources already exist in the cluster (they will be created as part of the bootstrap resources below).
+
+{{< callout context="note" title="globalAccess vs direct access" icon="outline/info-circle" >}}
+Unlike Part 1, this RGD uses `resource.access.globalAccess.toOCI()` instead of `resource.access.toOCI()`. When the component is transferred with `--copy-resources`, the resources are copied into the target registry and the component descriptor records a _local_ reference to them. The `globalAccess` field resolves the resource through its relocated OCI reference, which is required for the HelmRelease to pull the artifact ( the podinfo image ) from the correct registry.
+{{< /callout >}}
 {{< /step >}}
 
 {{< step >}}
 
 #### Define the component
 
-Create `component-constructor.yaml`:
+Create `component-constructor.yaml`. This component bundles three resources: the Helm chart, the application image (for localization), and the RGD itself:
 
 ```yaml
 components:
@@ -444,16 +473,19 @@ components:
 
 {{< step >}}
 
-#### Build the new component
+#### Build and transfer with localization
+
+First, build the component into a local CTF archive:
 
 ```shell
 ocm add cv
 ```
 
-Then transfer the cv with the following command:
+Then transfer it to the registry with `--copy-resources`. This copies the referenced OCI artifacts (Helm chart and image) into your registry, which is what enables localization. The component descriptor is updated to point at the new locations:
 
 ```shell
-ocm transfer cv ctf::./transport-archive//ocm.software/ocm-k8s-toolkit/bootstrap:1.0.0 ghcr.io/<namespace> --copy-resources
+ocm transfer cv ctf::./transport-archive//ocm.software/ocm-k8s-toolkit/bootstrap:1.0.0 \
+  $OCM_REPO --copy-resources
 ```
 
 {{< callout context="note" >}}
@@ -463,19 +495,21 @@ If using a private registry, see the [OCM CLI credentials documentation]({{< rel
 Verify:
 
 ```shell
-ocm get componentversion ghcr.io/<your-namespace>//ocm.software/ocm-k8s-toolkit/bootstrap:1.0.0
+ocm get componentversion $OCM_REPO//ocm.software/ocm-k8s-toolkit/bootstrap:1.0.0
 ```
 {{< /step >}}
 {{< /steps >}}
 
 ### Bootstrap the ResourceGraphDefinition
 
+The bootstrap process creates the OCM controller resources that download and apply the RGD from the component. The chain is: `Repository` (validates the registry) -> `Component` (resolves the component version) -> `Resource` (fetches the RGD blob) -> `Deployer` (applies the RGD to the cluster via server-side apply).
+
 {{< steps >}}
 {{< step >}}
 
 #### Create bootstrap resources
 
-Create `bootstrap.yaml`, replacing `<your-namespace>`:
+Create `bootstrap.yaml`:
 
 ```yaml
 apiVersion: delivery.ocm.software/v1alpha1
@@ -484,7 +518,7 @@ metadata:
   name: bootstrap-repository
 spec:
   repositorySpec:
-    baseUrl: ghcr.io/<your-namespace>
+    baseUrl: OCM_REPO_PLACEHOLDER
     type: OCIRegistry
   interval: 1m
 ---
@@ -524,7 +558,13 @@ spec:
     namespace: default
 ```
 
-The `Deployer` is namespace-scoped and references the `Resource` containing the RGD in the same namespace. Once the resource is ready, the Deployer downloads the RGD manifest and applies it to the cluster.
+Replace the `baseUrl` placeholder with your repository:
+
+```shell
+sed -i'' -e "s|OCM_REPO_PLACEHOLDER|$OCM_REPO|" bootstrap.yaml
+```
+
+The `Deployer` references the `Resource` containing the RGD. Once that resource is ready, the Deployer downloads the RGD manifest and applies it to the cluster using server-side apply.
 
 {{< callout context="note" title="Credentials" icon="outline/key" >}}
 For private registries, add `ocmConfig` to the Repository, Component, Resource, and Deployer specs. See [Configure Credentials for Controllers]({{< relref "configure-credentials-for-controllers.md" >}}).
@@ -540,7 +580,7 @@ For private registries, add `ocmConfig` to the Repository, Component, Resource, 
 kubectl apply -f bootstrap.yaml
 ```
 
-Wait for the RGD to appear:
+The controllers reconcile in order. Wait for the RGD to appear. This means that the Deployer successfully downloaded and applied it:
 
 ```shell
 kubectl get rgd
@@ -550,6 +590,8 @@ kubectl get rgd
 NAME        APIVERSION   KIND        STATE    AGE
 bootstrap   v1alpha1     Bootstrap   Active   2m56s
 ```
+
+Once the RGD is `Active`, kro has created a new `Bootstrap` CRD that you can instantiate.
 {{< /step >}}
 {{< /steps >}}
 
@@ -560,7 +602,7 @@ bootstrap   v1alpha1     Bootstrap   Active   2m56s
 
 #### Deploy
 
-Create `instance.yaml`:
+Create `instance.yaml`. This triggers kro to create the `Resource`, `OCIRepository`, and `HelmRelease` objects defined in the RGD:
 
 ```yaml
 apiVersion: kro.run/v1alpha1
@@ -606,7 +648,7 @@ kubectl get pods -l app.kubernetes.io/name=bootstrap-release-podinfo \
 ```
 
 ```text
-ghcr.io/<namespace>/component-descriptors/ocm.software/ocm-k8s-toolkit/bootstrap:1.0.0@sha256:262578cde928d5c9eba3bce079976444f624c13ed0afb741d90d5423877496cb
+$OCM_REPO/component-descriptors/ocm.software/ocm-k8s-toolkit/bootstrap:1.0.0@sha256:262578cde928d5c9eba3bce079976444f624c13ed0afb741d90d5423877496cb
 ```
 {{< /step >}}
 {{< /steps >}}
@@ -630,20 +672,18 @@ Your registry package may be private. Either make it public or [configure creden
 
 ### Resource Not Found
 
-Verify the following:
-
-The component was transferred to your repository with:
+Verify the component was transferred to your repository:
 
 ```shell
-ocm get cv ghcr.io/<your-namespace>//<component>:<version>
+ocm get cv $OCM_REPO//<component>:<version>
 ```
 
-The `baseUrl` in the Repository matches your registry.
+Check that the `baseUrl` in the Repository resource matches your registry.
 
 ## Next Steps
 
 - [Tutorial: Structure Software Products with OCM]({{< relref "complex-component-structure-deployment.md" >}}), complex applications with multiple components
-- [Concept: Deployer]({{< relref "deployer.md" >}}), architecture and lifecycle management
+- [Concept: Deployer]({{< relref "kubernetes-deployer.md" >}}), architecture and lifecycle management
 - [Concept: OCM Controllers]({{< relref "ocm-controllers.md" >}}), overview of the controller ecosystem
 
 ## Related Documentation
