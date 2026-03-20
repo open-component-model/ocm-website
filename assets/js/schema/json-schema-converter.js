@@ -180,14 +180,19 @@ function convertField(name, raw, requiredList, root, seen = new Set()) {
   for (const kw of ["oneOf", "anyOf"]) {
     if (Array.isArray(prop[kw])) {
       const branches = prop[kw];
+      const hasSharedProps = !!prop.properties;
       const variants = branches.map((branch, i) => {
         const merged = mergeParentInto(branch, prop, kw);
         const resolved = resolve(merged, root, new Set(seen));
+        const title = variantTitle(resolved, i);
+        const fields = resolved.properties ? fieldsFrom(resolved, root, new Set(seen)) : null;
         return createVariant({
-          title: variantTitle(resolved, i),
+          title,
           type: normalizeType(resolved.type),
           description: resolved.description || "",
-          properties: resolved.properties ? fieldsFrom(resolved, root, new Set(seen)) : null,
+          // When shared parent properties are merged in, the distinguishing
+          // property (e.g. "access") is redundant with the tab title — remove it.
+          properties: hasSharedProps ? fields?.filter((f) => f.name !== title) || null : fields,
         });
       });
       return createField({
@@ -209,14 +214,17 @@ function convertField(name, raw, requiredList, root, seen = new Set()) {
     for (const kw of ["oneOf", "anyOf"]) {
       if (Array.isArray(items[kw])) {
         const branches = items[kw];
+        const hasSharedItemProps = !!items.properties;
         const variants = branches.map((branch, i) => {
           const merged = mergeParentInto(branch, items, kw);
           const resolved = resolve(merged, root, new Set(seen));
+          const title = variantTitle(resolved, i);
+          const fields = resolved.properties ? fieldsFrom(resolved, root, new Set(seen)) : null;
           return createVariant({
-            title: variantTitle(resolved, i),
+            title,
             type: `[]${normalizeType(resolved.type)}`,
             description: resolved.description || "",
-            properties: resolved.properties ? fieldsFrom(resolved, root, new Set(seen)) : null,
+            properties: hasSharedItemProps ? fields?.filter((f) => f.name !== title) || null : fields,
           });
         });
         return createField({

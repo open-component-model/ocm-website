@@ -22,8 +22,8 @@ $schema-max-depth: 8;
 // -- Root container -----------------------------------------------------------
 .sr-root {
   max-width: 100%;
-  margin: 0;
   padding: 0;
+  margin: 2rem 0 0;
 }
 
 // -- Metadata header ----------------------------------------------------------
@@ -31,7 +31,7 @@ $schema-max-depth: 8;
   display: flex;
   flex-wrap: wrap;
   gap: 0.75rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2.5rem;
 }
 
 .sr-header__desc {
@@ -381,6 +381,7 @@ $schema-type-colors: (
 .sr-footer {
   margin-top: 1.5rem;
   font-size: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 // -- Mobile description row (hidden on desktop) ------------------------------
