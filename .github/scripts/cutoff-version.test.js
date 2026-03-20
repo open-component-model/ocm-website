@@ -4,7 +4,7 @@
 
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const { parseArguments, hasMountForVersion, hasImportForVersion } = require('./cutoff-version');
+const { parseArguments, hasMountForVersion, hasImportForVersion, buildModuleBlocks } = require('./cutoff-version');
 
 // Test parseArguments
 test('parseArguments: valid version', () => {
@@ -49,6 +49,63 @@ test('hasImportForVersion: returns true/false correctly', () => {
     assert.equal(hasImportForVersion(parsed, '2.0.0'), false);
     assert.equal(hasImportForVersion(null, '1.0.0'), false);
     assert.equal(hasImportForVersion({}, '1.0.0'), false);
+});
+
+// Test buildModuleBlocks
+test('buildModuleBlocks: returns correct mount', () => {
+    const { mount } = buildModuleBlocks('1.2.3');
+    assert.deepEqual(mount.files, ['**', '!blog/**']);
+    assert.equal(mount.source, 'content_versioned/version-1.2.3');
+    assert.equal(mount.target, 'content');
+    assert.deepEqual(mount.sites.matrix.versions, ['1.2.3']);
+});
+
+test('buildModuleBlocks: returns 4 imports (CLI + 3 schema)', () => {
+    const { imports } = buildModuleBlocks('1.2.3');
+    assert.equal(imports.length, 4);
+});
+
+test('buildModuleBlocks: CLI import is correct', () => {
+    const { imports } = buildModuleBlocks('1.2.3');
+    const cli = imports.find(i => i.path.endsWith('/cli'));
+    assert.ok(cli, 'CLI import should exist');
+    assert.equal(cli.version, 'v1.2.3');
+    assert.equal(cli.mounts[0].target, 'content/docs/reference/ocm-cli');
+    assert.deepEqual(cli.mounts[0].sites.matrix.versions, ['1.2.3']);
+});
+
+test('buildModuleBlocks: schema imports have correct targets', () => {
+    const { imports } = buildModuleBlocks('2.0.0');
+    const targets = imports.map(i => i.mounts[0].target).sort();
+    assert.deepEqual(targets, [
+        'content/docs/reference/ocm-cli',
+        'static/2.0.0/schemas/bindings/go/constructor',
+        'static/2.0.0/schemas/bindings/go/descriptor/v2',
+        'static/2.0.0/schemas/kubernetes/controller',
+    ]);
+});
+
+test('buildModuleBlocks: CLI and controller use versioned tag, bindings use latest', () => {
+    const { imports } = buildModuleBlocks('3.1.4');
+    const cli = imports.find(i => i.path.endsWith('/cli'));
+    const controller = imports.find(i => i.path.endsWith('/kubernetes/controller'));
+    const constructor = imports.find(i => i.path.endsWith('/bindings/go/constructor'));
+    const descriptor = imports.find(i => i.path.endsWith('/bindings/go/descriptor/v2'));
+    assert.equal(cli.version, 'v3.1.4');
+    assert.equal(controller.version, 'v3.1.4');
+    assert.equal(constructor.version, 'latest');
+    assert.equal(descriptor.version, 'latest');
+});
+
+test('buildModuleBlocks: schema imports have correct sources', () => {
+    const { imports } = buildModuleBlocks('1.0.0');
+    const schemaImports = imports.filter(i => !i.path.endsWith('/cli'));
+    const sources = schemaImports.map(i => i.mounts[0].source).sort();
+    assert.deepEqual(sources, [
+        'config/crd/bases',
+        'resources',
+        'spec/v1/resources',
+    ]);
 });
 
  
