@@ -130,7 +130,7 @@ By default, packages created in GitHub Container Registry are _private_. Either 
 
 ### Deploy the Helm Chart
 
-The deployment uses a chain of OCM controller resources. The `ResourceGraphDefinition` (RGD) tells kro how to wire them together: `Repository` validates the registry is reachable, `Component` resolves the component version, `Resource` fetches the Helm chart location, and Flux's `OCIRepository` + `HelmRelease` handle the actual deployment.
+The RGD below wires up the [controller chain]({{< relref "kubernetes-deployer.md#how-it-works" >}}) (`Repository` -> `Component` -> `Resource`) with Flux's `OCIRepository` and `HelmRelease` to deploy the chart.
 
 {{< steps >}}
 {{< step >}}
@@ -503,7 +503,7 @@ If using a private registry, see the [OCM CLI credentials documentation]({{<relr
 
 ### Bootstrap the ResourceGraphDefinition
 
-The bootstrap process creates the OCM controller resources that download and apply the RGD from the component. The chain is: `Repository` (validates the registry) -> `Component` (resolves the component version) -> `Resource` (fetches the RGD blob) -> `Deployer` (applies the RGD to the cluster via server-side apply).
+The bootstrap process creates the [controller chain]({{< relref "kubernetes-deployer.md#how-it-works" >}}) resources that download the RGD from the component and hand it to the [Deployer]({{< relref "kubernetes-deployer.md" >}}) for server-side apply.
 
 {{< steps >}}
 {{< step >}}
@@ -565,7 +565,7 @@ Replace the `baseUrl` placeholder with your repository:
 sed -i'' -e "s|OCM_REPO_PLACEHOLDER|$OCM_REPO|" bootstrap.yaml
 ```
 
-The `Deployer` references the `Resource` containing the RGD. Once that resource is ready, the Deployer downloads the RGD manifest and applies it to the cluster using server-side apply.
+The [Deployer]({{< relref "kubernetes-deployer.md" >}}) references the `Resource` containing the RGD and applies it once ready.
 
 {{< /step >}}
 
