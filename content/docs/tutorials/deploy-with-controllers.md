@@ -171,9 +171,9 @@ spec:
               resource:
                 name: helm-resource
           additionalStatusFields:
-            registry: resource.access.imageReference.toOCI().registry
-            repository: resource.access.imageReference.toOCI().repository
-            tag: resource.access.imageReference.toOCI().tag
+            registry: resource.access.toOCI().registry
+            repository: resource.access.toOCI().repository
+            tag: resource.access.toOCI().tag
           interval: 1m
     - id: ocirepository
       template:
@@ -456,9 +456,9 @@ Then transfer the cv with the following command:
 ocm transfer cv ctf::./transport-archive//ocm.software/ocm-k8s-toolkit/bootstrap:1.0.0 ghcr.io/<namespace> --copy-resources
 ```
 
-{{<callout context="note" title="Credentials" icon="outline/key">}}
+{{< callout context="note" >}}
 If using a private registry, see the [OCM CLI credentials documentation]({{< relref "/docs/concepts/credential-system.md" >}}).
-{{</callout>}}
+{{< /callout >}}
 
 Verify:
 
@@ -526,9 +526,9 @@ spec:
 
 The `Deployer` is namespace-scoped and references the `Resource` containing the RGD in the same namespace. Once the resource is ready, the Deployer downloads the RGD manifest and applies it to the cluster.
 
-{{<callout context="note" title="Credentials" icon="outline/key">}}
+{{< callout context="note" title="Credentials" icon="outline/key" >}}
 For private registries, add `ocmConfig` to the Repository, Component, Resource, and Deployer specs. See [Configure Credentials for Controllers]({{< relref "configure-credentials-for-controllers.md" >}}).
-{{</callout>}}
+{{< /callout >}}
 
 {{< /step >}}
 

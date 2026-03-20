@@ -1,5 +1,5 @@
 ---
-title: "Deployer"
+title: "Kubernetes Deployer"
 description: "Understand how the OCM Deployer reconciles OCM resources into a Kubernetes cluster using ApplySet semantics."
 weight: 44
 toc: true
@@ -84,7 +84,67 @@ The Deployer stamps deployed resources with metadata for traceability:
 
 ## Common Use Case: Bootstrapping a ResourceGraphDefinition
 
-A typical pattern is packaging a `ResourceGraphDefinition` (RGD) inside an OCM component and using the Deployer to apply it to the cluster. This allows developers to ship deployment instructions alongside the software itself.
+A `ResourceGraphDefinition` ([RGD](https://kro.run/docs/concepts/rgd/overview)) lets you create a custom Kubernetes API that deploys multiple resources together as a single unit. It's the main object in
+[Kro's](https://kro.run/) resource orchestration pipeline.
+
+A typical pattern is packaging an RGD inside an OCM component and using the Deployer to apply it to the cluster. This allows developers to ship deployment instructions alongside the software itself.
+
+For example, consider the following component version constructor:
+
+```yaml
+components:
+  - name: ocm.software/ocm-k8s-toolkit/bootstrap
+    version: "1.0.0"
+    provider:
+      name: ocm.software
+    resources:
+      - name: resource-graph-definition
+        type: blob
+        version: "1.0.0"
+        input:
+          type: file
+          path: ./resourceGraphDefinition.yaml
+```
+
+with a sample RGD in `resourceGraphDefinition.yaml` like this:
+
+```yaml
+apiVersion: kro.run/v1alpha1
+kind: ResourceGraphDefinition
+metadata:
+  name: application
+spec:
+  schema:
+    apiVersion: v1alpha1
+    kind: Application
+    spec:
+      name: string
+      image: string | default="nginx:latest"
+      replicas: integer | default=3
+
+  resources:
+    - id: deployment
+      template:
+        apiVersion: apps/v1
+        kind: Deployment
+        metadata:
+          name: ${schema.spec.name}
+        spec:
+          replicas: ${schema.spec.replicas}
+          selector:
+            matchLabels:
+              app: ${schema.spec.name}
+          template:
+            metadata:
+              labels:
+                app: ${schema.spec.name}
+            spec:
+              containers:
+                - name: app
+                  image: ${schema.spec.image}
+```
+
+and a Deployer object like this:
 
 ```yaml
 apiVersion: delivery.ocm.software/v1alpha1
@@ -97,9 +157,22 @@ spec:
     name: bootstrap-rgd
 ```
 
-Once the Deployer applies the RGD, kro reconciles it into a CRD. Creating an instance of that CRD triggers the actual deployment: Helm charts via FluxCD, Kustomizations, or plain manifests.
+Once the Deployer applies the RGD, kro reconciles it into a CRD. Then, creating a simple Instance out of it like this:
 
-For a full walkthrough, see [Deploy with Controllers]({{< relref "deploy-with-controllers.md" >}}).
+```yaml
+apiVersion: v1alpha1
+kind: Application
+metadata:
+  name: my-app
+spec:
+  name: my-app
+  image: nginx:1.27
+  replicas: 5
+```
+
+will result in an nginx deployment on the cluster.
+
+For a full walkthrough and a more involved example, see [Deploy with Controllers]({{< relref "deploy-with-controllers.md" >}}).
 
 ## Related Documentation
 
