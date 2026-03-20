@@ -1,7 +1,7 @@
 {{- $schemaUrl := .Get "url" | default "" -}}
 <div class="sr-root" data-schema-renderer data-schema-url="{{ $schemaUrl }}"></div>
 
-{{- with resources.Get "js/schema-renderer.jsx" -}}
+{{- with resources.Get "js/schema/schema-renderer.jsx" -}}
   {{- $opts := dict
     "minify" (not hugo.IsDevelopment)
     "sourceMap" (cond hugo.IsDevelopment "inline" "none")
