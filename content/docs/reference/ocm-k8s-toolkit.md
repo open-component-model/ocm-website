@@ -1,11 +1,14 @@
 ---
-title: OCM K8s Toolkit
-description: "blabla"
-weight: 10
-toc: false
+title: Kubernetes API Reference
+description: "API reference for OCM Kubernetes Custom Resources (delivery.ocm.software/v1alpha1)"
+weight: 65
+toc: true
+sidebar:
+  collapsed: false
 ---
 
-This page documents the Custom Resource Definitions (CRDs) provided by the OCM Kubernetes controller. All resources belong to the API group `delivery.ocm.software/vlalphal.
+This page documents the Custom Resource Definitions (CRDs) provided by the OCM Kubernetes controller.
+All resources belong to the API group **`delivery.ocm.software/v1alpha1`**.
 
 ---
 
