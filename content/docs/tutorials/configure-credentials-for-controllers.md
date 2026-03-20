@@ -2,7 +2,7 @@
 title: Credentials for OCM Controllers
 description: "Learn how to configure credentials for private OCM repos."
 icon: "🔑"
-weight: 54
+weight: 52
 toc: true
 ---
 
@@ -14,8 +14,10 @@ repositories.
 
 Currently, OCM controllers supports two ways to configure credentials for accessing private OCM repositories:
 
-- [Kubernetes secret of type `dockerconfigjson`](#create-a-kubernetes-secret-of-type-dockerconfigjson)
-- [Kubernetes secret or configmap containing an `.ocmconfig` file](#create-a-kubernetes-secret-or-configmap-from-an-ocmconfig-file)
+- [How to Configure Credentials?](#how-to-configure-credentials)
+  - [Create a Kubernetes Secret of Type `dockerconfigjson`](#create-a-kubernetes-secret-of-type-dockerconfigjson)
+  - [Create a Kubernetes Secret or Configmap from an `.ocmconfig` file](#create-a-kubernetes-secret-or-configmap-from-an-ocmconfig-file)
+- [How to Use the Configured Credentials?](#how-to-use-the-configured-credentials)
 
 ### Create a Kubernetes Secret of Type `dockerconfigjson`
 

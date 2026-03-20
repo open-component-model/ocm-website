@@ -13,6 +13,7 @@ apeiro
 api
 apis
 applyset
+ApplySets
 archlinux
 argocd
 argocds
@@ -43,8 +44,8 @@ cest
 cet
 cicd
 cli
-cliconfig
 cli's
+cliconfig
 clis
 closable
 closeable
@@ -69,9 +70,9 @@ componentsubscriptions
 componentsubscriptionspec
 componentsubscriptionstatus
 componentversion
+componentversion's
 componentversionaccess
 componentversionaccessimpl
-componentversion's
 componentversions
 componentversionspec
 componentversionstatus
@@ -124,10 +125,10 @@ directorytree
 dirtree
 dn
 dns
+docker's
 dockerconfig
 dockerconfigjson
 dockermulti
-docker's
 downgradable
 downloadconstraint
 downloader
@@ -301,10 +302,10 @@ newcomponentversionaccess
 newrepository
 newrepositoryspec
 npm
+npm's
 npmjs
 npmrc
 npmregistry
-npm's
 oauth
 objectmeta
 objectreference
@@ -317,11 +318,11 @@ ocireg
 ociregistry
 ocirepository
 ocm
+ocm's
 ocmbot
 ocmcli
 ocmconfig
 ocmrepository
-ocm's
 ocmv
 odg
 omponentsubscription's
@@ -330,6 +331,7 @@ oo
 openmcp
 openssl
 oras
+orchestrator
 os
 oss
 outputspecification
@@ -392,6 +394,7 @@ resourcereference
 resourcespec
 resourcestatus
 rgd
+RGD's
 rhel
 roadmap
 rollout
@@ -416,8 +419,8 @@ sha
 shortcode
 shortcodes
 sig
-signingserver
 sig's
+signingserver
 sigs
 sigstore
 simplemapmerge

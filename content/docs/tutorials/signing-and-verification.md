@@ -2,7 +2,7 @@
 title: "Sign and Verify Components"
 description: "Learn to cryptographically sign a component version and verify its authenticity."
 icon: "✍️"
-weight: 55
+weight: 62
 toc: true
 ---
 

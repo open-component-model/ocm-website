@@ -2,7 +2,7 @@
 title: "Create a Multi-Component Product"
 description: "Learn to compose a multi-level product from independently versioned components using the component constructor."
 icon: "📦"
-weight: 55
+weight: 51
 toc: true
 ---
 
