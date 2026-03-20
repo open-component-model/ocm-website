@@ -275,6 +275,7 @@ mavenartifact
 mavenpackage
 mavenrepository
 mediatype
+mediatype's
 microservice
 microservices
 mimetype
