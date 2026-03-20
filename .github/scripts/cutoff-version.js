@@ -123,6 +123,61 @@ async function updateHugoToml(version, keepDefault) {
     console.log(`hugo.toml: added version ${version}.`);
 }
 
+// Build mount and import blocks for a given version (pure, testable)
+function buildModuleBlocks(version) {
+    const mount = {
+        files: ['**', '!blog/**'],
+        source: `content_versioned/version-${version}`,
+        target: 'content',
+        sites: { matrix: { versions: [version] } }
+    };
+
+    const imports = [
+        // CLI reference
+        {
+            path: 'ocm.software/open-component-model/cli',
+            version: `v${version}`,
+            mounts: [{
+                source: 'docs/reference',
+                target: 'content/docs/reference/ocm-cli',
+                sites: { matrix: { versions: [version] } }
+            }]
+        },
+        // Schema: Go Constructor (uses latest — independent release cycle)
+        {
+            path: 'ocm.software/open-component-model/bindings/go/constructor',
+            version: 'latest',
+            mounts: [{
+                source: 'spec/v1/resources',
+                target: `static/${version}/schemas/bindings/go/constructor`,
+                sites: { matrix: { versions: [version] } }
+            }]
+        },
+        // Schema: Go Descriptor v2 (uses latest — independent release cycle)
+        {
+            path: 'ocm.software/open-component-model/bindings/go/descriptor/v2',
+            version: 'latest',
+            mounts: [{
+                source: 'resources',
+                target: `static/${version}/schemas/bindings/go/descriptor/v2`,
+                sites: { matrix: { versions: [version] } }
+            }]
+        },
+        // Schema: Kubernetes Controller CRDs
+        {
+            path: 'ocm.software/open-component-model/kubernetes/controller',
+            version: `v${version}`,
+            mounts: [{
+                source: 'config/crd/bases',
+                target: `static/${version}/schemas/kubernetes/controller`,
+                sites: { matrix: { versions: [version] } }
+            }]
+        },
+    ];
+
+    return { mount, imports };
+}
+
 // Update module.toml
 async function updateModuleToml(version) {
     const { parse, stringify } = await loadToml();
@@ -138,20 +193,15 @@ async function updateModuleToml(version) {
     }
     if (hasMount || hasImport) fail(`module.toml: incomplete block for ${version}. Fix manually.`);
 
+    const { mount, imports } = buildModuleBlocks(version);
+
     parsed.mounts = parsed.mounts || [];
-    parsed.mounts.push({
-        files: ['**', '!blog/**'],
-        source: `content_versioned/version-${version}`,
-        target: 'content',
-        sites: { matrix: { versions: [version] } }
-    });
+    parsed.mounts.push(mount);
 
     parsed.imports = parsed.imports || [];
-    parsed.imports.push({
-        path: 'ocm.software/open-component-model/cli',
-        version: `v${version}`,
-        mounts: [{ source: 'docs/reference', target: 'content/docs/reference/ocm-cli', sites: { matrix: { versions: [version] } } }]
-    });
+    for (const imp of imports) {
+        parsed.imports.push(imp);
+    }
 
     await fsp.writeFile(MODULE_TOML, MODULE_HEADER + stringify(parsed), 'utf-8');
     console.log(`module.toml: added version ${version}.`);
@@ -178,4 +228,4 @@ if (require.main === module) {
     });
 }
 
-module.exports = { parseArguments, hasMountForVersion, hasImportForVersion };
+module.exports = { parseArguments, hasMountForVersion, hasImportForVersion, buildModuleBlocks };
