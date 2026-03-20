@@ -682,7 +682,7 @@ Check that the `baseUrl` in the Repository resource matches your registry.
 
 ## Next Steps
 
-- [Tutorial: Structure Software Products with OCM]({{< relref "complex-component-structure-deployment.md" >}}), complex applications with multiple components
+- [Tutorial: Create a Multi-Component Product]({{< relref "advanced-component-constructor.md" >}}), complex applications with multiple components
 - [Concept: Deployer]({{< relref "kubernetes-deployer.md" >}}), architecture and lifecycle management
 - [Concept: OCM Controllers]({{< relref "ocm-controllers.md" >}}), overview of the controller ecosystem
 
