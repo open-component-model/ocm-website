@@ -20,16 +20,16 @@ A resource must have exactly one of `input` or `access`. See the [Component Cons
 
 Embeds a directory as a tar archive.
 
-| Field | Type | Required | Description |
-| ----- | ---- | -------- | ----------- |
-| `path` | string | yes | Path to the directory (relative to the constructor file). |
-| `mediaType` | string | no | Override the media type. |
-| `compress` | boolean | no | Compress the tar archive (gzip). |
-| `reproducible` | boolean | no | Normalize file attributes (timestamps, permissions) for reproducible digests. Recommended when signing. |
-| `preserveDir` | boolean | no | Include the directory itself in the archive. |
-| `followSymlinks` | boolean | no | Include the content of symbolic links in the archive. Not yet implemented; accepted for compatibility with previous OCM versions. |
-| `excludeFiles` | array of string | no | Glob patterns for files to exclude. |
-| `includeFiles` | array of string | no | Glob patterns for files to include. |
+| Field | Type | Required | Description                                                                                                                                                                        |
+| ----- | ---- | -------- |------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `path` | string | yes | Path to the directory (relative to the constructor file).                                                                                                                          |
+| `mediaType` | string | no | MediaType of the resource. The Dir/v1 input always creates a tar. However, it does not add a +tar suffix as this might cause conflicts with MediaType's such as application/x-tar. |
+| `compress` | boolean | no | Compress the tar archive (gzip).                                                                                                                                                   |
+| `reproducible` | boolean | no | Normalize file attributes (timestamps, permissions) for reproducible digests. Recommended when signing.                                                                            |
+| `preserveDir` | boolean | no | Include the directory itself in the archive.                                                                                                                                       |
+| `followSymlinks` | boolean | no | Include the content of symbolic links in the archive. Not yet implemented; accepted for compatibility with previous OCM versions.                                                  |
+| `excludeFiles` | array of string | no | Glob patterns for files to exclude.                                                                                                                                                |
+| `includeFiles` | array of string | no | Glob patterns for files to include.                                                                                                                                                |
 
 ```yaml
 resources:
