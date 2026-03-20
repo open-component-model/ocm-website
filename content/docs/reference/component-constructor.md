@@ -71,7 +71,6 @@ resources:
     arch: amd64
   labels: []
   sourceRefs: []
-  copyPolicy: byValue
   input:
     type: dir
     path: ./deploy
@@ -88,7 +87,6 @@ resources:
 | `sourceRefs` | array | no | References to sources that produced this resource. |
 | `version` | string | no | Version of the resource (relaxed semver). Defaults to the component version. |
 | `relation` | string | no | Must be `local` if specified. Defaults to `local`. |
-| `copyPolicy` | string | no | How the resource is added during construction: `byValue` (default) or `byReference`. |
 
 ### Resource with `access`
 
@@ -102,7 +100,6 @@ resources:
     arch: amd64
   labels: []
   sourceRefs: []
-  copyPolicy: byReference
   access:
     type: OCIImage/v1
     imageReference: ghcr.io/acme/myapp:1.0.0
@@ -118,7 +115,6 @@ resources:
 | `extraIdentity` | object | no | Additional identity attributes for the resource. |
 | `labels` | array | no | Labels associated with the resource. |
 | `sourceRefs` | array | no | References to sources that produced this resource. |
-| `copyPolicy` | string | no | How the resource is added during construction: `byValue` (default) or `byReference`. |
 
 ## Sources
 
@@ -132,7 +128,6 @@ sources:
   extraIdentity:
     arch: amd64
   labels: []
-  copyPolicy: byValue
   input:
     type: dir
     path: ./src
@@ -146,7 +141,6 @@ sources:
 | `version` | string | yes | Version of the source (relaxed semver). |
 | `extraIdentity` | object | no | Additional identity attributes for the source. |
 | `labels` | array | no | Labels associated with the source. |
-| `copyPolicy` | string | no | How the source is added during construction: `byValue` or `byReference` (default). |
 
 ## Component References
 
