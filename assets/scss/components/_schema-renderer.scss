@@ -1,3 +1,5 @@
+@use "sass:list";
+
 // Schema Renderer (Preact)
 
 $schema-small-font: 0.75rem;
@@ -275,8 +277,8 @@ $schema-type-colors: (
 
 @each $type, $colors in $schema-type-colors {
   .sr-type--#{$type} {
-    background-color: nth($colors, 1);
-    color: nth($colors, 2);
+    background-color: list.nth($colors, 1);
+    color: list.nth($colors, 2);
   }
 }
 
@@ -284,8 +286,8 @@ $schema-type-colors: (
 [data-theme="dark"] {
   @each $type, $colors in $schema-type-colors {
     .sr-type--#{$type} {
-      background-color: nth($colors, 3);
-      color: nth($colors, 4);
+      background-color: list.nth($colors, 3);
+      color: list.nth($colors, 4);
     }
   }
 }
