@@ -33,7 +33,7 @@ flowchart LR
     class CV,Blob ocm
 ```
 
-In order to get to a deployment the following chain of objects has to be reconciled. `Repository` -> `Component` -> `Resource` -> `Deployer`.
+To reach deployment, the following chain of objects has to be reconciled. `Repository` -> `Component` -> `Resource` -> `Deployer`.
 
 The `Repository` validates that the OCM repository is reachable. The `Component` downloads and verifies the component version descriptor from that repository. Once the component is `Ready`, the `Resource` will fetch the resource descriptor and store it in its status. The Deployer watches for this and when the Resource is `Ready`, it downloads the content and applies it to the cluster.
 

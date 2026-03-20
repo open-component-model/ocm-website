@@ -31,7 +31,7 @@ using the OCM Controllers with kro and Flux. It covers two approaches:
 
 ## Part 1: Manual RGD
 
-In this approach, you create the `ResourceGraphDefinition` outside of the OCM component and apply it directly to the cluster.
+In this approach, you create the `ResourceGraphDefinition` outside the OCM component and apply it directly to the cluster.
 
 ### Create and Publish a Component Version
 
@@ -78,7 +78,7 @@ ocm add cv --repository ghcr.io/<your-namespace>/repository \
            --component-version-conflict-policy replace
 ```
 
-By default, this looks for `component-constructor.yaml` in the current directory will create a component version directly in the target OCI repository.
+By default, this looks for `component-constructor.yaml` in the current directory. The output will be under `./transport-archive`.
 
 <details>
 <summary>Expected output</summary>
@@ -378,7 +378,7 @@ spec:
           name: bootstrap-ocirepository
         spec:
           interval: 1m0s
-          insecure: true
+          insecure: true # This is set for testing purposes only!
           layerSelector:
             mediaType: "application/vnd.cncf.helm.chart.content.v1.tar+gzip"
             operation: copy
@@ -402,7 +402,7 @@ spec:
           values:
             image:
               repository: ${resourceImage.status.additional.registry}/${resourceImage.status.additional.repository}
-              tag: ${resourceImage.status.additional.tag}@${resourceImage.status.additional.digest}
+              tag: ${resourceImage.status.additional.tag}@${resourceImage.status.additional.digest} # we are using tag@digest here because Podinfo values doesn't expose any other ways to construct a valid image reference using only a Digest.
 ```
 
 This RGD assumes the `Repository` and `Component` resources already exist in the cluster (they will be created as part of the bootstrap resources below).

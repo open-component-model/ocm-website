@@ -4,7 +4,6 @@ description: "Learn about the OCM controllers and their capabilities."
 icon: "🏁"
 weight: 3
 toc: true
-hasMermaid: true
 ---
 
 {{<callout context="danger" title="Caution" icon="outline/alert-triangle">}}
