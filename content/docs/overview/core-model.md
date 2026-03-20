@@ -39,36 +39,7 @@ A component version contains three kinds of elements:
 | **Sources**   | Where resources were built from                    | Git repositories, source archives |
 | **References**| Dependencies on other component versions           | Shared libraries, base components |
 
-All of these are described in a single **Component Descriptor** — a YAML document that serves as the manifest for the component version:
-
-```yaml
-component:
-  name: github.com/acme/webshop
-  version: 1.0.0
-  provider:
-    name: acme.org
-  resources:
-    - name: backend-image
-      type: ociImage
-      version: 1.0.0
-      access:
-        type: ociArtifact
-        imageReference: ghcr.io/acme/webshop/backend:1.0.0
-    - name: deploy-chart
-      type: helmChart
-      version: 1.0.0
-      access:
-        type: ociArtifact
-        imageReference: ghcr.io/acme/webshop/chart:1.0.0
-  sources:
-    - name: source
-      type: git
-      version: 1.0.0
-      access:
-        type: github
-        repository: github.com/acme/webshop
-        commit: abc123
-```
+All of these are described in a single **Component Descriptor** — a YAML document that serves as the manifest for the component version. For the full structure and field reference, see [Component Descriptor Reference]({{< relref "docs/reference/component-descriptor.md" >}}).
 
 ## Identity and Coordinates
 
@@ -91,17 +62,7 @@ A key design principle of OCM is that **identity is separate from storage locati
 
 This means you can transport component versions across boundaries — from a public registry to an air-gapped environment, or between cloud providers — without changing their identity or breaking their signatures.
 
-## What's Next
+## Next Steps
 
-{{< card-grid >}}
-{{< link-card
-  title="Component Identity"
-  description="Deep dive into how OCM identifies components, versions, and artifacts."
-  href="/docs/concepts/component-identity/"
->}}
-{{< link-card
-  title="Create Component Versions"
-  description="Build your first component version with the OCM CLI."
-  href="/docs/getting-started/create-component-version/"
->}}
-{{< /card-grid >}}
+- [Component Identity]({{< relref "docs/concepts/component-identity.md" >}}) — deep dive into how OCM identifies components, versions, and artifacts.
+- [Create Component Versions]({{< relref "docs/getting-started/create-component-version.md" >}}) — build your first component version with the OCM CLI.

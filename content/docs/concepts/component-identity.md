@@ -103,7 +103,7 @@ resources:
       os: linux
 ```
 
-Both resources share the name `backend-image`, but their extra identity attributes make them unique within the component version.
+Both resources share the name `backend-image`, but their `extraIdentity` attribute makes them unique within the component version.
 
 ## Coordinate Notation
 
@@ -123,124 +123,28 @@ The general pattern is:
 
 ## The Component Descriptor
 
-The component descriptor is a YAML document that fully describes a component version. It is the central data structure in OCM.
+The component descriptor is a YAML document that fully describes a component version. It is the central data structure in OCM. It lists three kinds of elements — **resources** (deliverables like images and charts), **sources** (inputs like git repos), and **references** (dependencies on other component versions). Each element carries identity fields (`name`, optional `extraIdentity`), a type, and an access specification. Labels can be attached to the component or any element as extensible key-value metadata.
 
-### Structure
-
-```yaml
-meta:
-  schemaVersion: v2
-component:
-  name: github.com/acme/webshop
-  version: 1.0.0
-  provider:
-    name: acme.org
-  resources:
-    - name: backend-image           # artifact identity
-      type: ociImage                # artifact type
-      version: 1.0.0               # artifact version
-      relation: external           # local or external
-      access:                      # how to retrieve the artifact
-        type: ociArtifact
-        imageReference: ghcr.io/acme/webshop/backend:1.0.0
-      digest:                      # immutable content hash
-        hashAlgorithm: SHA-256
-        normalisationAlgorithm: ociArtifactDigest/v1
-        value: abc123...
-  sources:
-    - name: source
-      type: git
-      version: 1.0.0
-      access:
-        type: github
-        repository: github.com/acme/webshop
-        commit: def456
-  references:
-    - name: database
-      componentName: github.com/acme/postgres
-      version: 14.2.0
-  labels:
-    - name: purpose
-      value: demo
-```
-
-### Resources
-
-Resources are the deliverables — the artifacts that get deployed or consumed. Each resource has:
-
-| Field | Purpose |
-|---|---|
-| `name` | Artifact identity (required) |
-| `type` | Semantic type (e.g., `ociImage`, `helmChart`, `blob`) |
-| `version` | Version of this specific artifact |
-| `relation` | `local` (built by this component) or `external` (from elsewhere) |
-| `access` | Specification for how to retrieve the artifact |
-| `digest` | Content hash for integrity verification |
-
-### Sources
-
-Sources describe the inputs from which resources were built:
-
-| Field | Purpose |
-|---|---|
-| `name` | Artifact identity (required) |
-| `type` | Source type (e.g., `git`) |
-| `version` | Version of the source |
-| `access` | Specification for how to retrieve the source |
-
-### References
-
-References declare dependencies on other component versions:
-
-| Field | Purpose |
-|---|---|
-| `name` | Local reference name (required) |
-| `componentName` | Full component name of the dependency |
-| `version` | Version of the referenced component |
-
-### Labels
-
-Labels are extensible key-value metadata that can be attached to the component or any of its elements. They enable custom tooling and policy without modifying the core model.
-
-For a field-by-field reference, see [Component Descriptor]({{< relref "docs/reference/component-descriptor.md" >}}).
+For the full structure and field reference, see [Component Descriptor Reference]({{< relref "docs/reference/component-descriptor.md" >}}).
 
 ## Artifact Types
 
 Artifact types describe the semantic meaning of a resource or source. OCM defines two categories:
 
-**Central types** use camelCase and are part of the OCM specification:
-
-| Type | Description |
-|---|---|
-| `ociImage` | OCI container image |
-| `helmChart` | Helm chart archive |
-| `blob` | Untyped binary data |
-| `directoryTree` | File system directory |
-| `executable` | Platform-specific executable |
-
-**Vendor-specific types** use DNS-based naming to avoid collisions:
-
-| Type | Description |
-|---|---|
-| `landscaper.gardener.cloud/blueprint` | Landscaper blueprint |
-| `acme.org/custom-config` | Custom artifact type |
+- **Central types** use camelCase and are part of the OCM specification (e.g., `ociImage`, `helmChart`, `blob`).
+- **Vendor-specific types** use DNS-based naming to avoid collisions (e.g., `landscaper.gardener.cloud/blueprint`).
 
 The artifact type determines how tools interpret the content. It is independent of how the artifact is stored or accessed.
+
+For the full list, see [Artifact Types]({{< relref "docs/reference/component-descriptor.md" >}}#artifact-types).
 
 ## Access Specifications
 
 Access specifications decouple an artifact's identity from its storage location. The `access.type` field determines how to retrieve the artifact, while the remaining fields provide the location-specific details.
 
-**Common access types:**
-
-| Access Type | Description | Key Fields |
-|---|---|---|
-| `ociArtifact` | Artifact in an OCI registry | `imageReference` |
-| `github` | Source in a GitHub repository | `repository`, `commit` |
-| `localBlob` | Blob stored inline in the component archive | `localReference`, `mediaType` |
-| `s3` | Object in S3-compatible storage | `bucket`, `key`, `region` |
-
 The same artifact type can be accessed through different access specifications. For example, an `ociImage` could be stored in an OCI registry (`ociArtifact`) or bundled into a CTF archive (`localBlob`).
+
+For available access types and their fields, see [Access Specification]({{< relref "docs/reference/component-descriptor.md" >}}#access-specification) and [Input and Access Types]({{< relref "docs/reference/input-and-access-types.md" >}}).
 
 ## Component Repositories and Storage
 
@@ -271,28 +175,9 @@ Component versions can be cryptographically signed to ensure integrity and prove
 
 For hands-on signing instructions, see [Sign Component Versions]({{< relref "docs/how-to/sign-component-version.md" >}}).
 
-## Related Documentation
+## Next Steps
 
-<!-- markdownlint-disable MD034 -->
-{{< card-grid >}}
-{{< link-card
-  title="The OCM Core Model"
-  description="High-level introduction to OCM's building blocks."
-  href="/docs/overview/core-model/"
->}}
-{{< link-card
-  title="Create Component Versions"
-  description="Build component versions with the OCM CLI."
-  href="/docs/getting-started/create-component-version/"
->}}
-{{< link-card
-  title="Component Descriptor Reference"
-  description="Field-by-field reference for the component descriptor."
-  href="/docs/reference/component-descriptor/"
->}}
-{{< link-card
-  title="OCM Specification"
-  description="The formal specification of the Open Component Model."
-  href="https://github.com/open-component-model/ocm-spec"
->}}
-{{< /card-grid >}}
+- [The OCM Core Model]({{< relref "docs/overview/core-model.md" >}}) — high-level introduction to OCM's building blocks.
+- [Create Component Versions]({{< relref "docs/getting-started/create-component-version.md" >}}) — build component versions with the OCM CLI.
+- [Component Descriptor Reference]({{< relref "docs/reference/component-descriptor.md" >}}) — field-by-field reference for the component descriptor.
+- [OCM Specification](https://github.com/open-component-model/ocm-spec) — the formal specification of the Open Component Model.
