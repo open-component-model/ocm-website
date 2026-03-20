@@ -1,65 +1,26 @@
-/** View-models for the schema renderer. Converters produce these; the renderer consumes them. */
+/** Factory functions for schema view-models. See schema-model.types.js for type definitions. */
 
-/**
- * @typedef {Object} SchemaField
- * @property {string}              name
- * @property {string}              type        - Display type ("string", "object", "[]object", etc.)
- * @property {string}              description
- * @property {boolean}             required
- * @property {boolean}             immutable
- * @property {SchemaField[]|null}  properties  - Nested fields (null for leaves or when variants is set)
- * @property {FieldVariant[]|null} variants    - Polymorphic shapes (mutually exclusive with properties)
- */
-
-/**
- * @typedef {Object} FieldVariant
- * @property {string}             title       - Variant label (e.g. "access", "input")
- * @property {string}             type
- * @property {string}             description
- * @property {SchemaField[]|null} properties
- */
-
-/**
- * @typedef {Object} SchemaSection
- * @property {string}        title
- * @property {string}        description
- * @property {SchemaField[]} fields
- */
-
-/**
- * @typedef {Object} SchemaMeta
- * @property {string}   description
- * @property {string[]} apiVersions
- * @property {string}   kind
- */
-
-/**
- * @typedef {Object} SchemaModel
- * @property {SchemaMeta}      meta
- * @property {SchemaSection[]} sections
- */
-
-/** @returns {SchemaField} */
+/** @returns {import("./schema-model.types.js").SchemaField} */
 export function createField({ name, type, description = "", required = false, immutable = false, properties = null, variants = null }) {
   return { name, type, description, required, immutable, properties, variants };
 }
 
-/** @returns {FieldVariant} */
+/** @returns {import("./schema-model.types.js").FieldVariant} */
 export function createVariant({ title, type, description = "", properties = null }) {
   return { title, type, description, properties };
 }
 
-/** @returns {SchemaSection} */
+/** @returns {import("./schema-model.types.js").SchemaSection} */
 export function createSection({ title, description = "", fields }) {
   return { title, description, fields };
 }
 
-/** @returns {SchemaMeta} */
+/** @returns {import("./schema-model.types.js").SchemaMeta} */
 export function createMeta({ description = "", apiVersions = [], kind = "" } = {}) {
   return { description, apiVersions, kind };
 }
 
-/** @returns {SchemaModel} */
+/** @returns {import("./schema-model.types.js").SchemaModel} */
 export function createModel({ meta, sections }) {
   return { meta, sections };
 }
