@@ -11,6 +11,7 @@
         {{ partial "main/breadcrumb" . }}
       {{ end }}
 
+      {{ partial "main/version-banner.html" . }}
       <h1>{{ .Title }}</h1>
       
       {{ with .Description }}

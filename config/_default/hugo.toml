@@ -23,7 +23,7 @@ editPage = false
 lastMod = false
 
 defaultContentVersionInSubdir = false
-defaultContentVersion = "legacy"
+defaultContentVersion = "latest"
 
 [pagination]
   pagerSize = 10
@@ -99,5 +99,5 @@ defaultContentVersion = "legacy"
 [versions]
   [versions."legacy"]
     weight = 1
-  [versions."dev"]
+  [versions."latest"]
     weight = 2
