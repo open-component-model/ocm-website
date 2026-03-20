@@ -287,9 +287,11 @@ describe("edge cases", () => {
       assert.ok(names.includes("name"), `variant "${v.title}" must include shared "name"`);
       assert.ok(names.includes("type"), `variant "${v.title}" must include shared "type"`);
     }
-    // Variant-specific properties should also be present
-    assert.ok(source.variants[0].properties.some((f) => f.name === "access"));
-    assert.ok(source.variants[1].properties.some((f) => f.name === "input"));
+    // Distinguishing properties should be filtered out (redundant with tab title)
+    assert.ok(!source.variants[0].properties.some((f) => f.name === "access"),
+      "access should be filtered — it's the tab title");
+    assert.ok(!source.variants[1].properties.some((f) => f.name === "input"),
+      "input should be filtered — it's the tab title");
   });
 
   it("constructor sources variants include shared fields (name, type, etc.)", () => {
