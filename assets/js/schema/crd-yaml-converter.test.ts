@@ -1,10 +1,11 @@
 import { describe, it, before } from "node:test";
 import assert from "node:assert/strict";
-import { crdYamlToModels, isYamlUrl } from "./crd-yaml-converter.js";
+import { crdYamlToModels, isYamlUrl } from "./crd-yaml-converter.ts";
+import type { SchemaField } from "./schema-model.types.ts";
 
 const CRD_YAML_URL = "https://raw.githubusercontent.com/open-component-model/open-component-model/main/kubernetes/controller/config/crd/bases/delivery.ocm.software_components.yaml";
 
-let crdModels;
+let crdModels: ReturnType<typeof crdYamlToModels>;
 
 before(async () => {
   const resp = await fetch(CRD_YAML_URL);
@@ -13,7 +14,7 @@ before(async () => {
 });
 
 /** Build a minimal CRD YAML string. */
-function crd(kind, group, versions) {
+function crd(kind: string, group: string, versions: Array<{name: string; served?: boolean; storage?: boolean; props?: Record<string, string>}>) {
   const versionEntries = versions.map((v) => `
     - name: ${v.name}
       served: ${v.served ?? true}
@@ -50,14 +51,14 @@ describe("crdYamlToModels", () => {
       assert.ok(names.includes(f), `missing: ${f}`);
     }
 
-    const spec = crdModels[0].sections[0].fields.find((f) => f.name === "spec");
-    assert.ok(spec.properties?.length > 0);
+    const spec = crdModels[0].sections[0].fields.find((f) => f.name === "spec")!;
+    assert.ok(spec.properties!.length > 0);
   });
 
   it("fields conform to SchemaField shape", () => {
-    function check(field) {
-      for (const k of ["name", "type", "description"]) assert.equal(typeof field[k], "string");
-      for (const k of ["required", "immutable"]) assert.equal(typeof field[k], "boolean");
+    function check(field: SchemaField) {
+      for (const k of ["name", "type", "description"] as const) assert.equal(typeof field[k], "string");
+      for (const k of ["required", "immutable"] as const) assert.equal(typeof field[k], "boolean");
       if (field.properties) field.properties.forEach(check);
     }
     crdModels[0].sections[0].fields.forEach(check);
