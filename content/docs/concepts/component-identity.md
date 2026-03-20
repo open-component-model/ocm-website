@@ -33,7 +33,7 @@ Every component is identified by a **name** and a **version**. Together, they fo
 
 Component names follow a DNS-based naming scheme:
 
-```
+```text
 <DNS domain>/<name component>{/<name component>}
 ```
 
@@ -59,7 +59,7 @@ Versions must adhere to **relaxed SemVer**: major and minor segments are require
 
 A component identity is written as `name:version`:
 
-```
+```text
 github.com/acme/webshop:1.0.0
 ```
 
@@ -81,7 +81,7 @@ Within a component version, every artifact (resource, source, or reference) must
 
 For example, the resource `backend-image` in `github.com/acme/webshop:1.0.0` has the global identity:
 
-```
+```text
 github.com/acme/webshop:1.0.0:resource/backend-image
 ```
 
@@ -117,7 +117,7 @@ OCM coordinates provide a shorthand for referencing elements in the model. Given
 
 The general pattern is:
 
-```
+```text
 <component-name>[:<version>[:<artifact-type>/<artifact-name>]]
 ```
 
@@ -269,10 +269,11 @@ Component versions can be cryptographically signed to ensure integrity and prove
 - **Access specifications are excluded** from the digest because they change when artifacts are transported to a new location — this is what makes location independence possible.
 - **Multiple signatures** are supported, allowing different parties to independently attest to a component version.
 
-For hands-on signing instructions, see [Sign Component Versions]({{< relref "docs/getting-started/sign-component-version.md" >}}).
+For hands-on signing instructions, see [Sign Component Versions]({{< relref "docs/how-to/sign-component-version.md" >}}).
 
 ## Related Documentation
 
+<!-- markdownlint-disable MD034 -->
 {{< card-grid >}}
 {{< link-card
   title="The OCM Core Model"
