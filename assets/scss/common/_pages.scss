@@ -11,11 +11,7 @@
 }
 
 
-/* Schema Reference Pages — wide layout for the interactive table.
- * Uses :has() to target only pages containing the schema-renderer shortcode,
- * so other reference pages are unaffected.
- * Sidebar stays for navigation; TOC is hidden since the schema table
- * has its own expand/collapse UI. */
+/* Schema Reference Pages — wide layout for the interactive table.*/
 body:has(.sr-root) {
   .docs-toc {
     display: none !important;
