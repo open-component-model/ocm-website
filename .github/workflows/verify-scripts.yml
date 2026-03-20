@@ -7,7 +7,6 @@ on:
       - website/**
     paths:
       - 'assets/js/**'
-      - 'assets/scss/**'
       - 'eslint.config.*'
       - 'package.json'
       - 'package-lock.json'
