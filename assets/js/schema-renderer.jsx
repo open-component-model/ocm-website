@@ -47,6 +47,10 @@ function FieldRow({ field, depth = 0 }) {
   const [expanded, setExpanded] = useState(depth < 1);
   const hasNested = field.properties?.length > 0;
 
+  const descContent = field.description
+    ? <span>{field.description}</span>
+    : <span class="sr-no-desc">No description</span>;
+
   return (
     <>
       <tr class="sr-field-row">
@@ -68,10 +72,13 @@ function FieldRow({ field, depth = 0 }) {
         <td class="sr-field-type">
           <span class={`sr-type-badge ${typeClass(field.type)}`}>{field.type}</span>
         </td>
-        <td class="sr-field-desc">
-          {field.description
-            ? <span>{field.description}</span>
-            : <span class="sr-no-desc">No description</span>}
+        <td class="sr-field-desc sr-field-desc--col">
+          {descContent}
+        </td>
+      </tr>
+      <tr class="sr-field-row sr-field-desc-row">
+        <td class="sr-field-desc" colspan="2">
+          {descContent}
         </td>
       </tr>
       {expanded && hasNested && field.properties.map((sub) => (
@@ -91,9 +98,9 @@ function FieldTable({ title, description, fields }) {
         <table class="sr-table">
           <thead>
             <tr>
-              <th style={{ width: "40%" }}>Field</th>
-              <th style={{ width: "15%" }}>Type</th>
-              <th style={{ width: "45%" }}>Description</th>
+              <th>Field</th>
+              <th>Type</th>
+              <th class="sr-col-hidden">Description</th>
             </tr>
           </thead>
           <tbody>
