@@ -496,3 +496,4 @@ yy
 yyyy
 zsh
 zshrc
+terraform
