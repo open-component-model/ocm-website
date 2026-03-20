@@ -101,7 +101,7 @@ Use **`input`** to embed content directly, or **`access`** to reference external
 | **Use case** | Local files, directories, co-located data | Remote images, charts, resolution at runtime |
 | **Transfer** | Content travels with component            | Must be accessible at destination            |
 
-For a complete list of supported types, see [Input and Access Types]({{< relref "/docs/tutorials/input-and-access-types.md" >}}).
+For a complete list of supported types, see [Input and Access Types]({{< relref "/docs/reference/input-and-access-types.md" >}}).
 
 {{< tabs "resource-types" >}}
 
@@ -471,8 +471,8 @@ ocm get cv ghcr.io/open-component-model/ocm//ocm.software/ocmcli:0.35.0 --recurs
 
 ## CLI Reference
 
-| Command                                                            | Description                                    |
-|--------------------------------------------------------------------|------------------------------------------------|
+| Command                                                                              | Description                                    |
+|--------------------------------------------------------------------------------------|------------------------------------------------|
 | [`ocm add cv`]({{< relref "docs/reference/ocm-cli/ocm_add_component-version.md" >}}) | Create component version from constructor file |
 | [`ocm get cv`]({{< relref "docs/reference/ocm-cli/ocm_get_component-version.md" >}}) | List and inspect component versions            |
 
@@ -482,4 +482,4 @@ ocm get cv ghcr.io/open-component-model/ocm//ocm.software/ocmcli:0.35.0 --recurs
 
 ## Related Documentation
 
-- [Tutorial: Input and Access Types]({{< relref "input-and-access-types.md" >}}) - Explore all supported resource types and how to use them
+- [Reference: Input and Access Types]({{< relref "docs/reference/input-and-access-types.md" >}}) - Explore all supported resource types and how to use them

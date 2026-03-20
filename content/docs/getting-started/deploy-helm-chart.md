@@ -61,3 +61,8 @@ Then define an RGD and create an instance. The [full tutorial]({{< relref "deplo
 - [Tutorial: Deploy with Controllers]({{< relref "deploy-with-controllers.md" >}}), full walkthrough with both manual and bootstrap approaches
 - [Concept: Deployer]({{< relref "deployer.md" >}}), how the Deployer applies resources from OCM components
 - [Concept: OCM Controllers]({{< relref "ocm-controllers.md" >}}), overview of the controller ecosystem
+- [Tutorial: Create a Multi-Component Product]({{< relref "docs/tutorials/advanced-component-constructor.md" >}}) - Learn how to structure complex applications with multiple components and resources
+
+## Related Documentation
+
+- [Concept: OCM Controllers]({{< relref "ocm-controllers.md" >}}) - Learn about the architecture and capabilities of the OCM Controllers
