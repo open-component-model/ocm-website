@@ -511,4 +511,10 @@ yy
 yyyy
 zsh
 zshrc
+autocompletion
+terraform
+Untyped
+URI
+versionable
+webshop
 zulip
