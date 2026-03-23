@@ -69,10 +69,12 @@ function FieldRow({field, depth = 0, parentPath = ""}: {field: SchemaFieldType; 
                     <div className="sr-field-name-inner">
             <span className="sr-expand-space">
               {expandable && (
-                  <button className="sr-expand-btn" onClick={() => setExpanded(!expanded)}
-                          aria-label={expanded ? "Collapse" : "Expand"}>
-                      {expanded ? "−" : "+"}
-                  </button>
+                  <button className="sr-expand-btn" type="button"
+                           aria-expanded={expanded}
+                           aria-label={`${expanded ? "Collapse" : "Expand"} ${field.name}`}
+                           onClick={() => setExpanded(!expanded)}>
+                       {expanded ? "−" : "+"}
+                   </button>
               )}
             </span>
                         <code className="sr-field-code">{field.name}</code>
@@ -200,7 +202,14 @@ function SchemaRenderer({schemaUrl}: {schemaUrl: string}) {
             return;
         }
 
-        fetch(schemaUrl)
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 15_000);
+
+        setState("loading");
+        setModels([]);
+        setError(null);
+
+        fetch(schemaUrl, {signal: controller.signal})
             .then((res) => {
                 if (!res.ok) throw new Error(`HTTP ${res.status}`);
                 return res.text();
@@ -210,10 +219,22 @@ function SchemaRenderer({schemaUrl}: {schemaUrl: string}) {
                 setState("done");
             })
             .catch((err) => {
+                if (err.name === "AbortError") return;
                 setError(err.message);
                 setState("error");
-            });
+            })
+            .finally(() => clearTimeout(timeout));
+
+        return () => {
+            clearTimeout(timeout);
+            controller.abort();
+        };
     }, [schemaUrl]);
+
+    useEffect(() => {
+        if (state !== "done") return;
+        document.getElementById(window.location.hash.slice(1))?.scrollIntoView();
+    }, [state]);
 
     return (
         <div className="sr-root">

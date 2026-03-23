@@ -19,6 +19,8 @@ The constructor schema accepts two formats:
 The schema below defines the full structure as specified by
 [JSON Schema 2020-12](https://json-schema.org/draft/2020-12/schema).
 
+<a id="component-references"></a>
+
 ---
 
 {{< schema-renderer url="/schemas/bindings/go/constructor/schema-2020-12.json" >}}

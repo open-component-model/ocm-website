@@ -3,15 +3,17 @@
 {{- $schemaUrl := printf "/%s%s" $version $relUrl -}}
 <div class="sr-root" data-schema-renderer data-schema-url="{{ $schemaUrl }}"></div>
 
-{{- with resources.Get "js/schema/schema-renderer.tsx" -}}
-  {{- $opts := dict
-    "minify" (not hugo.IsDevelopment)
-    "sourceMap" (cond hugo.IsDevelopment "inline" "none")
-    "target" "es2020"
-    "JSX" "automatic"
-    "JSXImportSource" "preact"
-  -}}
-  {{- with . | js.Build $opts -}}
-    <script src="{{ .RelPermalink }}"></script>
-  {{- end -}}
+{{- $asset := resources.Get "js/schema/schema-renderer.tsx" -}}
+{{- if not $asset -}}
+  {{- errorf "schema-renderer shortcode: entry asset 'js/schema/schema-renderer.tsx' not found" -}}
+{{- end -}}
+{{- $opts := dict
+  "minify" (not hugo.IsDevelopment)
+  "sourceMap" (cond hugo.IsDevelopment "inline" "none")
+  "target" "es2020"
+  "JSX" "automatic"
+  "JSXImportSource" "preact"
+-}}
+{{- with $asset | js.Build $opts -}}
+  <script src="{{ .RelPermalink }}"></script>
 {{- end -}}
