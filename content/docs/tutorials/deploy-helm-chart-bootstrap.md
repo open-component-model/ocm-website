@@ -51,7 +51,8 @@ This ensures your deployment always uses images from the current registry, not h
 
 ## Architecture Overview
 
-{{< details "Architecture Diagram" >}}
+The following diagram shows the complete resource flow. You can refer back to it as you work through the steps.
+
 ```mermaid
 flowchart TB
     classDef cluster fill:white,color:black,stroke:black;
@@ -136,7 +137,6 @@ flowchart TB
     class k8sCluster cluster;
     class legend legendStyle;
 ```
-{{< /details >}}
 
 The diagram shows the complete flow: OCM component resources are fetched by the controllers, the Deployer applies the RGD, kro creates a CRD from it, and finally instantiating that CRD deploys the Helm chart with localized image references.
 
