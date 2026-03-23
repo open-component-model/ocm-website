@@ -11,6 +11,7 @@ toc: true
 In this tutorial, you'll learn how to package deployment instructions (a `ResourceGraphDefinition`) inside an OCM component, so operators can deploy your Helm chart without knowing the underlying resource structure. You'll also learn **localization**—how to automatically update image references when transferring components between registries.
 
 By the end, you'll have:
+
 - An OCM component containing a Helm chart, an image reference, and deployment instructions
 - A running Podinfo application deployed via the bootstrap pattern
 - Understanding of how localization keeps image references in sync after transfers
@@ -36,6 +37,7 @@ If using a private registry, you'll need to configure credentials for both the O
 In the [basic Helm deployment guide]({{< relref "deploy-helm-chart.md" >}}), you manually created a `ResourceGraphDefinition` and applied it to the cluster. The **bootstrap pattern** improves on this by packaging the RGD inside the OCM component itself. The Deployer controller extracts and applies it automatically.
 
 This means:
+
 - Developers define deployment instructions once, alongside their application
 - Operators only need to create bootstrap resources pointing to the component
 - Deployment instructions travel securely with the software through OCM
@@ -143,6 +145,7 @@ The diagram shows the complete flow: OCM component resources are fetched by the 
 ## Step 1: Create the OCM Component Version
 
 First, create an OCM component version containing three resources:
+
 - **helm-resource**: The Podinfo Helm chart
 - **image-resource**: The Podinfo container image (for localization)
 - **resource-graph-definition**: Deployment instructions
@@ -465,6 +468,7 @@ The image reference points to your registry—localization worked!
 ### Authentication Errors (401 Unauthorized)
 
 If you see `401: unauthorized` errors, your GitHub package is private. Either:
+
 - Make the package public in GitHub Package settings
 - [Configure credentials]({{< relref "configure-credentials-for-controllers.md" >}}) for the controller resources
 
@@ -491,6 +495,7 @@ Check the Events section for error messages.
 ## What You Learned
 
 You've successfully:
+
 - Created an OCM component with embedded deployment instructions (RGD)
 - Used `--copy-resources` to enable localization during transfer
 - Deployed the component using the bootstrap pattern

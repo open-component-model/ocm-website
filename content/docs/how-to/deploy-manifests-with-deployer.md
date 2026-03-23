@@ -222,6 +222,7 @@ spec:
 ```
 
 The resource chain works as follows:
+
 - **Repository** — points to the OCM repository
 - **Component** — references a specific component version
 - **Resource** — selects the manifest resource from the component
@@ -278,6 +279,7 @@ podinfo-86b758c4bf-c44qk   1/1     Running   0          109s
 ### Authentication Errors
 
 If you see `401: unauthorized` errors, your registry package is private. Either:
+
 - Make the package public in GitHub Package settings
 - [Configure credentials]({{< relref "configure-credentials-for-controllers.md" >}}) for the controller resources
 

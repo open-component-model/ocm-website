@@ -191,6 +191,7 @@ goutils
 groupid
 gzip
 handleoutput
+hardcoded
 hashers
 hashicorp
 hashicorpvault
