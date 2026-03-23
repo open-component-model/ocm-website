@@ -15,9 +15,12 @@
     gap: 0.75rem;
   }
 
-  /* Section title links inside <summary> — inherit heading style,
-     suppress Doks `a:hover { color: $primary }` to keep them stable */
+  /* Section title links inside <summary> — inline so the disclosure
+     marker and text stay on the same line. Overrides Doks
+     `.section-nav a { display: block; margin: 0.5rem 0 }` */
   details > summary a {
+    display: inline;
+    margin: 0;
     color: inherit !important;
     &:hover,
     &:active {
