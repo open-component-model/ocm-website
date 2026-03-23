@@ -8,6 +8,10 @@ toc: true
 
 This guide shows how to deploy raw Kubernetes manifests from an OCM component version using the OCM Controllers' built-in Deployer. This approach requires only the OCM Controllers—no kro or Flux needed.
 
+{{< callout context="tip" title="What you'll deploy" icon="outline/package" >}}
+A Podinfo application (single pod) deployed directly from a Kubernetes Deployment manifest stored in an OCM component.
+{{< /callout >}}
+
 ## Prerequisites
 
 - [Controller environment]({{< relref "setup-controller-environment.md" >}}) with OCM Controllers installed
@@ -15,6 +19,10 @@ This guide shows how to deploy raw Kubernetes manifests from an OCM component ve
 - Access to an OCI registry (e.g., [ghcr.io](https://docs.github.com/en/packages/learn-github-packages/introduction-to-github-packages))
 - A GitHub account with a personal access token
 - Any extra RBAC configured by following [Custom RBAC guide]({{< relref "custom-rbac.md" >}})
+
+{{< callout context="note" title="Private registries" icon="outline/lock" >}}
+By default, packages in GitHub Container Registry are private. Either make your package public after upload, or [configure credentials]({{< relref "configure-credentials-for-controllers.md" >}}) for the OCM controller resources before deploying.
+{{< /callout >}}
 
 ## Environment Setup
 
@@ -162,10 +170,6 @@ ocm.software/ocm-k8s-toolkit/simple │ 1.0.0   │ ocm.software
 ocm get cv $OCM_REPO//ocm.software/ocm-k8s-toolkit/simple:1.0.0
 ```
 
-{{< callout context="note" >}}
-By default, packages created in GitHub Container Registry are _private_. Either make them public or [configure credentials]({{< relref "configure-credentials-for-controllers.md" >}}) for the OCM controller resources.
-{{< /callout >}}
-
 ## Deploy with the OCM Controllers
 
 Create a `bootstrap.yaml` file with the controller resources:
@@ -229,6 +233,8 @@ For details on how the Deployer uses ApplySets, see [OCM Controllers]({{< relref
 
 ### Substitute and Apply
 
+Replace the `$OCM_REPO` placeholder with your actual repository URL and apply:
+
 ```shell
 envsubst < bootstrap.yaml > deployment-subst.yaml
 kubectl apply -f deployment-subst.yaml
@@ -267,6 +273,22 @@ NAME                       READY   STATUS    RESTARTS   AGE
 podinfo-86b758c4bf-c44qk   1/1     Running   0          109s
 ```
 
+## Troubleshooting
+
+### Authentication Errors
+
+If you see `401: unauthorized` errors, your registry package is private. Either:
+- Make the package public in GitHub Package settings
+- [Configure credentials]({{< relref "configure-credentials-for-controllers.md" >}}) for the controller resources
+
+### Resource Not Reconciling
+
+If resources stay in a pending state, check controller logs:
+
+```shell
+kubectl logs -n ocm-k8s-toolkit-system deployment/ocm-k8s-toolkit-controller-manager
+```
+
 ## Cleanup
 
 Delete the controller resources to remove all tracked objects:
@@ -284,4 +306,6 @@ kubectl get pods -l app=podinfo
 
 ## Next Steps
 
-For deploying Helm charts with advanced orchestration using kro and Flux, see [Deploy Helm Charts with Bootstrap]({{< relref "/docs/tutorials/deploy-helm-chart-bootstrap.md" >}}).
+- [Tutorial: Deploy Helm Charts with Bootstrap]({{< relref "/docs/tutorials/deploy-helm-chart-bootstrap.md" >}}) — Advanced deployment with kro and Flux orchestration
+- [How-to: Configure Credentials for Controllers]({{< relref "configure-credentials-for-controllers.md" >}}) — Set up private registry access
+- [How-to: Custom RBAC]({{< relref "custom-rbac.md" >}}) — Configure permissions for Deployer
