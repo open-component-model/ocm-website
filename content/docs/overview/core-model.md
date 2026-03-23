@@ -25,7 +25,7 @@ In OCM, a **component** groups everything needed for a delivery into one logical
 Each component has:
 
 - A **name** based on DNS naming (e.g., `github.com/acme/webshop`) — globally unique and controlled by the domain owner.
-- A **version** following [SemVer](https://semver.org/) (e.g., `1.0.0`) — each version is an immutable snapshot.
+- A **version** following relaxed [SemVer](https://semver.org/) (e.g., `1.0.0` or `v2.1`) — each version is an immutable snapshot. See [Component Identity]({{< relref "docs/concepts/component-identity.md" >}}) for the exact version format rules.
 
 Together, `github.com/acme/webshop:1.0.0` uniquely identifies a specific delivery of the webshop.
 
@@ -62,7 +62,7 @@ A key design principle of OCM is that **identity is separate from storage locati
 
 This means you can transport component versions across boundaries — from a public registry to an air-gapped environment, or between cloud providers — without changing their identity or breaking their signatures.
 
-## Next Steps
+## Next steps
 
 - [Component Identity]({{< relref "docs/concepts/component-identity.md" >}}) — deep dive into how OCM identifies components, versions, and artifacts.
 - [Create Component Versions]({{< relref "docs/getting-started/create-component-version.md" >}}) — build your first component version with the OCM CLI.
