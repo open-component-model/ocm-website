@@ -1,49 +1,41 @@
 ---
-title: "Deploy with Controllers"
-description: "Deploy a simple manifest using an OCM component version and the Deployer controller object."
+title: "Deploy Manifests with Deployer"
+description: "Deploy raw Kubernetes manifests from an OCM component version using the Deployer controller."
 icon: "🚀"
-weight: 55
+weight: 35
 toc: true
 ---
 
-This tutorial walks you through deploying a Helm chart from an OCM component version to a Kubernetes cluster
-using the OCM Controllers.
+This guide shows how to deploy raw Kubernetes manifests from an OCM component version using the OCM Controllers' built-in Deployer. This approach requires only the OCM Controllers—no kro or Flux needed.
 
 ## Prerequisites
 
-- [Controller environment]({{< relref "setup-controller-environment.md" >}})
+- [Controller environment]({{< relref "setup-controller-environment.md" >}}) with OCM Controllers installed
 - [OCM CLI]({{< relref "ocm-cli-installation.md" >}}) installed
 - Access to an OCI registry (e.g., [ghcr.io](https://docs.github.com/en/packages/learn-github-packages/introduction-to-github-packages))
 - A GitHub account with a personal access token
-- Any extra RBAC has been configured by following [Custom RBAC guide]({{<relref "custom-rbac.md">}})
+- Any extra RBAC configured by following [Custom RBAC guide]({{< relref "custom-rbac.md" >}})
 
 ## Environment Setup
 
-Before starting, set environment variables for your GitHub username and OCM repository name:
+Set environment variables for your GitHub username and OCM repository:
 
 ```bash
 export GITHUB_USERNAME=<your-github-username>
 export OCM_REPO=ghcr.io/$GITHUB_USERNAME/ocm-tutorial
 ```
 
-These variables will be used in registry paths throughout the tutorial.
+## Create the Component Version
 
-In this approach we will use a simple Deployer to deploy an `deployment.yaml` manifest that contains installation
-files for the simple [podinfo](https://github.com/stefanprodan/podinfo) application.
-
-## Create a component
-
-Let's start by creating a temporary directory:
+Create a working directory:
 
 ```shell
-mkdir /tmp/helm-deploy && cd /tmp/helm-deploy
+mkdir /tmp/manifest-deploy && cd /tmp/manifest-deploy
 ```
 
-This will be our working folder.
+### Create the Deployment Manifest
 
-### Define the component
-
-Create a `deployment.yaml` file with the following content:
+Create a `deployment.yaml` file:
 
 ```yaml
 apiVersion: apps/v1
@@ -126,10 +118,11 @@ spec:
       volumes:
         - name: data
           emptyDir: {}
-
 ```
 
-Next, create a `component-constructor.yaml` file that includes the above manifest. This tells OCM what software artifact (in this case a Deployment) to track as part of this component version:
+### Create the Component Constructor
+
+Create a `component-constructor.yaml` file:
 
 ```yaml
 components:
@@ -146,17 +139,12 @@ components:
           path: ./deployment.yaml
 ```
 
-### Build and push the component version
-
-The `--repository` flag pushes the component version directly to the OCI registry, so no separate transfer step is needed.
+### Build and Push
 
 ```shell
 ocm add cv --repository $OCM_REPO
 ```
 
-By default, this looks for `component-constructor.yaml` in the current directory. If you wish to use a different filename,
-you can define a name with the `--constructor` flag.
-
 <details>
 <summary>Expected output</summary>
 
@@ -168,32 +156,19 @@ ocm.software/ocm-k8s-toolkit/simple │ 1.0.0   │ ocm.software
 
 </details>
 
-### Verify the upload
+### Verify the Upload
 
 ```shell
 ocm get cv $OCM_REPO//ocm.software/ocm-k8s-toolkit/simple:1.0.0
 ```
 
-<details>
-<summary>Expected output</summary>
+{{< callout context="note" >}}
+By default, packages created in GitHub Container Registry are _private_. Either make them public or [configure credentials]({{< relref "configure-credentials-for-controllers.md" >}}) for the OCM controller resources.
+{{< /callout >}}
 
-```text
-COMPONENT                           │ VERSION │ PROVIDER
-────────────────────────────────────┼─────────┼──────────────
-ocm.software/ocm-k8s-toolkit/simple │ 1.0.0   │ ocm.software
-```
+## Deploy with the OCM Controllers
 
-</details>
-
-{{<callout context="note">}}
-By default, packages created in GitHub Container Registry are _private_. Either make them public or [configure credentials]({{<relref "configure-credentials-for-controllers.md">}}) for the OCM controller resources.
-{{</callout>}}
-
-## Create Resources for the controller
-
-Now, we are going to apply for objects for the controller to be able to pick up and deploy the above resource.
-
-Put them together into one file for convenience. Create `bootstrap.yaml` file with the following content:
+Create a `bootstrap.yaml` file with the controller resources:
 
 ```yaml
 apiVersion: delivery.ocm.software/v1alpha1
@@ -203,7 +178,7 @@ metadata:
 spec:
   repositorySpec:
     baseUrl: $OCM_REPO
-    type: OCIRepository
+    type: OCIRegistry
   interval: 1m
 ---
 apiVersion: delivery.ocm.software/v1alpha1
@@ -242,34 +217,32 @@ spec:
     namespace: default
 ```
 
-Make sure to update the `OCM_REPO_PLACEHOLDER` with your actual repository:
+The resource chain works as follows:
+- **Repository** — points to the OCM repository
+- **Component** — references a specific component version
+- **Resource** — selects the manifest resource from the component
+- **Deployer** — downloads, verifies, and applies the manifest using server-side apply with ApplySets
+
+{{< callout context="note" >}}
+For details on how the Deployer uses ApplySets, see [OCM Controllers]({{< relref "/docs/concepts/ocm-controllers.md" >}}).
+{{< /callout >}}
+
+### Substitute and Apply
 
 ```shell
 envsubst < bootstrap.yaml > deployment-subst.yaml
-```
-
-Let's step through what these are:
-
-`Repository` defines where the component version lives. `Component` represents the above created component. `Resource` is the actual resource that we are looking for. And last, but not least, we have the `Deployer` object.
-
-This object uses the referenced `deployment-resource` resource. Downloads and verifies it, and using server-side apply with ApplySets, applies it to the cluster.
-
-{{<callout context="note">}}
-To understand and know more about how the deployer uses `ApplySets` please visit the `<deployer concept placeholder>`.
-{{</callout>}}
-
-### Apply the objects
-
-```shell
 kubectl apply -f deployment-subst.yaml
 ```
 
-### Verify the result
+### Verify the Deployment
 
-Now, we should see the following resources:
+Check the controller resources:
 
 ```shell
 kubectl get resource,deployer,component,repository -owide
+```
+
+```text
 NAME                                                  READY                   AGE
 resource.delivery.ocm.software/bootstrap-deployment   Applied version 1.0.0   20s
 
@@ -283,34 +256,32 @@ NAME                                                    READY                   
 repository.delivery.ocm.software/bootstrap-repository   Successfully reconciled OCM repository   20s
 ```
 
-And if we take a look at the pods, we should see podinfo running in our cluster.
+Check the deployed pod:
 
 ```shell
 kubectl get pods -l app=podinfo
+```
+
+```text
 NAME                       READY   STATUS    RESTARTS   AGE
 podinfo-86b758c4bf-c44qk   1/1     Running   0          109s
 ```
 
-### Cleanup
+## Cleanup
 
-One of the benefits of using `ApplySets` is that we can clean up after this. By deleting the deployment file, the controller will remove all tracked objects from the cluster.
+Delete the controller resources to remove all tracked objects:
 
 ```shell
 kubectl delete -f deployment-subst.yaml
 ```
 
-After a little while, we should observe the podinfo and the other objects, are all gone.
+The Deployer uses ApplySets, so deleting the resources automatically cleans up the deployed manifest:
 
 ```shell
 kubectl get pods -l app=podinfo
-No resources found in default namespace.
-
-kubectl get resource,deployer,component,repository -owide
-No resources found
+# No resources found in default namespace.
 ```
 
-## Conclusion
+## Next Steps
 
-This concludes deployment with simple objects using the controller's built-in capabilities.
-
-For a more advanced scenario using Kro and Flux, please read on [Advanced Deployment using Kro and Flux]({{< relref "docs/tutorials/deploy-with-controllers-advanced.md" >}}).
+For deploying Helm charts with advanced orchestration using kro and Flux, see [Deploy Helm Charts with Bootstrap]({{< relref "/docs/tutorials/deploy-helm-chart-bootstrap.md" >}}).
