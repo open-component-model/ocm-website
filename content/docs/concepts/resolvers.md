@@ -69,7 +69,7 @@ For more information about OCM transfer, see the [Transfer and Transport]({{< re
 ## Related Documentation
 
 - [Resolver Configuration Reference]({{< relref "docs/reference/resolver-configuration.md" >}}) — Full schema, repository types, and pattern syntax
-- [Components]({{< relref "components.md" >}}) — Core concepts behind component versions, identities, and references
+- [Component Identity]({{< relref "component-identity.md" >}}) — Core concepts behind component versions, identities, and references
 - [Working with Resolvers Tutorial]({{< relref "docs/tutorials/configure-resolvers.md" >}}) — Hands-on walkthrough for setting up resolvers
 - [How to Resolve Components Across Multiple Registries]({{< relref "docs/how-to/resolve-components-from-multiple-repositories.md" >}}) — Recipe for
   multi-registry resolution

@@ -23,6 +23,7 @@ aur
 auth
 autocompletion
 autoconfigure
+autoscaler
 aws
 backend
 backends
@@ -34,6 +35,7 @@ blobhandler
 bool
 boolean
 buildx
+camelcase
 callout
 callouts
 cas
@@ -149,6 +151,7 @@ extensibility
 extraidentity
 filepath
 filesystem
+filesystems
 filesytem
 finalizer
 finalizers
@@ -510,4 +513,5 @@ yy
 yyyy
 zsh
 zshrc
+webshop
 zulip

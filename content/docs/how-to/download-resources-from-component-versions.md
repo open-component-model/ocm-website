@@ -265,5 +265,5 @@ ocm download resource <repo>//<component>:<version> \
 
 ## Related Documentation
 
-- [Concept: Component Versions]({{< relref "/docs/concepts/components.md" >}}) -  Understanding component structure
+- [Concept: Component Identity]({{< relref "/docs/concepts/component-identity.md" >}}) - Understanding component structure
 - [Tutorial: Create Component Versions]({{< relref "/docs/getting-started/create-component-version.md" >}}) - Learn how to create components
