@@ -209,8 +209,8 @@ export function jsonSchemaToModel(data: SchemaNode): SchemaModel {
             const sections: SchemaSection[] = (root[kw] as SchemaNode[]).map((option, i) => {
                 const resolved = resolve(option, root);
                 return {
-                    title: `Variant ${i + 1}`,
-                    description: resolved.description || "",
+                    title: option.title || resolved.title || `Variant ${i + 1}`,
+                    description: option.description || "",
                     fields: fieldsFrom(resolved, root, new Set()),
                 };
             });

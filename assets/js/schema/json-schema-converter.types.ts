@@ -2,6 +2,7 @@
 
 export interface SchemaNode {
   type?: string | string[];
+  title?: string;
   description?: string;
   $ref?: string;
   properties?: Record<string, SchemaNode>;
