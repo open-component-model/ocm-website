@@ -150,9 +150,10 @@ ocm get cv ghcr.io/<your-namespace>//ocm.software/ocm-k8s-toolkit/simple:1.0.0
 
 ### Create ResourceGraphDefinition
 
-The ResourceGraphDefinition tells kro how to orchestrate the OCM and Flux resources.  
+The ResourceGraphDefinition tells kro how to orchestrate the OCM and Flux resources.
 Create `rgd.yaml` with the following content, replacing `<your-namespace>` with your registry namespace:
 
+{{< details "ResourceGraphDefinition (rgd.yaml)" >}}
 ```yaml
 apiVersion: kro.run/v1alpha1
 kind: ResourceGraphDefinition
@@ -268,6 +269,7 @@ spec:
             ui:
               message: ${schema.spec.message}
 ```
+{{< /details >}}
 {{< /step >}}
 
 {{< step >}}

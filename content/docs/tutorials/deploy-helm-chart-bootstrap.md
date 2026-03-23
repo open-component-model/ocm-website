@@ -43,6 +43,7 @@ reference into the deployment instruction. This can be done using deployment too
 
 The following diagram shows an overview of the resources and their relationships of this guide:
 
+{{< details "Architecture Diagram" >}}
 ```mermaid
 flowchart TB
     classDef cluster fill:white,color:black,stroke:black;
@@ -68,7 +69,7 @@ flowchart TB
         direction TB
         subgraph ocmRepo[OCM Repository]
             subgraph ocmCV[OCM Component Version]
-                direction RL 
+                direction RL
                 subgraph ocmResourceHelm[OCM Resource: HelmChart]
                 end
                 subgraph ocmResourceImage[OCM Resource: Image]
@@ -127,6 +128,7 @@ flowchart TB
     class k8sCluster cluster;
     class legend legendStyle;
 ```
+{{< /details >}}
 
 As the diagram shows, we will start by creating an OCM component that contains three resources:
 
@@ -199,6 +201,7 @@ As you can see, the resource `resource-graph-definition` is of type `blob` and c
 `resourceGraphDefinition.yaml`. Before we can create the OCM component version, we need to create this file, with the
 following content:
 
+{{< details "ResourceGraphDefinition (resourceGraphDefinition.yaml)" >}}
 ```yaml
 apiVersion: kro.run/v1alpha1
 kind: ResourceGraphDefinition
@@ -307,6 +310,7 @@ spec:
               repository: ${resourceImage.status.additional.registry}/${resourceImage.status.additional.repository}
               tag: ${resourceImage.status.additional.tag}
 ```
+{{< /details >}}
 
 {{<callout context="note" title="Provide credentials for the deployment" icon="outline/key">}}
 If you plan to push your OCM component version to a private registry, you need to provide credentials for the OCM
@@ -398,6 +402,7 @@ cluster.
 
 To proceed, create the following file named `bootstrap.yaml` containing the above-mentioned resources:
 
+{{< details "Bootstrap Resources (bootstrap.yaml)" >}}
 ```yaml
 apiVersion: delivery.ocm.software/v1alpha1
 kind: Repository
@@ -459,6 +464,7 @@ spec:
   # (You also need to specify the namespace of the reference as the 'deployer' is cluster-scoped.)
   # ocmConfig:
 ```
+{{< /details >}}
 
 {{<callout context="note" title="Provide credentials for the deployment" icon="outline/key">}}
 Again, if your OCM component version is stored in a private registry, you need to provide credentials for the OCM
