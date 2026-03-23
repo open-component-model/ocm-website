@@ -138,7 +138,7 @@
   version = "latest"
   [[imports.mounts]]
   source = "spec/v1/resources"
-  target = "static/dev/schemas/bindings/go/constructor"
+  target = "static/latest/schemas/bindings/go/constructor"
   [imports.mounts.sites.matrix]
     versions = ["latest"]
 
@@ -147,7 +147,7 @@
   version = "latest"
   [[imports.mounts]]
   source = "resources"
-  target = "static/dev/schemas/bindings/go/descriptor/v2"
+  target = "static/latest/schemas/bindings/go/descriptor/v2"
   [imports.mounts.sites.matrix]
     versions = ["latest"]
 
@@ -156,6 +156,6 @@
   version = "latest"
   [[imports.mounts]]
   source = "config/crd/bases"
-  target = "static/dev/schemas/kubernetes/controller"
+  target = "static/latest/schemas/kubernetes/controller"
   [imports.mounts.sites.matrix]
     versions = ["latest"]
