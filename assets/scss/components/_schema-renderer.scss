@@ -251,6 +251,22 @@ $schema-max-depth: 8;
   border-radius: 4px;
 }
 
+// Field-level anchor link
+.sr-field-anchor {
+  margin-left: 0.25em;
+  opacity: 0;
+  text-decoration: none;
+  font-weight: 400;
+  font-size: 0.75rem;
+  color: var(--bs-secondary-color);
+  transition: opacity 0.15s;
+}
+
+.sr-field-row:hover .sr-field-anchor,
+.sr-field-anchor:focus {
+  opacity: 0.5;
+}
+
 // Badges
 .sr-badge--required,
 .sr-badge--immutable {

@@ -51,11 +51,12 @@ function SchemaHeader({meta}: {meta: SchemaModelType["meta"]}) {
     );
 }
 
-function FieldRow({field, depth = 0}: {field: SchemaFieldType; depth?: number}) {
+function FieldRow({field, depth = 0, parentPath = ""}: {field: SchemaFieldType; depth?: number; parentPath?: string}) {
     const [expanded, setExpanded] = useState(depth < 1);
     const hasNested = (field.properties?.length || 0) > 0;
     const hasVariants = (field.variants?.length || 0) > 0;
     const expandable = hasNested || hasVariants;
+    const fieldPath = parentPath ? `${parentPath}-${slugify(field.name)}` : slugify(field.name);
 
     const descContent = field.description
         ? <span>{field.description}</span>
@@ -63,7 +64,7 @@ function FieldRow({field, depth = 0}: {field: SchemaFieldType; depth?: number}) 
 
     return (
         <>
-            <tr className="sr-field-row">
+            <tr className="sr-field-row" id={fieldPath}>
                 <td className={`sr-field-name sr-depth-${Math.min(depth, 8)}`}>
                     <div className="sr-field-name-inner">
             <span className="sr-expand-space">
@@ -75,6 +76,7 @@ function FieldRow({field, depth = 0}: {field: SchemaFieldType; depth?: number}) 
               )}
             </span>
                         <code className="sr-field-code">{field.name}</code>
+                        <a className="sr-field-anchor" href={`#${fieldPath}`}>#</a>
                         {field.required && <span className="badge sr-badge--required">required</span>}
                         {field.immutable && <span className="badge sr-badge--immutable">immutable</span>}
                     </div>
@@ -92,16 +94,16 @@ function FieldRow({field, depth = 0}: {field: SchemaFieldType; depth?: number}) 
                 </td>
             </tr>
             {expanded && hasNested && field.properties!.map((sub) => (
-                <FieldRow key={sub.name} field={sub} depth={depth + 1}/>
+                <FieldRow key={sub.name} field={sub} depth={depth + 1} parentPath={fieldPath}/>
             ))}
             {expanded && hasVariants && (
-                <VariantRows variants={field.variants!} depth={depth + 1}/>
+                <VariantRows variants={field.variants!} depth={depth + 1} parentPath={fieldPath}/>
             )}
         </>
     );
 }
 
-function VariantRows({variants, depth}: {variants: FieldVariantType[]; depth: number}) {
+function VariantRows({variants, depth, parentPath = ""}: {variants: FieldVariantType[]; depth: number; parentPath?: string}) {
     const [active, setActive] = useState(0);
     const variant = variants[active];
 
@@ -128,7 +130,7 @@ function VariantRows({variants, depth}: {variants: FieldVariantType[]; depth: nu
                 </tr>
             )}
             {variant.properties?.map((sub) => (
-                <FieldRow key={`${active}-${sub.name}`} field={sub} depth={depth}/>
+                <FieldRow key={`${active}-${sub.name}`} field={sub} depth={depth} parentPath={parentPath}/>
             ))}
         </>
     );
