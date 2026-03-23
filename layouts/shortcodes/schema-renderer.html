@@ -1,4 +1,6 @@
-{{- $schemaUrl := .Get "url" | default "" -}}
+{{- $version := .Site.Version.Name -}}
+{{- $relUrl := .Get "url" | default "" -}}
+{{- $schemaUrl := printf "/%s%s" $version $relUrl -}}
 <div class="sr-root" data-schema-renderer data-schema-url="{{ $schemaUrl }}"></div>
 
 {{- with resources.Get "js/schema/schema-renderer.tsx" -}}
