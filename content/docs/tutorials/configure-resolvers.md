@@ -326,7 +326,7 @@ Now that you know how to configure resolvers, you can:
 - [Resolvers]({{< relref "docs/concepts/resolvers.md" >}}) — High-level introduction to resolvers
 - [Resolver Configuration Reference]({{< relref "docs/reference/resolver-configuration.md" >}}) — Full configuration
   schema, repository types, and pattern syntax
-- [Components]({{< relref "docs/concepts/components.md" >}}) — Core concepts behind component versions, identities, and
+- [Component Identity]({{< relref "docs/concepts/component-identity.md" >}}) — Core concepts behind component versions, identities, and
   references
 - [Understand Credential Resolution]({{< relref "docs/tutorials/credential-resolution.md" >}}) — Configure credentials for OCI
   registries, Helm repositories, and more
