@@ -48,7 +48,7 @@
      Needs !important to beat Doks `li.active a { color: $primary }` (0-3-1) */
   :not(summary) > .docs-link.active {
     font-weight: 600;
-    color: #111111 !important;
+    color: var(--sidebar-active-color) !important;
   }
 
   /* Prevent Doks `li.active a` from cascading blue to ALL descendant links.
@@ -61,17 +61,17 @@
 
   /* Leaf hover */
   a:hover:not(.active) {
-    color: #233284;
+    color: var(--sidebar-hover-color);
   }
 
   li.active .list-nested .docs-link:not(.active):hover {
-    color: #233284 !important;
+    color: var(--sidebar-hover-color) !important;
   }
 }
 
-/* Dark mode: same cascade fixes, no background highlight — match light mode behavior */
+/* Dark mode: same cascade fixes — match light mode behavior */
 [data-bs-theme="dark"] .section-nav :not(summary) > .docs-link.active {
-  color: #fff !important;
+  color: var(--sidebar-active-color) !important;
 }
 
 [data-bs-theme="dark"] .section-nav li.active .list-nested .docs-link:not(.active) {
