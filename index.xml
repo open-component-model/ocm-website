@@ -1,60 +1,46 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Open Component Model</title><link>https://ocm.software/</link><description>Recent content on Open Component Model</description><generator>Hugo</generator><language>en-US</language><lastBuildDate>Mon, 01 Jan 0001 00:00:00 +0000</lastBuildDate><atom:link href="https://ocm.software/index.xml" rel="self" type="application/rss+xml"/><item><title>About the OCM Project</title><link>https://ocm.software/docs/overview/about-the-ocm-project/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/overview/about-the-ocm-project/</guid><description>&lt;p&gt;The Open Component Model (OCM) is an open standard that enables teams to describe software artifacts and their lifecycle metadata in a consistent,
-technology-agnostic way. It’s built to support secure, reliable delivery and deployment of software—across cloud, on-prem, hybrid, and even air-gapped environments.
-By decoupling and streamlining lifecycle processes like compliance checks, security scans, and deployments, OCM helps teams collaborate more effectively
-and build trust into every step of the software supply chain.&lt;/p&gt;</description></item><item><title>Benefits of OCM</title><link>https://ocm.software/docs/overview/benefits-of-ocm/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/overview/benefits-of-ocm/</guid><description>&lt;p&gt;The Open Component Model (OCM) is an open-source toolset for secure software delivery.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Open Component Model</title><link>https://ocm.software/</link><description>Recent content on Open Component Model</description><generator>Hugo</generator><language>en-US</language><lastBuildDate>Mon, 01 Jan 0001 00:00:00 +0000</lastBuildDate><atom:link href="https://ocm.software/index.xml" rel="self" type="application/rss+xml"/><item><title>How OCM Works</title><link>https://ocm.software/docs/overview/how-ocm-works/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/overview/how-ocm-works/</guid><description>&lt;p&gt;Modern software doesn&amp;rsquo;t just run — it travels. From a developer&amp;rsquo;s laptop to a CI pipeline,
+from a public cloud to a sovereign data center that has no connection to the internet.
+Along the way, it crosses organizational boundaries, trust boundaries, and sometimes physical ones.&lt;/p&gt;</description></item><item><title>Resolver Configuration</title><link>https://ocm.software/docs/reference/resolver-configuration/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/resolver-configuration/</guid><description>&lt;p&gt;This page is the technical reference for OCM resolver configuration. For a high-level introduction, see
+
+
+
+
+
+
+ 
+ 
+
+
+&lt;a href="https://ocm.software/docs/concepts/resolvers/"&gt;OCM Resolvers&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id="configuration-file"&gt;Configuration File&lt;/h2&gt;
+&lt;p&gt;Resolvers are configured in the OCM configuration file. By default, the CLI searches for configuration in
+&lt;code&gt;$HOME/.ocmconfig&lt;/code&gt;. You can also specify a configuration file explicitly with the &lt;code&gt;--config&lt;/code&gt; flag.&lt;/p&gt;</description></item><item><title>Transfer Components across an Air Gap</title><link>https://ocm.software/docs/how-to/transfer-components-across-an-air-gap/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/how-to/transfer-components-across-an-air-gap/</guid><description>&lt;h2 id="goal"&gt;Goal&lt;/h2&gt;
+&lt;p&gt;Transfer a signed component version from a source registry into an air-gapped target registry using a CTF archive as the transport medium. An air-gapped environment is a network that is physically isolated from untrusted networks such as the public internet.&lt;/p&gt;</description></item><item><title>Benefits of OCM</title><link>https://ocm.software/docs/overview/benefits-of-ocm/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/overview/benefits-of-ocm/</guid><description>&lt;p&gt;The Open Component Model (OCM) is an open-source toolset for secure software delivery.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;OCM gives you full visibility and control across the supply chain, streamlining compliance checks, security scans, and deployments.&lt;/li&gt;
 &lt;li&gt;OCM works everywhere — cloud, on-premises, hybrid, and air-gapped environments.&lt;/li&gt;
 &lt;li&gt;OCM integrates seamlessly with your existing tools and is easy to extend.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;With OCM, you gain control, reduce risk, and keep your delivery approach adaptable.&lt;/p&gt;</description></item><item><title>Prerequisites</title><link>https://ocm.software/docs/getting-started/prerequisites/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/getting-started/prerequisites/</guid><description>&lt;p&gt;This and the following chapters walk you through some basic steps to get started with OCM concepts and the OCM CLI.
-You will learn how to create a component version, display and examine the component, and how to transport and sign it.&lt;/p&gt;</description></item><item><title>Install the OCM CLI</title><link>https://ocm.software/docs/getting-started/install-the-ocm-cli/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/getting-started/install-the-ocm-cli/</guid><description>&lt;h2 id="overview"&gt;Overview&lt;/h2&gt;
-&lt;p&gt;You can install the latest release of the OCM CLI from any of the following sources (more details below):&lt;/p&gt;</description></item><item><title>Create Component Versions</title><link>https://ocm.software/docs/getting-started/create-component-versions/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/getting-started/create-component-versions/</guid><description>&lt;h2 id="creating-and-storing-component-versions"&gt;Creating and Storing Component Versions&lt;/h2&gt;
-&lt;p&gt;Component Versions are created using a &lt;code&gt;component-constructor.yaml&lt;/code&gt; file, which is a description file that contains one or multiple components. The file describes the components and their artifacts - resources and sources, metadata in form of labels and references to other components.&lt;/p&gt;</description></item><item><title>Display and Examine Component Versions</title><link>https://ocm.software/docs/getting-started/display-and-examine-component-versions/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/getting-started/display-and-examine-component-versions/</guid><description>&lt;h2 id="list-component-versions"&gt;List Component Versions&lt;/h2&gt;
-&lt;p&gt;To show a component stored in an OCM repository or CTF archive (which itself is an OCM repository), the 
-
-
-
-
-
-
-&lt;a href="https://github.com/open-component-model/ocm/blob/main/docs/reference/ocm_get_componentversions.md" target="_blank" rel="noopener"&gt;&lt;code&gt;ocm get componentversion&lt;/code&gt;&lt;/a&gt; command can be used:&lt;/p&gt;</description></item><item><title>Sign Component Versions</title><link>https://ocm.software/docs/getting-started/sign-component-versions/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/getting-started/sign-component-versions/</guid><description>&lt;p&gt;Component versions can be signed to ensure integrity along a transport chain.&lt;/p&gt;
-&lt;p&gt;Signing requires a key pair, a signature, and, optionally, an issuer, as well as an algorithm and a
-name for the signature.&lt;/p&gt;</description></item><item><title>Transport Component Versions</title><link>https://ocm.software/docs/getting-started/transport-component-versions/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/getting-started/transport-component-versions/</guid><description>&lt;p&gt;The section 
-
-
-
-
-
- 
- 
-
-
-&lt;a href="https://ocm.software/docs/getting-started/create-component-versions/#add-component-version-to-ctf-archive/"&gt;Add Component Version to CTF archive&lt;/a&gt; explained how to store component versions in a CTF archive.&lt;/p&gt;
-&lt;p&gt;During the transfer, it is possible to include component references as local blobs. It is also possible to include references in a recursive way.&lt;/p&gt;</description></item><item><title>Set Up OCM Controller Environment</title><link>https://ocm.software/docs/getting-started/set-up-ocm-controller-environment/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/getting-started/set-up-ocm-controller-environment/</guid><description>&lt;p&gt;This document describes how to set up a local environment to 
-
-
-
-
-
- 
- 
-
-
-&lt;a href="https://ocm.software/docs/getting-started/deploy-helm-charts/"&gt;Deploy a Helm Chart&lt;/a&gt; using the OCM controllers.&lt;/p&gt;
-&lt;h2 id="prerequisites"&gt;Prerequisites&lt;/h2&gt;
+&lt;p&gt;With OCM, you gain control, reduce risk, and keep your delivery approach adaptable.&lt;/p&gt;</description></item><item><title>Configure Credentials for OCM Controllers</title><link>https://ocm.software/docs/how-to/configure-credentials-for-ocm-controllers/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/how-to/configure-credentials-for-ocm-controllers/</guid><description>&lt;h2 id="goal"&gt;Goal&lt;/h2&gt;
+&lt;p&gt;Configure credentials to allow OCM Controllers to access OCM components stored in private OCI registries.&lt;/p&gt;
+&lt;h2 id="you-will-end-up-with"&gt;You will end up with&lt;/h2&gt;
 &lt;ul&gt;
-&lt;li&gt;
-
-
-
-
-
-
-&lt;a href="https://kubernetes.io/docs/tasks/tools/#kubectl" target="_blank" rel="noopener"&gt;kubectl&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;A Kubernetes secret containing registry credentials&lt;/li&gt;
+&lt;li&gt;OCM Controller resources configured to use these credentials&lt;/li&gt;
+&lt;li&gt;Verified access to private OCM repositories&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id="start-a-local-kubernetes-cluster-with-kind"&gt;Start a Local Kubernetes Cluster with kind&lt;/h2&gt;
-&lt;div class="callout callout-note d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3"&gt;
+&lt;p&gt;&lt;strong&gt;Estimated time:&lt;/strong&gt; ~5 minutes&lt;/p&gt;</description></item><item><title>Credential Consumer Identities</title><link>https://ocm.software/docs/reference/credential-consumer-identities/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/reference/credential-consumer-identities/</guid><description>&lt;p&gt;This page is the technical reference for credential consumer identities — the key-value maps OCM uses to look up credentials for a given operation. For a high-level introduction, see 
+
+
+
+
+
+ 
+ 
+
+
+&lt;a href="https://ocm.software/docs/concepts/credential-system/"&gt;Credential System&lt;/a&gt;.&lt;/p&gt;</description></item><item><title>Configure Credentials for Multiple Registries</title><link>https://ocm.software/docs/how-to/configure-credentials-for-multiple-registries/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/how-to/configure-credentials-for-multiple-registries/</guid><description>&lt;h2 id="goal"&gt;Goal&lt;/h2&gt;
+&lt;p&gt;Configure OCM to authenticate against multiple OCI registries — pinning explicit credentials for specific registries while using Docker config as a catch-all fallback.&lt;/p&gt;</description></item><item><title>OCM Controllers</title><link>https://ocm.software/docs/concepts/ocm-controllers/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/concepts/ocm-controllers/</guid><description>&lt;div class="callout callout-danger d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3"&gt;
  &lt;svg
  xmlns="http://www.w3.org/2000/svg"
  width="24"
@@ -66,19 +52,19 @@ name for the signature.&lt;/p&gt;</description></item><item><title>Transport Com
  stroke-linecap="round"
  stroke-linejoin="round"
  
- class="outline/box svg-inline callout-icon me-2 mb-3" id="svg-box" role="img"&gt;
+ class="outline/alert-triangle svg-inline callout-icon me-2 mb-3" id="svg-alert-triangle" role="img"&gt;
  &lt;path stroke="none" d="M0 0h24v24H0z" fill="none"/&gt;
- &lt;path d="M12 3l8 4.5l0 9l-8 4.5l-8 -4.5l0 -9l8 -4.5" /&gt;
- &lt;path d="M12 12l8 -4.5" /&gt;
- &lt;path d="M12 12l0 9" /&gt;
- &lt;path d="M12 12l-8 -4.5" /&gt;
+ &lt;path d="M12 9v4" /&gt;
+ &lt;path d="M10.363 3.591l-8.106 13.534a1.914 1.914 0 0 0 1.636 2.871h16.214a1.914 1.914 0 0 0 1.636 -2.87l-8.106 -13.536a1.914 1.914 0 0 0 -3.274 0" /&gt;
+ &lt;path d="M12 16h.01" /&gt;
 &lt;/svg&gt;
  &lt;div class="callout-content"&gt;
  &lt;div class="callout-title"&gt;
- &lt;p&gt;Kubernetes Cluster&lt;/p&gt;</description></item><item><title>Deploy Helm Charts</title><link>https://ocm.software/docs/getting-started/deploy-helm-charts/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/getting-started/deploy-helm-charts/</guid><description>&lt;p&gt;This guide demonstrates how to deploy a Helm Chart from an OCM component version using OCM controllers, kro, and FluxCD.
-It is a rather basic example, in which it is assumed that a developer created an application, packaged it as a Helm
-chart, and publishes it as OCM component version in an OCI registry. Then, an operator who wants to deploy the
-application via Helm chart in a Kubernetes cluster, creates a &lt;code&gt;ResourceGraphDefinition&lt;/code&gt; with resources that point to
-this OCM component version. Using CEL expressions inside the &lt;code&gt;ResourceGraphDefinition&lt;/code&gt;, the information about the
-resource location will be passed to FluxCD, which will then configure the Helm chart and deploy it into the Kubernetes
-cluster.&lt;/p&gt;</description></item></channel></rss>
+ &lt;p&gt;Caution&lt;/p&gt;</description></item><item><title>Generate Signing Keys</title><link>https://ocm.software/docs/how-to/generate-signing-keys/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/how-to/generate-signing-keys/</guid><description>&lt;h2 id="goal"&gt;Goal&lt;/h2&gt;
+&lt;p&gt;Generate an RSA key pair that can be used to sign and verify OCM component versions.&lt;/p&gt;
+&lt;h2 id="youll-end-up-with"&gt;You&amp;rsquo;ll end up with&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;A private key file for signing component versions&lt;/li&gt;
+&lt;li&gt;A public key file for sharing with consumers who need to verify signatures&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Estimated time:&lt;/strong&gt; ~2 minutes&lt;/p&gt;</description></item><item><title>Transfer and Transport</title><link>https://ocm.software/docs/concepts/transfer-and-transport/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://ocm.software/docs/concepts/transfer-and-transport/</guid><description>&lt;p&gt;Transfer is the mechanism that moves component versions from one OCM repository to another. During transfer, the component&amp;rsquo;s identity, integrity, and signatures are preserved so that consumers can verify provenance at every stage of the delivery pipeline.&lt;/p&gt;</description></item></channel></rss>
