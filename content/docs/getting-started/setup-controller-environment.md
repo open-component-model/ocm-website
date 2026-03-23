@@ -9,6 +9,16 @@ toc: true
 This guide helps you set up a local Kubernetes environment for testing OCM controller-based deployments.
 You'll install the OCM Controllers, kro, and Flux to enable GitOps workflows with OCM component versions.
 
+{{< callout context="tip" title="Not all components are always required" icon="outline/info-circle" >}}
+Depending on your use case, you may not need the full setup. For example, if 
+you're only deploying raw k8s deployment from an ocm resource, you may be 
+able to skip kro and Flux. 
+
+Check the prerequisites of the tutorial or how-to you're following to see what's 
+actually needed. This guide installs everything so you're covered for any 
+scenario.
+{{< /callout >}}
+
 ## You'll end up with
 
 - A local or remote Kubernetes cluster with OCM Controllers, kro, and Flux installed
