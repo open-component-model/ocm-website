@@ -126,7 +126,7 @@
 
 [[imports]]
   path = "ocm.software/open-component-model/cli"
-  version = "main"
+  version = "latest"
   [[imports.mounts]]
   source = "docs/reference"
   target = "content/docs/reference/ocm-cli"

@@ -49,17 +49,10 @@ jobs:
         with:
           go-version-file: go.mod
 
-      - name: Install Node deps
-        run: npm ci
-
-      # Fetch latest CLI reference docs from main branch.
-      # TODO: Remove once CLI / Controller has a final version.
-      # Also remove the `Setup Go` step
-      - name: Update CLI reference docs module
-        run: hugo mod get -u ocm.software/open-component-model/cli@main
-
-      - name: Build
-        run: npm run build
+      - name: Install deps and Build
+        run: |
+          npm ci
+          npm run build
 
       - name: Setup Python
         uses: actions/setup-python@e797f83bcb11b83ae66e0230d6156d7c80228e7c #v5
