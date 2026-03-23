@@ -1,5 +1,5 @@
 ---
-title: OCM Descriptor
+title: Component Descriptor
 description: "Reference documentation for the OCM Component Descriptor format (v2, JSON Schema 2020-12)."
 weight: 2
 toc: false

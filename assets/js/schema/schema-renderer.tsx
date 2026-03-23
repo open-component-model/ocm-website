@@ -18,6 +18,10 @@ function typeClass(type: string): string {
     return TYPE_CLASSES[base] || (type.includes("[]") ? "sr-type--array" : "sr-type--object");
 }
 
+function slugify(text: string): string {
+    return text.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+}
+
 // --- Components --------------------------------------------------------------
 
 function SchemaHeader({meta}: {meta: SchemaModelType["meta"]}) {
@@ -134,7 +138,7 @@ function FieldTable({title, description, fields}: {title: string; description: s
     if (!fields?.length) return null;
     return (
         <div className="sr-section">
-            <h3>{title}</h3>
+            <h3 id={slugify(title)}>{title}<a className="sr-anchor" href={`#${slugify(title)}`}>#</a></h3>
             {description && <p className="sr-section__desc">{description}</p>}
             <div className="sr-table-wrap">
                 <table className="sr-table">

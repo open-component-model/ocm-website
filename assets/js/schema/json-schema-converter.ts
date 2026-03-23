@@ -200,7 +200,7 @@ export function jsonSchemaToModel(data: SchemaNode): SchemaModel {
     if (root?.properties) {
         return {
             meta: extractMeta(root),
-            sections: [{title: "Schema", description: "", fields: fieldsFrom(root, root, new Set())}],
+            sections: [{title: "Fields", description: "", fields: fieldsFrom(root, root, new Set())}],
         };
     }
 
@@ -209,7 +209,7 @@ export function jsonSchemaToModel(data: SchemaNode): SchemaModel {
             const sections: SchemaSection[] = (root[kw] as SchemaNode[]).map((option, i) => {
                 const resolved = resolve(option, root);
                 return {
-                    title: `Variant ${i + 1}: ${normalizeType(resolved.type)}`,
+                    title: `Variant ${i + 1}`,
                     description: resolved.description || "",
                     fields: fieldsFrom(resolved, root, new Set()),
                 };

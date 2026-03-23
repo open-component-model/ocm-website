@@ -1,5 +1,5 @@
 ---
-title: OCM Constructor
+title: Component Constructor
 description: "Reference documentation for the OCM Component Constructor format (v1, JSON Schema 2020-12)."
 weight: 1
 toc: false

@@ -128,6 +128,20 @@ $schema-max-depth: 8;
       background: var(--bs-primary);
       border-radius: 2px;
     }
+
+    .sr-anchor {
+      margin-left: 0.2em;
+      opacity: 0;
+      text-decoration: none;
+      font-weight: 400;
+      color: var(--bs-secondary-color);
+      transition: opacity 0.15s;
+    }
+
+    &:hover .sr-anchor,
+    .sr-anchor:focus {
+      opacity: 0.5;
+    }
   }
 }
 
