@@ -37,7 +37,7 @@ Component names follow a DNS-based naming scheme:
 <DNS domain>/<name component>{/<name component>}
 ```
 
-The domain prefix must be controlled by the owner of the component, which prevents naming collisions across organizations. The remaining path segments further classify the component within the owner's namespace.
+The DNS domain at the start of the name (e.g., `acme.org` in `acme.org/webshop/backend`) must be controlled by the component owner, which prevents naming collisions across organizations. The remaining path segments further classify the component within the owner's namespace.
 
 **Examples:**
 
@@ -136,7 +136,7 @@ Artifact types describe the semantic meaning of a resource or source. OCM define
 
 The artifact type determines how tools interpret the content. It is independent of how the artifact is stored or accessed.
 
-For the full list, see [Artifact Types]({{< relref "docs/reference/component-descriptor.md" >}}#artifact-types).
+For more details, see [Artifact Types](https://github.com/open-component-model/ocm-spec/blob/main/doc/04-extensions/01-artifact-types/README.md) in the specification.
 
 ## Access Specifications
 
@@ -151,19 +151,7 @@ For available access types and their fields, see [Access Specification]({{< relr
 Component versions are stored in **component repositories**. OCM is technology-agnostic — the same component version can be stored in different repository implementations:
 
 - **OCI registries** (e.g., GitHub Container Registry, Harbor, Docker Hub)
-- **S3-compatible object storage**
-- **Local filesystems**
-- **CTF (Common Transport Format) archives**
-
-### Common Transport Format (CTF)
-
-CTF is an OCI-layout-compatible archive format designed for transporting component versions across boundaries. A CTF archive packages component descriptors and their artifacts into a single file that can be:
-
-- Copied to removable media for air-gapped transfers.
-- Uploaded to a different registry in a new environment.
-- Verified and signed offline.
-
-To create and work with CTF archives, see [Create Component Versions]({{< relref "docs/getting-started/create-component-version.md" >}}).
+- **CTF (Common Transport Format) archives** — OCI-layout-compatible archives for air-gapped transfers. See [Create Component Versions]({{< relref "docs/getting-started/create-component-version.md" >}}) for details.
 
 ## Signing and Verification
 
