@@ -11,4 +11,6 @@ manages the lifecycle of the deployed Kubernetes objects.
 
 ---
 
+## API Specification
+
 {{< schema-renderer url="/schemas/kubernetes/controller/delivery.ocm.software_deployers.yaml" >}}

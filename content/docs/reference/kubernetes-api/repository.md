@@ -11,4 +11,6 @@ configured interval and propagates OCM configuration.
 
 ---
 
+## API Specification
+
 {{< schema-renderer url="/schemas/kubernetes/controller/delivery.ocm.software_repositories.yaml" >}}

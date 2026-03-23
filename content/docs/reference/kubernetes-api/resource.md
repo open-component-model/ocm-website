@@ -11,4 +11,6 @@ identity.
 
 ---
 
+## API Specification
+
 {{< schema-renderer url="/schemas/kubernetes/controller/delivery.ocm.software_resources.yaml" >}}

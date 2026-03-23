@@ -12,4 +12,5 @@ select which component version to reconcile.
 ---
 
 ## API Specification
+
 {{< schema-renderer url="/schemas/kubernetes/controller/delivery.ocm.software_components.yaml" >}}

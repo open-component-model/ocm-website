@@ -456,7 +456,6 @@ templater
 templaters
 templating
 terraform
-terraform
 tgz
 tls
 toc
