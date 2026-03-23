@@ -1,10 +1,10 @@
 ---
 title: Controller CRDs
 description: "API reference for OCM Kubernetes Custom Resources (delivery.ocm.software/v1alpha1)"
-weight: 50
+weight: 6
 toc: true
 sidebar:
-  collapsed: false
+  collapsed: true
 ---
 
 This section documents the Custom Resource Definitions (CRDs) provided by the
