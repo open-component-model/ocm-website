@@ -1,5 +1,8 @@
 {{- $version := .Site.Version.Name -}}
-{{- $relUrl := .Get "url" | default "" -}}
+{{- $relUrl := .Get "url" -}}
+{{- if not $relUrl -}}
+  {{- errorf "schema-renderer shortcode: missing required 'url' parameter" -}}
+{{- end -}}
 {{- $schemaUrl := printf "/%s%s" $version $relUrl -}}
 <div class="sr-root" data-schema-renderer data-schema-url="{{ $schemaUrl }}"></div>
 

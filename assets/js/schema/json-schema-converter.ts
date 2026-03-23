@@ -53,7 +53,7 @@ function resolve(node: SchemaNode, root: SchemaNode, seen = new Set<string>()): 
                 const {[kw]: _, ...rest} = derefed;
                 return resolve({...rest, ...union.resolved} as SchemaNode, root, seen);
             }
-            return {...derefed, [kw]: resolved};
+            return {...derefed, [kw]: union.branches};
         }
     }
 
