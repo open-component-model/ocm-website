@@ -23,7 +23,7 @@ editPage = false
 lastMod = false
 
 defaultContentVersionInSubdir = false
-defaultContentVersion = "legacy"
+defaultContentVersion = "latest"
 
 [pagination]
   pagerSize = 10
@@ -97,7 +97,7 @@ defaultContentVersion = "legacy"
   resampleFilter = "Lanczos"
 
 [versions]
-  [versions."legacy"]
+  [versions."latest"]
     weight = 1
-  [versions."dev"]
+  [versions."legacy"]
     weight = 2

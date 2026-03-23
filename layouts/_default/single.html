@@ -30,6 +30,7 @@
         </nav>
       {{ end }}
 
+      {{ partial "main/version-banner.html" . }}
       <h1>{{ .Title }}</h1>
       
       {{ if ne .Params.toc false -}}

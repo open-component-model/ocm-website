@@ -122,7 +122,7 @@
   source = "content"
   target = "content"
   [mounts.sites.matrix]
-    versions = ["dev"]
+    versions = ["latest"]
 
 [[imports]]
   path = "ocm.software/open-component-model/cli"
@@ -131,4 +131,4 @@
   source = "docs/reference"
   target = "content/docs/reference/ocm-cli"
   [imports.mounts.sites.matrix]
-    versions = ["dev"]
+    versions = ["latest"]
