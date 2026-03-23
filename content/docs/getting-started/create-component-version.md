@@ -8,6 +8,10 @@ toc: true
 
 Component versions bundle your software artifacts with metadata, making them portable and verifiable. This guide walks you through creating your first component version.
 
+{{< callout context="tip" title="New to OCM?" icon="outline/info-circle" >}}
+For a conceptual overview of components, identities, and descriptors, see [Component Identity]({{< relref "docs/concepts/component-identity.md" >}}).
+{{< /callout >}}
+
 ## What You'll Learn
 
 By the end of this tutorial, you will:

@@ -16,7 +16,7 @@ OCM gives you a single, standard way to handle that journey:
 ## What Is a Component?
 
 Before anything can be packed, signed, or shipped, OCM needs a way to describe your software.
-That's what a [component]({{< relref "components.md" >}}) is: a named, versioned collection of everything
+That's what a [component]({{< relref "component-identity.md" >}}) is: a named, versioned collection of everything
 that belongs to a deliverable — container images, Helm charts, config files, binaries, and even documentation.
 
 Each component carries a **component descriptor** that acts like a packing list: what's inside, where it came from,
@@ -33,7 +33,7 @@ an OCI registry, a file archive, or anything OCM supports.
 You're not converting or re-packaging your artifacts. You're wrapping them in a standard envelope
 so that the rest of the pipeline knows exactly what it's working with.
 
-Components can [reference other components]({{< relref "components.md" >}}), so a product made of multiple services
+Components can [reference other components]({{< relref "component-identity.md" >}}), so a product made of multiple services
 becomes a graph that travels as one unit.
 
 ## Sign
@@ -91,7 +91,7 @@ OCM adapts to your infrastructure. Not the other way around.
 ## Dive Deeper
 
 - **[Getting Started]({{< relref "getting-started.md" >}})** — hands-on with the OCM CLI.
-- **[Components]({{< relref "components.md" >}})** & **[Coordinates]({{< relref "coordinates.md" >}})** — the data model in detail.
+- **[Component Identity]({{< relref "component-identity.md" >}})** — the data model in detail.
 - **[Signing]({{< relref "signing-and-verification-concept.md" >}})** — cryptographic integrity, explained.
 - **[Transfer]({{< relref "transfer-concept.md" >}})** — how content moves across boundaries.
 - **[Controllers]({{< relref "ocm-controllers.md" >}})** — automated deployment on Kubernetes.
