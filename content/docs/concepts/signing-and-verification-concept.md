@@ -278,4 +278,4 @@ When using PEM encoding for signing, the credential referenced by `public_key_pe
 
 ## Related Documentation
 
-- [Concept: Component Versions]({{< relref "components.md" >}}) - Understanding component structure
+- [Concept: Component Identity]({{< relref "component-identity.md" >}}) - Understanding component structure

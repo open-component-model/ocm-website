@@ -57,7 +57,7 @@ You should see: `SIGNATURE VERIFICATION SUCCESSFUL` and exit code `0`. For detai
 
 ### Transfer to a CTF archive
 
-Create a self-contained [CTF archive]({{< relref "docs/concepts/transfer-concept.md" >}}) that bundles all resource artifacts and transitively referenced [component versions]({{< relref "docs/concepts/components.md" >}}). See [Transfer and Transport]({{< relref "docs/concepts/transfer-concept.md" >}}) for details on the `--copy-resources` flag.
+Create a self-contained [CTF archive]({{< relref "docs/concepts/transfer-concept.md" >}}) that bundles all resource artifacts and transitively referenced [component versions]({{< relref "docs/concepts/component-identity.md" >}}). See [Transfer and Transport]({{< relref "docs/concepts/transfer-concept.md" >}}) for details on the `--copy-resources` flag.
 
 ```bash
 ocm transfer cv \
@@ -123,7 +123,7 @@ You should see:
 
 ### Verify in the target registry
 
-Confirm the [component version]({{< relref "docs/concepts/components.md" >}}) is available in the target registry:
+Confirm the [component version]({{< relref "docs/concepts/component-identity.md" >}}) is available in the target registry:
 
 ```bash
 ocm get cv <target-registry>//<component-name>:<version>
