@@ -130,6 +130,40 @@ Transferring component versions...
 To make your component public in GitHub Container Registry, go to the `packages` tab in your GitHub repository `https://github.com/$GITHUB_USERNAME?tab=packages`,
 select the package `component-descriptors/ocm.software/ocm-k8s-toolkit/simple`, and under "Package settings" change the visibility to `public`.
 
+Alternatively, if you want to keep your package private, configure credentials for the OCM Controllers:
+
+{{< details "Configure credentials for private registries" >}}
+Create a docker-registry secret with your registry credentials. For GitHub Container Registry, you can use a Personal Access Token or a short-lived token from the GitHub CLI:
+
+```shell
+kubectl create secret docker-registry ghcr-secret \
+  --docker-username=$GITHUB_USERNAME \
+  --docker-password="$(gh auth token)" \
+  --docker-server=ghcr.io
+```
+
+Then add `ocmConfig` to the Repository resource in your RGD to reference the secret. The credentials propagate automatically to Component and Resource objects that reference this Repository:
+
+```yaml
+    - id: repository
+      template:
+        apiVersion: delivery.ocm.software/v1alpha1
+        kind: Repository
+        metadata:
+          name: simple-repository
+        spec:
+          repositorySpec:
+              baseUrl: $OCM_REPO
+              type: OCIRegistry
+          interval: 1m
+          ocmConfig:
+            - kind: Secret
+              name: ghcr-secret
+```
+
+For more details, see [Credentials for OCM Controllers]({{< relref "/docs/tutorials/configure-credentials-for-controllers.md" >}}).
+{{< /details >}}
+
 {{< /step >}}
 
 {{< step >}}
@@ -406,10 +440,10 @@ If you see errors like:
 failed to list versions: response status code 401: unauthorized
 ```
 
-Your registry package may be private. Either:
+Your registry package is private. Either:
 
-- Make the package public in your registry settings
-- Configure credentials for the OCM Controller resources
+- Make the package public in your registry settings, or
+- Configure credentials as described in the collapsible section after "Transfer to your registry"
 
 ### Resource Not Found
 

@@ -57,7 +57,7 @@ This means:
 
 **Localization** keeps image references in sync when components move between registries:
 
-1. **During transfer**: When you run `ocm transfer --copy-resources`, OCM copies artifacts to the new registry and updates references in the component descriptor
+1. **During transfer**: When you run `ocm transfer cv --copy-resources`, OCM copies artifacts to the new registry and updates references in the component descriptor
 2. **During deployment**: The RGD reads the updated image reference from the component and injects it into Helm values
 
 This ensures your deployment always uses images from the current registry, not hardcoded original locations.
@@ -234,15 +234,8 @@ spec:
               resource:
                 name: helm-resource
           additionalStatusFields:
-            # The additional status fields are useful for splitting the imageReference into its components, so that
-            # they can be used in depending deployers
-            # Example: ghcr.io/stefanprodan/charts/podinfo:6.7.1 would be
-            # registry: ghcr.io
-            # repository: stefanprodan/charts/podinfo
-            # reference/tag: 6.7.1
-            registry: resource.access.imageReference.toOCI().registry
-            repository: resource.access.imageReference.toOCI().repository
-            tag: resource.access.imageReference.toOCI().tag
+            # toOCI() converts the resource access to an OCI reference object containing registry, repository, tag, and digest
+            oci: resource.access.toOCI()
           interval: 1m
           # ocmConfig is required, if the OCM repository requires credentials to access it.
           # ocmConfig:
@@ -263,9 +256,7 @@ spec:
               resource:
                 name: image-resource
           additionalStatusFields:
-            registry: resource.access.imageReference.toOCI().registry
-            repository: resource.access.imageReference.toOCI().repository
-            tag: resource.access.imageReference.toOCI().tag
+            oci: resource.access.toOCI()
           interval: 1m
           # ocmConfig is required, if the OCM repository requires credentials to access it.
           # ocmConfig:
@@ -283,11 +274,12 @@ spec:
           layerSelector:
             mediaType: "application/vnd.cncf.helm.chart.content.v1.tar+gzip"
             operation: copy
-          url: oci://${resourceChart.status.additional.registry}/${resourceChart.status.additional.repository}
+          url: oci://${resourceChart.status.additional.oci.registry}/${resourceChart.status.additional.oci.repository}
           ref:
-            tag: ${resourceChart.status.additional.tag}
-          # secretRef is required, if the OCI repository requires credentials to access it.
+            digest: ${resourceChart.status.additional.oci.digest}
+          # secretRef is required if the OCI repository requires credentials to access it.
           # secretRef:
+          #   name: ghcr-secret
     # HelmRelease refers to the OCIRepository, lets you configure the helm chart and deploys the Helm Chart into the
     # Kubernetes cluster.
     - id: helmrelease
@@ -306,10 +298,13 @@ spec:
             namespace: default
           values:
             # This is the second step of the localization. We use the image reference from the resource "image-resource"
-            # and insert it into the Helm chart values.
+            # and insert it into the Helm chart values. We use a pseudo-tag with @digest because:
+            # 1. Podinfo's Helm chart constructs the image as repository:tag (using :)
+            # 2. OCI runtimes ignore the tag portion when a digest is present
+            # 3. This creates a valid reference like: registry/repo:pseudo@sha256:...
             image:
-              repository: ${resourceImage.status.additional.registry}/${resourceImage.status.additional.repository}
-              tag: ${resourceImage.status.additional.tag}
+              repository: ${resourceImage.status.additional.oci.registry}/${resourceImage.status.additional.oci.repository}
+              tag: latest@${resourceImage.status.additional.oci.digest}
 ```
 {{< /details >}}
 
@@ -318,13 +313,13 @@ spec:
 Build the component version locally:
 
 ```bash
-ocm add componentversion --create --file ./ctf component-constructor.yaml
+ocm add cv
 ```
 
 Transfer to your registry with `--copy-resources` to enable localization (this copies the Helm chart and image to your registry):
 
 ```bash
-ocm transfer ctf --copy-resources ./ctf $OCM_REPO
+ocm transfer cv --copy-resources transport-archive//ocm.software/ocm-k8s-toolkit/bootstrap:1.0.0 $OCM_REPO
 ```
 
 ### Verify the Transfer
@@ -336,6 +331,54 @@ ocm get cv $OCM_REPO//ocm.software/ocm-k8s-toolkit/bootstrap:1.0.0 -o yaml | gre
 ```
 
 You should see image references pointing to `$OCM_REPO/...` instead of the original locations—this confirms localization worked.
+
+Alternatively, if you want to keep your package private, configure credentials for the OCM Controllers and Flux:
+
+{{< details "Configure credentials for private registries" >}}
+Create a docker-registry secret with your registry credentials. For GitHub Container Registry, you can use a Personal Access Token or a short-lived token from the GitHub CLI:
+
+```shell
+kubectl create secret docker-registry ghcr-secret \
+  --docker-username=$GITHUB_USERNAME \
+  --docker-password="$(gh auth token)" \
+  --docker-server=ghcr.io
+```
+
+Then update the resources to use credentials:
+
+1. **OCM Controller resources**: Add `ocmConfig` to the Repository in `bootstrap.yaml`:
+
+```yaml
+spec:
+  repositorySpec:
+    baseUrl: $OCM_REPO
+    type: OCIRegistry
+  interval: 1m
+  ocmConfig:
+    - kind: Secret
+      name: ghcr-secret
+```
+
+2. **Flux OCIRepository**: Uncomment `secretRef` in the RGD's ocirepository resource:
+
+```yaml
+secretRef:
+  name: ghcr-secret
+```
+
+3. **Pod imagePullSecrets**: The deployed pods also need credentials to pull images. Add this to the HelmRelease values in the RGD:
+
+```yaml
+values:
+  imagePullSecrets:
+    - name: ghcr-secret
+  image:
+    repository: ${resourceImage.status.additional.oci.registry}/${resourceImage.status.additional.oci.repository}
+    tag: latest@${resourceImage.status.additional.oci.digest}
+```
+
+For more details, see [Credentials for OCM Controllers]({{< relref "/docs/tutorials/configure-credentials-for-controllers.md" >}}).
+{{< /details >}}
 
 ## Step 2: Deploy the Helm Chart
 
@@ -468,10 +511,10 @@ kubectl get pods -l app.kubernetes.io/name=bootstrap-release-podinfo -o jsonpath
 ```
 
 ```console
-ghcr.io/$GITHUB_USERNAME/stefanprodan/podinfo:6.9.1
+ghcr.io/$GITHUB_USERNAME/component-descriptors/ocm.software/ocm-k8s-toolkit/bootstrap:latest@sha256:262578cde928d5c9eba3bce079976444f624c13ed0afb741d90d5423877496cb
 ```
 
-The image reference points to your registry—localization worked!
+The image reference points to your registry with a digest—localization worked!
 
 ## Troubleshooting
 
@@ -480,7 +523,7 @@ The image reference points to your registry—localization worked!
 If you see `401: unauthorized` errors, your GitHub package is private. Either:
 
 - Make the package public in GitHub Package settings
-- [Configure credentials]({{< relref "configure-credentials-for-controllers.md" >}}) for the controller resources
+- Configure credentials as described in the collapsible section after "Verify the Transfer"
 
 ### RGD Not Becoming Active
 
@@ -505,6 +548,10 @@ kubectl describe bootstrap bootstrap
 ```
 
 Check the Events section for error messages.
+
+### ImagePullBackOff Errors
+
+If pods show `ImagePullBackOff` or `ErrImagePull` errors, the kubelet cannot pull the localized image from your private registry. Add `imagePullSecrets` to the HelmRelease values as described in the "Configure credentials for private registries" section.
 
 ## What You Learned
 
