@@ -4,7 +4,7 @@
 
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const { parseArguments, hasMountForVersion, hasImportForVersion, buildModuleBlocks } = require('./cutoff-version');
+const { parseArguments, hasMountForVersion, hasImportForVersion, buildModuleBlocks, compareSemver, assignVersionWeights } = require('./cutoff-version');
 
 // Test parseArguments
 test('parseArguments: valid version', () => {
@@ -108,4 +108,151 @@ test('buildModuleBlocks: schema imports have correct sources', () => {
     ]);
 });
 
- 
+// Test compareSemver
+test('compareSemver: equal versions return 0', () => {
+    assert.equal(compareSemver('1.2.3', '1.2.3'), 0);
+    assert.equal(compareSemver('0.0.0', '0.0.0'), 0);
+});
+
+test('compareSemver: major version difference', () => {
+    assert.ok(compareSemver('2.0.0', '1.0.0') > 0);
+    assert.ok(compareSemver('1.0.0', '2.0.0') < 0);
+});
+
+test('compareSemver: minor version difference', () => {
+    assert.ok(compareSemver('1.2.0', '1.1.0') > 0);
+    assert.ok(compareSemver('1.1.0', '1.2.0') < 0);
+});
+
+test('compareSemver: patch version difference', () => {
+    assert.ok(compareSemver('1.0.2', '1.0.1') > 0);
+    assert.ok(compareSemver('1.0.1', '1.0.2') < 0);
+});
+
+test('compareSemver: complex ordering', () => {
+    assert.ok(compareSemver('0.22.0', '0.21.0') > 0);
+    assert.ok(compareSemver('1.0.0', '0.99.99') > 0);
+});
+
+// Test assignVersionWeights
+test('assignVersionWeights: first cutoff (latest + legacy -> add version)', () => {
+    const existing = {
+        latest: { weight: 1 },
+        legacy: { weight: 2 }
+    };
+    const result = assignVersionWeights(existing, '0.21.0');
+    assert.deepEqual(result, {
+        latest: { weight: 1 },
+        '0.21.0': { weight: 2 },
+        legacy: { weight: 3 }
+    });
+});
+
+test('assignVersionWeights: second cutoff adds newer version before older', () => {
+    const existing = {
+        latest: { weight: 1 },
+        '0.21.0': { weight: 2 },
+        legacy: { weight: 3 }
+    };
+    const result = assignVersionWeights(existing, '0.22.0');
+    assert.deepEqual(result, {
+        latest: { weight: 1 },
+        '0.22.0': { weight: 2 },
+        '0.21.0': { weight: 3 },
+        legacy: { weight: 4 }
+    });
+});
+
+test('assignVersionWeights: adding older version sorts correctly', () => {
+    const existing = {
+        latest: { weight: 1 },
+        '0.22.0': { weight: 2 },
+        legacy: { weight: 3 }
+    };
+    const result = assignVersionWeights(existing, '0.20.0');
+    assert.deepEqual(result, {
+        latest: { weight: 1 },
+        '0.22.0': { weight: 2 },
+        '0.20.0': { weight: 3 },
+        legacy: { weight: 4 }
+    });
+});
+
+test('assignVersionWeights: duplicate version throws', () => {
+    const existing = {
+        latest: { weight: 1 },
+        '0.21.0': { weight: 2 },
+        legacy: { weight: 3 }
+    };
+    assert.throws(() => assignVersionWeights(existing, '0.21.0'), /already exists/);
+});
+
+test('assignVersionWeights: no legacy present', () => {
+    const existing = {
+        latest: { weight: 1 }
+    };
+    const result = assignVersionWeights(existing, '1.0.0');
+    assert.deepEqual(result, {
+        latest: { weight: 1 },
+        '1.0.0': { weight: 2 }
+    });
+});
+
+test('assignVersionWeights: no latest present', () => {
+    const existing = {
+        '0.21.0': { weight: 1 },
+        legacy: { weight: 2 }
+    };
+    const result = assignVersionWeights(existing, '0.22.0');
+    assert.deepEqual(result, {
+        '0.22.0': { weight: 1 },
+        '0.21.0': { weight: 2 },
+        legacy: { weight: 3 }
+    });
+});
+
+test('assignVersionWeights: multiple existing versions re-sorted correctly', () => {
+    const existing = {
+        latest: { weight: 1 },
+        '0.20.0': { weight: 4 },
+        '0.22.0': { weight: 2 },
+        '0.21.0': { weight: 3 },
+        legacy: { weight: 5 }
+    };
+    const result = assignVersionWeights(existing, '0.23.0');
+    assert.deepEqual(result, {
+        latest: { weight: 1 },
+        '0.23.0': { weight: 2 },
+        '0.22.0': { weight: 3 },
+        '0.21.0': { weight: 4 },
+        '0.20.0': { weight: 5 },
+        legacy: { weight: 6 }
+    });
+});
+
+test('assignVersionWeights: works with "main" as default key', () => {
+    const existing = {
+        main: { weight: 1 },
+        legacy: { weight: 2 }
+    };
+    const result = assignVersionWeights(existing, '1.0.0');
+    assert.deepEqual(result, {
+        main: { weight: 1 },
+        '1.0.0': { weight: 2 },
+        legacy: { weight: 3 }
+    });
+});
+
+test('assignVersionWeights: empty existing versions', () => {
+    const result = assignVersionWeights({}, '1.0.0');
+    assert.deepEqual(result, {
+        '1.0.0': { weight: 1 }
+    });
+});
+
+test('assignVersionWeights: null existing versions', () => {
+    const result = assignVersionWeights(null, '1.0.0');
+    assert.deepEqual(result, {
+        '1.0.0': { weight: 1 }
+    });
+});
