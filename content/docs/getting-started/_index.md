@@ -4,7 +4,7 @@ description: "Learn how to use OCM through hands-on tutorials that guide you ste
 icon: "🚀"
 weight: 20
 sidebar:
-  collapsed: false
+  collapsed: true
 ---
 
 Welcome to OCM! These tutorials guide you through essential OCM workflows,

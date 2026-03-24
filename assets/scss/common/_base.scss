@@ -8,7 +8,6 @@
  */
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-@import url('https://rsms.me/inter/inter.css'); /* Inter variable font – OpenMFP and Platform Mesh sites */
 
 html, body {
   font-family: 'Inter var', 'Inter', system-ui, sans-serif;
@@ -46,21 +45,21 @@ html[data-bs-theme="auto"] {
 
   /* Main content (docs-content) in full-width mode */
   .docs-content {
-    margin-left: 0rem !important;
+    margin-left: 0 !important;
     /* Removes standard margins */
-    margin-right: 0rem !important;
+    margin-right: 0 !important;
     /* so the content can use the full */
-    padding-right: 0rem !important;
+    padding-right: 0 !important;
     /* width */
-    padding-left: 0rem !important;
+    padding-left: 0 !important;
   }
 
   /* Table of contents (TOC) in full-width mode */
   .docs-toc {
     margin-left: 3rem !important;  /* slightly increased separation from main content */
-    margin-right: 0rem !important;   /* no extra right margin */
-    padding-right: 0rem !important;  /* no extra right padding */
-    padding-left: 0rem !important;   /* keep left padding neutral */
+    margin-right: 0 !important;   /* no extra right margin */
+    padding-right: 0 !important;  /* no extra right padding */
+    padding-left: 0 !important;   /* keep left padding neutral */
   }
 }
 

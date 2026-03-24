@@ -15,23 +15,23 @@
  * Adapts to light and dark design.
  */
 .toc-box {
-  border-radius: 0.6rem;              /* Rounded corners */
-  background: #f8f9fa;                /* Very light background */
-  border: 1px solid #ececec;          /* Subtle border */
-  padding: 1.3rem 1.8rem;             /* Inner spacing */
+  border-radius: 0.6rem;
+  background: var(--toc-box-bg);
+  border: 1px solid var(--toc-box-border);
+  padding: 1.3rem 1.8rem;
 }
 
 /* TOC title */
 .toc-title {
-  font-size: 1.2rem;                 /* Slightly larger than normal text */
-  font-weight: 500;                  /* Semi-bold */
-  margin-bottom: 0.7rem;             /* Spacing below */
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin-bottom: 0.7rem;
 }
 
 /* Dark mode adjustments for TOC */
 [data-bs-theme="dark"] .toc-box {
-  background: #242538;               /* Darker background */
-  border: 1px solid rgba(255,255,255,0.07);  /* More subtle border */
+  background: var(--toc-box-bg-dark);
+  border: 1px solid var(--toc-box-border-dark);
 }
 
 /* DESCRIPTION BOX
@@ -40,78 +40,32 @@
  * Often used at the beginning of a section.
  */
 .section-desc-box {
-  margin: 1.1rem 0 2.2rem 0;         /* Top and bottom spacing */
-  padding: 1.1rem 1.5rem;            /* Inner spacing */
-  background: #f6f7fa;               /* Very light background */
-  border: 1px solid #ececec;         /* Subtle border */
-  border-radius: 0.8rem;             /* Strongly rounded corners */
-  
-  /* Text formatting */
-  font-size: 1.08rem;                /* Slightly larger than normal text */
-  color: #232336;                    /* Dark, slightly blue text color */
-  font-weight: 400;                  /* Normal font weight */
-  line-height: 1.5;                  /* Comfortable line height */
-  
-  /* Box behavior */
-  width: 100%;                       /* Fill available content width */
-  max-width: none;                   /* Ensure no external max-width caps */
-  margin-left: 0;                    /* Align with content left edge */
-  margin-right: 0;                   /* Align with content right edge */
-  box-sizing: border-box;            /* Padding calculated inside */
+  margin: 1.1rem 0 2.2rem 0;
+  padding: 1.1rem 1.5rem;
+  background: var(--desc-box-bg);
+  border: 1px solid var(--desc-box-border);
+  border-radius: 0.8rem;
+  font-size: 1.08rem;
+  color: var(--desc-box-text);
+  font-weight: 400;
+  line-height: 1.5;
+  width: 100%;
+  max-width: none;
+  margin-left: 0;
+  margin-right: 0;
+  box-sizing: border-box;
 }
 
 /* Dark mode adjustments for the description box */
 [data-bs-theme="dark"] .section-desc-box {
-  background: #5a5c60 !important; // Darker grey for dark mode
-  color: #f6f7fa !important;      // Very light, but not pure white
-}
-
-/* --------------------------------------------
-   Docs content compact spacing (tables/lists/hr)
-   -------------------------------------------- */
-.docs-content table td,
-.docs-content table th {
-  padding: 0.5rem;
-}
-
-.docs-content ul,
-.docs-content ol {
-  margin-block: 0.75rem;
-}
-
-.docs-content hr {
-  margin-block: 0.5rem;
-}
-
-/* Align the first content heading with TOC start:
-   Default for pages without a desktop TOC (e.g., section/list pages): slightly lower than header */
-.docs-content h1:first-child {
-  margin-top: 0.5rem; /* tuned to better match sidebar start on section pages */
-}
-
-/* Section pages: reduce container padding and title margin to align with single/article pages */
-.ocm-section-page {
-  padding-top: calc(var(--nav-height) - 1.75rem) !important; /* override base padding to bring content higher */
-}
-
-/* Add spacing from sidebar on larger screens */
-@media (min-width: 1200px) {
-  .ocm-section-page {
-    padding-left: 3.8rem; /* more margin to sidebar */
-  }
-}
-
-/* Docs article pages: when a desktop TOC column is present, keep the same top gap
-   so the content title baseline aligns with the TOC heading start. */
-@media (min-width: 1200px) {
-  .row.flex-xl-nowrap .docs-toc + .docs-content h1:first-child {
-    margin-top: 1.75rem; /* align with TOC baseline on docs pages */
-  }
+  background: var(--desc-box-bg-dark);
+  color: var(--desc-box-text-dark);
+  border-color: var(--desc-box-border-dark);
 }
 
 /* --------------------------------------------
    Details/Summary Elements (expandable sections)
    -------------------------------------------- */
 .docs-content details summary {
-  font-size: 0.95rem;  /* Kleinerer Text als normaler Absatz */
+  font-size: 0.95rem;
 }
