@@ -477,6 +477,7 @@ typehandler
 typename
 ui
 uis
+uncomment
 uncommenting
 undefine
 unmodifiable
