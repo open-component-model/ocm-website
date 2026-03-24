@@ -3,12 +3,35 @@
 # This is a script to install the OCM CLI v2 by downloading the latest release from GitHub.
 # https://github.com/open-component-model/open-component-model/releases
 
-set -e
+set -euo pipefail
 
-DEFAULT_BIN_DIR="/usr/local/bin"
+# Default install directory per the XDG Base Directory Specification:
+# https://specifications.freedesktop.org/basedir/latest/
+DEFAULT_BIN_DIR="${HOME}/.local/bin"
 BIN_DIR=${1:-"${DEFAULT_BIN_DIR}"}
 GITHUB_REPO="open-component-model/open-component-model"
 TAG_PREFIX="cli/"
+
+usage() {
+    cat <<EOF
+Usage: install-cli.sh [BIN_DIR]
+
+Install the OCM CLI v2.
+
+Arguments:
+  BIN_DIR    Installation directory (default: ~/.local/bin)
+
+Environment variables:
+  OCM_VERSION       Install a specific version (e.g., OCM_VERSION=1.0.0)
+  OCM_SKIP_VERIFY   Skip attestation verification (set to "true")
+
+Examples:
+  curl -sfL https://ocm.software/install-cli.sh | bash
+  curl -sfL https://ocm.software/install-cli.sh | OCM_VERSION=1.0.0 bash
+  curl -sfL https://ocm.software/install-cli.sh | bash -s -- /usr/local/bin
+EOF
+    exit 0
+}
 
 # Helper functions for logs
 info() {
@@ -26,7 +49,7 @@ fatal() {
 
 # Set os, fatal if operating system not supported
 setup_verify_os() {
-    if [[ -z "${OS}" ]]; then
+    if [[ -z "${OS:-}" ]]; then
         OS=$(uname)
     fi
     case ${OS} in
@@ -43,7 +66,7 @@ setup_verify_os() {
 
 # Set arch, fatal if architecture not supported
 setup_verify_arch() {
-    if [[ -z "${ARCH}" ]]; then
+    if [[ -z "${ARCH:-}" ]]; then
         ARCH=$(uname -m)
     fi
     case ${ARCH} in
@@ -64,12 +87,32 @@ setup_verify_arch() {
     esac
 }
 
+# Ensure the target bin directory exists
+ensure_bin_dir() {
+    if ! mkdir -p "${BIN_DIR}" 2>/dev/null; then
+        fatal "Cannot create ${BIN_DIR}. Run with a writable directory: curl ... | bash -s -- ~/.local/bin"
+    fi
+}
+
+# Check if BIN_DIR is on PATH and warn if not
+ensure_path() {
+    case ":${PATH}:" in
+        *:"${BIN_DIR}":*)
+            return 0
+            ;;
+    esac
+
+    warn "${BIN_DIR} is not in your PATH."
+    warn "Add it by running:"
+    warn ""
+    warn '  echo "export PATH=${BIN_DIR}:$PATH" >> ~/.profile && source ~/.profile'
+    warn ""
+}
+
 # Verify existence of downloader executable
 verify_downloader() {
     # Return failure if it doesn't exist or is no executable
-    [[ -x "$(which "$1")" ]] || return 1
-
-    # Set verified executable as our downloader program and return success
+    command -v "$1" > /dev/null 2>&1 || return 1
     DOWNLOADER=$1
     return 0
 }
@@ -91,7 +134,7 @@ setup_tmp() {
 
 # Find version from Github metadata
 get_release_version() {
-    if [[ -n "${OCM_VERSION}" ]]; then
+    if [[ -n "${OCM_VERSION:-}" ]]; then
         METADATA_URL="https://api.github.com/repos/${GITHUB_REPO}/releases/tags/${TAG_PREFIX}v${OCM_VERSION}"
     else
         # Use the list endpoint so we can filter by TAG_PREFIX; /releases/latest may
@@ -119,18 +162,15 @@ download() {
 
     case $DOWNLOADER in
         curl)
-            curl -o "$1" -sfL "$2" || fatal "Download with curl failed: RC $?"
+            curl -o "$1" -sfL --proto '=https' --tlsv1.2 "$2" || fatal "Download with curl failed: RC $?"
             ;;
         wget)
-            wget -qO "$1" "$2" || fatal "Download with wget failed: RC $?"
+            wget -qO "$1" --secure-protocol=TLSv1_2 "$2" || fatal "Download with wget failed: RC $?"
             ;;
         *)
             fatal "Incorrect executable '${DOWNLOADER}'"
             ;;
     esac
-
-    # Abort if download command failed
-    [[ $? -eq 0 ]] || fatal 'Download failed'
 }
 
 # Download binary from Github URL
@@ -145,7 +185,7 @@ download_binary() {
 # Requires the GitHub CLI (gh) to be installed
 verify_binary() {
     # Skip verification if explicitly disabled
-    if [[ "${OCM_SKIP_VERIFY}" == "true" ]]; then
+    if [[ "${OCM_SKIP_VERIFY:-}" == "true" ]]; then
         warn "Skipping attestation verification (OCM_SKIP_VERIFY=true)"
         return 0
     fi
@@ -168,18 +208,18 @@ verify_binary() {
 
 # Setup permissions and move binary
 setup_binary() {
-    chmod 755 "${TMP_BIN}"
     info "Installing ocm to ${BIN_DIR}/ocm"
 
     if [[ -w "${BIN_DIR}" ]]; then
-        mv -f -- "${TMP_BIN}" "${BIN_DIR}/ocm"
+        install -m 755 "${TMP_BIN}" "${BIN_DIR}/ocm"
     else
-        sudo mv -f -- "${TMP_BIN}" "${BIN_DIR}/ocm"
+        fatal "Cannot write to ${BIN_DIR}. Run with a writable directory: curl ... | bash -s -- ~/.local/bin"
     fi
 }
 
 # Run the install process
 {
+    case "${1:-}" in -h|--help) usage ;; esac
     setup_verify_os
     setup_verify_arch
     verify_downloader curl || verify_downloader wget || fatal 'Can not find curl or wget for downloading files'
@@ -187,5 +227,8 @@ setup_binary() {
     get_release_version
     download_binary
     verify_binary
+    ensure_bin_dir
     setup_binary
+    ensure_path
+    info "OCM CLI v${VERSION_OCM} installed successfully"
 }

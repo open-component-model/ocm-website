@@ -26,14 +26,25 @@ This guide covers installation options for different platforms.
 
 ## Install the OCM CLI
 
-{{< callout context="caution" title="Installation Methods" icon="outline/alert-triangle" >}}
-The new OCM CLI currently only supports **Build from Source** installation. Pre-built binaries, Homebrew packages,
-and installation scripts will be available with the first official release in Q2 2026.
-{{< /callout >}}
-
 {{< tabs "installation-methods" >}}
 
+{{< tab "wget" >}}
+
+```shell
+wget -qO- https://ocm.software/install-cli.sh | bash
+```
+
+{{< /tab >}}
+{{< tab "curl" >}}
+
+```shell
+curl -sfL https://ocm.software/install-cli.sh | bash
+```
+
+{{< /tab >}}
 {{< tab "Build from Source" >}}
+
+> **Note:** Building from source is not officially supported. Use the pre-built binaries via wget or curl instead.
 
 ### Clone and build
 
@@ -47,16 +58,10 @@ task cli:install # installs to /usr/local/bin (requires sudo)
 ```
 
 {{< /tab >}}
-{{< tab "Bash" >}}
-
-To install the latest release of the OCM CLI with bash for macOS or Linux, execute the following command:
-
-```shell
-curl -s https://ocm.software/install-cli.sh | sudo bash
-```
-
-{{< /tab >}}
 {{< /tabs >}}
+
+The binary is installed to `~/.local/bin` by default (per the [XDG Base Directory Specification](https://specifications.freedesktop.org/basedir/latest/)).
+Run `bash -s -- --help` after the pipe to see all options.
 
 ## Verify Installation
 
