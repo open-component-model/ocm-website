@@ -132,3 +132,30 @@
   target = "content/docs/reference/ocm-cli"
   [imports.mounts.sites.matrix]
     versions = ["latest"]
+
+[[imports]]
+  path = "ocm.software/open-component-model/bindings/go/constructor"
+  version = "latest"
+  [[imports.mounts]]
+  source = "spec/v1/resources"
+  target = "static/latest/schemas/bindings/go/constructor"
+  [imports.mounts.sites.matrix]
+    versions = ["latest"]
+
+[[imports]]
+  path = "ocm.software/open-component-model/bindings/go/descriptor/v2"
+  version = "latest"
+  [[imports.mounts]]
+  source = "resources"
+  target = "static/latest/schemas/bindings/go/descriptor/v2"
+  [imports.mounts.sites.matrix]
+    versions = ["latest"]
+
+[[imports]]
+  path = "ocm.software/open-component-model/kubernetes/controller"
+  version = "latest"
+  [[imports.mounts]]
+  source = "config/crd/bases"
+  target = "static/latest/schemas/kubernetes/controller"
+  [imports.mounts.sites.matrix]
+    versions = ["latest"]
