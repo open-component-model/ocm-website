@@ -30,7 +30,7 @@ with the same OCM component. Additionally, it shows how to **localize** a Helm c
 Helm chart. It is a two-step process:
 
 1. When an OCM component and its resources are transferred to another registry, **referential resources** can
-potentially update their reference to the new location. For instance, a resource with an access type `ociArtifact`
+potentially update their reference to the new location. For instance, a resource with an access type `OCIImage/v1`
 will update its image reference in the component descriptor to the new registry location, if the OCM transfer is done
 with the flag `--copy-resources`.
 1. However, the deployment using the image is not aware of this change. Accordingly, we need to insert the new image
@@ -179,19 +179,19 @@ components:
         type: helmChart
         version: "1.0.0"
         access:
-          type: ociArtifact
+          type: OCIImage/v1
           imageReference: "ghcr.io/stefanprodan/charts/podinfo:6.9.1@sha256:565d310746f1fa4be7f93ba7965bb393153a2d57a15cfe5befc909b790a73f8a"
       - name: image-resource
         type: ociArtifact
         version: "1.0.0"
         access:
-          type: ociRegistry
+          type: OCIImage/v1
           imageReference: "ghcr.io/stefanprodan/podinfo:6.9.1@sha256:262578cde928d5c9eba3bce079976444f624c13ed0afb741d90d5423877496cb"
       - name: resource-graph-definition
         type: blob
         version: "1.0.0"
         input:
-          type: file
+          type: File/v1
           path: ./resourceGraphDefinition.yaml
 ```
 
@@ -350,7 +350,7 @@ ocm get componentversion ghcr.io/<your-namespace>//ocm.software/ocm-k8s-toolkit/
 # Output is truncated for brevity
 - access:
     imageReference: ghcr.io/<your-namespace>/stefanprodan/charts/podinfo:6.9.1@sha256:565d310746f1fa4be7f93ba7965bb393153a2d57a15cfe5befc909b790a73f8a
-    type: ociArtifact
+    type: OCIImage/v1
   digest:
     ...
   name: helm-resource
@@ -359,7 +359,7 @@ ocm get componentversion ghcr.io/<your-namespace>//ocm.software/ocm-k8s-toolkit/
   version: 1.0.0
 - access:
     imageReference: ghcr.io/<your-namespace>/stefanprodan/podinfo:6.9.1@sha256:262578cde928d5c9eba3bce079976444f624c13ed0afb741d90d5423877496cb
-    type: ociArtifact
+    type: OCIImage/v1
   digest:
     ...
   name: image-resource
@@ -369,7 +369,7 @@ ocm get componentversion ghcr.io/<your-namespace>//ocm.software/ocm-k8s-toolkit/
 - access:
     localReference: sha256:ed5252ff70bfe93e763ff6afeafe8dafd14c128981e4ae1472e35afc3ebe7a63
     mediaType: application/octet-stream
-    type: localBlob
+    type: LocalBlob/v1
   digest:
      ...
   name: resource-graph-definition

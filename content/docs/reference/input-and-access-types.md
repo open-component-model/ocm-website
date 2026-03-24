@@ -16,7 +16,7 @@ A resource must have exactly one of `input` or `access`. See the [Component Cons
 
 ## Input Types
 
-### `dir/v1`
+### `Dir/v1`
 
 Embeds a directory as a tar archive.
 
@@ -36,13 +36,13 @@ resources:
 - name: deploy-manifests
   type: blob
   input:
-    type: dir/v1
+    type: Dir/v1
     path: ./deploy
     compress: true
     reproducible: true
 ```
 
-### `file/v1`
+### `File/v1`
 
 Embeds a single file.
 
@@ -57,12 +57,12 @@ resources:
 - name: config
   type: blob
   input:
-    type: file/v1
+    type: File/v1
     path: ./config.yaml
     mediaType: application/yaml
 ```
 
-### `helm/v1`
+### `Helm/v1`
 
 Embeds a Helm chart from the local filesystem or a remote repository. Exactly one of `path` or `helmRepository` must be specified.
 
@@ -78,7 +78,7 @@ resources:
 - name: my-chart
   type: helmChart
   input:
-    type: helm/v1
+    type: Helm/v1
     path: ./charts/myapp
     repository: charts/myapp:1.0.0
 ---
@@ -87,7 +87,7 @@ resources:
 - name: ingress-chart
   type: helmChart
   input:
-    type: helm/v1
+    type: Helm/v1
     helmRepository: https://github.com/kubernetes/ingress-nginx/releases/download/helm-chart-4.14.0/ingress-nginx-4.14.0.tgz
 ---
 # Remote chart (OCI)
@@ -95,16 +95,16 @@ resources:
 - name: podinfo-chart
   type: helmChart
   input:
-    type: helm/v1
+    type: Helm/v1
     helmRepository: oci://ghcr.io/stefanprodan/charts/podinfo:6.9.1
     repository: charts/podinfo:6.9.1
 ```
 
 {{< callout type="info" >}}
-The deprecated aliases `helm` and `Helm` are still accepted but `helm/v1` is the preferred form.
+The deprecated aliases `helm` and `helm/v1` are still accepted but `Helm/v1` is the preferred form.
 {{< /callout >}}
 
-### `utf8/v1`
+### `UTF8/v1`
 
 Embeds inline text or structured data. Exactly one of `text`, `json`, `formattedJson`, or `yaml` must be specified.
 
@@ -121,7 +121,7 @@ resources:
 - name: config-data
   type: blob
   input:
-    type: utf8/v1
+    type: UTF8/v1
     json:
       replicas: 3
       env: production
@@ -148,7 +148,7 @@ resources:
     imageReference: ghcr.io/acme/myapp:1.0.0
 ```
 
-### `localBlob/v1`
+### `LocalBlob/v1`
 
 References content stored alongside the component descriptor in the same repository. Typically created automatically when using input types.
 
@@ -165,7 +165,7 @@ resources:
   type: blob
   relation: local
   access:
-    type: localBlob/v1
+    type: LocalBlob/v1
     localReference: sha256:57563cb4a3e5c06a22c95aaa445...
     mediaType: application/octet-stream
 ```

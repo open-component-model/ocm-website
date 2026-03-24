@@ -132,7 +132,7 @@ component:
       version: 1.0.0
       relation: local
       access:                          # NOT included in signature
-        type: localBlob
+        type: LocalBlob/v1
         localReference: sha256:70a257...
         mediaType: text/plain; charset=utf-8
       digest:                          # Included in signature
@@ -144,7 +144,7 @@ component:
       version: 1.0.0
       relation: external
       access:                          # NOT included in signature
-        type: ociArtifact
+        type: OCIImage/v1
         imageReference: ghcr.io/stefanprodan/podinfo:6.9.1@sha256:262578cd...
       digest:                          # Included in signature
         hashAlgorithm: SHA-256

@@ -142,7 +142,7 @@ For more details, see [Artifact Types](https://github.com/open-component-model/o
 
 Access specifications decouple an artifact's identity from its storage location. The `access.type` field determines how to retrieve the artifact, while the remaining fields provide the location-specific details.
 
-The same artifact type can be accessed through different access specifications. For example, an `ociImage` could be stored in an OCI registry (`ociArtifact`) or bundled into a CTF archive (`localBlob`).
+The same artifact type can be accessed through different access specifications. For example, an `ociImage` could be stored in an OCI registry (`OCIImage/v1`) or bundled into a CTF archive (`LocalBlob/v1`).
 
 For available access types and their fields, see [Access Specification]({{< relref "docs/reference/component-descriptor.md" >}}#access-specification) and [Input and Access Types]({{< relref "docs/reference/input-and-access-types.md" >}}).
 
