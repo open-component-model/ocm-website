@@ -100,6 +100,10 @@ helm install kro oci://registry.k8s.io/kro/charts/kro \
   --namespace kro-system \
   --create-namespace
 ```
+
+{{< callout context="caution" title="Security consideration" icon="outline/alert-triangle" >}}
+This default installation grants kro cluster-wide access to all resources, which is suitable for local development but not recommended for production environments. See the [kro documentation](https://kro.run/docs/concepts/access-control) for guidance on configuring more restrictive RBAC.
+{{< /callout >}}
 <details>
 <summary>You should see this output</summary>
 
