@@ -47,7 +47,7 @@ components:
         access:
           type: Helm/v1
           helmRepository: https://charts.example.com
-          helmChart: my-chart-1.0.0.tgz
+          helmChart: my-chart:1.0.0
 ```
 
 Add the component version to a CTF archive:
