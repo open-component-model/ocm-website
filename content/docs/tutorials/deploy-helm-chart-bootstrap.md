@@ -1,5 +1,5 @@
 ---
-title: Deploy Helm Charts (with Bootstrap)
+title: Deploy Helm Charts with Bootstrap Setup
 description: "Deploy a Helm Chart using a ResourceGraphDefinition delivered with OCM."
 icon: "⚙️"
 weight: 61

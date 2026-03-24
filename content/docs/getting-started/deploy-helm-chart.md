@@ -470,7 +470,8 @@ kubectl delete -f rgd.yaml
 ## Next Steps
 
 - [Tutorial: Create a Multi-Component Product]({{< relref "docs/tutorials/advanced-component-constructor.md" >}}) - Learn how to structure complex applications with multiple components and resources
-- [Tutorial: Deploy Helm Charts (with Bootstrap)]({{< relref "deploy-helm-chart-bootstrap.md" >}}) - Use the OCM Controllers to deploy a Helm chart without manual bootstrapping, using GitOps
+- [Tutorial: Deploy Helm Charts with Bootstrap Setup]({{< relref 
+  "deploy-helm-chart-bootstrap.md" >}}) - Use the OCM Controllers to deploy a Helm chart without manual bootstrapping, using GitOps
 
 ## Related Documentation
 
