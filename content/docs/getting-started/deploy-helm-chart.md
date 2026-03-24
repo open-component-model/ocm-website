@@ -142,7 +142,9 @@ kubectl create secret docker-registry ghcr-secret \
   --docker-server=ghcr.io
 ```
 
-Then add `ocmConfig` to the Repository resource in your RGD to reference the secret. The credentials propagate automatically to Component and Resource objects that reference this Repository:
+Then add `ocmConfig` to the Repository resource in your RGD to reference the secret. The credentials propagate 
+automatically to Component, Resource, and Deployer objects that reference this 
+Repository:
 
 ```yaml
     - id: repository
