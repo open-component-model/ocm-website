@@ -1,6 +1,7 @@
 .DS_Store
 .clinerules
 .clineignore
+.eslintcache
 .hugo_build.lock
 .idea/
 .project
