@@ -298,6 +298,7 @@ mutex
 mvn
 mvnrepository
 namespace
+namespaced
 namespaces
 neonephos
 nerdctl
@@ -377,6 +378,7 @@ rekor
 relativeocireference
 releaser
 relref
+renderer
 replicatedrepositoryurl
 repo
 repocpi

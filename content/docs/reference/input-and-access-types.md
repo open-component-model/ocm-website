@@ -1,7 +1,7 @@
 ---
 title: "Input and Access Types"
 description: "Reference for input and access types used to add resources to a component version."
-weight: 53
+weight: 4
 toc: true
 ---
 
