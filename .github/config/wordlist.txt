@@ -223,6 +223,8 @@ iam
 ical
 ics
 imagemapping
+imagePullSecrets
+imagePullBackOff
 inlined
 installable
 instantiation
