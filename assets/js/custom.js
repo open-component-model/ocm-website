@@ -11,6 +11,11 @@ document.addEventListener('click', (e) => {
   const link = e.target.closest('.section-nav details > summary a.docs-link');
   if (!link) return;
 
+  // Let the browser handle modifier-clicks (new tab, new window, etc.)
+  if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+  if (link.target && link.target !== '_self') return;
+  if (link.hasAttribute('download')) return;
+
   const details = link.closest('details');
 
   // If already on this page, let the native <summary> toggle through

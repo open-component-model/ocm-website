@@ -32,9 +32,9 @@ Based on: https://discourse.gohugo.io/t/automated-nested-menus/42835/2
   {{- $currentPage := .currentPage }}
   {{- $node := .node }}
 
-  {{- $linkContent := $node.Page.LinkTitle }}
-  {{- with $node.Name }}
-    {{- $linkContent = . }}
+  {{- $linkContent := $node.Name }}
+  {{- with $node.Page }}
+    {{- $linkContent = .LinkTitle }}
   {{- end }}
 
   {{- $ariaCurrent := "" }}

@@ -30,7 +30,7 @@
 
 /* Align the first content heading with TOC start:
    Default for pages without a desktop TOC (e.g., section/list pages): slightly lower than header */
-.docs-content h1:first-child {
+.docs-content > h1:first-of-type {
   margin-top: 0.5rem;
 }
 
@@ -39,9 +39,9 @@
   padding-top: calc(var(--nav-height) - 1.75rem) !important;
 }
 
-/* Add spacing from sidebar on larger screens */
+/* Add spacing from sidebar on larger screens (only when sidebar is present) */
 @media (min-width: 1200px) {
-  .ocm-section-page {
+  .row.flex-xl-nowrap > .docs-sidebar + .ocm-section-page {
     padding-left: 3.8rem;
   }
 }
@@ -49,7 +49,7 @@
 /* Docs article pages: when a desktop TOC column is present, keep the same top gap
    so the content title baseline aligns with the TOC heading start. */
 @media (min-width: 1200px) {
-  .row.flex-xl-nowrap .docs-toc + .docs-content h1:first-child {
+  .row.flex-xl-nowrap .docs-toc + .docs-content > h1:first-of-type {
     margin-top: 1.75rem;
   }
 }
