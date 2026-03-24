@@ -10,17 +10,17 @@
  * - Dark mode support
  */
 
-/* ============================================
-   CSS Custom Properties
-   ============================================ */
-:root {
-    --nav-height: 56px;
-    --nav-gap: clamp(18px, 2.6vw, 32px); // moderately increase gap for better breathing room
-    --nav-link-size: 0.875rem; // ~14px for a slightly more compact navbar
-    --fw-nav: 400;
-    --fw-nav-hover: 400;
-    --fw-nav-active: 500;
-    --nav-border-scrolled: var(--lp-c-border);
+/* Navigation variables are defined in _variables-custom.scss (:root block) */
+
+/* Shared reset for navbar utility controls (buttons, dropdowns, toggles) */
+@mixin navbar-control-reset {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    line-height: 1 !important;
+    vertical-align: middle !important;
 }
 
 .header {
@@ -199,37 +199,19 @@
     .nav-link,
     .header-github-pill,
     .mode-toggle {
-        display: inline-flex !important;
-        align-items: center !important;
-        justify-content: center !important;
+        @include navbar-control-reset;
         height: 32px !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        line-height: 1 !important;
-        vertical-align: middle !important;
     }
     
     // Dropdown container should not have height restriction
     .dropdown {
-        display: inline-flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        line-height: 1 !important;
-        vertical-align: middle !important;
+        @include navbar-control-reset;
     }
 
     // Special handling for dropdown toggle buttons to ensure Bootstrap functionality
     .btn-dropdown {
-        display: inline-flex !important;
-        align-items: center !important;
-        justify-content: center !important;
+        @include navbar-control-reset;
         height: 32px !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        line-height: 1 !important;
-        vertical-align: middle !important;
         cursor: pointer !important;
     }
 
@@ -562,19 +544,8 @@
             flex: 1 0 100%;
             justify-content: center;
         }
-        /* At <=480px ensure menu is centered under the toggle without reflow */
-        .navbar-right .dropdown { position: relative; }
-        .navbar-right .dropdown-menu {
-            position: absolute !important;
-            left: 50% !important;
-            right: auto !important;
-            top: calc(100% + 4px) !important;
-            transform: translateX(-50%) !important;
-            margin-top: 0 !important;
-            width: max-content !important;  /* shrink to content width */
-            max-width: 90vw !important;     /* prevent overflow */
-            z-index: 1002;
-        }
+        /* At <=480px center dropdown menu under toggle without reflow */
+        .navbar-right .dropdown-menu,
         .navbar-right .dropdown-menu[data-bs-popper] {
             position: absolute !important;
             left: 50% !important;
@@ -584,9 +555,10 @@
             margin-top: 0 !important;
             width: max-content !important;
             max-width: 90vw !important;
+            z-index: 1002;
         }
         .navbar-right .version-droplet {
-            flex: 0 0 auto !important; /* keep static size */
+            flex: 0 0 auto !important;
             width: auto !important;
             display: inline-flex;
             white-space: nowrap;

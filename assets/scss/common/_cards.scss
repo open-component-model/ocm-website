@@ -12,32 +12,7 @@
  * - Dark mode support
  */
 
-/* ============================================
-   CSS Custom Properties (Theme Variables)
-   ============================================ */
-:root {
-  /* Card Background & Borders */
-  --ocm-card-bg: var(--lp-c-bg-soft);
-  --ocm-card-bg-dark: var(--lp-c-bg-elv);
-  --ocm-card-border: var(--lp-c-divider);
-  --ocm-card-border-radius: 12px;
-  
-  /* Card Text Colors */
-  --ocm-card-title-color: var(--lp-c-text-1);
-  --ocm-card-desc-color: var(--lp-c-text-2);
-  
-  /* Icon Color (harmonized with OCM brand/header).
-     Uses brand-1 by default; overrideable via --ocm-card-icon-color */
-  --ocm-card-icon-color: var(--brand-blue-dark);
-  /* NEW: unify stroke width across all card icons */
-  --ocm-card-icon-stroke-width: 1;
-
-  /* Card Shadows */
-  --ocm-card-shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.15);
-  
-  /* Glow Effect */
-  --ocm-card-glow-color: rgba(46, 227, 255, 0.15);
-}
+/* Card variables are defined in _variables-custom.scss (:root block) */
 
 /* ============================================
    Base Card Component
@@ -347,13 +322,13 @@
   font-size: 2rem;
   font-weight: 600;
   color: var(--lp-c-text-1);
-  text-align: center !important;
+  text-align: center;
   margin: 0;
   width: 100%;
 }
 
 .section-title.section-title--left {
-  text-align: left !important;
+  text-align: left;
   font-weight: 700;
   font-family: 'Inter var', 'Inter', system-ui, sans-serif;
   font-size: 20px;
