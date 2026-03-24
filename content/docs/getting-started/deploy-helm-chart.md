@@ -142,9 +142,9 @@ kubectl create secret docker-registry ghcr-secret \
   --docker-server=ghcr.io
 ```
 
-Then add `ocmConfig` to the Repository resource in your RGD to reference the secret. The credentials propagate 
-automatically to Component, Resource, and Deployer objects that reference this 
-Repository:
+Then update the resources to use credentials:
+
+1. **OCM Controller resources**: Add `ocmConfig` to the Repository resource in your RGD. The credentials propagate automatically to Component, Resource, and Deployer objects that reference this Repository:
 
 ```yaml
     - id: repository
@@ -263,15 +263,8 @@ spec:
               resource:
                 name: helm-resource # This must match the resource name set in the OCM component version (see above)
           additionalStatusFields:
-            # The additional status fields are useful for splitting the imageReference into its components, so that
-            # they can be used in depending deployers
-            # Example: ghcr.io/stefanprodan/charts/podinfo:6.7.1 would be
-            # registry: ghcr.io
-            # repository: stefanprodan/charts/podinfo
-            # reference/tag: 6.7.1
-            registry: resource.access.imageReference.toOCI().registry
-            repository: resource.access.imageReference.toOCI().repository
-            tag: resource.access.imageReference.toOCI().tag
+            # toOCI() converts the resource access to an OCI reference object containing registry, repository, tag, and digest
+            oci: resource.access.imageReference.toOCI()
           interval: 1m
           # ocmConfig is required, if the OCM repository requires credentials to access it.
           # ocmConfig:
@@ -288,9 +281,9 @@ spec:
           layerSelector:
             mediaType: "application/vnd.cncf.helm.chart.content.v1.tar+gzip"
             operation: copy
-          url: oci://${resourceChart.status.additional.registry}/${resourceChart.status.additional.repository}
+          url: oci://${resourceChart.status.additional.oci.registry}/${resourceChart.status.additional.oci.repository}
           ref:
-            tag: ${resourceChart.status.additional.tag}
+            tag: ${resourceChart.status.additional.oci.tag}
           # secretRef is required, if the OCI repository requires credentials to access it.
           # secretRef:
     # HelmRelease refers to the OCIRepository, lets you configure the Helm chart and deploys the Helm chart into the
@@ -466,7 +459,7 @@ Remove the deployed resources:
 kubectl delete -f instance.yaml
 kubectl delete -f rgd.yaml
 ```
-
+  
 ## Next Steps
 
 - [Tutorial: Create a Multi-Component Product]({{< relref "docs/tutorials/advanced-component-constructor.md" >}}) - Learn how to structure complex applications with multiple components and resources
