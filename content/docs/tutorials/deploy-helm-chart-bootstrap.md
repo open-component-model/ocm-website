@@ -332,6 +332,9 @@ ocm get cv $OCM_REPO//ocm.software/ocm-k8s-toolkit/bootstrap:1.0.0 -o yaml | gre
 
 You should see image references pointing to `$OCM_REPO/...` instead of the original locations—this confirms localization worked.
 
+To make your component public in GitHub Container Registry, go to the `packages` tab in your GitHub repository `https://github.com/$GITHUB_USERNAME?tab=packages`,
+select the package `component-descriptors/ocm.software/ocm-k8s-toolkit/bootstrap`, and under "Package settings" change the visibility to `public`.
+
 Alternatively, if you want to keep your package private, configure credentials for the OCM Controllers and Flux:
 
 {{< details "Configure credentials for private registries" >}}
@@ -346,7 +349,7 @@ kubectl create secret docker-registry ghcr-secret \
 
 Then update the resources to use credentials:
 
-1. **OCM Controller resources**: Add `ocmConfig` to the Repository in `bootstrap.yaml`:
+1. **OCM Controller resources**: Add `ocmConfig` to the Repository in `bootstrap.yaml`. The credentials automatically propagate to Component and Resource objects:
 
 ```yaml
 spec:
