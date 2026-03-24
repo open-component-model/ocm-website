@@ -32,6 +32,16 @@ You define a ResourceGraphDefinition that tells kro how to orchestrate the OCM a
 - [Controller environment]({{< relref "setup-controller-environment.md" >}}) set up (OCM Controllers, kro and Flux in a Kubernetes cluster)
 - [OCM CLI]({{< relref "ocm-cli-installation.md" >}}) installed
 - Access to an OCI registry (e.g., [ghcr.io](https://docs.github.com/en/packages/learn-github-packages/introduction-to-github-packages))
+- `envsubst` installed (pre-installed on most Linux/macOS systems; part of `gettext`)
+
+## Environment Setup
+
+Set environment variables for your GitHub username and OCM repository:
+
+```bash
+export GITHUB_USERNAME=<your-github-username>
+export OCM_REPO=ghcr.io/$GITHUB_USERNAME
+```
 
 ## Create and Publish a Component Version
 
@@ -97,14 +107,13 @@ ocm.software/ocm-k8s-toolkit/simple │ 1.0.0   │ ocm.software
 
 ### Transfer to your registry
 
-Use `ocm transfer cv` and specify the correct reference (`<path-to-your-ctf>//<component>:<version>`) and target repository.
-Replace `<your-namespace>` with your registry namespace:
+Use `ocm transfer cv` and specify the correct reference (`<path-to-your-ctf>//<component>:<version>`) and target repository:
 
-> 📣 **Note:** 📣  
+> 📣 **Note:** 📣
 > If your registry requires authentication, configure [Credentials for OCM CLI]({{< relref "/docs/how-to/configure-multiple-credentials.md" >}}) first.
 
 ```shell
-ocm transfer cv transport-archive//ocm.software/ocm-k8s-toolkit/simple:1.0.0 ghcr.io/<your-namespace>
+ocm transfer cv transport-archive//ocm.software/ocm-k8s-toolkit/simple:1.0.0 $OCM_REPO
 ```
 
 <details>
@@ -117,7 +126,7 @@ Transferring component versions...
 ```
 </details>
 
-To make your component public in GitHub Container Registry, go to the `packages` tab in your GitHub repository `https://github.com/<your-namespace>?tab=packages`,
+To make your component public in GitHub Container Registry, go to the `packages` tab in your GitHub repository `https://github.com/$GITHUB_USERNAME?tab=packages`,
 select the package `component-descriptors/ocm.software/ocm-k8s-toolkit/simple`, and under "Package settings" change the visibility to `public`.
 
 {{< /step >}}
@@ -127,7 +136,7 @@ select the package `component-descriptors/ocm.software/ocm-k8s-toolkit/simple`, 
 ### Verify the upload
 
 ```shell
-ocm get cv ghcr.io/<your-namespace>//ocm.software/ocm-k8s-toolkit/simple:1.0.0
+ocm get cv $OCM_REPO//ocm.software/ocm-k8s-toolkit/simple:1.0.0
 ```
 
 <details>
@@ -151,7 +160,7 @@ ocm get cv ghcr.io/<your-namespace>//ocm.software/ocm-k8s-toolkit/simple:1.0.0
 ### Create ResourceGraphDefinition
 
 The ResourceGraphDefinition tells kro how to orchestrate the OCM and Flux resources.
-Create `rgd.yaml` with the following content, replacing `<your-namespace>` with your registry namespace:
+Create `rgd.yaml` with the following content:
 
 {{< details "ResourceGraphDefinition (rgd.yaml)" >}}
 ```yaml
@@ -181,7 +190,7 @@ spec:
           name: simple-repository
         spec:
           repositorySpec:
-              baseUrl: ghcr.io/<your-namespace>
+              baseUrl: $OCM_REPO
               type: OCIRegistry
           interval: 1m
           # ocmConfig is required, if the OCM repository requires credentials to access it.
@@ -277,7 +286,7 @@ spec:
 ### Apply the ResourceGraphDefinition
 
 ```shell
-kubectl apply -f rgd.yaml
+envsubst < rgd.yaml | kubectl apply -f -
 ```
 
 <details>
@@ -405,7 +414,7 @@ Your registry package may be private. Either:
 
 If the component isn't found, verify:
 
-- The component was transferred successfully: `ocm get cv ghcr.io/<your-namespace>//ocm.software/ocm-k8s-toolkit/simple:1.0.0`
+- The component was transferred successfully: `ocm get cv $OCM_REPO//ocm.software/ocm-k8s-toolkit/simple:1.0.0`
 - The `baseUrl` in the ResourceGraphDefinition matches your registry
 
 ## Cleanup

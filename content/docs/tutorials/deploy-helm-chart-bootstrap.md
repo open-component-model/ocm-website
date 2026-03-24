@@ -25,10 +25,20 @@ Before starting, make sure you have set up your environment as described in the 
 - [Controller environment]({{< relref "setup-controller-environment.md" >}}) with OCM Controllers, kro, and Flux installed
 - [OCM CLI]({{< relref "ocm-cli-installation.md" >}}) installed
 - Access to an OCI registry (e.g., [ghcr.io](https://docs.github.com/en/packages/learn-github-packages/introduction-to-github-packages))
+- `envsubst` installed (pre-installed on most Linux/macOS systems; part of `gettext`)
 
 {{< callout context="note" title="Private registries" icon="outline/lock" >}}
 If using a private registry, you'll need to configure credentials for both the OCM CLI and the controller resources. See [Configure Credentials for Controllers]({{< relref "configure-credentials-for-controllers.md" >}}) for details.
 {{< /callout >}}
+
+## Environment Setup
+
+Set environment variables for your GitHub username and OCM repository:
+
+```bash
+export GITHUB_USERNAME=<your-github-username>
+export OCM_REPO=ghcr.io/$GITHUB_USERNAME
+```
 
 ## Concepts
 
@@ -313,7 +323,7 @@ ocm add componentversion --create --file ./ctf component-constructor.yaml
 Transfer to your registry with `--copy-resources` to enable localization (this copies the Helm chart and image to your registry):
 
 ```bash
-ocm transfer ctf --copy-resources ./ctf ghcr.io/<your-namespace>
+ocm transfer ctf --copy-resources ./ctf $OCM_REPO
 ```
 
 ### Verify the Transfer
@@ -321,10 +331,10 @@ ocm transfer ctf --copy-resources ./ctf ghcr.io/<your-namespace>
 Check that the component was transferred and resources were localized:
 
 ```bash
-ocm get cv ghcr.io/<your-namespace>//ocm.software/ocm-k8s-toolkit/bootstrap:1.0.0 -o yaml | grep imageReference
+ocm get cv $OCM_REPO//ocm.software/ocm-k8s-toolkit/bootstrap:1.0.0 -o yaml | grep imageReference
 ```
 
-You should see image references pointing to `ghcr.io/<your-namespace>/...` instead of the original locations—this confirms localization worked.
+You should see image references pointing to `$OCM_REPO/...` instead of the original locations—this confirms localization worked.
 
 ## Step 2: Deploy the Helm Chart
 
@@ -334,7 +344,7 @@ Now create the bootstrap resources that will fetch and apply the RGD from the co
 
 The bootstrap resources form a chain: Repository → Component → Resource → Deployer. The Deployer extracts the RGD and applies it to the cluster.
 
-Create `bootstrap.yaml` with the following content (replace `<your-namespace>`):
+Create `bootstrap.yaml` with the following content:
 
 {{< details "Bootstrap Resources (bootstrap.yaml)" >}}
 ```yaml
@@ -344,8 +354,7 @@ metadata:
   name: bootstrap-repository
 spec:
   repositorySpec:
-    # Adjust to your OCM repository
-    baseUrl: ghcr.io/<your-namespace>
+    baseUrl: $OCM_REPO
     type: OCIRegistry
   interval: 1m
   # ocmConfig is required, if the OCM repository requires credentials to access it.
@@ -403,7 +412,7 @@ spec:
 ### Apply the Bootstrap Resources
 
 ```bash
-kubectl apply -f bootstrap.yaml
+envsubst < bootstrap.yaml | kubectl apply -f -
 ```
 
 Wait for the RGD to become active (this may take 30-60 seconds):
@@ -458,7 +467,7 @@ kubectl get pods -l app.kubernetes.io/name=bootstrap-release-podinfo -o jsonpath
 ```
 
 ```console
-ghcr.io/<your-namespace>/stefanprodan/podinfo:6.9.1
+ghcr.io/$GITHUB_USERNAME/stefanprodan/podinfo:6.9.1
 ```
 
 The image reference points to your registry—localization worked!
