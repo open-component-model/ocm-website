@@ -359,14 +359,14 @@ spec:
       name: ghcr-secret
 ```
 
-2. **Flux OCIRepository**: Uncomment `secretRef` in the RGD's ocirepository resource:
+1. **Flux OCIRepository**: Uncomment `secretRef` in the RGD's ocirepository resource:
 
 ```yaml
 secretRef:
   name: ghcr-secret
 ```
 
-3. **Pod imagePullSecrets**: The deployed pods also need credentials to pull images. Add this to the HelmRelease values in the RGD:
+1. **Pod imagePullSecrets**: The deployed pods also need credentials to pull images. Add this to the HelmRelease values in the RGD:
 
 ```yaml
 values:
