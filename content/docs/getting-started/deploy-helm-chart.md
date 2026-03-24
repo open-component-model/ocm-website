@@ -264,7 +264,7 @@ spec:
                 name: helm-resource # This must match the resource name set in the OCM component version (see above)
           additionalStatusFields:
             # toOCI() converts the resource access to an OCI reference object containing registry, repository, tag, and digest
-            oci: resource.access.imageReference.toOCI()
+            oci: resource.access.toOCI()
           interval: 1m
           # ocmConfig is required, if the OCM repository requires credentials to access it.
           # ocmConfig:
