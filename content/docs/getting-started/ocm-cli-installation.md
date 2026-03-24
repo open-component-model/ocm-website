@@ -18,12 +18,6 @@ This guide covers installation options for different platforms.
 
 ~5 minutes
 
-## Prerequisites
-
-- Build from Source method requires:
-  - [Git](https://git-scm.com/)
-  - [Go](https://go.dev/) (1.25+)
-
 ## Install the OCM CLI
 
 {{< tabs "installation-methods" >}}
@@ -46,6 +40,11 @@ curl -sfL https://ocm.software/install-cli.sh | bash
 
 > **Note:** Building from source is not officially supported. Use the pre-built binaries via wget or curl instead.
 
+### Prerequisites
+
+- [Git](https://git-scm.com/)
+- [Go](https://go.dev/)
+
 ### Clone and build
 
 Build the OCM CLI from the `open-component-model/open-component-model` monorepo.
@@ -61,7 +60,29 @@ task cli:install # installs to /usr/local/bin (requires sudo)
 {{< /tabs >}}
 
 The binary is installed to `~/.local/bin` by default (per the [XDG Base Directory Specification](https://specifications.freedesktop.org/basedir/latest/)).
+The installer verifies binary integrity via [GitHub attestations](https://docs.github.com/en/actions/security-for-github-actions/using-artifact-attestations/using-artifact-attestations-to-establish-provenance-for-builds) when the [GitHub CLI (`gh`)](https://cli.github.com/) is available.
 Run `bash -s -- --help` after the pipe to see all options.
+
+<details>
+<summary>Windows Support</summary>
+
+The install script only supports macOS and Linux. Windows binaries can be downloaded directly from the
+[GitHub releases page](https://github.com/open-component-model/open-component-model/releases).
+
+Windows support is **best-effort** and not guaranteed. While the CLI handles Windows-specific
+conventions such as drive-letter paths (e.g., `C:\path\to\archive`) and backslash path separators,
+there is no dedicated Windows CI infrastructure to continuously validate these code paths.
+
+- Windows builds are cross-compiled and checked for compilation correctness.
+- Windows-specific logic (such as path detection and normalization) is tested via simulated
+  OS behavior on non-Windows runners.
+- There is no runtime testing on actual Windows environments in CI.
+- Bugs specific to Windows runtime behavior may go undetected until reported.
+
+If you encounter a Windows-specific issue, please report it at
+[github.com/open-component-model/open-component-model/issues](https://github.com/open-component-model/open-component-model/issues).
+
+</details>
 
 ## Verify Installation
 
@@ -76,29 +97,6 @@ Expected output:
 ```text
 {"major":"0","minor":"1","patch":"0","gitVersion":"0.1.0","goVersion":"go1.26.0","compiler":"gc","platform":"darwin/arm64"}
 ```
-
-## Windows Support
-
-{{< callout context="caution" title="Caution" icon="outline/alert-triangle" >}}
-Windows support for the OCM CLI is currently **best-effort** and not guaranteed.
-{{< /callout >}}
-
-While the CLI is designed to handle Windows-specific conventions such as drive-letter paths
-(e.g., `C:\path\to\archive`) and backslash path separators, there is no dedicated Windows CI
-infrastructure in place to continuously validate these code paths.
-
-### What this means
-
-- Windows builds are cross-compiled and checked for compilation correctness.
-- Windows-specific logic (such as path detection and normalization) might tested via simulated
-  OS behavior on non-Windows runners.
-- There is no runtime testing on actual Windows environments in CI.
-- Bugs specific to Windows runtime behavior may go undetected until reported.
-
-### Reporting issues
-
-If you encounter a Windows-specific issue, please report it at
-[github.com/open-component-model/open-component-model/issues](https://github.com/open-component-model/open-component-model/issues).
 
 ## CLI Reference
 

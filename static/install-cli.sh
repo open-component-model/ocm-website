@@ -126,7 +126,7 @@ setup_tmp() {
         local code=$?
         set +e
         trap - EXIT
-        rm -rf "${TMP_DIR}"
+        rm -r "${TMP_DIR}"
         exit ${code}
     }
     trap cleanup INT EXIT
