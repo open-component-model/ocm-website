@@ -384,25 +384,6 @@ Deployed with OCM!
 {{< /step >}}
 {{< /steps >}}
 
-## What you've learned
-
-- How to create an OCM component version that includes a Helm chart
-- How to transfer the component version to an OCI registry
-- How to define a ResourceGraphDefinition to orchestrate OCM and Flux resources
-- How to deploy a Helm chart using the OCM Controllers
-
-## Check your understanding
-
-1. What is the purpose of a ResourceGraphDefinition?
-2. How does the OCM Controller know where to find the Helm chart?
-
-{{< details "Answers">}}
-
-1. A ResourceGraphDefinition defines the full set of OCM and Flux resources needed to deploy a component. It acts as a template that the kro controller instantiates into actual Kubernetes resources.
-2. The OCM Controller uses the `OCMRepository` and `Component` resources to locate the component version, then follows the resource references to find the Helm chart artifact.
-
-{{< /details >}}
-
 ## Troubleshooting
 
 ### Authentication Errors

@@ -619,22 +619,6 @@ Undefined variables expand to empty strings, which will fail schema validation �
 - **Inspecting archives** — using `ocm get cv` with `--recursive` to verify the component graph
 - **Environment variables** — `${VARIABLE}` substitution to parameterize the constructor
 
-## Check your understanding
-
-Before moving on:
-
-1. How do you define a component that references a remote Helm chart?
-2. What is the purpose of a component reference in the constructor?
-3. How would you add a label to a component that gets included in signing?
-
-{{< details "Answers">}}
-
-1. Use `type: helmChart` with `input.type: helm` and specify the remote repository and version.
-2. Component references create directed edges between components, allowing you to compose a product hierarchy where each component can be versioned independently.
-3. Add a `labels` array to the component definition with `signing: true` to include the label in the signature.
-
-{{< /details >}}
-
 ## Cleanup
 
 Remove everything created in this tutorial:
