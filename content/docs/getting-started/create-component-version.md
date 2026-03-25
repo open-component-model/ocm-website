@@ -87,13 +87,13 @@ components:
     - name: mylocalfile
       type: blob
       input: # Embed by value
-        type: File/v1
+        type: file/v1
         path: ./my-local-resource.txt
     - name: image
       type: ociImage
       version: 1.0.0
       access: # Reference externally
-        type: OCIImage/v1
+        type: ociArtifact
         imageReference: ghcr.io/stefanprodan/podinfo:6.9.1
 ```
 
@@ -121,7 +121,7 @@ resources:
   - name: config
     type: blob
     input:
-      type: File/v1
+      type: file
       path: ./config.yaml
 ```
 
@@ -137,7 +137,7 @@ resources:
     type: ociImage
     version: 1.0.0
     access:
-      type: OCIImage/v1
+      type: ociArtifact
       imageReference: ghcr.io/myorg/backend:v1.0.0
 ```
 
@@ -153,7 +153,7 @@ resources:
     type: helmChart
     version: 1.0.0
     access:
-      type: OCIImage/v1
+      type: ociArtifact
       imageReference: ghcr.io/myorg/charts/myapp:1.0.0
 ```
 
@@ -164,7 +164,7 @@ resources:
   - name: chart
     type: helmChart
     input:
-      type: Helm/v1
+      type: helm
       path: ./charts/myapp
 ```
 {{< /tab >}}
@@ -177,7 +177,7 @@ resources:
   - name: manifests
     type: blob
     input:
-      type: Dir/v1
+      type: dir
       path: ./kubernetes/
       compress: true
 ```
@@ -305,7 +305,7 @@ component:
   - access:
       localReference: sha256:70a2577d7b649574cbbba99a2f2ebdf27904a4abf80c9729923ee67ea8d2d9d8
       mediaType: text/plain; charset=utf-8
-      type: LocalBlob/v1
+      type: localBlob/v1
     digest:
       hashAlgorithm: SHA-256
       normalisationAlgorithm: genericBlobDigest/v1
@@ -316,7 +316,7 @@ component:
     version: 1.0.0
   - access:
       imageReference: ghcr.io/stefanprodan/podinfo:6.9.1@sha256:262578cde928d5c9eba3bce079976444f624c13ed0afb741d90d5423877496cb
-      type: OCIImage/v1
+      type: ociArtifact
     digest:
       hashAlgorithm: SHA-256
       normalisationAlgorithm: genericBlobDigest/v1
@@ -423,14 +423,14 @@ component:
   - access:
       localReference: sha256:70a2577d7b649574cbbba99a2f2ebdf27904a4abf80c9729923ee67ea8d2d9d8
       mediaType: text/plain; charset=utf-8
-      type: LocalBlob/v1
+      type: localBlob/v1
     name: mylocalfile
     relation: local
     type: blob
     version: 1.0.0
   - access:
       imageReference: ghcr.io/stefanprodan/podinfo:6.9.1@sha256:262578cde928d5c9eba3bce079976444f624c13ed0afb741d90d5423877496cb
-      type: OCIImage/v1
+      type: ociArtifact
     name: image
     relation: external
     type: ociImage

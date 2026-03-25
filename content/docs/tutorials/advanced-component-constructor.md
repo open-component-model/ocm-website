@@ -16,7 +16,7 @@ In this tutorial, we will create a small but realistic product. By the end, you 
 
 ## What You'll Learn
 
-- Defining multiple components with `Helm/v1`, `UTF8/v1`, and `Dir/v1` input types
+- Defining multiple components with `helm/v1`, `utf8/v1`, and `dir/v1` input types
 - Wiring components together with `componentReferences`
 - Nesting references into a multi-level product hierarchy
 - Attaching labels to components
@@ -100,7 +100,7 @@ components:
     - name: chart
       type: helmChart
       input:
-        type: Helm/v1
+        type: helm/v1
         helmRepository: https://github.com/kubernetes/ingress-nginx/releases/download/helm-chart-4.14.0/ingress-nginx-4.14.0.tgz
     - name: image
       type: ociImage
@@ -118,7 +118,7 @@ components:
     - name: manifests
       type: blob
       input:
-        type: UTF8/v1
+        type: utf8/v1
         yaml:
           apiVersion: v1
           kind: Service
@@ -157,8 +157,8 @@ EOF
 
 A few things to notice:
 
-- [**`Helm/v1`**]({{< relref "docs/reference/input-and-access-types.md#helmv1" >}}) input type fetches a Helm chart from a remote repository and embeds it into the archive at creation time.
-- [**`UTF8/v1`**]({{< relref "docs/reference/input-and-access-types.md#utf8v1" >}}) input type lets you embed small inline configuration directly in the constructor file.
+- [**`helm/v1`**]({{< relref "docs/reference/input-and-access-types.md#helmv1" >}}) input type fetches a Helm chart from a remote repository and embeds it into the archive at creation time.
+- [**`utf8/v1`**]({{< relref "docs/reference/input-and-access-types.md#utf8v1" >}}) input type lets you embed small inline configuration directly in the constructor file.
 - [**`componentReferences`**]({{< relref "docs/reference/component-constructor.md#component-references" >}}) creates a directed edge in the component graph. The product-web component itself has no resources — it is purely an aggregator.
 
 {{< /step >}}
@@ -196,7 +196,7 @@ cat >> component-constructor.yaml << 'EOF'
     - name: migrations
       type: blob
       input:
-        type: Dir/v1
+        type: dir/v1
         path: ./db
         compress: true
     - name: database
@@ -208,7 +208,7 @@ cat >> component-constructor.yaml << 'EOF'
 EOF
 ```
 
-The [**`Dir/v1`**]({{< relref "docs/reference/input-and-access-types.md#dirv1" >}}) input type embeds an entire directory as a compressed archive — here used for SQL migration scripts.
+The [**`dir/v1`**]({{< relref "docs/reference/input-and-access-types.md#dirv1" >}}) input type embeds an entire directory as a compressed archive — here used for SQL migration scripts.
 
 {{< /step >}}
 
@@ -270,7 +270,7 @@ components:
     - name: chart
       type: helmChart
       input:
-        type: Helm/v1
+        type: helm/v1
         helmRepository: https://github.com/kubernetes/ingress-nginx/releases/download/helm-chart-4.14.0/ingress-nginx-4.14.0.tgz
     - name: image
       type: ociImage
@@ -288,7 +288,7 @@ components:
     - name: manifests
       type: blob
       input:
-        type: UTF8/v1
+        type: utf8/v1
         yaml:
           apiVersion: v1
           kind: Service
@@ -332,7 +332,7 @@ components:
     - name: migrations
       type: blob
       input:
-        type: Dir/v1
+        type: dir/v1
         path: ./db
         compress: true
     - name: database
@@ -431,7 +431,7 @@ ocm get cv my-product//ocm.software/tutorials/frontend:1.5.0 -o yaml
     - access:
         localReference: sha256:...
         mediaType: application/vnd.oci.image.manifest.v1+json
-        type: LocalBlob/v1
+        type: localBlob/v1
       digest:
         hashAlgorithm: SHA-256
         normalisationAlgorithm: genericBlobDigest/v1
@@ -486,7 +486,7 @@ components:
     - name: chart
       type: helmChart
       input:
-        type: Helm/v1
+        type: helm/v1
         helmRepository: https://github.com/kubernetes/ingress-nginx/releases/download/helm-chart-4.14.0/ingress-nginx-4.14.0.tgz
     - name: image
       type: ociImage
@@ -506,7 +506,7 @@ components:
     - name: manifests
       type: blob
       input:
-        type: UTF8/v1
+        type: utf8/v1
         yaml:
           apiVersion: v1
           kind: Service
@@ -536,7 +536,7 @@ components:
     - name: migrations
       type: blob
       input:
-        type: Dir/v1
+        type: dir/v1
         path: ./db
         compress: true
     - name: database
@@ -612,7 +612,7 @@ Undefined variables expand to empty strings, which will fail schema validation �
 
 ## What you've learned
 
-- **Multiple input types** — `Dir/v1` for directories, `UTF8/v1` for inline content, and `Helm/v1` for remote Helm charts
+- **Multiple input types** — `dir/v1` for directories, `utf8/v1` for inline content, and `helm/v1` for remote Helm charts
 - **Component references** — directed edges that compose products from independently versioned parts
 - **Multi-level nesting** — platform → product → component hierarchies, all in one constructor file
 - **Labels** — attaching metadata to components, optionally included in signing
