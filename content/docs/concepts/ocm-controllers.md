@@ -13,7 +13,7 @@ This project is in early development and not yet ready for production use.
 The OCM controllers
 
 - support the deployment of an OCM component and its resources, like Helm charts or other manifests,
-into a Kubernetes cluster with the help of kro and a deployer, e.g. FluxCD.
+into a Kubernetes cluster with the help of kro and a deployer, e.g. Flux.
 
 ### Before You Begin
 
@@ -22,7 +22,7 @@ You should be familiar with the following concepts:
 - [Open Component Model](https://ocm.software/)
 - [Kubernetes](https://kubernetes.io/) ecosystem
 - [kro](https://kro.run)
-- Kubernetes resource deployer such as [FluxCD](https://fluxcd.io/).
+- Kubernetes resource deployer such as [Flux](https://fluxcd.io/).
 
 ## Architecture
 
@@ -53,19 +53,19 @@ kubectl apply -k https://github.com/open-component-model/open-component-model/ku
 ```
 
 {{<callout context="caution" title="Deployer tools" icon="outline/alert-triangle">}}
-While the OCM controllers technically can be used standalone, it requires kro and a deployer, e.g. FluxCD, to deploy
+While the OCM controllers technically can be used standalone, it requires kro and a deployer, e.g. Flux, to deploy
 an OCM resource into a Kubernetes cluster. The OCM controllers deployment, however, does not contain kro or any
 deployer. Please refer to the respective installation guides for these tools:
 
 - [kro](https://kro.run/docs/getting-started/Installation/)
-- [FluxCD](https://fluxcd.io/docs/installation/)
+- [Flux](https://fluxcd.io/docs/installation/)
 {{</callout>}}
 
 ## Getting Started
 
-- [Setup your (test) environment with kind, kro, and FluxCD]({{< relref "setup-controller-environment.md" >}})
-- [Deploying a Helm chart using a `ResourceGraphDefinition` with FluxCD]({{< relref "deploy-helm-chart.md" >}})
-- [Deploying a Helm chart using a `ResourceGraphDefinition` inside the OCM component version (bootstrap) with FluxCD]({{< relref "deploy-helm-chart-bootstrap.md" >}})
+- [Setup your (test) environment with kind, kro, and Flux]({{< relref "setup-controller-environment.md" >}})
+- [Deploying a Helm chart using a `ResourceGraphDefinition` with Flux]({{< relref "deploy-helm-chart.md" >}})
+- [Deploying a Helm chart using a `ResourceGraphDefinition` inside the OCM component version (bootstrap) with Flux]({{< relref "deploy-helm-chart-bootstrap.md" >}})
 - [Configuring credentials for OCM controller resources to access private OCM repositories]({{< relref "configure-credentials-for-controllers.md" >}})
 
 [controller-image]: https://github.com/open-component-model/open-component-model/pkgs/container/kubernetes%2Fcontroller

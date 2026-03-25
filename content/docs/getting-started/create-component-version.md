@@ -40,7 +40,11 @@ with `ocm transfer`.
 - [Install the OCM CLI]({{< relref "ocm-cli-installation.md" >}})
 - Install [jq](https://jqlang.org/) (optional, for inspecting archives)
 
-## Create Your First Component
+## Scenario
+
+You have a software component that includes a local configuration file and a container image.
+You want to package these artifacts into an OCM component version so that they can be transferred to any OCI registry
+and later deployed to Kubernetes using OCM controllers.
 
 {{< steps >}}
 
@@ -354,6 +358,24 @@ github.com/acme.org/helloworld │ 1.0.0   │ acme.org
 
 {{< /steps >}}
 
+## What you've learned
+
+- How to define a component constructor file with embedded and referenced resources
+- How to build a component version into a CTF archive
+- How to inspect component versions in local archives and remote registries
+
+## Check your understanding
+
+1. What is the difference between `input` and `access` in a resource definition?
+2. How can you view the component descriptor of a version stored in an OCI registry?
+
+{{< details "Answers">}}
+
+1. `input` defines a resource that is embedded into the component archive at creation time. `access` defines how to retrieve a resource that is stored externally at runtime.
+2. Use `ocm get cv <registry>//<component>:<version> -o yaml` to display the full component descriptor including all resource access specifications.
+
+{{< /details >}}
+
 ## Explore Repositories
 
 Component versions can be inspected in both local CTF archives and remote OCI registries.
@@ -472,6 +494,15 @@ ocm get cv ghcr.io/open-component-model/ocm//ocm.software/ocmcli:0.35.0 --recurs
 {{< /tab >}}
 
 {{< /tabs >}}
+
+## Cleanup
+
+To delete the local CTF archive and temporary files you can execute the following command.
+But you can keep it if you want to try out our other guides that use the same component version.
+
+```shell
+rm -r /tmp/helloworld
+```
 
 ## CLI Reference
 

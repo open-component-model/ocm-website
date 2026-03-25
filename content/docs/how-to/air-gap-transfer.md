@@ -151,7 +151,9 @@ You should see: `SIGNATURE VERIFICATION SUCCESSFUL`.
 
 ## Troubleshooting
 
-If you encounter authentication or credential errors during transfer or verification, see [Credentials in .ocmconfig]({{< relref "docs/how-to/configure-multiple-credentials.md" >}}) and [Configuring Credentials for Controllers]({{< relref "docs/tutorials/configure-credentials-for-controllers.md" >}}).
+If you encounter authentication or credential errors during transfer or verification,
+see [Credentials in .ocmconfig]({{< relref "docs/how-to/configure-multiple-credentials.md" >}})
+and [Configuring Credentials for Controllers]({{< relref "docs/tutorials/configure-credentials-for-controllers.md" >}}).
 
 If signature verification fails after transfer, ensure the public key in your `.ocmconfig` matches the key used to sign the component. See [Signing and Verification]({{< relref "docs/tutorials/signing-and-verification.md" >}}).
 
@@ -169,6 +171,9 @@ Only delete the archive after you have verified the component in the target regi
 
 ## Next steps
 
-- [Transfer and Transport]({{< relref "docs/concepts/transfer-concept.md" >}}) -- Understand the transfer model, resource handling, and signature preservation
-- [Signing and Verification]({{< relref "docs/tutorials/signing-and-verification.md" >}}) -- Learn how to sign and verify component versions
-- [Deploy a Helm Chart (Bootstrap)]({{< relref "docs/tutorials/deploy-helm-chart-bootstrap.md" >}}) -- Deploy component resources into a Kubernetes cluster
+- [How-To: Deploy a Helm Chart (Bootstrap)]({{< relref "docs/tutorials/deploy-helm-chart-bootstrap.md" >}}) - Deploy component resources into a Kubernetes cluster
+
+## Related Documentation
+
+- [Concept: Transfer and Transport]({{< relref "docs/concepts/transfer-concept.md" >}}) - Understand the transfer model, resource handling, and signature preservation
+- [Tutorial: Signing and Verification]({{< relref "docs/tutorials/signing-and-verification.md" >}}) - Learn how to sign and verify component versions

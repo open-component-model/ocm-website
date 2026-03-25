@@ -13,14 +13,14 @@ find them. **Resolvers** map component name patterns to repositories so the CLI 
 components during recursive operations. For a high-level introduction, see the [Resolvers concept page]({{< relref "docs/concepts/resolvers.md" >}}).
 For configuration details and pattern syntax, see the [Resolver Configuration Reference]({{< relref "docs/reference/resolver-configuration.md" >}}).
 
-{{<callout context="note" title="What You'll Learn">}}
+## What You'll Learn
 
 - Create components with references and push them to OCI registries
 - Write a resolver configuration that maps component name patterns to repositories
 - Combine credentials and resolvers in a single `.ocmconfig` file
 - Use `--recursive` to resolve a component graph across repositories
 
-{{</callout>}}
+**Estimated time:** ~20 minutes
 
 ## Prerequisites
 
@@ -28,12 +28,11 @@ For configuration details and pattern syntax, see the [Resolver Configuration Re
 - Access to at least one OCI registry (e.g., `ghcr.io`, Docker Hub, or a private registry)
 - A GitHub account with a personal access token
 
-## Walkthrough
+## Scenario
 
 This tutorial walks through a hands-on example with three components — a **backend**, a **frontend**, and an **app**
 that references both. The app lives in its own repository, while its component references (backend and frontend
-components) are stored in
-a shared repository. When you recursively resolve the app, the CLI needs resolvers to locate the referenced
+components) are stored in a shared repository. When you recursively resolve the app, the CLI needs resolvers to locate the referenced
 components in their repositories.
 
 {{< steps >}}
@@ -41,13 +40,14 @@ components in their repositories.
 {{< step >}}
 **Set up your environment**
 
-Before starting, set an environment variable for your GitHub username to simplify command inputs:
+Before starting, set an environment variable for your GitHub username to simplify command inputs, and create a working directory:
 
 ```bash
 export GITHUB_USERNAME=<your-github-username>
+mkdir /tmp/ocm-resolver-tutorial && cd /tmp/ocm-resolver-tutorial
 ```
 
-This variable will be used in repository paths throughout the tutorial.
+The environment variable will be used in repository paths throughout the tutorial.
 
 {{< /step >}}
 
@@ -309,6 +309,28 @@ for a guide on how to configure resolvers with multiple repositories.
 - How to push components with references to separate repositories
 - How to configure resolvers in an `.ocmconfig` file
 - How to use `--recursive` to resolve a component graph across repositories
+
+## Check your understanding
+
+1. Why do you need resolvers when working with component references?
+2. What file do you configure to map component name patterns to repositories?
+3. How do you enable recursive resolution with the OCM CLI?
+
+{{< details "Answers">}}
+
+1. Resolvers tell the CLI where to find referenced components that are stored in different repositories.
+2. The `.ocmconfig` file contains resolver configurations.
+3. Use the `--recursive` flag with commands like `ocm get cv`.
+
+{{< /details >}}
+
+## Cleanup
+
+Remove the working directory created during this tutorial:
+
+```bash
+rm -r /tmp/ocm-resolver-tutorial
+```
 
 ## What Comes Next
 

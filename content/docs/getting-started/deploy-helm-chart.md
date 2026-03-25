@@ -87,7 +87,7 @@ ocm add cv
 ```text
 time=2026-02-25T12:47:09.622+01:00 level=WARN msg="could not get credential consumer identity for component version repository" repository=transport-archive error="failed to get component version repository: cannot resolve consumer identity for ctf: credentials not supported"
 COMPONENT                           │ VERSION │ PROVIDER
-─────────────────────────────────────┼─────────┼──────────────
+────────────────────────────────────┼─────────┼──────────────
 ocm.software/ocm-k8s-toolkit/simple │ 1.0.0   │ ocm.software
 ```
 </details>
@@ -151,7 +151,7 @@ ocm get cv ghcr.io/<your-namespace>//ocm.software/ocm-k8s-toolkit/simple:1.0.0
 ### Create ResourceGraphDefinition
 
 The ResourceGraphDefinition tells kro how to orchestrate the OCM and Flux resources.  
-Create `rgd.yaml` with the following content, replacing `<your-namespace>` with your registry namespace:
+Create `rgd.yaml` with the following content, replacing `<your-namespace>` in the `repository` resource with your registry namespace:
 
 ```yaml
 apiVersion: kro.run/v1alpha1
@@ -309,7 +309,7 @@ A new Custom Resource Definition called `Simple` that you can now instantiate ha
 
 ### Create an instance
 
-Create `instance.yaml` to deploy the application:
+Create the file `instance.yaml` to deploy the application:
 
 ```yaml
 apiVersion: kro.run/v1alpha1
@@ -384,6 +384,25 @@ Deployed with OCM!
 {{< /step >}}
 {{< /steps >}}
 
+## What you've learned
+
+- How to create an OCM component version that includes a Helm chart
+- How to transfer the component version to an OCI registry
+- How to define a ResourceGraphDefinition to orchestrate OCM and Flux resources
+- How to deploy a Helm chart using the OCM Controllers
+
+## Check your understanding
+
+1. What is the purpose of a ResourceGraphDefinition?
+2. How does the OCM Controller know where to find the Helm chart?
+
+{{< details "Answers">}}
+
+1. A ResourceGraphDefinition defines the full set of OCM and Flux resources needed to deploy a component. It acts as a template that the kro controller instantiates into actual Kubernetes resources.
+2. The OCM Controller uses the `OCMRepository` and `Component` resources to locate the component version, then follows the resource references to find the Helm chart artifact.
+
+{{< /details >}}
+
 ## Troubleshooting
 
 ### Authentication Errors
@@ -415,10 +434,16 @@ kubectl delete -f instance.yaml
 kubectl delete -f rgd.yaml
 ```
 
+Remove the temporary files:
+
+```shell
+rm -r /tmp/helm-deploy
+```
+
 ## Next Steps
 
 - [Tutorial: Create a Multi-Component Product]({{< relref "docs/tutorials/advanced-component-constructor.md" >}}) - Learn how to structure complex applications with multiple components and resources
-- [Tutorial: Deploy a Helm Chart (with Bootstrap)]({{< relref "deploy-helm-chart-bootstrap.md" >}}) - Use the OCM Controllers to deploy a Helm chart without manual bootstrapping, using GitOps
+- [Tutorial: Deploy a Helm Chart (with Bootstrap)]({{< relref "docs/tutorials/deploy-helm-chart-bootstrap.md" >}}) - Use the OCM Controllers to deploy a Helm chart without manual bootstrapping, using GitOps
 
 ## Related Documentation
 

@@ -14,7 +14,7 @@ In this tutorial, we will create a small but realistic product. By the end, you 
 
 **Estimated time:** ~25 minutes
 
-{{< callout context="note" title="What You'll Learn" >}}
+## What You'll Learn
 
 - Defining multiple components with `Helm/v1`, `UTF8/v1`, and `Dir/v1` input types
 - Wiring components together with `componentReferences`
@@ -22,7 +22,6 @@ In this tutorial, we will create a small but realistic product. By the end, you 
 - Attaching labels to components
 - Creating and inspecting component versions in a local archive
 - Using environment variables to parameterize the constructor
-{{< /callout >}}
 
 ## Prerequisites
 
@@ -61,6 +60,18 @@ The result is a three-level component tree that you can transfer, sign, and depl
 ## Tutorial Steps
 
 {{< steps >}}
+
+{{< step >}}
+
+### Set up a working directory
+
+Create and enter a directory for this tutorial:
+
+```shell
+mkdir /tmp/ocm-multi-component && cd /tmp/ocm-multi-component
+```
+
+{{< /step >}}
 
 {{< step >}}
 
@@ -608,16 +619,38 @@ Undefined variables expand to empty strings, which will fail schema validation �
 - **Inspecting archives** — using `ocm get cv` with `--recursive` to verify the component graph
 - **Environment variables** — `${VARIABLE}` substitution to parameterize the constructor
 
+## Check your understanding
+
+Before moving on:
+
+1. How do you define a component that references a remote Helm chart?
+2. What is the purpose of a component reference in the constructor?
+3. How would you add a label to a component that gets included in signing?
+
+{{< details "Answers">}}
+
+1. Use `type: helmChart` with `input.type: helm` and specify the remote repository and version.
+2. Component references create directed edges between components, allowing you to compose a product hierarchy where each component can be versioned independently.
+3. Add a `labels` array to the component definition with `signing: true` to include the label in the signature.
+
+{{< /details >}}
+
 ## Cleanup
 
 Remove everything created in this tutorial:
 
 ```shell
-rm -rf my-product db component-constructor.yaml
+rm -r /tmp/ocm-multi-component
 ```
+
+## Next steps
+
+- [How-to: Transfer Helm Charts]({{< relref "docs/how-to/transfer-helm-charts.md" >}}) - transfer components to a remote registry
+- [Tutorial: Sign and Verify Components]({{< relref "docs/tutorials/signing-and-verification.md" >}}) - add signing to your components
+- [Concept: Component Identity]({{< relref "docs/concepts/component-identity.md" >}}) - understand how OCM identifies components
 
 ## Related documentation
 
-- [Create Component Versions]({{< relref "docs/getting-started/create-component-version.md" >}}) — basics of creating your first component
-- [Constructor Schema](https://ocm.software/schemas/configuration-schema.yaml) — JSON Schema for `component-constructor.yaml`
-- [OCM Specification](https://github.com/open-component-model/ocm-spec/blob/main/README.md) — formal specification of the component model
+- [Create Component Versions]({{< relref "docs/getting-started/create-component-version.md" >}}) - basics of creating your first component
+- [Reference: Component Constructor]({{< relref "docs/reference/component-constructor.md" >}}) - Documented JSON Schema for the component constructor
+- [OCM Specification](https://github.com/open-component-model/ocm-spec/blob/main/README.md) - formal specification of the component model
