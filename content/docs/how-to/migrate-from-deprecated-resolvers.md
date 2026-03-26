@@ -259,7 +259,7 @@ If either case applies, consolidate all versions of the affected components into
 - [How-To: Resolving Components Across Multiple Registries]({{< relref "resolve-components-from-multiple-repositories.md" >}}) — Configure resolver
   entries for multi-registry setups
 
-# Related Documentation
+## Related Documentation
 
 - [Resolver Configuration Reference]({{< relref "docs/reference/resolver-configuration.md" >}}) — Full configuration schema and pattern syntax
 - [Resolvers]({{< relref "docs/concepts/resolvers.md" >}}) — High-level introduction to resolvers
