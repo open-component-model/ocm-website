@@ -1,8 +1,8 @@
 ---
-title: OCM Controllers
+title: Kubernetes Controllers
 description: "Learn about the OCM controllers and their capabilities."
 icon: "🏁"
-weight: 3
+weight: 6
 toc: true
 hasMermaid: true
 ---
