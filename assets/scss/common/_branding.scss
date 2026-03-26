@@ -34,21 +34,21 @@
 
 /* === Force white logo color in the header === */
 header.navbar .ocm-logo {
-  color: #ffffff !important;
+  color: var(--brand-logo-light) !important;
 }
 
 /* === Force white logo text in header and sections === */
 header.navbar .ocm-logo-text svg,
 .section .ocm-logo-text svg {
-  fill: #ffffff !important;
-  stroke: #ffffff !important;
+  fill: var(--brand-logo-light) !important;
+  stroke: var(--brand-logo-light) !important;
 }
 
 /* === Theme-dependent color for center logo on start page === */
 [data-bs-theme="dark"] .font-logo {
-  color: #ffffff !important;  // White in dark mode
+  color: var(--brand-font-logo-dark) !important;
 }
 
 [data-bs-theme="light"] .font-logo {
-  color: #111111 !important;  // Dark text in light mode
+  color: var(--brand-font-logo-light) !important;
 }
