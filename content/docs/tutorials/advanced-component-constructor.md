@@ -19,7 +19,6 @@ In this tutorial, we will create a small but realistic product. By the end, you 
 - Defining multiple components with `helm/v1`, `utf8/v1`, and `dir/v1` input types
 - Wiring components together with `componentReferences`
 - Nesting references into a multi-level product hierarchy
-- Attaching labels to components
 - Creating and inspecting component versions in a local archive
 - Using environment variables to parameterize the constructor
 
@@ -624,7 +623,7 @@ Undefined variables expand to empty strings, which will fail schema validation â
 Remove everything created in this tutorial:
 
 ```shell
-rm -r /tmp/ocm-multi-component
+rm -rf /tmp/ocm-multi-component
 ```
 
 ## Next steps

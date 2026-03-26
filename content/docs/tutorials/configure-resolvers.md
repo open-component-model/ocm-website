@@ -329,7 +329,7 @@ for a guide on how to configure resolvers with multiple repositories.
 Remove the working directory created during this tutorial:
 
 ```bash
-rm -r /tmp/ocm-resolver-tutorial
+rm -rf /tmp/ocm-resolver-tutorial
 ```
 
 ## What Comes Next

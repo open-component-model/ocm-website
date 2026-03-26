@@ -418,7 +418,7 @@ kubectl delete -f rgd.yaml
 Remove the temporary files:
 
 ```shell
-rm -r /tmp/helm-deploy
+rm -rf /tmp/helm-deploy
 ```
 
 ## Next Steps

@@ -306,7 +306,7 @@ Use `--signature <name>` to specify which signature to create or verify.
 Remove the tutorial artifacts:
 
 ```bash
-rm -r /tmp/ocm-signing-tutorial
+rm -rf /tmp/ocm-signing-tutorial
 ```
 
 ## Next Steps
