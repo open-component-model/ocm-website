@@ -342,14 +342,16 @@ spec:
       name: ghcr-secret
 ```
 
-1. **Flux OCIRepository**: Uncomment `secretRef` in the RGD's ocirepository resource:
+2. **Flux OCIRepository**: Uncomment `secretRef` in the RGD's ocirepository 
+resource:
 
 ```yaml
 secretRef:
   name: ghcr-secret
 ```
 
-1. **Pod imagePullSecrets**: The deployed pods also need credentials to pull images. Add this to the HelmRelease values in the RGD:
+3. **Pod imagePullSecrets**: The deployed pods also need credentials to pull 
+images. Add this to the HelmRelease values in the RGD:
 
 ```yaml
 values:
@@ -407,6 +409,11 @@ Now create the bootstrap resources that will fetch and apply the RGD from the co
 The bootstrap resources form a chain: Repository → Component → Resource → Deployer. The Deployer extracts the RGD and applies it to the cluster.
 
 Create `bootstrap.yaml` with the following content:
+
+{{< callout context="note" title="Private registries" icon="outline/lock" >}}
+If you chose to keep your package private, do not forget to add the 
+secret to the `ocmConfig`, as described above!
+{{< /callout >}}
 
 {{< details "Bootstrap Resources (bootstrap.yaml)" >}}
 ```yaml
