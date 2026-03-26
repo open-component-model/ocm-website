@@ -33,8 +33,9 @@ You'll install the OCM Controllers, kro, and Flux to enable GitOps workflows wit
 
 ### Create a Local Kubernetes Cluster
 
-> 📣 **Note:** 📣  
-> Skip this step if you're using a remote Kubernetes cluster.
+{{< callout icon="outline/info-circle" >}}
+Skip this step if you're using a remote Kubernetes cluster.
+{{< /callout >}}
 
 Create a local kind cluster:
 
