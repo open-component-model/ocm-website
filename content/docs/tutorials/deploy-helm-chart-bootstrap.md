@@ -339,36 +339,35 @@ Then update the resources to use credentials:
    automatically to Component, Resource, and Deployer objects that reference this
    Repository:
 
-```yaml
-spec:
-  repositorySpec:
-    baseUrl: $OCM_REPO
-    type: OCIRegistry
-  interval: 1m
-  ocmConfig:
-    - kind: Secret
-      name: ghcr-secret
-```
+   ```yaml
+   spec:
+     repositorySpec:
+       baseUrl: $OCM_REPO
+       type: OCIRegistry
+     interval: 1m
+     ocmConfig:
+       - kind: Secret
+         name: ghcr-secret
+   ```
 
 2. **Flux OCIRepository**: Uncomment `secretRef` in the RGD's ocirepository
 resource:
 
-```yaml
-secretRef:
-  name: ghcr-secret
-```
-
+   ```yaml
+   secretRef:
+     name: ghcr-secret
+   ```
 3. **Pod imagePullSecrets**: The deployed pods also need credentials to pull
 images. Add this to the HelmRelease values in the RGD:
 
-```yaml
-values:
-  image:
-    repository: ${resourceImage.status.additional.oci.registry}/${resourceImage.status.additional.oci.repository}
-    tag: latest@${resourceImage.status.additional.oci.digest}
-    pullSecrets:
-    - name: ghcr-secret
-```
+   ```yaml
+   values:
+     image:
+       repository: ${resourceImage.status.additional.oci.registry}/${resourceImage.status.additional.oci.repository}
+       tag: latest@${resourceImage.status.additional.oci.digest}
+       pullSecrets:
+       - name: ghcr-secret
+   ```
 
 For more details, see [Credentials for OCM Controllers]({{< relref "/docs/tutorials/configure-credentials-for-controllers.md" >}}).
 {{< /details >}}
