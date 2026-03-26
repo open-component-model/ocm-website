@@ -74,16 +74,6 @@ The following diagram shows the complete resource flow. You can refer back to it
 
 ```mermaid
 flowchart TB
-    classDef cluster fill:white,color:black,stroke:black;
-    classDef reconciledBy fill:#dedede,stroke:black,stroke-dasharray: 5,color:black;
-    classDef k8sObject fill:#b3b3b3,color:black,stroke:black;
-    classDef information fill:#b3b3b3,color:black,stroke:none;
-    classDef templateOf fill:#b3b3b3,color:black,stroke:black,stroke-dasharray: 2;
-    classDef ocm fill:white,stroke:black,color:black;
-    classDef legendStyle fill:white,stroke:black,color:black,stroke-dasharray: 2;
-    classDef legendStartEnd height:0px;
-    classDef legendItems fill:#b3b3b3,stroke:none,color:black;
-
     subgraph legend[Legend]
         start1[ ] ---references[referenced by] --> end1[ ]
         start2[ ] -.-creates -.-> end2[ ]
