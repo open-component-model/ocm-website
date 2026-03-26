@@ -197,7 +197,7 @@ spec:
 
 ## Next Steps
 
-- [Tutorial: Deploy Helm Chart with Bootstrap]({{< relref "docs/tutorials/deploy-helm-chart-with-bootstrap.md" >}}) - Learn how to deploy a Helm chart component into a Kubernetes cluster
+- [Tutorial: Deploy Helm Chart with Bootstrap]({{< relref "docs/tutorials/deploy-helm-chart-bootstrap.md" >}}) - Learn how to deploy a Helm chart component into a Kubernetes cluster
 
 ## Related Documentation
 
