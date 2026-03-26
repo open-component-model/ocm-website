@@ -11,8 +11,6 @@ using the OCM Controllers with kro and Flux.
 
 ## What You'll Learn
 
-By the end of this tutorial, you will:
-
 - Create and publish an OCM component version that references a Helm chart
 - Define a ResourceGraphDefinition to orchestrate OCM and Flux resources
 - Deploy the Helm chart to your cluster using the OCM Controllers

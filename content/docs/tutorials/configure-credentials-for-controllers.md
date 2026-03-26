@@ -12,8 +12,6 @@ repositories.
 
 ## What You'll Learn
 
-By the end of this tutorial, you will know how to:
-
 - Create a Kubernetes secret from a Docker config or `.ocmconfig` file to access private OCM repositories
 - Reference credentials via `spec.ocmConfig` in OCM controller resources
 - Control `ocmConfig` propagation between custom resources
