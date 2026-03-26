@@ -145,22 +145,24 @@ Then update the resources to use credentials:
 
 1. **OCM Controller resources**: Add `ocmConfig` to the Repository resource in your RGD. The credentials propagate automatically to Component, Resource, and Deployer objects that reference this Repository:
 
-```yaml
-    - id: repository
-      template:
-        apiVersion: delivery.ocm.software/v1alpha1
-        kind: Repository
-        metadata:
-          name: simple-repository
-        spec:
-          repositorySpec:
-              baseUrl: $OCM_REPO
-              type: OCIRegistry
-          interval: 1m
-          ocmConfig:
-            - kind: Secret
-              name: ghcr-secret
-```
+  ```yaml
+      - id: repository
+        readyWhen:
+        - ${repository.status.conditions.exists(c, c.type == 'Ready' && c.status == 'True')}
+        template:
+          apiVersion: delivery.ocm.software/v1alpha1
+          kind: Repository
+          metadata:
+            name: simple-repository
+          spec:
+            repositorySpec:
+                baseUrl: $OCM_REPO
+                type: OCIRegistry
+            interval: 1m
+            ocmConfig:
+              - kind: Secret
+                name: ghcr-secret
+  ```
 
 For more details, see [Credentials for OCM Controllers]({{< relref "/docs/tutorials/configure-credentials-for-controllers.md" >}}).
 {{< /details >}}
