@@ -156,23 +156,7 @@ Storage-related fields like <code>access</code> and <code>repositoryContexts</co
 <a href=/docs/reference/ocm-cli/ocm-sign-component-version/>CLI reference</a>.
 The signer spec file configures only the algorithm and encoding policy — credentials are always resolved separately via the
 <a href=/docs/how-to/configure-credentials-for-multiple-registries/><code>.ocmconfig</code></a> file.</p><p>For key management, OCM uses PEM-encoded key files configured in the <code>.ocmconfig</code>:</p><ul><li><strong>Private keys</strong>: Used by producers to sign component versions</li><li><strong>Public keys</strong>: Distributed to consumers for verification</li></ul><p>See
-<a href=/docs/how-to/generate-signing-keys/>How-to: Generate Signing Keys</a> for creating RSA key pairs.</p><div class="callout callout-tip d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3"><svg
-  xmlns="http://www.w3.org/2000/svg"
-  width="24"
-  height="24"
-  viewBox="0 0 24 24"
-  fill="none"
-  stroke="currentColor"
-  stroke-width="2"
-  stroke-linecap="round"
-  stroke-linejoin="round"
- 
- class="outline/bulb svg-inline callout-icon me-2 mb-3" id="svg-bulb" role="img">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-  <path d="M3 12h1m8 -9v1m8 8h1m-15.4 -6.4l.7 .7m12.1 -.7l-.7 .7" />
-  <path d="M9 16a5 5 0 1 1 6 0a3.5 3.5 0 0 0 -1 3a2 2 0 0 1 -4 0a3.5 3.5 0 0 0 -1 -3" />
-  <path d="M9.7 17l4.6 0" />
-</svg><div class=callout-content><div class=callout-title><p>Upcoming Sigstore Support</p></div><div class=callout-body><p>We are planning to add support for
+<a href=/docs/how-to/generate-signing-keys/>How-to: Generate Signing Keys</a> for creating RSA key pairs.</p><div class="callout callout-tip d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3"><svg   xmlns="http://www.w3.org/2000/svg"   width="24"   height="24"   viewBox="0 0 24 24"   fill="none"   stroke="currentColor"   stroke-width="2"   stroke-linecap="round"   stroke-linejoin="round"    class="outline/bulb svg-inline callout-icon me-2 mb-3" id="svg-bulb" role="img">   <path stroke="none" d="M0 0h24v24H0z" fill="none"/>   <path d="M3 12h1m8 -9v1m8 8h1m-15.4 -6.4l.7 .7m12.1 -.7l-.7 .7" />   <path d="M9 16a5 5 0 1 1 6 0a3.5 3.5 0 0 0 -1 3a2 2 0 0 1 -4 0a3.5 3.5 0 0 0 -1 -3" />   <path d="M9.7 17l4.6 0" /> </svg><div class=callout-content><div class=callout-title>Upcoming Sigstore Support</div><div class=callout-body><p>We are planning to add support for
 <a href=https://www.sigstore.dev/ target=_blank rel=noopener>Sigstore</a> and Cosign as an additional signing mechanism.
 This will enable keyless signing workflows and improved supply chain security. Stay tuned for updates.</p></div></div></div><h3 id=signature-encoding-policies>Signature Encoding Policies<a href=#signature-encoding-policies class=anchor aria-hidden=true>#</a></h3><p>The <code>signatureEncodingPolicy</code> in the
 <a href=/docs/reference/ocm-cli/ocm-sign-component-version/>signer spec</a> controls how the <strong>signature output</strong> is serialized and stored. It does <strong>not</strong> affect the format of key input files, which are always PEM-encoded.</p><table><thead><tr><th>Policy</th><th>Signature Format</th><th>Media Type</th><th>Certificate Chain</th><th>Verification Requires</th></tr></thead><tbody><tr><td><strong>Plain</strong> (default)</td><td>Hex-encoded raw bytes</td><td><code>application/vnd.ocm.signature.rsa.pss</code></td><td>Not embedded</td><td>Externally supplied public key</td></tr><tr><td><strong>PEM</strong> (experimental)</td><td>PEM <code>SIGNATURE</code> block + <code>CERTIFICATE</code> blocks</td><td><code>application/x-pem-file</code></td><td>Embedded in signature</td><td>Valid certificate chain in signature</td></tr></tbody></table><h4 id=plain-encoding-default>Plain Encoding (Default)<a href=#plain-encoding-default class=anchor aria-hidden=true>#</a></h4><p>The raw RSA signature bytes are hex-encoded and stored directly. This is the most compact representation.
@@ -195,39 +179,7 @@ without needing a separately distributed key.</p><p>Example of a PEM-encoded sig
 </span></span></span><span class=line><span class=cl><span class=sd>        -----END CERTIFICATE-----
 </span></span></span><span class=line><span class=cl><span class=sd>        -----BEGIN CERTIFICATE-----
 </span></span></span><span class=line><span class=cl><span class=sd>        &lt;intermediate CA, if applicable&gt;
-</span></span></span><span class=line><span class=cl><span class=sd>        -----END CERTIFICATE-----</span></span></span></code></pre></div></figure></div><div class="callout callout-caution d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3"><svg
-  xmlns="http://www.w3.org/2000/svg"
-  width="24"
-  height="24"
-  viewBox="0 0 24 24"
-  fill="none"
-  stroke="currentColor"
-  stroke-width="2"
-  stroke-linecap="round"
-  stroke-linejoin="round"
- 
- class="outline/alert-triangle svg-inline callout-icon me-2 mb-3" id="svg-alert-triangle" role="img">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-  <path d="M12 9v4" />
-  <path d="M10.363 3.591l-8.106 13.534a1.914 1.914 0 0 0 1.636 2.871h16.214a1.914 1.914 0 0 0 1.636 -2.87l-8.106 -13.536a1.914 1.914 0 0 0 -3.274 0" />
-  <path d="M12 16h.01" />
-</svg><div class=callout-content><div class=callout-title><p>PEM encoding is experimental</p></div><div class=callout-body><p>This encoding policy may change or be deprecated in future versions. For production use, prefer the default Plain encoding.</p></div></div></div><div class="callout callout-note d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3"><svg
-  xmlns="http://www.w3.org/2000/svg"
-  width="24"
-  height="24"
-  viewBox="0 0 24 24"
-  fill="none"
-  stroke="currentColor"
-  stroke-width="2"
-  stroke-linecap="round"
-  stroke-linejoin="round"
- 
- class="outline/info-circle svg-inline callout-icon me-2 mb-3" id="svg-info-circle" role="img">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-  <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" />
-  <path d="M12 9h.01" />
-  <path d="M11 12h1v4h1" />
-</svg><div class=callout-content><div class=callout-title><p>Key files vs. signature encoding</p></div><div class=callout-body><p>A common source of confusion: &ldquo;PEM&rdquo; in <code>signatureEncodingPolicy</code> refers to the <strong>signature output</strong> format, not the key input format. Input keys are <strong>always</strong> PEM-encoded files (e.g. <code>-----BEGIN RSA PRIVATE KEY-----</code>), regardless of which encoding policy is selected.</p><p>When using PEM encoding for signing, the credential referenced by <code>public_key_pem</code> / <code>public_key_pem_file</code> must contain <strong>X.509 certificates</strong> (not bare public keys), because the certificate chain is embedded into the signature for self-contained verification.</p></div></div></div><h2 id=next-steps>Next Steps<a href=#next-steps class=anchor aria-hidden=true>#</a></h2><ul><li><a href=/docs/how-to/generate-signing-keys/>How-to: Generate Signing Keys</a> - Step-by-step creating RSA key pairs.</li><li><a href=/docs/how-to/configure-credentials-for-signing/>How-to: Configure Signing Credentials</a> - Set up OCM to use your keys for signing and verification</li><li><a href=/docs/how-to/sign-component-versions/>How-to: Sign a Component Version</a> - Step-by-step signing instructions</li><li><a href=/docs/how-to/verify-component-versions/>How-to: Verify a Component Version</a> - Step-by-step verification instructions</li></ul><h2 id=related-documentation>Related Documentation<a href=#related-documentation class=anchor aria-hidden=true>#</a></h2><ul><li><a href=/docs/concepts/component-identity/>Concept: Component Identity</a> - Understanding component structure</li></ul><div class="page-footer-meta d-flex flex-column flex-md-row justify-content-between"></div><div class="page-nav d-flex flex-column flex-sm-row"><div class="card w-100"><div class="card-body d-flex"><div class="d-flex flex-column justify-content-center"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-left" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+</span></span></span><span class=line><span class=cl><span class=sd>        -----END CERTIFICATE-----</span></span></span></code></pre></div></figure></div><div class="callout callout-caution d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3"><svg   xmlns="http://www.w3.org/2000/svg"   width="24"   height="24"   viewBox="0 0 24 24"   fill="none"   stroke="currentColor"   stroke-width="2"   stroke-linecap="round"   stroke-linejoin="round"    class="outline/alert-triangle svg-inline callout-icon me-2 mb-3" id="svg-alert-triangle" role="img">   <path stroke="none" d="M0 0h24v24H0z" fill="none"/>   <path d="M12 9v4" />   <path d="M10.363 3.591l-8.106 13.534a1.914 1.914 0 0 0 1.636 2.871h16.214a1.914 1.914 0 0 0 1.636 -2.87l-8.106 -13.536a1.914 1.914 0 0 0 -3.274 0" />   <path d="M12 16h.01" /> </svg><div class=callout-content><div class=callout-title>PEM encoding is experimental</div><div class=callout-body><p>This encoding policy may change or be deprecated in future versions. For production use, prefer the default Plain encoding.</p></div></div></div><div class="callout callout-note d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3"><svg   xmlns="http://www.w3.org/2000/svg"   width="24"   height="24"   viewBox="0 0 24 24"   fill="none"   stroke="currentColor"   stroke-width="2"   stroke-linecap="round"   stroke-linejoin="round"    class="outline/info-circle svg-inline callout-icon me-2 mb-3" id="svg-info-circle" role="img">   <path stroke="none" d="M0 0h24v24H0z" fill="none"/>   <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" />   <path d="M12 9h.01" />   <path d="M11 12h1v4h1" /> </svg><div class=callout-content><div class=callout-title>Key files vs. signature encoding</div><div class=callout-body><p>A common source of confusion: &ldquo;PEM&rdquo; in <code>signatureEncodingPolicy</code> refers to the <strong>signature output</strong> format, not the key input format. Input keys are <strong>always</strong> PEM-encoded files (e.g. <code>-----BEGIN RSA PRIVATE KEY-----</code>), regardless of which encoding policy is selected.</p><p>When using PEM encoding for signing, the credential referenced by <code>public_key_pem</code> / <code>public_key_pem_file</code> must contain <strong>X.509 certificates</strong> (not bare public keys), because the certificate chain is embedded into the signature for self-contained verification.</p></div></div></div><h2 id=next-steps>Next Steps<a href=#next-steps class=anchor aria-hidden=true>#</a></h2><ul><li><a href=/docs/how-to/generate-signing-keys/>How-to: Generate Signing Keys</a> - Step-by-step creating RSA key pairs.</li><li><a href=/docs/how-to/configure-credentials-for-signing/>How-to: Configure Signing Credentials</a> - Set up OCM to use your keys for signing and verification</li><li><a href=/docs/how-to/sign-component-versions/>How-to: Sign a Component Version</a> - Step-by-step signing instructions</li><li><a href=/docs/how-to/verify-component-versions/>How-to: Verify a Component Version</a> - Step-by-step verification instructions</li></ul><h2 id=related-documentation>Related Documentation<a href=#related-documentation class=anchor aria-hidden=true>#</a></h2><ul><li><a href=/docs/concepts/component-identity/>Concept: Component Identity</a> - Understanding component structure</li></ul><div class="page-footer-meta d-flex flex-column flex-md-row justify-content-between"></div><div class="page-nav d-flex flex-column flex-sm-row"><div class="card w-100"><div class="card-body d-flex"><div class="d-flex flex-column justify-content-center"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-left" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
 						<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
 						<path d="M5 12l14 0"></path>
 						<path d="M5 12l6 6"></path>
