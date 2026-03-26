@@ -151,7 +151,7 @@ flowchart TB
 
 The diagram shows the complete flow: OCM component resources are fetched by the controllers, the Deployer applies the RGD, kro creates a CRD from it, and finally instantiating that CRD deploys the Helm chart with localized image references.
 
-## Step 1: Create the OCM Component Version
+## Create and Publish a Component Version
 
 First, create an OCM component version containing three resources:
 
@@ -159,13 +159,19 @@ First, create an OCM component version containing three resources:
 - **image-resource**: The Podinfo container image (for localization)
 - **resource-graph-definition**: Deployment instructions
 
-Create a working directory:
+{{< steps >}}
+{{< step >}}
+
+### Create a working directory
 
 ```shell
 mkdir /tmp/bootstrap-deploy && cd /tmp/bootstrap-deploy
 ```
+{{< /step >}}
 
-### Define the Component
+{{< step >}}
+
+### Define the component
 
 Create a `component-constructor.yaml` file:
 
@@ -360,8 +366,11 @@ values:
 
 For more details, see [Credentials for OCM Controllers]({{< relref "/docs/tutorials/configure-credentials-for-controllers.md" >}}).
 {{< /details >}}
+{{< /step >}}
 
-### Build and Transfer the Component
+{{< step >}}
+
+### Build and transfer the component
 
 Build the component version locally:
 
@@ -374,8 +383,11 @@ Transfer to your registry with `--copy-resources` to enable localization (this c
 ```bash
 ocm transfer cv --copy-resources transport-archive//ocm.software/ocm-k8s-toolkit/bootstrap:1.0.0 $OCM_REPO
 ```
+{{< /step >}}
 
-### Verify the Transfer
+{{< step >}}
+
+### Verify the transfer
 
 Check that the component was transferred and resources were localized:
 
@@ -384,12 +396,17 @@ ocm get cv $OCM_REPO//ocm.software/ocm-k8s-toolkit/bootstrap:1.0.0 -o yaml | gre
 ```
 
 You should see image references pointing to `$OCM_REPO/...` instead of the original locations—this confirms localization worked.
+{{< /step >}}
+{{< /steps >}}
 
-## Step 2: Deploy the Helm Chart
+## Deploy the Helm Chart
 
 Now create the bootstrap resources that will fetch and apply the RGD from the component.
 
-### Create Bootstrap Resources
+{{< steps >}}
+{{< step >}}
+
+### Create bootstrap resources
 
 The bootstrap resources form a chain: Repository → Component → Resource → Deployer. The Deployer extracts the RGD and applies it to the cluster.
 
@@ -457,8 +474,11 @@ spec:
   # ocmConfig:
 ```
 {{< /details >}}
+{{< /step >}}
 
-### Apply the Bootstrap Resources
+{{< step >}}
+
+### Apply the bootstrap resources
 
 ```bash
 envsubst < bootstrap.yaml | kubectl apply -f -
@@ -470,14 +490,21 @@ Wait for the RGD to become active (this may take 30-60 seconds):
 kubectl get rgd -w
 ```
 
+<details>
+<summary>You should see this output</summary>
+
 ```console
 NAME        APIVERSION   KIND        STATE    AGE
 bootstrap   v1alpha1     Bootstrap   Active   2m56s
 ```
+</details>
 
 When the state shows `Active`, kro has processed the RGD and created a new CRD called `Bootstrap`.
+{{< /step >}}
 
-### Step 3: Create an Instance
+{{< step >}}
+
+### Create an instance
 
 Now create an instance of the Bootstrap CRD to trigger the actual deployment. Create `instance.yaml`:
 
@@ -487,27 +514,47 @@ kind: Bootstrap
 metadata:
   name: bootstrap
 ```
+{{< /step >}}
 
-Then, apply the instance to the cluster:
+{{< step >}}
+
+### Deploy the application
+
+Apply the instance to the cluster:
 
 ```bash
 kubectl apply -f instance.yaml
 ```
 
-If successful, you should see the following output:
+<details>
+<summary>You should see this output</summary>
+
+```console
+bootstrap.kro.run/bootstrap created
+```
+</details>
+
+Wait for the deployment to complete:
 
 ```bash
-kubectl get bootstrap
+kubectl get bootstrap -w
 ```
+
+<details>
+<summary>You should see this output</summary>
 
 ```console
 NAME        STATE    SYNCED   AGE
 bootstrap   ACTIVE   True     3m23s
 ```
+</details>
 
 If the instance is in the `ACTIVE` state, the deployment succeeded.
+{{< /step >}}
 
-### Step 4: Verify Localization
+{{< step >}}
+
+### Verify localization
 
 Check that the deployed pod uses the localized image from your registry (not the original `ghcr.io/stefanprodan/...`):
 
@@ -515,11 +562,17 @@ Check that the deployed pod uses the localized image from your registry (not the
 kubectl get pods -l app.kubernetes.io/name=bootstrap-release-podinfo -o jsonpath='{.items[0].spec.containers[0].image}'
 ```
 
+<details>
+<summary>You should see this output</summary>
+
 ```console
 ghcr.io/$GITHUB_USERNAME/component-descriptors/ocm.software/ocm-k8s-toolkit/bootstrap:latest@sha256:262578cde928d5c9eba3bce079976444f624c13ed0afb741d90d5423877496cb
 ```
+</details>
 
 The image reference points to your registry with a digest—localization worked!
+{{< /step >}}
+{{< /steps >}}
 
 ## Troubleshooting
 

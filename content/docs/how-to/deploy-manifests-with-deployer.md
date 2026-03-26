@@ -31,13 +31,19 @@ export OCM_REPO=ghcr.io/$GITHUB_USERNAME/ocm-tutorial
 
 ## Create the Component Version
 
-Create a working directory:
+{{< steps >}}
+{{< step >}}
+
+### Create a working directory
 
 ```shell
 mkdir /tmp/manifest-deploy && cd /tmp/manifest-deploy
 ```
+{{< /step >}}
 
-### Create the Deployment Manifest
+{{< step >}}
+
+### Create the deployment manifest
 
 Create a `deployment.yaml` file:
 
@@ -123,8 +129,11 @@ spec:
         - name: data
           emptyDir: {}
 ```
+{{< /step >}}
 
-### Create the Component Constructor
+{{< step >}}
+
+### Create the component constructor
 
 Create a `component-constructor.yaml` file:
 
@@ -142,35 +151,57 @@ components:
           type: file
           path: ./deployment.yaml
 ```
+{{< /step >}}
 
-### Build and Push
+{{< step >}}
+
+### Build and push
 
 ```shell
 ocm add cv --repository $OCM_REPO
 ```
 
 <details>
-<summary>Expected output</summary>
+<summary>You should see this output</summary>
 
 ```text
 COMPONENT                           │ VERSION │ PROVIDER
 ────────────────────────────────────┼─────────┼──────────────
 ocm.software/ocm-k8s-toolkit/simple │ 1.0.0   │ ocm.software
 ```
-
 </details>
 
 {{< callout context="note" title="Private registries" icon="outline/lock" >}}
 By default, packages in GitHub Container Registry are private. Either make your package public after upload, or [configure credentials]({{< relref "configure-credentials-for-controllers.md" >}}) for the OCM controller resources before deploying.
 {{< /callout >}}
+{{< /step >}}
 
-### Verify the Upload
+{{< step >}}
+
+### Verify the upload
 
 ```shell
 ocm get cv $OCM_REPO//ocm.software/ocm-k8s-toolkit/simple:1.0.0
 ```
 
+<details>
+<summary>You should see this output</summary>
+
+```text
+COMPONENT                           │ VERSION │ PROVIDER
+────────────────────────────────────┼─────────┼──────────────
+ocm.software/ocm-k8s-toolkit/simple │ 1.0.0   │ ocm.software
+```
+</details>
+{{< /step >}}
+{{< /steps >}}
+
 ## Deploy with the OCM Controllers
+
+{{< steps >}}
+{{< step >}}
+
+### Create the bootstrap resources
 
 Create a `bootstrap.yaml` file with the controller resources:
 
@@ -231,8 +262,11 @@ The resource chain works as follows:
 {{< callout context="note" >}}
 For details on how the Deployer uses ApplySets, see [OCM Controllers]({{< relref "/docs/concepts/ocm-controllers.md" >}}).
 {{< /callout >}}
+{{< /step >}}
 
-### Substitute and Apply
+{{< step >}}
+
+### Substitute and apply
 
 Replace the `$OCM_REPO` placeholder with your actual repository URL and apply:
 
@@ -240,14 +274,20 @@ Replace the `$OCM_REPO` placeholder with your actual repository URL and apply:
 envsubst < bootstrap.yaml > deployment-subst.yaml
 kubectl apply -f deployment-subst.yaml
 ```
+{{< /step >}}
 
-### Verify the Deployment
+{{< step >}}
+
+### Verify the deployment
 
 Check the controller resources:
 
 ```shell
 kubectl get resource,deployer,component,repository -owide
 ```
+
+<details>
+<summary>You should see this output</summary>
 
 ```text
 NAME                                                  READY                   AGE
@@ -262,6 +302,7 @@ component.delivery.ocm.software/bootstrap-component   Applied version 1.0.0   20
 NAME                                                    READY                                    AGE
 repository.delivery.ocm.software/bootstrap-repository   Successfully reconciled OCM repository   20s
 ```
+</details>
 
 Check the deployed pod:
 
@@ -269,10 +310,16 @@ Check the deployed pod:
 kubectl get pods -l app=podinfo
 ```
 
+<details>
+<summary>You should see this output</summary>
+
 ```text
 NAME                       READY   STATUS    RESTARTS   AGE
 podinfo-86b758c4bf-c44qk   1/1     Running   0          109s
 ```
+</details>
+{{< /step >}}
+{{< /steps >}}
 
 ## Troubleshooting
 
