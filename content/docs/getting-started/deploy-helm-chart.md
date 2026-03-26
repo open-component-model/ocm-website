@@ -148,7 +148,7 @@ Then update the resources to use credentials:
   ```yaml
       - id: repository
         readyWhen:
-        - ${repository.status.conditions.exists(c, c.type == 'Ready' && c.status == 'True')}
+          - ${repository.status.conditions.exists(c, c.type == 'Ready' && c.status == 'True')}
         template:
           apiVersion: delivery.ocm.software/v1alpha1
           kind: Repository
