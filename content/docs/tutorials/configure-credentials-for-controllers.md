@@ -18,6 +18,8 @@ By the end of this tutorial, you will know how to:
 - Reference credentials via `spec.ocmConfig` in OCM controller resources
 - Control `ocmConfig` propagation between custom resources
 
+**Estimated time:** ~10 minutes
+
 ## How to Configure Credentials?
 
 Currently, OCM controllers supports two ways to configure credentials for accessing private OCM repositories:
