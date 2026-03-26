@@ -133,10 +133,10 @@ If you are migrating from the deprecated `ocm.config.ocm.software` fallback reso
 ## Next Steps
 
 - [Tutorial: Understand Credential Resolution]({{< relref "docs/tutorials/credential-resolution.md" >}}) — Configure registry credentials
-- [Tutorial: Working with Resolvers Tutorial]({{< relref "docs/tutorials/configure-resolvers.md" >}}) — Hands-on tutorial for
+- [Tutorial: Working with Resolvers]({{< relref "docs/tutorials/configure-resolvers.md" >}}) — Hands-on tutorial for
   building and pushing components with resolvers
 
-## Related documentation
+## Related Documentation
 
 - [How-To: Migrate from Deprecated Resolvers]({{< relref "docs/how-to/migrate-from-deprecated-resolvers.md" >}}) — Replace deprecated fallback
   resolvers with glob-based resolvers

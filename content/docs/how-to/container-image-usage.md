@@ -31,7 +31,7 @@ This How-To will show you how to use the OCM CLI container image to create and g
 {{< steps >}}
 {{< step >}} 
 
-## Create a simple component constructor
+### Create a simple component constructor
 
 We will start by creating a simple component constructor. This will be used to create a component version in the 
 next step.
@@ -56,7 +56,7 @@ EOF
 {{< /step >}}
 {{< step >}}
 
-## Configure credentials in an OCM config
+### Configure credentials in an OCM config
 
 We want to create the component version in a repository that requires authentication. In the following example, we
 will use GitHub Container Registry (GHCR) as the repository and use a Personal Access Token (PAT) for authentication.
@@ -87,7 +87,7 @@ EOF
 {{< /step >}}
 {{< step >}}
 
-## Create the component version using the OCM CLI container image
+### Create the component version using the OCM CLI container image
 
 Now we can use the OCM CLI container image to create the component version in the repository. We will mount the current
 directory containing the `component-constructor` and `.ocmconfig` to the container image and run the `add cv` command.
@@ -121,7 +121,7 @@ docker run --rm \
 {{< /step >}}
 {{< step >}}
 
-## Get the component version using the OCM CLI container image
+### Get the component version using the OCM CLI container image
 
 After we created the component version, we can use the OCM CLI container image to get the component version from the
 repository.
