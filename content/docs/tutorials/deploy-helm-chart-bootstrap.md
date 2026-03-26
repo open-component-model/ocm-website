@@ -220,6 +220,8 @@ spec:
     # This resource refers to the resource "helm-resource" defined in the OCM component version. It will be downloaded,
     # verified, and its location is made available in the status of the resource.
     - id: resourceChart
+      readyWhen:
+        - ${resourceChart.status.conditions.exists(c, c.type == 'Ready' && c.status == 'True')}
       template:
         apiVersion: delivery.ocm.software/v1alpha1
         kind: Resource
@@ -242,6 +244,8 @@ spec:
     # This resource refers to the resource "image-resource" defined in the OCM component version. It will be downloaded,
     # verified, and its location is made available in the status of the resource.
     - id: resourceImage
+      readyWhen:
+        - ${resourceImage.status.conditions.exists(c, c.type == 'Ready' && c.status == 'True')}
       template:
         apiVersion: delivery.ocm.software/v1alpha1
         kind: Resource
@@ -263,6 +267,8 @@ spec:
     # OCIRepository watches and downloads the resource from the location provided by the Resource status.
     # The Helm chart location (url) refers to the status of the resource helm-resource.
     - id: ocirepository
+      readyWhen:
+        - ${ocirepository.status.conditions.exists(c, c.type == 'Ready' && c.status == 'True')}
       template:
         apiVersion: source.toolkit.fluxcd.io/v1
         kind: OCIRepository
@@ -283,6 +289,8 @@ spec:
     # HelmRelease refers to the OCIRepository, lets you configure the helm chart and deploys the Helm Chart into the
     # Kubernetes cluster.
     - id: helmrelease
+      readyWhen:
+        - ${helmrelease.status.conditions.exists(c, c.type == 'Ready' && c.status == 'True')}
       template:
         apiVersion: helm.toolkit.fluxcd.io/v2
         kind: HelmRelease

@@ -220,6 +220,8 @@ spec:
     # Repository points to the OCM repository in which the OCM component version is stored and checks if it is
     # reachable by pinging it.
     - id: repository
+      readyWhen:
+        - ${repository.status.conditions.exists(c, c.type == 'Ready' && c.status == 'True')}
       template:
         apiVersion: delivery.ocm.software/v1alpha1
         kind: Repository
@@ -234,6 +236,8 @@ spec:
           # ocmConfig:
     # Component refers to the Repository, downloads and verifies the OCM component version descriptor.
     - id: component
+      readyWhen:
+        - ${component.status.conditions.exists(c, c.type == 'Ready' && c.status == 'True')}
       template:
         apiVersion: delivery.ocm.software/v1alpha1
         kind: Component
@@ -250,6 +254,8 @@ spec:
     # Resource points to the Component, downloads the resource passed by reference-name and verifies it. It then
     # publishes the location of the resource in its status.
     - id: resourceChart
+      readyWhen:
+        - ${resourceChart.status.conditions.exists(c, c.type == 'Ready' && c.status == 'True')}
       template:
         apiVersion: delivery.ocm.software/v1alpha1
         kind: Resource
@@ -271,6 +277,8 @@ spec:
     # OCIRepository watches and downloads the resource from the location provided by the Resource status.
     # The Helm chart location (url) refers to the status of the above resource.
     - id: ocirepository
+      readyWhen:
+        - ${ocirepository.status.conditions.exists(c, c.type == 'Ready' && c.status == 'True')}
       template:
         apiVersion: source.toolkit.fluxcd.io/v1
         kind: OCIRepository
@@ -289,6 +297,8 @@ spec:
     # HelmRelease refers to the OCIRepository, lets you configure the Helm chart and deploys the Helm chart into the
     # Kubernetes cluster.
     - id: helmrelease
+      readyWhen:
+        - ${helmrelease.status.conditions.exists(c, c.type == 'Ready' && c.status == 'True')}
       template:
         apiVersion: helm.toolkit.fluxcd.io/v2
         kind: HelmRelease
