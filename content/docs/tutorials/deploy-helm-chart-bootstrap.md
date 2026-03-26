@@ -412,7 +412,7 @@ Create `bootstrap.yaml` with the following content:
 
 {{< callout context="note" title="Private registries" icon="outline/lock" >}}
 If you chose to keep your package private, do not forget to add the 
-secret to the `ocmConfig`, as described above!
+secret to the repositories `ocmConfig`, as described above!
 {{< /callout >}}
 
 {{< details "Bootstrap Resources (bootstrap.yaml)" >}}
