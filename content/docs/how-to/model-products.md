@@ -277,8 +277,11 @@ Remove everything created in this guide:
 rm -rf transport-archive transport-archive-updated component-constructor.yaml
 ```
 
-## Related Documentation
+## Next Steps
 
 - [Create a Multi-Component Product]({{< relref "docs/tutorials/advanced-component-constructor.md" >}}) — advanced constructor patterns with nesting, labels, and sources
+
+## Related Documentation
+
 - [Component Descriptor Reference]({{< relref "docs/reference/component-descriptor.md" >}}) — understand the structure of the generated release metadata
 - [OCM Specification: References](https://github.com/open-component-model/ocm-spec/blob/main/doc/02-processing/01-references.md) — how component references are resolved during transport and deployment

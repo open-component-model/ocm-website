@@ -66,15 +66,17 @@ including all referenced resources — across registry boundaries or even air-ga
 
 For more information about OCM transfer, see the [Transfer and Transport]({{< relref "docs/concepts/transfer-concept.md" >}}) concept.
 
+## Next Steps
+
+- [Tutorial: Working with Resolvers]({{< relref "docs/tutorials/configure-resolvers.md" >}}) — Hands-on walkthrough for setting up resolvers
+- [How-To: Resolve Components Across Multiple Registries]({{< relref "docs/how-to/resolve-components-from-multiple-repositories.md" >}}) — Recipe for
+  multi-registry resolution
+- [How-To: Migrate from Deprecated Resolvers]({{< relref "docs/how-to/migrate-from-deprecated-resolvers.md" >}}) — Replace deprecated fallback
+  resolvers with glob-based resolvers
+
 ## Related Documentation
 
-- [Resolver Configuration Reference]({{< relref "docs/reference/resolver-configuration.md" >}}) — Full schema, repository types, and pattern syntax
-- [Component Identity]({{< relref "component-identity.md" >}}) — Core concepts behind component versions, identities, and references
-- [Working with Resolvers Tutorial]({{< relref "docs/tutorials/configure-resolvers.md" >}}) — Hands-on walkthrough for setting up resolvers
-- [How to Resolve Components Across Multiple Registries]({{< relref "docs/how-to/resolve-components-from-multiple-repositories.md" >}}) — Recipe for
-  multi-registry resolution
-- [Understand Credential Resolution]({{< relref "docs/tutorials/credential-resolution.md" >}}) — Configure credentials for OCI registries
-- [How to Transfer Components Across an Air Gap]({{< relref "docs/how-to/air-gap-transfer.md" >}}) — Use OCM Transfer to move components between
-  air-gapped environments
-- [Migrate from Deprecated Resolvers]({{< relref "docs/how-to/migrate-from-deprecated-resolvers.md" >}}) — Replace deprecated fallback
-  resolvers with glob-based resolvers
+- [Reference: Resolver Configuration]({{< relref "docs/reference/resolver-configuration.md" >}}) — Full schema, repository types, and pattern syntax
+- [Component Identity]({{< relref "docs/concepts/component-identity.md" >}}) — Core concepts behind component versions, identities, and references
+- [How-To: Transfer Components Across an Air Gap]({{< relref "docs/how-to/air-gap-transfer.md" >}}) — Use OCM Transfer to move components between air-gapped environments
+- [Tutorial: Understand Credential Resolution]({{< relref "docs/tutorials/credential-resolution.md" >}}) — Configure credentials for OCI registries

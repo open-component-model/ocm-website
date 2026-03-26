@@ -292,7 +292,8 @@ For private registries, you'll need to configure credentials. See [Configure Cre
 
 ## Cleanup
 
-To remove the local kind cluster after testing, run:
+To remove the local kind cluster after testing, run the following command.
+If you plan to continue with the next tutorial steps, you can keep the cluster.
 
 ```shell
 kind delete cluster

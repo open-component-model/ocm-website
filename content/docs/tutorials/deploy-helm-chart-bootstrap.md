@@ -33,8 +33,8 @@ Helm chart. It is a two-step process:
 potentially update their reference to the new location. For instance, a resource with an access type `ociArtifact`
 will update its image reference in the component descriptor to the new registry location, if the OCM transfer is done
 with the flag `--copy-resources`.
-1. However, the deployment using the image is not aware of this change. Accordingly, we need to insert the new image
-reference into the deployment instruction. This can be done using deployment tools like FluxCDs
+2. However, the deployment using the image is not aware of this change. Accordingly, we need to insert the new image
+reference into the deployment instruction. This can be done using deployment tools like Flux's
 [HelmRelease](https://fluxcd.io/flux/components/helm/helmreleases/#values) and
 [Kustomization](https://fluxcd.io/flux/components/kustomize/kustomizations/#patches) or ArgoCDs
 [Helm](https://argo-cd.readthedocs.io/en/stable/user-guide/helm/#values) and
@@ -89,8 +89,8 @@ flowchart TB
                 subgraph rgd[RGD: Bootstrap]
                     rgdResourceHelm[Resource: HelmChart]
                     rgdResourceImage[Resource: Image]
-                    rgdSource[FluxCD: OCI Repository]
-                    rgdHelmRelease[FluxCD: HelmRelease]
+                    rgdSource[Flux: OCI Repository]
+                    rgdHelmRelease[Flux: HelmRelease]
                 end
                 crdBootstrap[CRD: Bootstrap]
                 subgraph instanceBootstrap[Instance: Bootstrap]
@@ -98,7 +98,7 @@ flowchart TB
                         k8sResourceHelm[Resource: HelmChart]
                         k8sResourceImage[Resource: Image]
                     end
-                    subgraph fluxCD[FluxCD]
+                    subgraph flux[Flux]
                         source[OCI Repository]
                         helmRelease[HelmRelease]
                     end
@@ -121,7 +121,7 @@ flowchart TB
     class references,creates,instanceOf legendItems;
     class templateOf,rgdResourceHelm,rgdResourceImage,rgdSource,rgdHelmRelease templateOf;
     class info information;
-    class reconciledBy,ocmK8sToolkit,bootstrap,fluxCD,kro reconciledBy;
+    class reconciledBy,ocmK8sToolkit,bootstrap,flux,kro reconciledBy;
     class k8sObject,rgd,k8sRepo,k8sComponent,k8sResourceRGD,k8sDeployer,k8sResourceHelm,k8sResourceImage,source,helmRelease,deployment,crdBootstrap,instanceBootstrap k8sObject;
     class ocmRepo,ocmCV,ocmResourceHelm,ocmResourceRGD,ocmResourceImage ocm;
     class k8sCluster cluster;
@@ -146,9 +146,9 @@ After applying the `ResourceGraphDefinition`, kro will reconcile it and create a
 
 - An OCM controller resource "HelmChart" of type `Resource` that contains the location of the Helm chart in its status.
 - An OCM controller resource "Image" of type `Resource` that contains the localized image reference in its status.
-- A FluxCD resource of type `OCIRepository` that points to the location of the Helm chart retrieved from the status of
+- A Flux resource of type `OCIRepository` that points to the location of the Helm chart retrieved from the status of
   the resource "HelmChart".
-- A FluxCD resource of type `HelmRelease` that points to FluxCDs `OCIRepository`, gets the Helm chart, and replaces
+- A Flux resource of type `HelmRelease` that points to Flux's `OCIRepository`, gets the Helm chart, and replaces
   the image location in the deployment using its `spec.values`-field and the status of the resource "Image" that
   contains the localized image reference.
 
@@ -310,10 +310,10 @@ spec:
 
 {{<callout context="note" title="Provide credentials for the deployment" icon="outline/key">}}
 If you plan to push your OCM component version to a private registry, you need to provide credentials for the OCM
-controllers and FluxCDs `OCIRepository` (if the Helm chart is also stored in a private registry). Accordingly, you
+controllers and Flux's `OCIRepository` (if the Helm chart is also stored in a private registry). Accordingly, you
 have to specify the `ocmConfig` field in the `Resource` resources and the `secretRef` field in the `OCIRepository`.
 
-If you want to use the same credentials for FluxCD and for the OCM controller resources, create a
+If you want to use the same credentials for Flux and for the OCM controller resources, create a
 [Kubernetes secret of type `dockerconfigjson`]({{< relref "configure-credentials-for-controllers.md#create-a-kubernetes-secret-of-type-dockerconfigjson-to-access-private-ocm-repositories" >}})
 and keep all the resources in the same namespace.
 {{</callout>}}
@@ -543,7 +543,7 @@ bootstrap   ACTIVE   True     3m23s
 ```
 
 If the instance is in the `ACTIVE` state, the resources defined in the `ResourceGraphDefinition` were created and
-reconciled. This includes the OCM controller resources for the Helm chart and the image, as well as FluxCDs
+reconciled. This includes the OCM controller resources for the Helm chart and the image, as well as Flux's
 resources for the OCI repository and the Helm release. Accordingly, you should see the following deployment in the
 cluster. To see, if the deployment was successful, you can use the following command:
 
@@ -572,4 +572,4 @@ You now have successfully created an OCM component containing a Helm chart, the 
 By creating the required bootstrap-resources you bootstrapped the `ResourceGraphDefinition` from the OCM component
 and created the resulting CRD.
 Finally, you created an instance of the CRD which deployed the Helm chart and configured the localization using the OCM
-controllers, kro, and FluxCD.
+controllers, kro, and Flux.

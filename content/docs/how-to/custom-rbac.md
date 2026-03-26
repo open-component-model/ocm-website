@@ -147,3 +147,7 @@ rules:
       - update
       - watch
 ```
+
+## Related Documentation
+
+- [Concept: OCM controllers]({{< relref "/docs/concepts/ocm-controllers.md" >}}) - Learn how the OCM Controllers work and how they interact with deployers and Kubernetes resources.

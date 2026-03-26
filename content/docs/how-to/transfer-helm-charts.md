@@ -10,6 +10,12 @@ toc: true
 Transfer a component version that contains a Helm chart resource sourced from a **Helm repository** (type `helmChart` with `helm/v1` access)
 to an OCI registry. This guide does not cover charts that are already stored as OCI artifacts.
 
+## You'll end up with
+
+- A component version containing a Helm chart transferred to a target OCI registry
+
+**Estimated time:** ~10 minutes
+
 ## Prerequisites
 
 - [OCM CLI]({{< relref "docs/getting-started/ocm-cli-installation.md" >}}) installed
@@ -160,9 +166,11 @@ ocm transfer cv \
 - **For air-gapped environments**, first transfer to a CTF archive, move it across the boundary, then import into the target registry.
   See [Transfer Components Across an Air Gap]({{< relref "docs/how-to/air-gap-transfer.md" >}}).
 
+## Next Steps
+
+- [How to: Transfer Components Across an Air Gap]({{< relref "docs/how-to/air-gap-transfer.md" >}}) - Transfer components between disconnected networks
+- [How-To: Download Resources from Component Versions]({{< relref "docs/how-to/download-resources-from-component-versions.md" >}}) - Download individual resources from a component version
+
 ## Related documentation
 
-- [Transfer and Transport]({{< relref "docs/concepts/transfer-concept.md" >}}) -- Understand the transfer model and resource handling
-- [Transfer Components Across an Air Gap]({{< relref "docs/how-to/air-gap-transfer.md" >}}) -- Air-gapped transfer workflows
-- [Download Resources from Component Versions]({{< relref "docs/how-to/download-resources-from-component-versions.md" >}}) -- Download individual
-  resources
+- [Concept: Transfer and Transport]({{< relref "docs/concepts/transfer-concept.md" >}}) - Understand how OCM moves component versions between repositories

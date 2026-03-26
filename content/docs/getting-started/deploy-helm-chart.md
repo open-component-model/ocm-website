@@ -11,8 +11,6 @@ using the OCM Controllers with kro and Flux.
 
 ## What You'll Learn
 
-By the end of this tutorial, you will:
-
 - Create and publish an OCM component version that references a Helm chart
 - Define a ResourceGraphDefinition to orchestrate OCM and Flux resources
 - Deploy the Helm chart to your cluster using the OCM Controllers
@@ -87,7 +85,7 @@ ocm add cv
 ```text
 time=2026-02-25T12:47:09.622+01:00 level=WARN msg="could not get credential consumer identity for component version repository" repository=transport-archive error="failed to get component version repository: cannot resolve consumer identity for ctf: credentials not supported"
 COMPONENT                           │ VERSION │ PROVIDER
-─────────────────────────────────────┼─────────┼──────────────
+────────────────────────────────────┼─────────┼──────────────
 ocm.software/ocm-k8s-toolkit/simple │ 1.0.0   │ ocm.software
 ```
 </details>
@@ -151,7 +149,7 @@ ocm get cv ghcr.io/<your-namespace>//ocm.software/ocm-k8s-toolkit/simple:1.0.0
 ### Create ResourceGraphDefinition
 
 The ResourceGraphDefinition tells kro how to orchestrate the OCM and Flux resources.  
-Create `rgd.yaml` with the following content, replacing `<your-namespace>` with your registry namespace:
+Create `rgd.yaml` with the following content, replacing `<your-namespace>` in the `repository` resource with your registry namespace:
 
 ```yaml
 apiVersion: kro.run/v1alpha1
@@ -309,7 +307,7 @@ A new Custom Resource Definition called `Simple` that you can now instantiate ha
 
 ### Create an instance
 
-Create `instance.yaml` to deploy the application:
+Create the file `instance.yaml` to deploy the application:
 
 ```yaml
 apiVersion: kro.run/v1alpha1
@@ -415,10 +413,16 @@ kubectl delete -f instance.yaml
 kubectl delete -f rgd.yaml
 ```
 
+Remove the temporary files:
+
+```shell
+rm -rf /tmp/helm-deploy
+```
+
 ## Next Steps
 
 - [Tutorial: Create a Multi-Component Product]({{< relref "docs/tutorials/advanced-component-constructor.md" >}}) - Learn how to structure complex applications with multiple components and resources
-- [Tutorial: Deploy a Helm Chart (with Bootstrap)]({{< relref "deploy-helm-chart-bootstrap.md" >}}) - Use the OCM Controllers to deploy a Helm chart without manual bootstrapping, using GitOps
+- [Tutorial: Deploy a Helm Chart (with Bootstrap)]({{< relref "docs/tutorials/deploy-helm-chart-bootstrap.md" >}}) - Use the OCM Controllers to deploy a Helm chart without manual bootstrapping, using GitOps
 
 ## Related Documentation
 
