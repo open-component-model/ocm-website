@@ -38,7 +38,7 @@ Set environment variables for your GitHub username and OCM repository:
 
 ```bash
 export GITHUB_USERNAME=<your-github-username>
-export OCM_REPO=ghcr.io/$GITHUB_USERNAME
+export OCM_REPO=ghcr.io/$GITHUB_USERNAME/ocm-tutorial
 ```
 
 ## Concepts
