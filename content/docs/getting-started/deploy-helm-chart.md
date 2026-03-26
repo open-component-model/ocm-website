@@ -41,7 +41,7 @@ Set environment variables for your GitHub username and OCM repository:
 
 ```bash
 export GITHUB_USERNAME=<your-github-username>
-export OCM_REPO=ghcr.io/$GITHUB_USERNAME
+export OCM_REPO=ghcr.io/$GITHUB_USERNAME/ocm-tutorial
 ```
 
 ## Create and Publish a Component Version
@@ -438,7 +438,8 @@ failed to list versions: response status code 401: unauthorized
 Your registry package is private. Either:
 
 - Make the package public in your registry settings, or
-- Configure credentials as described in the collapsible section after "Transfer to your registry"
+- [Configure credentials]({{< relref "/docs/tutorials/configure-credentials-for-controllers.md" >}}) as 
+  described in the collapsible section after "Transfer to your registry"
 
 ### Resource Not Found
 

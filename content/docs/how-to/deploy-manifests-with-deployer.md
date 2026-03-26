@@ -20,10 +20,6 @@ A Podinfo application (single pod) deployed directly from a Kubernetes Deploymen
 - A GitHub account with a personal access token
 - Any extra RBAC configured by following [Custom RBAC guide]({{< relref "custom-rbac.md" >}})
 
-{{< callout context="note" title="Private registries" icon="outline/lock" >}}
-By default, packages in GitHub Container Registry are private. Either make your package public after upload, or [configure credentials]({{< relref "configure-credentials-for-controllers.md" >}}) for the OCM controller resources before deploying.
-{{< /callout >}}
-
 ## Environment Setup
 
 Set environment variables for your GitHub username and OCM repository:
@@ -163,6 +159,10 @@ ocm.software/ocm-k8s-toolkit/simple │ 1.0.0   │ ocm.software
 ```
 
 </details>
+
+{{< callout context="note" title="Private registries" icon="outline/lock" >}}
+By default, packages in GitHub Container Registry are private. Either make your package public after upload, or [configure credentials]({{< relref "configure-credentials-for-controllers.md" >}}) for the OCM controller resources before deploying.
+{{< /callout >}}
 
 ### Verify the Upload
 
