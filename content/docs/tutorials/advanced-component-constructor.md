@@ -628,14 +628,13 @@ Remove everything created in this tutorial:
 rm -rf /tmp/ocm-multi-component
 ```
 
-## Next steps
+## Next Steps
 
-- [How-to: Transfer Helm Charts]({{< relref "docs/how-to/transfer-helm-charts.md" >}}) - transfer components to a remote registry
 - [Tutorial: Sign and Verify Components]({{< relref "docs/tutorials/signing-and-verification.md" >}}) - add signing to your components
-- [Concept: Component Identity]({{< relref "docs/concepts/component-identity.md" >}}) - understand how OCM identifies components
+- [How-to: Transfer Helm Charts]({{< relref "docs/how-to/transfer-helm-charts.md" >}}) - transfer components to a remote registry
 
 ## Related documentation
 
-- [Create Component Versions]({{< relref "docs/getting-started/create-component-version.md" >}}) - basics of creating your first component
+- [Concept: Component Identity]({{< relref "docs/concepts/component-identity.md" >}}) - understand how OCM identifies components
 - [Reference: Component Constructor]({{< relref "docs/reference/component-constructor.md" >}}) - Documented JSON Schema for the component constructor
 - [OCM Specification](https://github.com/open-component-model/ocm-spec/blob/main/README.md) - formal specification of the component model

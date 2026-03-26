@@ -254,9 +254,11 @@ resolver only queries the first match.
 
 If either case applies, consolidate all versions of the affected components into a single repository before migrating your resolver config. Version-based matching is being tracked as a future feature in [ocm-project#941](https://github.com/open-component-model/ocm-project/issues/941).
 
-## What's Next?
+## Next Steps
 
 - [How-To: Resolving Components Across Multiple Registries]({{< relref "resolve-components-from-multiple-repositories.md" >}}) — Configure resolver
   entries for multi-registry setups
+
+# Related Documentation
 - [Resolver Configuration Reference]({{< relref "docs/reference/resolver-configuration.md" >}}) — Full configuration schema and pattern syntax
 - [Resolvers]({{< relref "docs/concepts/resolvers.md" >}}) — High-level introduction to resolvers

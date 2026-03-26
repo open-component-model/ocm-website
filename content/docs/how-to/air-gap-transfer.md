@@ -169,7 +169,7 @@ rm -rf airgap-transport.ctf
 Only delete the archive after you have verified the component in the target registry. The archive is your only copy of the artifacts until the import is confirmed.
 {{< /callout >}}
 
-## Next steps
+## Next Steps
 
 - [How-To: Deploy a Helm Chart (Bootstrap)]({{< relref "docs/tutorials/deploy-helm-chart-bootstrap.md" >}}) - Deploy component resources into a Kubernetes cluster
 

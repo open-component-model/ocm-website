@@ -140,9 +140,12 @@ At no point does the signature leave the component descriptor. The verification 
 
 The [sovereign conformance scenario](https://github.com/open-component-model/open-component-model/tree/main/conformance/scenarios/sovereign) demonstrates this complete flow end-to-end. It builds a product as OCM components, signs them, transfers them through a simulated air gap using CTF archives, imports them into an isolated cluster registry, and deploys them using OCM controllers. This scenario validates that signatures, resources, and references survive the entire journey intact.
 
+## Next Steps
+
+- [Create and Examine Component Versions]({{< relref "docs/getting-started/create-component-version.md" >}}) - Create component versions and store them in CTF archives
+- [How-To: Transfer Components Across an Air Gap]({{< relref "docs/how-to/air-gap-transfer.md" >}}) - Step-by-step guide for air-gapped transfer workflows
+
 ## Related Documentation
 
-- [Transfer Components Across an Air Gap]({{< relref "docs/how-to/air-gap-transfer.md" >}}) -- Step-by-step guide for air-gapped transfer workflows
-- [Create and Examine Component Versions]({{< relref "docs/getting-started/create-component-version.md" >}}) -- Create component versions and store them in CTF archives
-- [Signing and Verification]({{< relref "docs/tutorials/signing-and-verification.md" >}}) -- Sign and verify component versions
-- [OCM Controllers]({{< relref "docs/concepts/ocm-controllers.md" >}}) -- Kubernetes controllers for deploying and transferring OCM components
+- [Tutorial: Signing and Verification]({{< relref "docs/tutorials/signing-and-verification.md" >}}) - Sign and verify component versions
+- [Concept: OCM Controllers]({{< relref "docs/concepts/ocm-controllers.md" >}}) - Kubernetes controllers for deploying and transferring OCM components

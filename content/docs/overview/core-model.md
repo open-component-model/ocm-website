@@ -62,7 +62,7 @@ A key design principle of OCM is that **identity is separate from storage locati
 
 This means you can transport component versions across boundaries — from a public registry to an air-gapped environment, or between cloud providers — without changing their identity or breaking their signatures.
 
-## Next steps
+## Related Documentation
 
 - [Component Identity]({{< relref "docs/concepts/component-identity.md" >}}) — deep dive into how OCM identifies components, versions, and artifacts.
 - [Create Component Versions]({{< relref "docs/getting-started/create-component-version.md" >}}) — build your first component version with the OCM CLI.

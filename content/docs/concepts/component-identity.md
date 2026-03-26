@@ -165,7 +165,10 @@ For hands-on signing instructions, see [Sign Component Versions]({{< relref "doc
 
 ## Next Steps
 
-- [The OCM Core Model]({{< relref "docs/overview/core-model.md" >}}) — high-level introduction to OCM's building blocks.
 - [Create Component Versions]({{< relref "docs/getting-started/create-component-version.md" >}}) — build component versions with the OCM CLI.
+
+## Related Documentation
+
+- [The OCM Core Model]({{< relref "docs/overview/core-model.md" >}}) — high-level introduction to OCM's building blocks.
 - [Component Descriptor Reference]({{< relref "docs/reference/component-descriptor.md" >}}) — field-by-field reference for the component descriptor.
 - [OCM Specification](https://github.com/open-component-model/ocm-spec) — the formal specification of the Open Component Model.

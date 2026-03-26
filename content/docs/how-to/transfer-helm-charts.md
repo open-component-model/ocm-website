@@ -166,7 +166,7 @@ ocm transfer cv \
 - **For air-gapped environments**, first transfer to a CTF archive, move it across the boundary, then import into the target registry.
   See [Transfer Components Across an Air Gap]({{< relref "docs/how-to/air-gap-transfer.md" >}}).
 
-## Next steps
+## Next Steps
 
 - [How to: Transfer Components Across an Air Gap]({{< relref "docs/how-to/air-gap-transfer.md" >}}) - Transfer components between disconnected networks
 - [How-To: Download Resources from Component Versions]({{< relref "docs/how-to/download-resources-from-component-versions.md" >}}) - Download individual resources from a component version
