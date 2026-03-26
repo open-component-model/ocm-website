@@ -96,7 +96,7 @@ Helm chart. It is a two-step process:</p><ol><li>When an OCM component and its r
 potentially update their reference to the new location. For instance, a resource with an access type <code>ociArtifact</code>
 will update its image reference in the component descriptor to the new registry location, if the OCM transfer is done
 with the flag <code>--copy-resources</code>.</li><li>However, the deployment using the image is not aware of this change. Accordingly, we need to insert the new image
-reference into the deployment instruction. This can be done using deployment tools like FluxCDs
+reference into the deployment instruction. This can be done using deployment tools like Flux&rsquo;s
 <a href=https://fluxcd.io/flux/components/helm/helmreleases/#values target=_blank rel=noopener>HelmRelease</a> and
 <a href=https://fluxcd.io/flux/components/kustomize/kustomizations/#patches target=_blank rel=noopener>Kustomization</a> or ArgoCDs
 <a href=https://argo-cd.readthedocs.io/en/stable/user-guide/helm/#values target=_blank rel=noopener>Helm</a> and
@@ -146,8 +146,8 @@ reference into the deployment instruction. This can be done using deployment too
                 subgraph rgd[RGD: Bootstrap]
                     rgdResourceHelm[Resource: HelmChart]
                     rgdResourceImage[Resource: Image]
-                    rgdSource[FluxCD: OCI Repository]
-                    rgdHelmRelease[FluxCD: HelmRelease]
+                    rgdSource[Flux: OCI Repository]
+                    rgdHelmRelease[Flux: HelmRelease]
                 end
                 crdBootstrap[CRD: Bootstrap]
                 subgraph instanceBootstrap[Instance: Bootstrap]
@@ -155,7 +155,7 @@ reference into the deployment instruction. This can be done using deployment too
                         k8sResourceHelm[Resource: HelmChart]
                         k8sResourceImage[Resource: Image]
                     end
-                    subgraph fluxCD[FluxCD]
+                    subgraph flux[Flux]
                         source[OCI Repository]
                         helmRelease[HelmRelease]
                     end
@@ -178,7 +178,7 @@ reference into the deployment instruction. This can be done using deployment too
     class references,creates,instanceOf legendItems;
     class templateOf,rgdResourceHelm,rgdResourceImage,rgdSource,rgdHelmRelease templateOf;
     class info information;
-    class reconciledBy,ocmK8sToolkit,bootstrap,fluxCD,kro reconciledBy;
+    class reconciledBy,ocmK8sToolkit,bootstrap,flux,kro reconciledBy;
     class k8sObject,rgd,k8sRepo,k8sComponent,k8sResourceRGD,k8sDeployer,k8sResourceHelm,k8sResourceImage,source,helmRelease,deployment,crdBootstrap,instanceBootstrap k8sObject;
     class ocmRepo,ocmCV,ocmResourceHelm,ocmResourceRGD,ocmResourceImage ocm;
     class k8sCluster cluster;
@@ -189,8 +189,8 @@ point to the OCM repository (&ldquo;Repository&rdquo;), the OCM component versio
 (&ldquo;Resource: RGD&rdquo;) that contains the <code>ResourceGraphDefinition</code>. The OCM controller resource &ldquo;Deployer&rdquo; will refer to the
 aforementioned &ldquo;Resource: RGD&rdquo;, download the <code>ResourceGraphDefinition</code>, and apply it to the cluster.</p><p>After applying the <code>ResourceGraphDefinition</code>, kro will reconcile it and create a Custom Resource Definition
 (&ldquo;CRD: Bootstrap&rdquo;). By creating an instance of that CRD, we will deploy the resources as defined in the
-<code>ResourceGraphDefinition</code>:</p><ul><li>An OCM controller resource &ldquo;HelmChart&rdquo; of type <code>Resource</code> that contains the location of the Helm chart in its status.</li><li>An OCM controller resource &ldquo;Image&rdquo; of type <code>Resource</code> that contains the localized image reference in its status.</li><li>A FluxCD resource of type <code>OCIRepository</code> that points to the location of the Helm chart retrieved from the status of
-the resource &ldquo;HelmChart&rdquo;.</li><li>A FluxCD resource of type <code>HelmRelease</code> that points to FluxCDs <code>OCIRepository</code>, gets the Helm chart, and replaces
+<code>ResourceGraphDefinition</code>:</p><ul><li>An OCM controller resource &ldquo;HelmChart&rdquo; of type <code>Resource</code> that contains the location of the Helm chart in its status.</li><li>An OCM controller resource &ldquo;Image&rdquo; of type <code>Resource</code> that contains the localized image reference in its status.</li><li>A Flux resource of type <code>OCIRepository</code> that points to the location of the Helm chart retrieved from the status of
+the resource &ldquo;HelmChart&rdquo;.</li><li>A Flux resource of type <code>HelmRelease</code> that points to Flux&rsquo;s <code>OCIRepository</code>, gets the Helm chart, and replaces
 the image location in the deployment using its <code>spec.values</code>-field and the status of the resource &ldquo;Image&rdquo; that
 contains the localized image reference.</li></ul><p>Finally, we will check if the deployment was successful and if the localization was applied correctly.</p><div class="callout callout-note d-flex flex-row mt-4 mb-4 pt-4 pe-4 pb-2 ps-3"><svg
   xmlns="http://www.w3.org/2000/svg"
@@ -359,8 +359,8 @@ following content:</p><div class=expressive-code><figure class="frame not-conten
   <path d="M16.555 3.843l3.602 3.602a2.877 2.877 0 0 1 0 4.069l-2.643 2.643a2.877 2.877 0 0 1 -4.069 0l-.301 -.301l-6.558 6.558a2 2 0 0 1 -1.239 .578l-.175 .008h-1.172a1 1 0 0 1 -.993 -.883l-.007 -.117v-1.172a2 2 0 0 1 .467 -1.284l.119 -.13l.414 -.414h2v-2h2v-2l2.144 -2.144l-.301 -.301a2.877 2.877 0 0 1 0 -4.069l2.643 -2.643a2.877 2.877 0 0 1 4.069 0" />
   <path d="M15 9h.01" />
 </svg><div class=callout-content><div class=callout-title><p>Provide credentials for the deployment</p></div><div class=callout-body><p>If you plan to push your OCM component version to a private registry, you need to provide credentials for the OCM
-controllers and FluxCDs <code>OCIRepository</code> (if the Helm chart is also stored in a private registry). Accordingly, you
-have to specify the <code>ocmConfig</code> field in the <code>Resource</code> resources and the <code>secretRef</code> field in the <code>OCIRepository</code>.</p><p>If you want to use the same credentials for FluxCD and for the OCM controller resources, create a
+controllers and Flux&rsquo;s <code>OCIRepository</code> (if the Helm chart is also stored in a private registry). Accordingly, you
+have to specify the <code>ocmConfig</code> field in the <code>Resource</code> resources and the <code>secretRef</code> field in the <code>OCIRepository</code>.</p><p>If you want to use the same credentials for Flux and for the OCM controller resources, create a
 <a href=/docs/tutorials/credentials-for-ocm-controllers/#create-a-kubernetes-secret-of-type-dockerconfigjson-to-access-private-ocm-repositories>Kubernetes secret of type <code>dockerconfigjson</code></a>
 and keep all the resources in the same namespace.</p></div></div></div><p>After creating both files, we can create the OCM component version using the following command:</p><div class=expressive-code><figure class="frame is-terminal not-content"><figcaption class=header><span class=title></span></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>ocm add componentversion --create --file ./ctf component-constructor.yaml</span></span></code></pre></div></figure></div><p>This will create a local CTF (Component Transfer Format) directory <code>./ctf</code> containing the OCM component version. Since
 the OCM component version must be accessible for the OCM controllers, we will transfer the CTF to a
@@ -518,7 +518,7 @@ the following content and name it <code>instance.yaml</code>:</p><div class=expr
 </span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>bootstrap</span></span></span></code></pre></div></figure></div><p>Then, apply the instance to the cluster:</p><div class=expressive-code><figure class="frame is-terminal not-content"><figcaption class=header><span class=title></span></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>kubectl apply -f instance.yaml</span></span></code></pre></div></figure></div><p>If successful, you should see the following output:</p><div class=expressive-code><figure class="frame is-terminal not-content"><figcaption class=header><span class=title></span></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>kubectl get bootstrap</span></span></code></pre></div></figure></div><div class=expressive-code><figure class="frame not-content"><figcaption class=header><span class=title></span></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-console data-lang=console><span class=line><span class=cl><span class=go>NAME        STATE    SYNCED   AGE
 </span></span></span><span class=line><span class=cl><span class=go>bootstrap   ACTIVE   True     3m23s
 </span></span></span></code></pre></div></figure></div><p>If the instance is in the <code>ACTIVE</code> state, the resources defined in the <code>ResourceGraphDefinition</code> were created and
-reconciled. This includes the OCM controller resources for the Helm chart and the image, as well as FluxCDs
+reconciled. This includes the OCM controller resources for the Helm chart and the image, as well as Flux&rsquo;s
 resources for the OCI repository and the Helm release. Accordingly, you should see the following deployment in the
 cluster. To see, if the deployment was successful, you can use the following command:</p><div class=expressive-code><figure class="frame is-terminal not-content"><figcaption class=header><span class=title></span></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>kubectl get deployments</span></span></code></pre></div></figure></div><div class=expressive-code><figure class="frame not-content"><figcaption class=header><span class=title></span></figcaption><div class=highlight><pre tabindex=0 class=chroma><code class=language-console data-lang=console><span class=line><span class=cl><span class=go>NAME                        READY   UP-TO-DATE   AVAILABLE   AGE
 </span></span></span><span class=line><span class=cl><span class=go>bootstrap-release-podinfo   1/1     1            1           4m25s
@@ -529,7 +529,7 @@ in the container::</p><div class=expressive-code><figure class="frame is-termina
 By creating the required bootstrap-resources you bootstrapped the <code>ResourceGraphDefinition</code> from the OCM component
 and created the resulting CRD.
 Finally, you created an instance of the CRD which deployed the Helm chart and configured the localization using the OCM
-controllers, kro, and FluxCD.</p><div class="page-footer-meta d-flex flex-column flex-md-row justify-content-between"></div><div class="page-nav d-flex flex-column flex-sm-row"><div class="card w-100"><div class="card-body d-flex"><div class="d-flex flex-column justify-content-center"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-left" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+controllers, kro, and Flux.</p><div class="page-footer-meta d-flex flex-column flex-md-row justify-content-between"></div><div class="page-nav d-flex flex-column flex-sm-row"><div class="card w-100"><div class="card-body d-flex"><div class="d-flex flex-column justify-content-center"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-left" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
 						<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
 						<path d="M5 12l14 0"></path>
 						<path d="M5 12l6 6"></path>

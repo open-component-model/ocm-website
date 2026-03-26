@@ -77,7 +77,8 @@ so that the rest of the pipeline knows exactly what it&rsquo;s working with.</p>
 becomes a graph that travels as one unit.</p><h2 id=sign>Sign<a href=#sign class=anchor aria-hidden=true>#</a></h2><p>OCM signs the <strong>component descriptor</strong>, not individual files. Since the descriptor contains cryptographic digests of every artifact,
 one signature covers everything.</p><p>The key property: <strong>signatures are location-independent</strong>. They stay valid no matter where the component ends up —
 a different registry, a different continent, or the other side of an air gap.
-Read more about [how signing works](&mdash; relref &ldquo;signing-and-verification-concept.md&rdquo; &mdash;).</p><p>This creates a <strong>Software Bill of Delivery</strong> (SBoD): a signed, verifiable record of exactly what was shipped.
+Read more about
+<a href=/docs/concepts/signing-and-verification/>how signing works</a>.</p><p>This creates a <strong>Software Bill of Delivery</strong> (SBoD): a signed, verifiable record of exactly what was shipped.
 For regulated industries that demand proof of what&rsquo;s running in production, this is essential.</p><h2 id=transport>Transport<a href=#transport class=anchor aria-hidden=true>#</a></h2><p>This is where OCM really shines.</p><p>Software needs to move between registries, across organizations, and into environments that may be completely disconnected.
 Sovereign clouds add strict requirements: data residency, operational independence, and a fully auditable supply chain —
 even without connectivity to the outside world.</p><p>OCM&rsquo;s
