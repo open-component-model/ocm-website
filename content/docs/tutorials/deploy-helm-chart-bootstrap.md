@@ -8,7 +8,10 @@ toc: true
 
 ## What You'll Learn
 
-In this tutorial, you'll learn how to package deployment instructions (a `ResourceGraphDefinition`) inside an OCM component, so operators can deploy your Helm chart without knowing the underlying resource structure. You'll also learn **localization**—how to automatically update image references when transferring components between registries.
+In this tutorial, you'll learn how to package deployment instructions (a `ResourceGraphDefinition`) inside an OCM 
+component, so operators can deploy your Helm chart without knowing the underlying resource structure. You'll also learn 
+**localization**—how to automatically update image references in the 
+deployment instructions when transferring components between registries.
 
 By the end, you'll have:
 
@@ -65,6 +68,9 @@ This ensures your deployment always uses images from the current registry, not h
 ## Architecture Overview
 
 The following diagram shows the complete resource flow. You can refer back to it as you work through the steps.
+
+<details>
+<summary>View Resource Overview Diagram</summary>
 
 ```mermaid
 flowchart TB
@@ -151,6 +157,8 @@ flowchart TB
     class legend legendStyle;
 ```
 
+</details>
+
 The diagram shows the complete flow: OCM component resources are fetched by the controllers, the Deployer applies the RGD, kro creates a CRD from it, and finally instantiating that CRD deploys the Helm chart with localized image references.
 
 ## Step 1: Create the OCM Component Version
@@ -183,13 +191,13 @@ components:
         version: "1.0.0"
         access:
           type: ociArtifact
-          imageReference: "ghcr.io/stefanprodan/charts/podinfo:6.9.1@sha256:565d310746f1fa4be7f93ba7965bb393153a2d57a15cfe5befc909b790a73f8a"
+          imageReference: "ghcr.io/stefanprodan/charts/podinfo:6.11.1@sha256:a9b2804ec61795a7457b2303bf9efbc5fba51f856c3945f3bb0af68bf3b35afd"
       - name: image-resource
         type: ociArtifact
         version: "1.0.0"
         access:
           type: ociRegistry
-          imageReference: "ghcr.io/stefanprodan/podinfo:6.9.1@sha256:262578cde928d5c9eba3bce079976444f624c13ed0afb741d90d5423877496cb"
+          imageReference: "ghcr.io/stefanprodan/podinfo:6.11.1@sha256:8fa56908408de98f24aed2a162b1bb42c0b98df7abfcc5a76a14a8be510457c5"
       - name: resource-graph-definition
         type: blob
         version: "1.0.0"
@@ -308,34 +316,12 @@ spec:
 ```
 {{< /details >}}
 
-### Build and Transfer the Component
-
-Build the component version locally:
-
-```bash
-ocm add cv
-```
-
-Transfer to your registry with `--copy-resources` to enable localization (this copies the Helm chart and image to your registry):
-
-```bash
-ocm transfer cv --copy-resources transport-archive//ocm.software/ocm-k8s-toolkit/bootstrap:1.0.0 $OCM_REPO
-```
-
-### Verify the Transfer
-
-Check that the component was transferred and resources were localized:
-
-```bash
-ocm get cv $OCM_REPO//ocm.software/ocm-k8s-toolkit/bootstrap:1.0.0 -o yaml | grep imageReference
-```
-
-You should see image references pointing to `$OCM_REPO/...` instead of the original locations—this confirms localization worked.
-
 To make your component public in GitHub Container Registry, go to the `packages` tab in your GitHub repository `https://github.com/$GITHUB_USERNAME?tab=packages`,
 select the package `component-descriptors/ocm.software/ocm-k8s-toolkit/bootstrap`, and under "Package settings" change the visibility to `public`.
 
-Alternatively, if you want to keep your package private, configure credentials for the OCM Controllers and Flux:
+Alternatively, if you want to keep your package private, configure 
+credentials for the OCM Controllers and Flux. You need to do the adjustments in
+the resourceGraphDefinition.yaml file BEFORE calling `ocm add cv`:
 
 {{< details "Configure credentials for private registries" >}}
 Create a docker-registry secret with your registry credentials. For GitHub Container Registry, you can use a Personal Access Token or a short-lived token from the GitHub CLI:
@@ -384,6 +370,30 @@ values:
 
 For more details, see [Credentials for OCM Controllers]({{< relref "/docs/tutorials/configure-credentials-for-controllers.md" >}}).
 {{< /details >}}
+
+### Build and Transfer the Component
+
+Build the component version locally:
+
+```bash
+ocm add cv
+```
+
+Transfer to your registry with `--copy-resources` to enable localization (this copies the Helm chart and image to your registry):
+
+```bash
+ocm transfer cv --copy-resources transport-archive//ocm.software/ocm-k8s-toolkit/bootstrap:1.0.0 $OCM_REPO
+```
+
+### Verify the Transfer
+
+Check that the component was transferred and resources were localized:
+
+```bash
+ocm get cv $OCM_REPO//ocm.software/ocm-k8s-toolkit/bootstrap:1.0.0 -o yaml | grep imageReference
+```
+
+You should see image references pointing to `$OCM_REPO/...` instead of the original locations—this confirms localization worked.
 
 ## Step 2: Deploy the Helm Chart
 

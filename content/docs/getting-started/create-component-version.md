@@ -311,7 +311,7 @@ component:
     type: blob
     version: 1.0.0
   - access:
-      imageReference: ghcr.io/stefanprodan/podinfo:6.9.1@sha256:262578cde928d5c9eba3bce079976444f624c13ed0afb741d90d5423877496cb
+      imageReference: ghcr.io/stefanprodan/podinfo:6.11.1@sha256:8fa56908408de98f24aed2a162b1bb42c0b98df7abfcc5a76a14a8be510457c5
       type: ociArtifact
     digest:
       hashAlgorithm: SHA-256
@@ -407,7 +407,7 @@ component:
     type: blob
     version: 1.0.0
   - access:
-      imageReference: ghcr.io/stefanprodan/podinfo:6.9.1@sha256:262578cde928d5c9eba3bce079976444f624c13ed0afb741d90d5423877496cb
+      imageReference: ghcr.io/stefanprodan/podinfo:6.11.1@sha256:8fa56908408de98f24aed2a162b1bb42c0b98df7abfcc5a76a14a8be510457c5
       type: ociArtifact
     name: image
     relation: external

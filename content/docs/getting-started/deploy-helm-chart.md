@@ -74,7 +74,7 @@ components:
         version: 1.0.0
         access:
           type: ociArtifact
-          imageReference: "ghcr.io/stefanprodan/charts/podinfo:6.9.1@sha256:565d310746f1fa4be7f93ba7965bb393153a2d57a15cfe5befc909b790a73f8a"
+          imageReference: "ghcr.io/stefanprodan/charts/podinfo:6.11.1@sha256:a9b2804ec61795a7457b2303bf9efbc5fba51f856c3945f3bb0af68bf3b35afd"
 ```
 
 This component references the `podinfo` Helm chart, a simple web application that displays pod information.
