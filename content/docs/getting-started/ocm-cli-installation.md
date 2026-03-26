@@ -38,7 +38,9 @@ curl -sfL https://ocm.software/install-cli.sh | bash
 {{< /tab >}}
 {{< tab "Build from Source" >}}
 
-> **Note:** Building from source is not officially supported. Use the pre-built binaries via wget or curl instead.
+{{< callout title="Note" icon="outline/info-circle" >}}
+Building from source is not officially supported. Use the pre-built binaries via wget or curl instead.
+{{< /callout >}}
 
 ### Prerequisites
 

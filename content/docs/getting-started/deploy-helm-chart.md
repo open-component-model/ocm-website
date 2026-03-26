@@ -98,9 +98,9 @@ ocm.software/ocm-k8s-toolkit/simple │ 1.0.0   │ ocm.software
 Use `ocm transfer cv` and specify the correct reference (`<path-to-your-ctf>//<component>:<version>`) and target repository.
 Replace `<your-namespace>` with your registry namespace:
 
-> 📣 **Note:** 📣  
-> If your registry requires authentication, configure [Credentials for OCM CLI]({{< relref "/docs/how-to/configure-multiple-credentials.md" >}}) first.
-
+{{< callout title="Note" icon="outline/info-circle" >}}
+If your registry requires authentication, configure [Credentials for OCM CLI]({{< relref "/docs/how-to/configure-multiple-credentials.md" >}}) first.
+{{< /callout >}}
 ```shell
 ocm transfer cv transport-archive//ocm.software/ocm-k8s-toolkit/simple:1.0.0 ghcr.io/<your-namespace>
 ```

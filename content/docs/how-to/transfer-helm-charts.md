@@ -80,8 +80,10 @@ Full Helm support is being tracked as a future feature in [ocm-project#911](http
 Transfer the component version to the target registry. Use `--copy-resources` to include the Helm chart and `--upload-as ociArtifact` to store it as a
 standalone OCI artifact in the target registry.
 
-> **Note:** The `--upload-as` flag is a temporary solution. It will be superseded by the upcoming transfer specification.
-> See [ocm-project#925](https://github.com/open-component-model/ocm-project/issues/925) for details.
+{{< callout title="Note" icon="outline/info-circle" >}}
+The `--upload-as` flag is a temporary solution. It will be superseded by the upcoming transfer specification.
+See [ocm-project#925](https://github.com/open-component-model/ocm-project/issues/925) for details.
+{{< /callout >}}
 
 ```bash
 ocm transfer cv \

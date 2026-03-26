@@ -81,8 +81,9 @@ EOF
 ```
 <br>
 
-> 📣📣 **Note**  
-> If you do not use `ghcr.io` as your registry, make sure to update the `identity` fields in the configuration accordingly.
+{{< callout title="Note" icon="outline/info-circle" >}}
+If you do not use `ghcr.io` as your registry, make sure to update the `identity` fields in the configuration accordingly.
+{{< /callout >}}
 
 {{< /step >}}
 {{< step >}}
@@ -114,9 +115,10 @@ docker run --rm \
 </details>
 <br>
 
-> 📣📣 **Note**  
-> You can also mount certificates to the container image by adding `-v /etc/ssl/certs/:/etc/ssl/certs/:ro`
-> to your command (Depending on your OS, the path to the certificates may be different).
+{{< callout title="Note" icon="outline/info-circle" >}}
+You can also mount certificates to the container image by adding `-v /etc/ssl/certs/:/etc/ssl/certs/:ro`
+to your command (Depending on your OS, the path to the certificates may be different).
+{{< /callout >}}
 
 {{< /step >}}
 {{< step >}}
