@@ -106,6 +106,7 @@ ctfs
 ctx
 cvs
 dd
+deduplicated
 deepcopy
 defs
 deliveryspec
@@ -237,6 +238,7 @@ jq
 js
 json
 jsonschema
+KEP
 keyless
 keypair
 keyring
@@ -271,6 +273,7 @@ localobjectreference
 logconfig
 logrus
 lookups
+LRU
 macos
 makefile
 makefiles
@@ -483,6 +486,7 @@ uncomment
 uncommenting
 undefine
 unmodifiable
+unregisters
 untrusted
 untyped
 updatevendorhash

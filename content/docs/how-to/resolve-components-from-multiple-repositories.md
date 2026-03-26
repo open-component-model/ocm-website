@@ -130,12 +130,15 @@ If you are migrating from the deprecated `ocm.config.ocm.software` fallback reso
 - **Resolvers are evaluated in order** — place more specific patterns before broader ones so the right repository is
   matched first.
 
-## Related documentation
+## Next Steps
 
-- [Resolvers]({{< relref "docs/concepts/resolvers.md" >}}) — High-level introduction to resolvers
-- [Resolver Configuration Reference]({{< relref "docs/reference/resolver-configuration.md" >}}) — Full configuration schema, repository types, and pattern syntax
-- [Working with Resolvers Tutorial]({{< relref "docs/tutorials/configure-resolvers.md" >}}) — Hands-on tutorial for
+- [Tutorial: Understand Credential Resolution]({{< relref "docs/tutorials/credential-resolution.md" >}}) — Configure registry credentials
+- [Tutorial: Working with Resolvers]({{< relref "docs/tutorials/configure-resolvers.md" >}}) — Hands-on tutorial for
   building and pushing components with resolvers
-- [Understand Credential Resolution]({{< relref "docs/tutorials/credential-resolution.md" >}}) — Configure registry credentials
-- [Migrate from Deprecated Resolvers]({{< relref "migrate-from-deprecated-resolvers.md" >}}) — Replace deprecated fallback
+
+## Related Documentation
+
+- [How-To: Migrate from Deprecated Resolvers]({{< relref "docs/how-to/migrate-from-deprecated-resolvers.md" >}}) — Replace deprecated fallback
   resolvers with glob-based resolvers
+- [Concept: Resolvers]({{< relref "docs/concepts/resolvers.md" >}}) — High-level introduction to resolvers
+- [Reference: Resolver Configuration]({{< relref "docs/reference/resolver-configuration.md" >}}) — Full configuration schema, repository types, and pattern syntax

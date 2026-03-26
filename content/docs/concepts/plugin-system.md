@@ -2,7 +2,7 @@
 title: Plugin System
 description: "Learn about the Plugin System and how it can help you extend OCM's capabilities."
 icon: "🔌"
-weight: 50
+weight: 8
 toc: true
 ---
 

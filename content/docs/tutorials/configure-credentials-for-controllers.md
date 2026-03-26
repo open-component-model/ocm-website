@@ -10,6 +10,14 @@ OCM controller resources need access to OCM components and their resources. If t
 private OCM repository, we need to configure credentials to allow OCM controller resources to access these
 repositories.
 
+## What You'll Learn
+
+- Create a Kubernetes secret from a Docker config or `.ocmconfig` file to access private OCM repositories
+- Reference credentials via `spec.ocmConfig` in OCM controller resources
+- Control `ocmConfig` propagation between custom resources
+
+**Estimated time:** ~10 minutes
+
 ## How to Configure Credentials?
 
 Currently, OCM controllers supports two ways to configure credentials for accessing private OCM repositories:
@@ -186,3 +194,11 @@ spec:
       name: ocm-secret
       policy: DoNotPropagate
 ```
+
+## Next Steps
+
+- [Tutorial: Deploy Helm Chart with Bootstrap]({{< relref "docs/tutorials/deploy-helm-chart-bootstrap.md" >}}) - Learn how to deploy a Helm chart component into a Kubernetes cluster
+
+## Related Documentation
+
+- [Concept: OCM Controllers]({{< relref "docs/concepts/ocm-controllers.md" >}}) - Understand the architecture and design of OCM controllers

@@ -133,8 +133,11 @@ If you get `401 Unauthorized`, check that you renamed `pathprefix` → `path` (w
 
 {{< /steps >}}
 
-## What's Next?
+## Next Steps
 
-- [How-To: Configure Credentials for Multiple Registries]({{< relref "configure-multiple-credentials.md" >}}) - Set up credentials for multiple registries
+- [How-To: Configure Credentials for Multiple Registries]({{< relref "docs/how-to/configure-multiple-credentials.md" >}}) - Set up credentials for multiple registries
 - [Tutorial: Credential Resolution]({{< relref "/docs/tutorials/credential-resolution.md" >}}) - Learn how OCM resolves credentials step-by-step
+
+## Related Documentation
+
 - [Concept: Credential System]({{< relref "/docs/concepts/credential-system.md" >}}) - Learn how the credential system automatically finds the right credentials for each operation

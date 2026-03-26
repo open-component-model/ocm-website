@@ -8,9 +8,9 @@ toc: true
 
 ## What You'll Learn
 
-In this tutorial, you'll learn how to package deployment instructions (a `ResourceGraphDefinition`) inside an OCM 
-component, so operators can deploy your Helm chart without knowing the underlying resource structure. You'll also learn 
-**localization**—how to automatically update image references in the 
+In this tutorial, you'll learn how to package deployment instructions (a `ResourceGraphDefinition`) inside an OCM
+component, so operators can deploy your Helm chart without knowing the underlying resource structure. You'll also learn
+**localization**—how to automatically update image references in the
 deployment instructions when transferring components between registries.
 
 By the end, you'll have:
@@ -108,8 +108,8 @@ flowchart TB
                 subgraph rgd[RGD: Bootstrap]
                     rgdResourceHelm[Resource: HelmChart]
                     rgdResourceImage[Resource: Image]
-                    rgdSource[FluxCD: OCI Repository]
-                    rgdHelmRelease[FluxCD: HelmRelease]
+                    rgdSource[Flux: OCI Repository]
+                    rgdHelmRelease[Flux: HelmRelease]
                 end
                 crdBootstrap[CRD: Bootstrap]
                 subgraph instanceBootstrap[Instance: Bootstrap]
@@ -117,7 +117,7 @@ flowchart TB
                         k8sResourceHelm[Resource: HelmChart]
                         k8sResourceImage[Resource: Image]
                     end
-                    subgraph fluxCD[FluxCD]
+                    subgraph flux[Flux]
                         source[OCI Repository]
                         helmRelease[HelmRelease]
                     end
@@ -136,7 +136,7 @@ flowchart TB
     class references,creates,instanceOf legendItems;
     class templateOf,rgdResourceHelm,rgdResourceImage,rgdSource,rgdHelmRelease templateOf;
     class info information;
-    class reconciledBy,ocmK8sToolkit,bootstrap,fluxCD,kro reconciledBy;
+    class reconciledBy,ocmK8sToolkit,bootstrap,flux,kro reconciledBy;
     class k8sObject,rgd,k8sRepo,k8sComponent,k8sResourceRGD,k8sDeployer,k8sResourceHelm,k8sResourceImage,source,helmRelease,deployment,crdBootstrap,instanceBootstrap k8sObject;
     class ocmRepo,ocmCV,ocmResourceHelm,ocmResourceRGD,ocmResourceImage ocm;
     class k8sCluster cluster;
@@ -319,7 +319,7 @@ spec:
 To make your component public in GitHub Container Registry, go to the `packages` tab in your GitHub repository `https://github.com/$GITHUB_USERNAME?tab=packages`,
 select the package `component-descriptors/ocm.software/ocm-k8s-toolkit/bootstrap`, and under "Package settings" change the visibility to `public`.
 
-Alternatively, if you want to keep your package private, configure 
+Alternatively, if you want to keep your package private, configure
 credentials for the OCM Controllers and Flux. You need to do the adjustments in
 the resourceGraphDefinition.yaml file BEFORE calling `ocm add cv`:
 
@@ -350,7 +350,7 @@ spec:
       name: ghcr-secret
 ```
 
-2. **Flux OCIRepository**: Uncomment `secretRef` in the RGD's ocirepository 
+2. **Flux OCIRepository**: Uncomment `secretRef` in the RGD's ocirepository
 resource:
 
 ```yaml
@@ -358,7 +358,7 @@ secretRef:
   name: ghcr-secret
 ```
 
-3. **Pod imagePullSecrets**: The deployed pods also need credentials to pull 
+3. **Pod imagePullSecrets**: The deployed pods also need credentials to pull
 images. Add this to the HelmRelease values in the RGD:
 
 ```yaml
@@ -419,7 +419,7 @@ The bootstrap resources form a chain: Repository → Component → Resource → 
 Create `bootstrap.yaml` with the following content:
 
 {{< callout context="note" title="Private registries" icon="outline/lock" >}}
-If you chose to keep your package private, do not forget to add the 
+If you chose to keep your package private, do not forget to add the
 secret to the repository's `ocmConfig`, as described above!
 {{< /callout >}}
 

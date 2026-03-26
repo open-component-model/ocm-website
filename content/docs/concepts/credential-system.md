@@ -2,7 +2,7 @@
 title: "Credential System"
 description: "Why OCM manages credentials centrally and how its resolution model works."
 icon: "🔑"
-weight: 6
+weight: 4
 toc: true
 ---
 

@@ -108,7 +108,7 @@ You should see both files:
 
 **Fix:** Ensure you have write permissions in the current directory, or specify a full path where you have access.
 
-## Next steps
+## Next Steps
 
 - [How-to: Configure Signing Credentials]({{< relref "configure-signing-credentials.md" >}}) - Set up OCM to use your keys for signing and verification
 - [How-to: Sign a Component Version]({{< relref "sign-component-version.md" >}}) - Use your private key to sign components

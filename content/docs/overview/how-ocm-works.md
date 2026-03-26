@@ -43,7 +43,7 @@ one signature covers everything.
 
 The key property: **signatures are location-independent**. They stay valid no matter where the component ends up —
 a different registry, a different continent, or the other side of an air gap.
-Read more about [how signing works](--- relref "signing-and-verification-concept.md" ---).
+Read more about [how signing works]({{< relref "signing-and-verification-concept.md" >}}).
 
 This creates a **Software Bill of Delivery** (SBoD): a signed, verifiable record of exactly what was shipped.
 For regulated industries that demand proof of what's running in production, this is essential.

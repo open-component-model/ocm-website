@@ -8,14 +8,14 @@ toc: true
 
 ## Goal
 
-Most products consist of multiple independently versioned services. This guide uses OCM component references to pin those services into a single **[Software Bill of Delivery](https://ocm.software/docs/overview/benefits-of-ocm/#create-a-software-bill-of-delivery)** — a versioned, auditable record of what a release contains.
+Most products consist of multiple independently versioned services.
+This guide uses OCM component references to pin those services into a single [Software Bill of Delivery](https://ocm.software/docs/overview/benefits-of-ocm/#create-a-software-bill-of-delivery) — a versioned, auditable record of what a release contains.
 
-{{< callout context="note" title="You will end up with" >}}
+## You'll end up with
 
 - A `component-constructor.yaml` that defines service components and a product-level aggregator
 - Component references that pin exact version combinations
 - A portable [CTF archive]({{< relref "docs/concepts/transfer-concept.md#common-transport-format-ctf" >}}) ready for transfer across registries and air-gapped environments
-{{< /callout >}}
 
 **Estimated time:** ~15 minutes
 
@@ -82,9 +82,12 @@ components:
 EOF
 ```
 
-> **Note:** This guide uses the same demo image (`ghcr.io/stefanprodan/podinfo`) for frontend and backend services. In a real scenario, each service would reference its own container image.
->
-> **`relation`** — Use `local` when the artifact is maintained by the team providing the component (e.g. your own service image). Use `external` when it comes from a third party (e.g. a public Redis image you depend on).
+{{< callout title="Note" icon="outline/info-circle" >}}
+This guide uses the same demo image (`ghcr.io/stefanprodan/podinfo`) for frontend and backend services.
+In a real scenario, each service would reference its own container image.  
+**`relation`** — Use `local` when the artifact is maintained by the team providing the component (e.g. your own service image).
+Use `external` when it comes from a third party (e.g. a public Redis image you depend on).
+{{< /callout >}}
 
 {{< /step >}}
 {{< step >}}
@@ -277,8 +280,11 @@ Remove everything created in this guide:
 rm -rf transport-archive transport-archive-updated component-constructor.yaml
 ```
 
-## Related Documentation
+## Next Steps
 
 - [Create a Multi-Component Product]({{< relref "docs/tutorials/advanced-component-constructor.md" >}}) — advanced constructor patterns with nesting, labels, and sources
+
+## Related Documentation
+
 - [Component Descriptor Reference]({{< relref "docs/reference/component-descriptor.md" >}}) — understand the structure of the generated release metadata
 - [OCM Specification: References](https://github.com/open-component-model/ocm-spec/blob/main/doc/02-processing/01-references.md) — how component references are resolved during transport and deployment

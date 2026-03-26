@@ -14,8 +14,6 @@ For a conceptual overview of components, identities, and descriptors, see [Compo
 
 ## What You'll Learn
 
-By the end of this tutorial, you will:
-
 - Create a component constructor file that defines your component and its resources
 - Build a component version into a transportable CTF archive
 - Explore component versions in both local archives and remote registries

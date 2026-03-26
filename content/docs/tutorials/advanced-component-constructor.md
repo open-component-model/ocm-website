@@ -10,19 +10,18 @@ toc: true
 
 Real-world software products rarely consist of a single component. A web platform, for example, might combine a frontend, a backend, shared configuration, and deployment manifests — each versioned independently. The OCM component constructor lets you model this entire hierarchy in a single file, wiring components together with references, attaching provenance metadata, and injecting versions through environment variables.
 
-In this tutorial, we will create a small but realistic product. By the end, you will have a three-level component tree, complete with labels, multiple input types, and component references.
+In this tutorial, you will create a small but realistic product. By the end, you will have a three-level component tree, complete with labels, multiple input types, and component references.
 
 **Estimated time:** ~25 minutes
 
-{{< callout context="note" title="What You'll Learn" >}}
+## What You'll Learn
 
-- Defining multiple components with `helm/v1`, `utf8/v1`, and `dir/v1` input types
-- Wiring components together with `componentReferences`
-- Nesting references into a multi-level product hierarchy
-- Attaching labels to components
-- Creating and inspecting component versions in a local archive
-- Using environment variables to parameterize the constructor
-{{< /callout >}}
+- Define multiple components with `helm/v1`, `utf8/v1`, and `dir/v1` input types
+- Wire components together with `componentReferences`
+- Nest references into a multi-level product hierarchy
+- Attach labels to components and control which ones are included in the signature digest
+- Create and inspecting component versions in a local archive
+- Use environment variables to parameterize the constructor
 
 ## Prerequisites
 
@@ -61,6 +60,18 @@ The result is a three-level component tree that you can transfer, sign, and depl
 ## Tutorial Steps
 
 {{< steps >}}
+
+{{< step >}}
+
+### Set up a working directory
+
+Create and enter a directory for this tutorial:
+
+```shell
+mkdir /tmp/ocm-multi-component && cd /tmp/ocm-multi-component
+```
+
+{{< /step >}}
 
 {{< step >}}
 
@@ -149,6 +160,7 @@ A few things to notice:
 - [**`helm/v1`**]({{< relref "docs/reference/input-and-access-types.md#helmv1" >}}) input type fetches a Helm chart from a remote repository and embeds it into the archive at creation time.
 - [**`utf8/v1`**]({{< relref "docs/reference/input-and-access-types.md#utf8v1" >}}) input type lets you embed small inline configuration directly in the constructor file.
 - [**`componentReferences`**]({{< relref "docs/reference/component-constructor.md#component-references" >}}) creates a directed edge in the component graph. The product-web component itself has no resources — it is purely an aggregator.
+- **Labels** attach arbitrary key-value metadata to a component version. Any tooling or automation working with the component can read these labels — for example to filter components by team, environment, or purpose. Labels are purely informational by default and can be changed freely after creation. You will see in the next step how to mark a label as part of the signature digest.
 
 {{< /step >}}
 
@@ -613,11 +625,16 @@ Undefined variables expand to empty strings, which will fail schema validation �
 Remove everything created in this tutorial:
 
 ```shell
-rm -rf my-product db component-constructor.yaml
+rm -rf /tmp/ocm-multi-component
 ```
+
+## Next Steps
+
+- [Tutorial: Sign and Verify Components]({{< relref "docs/tutorials/signing-and-verification.md" >}}) - add signing to your components
+- [How-to: Transfer Helm Charts]({{< relref "docs/how-to/transfer-helm-charts.md" >}}) - transfer components to a remote registry
 
 ## Related documentation
 
-- [Create Component Versions]({{< relref "docs/getting-started/create-component-version.md" >}}) — basics of creating your first component
-- [Constructor Schema](https://ocm.software/schemas/configuration-schema.yaml) — JSON Schema for `component-constructor.yaml`
-- [OCM Specification](https://github.com/open-component-model/ocm-spec/blob/main/README.md) — formal specification of the component model
+- [Concept: Component Identity]({{< relref "docs/concepts/component-identity.md" >}}) - understand how OCM identifies components
+- [Reference: Component Constructor]({{< relref "docs/reference/component-constructor.md" >}}) - Documented JSON Schema for the component constructor
+- [OCM Specification](https://github.com/open-component-model/ocm-spec/blob/main/README.md) - formal specification of the component model

@@ -306,18 +306,14 @@ Use `--signature <name>` to specify which signature to create or verify.
 Remove the tutorial artifacts:
 
 ```bash
-rm -r /tmp/ocm-signing-tutorial
+rm -rf /tmp/ocm-signing-tutorial
 ```
 
 ## Next Steps
 
-- [How-to: Generate Signing Keys]({{< relref "generate-signing-keys.md" >}}) - Step-by-step creating RSA key pairs.
-- [How-to: Configure Signing Credentials]({{< relref "configure-signing-credentials.md" >}}) - Set up OCM to use your keys for signing and verification
-- [How-to: Sign a Component Version]({{< relref "sign-component-version.md" >}}) - Step-by-step signing instructions
-- [How-to: Verify a Component Version]({{< relref "verify-component-version.md" >}}) - Step-by-step verification instructions
+- [How-to: Generate Signing Keys]({{< relref "docs/how-to/generate-signing-keys.md" >}}) - Step-by-step creating RSA key pairs.
+- [How-to: Configure Signing Credentials]({{< relref "docs/how-to/configure-signing-credentials.md" >}}) - Set up OCM to use your keys for signing and verification.
 
 ## Related Documentation
 
 - [Concept: Signing and Verification]({{< relref "docs/concepts/signing-and-verification-concept.md" >}}) - Understand the theory behind OCM signing
-- [How-to: Generate Signing Keys]({{< relref "docs/how-to/generate-signing-keys.md" >}}) - Detailed key generation guide
-- [How-to: Configure Signing Credentials]({{< relref "docs/how-to/configure-signing-credentials.md" >}}) - Multi-environment and advanced configurations

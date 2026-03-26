@@ -43,8 +43,9 @@ scenario.
 
 ### Create a Local Kubernetes Cluster
 
-> 📣 **Note:** 📣  
-> Skip this step if you're using a remote Kubernetes cluster.
+{{< callout icon="outline/info-circle" >}}
+Skip this step if you're using a remote Kubernetes cluster.
+{{< /callout >}}
 
 Create a local kind cluster:
 
@@ -306,7 +307,8 @@ For private registries, you'll need to configure credentials. See [Configure Cre
 
 ## Cleanup
 
-To remove the local kind cluster after testing, run:
+To remove the local kind cluster after testing, run the following command.
+If you plan to continue with the next tutorial steps, you can keep the cluster.
 
 ```shell
 kind delete cluster
