@@ -260,5 +260,6 @@ If either case applies, consolidate all versions of the affected components into
   entries for multi-registry setups
 
 # Related Documentation
+
 - [Resolver Configuration Reference]({{< relref "docs/reference/resolver-configuration.md" >}}) — Full configuration schema and pattern syntax
 - [Resolvers]({{< relref "docs/concepts/resolvers.md" >}}) — High-level introduction to resolvers

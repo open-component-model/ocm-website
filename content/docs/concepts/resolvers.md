@@ -67,6 +67,7 @@ including all referenced resources — across registry boundaries or even air-ga
 For more information about OCM transfer, see the [Transfer and Transport]({{< relref "docs/concepts/transfer-concept.md" >}}) concept.
 
 ## Next Steps
+
 - [Tutorial: Working with Resolvers]({{< relref "docs/tutorials/configure-resolvers.md" >}}) — Hands-on walkthrough for setting up resolvers
 - [How-To: Resolve Components Across Multiple Registries]({{< relref "docs/how-to/resolve-components-from-multiple-repositories.md" >}}) — Recipe for
   multi-registry resolution

@@ -139,4 +139,5 @@ If you get `401 Unauthorized`, check that you renamed `pathprefix` → `path` (w
 - [Tutorial: Credential Resolution]({{< relref "/docs/tutorials/credential-resolution.md" >}}) - Learn how OCM resolves credentials step-by-step
 
 ## Related Documentation
+
 - [Concept: Credential System]({{< relref "/docs/concepts/credential-system.md" >}}) - Learn how the credential system automatically finds the right credentials for each operation
