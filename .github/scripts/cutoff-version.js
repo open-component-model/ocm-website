@@ -151,8 +151,19 @@ function hasMountForVersion(parsed, version) {
     return parsed?.mounts?.some(m => m?.sites?.matrix?.versions?.includes(version)) ?? false;
 }
 
-function hasImportForVersion(parsed, version) {
+function hasAnyImportForVersion(parsed, version) {
     return parsed?.imports?.some(i => i?.mounts?.some(m => m?.sites?.matrix?.versions?.includes(version))) ?? false;
+}
+
+function hasAllImportsForVersion(parsed, version) {
+    const { imports: expected } = buildModuleBlocks(version);
+    const expectedPaths = expected.map(i => i.path);
+    const existingPaths = new Set(
+        (parsed?.imports || [])
+            .filter(i => i?.mounts?.some(m => m?.sites?.matrix?.versions?.includes(version)))
+            .map(i => i.path)
+    );
+    return expectedPaths.every(p => existingPaths.has(p));
 }
 
 // Copy content/ to content_versioned/version-X.Y.Z
@@ -246,13 +257,14 @@ async function updateModuleToml(version) {
     const parsed = parse(content);
 
     const hasMount = hasMountForVersion(parsed, version);
-    const hasImport = hasImportForVersion(parsed, version);
+    const hasAllImports = hasAllImportsForVersion(parsed, version);
+    const hasAnyImport = hasAnyImportForVersion(parsed, version);
 
-    if (hasMount && hasImport) {
+    if (hasMount && hasAllImports) {
         console.log(`module.toml: version ${version} exists, skipping.`);
         return;
     }
-    if (hasMount || hasImport) fail(`module.toml: incomplete block for ${version}. Fix manually.`);
+    if (hasMount || hasAnyImport) fail(`module.toml: incomplete block for ${version}. Fix manually.`);
 
     const { mount, imports } = buildModuleBlocks(version);
 
@@ -289,4 +301,4 @@ if (require.main === module) {
     });
 }
 
-module.exports = { parseArguments, hasMountForVersion, hasImportForVersion, buildModuleBlocks, compareSemver, assignVersionWeights };
+module.exports = { parseArguments, hasMountForVersion, hasAnyImportForVersion, hasAllImportsForVersion, buildModuleBlocks, compareSemver, assignVersionWeights };

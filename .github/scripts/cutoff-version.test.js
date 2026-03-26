@@ -4,7 +4,7 @@
 
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const { parseArguments, hasMountForVersion, hasImportForVersion, buildModuleBlocks, compareSemver, assignVersionWeights } = require('./cutoff-version');
+const { parseArguments, hasMountForVersion, hasAnyImportForVersion, hasAllImportsForVersion, buildModuleBlocks, compareSemver, assignVersionWeights } = require('./cutoff-version');
 
 // Test parseArguments
 test('parseArguments: valid version', () => {
@@ -42,13 +42,38 @@ test('hasMountForVersion: returns true/false correctly', () => {
     assert.equal(hasMountForVersion({}, '1.0.0'), false);
 });
 
-// Test hasImportForVersion
-test('hasImportForVersion: returns true/false correctly', () => {
+// Test hasAnyImportForVersion
+test('hasAnyImportForVersion: returns true/false correctly', () => {
     const parsed = { imports: [{ mounts: [{ sites: { matrix: { versions: ['1.0.0'] } } }] }] };
-    assert.equal(hasImportForVersion(parsed, '1.0.0'), true);
-    assert.equal(hasImportForVersion(parsed, '2.0.0'), false);
-    assert.equal(hasImportForVersion(null, '1.0.0'), false);
-    assert.equal(hasImportForVersion({}, '1.0.0'), false);
+    assert.equal(hasAnyImportForVersion(parsed, '1.0.0'), true);
+    assert.equal(hasAnyImportForVersion(parsed, '2.0.0'), false);
+    assert.equal(hasAnyImportForVersion(null, '1.0.0'), false);
+    assert.equal(hasAnyImportForVersion({}, '1.0.0'), false);
+});
+
+// Test hasAllImportsForVersion
+test('hasAllImportsForVersion: returns true when all 4 imports exist', () => {
+    const { imports } = buildModuleBlocks('1.0.0');
+    const parsed = { imports };
+    assert.equal(hasAllImportsForVersion(parsed, '1.0.0'), true);
+});
+
+test('hasAllImportsForVersion: returns false when only a subset of imports exist', () => {
+    const { imports } = buildModuleBlocks('1.0.0');
+    // Keep only the CLI import (1 of 4)
+    const parsed = { imports: [imports[0]] };
+    assert.equal(hasAllImportsForVersion(parsed, '1.0.0'), false);
+});
+
+test('hasAllImportsForVersion: returns false when no imports exist', () => {
+    assert.equal(hasAllImportsForVersion({}, '1.0.0'), false);
+    assert.equal(hasAllImportsForVersion(null, '1.0.0'), false);
+});
+
+test('hasAllImportsForVersion: returns false for wrong version', () => {
+    const { imports } = buildModuleBlocks('1.0.0');
+    const parsed = { imports };
+    assert.equal(hasAllImportsForVersion(parsed, '2.0.0'), false);
 });
 
 // Test buildModuleBlocks
