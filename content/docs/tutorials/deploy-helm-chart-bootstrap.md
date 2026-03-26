@@ -132,10 +132,6 @@ flowchart TB
         k8sResourceHelm --> source --> helmRelease
     end
 
-    linkStyle default fill:none,stroke:black,color:black;
-    linkStyle 2,3,20 stroke:black,fill:none,color:black,stroke-dasharray: 10;
-    linkStyle 4,5,21 stroke:black,fill:none,color:black,stroke-dasharray: 4;
-
     class start1,end1,start2,end2,start3,end3,start4,end4,start5,end5,start6,end6 legendStartEnd;
     class references,creates,instanceOf legendItems;
     class templateOf,rgdResourceHelm,rgdResourceImage,rgdSource,rgdHelmRelease templateOf;
@@ -357,11 +353,11 @@ secretRef:
 
 ```yaml
 values:
-  imagePullSecrets:
-    - name: ghcr-secret
   image:
     repository: ${resourceImage.status.additional.oci.registry}/${resourceImage.status.additional.oci.repository}
     tag: latest@${resourceImage.status.additional.oci.digest}
+    pullSecrets:
+    - name: ghcr-secret
 ```
 
 For more details, see [Credentials for OCM Controllers]({{< relref "/docs/tutorials/configure-credentials-for-controllers.md" >}}).
