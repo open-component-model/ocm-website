@@ -104,8 +104,6 @@ flowchart LR
 
 This separation is intentional: transfer preserves artifact integrity, while localization adapts references for the target environment at the point of consumption.
 
-For details on how deployment tools handle localization, see [OCM Controllers]({{< relref "docs/concepts/ocm-controllers.md" >}}).
-
 ## Transfer Patterns
 
 OCM supports several transfer patterns, depending on your infrastructure:
