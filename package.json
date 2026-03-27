@@ -51,7 +51,7 @@
     "sass-embedded": "^1.98.0",
     "shx": "^0.4.0",
     "smol-toml": "^1.6.1",
-    "typescript": "^6.0.2",
+    "typescript": "^5.9.3",
     "typescript-eslint": "^8.57.2"
   },
   "overrides": {
@@ -63,8 +63,8 @@
     }
   },
   "engines": {
-    "node": ">=25.6.0",
-    "npm": ">=11.9.0"
+    "node": ">=25.8.0",
+    "npm": ">=11.11.0"
   },
   "packageManager": "npm@11.12.1"
 }
