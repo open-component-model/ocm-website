@@ -107,7 +107,9 @@ flowchart LR
 - **Resource** — resolves individual resources, verifies signatures, publishes artifact locations
 - **Deployer** — downloads the resource blob and applies manifests to the cluster using server-side apply
 
-The Deployer takes an OCM Resource (containing Kubernetes manifests, a `ResourceGraphDefinition`, or other deployable content) and applies it directly to the cluster using ApplySet semantics. This removes the hard dependency on kro and FluxCD for basic deployment workflows — you can still use them, but they are no longer required.
+The Deployer takes an OCM Resource (containing Kubernetes manifests, a `ResourceGraphDefinition`, or other deployable content) and applies it directly to the cluster using ApplySet semantics.
+
+For advanced deployment workflows, the recommended pattern is to package a [kro](https://kro.run) `ResourceGraphDefinition` inside an OCM component. The Deployer applies the RGD to the cluster, and kro reconciles it into a CRD that operators can instantiate — allowing you to ship complex, parameterised deployment instructions alongside the software itself. [FluxCD](https://fluxcd.io/) integrates naturally for GitOps-style delivery on top of this. We remain active upstream contributors to kro and are invested in its continued growth as a key part of the OCM deployment story.
 
 {{< card-grid >}}
 {{< link-card title="Controller Architecture" href="/dev/docs/concepts/ocm-controllers/" description="Understand the OCM controller design." >}}
