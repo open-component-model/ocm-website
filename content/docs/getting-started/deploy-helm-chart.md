@@ -28,8 +28,19 @@ You define a ResourceGraphDefinition that tells kro how to orchestrate the OCM a
 ## Prerequisites
 
 - [Controller environment]({{< relref "setup-controller-environment.md" >}}) set up (OCM Controllers, kro and Flux in a Kubernetes cluster)
+- [Custom RBAC]({{< relref "custom-rbac.md" >}}) configured to allow the controller to manage `ResourceGraphDefinitions`
 - [OCM CLI]({{< relref "ocm-cli-installation.md" >}}) installed
 - Access to an OCI registry (e.g., [ghcr.io](https://docs.github.com/en/packages/learn-github-packages/introduction-to-github-packages))
+- `envsubst` installed (pre-installed on most Linux/macOS systems; part of `gettext`)
+
+## Environment Setup
+
+Set environment variables for your GitHub username and OCM repository:
+
+```bash
+export GITHUB_USERNAME=<your-github-username>
+export OCM_REPO=ghcr.io/$GITHUB_USERNAME/ocm-tutorial
+```
 
 ## Create and Publish a Component Version
 
@@ -61,7 +72,7 @@ components:
         version: 1.0.0
         access:
           type: ociArtifact
-          imageReference: "ghcr.io/stefanprodan/charts/podinfo:6.9.1@sha256:565d310746f1fa4be7f93ba7965bb393153a2d57a15cfe5befc909b790a73f8a"
+          imageReference: "ghcr.io/stefanprodan/charts/podinfo:6.11.1@sha256:a9b2804ec61795a7457b2303bf9efbc5fba51f856c3945f3bb0af68bf3b35afd"
 ```
 
 This component references the `podinfo` Helm chart, a simple web application that displays pod information.
@@ -95,14 +106,14 @@ ocm.software/ocm-k8s-toolkit/simple │ 1.0.0   │ ocm.software
 
 ### Transfer to your registry
 
-Use `ocm transfer cv` and specify the correct reference (`<path-to-your-ctf>//<component>:<version>`) and target repository.
-Replace `<your-namespace>` with your registry namespace:
+Use `ocm transfer cv` and specify the correct reference (`<path-to-your-ctf>//<component>:<version>`) and target repository:
 
 {{< callout title="Note" icon="outline/info-circle" >}}
 If your registry requires authentication, configure [Credentials for OCM CLI]({{< relref "/docs/how-to/configure-multiple-credentials.md" >}}) first.
 {{< /callout >}}
+
 ```shell
-ocm transfer cv transport-archive//ocm.software/ocm-k8s-toolkit/simple:1.0.0 ghcr.io/<your-namespace>
+ocm transfer cv transport-archive//ocm.software/ocm-k8s-toolkit/simple:1.0.0 $OCM_REPO
 ```
 
 <details>
@@ -115,8 +126,46 @@ Transferring component versions...
 ```
 </details>
 
-To make your component public in GitHub Container Registry, go to the `packages` tab in your GitHub repository `https://github.com/<your-namespace>?tab=packages`,
+To make your component public in GitHub Container Registry, go to the `packages` tab in your GitHub repository `https://github.com/$GITHUB_USERNAME?tab=packages`,
 select the package `component-descriptors/ocm.software/ocm-k8s-toolkit/simple`, and under "Package settings" change the visibility to `public`.
+
+Alternatively, if you want to keep your package private, configure credentials for the OCM Controllers:
+
+{{< details "Configure credentials for private registries" >}}
+Create a docker-registry secret with your registry credentials. For GitHub Container Registry, you can use a Personal Access Token or a short-lived token from the GitHub CLI:
+
+```shell
+kubectl create secret docker-registry ghcr-secret \
+  --docker-username=$GITHUB_USERNAME \
+  --docker-password="$(gh auth token)" \
+  --docker-server=ghcr.io
+```
+
+Then update the resources to use credentials:
+
+1. **OCM Controller resources**: Add `ocmConfig` to the Repository resource in your RGD. The credentials propagate automatically to Component, Resource, and Deployer objects that reference this Repository:
+
+  ```yaml
+      - id: repository
+        readyWhen:
+          - ${repository.status.conditions.exists(c, c.type == 'Ready' && c.status == 'True')}
+        template:
+          apiVersion: delivery.ocm.software/v1alpha1
+          kind: Repository
+          metadata:
+            name: simple-repository
+          spec:
+            repositorySpec:
+                baseUrl: $OCM_REPO
+                type: OCIRegistry
+            interval: 1m
+            ocmConfig:
+              - kind: Secret
+                name: ghcr-secret
+  ```
+
+For more details, see [Credentials for OCM Controllers]({{< relref "/docs/tutorials/configure-credentials-for-controllers.md" >}}).
+{{< /details >}}
 
 {{< /step >}}
 
@@ -125,7 +174,7 @@ select the package `component-descriptors/ocm.software/ocm-k8s-toolkit/simple`, 
 ### Verify the upload
 
 ```shell
-ocm get cv ghcr.io/<your-namespace>//ocm.software/ocm-k8s-toolkit/simple:1.0.0
+ocm get cv $OCM_REPO//ocm.software/ocm-k8s-toolkit/simple:1.0.0
 ```
 
 <details>
@@ -148,9 +197,10 @@ ocm get cv ghcr.io/<your-namespace>//ocm.software/ocm-k8s-toolkit/simple:1.0.0
 
 ### Create ResourceGraphDefinition
 
-The ResourceGraphDefinition tells kro how to orchestrate the OCM and Flux resources.  
-Create `rgd.yaml` with the following content, replacing `<your-namespace>` in the `repository` resource with your registry namespace:
+The ResourceGraphDefinition tells kro how to orchestrate the OCM and Flux resources.
+Create `rgd.yaml` with the following content:
 
+{{< details "ResourceGraphDefinition (rgd.yaml)" >}}
 ```yaml
 apiVersion: kro.run/v1alpha1
 kind: ResourceGraphDefinition
@@ -171,6 +221,8 @@ spec:
     # Repository points to the OCM repository in which the OCM component version is stored and checks if it is
     # reachable by pinging it.
     - id: repository
+      readyWhen:
+        - ${repository.status.conditions.exists(c, c.type == 'Ready' && c.status == 'True')}
       template:
         apiVersion: delivery.ocm.software/v1alpha1
         kind: Repository
@@ -178,13 +230,15 @@ spec:
           name: simple-repository
         spec:
           repositorySpec:
-              baseUrl: ghcr.io/<your-namespace>
+              baseUrl: $OCM_REPO
               type: OCIRegistry
           interval: 1m
           # ocmConfig is required, if the OCM repository requires credentials to access it.
           # ocmConfig:
     # Component refers to the Repository, downloads and verifies the OCM component version descriptor.
     - id: component
+      readyWhen:
+        - ${component.status.conditions.exists(c, c.type == 'Ready' && c.status == 'True')}
       template:
         apiVersion: delivery.ocm.software/v1alpha1
         kind: Component
@@ -201,6 +255,8 @@ spec:
     # Resource points to the Component, downloads the resource passed by reference-name and verifies it. It then
     # publishes the location of the resource in its status.
     - id: resourceChart
+      readyWhen:
+        - ${resourceChart.status.conditions.exists(c, c.type == 'Ready' && c.status == 'True')}
       template:
         apiVersion: delivery.ocm.software/v1alpha1
         kind: Resource
@@ -214,21 +270,16 @@ spec:
               resource:
                 name: helm-resource # This must match the resource name set in the OCM component version (see above)
           additionalStatusFields:
-            # The additional status fields are useful for splitting the imageReference into its components, so that
-            # they can be used in depending deployers
-            # Example: ghcr.io/stefanprodan/charts/podinfo:6.7.1 would be
-            # registry: ghcr.io
-            # repository: stefanprodan/charts/podinfo
-            # reference/tag: 6.7.1
-            registry: resource.access.imageReference.toOCI().registry
-            repository: resource.access.imageReference.toOCI().repository
-            tag: resource.access.imageReference.toOCI().tag
+            # toOCI() converts the resource access to an OCI reference object containing registry, repository, tag, and digest
+            oci: resource.access.toOCI()
           interval: 1m
           # ocmConfig is required, if the OCM repository requires credentials to access it.
           # ocmConfig:
     # OCIRepository watches and downloads the resource from the location provided by the Resource status.
     # The Helm chart location (url) refers to the status of the above resource.
     - id: ocirepository
+      readyWhen:
+        - ${ocirepository.status.conditions.exists(c, c.type == 'Ready' && c.status == 'True')}
       template:
         apiVersion: source.toolkit.fluxcd.io/v1
         kind: OCIRepository
@@ -239,14 +290,16 @@ spec:
           layerSelector:
             mediaType: "application/vnd.cncf.helm.chart.content.v1.tar+gzip"
             operation: copy
-          url: oci://${resourceChart.status.additional.registry}/${resourceChart.status.additional.repository}
+          url: oci://${resourceChart.status.additional.oci.registry}/${resourceChart.status.additional.oci.repository}
           ref:
-            tag: ${resourceChart.status.additional.tag}
+            tag: ${resourceChart.status.additional.oci.tag}
           # secretRef is required, if the OCI repository requires credentials to access it.
           # secretRef:
     # HelmRelease refers to the OCIRepository, lets you configure the Helm chart and deploys the Helm chart into the
     # Kubernetes cluster.
     - id: helmrelease
+      readyWhen:
+        - ${helmrelease.status.conditions.exists(c, c.type == 'Ready' && c.status == 'True')}
       template:
         apiVersion: helm.toolkit.fluxcd.io/v2
         kind: HelmRelease
@@ -266,6 +319,7 @@ spec:
             ui:
               message: ${schema.spec.message}
 ```
+{{< /details >}}
 {{< /step >}}
 
 {{< step >}}
@@ -273,7 +327,7 @@ spec:
 ### Apply the ResourceGraphDefinition
 
 ```shell
-kubectl apply -f rgd.yaml
+envsubst < rgd.yaml | kubectl apply -f -
 ```
 
 <details>
@@ -392,17 +446,22 @@ If you see errors like:
 failed to list versions: response status code 401: unauthorized
 ```
 
-Your registry package may be private. Either:
+Your registry package is private. Either:
 
-- Make the package public in your registry settings
-- Configure credentials for the OCM Controller resources
+- Make the package public in your registry settings, or
+- [Configure credentials]({{< relref "/docs/tutorials/configure-credentials-for-controllers.md" >}}) as
+  described in the collapsible section after "Transfer to your registry"
 
 ### Resource Not Found
 
 If the component isn't found, verify:
 
-- The component was transferred successfully: `ocm get cv ghcr.io/<your-namespace>//ocm.software/ocm-k8s-toolkit/simple:1.0.0`
+- The component was transferred successfully: `ocm get cv $OCM_REPO//ocm.software/ocm-k8s-toolkit/simple:1.0.0`
 - The `baseUrl` in the ResourceGraphDefinition matches your registry
+
+### RBAC Permission Errors
+
+If the controller logs show permission errors like `forbidden` or `cannot create resource`, the controller lacks RBAC permissions to manage `ResourceGraphDefinitions`. Follow the [Custom RBAC guide]({{< relref "custom-rbac.md" >}}) to grant the necessary permissions.
 
 ## Cleanup
 
