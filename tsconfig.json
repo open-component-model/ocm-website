@@ -10,5 +10,6 @@
     "jsx": "react-jsx",
     "jsxImportSource": "preact"
   },
-  "include": ["assets/js/**/*.ts", "assets/js/**/*.tsx"]
+  "include": ["assets/js/**/*.ts", "assets/js/**/*.tsx"],
+  "exclude": ["assets/js/**/*.test.ts"]
 }
