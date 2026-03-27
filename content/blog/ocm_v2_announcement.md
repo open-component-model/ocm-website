@@ -99,25 +99,27 @@ The new controllers bring GitOps-native deployment of OCM component versions to 
 
 ```mermaid
 flowchart LR
-    Repo["Repository"] --> Comp["Component"] --> Res["Resource"]
-    Res --> Deploy["kro + FluxCD"]
+    Repo["Repository"] --> Comp["Component"] --> Res["Resource"] --> Deployer["Deployer"]
 ```
 
 - **Repository** — points to an OCM repository and verifies reachability
 - **Component** — downloads and verifies the component version descriptor
 - **Resource** — resolves individual resources, verifies signatures, publishes artifact locations
+- **Deployer** — downloads the resource blob and applies manifests to the cluster using server-side apply
 
-Deployment orchestration is handled through [kro](https://kro.run) ResourceGraphDefinitions combined with [FluxCD](https://fluxcd.io/) as the deployer.
-
-{{< callout context="tip" title="Coming soon: new deployment engine" >}}
-We are working on a **deployment engine abstraction** directly within the OCM controller stack — reducing moving parts while preserving flexibility to plug in different deployers.
-{{< /callout >}}
+The Deployer takes an OCM Resource (containing Kubernetes manifests, a `ResourceGraphDefinition`, or other deployable content) and applies it directly to the cluster using ApplySet semantics. This removes the hard dependency on kro and FluxCD for basic deployment workflows — you can still use them, but they are no longer required.
 
 {{< card-grid >}}
 {{< link-card title="Controller Architecture" href="/dev/docs/concepts/ocm-controllers/" description="Understand the OCM controller design." >}}
+{{< link-card title="Kubernetes Deployer" href="/dev/docs/concepts/kubernetes-deployer/" description="How the Deployer CR applies resources using server-side apply." >}}
 {{< link-card title="Set Up Controllers" href="/dev/docs/getting-started/set-up-controller-environments/" description="Prepare a local cluster with kro and Flux." >}}
 {{< link-card title="Deploy a Helm Chart" href="/dev/docs/getting-started/deploy-helm-charts/" description="Your first controller-based deployment." >}}
+{{< link-card title="Deploy Raw Manifests" href="/dev/docs/how-to/deploy-manifests-with-deployer/" description="Deploy Kubernetes manifests directly with the Deployer." >}}
 {{< /card-grid >}}
+
+### Interactive Reference Documentation
+
+The reference docs for [component-constructor](/dev/docs/reference/component-constructor/) and [component-descriptor](/dev/docs/reference/component-descriptor/) now feature an **interactive schema renderer** — a TypeScript/Preact-based viewer that lets you explore the JSON schema inline. A new [Kubernetes API reference](/dev/docs/reference/kubernetes-api/) section covers the CRD schemas for Repository, Component, Resource, and Deployer objects.
 
 ### New Go Library and Bindings
 
@@ -256,6 +258,13 @@ Ready to try OCM v2? Pick your path:
 
 - [Learn about OCM Controllers](/dev/docs/concepts/ocm-controllers/)
 - [Your first controller-based deployment](/dev/docs/getting-started/deploy-helm-charts/)
+
+{{< /step >}}
+{{< step >}}
+**Deploy Raw Manifests with the Deployer**
+
+- [Understand the Deployer CR](/dev/docs/concepts/kubernetes-deployer/)
+- [Deploy Kubernetes manifests directly](/dev/docs/how-to/deploy-manifests-with-deployer/)
 
 {{< /step >}}
 
