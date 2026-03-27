@@ -31,7 +31,7 @@
     "test": "node --test .github/scripts/cutoff-version.test.js"
   },
   "dependencies": {
-    "@tabler/icons": "^3.40.0",
+    "@tabler/icons": "^3.41.0",
     "@thulite/doks-core": "^1.9.3",
     "@thulite/images": "^3.3.4",
     "@thulite/inline-svg": "^1.2.2",
@@ -44,15 +44,15 @@
     "@eslint/js": "^10.0.1",
     "@types/js-yaml": "^4.0.9",
     "@types/node": "^25.5.0",
-    "eslint": "^10.0.3",
+    "eslint": "^10.1.0",
     "globals": "^17.4.0",
     "hugo-extended": "^0.158.0",
     "jiti": "^2.6.1",
     "sass-embedded": "^1.98.0",
     "shx": "^0.4.0",
-    "smol-toml": "^1.6.0",
+    "smol-toml": "^1.6.1",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.57.1"
+    "typescript-eslint": "^8.57.2"
   },
   "overrides": {
     "semver": "^7.5.4",
@@ -63,8 +63,8 @@
     }
   },
   "engines": {
-    "node": ">=25.6.0",
-    "npm": ">=11.9.0"
+    "node": ">=25.8.0",
+    "npm": ">=11.11.0"
   },
-  "packageManager": "npm@11.11.1"
+  "packageManager": "npm@11.12.1"
 }
