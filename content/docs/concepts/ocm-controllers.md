@@ -126,4 +126,4 @@ deployer. Please refer to the respective installation guides for these tools:
 
 - [Concept: Kubernetes Deployer]({{< relref "kubernetes-deployer.md" >}}), how the Deployer applies and manages resources
 - [Getting-Started: Setup Controller Environment]({{< relref "setup-controller-environment.md" >}}), prerequisites for running the controllers
-- [How-To: Configuring Credentials for OCM Controllers]({{< relref "configure-credentials-for-controllers.md" >}}), setting up access to private OCM repositories
+- [How-To: Configuring Credentials for OCM Controllers]({{< relref "docs/how-to/configure-credentials-ocm-controllers.md" >}}), setting up access to private OCM repositories

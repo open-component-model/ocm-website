@@ -239,7 +239,6 @@ spec:
             registry: resource.access.imageReference.toOCI().registry
             repository: resource.access.imageReference.toOCI().repository
             tag: resource.access.imageReference.toOCI().tag
-          interval: 1m
           # ocmConfig is required, if the OCM repository requires credentials to access it.
           # ocmConfig:
     # This resource refers to the resource "image-resource" defined in the OCM component version. It will be downloaded,
@@ -262,7 +261,6 @@ spec:
             registry: resource.access.imageReference.toOCI().registry
             repository: resource.access.imageReference.toOCI().repository
             tag: resource.access.imageReference.toOCI().tag
-          interval: 1m
           # ocmConfig is required, if the OCM repository requires credentials to access it.
           # ocmConfig:
     # OCIRepository watches and downloads the resource from the location provided by the Resource status.
@@ -437,7 +435,6 @@ spec:
     byReference:
       resource:
         name: resource-graph-definition
-  interval: 1m
   # ocmConfig is required, if the OCM repository requires credentials to access it.
   # ocmConfig:
 ---
