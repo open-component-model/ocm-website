@@ -32,7 +32,7 @@ Before starting, make sure you have set up your environment as described in the 
 - `envsubst` installed (pre-installed on most Linux/macOS systems; part of `gettext`)
 
 {{< callout context="note" title="Private registries" icon="outline/lock" >}}
-If using a private registry, you'll need to configure credentials for both the OCM CLI and the controller resources. See [Configure Credentials for Controllers]({{< relref "configure-credentials-for-controllers.md" >}}) for details.
+If using a private registry, you'll need to configure credentials for both the OCM CLI and the controller resources. See [Configure Credentials for Controllers]({{< relref "docs/how-to/configure-credentials-ocm-controllers.md" >}}) for details.
 {{< /callout >}}
 
 ## Environment Setup
@@ -238,7 +238,6 @@ spec:
           additionalStatusFields:
             # toOCI() converts the resource access to an OCI reference object containing registry, repository, tag, and digest
             oci: resource.access.toOCI()
-          interval: 1m
           # ocmConfig is required, if the OCM repository requires credentials to access it.
           # ocmConfig:
     # This resource refers to the resource "image-resource" defined in the OCM component version. It will be downloaded,
@@ -261,7 +260,6 @@ spec:
                 name: image-resource
           additionalStatusFields:
             oci: resource.access.toOCI()
-          interval: 1m
           # ocmConfig is required, if the OCM repository requires credentials to access it.
           # ocmConfig:
     # OCIRepository watches and downloads the resource from the location provided by the Resource status.
@@ -369,7 +367,7 @@ images. Add this to the HelmRelease values in the RGD:
        - name: ghcr-secret
    ```
 
-For more details, see [Credentials for OCM Controllers]({{< relref "/docs/tutorials/configure-credentials-for-controllers.md" >}}).
+For more details, see [Credentials for OCM Controllers]({{< relref "/docs/how-to/configure-credentials-ocm-controllers.md" >}}).
 {{< /details >}}
 {{< /step >}}
 
@@ -461,7 +459,6 @@ spec:
     byReference:
       resource:
         name: resource-graph-definition
-  interval: 1m
   # ocmConfig is required, if the OCM repository requires credentials to access it.
   # ocmConfig:
 ---
@@ -635,5 +632,5 @@ This pattern allows developers to ship deployment instructions alongside their s
 ## Next Steps
 
 - [How-to: Air-Gap Transfer]({{< relref "air-gap-transfer.md" >}}) — Transfer components to disconnected environments
-- [How-to: Configure Credentials for Controllers]({{< relref "configure-credentials-for-controllers.md" >}}) — Set up private registry access
+- [How-to: Configure Credentials for Controllers]({{< relref "docs/how-to/configure-credentials-ocm-controllers.md" >}}) — Set up private registry access
 - [Concept: OCM Controllers]({{< relref "ocm-controllers.md" >}}) — Understand the controller architecture

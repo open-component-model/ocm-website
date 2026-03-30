@@ -172,7 +172,7 @@ ocm.software/ocm-k8s-toolkit/simple │ 1.0.0   │ ocm.software
 </details>
 
 {{< callout context="note" title="Private registries" icon="outline/lock" >}}
-By default, packages in GitHub Container Registry are private. Either make your package public after upload, or [configure credentials]({{< relref "configure-credentials-for-controllers.md" >}}) for the OCM controller resources before deploying.
+By default, packages in GitHub Container Registry are private. Either make your package public after upload, or [configure credentials]({{< relref "configure-credentials-ocm-controllers.md" >}}) for the OCM controller resources before deploying.
 {{< /callout >}}
 {{< /step >}}
 
@@ -239,7 +239,6 @@ spec:
     byReference:
       resource:
         name: deployment-resource
-  interval: 1m
 ---
 apiVersion: delivery.ocm.software/v1alpha1
 kind: Deployer
@@ -328,7 +327,7 @@ podinfo-86b758c4bf-c44qk   1/1     Running   0          109s
 If you see `401: unauthorized` errors, your registry package is private. Either:
 
 - Make the package public in GitHub Package settings
-- [Configure credentials]({{< relref "configure-credentials-for-controllers.md" >}}) for the controller resources
+- [Configure credentials]({{< relref "configure-credentials-ocm-controllers.md" >}}) for the controller resources
 
 ### Resource Not Reconciling
 
@@ -356,5 +355,5 @@ kubectl get pods -l app=podinfo
 ## Next Steps
 
 - [Tutorial: Deploy Helm Charts with Bootstrap]({{< relref "/docs/tutorials/deploy-helm-chart-bootstrap.md" >}}) — Advanced deployment with kro and Flux orchestration
-- [How-to: Configure Credentials for Controllers]({{< relref "configure-credentials-for-controllers.md" >}}) — Set up private registry access
+- [How-to: Configure Credentials for Controllers]({{< relref "configure-credentials-ocm-controllers.md" >}}) — Set up private registry access
 - [How-to: Custom RBAC]({{< relref "custom-rbac.md" >}}) — Configure permissions for Deployer

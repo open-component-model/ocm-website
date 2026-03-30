@@ -90,7 +90,7 @@ To see resolution in action, try the [Understand Credential Resolution]({{< relr
 
 - [Tutorial: Credential Resolution]({{< relref "/docs/tutorials/credential-resolution.md" >}}) — Learn how OCM picks the right credentials by experimenting with a config
 - [How-To: Configure Credentials for Multiple Registries]({{< relref "/docs/how-to/configure-multiple-credentials.md" >}}) — Quick task-oriented setup
-- [Tutorial: Credentials for OCM Controllers]({{< relref "/docs/tutorials/configure-credentials-for-controllers.md" >}}) — How to provide credentials in Kubernetes environments
+- [Tutorial: Credentials for OCM Controllers]({{< relref "/docs/how-to/configure-credentials-ocm-controllers.md" >}}) — How to provide credentials in Kubernetes environments
 
 ## Related Documentation
 
