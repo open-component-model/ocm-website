@@ -133,7 +133,7 @@ The `Resource` still represents a specific artifact (a Helm chart, a set of mani
 
 - **No more Snapshots.** The old controller extracted each resource into a `Snapshot`, which was stored in a local OCI registry running inside the cluster. That entire layer with the Snapshot custom resource, the in-cluster registry and the caching logic, is gone. Resources are now fetched on-demand when needed, with an in-memory cache to avoid redundant downloads.
 
-- **Optional digest verification.** By default, the controller verifies the integrity of every resource it fetches. The new `skipVerify` option lets you skip this step for resources where the download cost is high and you trust the source. Use with care.
+- **Optional digest verification.** By default, the controller verifies the integrity of every resource it fetches. The new `VerificationPolicy` option lets you skip this step for resources where the download cost is high and you trust the source. Use with care.
 
 - **Custom status fields via CEL expressions.** You can define expressions that extract values from resource metadata and surface them in the Resource's status without writing a custom controller.
 
