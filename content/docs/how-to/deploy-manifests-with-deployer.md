@@ -239,7 +239,6 @@ spec:
     byReference:
       resource:
         name: deployment-resource
-  interval: 1m
 ---
 apiVersion: delivery.ocm.software/v1alpha1
 kind: Deployer

@@ -159,7 +159,6 @@ spec:
     repository: resource.access.imageReference.toOCI().repository
     tag: resource.access.imageReference.toOCI().tag
     digest: resource.access.imageReference.toOCI().digest
-  interval: 10m
 ```
 
 The CEL expressions run against the resolved OCM resource descriptor. The built-in `toOCI()` function parses OCI image references into their components (`host`, `registry`, `repository`, `reference`, `tag`, `digest`). You can also access any field on the resource directly. For example, `resource.access.repoUrl` or `resource.access.helmChart`.
