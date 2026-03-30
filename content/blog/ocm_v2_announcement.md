@@ -26,7 +26,7 @@ The original OCM libraries served the project well, but incremental fixes were n
 
 {{< /callout >}}
 
-OCM v2 is the result: modular design, decoupled APIs, a smaller dependency footprint, and a codebase built for community contribution from day one. Learn more in our [Overview](/dev/docs/overview/).
+OCM v2 is the result: modular design, decoupled APIs, a smaller dependency footprint, and a codebase built for community contribution from day one. Learn more in our [Overview](/docs/overview/).
 
 ## What's in v2
 
@@ -60,10 +60,10 @@ flowchart TD
 The v2 CLI implements the full **Pack, Sign, Transport, Deploy** workflow:
 
 {{< card-grid >}}
-{{< link-card title="Pack" href="/dev/docs/getting-started/create-component-versions/" description="Bundle software artifacts into component versions." >}}
-{{< link-card title="Sign" href="/dev/docs/tutorials/signing-and-verification/" description="Establish provenance with RSA-based PKI signatures." >}}
-{{< link-card title="Transport" href="/dev/docs/concepts/transfer-and-transport/" description="Move components between registries or across air gaps." >}}
-{{< link-card title="Deploy" href="/dev/docs/getting-started/deploy-helm-charts/" description="Deploy applications using OCM controllers." >}}
+{{< link-card title="Pack" href="/docs/getting-started/create-component-versions/" description="Bundle software artifacts into component versions." >}}
+{{< link-card title="Sign" href="/docs/tutorials/sign-and-verify-components/" description="Establish provenance with RSA-based PKI signatures." >}}
+{{< link-card title="Transport" href="/docs/concepts/transfer-and-transport/" description="Move components between registries or across air gaps." >}}
+{{< link-card title="Deploy" href="/docs/getting-started/deploy-helm-charts/" description="Deploy applications using OCM controllers." >}}
 {{< /card-grid >}}
 
 {{< details "See the CLI in action" >}}
@@ -91,7 +91,7 @@ ocm verify cv --signature release target-registry.internal//acme.org/product:1.0
 
 {{< /details >}}
 
-Get started by [installing the CLI](/dev/docs/getting-started/install-the-ocm-cli/).
+Get started by [installing the CLI](/docs/getting-started/install-the-ocm-cli/).
 
 ### New Kubernetes Controllers
 
@@ -99,25 +99,29 @@ The new controllers bring GitOps-native deployment of OCM component versions to 
 
 ```mermaid
 flowchart LR
-    Repo["Repository"] --> Comp["Component"] --> Res["Resource"]
-    Res --> Deploy["kro + FluxCD"]
+    Repo["Repository"] --> Comp["Component"] --> Res["Resource"] --> Deployer["Deployer"]
 ```
 
 - **Repository** — points to an OCM repository and verifies reachability
 - **Component** — downloads and verifies the component version descriptor
 - **Resource** — resolves individual resources, verifies signatures, publishes artifact locations
+- **Deployer** — downloads the resource blob and applies manifests to the cluster using server-side apply
 
-Deployment orchestration is handled through [kro](https://kro.run) ResourceGraphDefinitions combined with [FluxCD](https://fluxcd.io/) as the deployer.
+The Deployer takes an OCM Resource (containing Kubernetes manifests, a `ResourceGraphDefinition`, or other deployable content) and applies it directly to the cluster using ApplySet semantics.
 
-{{< callout context="tip" title="Coming soon: new deployment engine" >}}
-We are working on a **deployment engine abstraction** directly within the OCM controller stack — reducing moving parts while preserving flexibility to plug in different deployers.
-{{< /callout >}}
+For advanced deployment workflows, the recommended pattern is to package a [kro](https://kro.run) `ResourceGraphDefinition` inside an OCM component. The Deployer applies the RGD to the cluster, and kro reconciles it into a CRD that operators can instantiate — allowing you to ship complex, parameterised deployment instructions alongside the software itself. [FluxCD](https://fluxcd.io/) integrates naturally for GitOps-style delivery on top of this. We remain active upstream contributors to kro and are invested in its continued growth as a key part of the OCM deployment story.
 
 {{< card-grid >}}
-{{< link-card title="Controller Architecture" href="/dev/docs/concepts/ocm-controllers/" description="Understand the OCM controller design." >}}
-{{< link-card title="Set Up Controllers" href="/dev/docs/getting-started/set-up-controller-environments/" description="Prepare a local cluster with kro and Flux." >}}
-{{< link-card title="Deploy a Helm Chart" href="/dev/docs/getting-started/deploy-helm-charts/" description="Your first controller-based deployment." >}}
+{{< link-card title="Controller Architecture" href="/docs/concepts/kubernetes-controllers/" description="Understand the OCM controller design." >}}
+{{< link-card title="Kubernetes Deployer" href="/docs/concepts/kubernetes-deployer/" description="How the Deployer CR applies resources using server-side apply." >}}
+{{< link-card title="Set Up Controllers" href="/docs/getting-started/set-up-controller-environments/" description="Prepare a local cluster with kro and Flux." >}}
+{{< link-card title="Deploy a Helm Chart" href="/docs/getting-started/deploy-helm-charts/" description="Your first controller-based deployment." >}}
+{{< link-card title="Deploy Raw Manifests" href="/docs/how-to/deploy-manifests-with-deployer/" description="Deploy Kubernetes manifests directly with the Deployer." >}}
 {{< /card-grid >}}
+
+### Interactive Reference Documentation
+
+The reference docs for [component-constructor](/docs/reference/component-constructor/) and [component-descriptor](/docs/reference/component-descriptor/) now feature an **interactive schema renderer** — a TypeScript/Preact-based viewer that lets you explore the JSON schema inline. A new [Kubernetes API reference](/docs/reference/kubernetes-api/) section covers the CRD schemas for Repository, Component, Resource, and Deployer objects.
 
 ### New Go Library and Bindings
 
@@ -133,6 +137,36 @@ Clean, well-documented Go bindings for programmatic OCM interaction. Library, CL
 {{< /callout >}}
 
 We welcome everyone to adopt the bindings and contribute as the [Apeiro](https://apeirora.eu/) ecosystem grows.
+
+## Native OCI Image Spec and Distribution Spec Support
+
+OCM v2 is now **natively compliant** on resource level with both
+
+- the [OCI Image Spec](https://github.com/opencontainers/image-spec) 
+- the [OCI Distribution Spec](https://github.com/opencontainers/distribution-spec) 
+
+This is not an afterthought, but as a first-class design constraint. 
+Every component version is stored as a standard [OCI Image Index](https://github.com/opencontainers/image-spec/blob/main/image-index.md), pushable to and pullable from any spec-compliant registry without OCM-specific extensions. 
+Tools that speak OCI speak can now speak natively with OCM resources.
+
+This includes full support for the **OCI Referrers API**: component version descriptors are attached as referrers to their subject manifests, enabling efficient version listing and discovery directly through the Distribution Spec — no OCM-specific registry queries needed.
+
+### Local Blob Compatibility
+
+The most significant OCI compatibility improvement in v2 concerns **local blobs**: resources embedded directly inside a component version rather than referenced from an external location.
+
+In the legacy stack, every local blob — including native OCI artifacts like container images and Helm charts — was wrapped in an OCM-specific `ArtifactSet` format, serialised as a tar archive, and stored as an opaque layer. This meant that even a fully valid OCI image inside an OCM component could not be pulled with `docker pull` or `helm pull`. OCI-native tooling had no way in.
+
+OCM v2 solves this with a new [OCI-compatible storage mapping](https://github.com/open-component-model/open-component-model/blob/main/docs/adr/0012_oci_format_compatibility.md). The top-level [OCI Image Index](https://github.com/opencontainers/image-spec/blob/main/image-index.md) now distinguishes between two kinds of local blobs:
+
+- **Native OCI artifacts** (images, Helm charts, OCI Image Layouts) — stored as separate OCI manifests referenced from the index, with a `globalAccess` pointer that allows direct access
+- **Non-OCI blobs** (plain files, arbitrary binaries) — stored as layers in the descriptor manifest, as before
+
+The result: a Helm chart packaged as an OCM local blob can be pulled natively with Helm's OCI support (`helm pull oci://...`) and a container image can be fetched with `docker pull` — without any OCM tooling in the path.
+
+This layout is fully backwards-compatible: the new CLI reads and writes the index-based format, while the legacy CLI can read it by falling back to the descriptor manifest when no index is present.
+
+The transport pipeline benefits too. Because native OCI manifests are stored as proper OCI objects, layer deduplication and concurrent uploads work at the registry level — no more tar-wrapping every artifact before transit.
 
 ## Conformance Testing
 
@@ -194,7 +228,7 @@ We are working on [Sigstore integration](https://github.com/open-component-model
 
 #### Compliance & Supply Chain
 
-- **ODG (Open Delivery Gear):** Deeper integration to streamline compliance workflows — automating security scans, license checks, and policy enforcement as part of the OCM delivery pipeline
+- **[ODG (Open Delivery Gear)](https://github.com/open-component-model/open-delivery-gear/):** Deeper integration to streamline compliance workflows — automating security scans, license checks, and policy enforcement as part of the OCM delivery pipeline
 - **Software Bill of Delivery:** OCM already provides the foundation for a true [SBOD](https://documentation.apeirora.eu/docs/best-practices/lcm/sbod/) — a comprehensive, machine-readable record of everything that was delivered, how it was built, signed, transported, and deployed. We are building on this vision to make SBOD a first-class concern across the entire toolchain
 
 These improvements will steadily close the feature gap with our previous implementation, and we want to achieve parity.
@@ -219,8 +253,8 @@ Both v1 and v2 implement the same [OCM Specification](https://github.com/open-co
 Ready to try OCM v2? Pick your path:
 
 {{< card-grid >}}
-{{< link-card title="Get Started with the CLI" href="/dev/docs/getting-started/install-the-ocm-cli/" description="Install the OCM CLI and learn the Pack, Sign, Transport, Deploy workflow." >}}
-{{< link-card title="Get Started with Controllers" href="/dev/docs/getting-started/set-up-controller-environments/" description="Set up a Kubernetes environment with OCM controllers, kro, and Flux." >}}
+{{< link-card title="Get Started with the CLI" href="/docs/getting-started/install-the-ocm-cli/" description="Install the OCM CLI and learn the Pack, Sign, Transport, Deploy workflow." >}}
+{{< link-card title="Get Started with Controllers" href="/docs/getting-started/set-up-controller-environments/" description="Set up a Kubernetes environment with OCM controllers, kro, and Flux." >}}
 {{< /card-grid >}}
 
 ### Pack, Sign, Transport, Deploy
@@ -229,33 +263,40 @@ Ready to try OCM v2? Pick your path:
 {{< step >}}
 **Install the OCM CLI**
 
-[Download or build from source](/dev/docs/getting-started/install-the-ocm-cli/)
+[Download or build from source](/docs/getting-started/install-the-ocm-cli/)
 {{< /step >}}
 {{< step >}}
 **Create Component Versions**
 
-[Bundle your software artifacts](/dev/docs/getting-started/create-component-versions/)
+[Bundle your software artifacts](/docs/getting-started/create-component-versions/)
 {{< /step >}}
 {{< step >}}
 **Sign and Verify**
 
-[Establish provenance with RSA signatures](/dev/docs/tutorials/sign-and-verify-components/)
+[Establish provenance with RSA signatures](/docs/tutorials/sign-and-verify-components/)
 {{< /step >}}
 {{< step >}}
 **Transfer across an Air Gap**
 
-[Deliver to isolated environments](/dev/docs/how-to/transfer-components-across-an-air-gap/)
+[Deliver to isolated environments](/docs/how-to/transfer-components-across-an-air-gap/)
 {{< /step >}}
 {{< step >}}
 **Set Up your Runtime**
 
-[Prepare a kind cluster with kro and Flux](/dev/docs/getting-started/set-up-controller-environments/)
+[Prepare a kind cluster with kro and Flux](/docs/getting-started/set-up-controller-environments/)
 {{< /step >}}
 {{< step >}}
 **Deploy a Helm Chart**
 
-- [Learn about OCM Controllers](/dev/docs/concepts/ocm-controllers/)
-- [Your first controller-based deployment](/dev/docs/getting-started/deploy-helm-charts/)
+- [Learn about OCM Controllers](/docs/concepts/kubernetes-controllers/)
+- [Your first controller-based deployment](/docs/getting-started/deploy-helm-charts/)
+
+{{< /step >}}
+{{< step >}}
+**Deploy Raw Manifests with the Deployer**
+
+- [Understand the Deployer CR](/docs/concepts/kubernetes-deployer/)
+- [Deploy Kubernetes manifests directly](/docs/how-to/deploy-manifests-with-deployer/)
 
 {{< /step >}}
 
@@ -268,6 +309,6 @@ OCM is open source and we welcome contributions of all kinds — code, documenta
 - Browse the code and contribute: [github.com/open-component-model/open-component-model](https://github.com/open-component-model/open-component-model)
 - Join the conversation on Zulip: [neonephos-ocm-support](https://linuxfoundation.zulipchat.com/#narrow/channel/532975-neonephos-ocm-support)
 - Read the [SIG Runtime Charter](https://github.com/open-component-model/open-component-model/blob/main/docs/community/SIGs/Runtime/SIG-Runtime-CHARTER.md)
-- Try the new CLI and [get started](/dev/docs/getting-started/)
+- Try the new CLI and [get started](/docs/getting-started/)
 
 We are looking forward to building the future of sovereign cloud delivery together.
