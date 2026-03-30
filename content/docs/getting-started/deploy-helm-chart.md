@@ -164,7 +164,7 @@ Then update the resources to use credentials:
                 name: ghcr-secret
   ```
 
-For more details, see [Credentials for OCM Controllers]({{< relref "/docs/how-to/configure-credentials-for-controllers.md" >}}).
+For more details, see [Credentials for OCM Controllers]({{< relref "/docs/how-to/configure-credentials-ocm-controllers.md" >}}).
 {{< /details >}}
 
 {{< /step >}}
@@ -448,7 +448,7 @@ failed to list versions: response status code 401: unauthorized
 Your registry package is private. Either:
 
 - Make the package public in your registry settings, or
-- [Configure credentials]({{< relref "/docs/how-to/configure-credentials-for-controllers.md" >}}) as
+- [Configure credentials]({{< relref "/docs/how-to/configure-credentials-ocm-controllers.md" >}}) as
   described in the collapsible section after "Transfer to your registry"
 
 ### Resource Not Found
