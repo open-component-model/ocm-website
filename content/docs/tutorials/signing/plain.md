@@ -1,8 +1,8 @@
 ---
-title: "Sign and Verify Components"
+title: "Plain Signatures"
 description: "Learn to cryptographically sign a component version and verify its authenticity."
 icon: "✍️"
-weight: 62
+weight: 10
 toc: true
 ---
 
