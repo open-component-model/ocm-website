@@ -233,7 +233,7 @@ signature:
   value: d1ea6e0cd850c8dbd0d20cd39b9c7954...
 ```
 
-#### PEM Encoding (Experimental)
+#### PEM Encoding (Early Access)
 
 The signature is wrapped in a PEM block of type `SIGNATURE`, optionally followed by the signer's X.509 certificate chain.
 This makes the signature **self-contained**: verifiers can extract and validate the public key from the embedded chain

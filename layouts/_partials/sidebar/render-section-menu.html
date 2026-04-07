@@ -37,21 +37,21 @@ Based on: https://discourse.gohugo.io/t/automated-nested-menus/42835/2
     {{- $linkContent = .LinkTitle }}
   {{- end }}
 
-  {{- $ariaCurrent := "" }}
-  {{- $liClass := "" }}
-
-  {{- if in $currentPage.Ancestors $node.Page }}
-    {{- $ariaCurrent = "true" }}
-  {{- end }}
-
-  {{- if $currentPage.Eq $node.Page }}
-    {{- $ariaCurrent = "page" }}
-    {{- $liClass = "active" }}
-  {{- end }}
-
   {{- $page := $node.Page }}
   {{- if not $page }}{{- $page = $node }}{{- end }}
   {{- $children := $page.Pages }}
+
+  {{- $ariaCurrent := "" }}
+  {{- $liClass := "" }}
+
+  {{- if in $currentPage.Ancestors $page }}
+    {{- $ariaCurrent = "true" }}
+  {{- end }}
+
+  {{- if $currentPage.Eq $page }}
+    {{- $ariaCurrent = "page" }}
+    {{- $liClass = "active" }}
+  {{- end }}
 
   <li {{- with $liClass }} class="{{ . }}" {{ end -}}>
     {{- with $children }}

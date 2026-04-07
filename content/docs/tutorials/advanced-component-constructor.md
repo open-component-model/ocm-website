@@ -630,7 +630,7 @@ rm -rf /tmp/ocm-multi-component
 
 ## Next Steps
 
-- [Tutorial: Sign and Verify Components]({{< relref "docs/tutorials/signing/plain.md" >}}) - add signing to your components
+- [Tutorial: Plain Signatures]({{< relref "docs/tutorials/signing/plain.md" >}}) - add signing to your components
 - [How-to: Transfer Helm Charts]({{< relref "docs/how-to/transfer-helm-charts.md" >}}) - transfer components to a remote registry
 
 ## Related documentation

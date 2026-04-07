@@ -93,10 +93,9 @@ signers from asserting their own trust anchor.
 If your organization already has a PKI, obtain a leaf certificate (and intermediate chain if applicable)
 from your CA and skip to the next step.
 
-Otherwise, generate a chain locally with `openssl`. Choose the option that fits your setup:
+Otherwise, generate a chain locally with `openssl`. Choose the option that fits your setup.
 
-{{< tabs "cert-chain" >}}
-{{< tab "Option A: Root CA → Leaf (simple)" >}}
+**Option A: Root CA → Leaf (simple)**
 
 The root CA signs the leaf directly. No intermediate is needed.
 
@@ -130,8 +129,7 @@ chmod 644 root.crt leaf.crt
 | `root.key` / `root.crt` | Root CA — the verifier's trust anchor |
 | `leaf.key` / `leaf.crt` | Leaf — the private key used for signing |
 
-{{< /tab >}}
-{{< tab "Option B: Root CA → Intermediate → Leaf" >}}
+**Option B: Root CA → Intermediate → Leaf**
 
 Add an intermediate CA to keep the root CA key offline or to delegate signing authority.
 
@@ -179,9 +177,6 @@ chmod 644 root.crt intermediate.crt leaf.crt
 | `root.key` / `root.crt` | Root CA — keep the key offline in production |
 | `intermediate.key` / `intermediate.crt` | Intermediate CA |
 | `leaf.key` / `leaf.crt` | Leaf — the private key used for signing |
-
-{{< /tab >}}
-{{< /tabs >}}
 
 {{< /step >}}
 
@@ -238,8 +233,8 @@ configurations:
         credentials:
           - type: Credentials/v1
             properties:
-              private_key_pem_file: ~/.ocm/keys/pem-demo/leaf.key
-              public_key_pem_file: ~/.ocm/keys/pem-demo/chain.pem
+              private_key_pem_file: .ocm/keys/pem-demo/leaf.key
+              public_key_pem_file: .ocm/keys/pem-demo/chain.pem
 ```
 
 **Verifier configuration** (`~/.ocmconfig-pem-verify`):
@@ -256,7 +251,7 @@ configurations:
         credentials:
           - type: Credentials/v1
             properties:
-              public_key_pem_file: ~/.ocm/keys/pem-demo/root.crt
+              public_key_pem_file: .ocm/keys/pem-demo/root.crt
 ```
 
 {{< callout context="caution" title="Trust anchor isolation" >}}
@@ -299,7 +294,7 @@ ocm sign cv \
 ```
 
 {{< callout context="note" title="Early access" >}}
-OCM prints a notice that PEM encoding is experimental during signing and verification. PEM signing is currently being rolled out across projects and we are awaiting feedback — this message is expected and does not indicate a failure.
+PEM signing is an early access feature. The OCM CLI prints an `experimental` notice during signing and verification — this is expected and does not indicate a failure. We are awaiting feedback and the interface may evolve.
 {{< /callout >}}
 
 {{< details "Expected signature value in the component descriptor" >}}
