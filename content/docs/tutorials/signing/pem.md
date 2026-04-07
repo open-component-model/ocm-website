@@ -218,10 +218,12 @@ The root CA is always omitted.
 ### Configure `.ocmconfig`
 
 Create separate credential entries for the signer and verifier roles.
+The file paths must be **absolute** — `~` and `$HOME` are not expanded in YAML values.
+Use the shell commands below to generate the files with the correct paths automatically:
 
-**Signer configuration** (`~/.ocmconfig-pem-sign`):
-
-```yaml
+```bash
+# Signer configuration
+cat > ~/.ocmconfig-pem-sign <<EOF
 type: generic.config.ocm.software/v1
 configurations:
   - type: credentials.config.ocm.software
@@ -233,13 +235,12 @@ configurations:
         credentials:
           - type: Credentials/v1
             properties:
-              private_key_pem_file: .ocm/keys/pem-demo/leaf.key
-              public_key_pem_file: .ocm/keys/pem-demo/chain.pem
-```
+              private_key_pem_file: $(realpath ~/.ocm/keys/pem-demo/leaf.key)
+              public_key_pem_file: $(realpath ~/.ocm/keys/pem-demo/chain.pem)
+EOF
 
-**Verifier configuration** (`~/.ocmconfig-pem-verify`):
-
-```yaml
+# Verifier configuration
+cat > ~/.ocmconfig-pem-verify <<EOF
 type: generic.config.ocm.software/v1
 configurations:
   - type: credentials.config.ocm.software
@@ -251,7 +252,8 @@ configurations:
         credentials:
           - type: Credentials/v1
             properties:
-              public_key_pem_file: .ocm/keys/pem-demo/root.crt
+              public_key_pem_file: $(realpath ~/.ocm/keys/pem-demo/root.crt)
+EOF
 ```
 
 {{< callout context="caution" title="Trust anchor isolation" >}}
