@@ -185,17 +185,21 @@ chmod 644 root.crt intermediate.crt leaf.crt
 ### Prepare the chain file
 
 The signer needs a single PEM file containing the certificates to embed in the signature.
-The root CA must **not** be included.
+The root CA must **not** be included. Run the command that matches the option you chose above.
+
+**Option A: direct issuance — chain contains only the leaf**
 
 ```bash
 cd ~/.ocm/keys/pem-demo
-
-# Option A: direct issuance — chain contains only the leaf
 cp leaf.crt chain.pem
+chmod 644 chain.pem
+```
 
-# Option B: with intermediate — leaf first, then intermediate (root excluded)
+**Option B: with intermediate — leaf first, then intermediate (root excluded)**
+
+```bash
+cd ~/.ocm/keys/pem-demo
 cat leaf.crt intermediate.crt > chain.pem
-
 chmod 644 chain.pem
 ```
 
