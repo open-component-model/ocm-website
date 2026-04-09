@@ -88,14 +88,16 @@ signers from asserting their own trust anchor.
 
 {{< step >}}
 
-### Generate a certificate chain
+### Generate a certificate chain and prepare the chain file
 
 If your organization already has a PKI, obtain a leaf certificate (and intermediate chain if applicable)
-from your CA and skip to the next step.
+from your CA. Place the leaf certificate (and any intermediates, root excluded) into `chain.pem` and skip to the next step.
 
-Otherwise, generate a chain locally with `openssl`. Choose the option that fits your setup.
+Otherwise, generate a chain locally with `openssl`. Choose the option that fits your setup and follow all commands within that tab — each tab is self-contained.
 
-**Option A: Root CA → Leaf (simple)**
+{{< tabs "cert-chain-options" >}}
+
+{{< tab "Option A: Root CA → Leaf (simple)" >}}
 
 The root CA signs the leaf directly. No intermediate is needed.
 
@@ -129,7 +131,17 @@ chmod 644 root.crt leaf.crt
 | `root.key` / `root.crt` | Root CA — the verifier's trust anchor |
 | `leaf.key` / `leaf.crt` | Leaf — the private key used for signing |
 
-**Option B: Root CA → Intermediate → Leaf**
+**Prepare the chain file** — chain contains only the leaf:
+
+```bash
+cd ~/.ocm/keys/pem-demo
+cp leaf.crt chain.pem
+chmod 644 chain.pem
+```
+
+{{< /tab >}}
+
+{{< tab "Option B: Root CA → Intermediate → Leaf" >}}
 
 Add an intermediate CA to keep the root CA key offline or to delegate signing authority.
 
@@ -178,30 +190,17 @@ chmod 644 root.crt intermediate.crt leaf.crt
 | `intermediate.key` / `intermediate.crt` | Intermediate CA |
 | `leaf.key` / `leaf.crt` | Leaf — the private key used for signing |
 
-{{< /step >}}
-
-{{< step >}}
-
-### Prepare the chain file
-
-The signer needs a single PEM file containing the certificates to embed in the signature.
-The root CA must **not** be included. Run the command that matches the option you chose above.
-
-**Option A: direct issuance — chain contains only the leaf**
-
-```bash
-cd ~/.ocm/keys/pem-demo
-cp leaf.crt chain.pem
-chmod 644 chain.pem
-```
-
-**Option B: with intermediate — leaf first, then intermediate (root excluded)**
+**Prepare the chain file** — leaf first, then intermediate (root excluded):
 
 ```bash
 cd ~/.ocm/keys/pem-demo
 cat leaf.crt intermediate.crt > chain.pem
 chmod 644 chain.pem
 ```
+
+{{< /tab >}}
+
+{{< /tabs >}}
 
 {{< callout context="note" title="Order matters" >}}
 The chain file must start with the **leaf** certificate, followed by any intermediates in order toward the root.
@@ -274,13 +273,14 @@ For the full credential property and consumer identity reference, see [Credentia
 
 ### Create a signer spec file
 
-The `--signer-spec` flag enables the PEM encoding policy. Create a small YAML file:
+The `--signer-spec` flag enables the PEM encoding policy. Create the spec file:
 
-```yaml
-# pem-signer.yaml
+```bash
+cat > ~/.ocm/keys/pem-demo/pem-signer.yaml <<EOF
 type: RSASigningConfiguration/v1alpha1
 signatureAlgorithm: RSASSA-PSS
 signatureEncodingPolicy: PEM
+EOF
 ```
 
 This controls **how** the signature is encoded. It does **not** contain credentials —
@@ -291,6 +291,18 @@ those are always resolved from `.ocmconfig`.
 {{< step >}}
 
 ### Sign the component version
+
+Use `--dry-run` first to compute and print the signature without writing it to the repository:
+
+```bash
+ocm sign cv \
+  --config ~/.ocmconfig-pem-sign \
+  --signer-spec ~/.ocm/keys/pem-demo/pem-signer.yaml \
+  --dry-run \
+  /tmp/helloworld/transport-archive//github.com/acme.org/helloworld:1.0.0
+```
+
+Once satisfied, sign for real:
 
 ```bash
 ocm sign cv \
@@ -318,16 +330,6 @@ Signature Algorithm: RSASSA-PSS
 ```
 {{< /details >}}
 
-Use `--dry-run` to compute and print the signature without writing it to the repository:
-
-```bash
-ocm sign cv \
-  --config ~/.ocmconfig-pem-sign \
-  --signer-spec ~/.ocm/keys/pem-demo/pem-signer.yaml \
-  --dry-run \
-  /tmp/helloworld/transport-archive//github.com/acme.org/helloworld:1.0.0
-```
-
 {{< /step >}}
 
 {{< step >}}
@@ -343,7 +345,21 @@ ocm verify cv \
 No `--verifier-spec` is needed — OCM infers the PEM encoding from the `application/x-pem-file`
 media type stored alongside the signature and selects the correct handler automatically.
 
-You should see verification succeed. If it fails, see the troubleshooting section below.
+<details>
+<summary>Expected output</summary>
+
+```text
+time=2026-04-01T10:00:00.000+02:00 level=INFO msg="verifying signature" name=default
+time=2026-04-01T10:00:00.001+02:00 level=INFO msg="signature verification completed" name=default duration=1.2ms
+time=2026-04-01T10:00:00.001+02:00 level=INFO msg="SIGNATURE VERIFICATION SUCCESSFUL"
+```
+
+</details>
+
+> ✅ **Success!** ✅  
+> The component version is verified as authentic and unmodified.
+
+If verification fails, see the troubleshooting section below.
 
 {{< /step >}}
 
