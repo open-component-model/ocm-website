@@ -128,8 +128,9 @@ Verify both files exist:
 ls -la ./keys/*.pem
 ```
 
-> ⚠️ **Keep your private key secure!** ⚠️  
-> Never commit it to version control or share it.
+{{< callout context="caution" title="Keep your private key secure!" icon="outline/warning">}}
+Never commit it to version control or share it.
+{{< /callout >}}
 
 For more details, see [How-to: Generate Signing Keys]({{< relref "docs/how-to/generate-signing-keys.md" >}}).
 {{< /step >}}

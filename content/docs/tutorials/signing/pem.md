@@ -84,8 +84,13 @@ signers from asserting their own trust anchor.
 
 ## Steps
 
-{{< steps >}}
+The following steps cover the required setup for two scenarios,
+one with a simple Root CA directly signing the leaf certificate, and another with an intermediate CA between the Root and Leaf.
 
+{{< tabs "cert-chain-options" >}}
+{{< tab "Option A: Root CA → Leaf (simple)" >}}
+
+{{< steps >}}
 {{< step >}}
 
 ### Generate a certificate chain and prepare the chain file
@@ -94,10 +99,6 @@ If your organization already has a PKI, obtain a leaf certificate (and intermedi
 from your CA. Place the leaf certificate (and any intermediates, root excluded) into `chain.pem` and skip to the next step.
 
 Otherwise, generate a chain locally with `openssl`. Choose the option that fits your setup and follow all commands within that tab — each tab is self-contained.
-
-{{< tabs "cert-chain-options" >}}
-
-{{< tab "Option A: Root CA → Leaf (simple)" >}}
 
 The root CA signs the leaf directly. No intermediate is needed.
 
@@ -139,9 +140,180 @@ cp leaf.crt chain.pem
 chmod 644 chain.pem
 ```
 
+{{< callout context="note" title="Order matters" >}}
+The chain file must start with the **leaf** certificate. The root CA is always omitted.
+{{< /callout >}}
+
+**Summary of files per role:**
+
+| Role | Files needed |
+| ---- | ------------ |
+| Signer | `leaf.key` (private key), `chain.pem` (leaf + any intermediates) |
+| Verifier | `root.crt` (trust anchor only) |
+
+{{< /step >}}
+
+{{< step >}}
+
+### Configure `.ocmconfig`
+
+Create separate credential entries for the signer and verifier roles.
+The file paths must be **absolute** — `~` and `$HOME` are not expanded in YAML values.
+Use the shell commands below to generate the files with the correct paths automatically:
+
+```bash
+# Signer configuration
+cat > ~/.ocmconfig-pem-sign <<EOF
+type: generic.config.ocm.software/v1
+configurations:
+  - type: credentials.config.ocm.software
+    consumers:
+      - identity:
+          type: RSA/v1alpha1
+          algorithm: RSASSA-PSS
+          signature: default
+        credentials:
+          - type: Credentials/v1
+            properties:
+              private_key_pem_file: $(realpath ~/.ocm/keys/pem-demo/leaf.key)
+              public_key_pem_file: $(realpath ~/.ocm/keys/pem-demo/chain.pem)
+EOF
+
+# Verifier configuration
+cat > ~/.ocmconfig-pem-verify <<EOF
+type: generic.config.ocm.software/v1
+configurations:
+  - type: credentials.config.ocm.software
+    consumers:
+      - identity:
+          type: RSA/v1alpha1
+          algorithm: RSASSA-PSS
+          signature: default
+        credentials:
+          - type: Credentials/v1
+            properties:
+              public_key_pem_file: $(realpath ~/.ocm/keys/pem-demo/root.crt)
+EOF
+```
+
+{{< callout context="caution" title="Trust anchor isolation" >}}
+When a self-signed certificate is supplied as `public_key_pem_file` for verification,
+OCM uses it as an **isolated trust anchor** and bypasses the system root store entirely.
+Only signatures rooted in that specific CA will verify successfully.
+{{< /callout >}}
+
+For the full credential property and consumer identity reference, see [Credential Consumer Identities — RSA/v1alpha1]({{< relref "docs/reference/credential-consumer-identities.md" >}}).
+
+{{< /step >}}
+
+{{< step >}}
+
+### Create a signer spec file
+
+The `--signer-spec` flag enables the PEM encoding policy. Create the spec file:
+
+```bash
+cat > ~/.ocm/keys/pem-demo/pem-signer.yaml <<EOF
+type: RSASigningConfiguration/v1alpha1
+signatureAlgorithm: RSASSA-PSS
+signatureEncodingPolicy: PEM
+EOF
+```
+
+This controls **how** the signature is encoded. It does **not** contain credentials —
+those are always resolved from `.ocmconfig`.
+
+{{< /step >}}
+
+{{< step >}}
+
+### Sign the component version
+
+Use `--dry-run` first to compute and print the signature without writing it to the repository:
+
+```bash
+ocm sign cv \
+  --config ~/.ocmconfig-pem-sign \
+  --signer-spec ~/.ocm/keys/pem-demo/pem-signer.yaml \
+  --dry-run \
+  /tmp/helloworld/transport-archive//github.com/acme.org/helloworld:1.0.0
+```
+
+Once satisfied, sign for real:
+
+```bash
+ocm sign cv \
+  --config ~/.ocmconfig-pem-sign \
+  --signer-spec ~/.ocm/keys/pem-demo/pem-signer.yaml \
+  /tmp/helloworld/transport-archive//github.com/acme.org/helloworld:1.0.0
+```
+
+{{< callout context="note" title="Early access" >}}
+PEM signing is an early access feature. The OCM CLI prints an `experimental` notice during signing and verification — this is expected and does not indicate a failure. We are awaiting feedback and the interface may evolve.
+{{< /callout >}}
+
+{{< details "Expected signature value in the component descriptor" >}}
+```text
+-----BEGIN SIGNATURE-----
+Signature Algorithm: RSASSA-PSS
+<base64-encoded signature bytes>
+-----END SIGNATURE-----
+-----BEGIN CERTIFICATE-----
+<leaf certificate DER>
+-----END CERTIFICATE-----
+-----BEGIN CERTIFICATE-----
+<intermediate CA DER>  ← only present if intermediates were included in chain.pem
+-----END CERTIFICATE-----
+```
+{{< /details >}}
+
+{{< /step >}}
+
+{{< step >}}
+
+### Verify the signature
+
+```bash
+ocm verify cv \
+  --config ~/.ocmconfig-pem-verify \
+  /tmp/helloworld/transport-archive//github.com/acme.org/helloworld:1.0.0
+```
+
+No `--verifier-spec` is needed — OCM infers the PEM encoding from the `application/x-pem-file`
+media type stored alongside the signature and selects the correct handler automatically.
+
+<details>
+<summary>Expected output</summary>
+
+```text
+time=2026-04-01T10:00:00.000+02:00 level=INFO msg="verifying signature" name=default
+time=2026-04-01T10:00:00.001+02:00 level=INFO msg="signature verification completed" name=default duration=1.2ms
+time=2026-04-01T10:00:00.001+02:00 level=INFO msg="SIGNATURE VERIFICATION SUCCESSFUL"
+```
+
+</details>
+
+> ✅ **Success!** ✅  
+> The component version is verified as authentic and unmodified.
+
+If verification fails, see the troubleshooting section below.
+
+{{< /step >}}
+{{< /steps >}}
+
 {{< /tab >}}
 
 {{< tab "Option B: Root CA → Intermediate → Leaf" >}}
+{{< steps >}}
+
+{{< step >}}
+
+### Generate a certificate chain and prepare the chain file
+
+If your organization already has a PKI, obtain a leaf certificate (and intermediate chain if applicable)
+from your CA. Place the leaf certificate (and any intermediates, root excluded) into `chain.pem` and skip to the next step.
+
+Otherwise, generate a chain locally with `openssl`. Choose the option that fits your setup and follow all commands within that tab — each tab is self-contained.
 
 Add an intermediate CA to keep the root CA key offline or to delegate signing authority.
 
@@ -197,10 +369,6 @@ cd ~/.ocm/keys/pem-demo
 cat leaf.crt intermediate.crt > chain.pem
 chmod 644 chain.pem
 ```
-
-{{< /tab >}}
-
-{{< /tabs >}}
 
 {{< callout context="note" title="Order matters" >}}
 The chain file must start with the **leaf** certificate, followed by any intermediates in order toward the root.
@@ -362,8 +530,10 @@ time=2026-04-01T10:00:00.001+02:00 level=INFO msg="SIGNATURE VERIFICATION SUCCES
 If verification fails, see the troubleshooting section below.
 
 {{< /step >}}
-
 {{< /steps >}}
+
+{{< /tab >}}
+{{< /tabs >}}
 
 ## Troubleshooting
 
