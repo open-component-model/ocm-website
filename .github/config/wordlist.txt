@@ -533,3 +533,14 @@ zulip
 natively
 pushable
 deduplication
+jakob
+möller
+jakobmoellerdev
+jakobmoellersap
+lf
+supermajority
+brautigam
+gergely
+kubermatic
+skarlso
+curation
