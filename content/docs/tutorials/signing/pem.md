@@ -308,7 +308,7 @@ If verification fails, see the troubleshooting section below.
 
 {{< step >}}
 
-### Generate a certificate chain and prepare the chain file
+### Generate certificate chain and prepare the chain file
 
 If your organization already has a PKI, obtain a leaf certificate (and intermediate chain if applicable)
 from your CA. Place the leaf certificate (and any intermediates, root excluded) into `chain.pem` and skip to the next step.
@@ -386,7 +386,7 @@ The root CA is always omitted.
 
 {{< step >}}
 
-### Configure `.ocmconfig`
+### Configure `.ocmconfig` file
 
 Create separate credential entries for the signer and verifier roles.
 The file paths must be **absolute** — `~` and `$HOME` are not expanded in YAML values.
@@ -439,7 +439,7 @@ For the full credential property and consumer identity reference, see [Credentia
 
 {{< step >}}
 
-### Create a signer spec file
+### Create signer spec file
 
 The `--signer-spec` flag enables the PEM encoding policy. Create the spec file:
 
@@ -458,7 +458,7 @@ those are always resolved from `.ocmconfig`.
 
 {{< step >}}
 
-### Sign the component version
+### Sign component version
 
 Use `--dry-run` first to compute and print the signature without writing it to the repository:
 
@@ -502,7 +502,7 @@ Signature Algorithm: RSASSA-PSS
 
 {{< step >}}
 
-### Verify the signature
+### Verify signature
 
 ```bash
 ocm verify cv \
