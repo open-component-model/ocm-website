@@ -241,8 +241,9 @@ The legacy OCM stack will be supported until at least **the end of 2026**. Exist
 
 The documentation site now serves two versions:
 
-- **Legacy** — documentation for the original OCM stack. This is currently the default.
-- **v2 docs** (currently labeled "dev") — documentation for the new stack you are reading about here.
+- **v1 docs** (labeled "legacy") — documentation for the original OCM stack.
+- **v2 docs** (currently labeled "latest") — documentation for the new stack 
+  you are reading about here. This is now the default.
 
 {{< callout context="tip" title="Migration should be affordable" >}}
 Both v1 and v2 implement the same [OCM Specification](https://github.com/open-component-model/ocm-spec/blob/main/doc/04-extensions/00-component-descriptor/v2.md), so component versions created with either stack are fully interoperable. Many CLI commands are cross-compatible and we made a deliberate effort to keep the `.ocmconfig` structure and command syntax consistent, so existing users and CI/CD pipelines should find the transition straightforward.
