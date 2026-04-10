@@ -107,7 +107,7 @@ components:
       version: 1.5.0
       access:
         type: OCIImage/v1
-        imageReference: ghcr.io/stefanprodan/podinfo:6.9.1
+        imageReference: ghcr.io/stefanprodan/podinfo:6.11.1
 
 # ── Backend ─────────────────────────────────────────────────────
 - name: ocm.software/tutorials/backend
@@ -135,7 +135,7 @@ components:
       version: 3.1.0
       access:
         type: OCIImage/v1
-        imageReference: ghcr.io/stefanprodan/podinfo:6.9.1
+        imageReference: ghcr.io/stefanprodan/podinfo:6.11.1
 
 # ── Product: Web ────────────────────────────────────────────────
 - name: ocm.software/tutorials/product-web
@@ -278,7 +278,7 @@ components:
       version: 1.5.0
       access:
         type: OCIImage/v1
-        imageReference: ghcr.io/stefanprodan/podinfo:6.9.1
+        imageReference: ghcr.io/stefanprodan/podinfo:6.11.1
 
 # ── Backend ─────────────────────────────────────────────────────
 - name: ocm.software/tutorials/backend
@@ -306,7 +306,7 @@ components:
       version: 3.1.0
       access:
         type: OCIImage/v1
-        imageReference: ghcr.io/stefanprodan/podinfo:6.9.1
+        imageReference: ghcr.io/stefanprodan/podinfo:6.11.1
 
 # ── Product: Web ────────────────────────────────────────────────
 - name: ocm.software/tutorials/product-web
@@ -442,7 +442,7 @@ ocm get cv my-product//ocm.software/tutorials/frontend:1.5.0 -o yaml
       type: helmChart
       version: 1.5.0
     - access:
-        imageReference: ghcr.io/stefanprodan/podinfo:6.9.1@sha256:...
+        imageReference: ghcr.io/stefanprodan/podinfo:6.11.1@sha256:...
         type: OCIImage/v1
       digest:
         hashAlgorithm: SHA-256
@@ -494,7 +494,7 @@ components:
       version: ${FRONTEND_VERSION}
       access:
         type: OCIImage/v1
-        imageReference: ghcr.io/stefanprodan/podinfo:6.9.1
+        imageReference: ghcr.io/stefanprodan/podinfo:6.11.1
 
 - name: ocm.software/tutorials/backend
   version: ${BACKEND_VERSION}
@@ -524,7 +524,7 @@ components:
       version: ${BACKEND_VERSION}
       access:
         type: OCIImage/v1
-        imageReference: ghcr.io/stefanprodan/podinfo:6.9.1
+        imageReference: ghcr.io/stefanprodan/podinfo:6.11.1
 
 - name: ocm.software/tutorials/product-data
   version: ${DATA_VERSION}

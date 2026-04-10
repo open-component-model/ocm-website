@@ -88,7 +88,7 @@ components:
       version: 1.0.0
       access: # Reference externally
         type: ociArtifact
-        imageReference: ghcr.io/stefanprodan/podinfo:6.9.1
+        imageReference: ghcr.io/stefanprodan/podinfo:6.11.1
 ```
 
 ### Referencing Artifacts
