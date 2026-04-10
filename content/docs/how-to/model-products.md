@@ -64,7 +64,7 @@ components:
       relation: local
       access:
         type: OCIImage/v1
-        imageReference: ghcr.io/stefanprodan/podinfo:6.9.1
+        imageReference: ghcr.io/stefanprodan/podinfo:6.11.1
 
 # -- Cache (Redis)
 - name: ocm.software/how-to/cache
@@ -197,7 +197,7 @@ components:
       relation: external
       access:
         type: OCIImage/v1
-        imageReference: ghcr.io/stefanprodan/podinfo:6.9.1
+        imageReference: ghcr.io/stefanprodan/podinfo:6.11.1
 
 # -- Frontend service (unchanged)
 - name: ocm.software/how-to/frontend
@@ -211,7 +211,7 @@ components:
       relation: local
       access:
         type: OCIImage/v1
-        imageReference: ghcr.io/stefanprodan/podinfo:6.9.1
+        imageReference: ghcr.io/stefanprodan/podinfo:6.11.1
 
 # -- Cache (unchanged)
 - name: ocm.software/how-to/cache

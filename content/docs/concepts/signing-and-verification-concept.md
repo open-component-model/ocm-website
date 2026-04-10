@@ -145,7 +145,7 @@ component:
       relation: external
       access:                          # NOT included in signature
         type: ociArtifact
-        imageReference: ghcr.io/stefanprodan/podinfo:6.9.1@sha256:262578cd...
+        imageReference: ghcr.io/stefanprodan/podinfo:6.9.1@sha256:8fa56908...
       digest:                          # Included in signature
         hashAlgorithm: SHA-256
         normalisationAlgorithm: genericBlobDigest/v1
