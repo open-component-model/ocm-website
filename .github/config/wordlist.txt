@@ -505,7 +505,10 @@ valuemergehandler
 valuemergehandlerdescriptor
 valueset
 valuessource
+verifier
+verifier's
 verifiers
+reconfiguring
 versionable
 versionedtypedobjects
 walkthrough
