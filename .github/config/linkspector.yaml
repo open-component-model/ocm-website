@@ -1,5 +1,0 @@
-dirs:
-  - ./content
-replacementPatterns:
-  - pattern: "^/"
-    replacement: "{{BASEURL}}/"
